@@ -1,0 +1,42 @@
+.quantity-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 8rem;
+  padding: 0.2rem 1rem;
+
+  background-color: transparent;
+  color: var(--color-orange);
+  font-size: 1.5rem;
+
+  &__value {
+    text-align: center;
+    width: 2.5rem;
+  }
+
+  &__button {
+    &:hover,
+    :focus {
+      color: var(--color-orange-hover);
+    }
+    &:disabled {
+      color: var(--color-gray);
+      cursor: not-allowed;
+    }
+  }
+
+  &__icon {
+    display: block;
+  }
+
+  &_outlined {
+    border: 2px solid var(--color-orange);
+    border-radius: 2rem;
+  }
+  &_sm {
+    border-width: 1px;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.8rem;
+    width: 5rem;
+  }
+}
