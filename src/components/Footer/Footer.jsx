@@ -38,20 +38,18 @@ export default function Footer() {
         </div>
 
         <div className={styles.footerBox}>
-          <div className={styles.footerLinks}>
-            <ul className={styles.linksList}>
-              <li>
-                <Link to="/publichna-oferta" className={styles.link}>
-                  Публічна оферта
-                </Link>
-              </li>
-              <li>
-                <Link to="/shipping-and-payments" className={styles.link}>
-                  Оплата та доставка
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <ul className={styles.linksList}>
+            <li>
+              <Link to="/publichna-oferta" className={styles.link}>
+                Публічна оферта
+              </Link>
+            </li>
+            <li>
+              <Link to="/shipping-and-payments" className={styles.link}>
+                Оплата та доставка
+              </Link>
+            </li>
+          </ul>
           <div className={styles.footerIcons}>
             <VisaIcon />
             <MasterCardIcon />
@@ -59,7 +57,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <p>Copyright 2023 &copy; Бровко</p>
+      <p className={styles.copy}>Copyright 2023 &copy; Бровко</p>
     </footer>
   );
 }
