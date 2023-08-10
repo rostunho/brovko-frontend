@@ -1,6 +1,7 @@
 // ТИМЧАСОВИЙ КОМПОНЕНТ. ВИДАЛИТИ ПІЗНІШЕ
 
 import logo from '../../logo.png';
+import Footer from 'components/Footer/Footer';
 
 export default function TempPreview() {
   return (
@@ -9,6 +10,8 @@ export default function TempPreview() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>A journey of a thousand miles begins with a single step.</p>
       </header>
+
+      <Footer />
     </div>
   );
 }
