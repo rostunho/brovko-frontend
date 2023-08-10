@@ -1,14 +1,15 @@
-import logo from './logo.png';
+
+
+
+import { Routes, Route } from 'react-router';
+import TempPreview from 'components/Preview/TempPreview';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>A journey of a thousand miles begins with a single step.</p>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<TempPreview />} />
+    </Routes>
   );
 }
 
