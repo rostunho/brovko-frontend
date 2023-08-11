@@ -1,18 +1,23 @@
 .button {
-  font: inherit;
-  border: 1px solid var(--color-orange-hover);
-  background: var(--color-orange);
-  color: var(--color-white);
-  padding: 0.75rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  min-width: 120px;
+  height: 39px;
+  padding: 0 16px;
+
+  font-family: 'Nunito', sans-serif;
+  letter-spacing: 0em;
+  
+  border: none;
+  border-radius: 8px;  
   cursor: pointer;
-  font-size: 1.15rem;
-  border-radius: 30px;
-  font-weight: var(--font-semi-bold);
   transition: all 0.3s ease 0s;
 
   &:hover,
   &:active {
-    background: var(--color-orange-hover);
+    background-color: #C3840A;
   }
 
   &:focus {
@@ -23,22 +28,67 @@
   &:focus:disabled,
   &:hover:disabled,
   &:active:disabled {
-    background: var(--color-gray);
-    border-color: var(--color-gray);
-    color: var(--color-white);
+    background-color: rgba(254, 254, 254, 0.7);
     cursor: not-allowed;
   }
 
+  &_primary {
+    color: #FEFEFE;
+    background-color: #F3A610;
+  }
+
   &_outlined {
-    color: var(--color-orange);
-    border: 2px solid var(--color-orange);
-    background: none;
+    color: #FEFEFE;
+    border: 1px solid #F3A610;
+    background-color: transparent;
 
     &:hover,
+    &:focus,
     &:active {
-      background: var(--color-orange);
-      color: white;
+      color: #FEFEFE;
+      border: none;
+      background-color: #F3A610;
     }
+
+    &:disabled,
+    &:focus:disabled,
+    &:hover:disabled,
+    &:active:disabled {
+      color: rgba(254, 254, 254, 0.7);
+      background-color: transparent;
+      border: 1px solid rgba(254, 254, 254, 0.7);
+    }
+  }
+
+  &_adding {
+    justify-content: flex-start;
+    align-self: flex-start;
+    column-gap: 16px;
+    height: auto;
+    padding: 0 0 0 9px;
+    color: #FEFEFE;
+    background-color: transparent;
+    
+    &:hover,
+    &:focus,
+    &:active {
+      color: #F3A610;
+      background-color: transparent;
+    }
+
+    &:disabled,
+    &:focus:disabled,
+    &:hover:disabled,
+    &:active:disabled {
+      color: rgba(254, 254, 254, 0.7);
+      background-color: transparent;
+    }
+  }
+
+  &_md {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
   }
 
   &_lg {
@@ -50,4 +100,25 @@
     font-size: 0.8rem;
     padding: 0.5rem 1.5rem;
   }
+}
+
+.icon {
+  fill: #FEFEFE;
+  fill-opacity: 0.7;
+}
+
+.button:hover .icon {
+  fill: #F3A610;
+  fill-opacity: 1;
+}
+
+.button:disabled .icon,
+.button:focus:disabled .icon,
+.button:hover:disabled .icon,
+.button:active:disabled .icon {
+  color: rgba(254, 254, 254, 0.7);
+  background-color: transparent;
+  fill: #FEFEFE;
+  fill-opacity: 0.4;
+  ;
 }

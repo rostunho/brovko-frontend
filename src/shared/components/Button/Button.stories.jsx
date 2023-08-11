@@ -9,10 +9,8 @@ const meta = {
       type: 'string',
       description: 'Button appearance options',
       defaultValue: 'primary',
-      options: ['primary', 'outlined', 'link', 'secondary', 'disabled'],
-      control: {
-        type: 'radio',
-      },
+      options: ['primary', 'outlined', 'adding', 'secondary'],
+      control: { type: 'radio' },
     },
     size: {
       type: 'string',
@@ -33,6 +31,11 @@ const meta = {
       name: 'label',
       defaultValue: 'Click me',
     },
+    disabled: {
+      type: 'boolean',
+      description: 'Button disabling',
+      defaultValue: false,
+    },
   },
 };
 
@@ -43,7 +46,7 @@ const Template = args => <Button {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   mode: 'primary',
-  children: 'Start',
+  children: 'Click me',
   size: 'md',
 };
 
@@ -66,11 +69,4 @@ Small.args = {
   mode: 'primary',
   children: 'Click',
   size: 'sm',
-};
-
-export const Disabled = Template.bind({});
-Disabled.args = {
-  mode: 'disabled',
-  children: 'Click',
-  size: 'md',
 };

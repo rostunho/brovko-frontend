@@ -1,6 +1,6 @@
 import Input from './Input';
 
-export default {
+const meta = {
   title: 'Components/Input',
   component: Input,
   argTypes: {
@@ -36,6 +36,8 @@ export default {
   },
   tags: ['autodocs'],
 };
+
+export default meta;
 
 const Template = args => <Input {...args} />;
 
