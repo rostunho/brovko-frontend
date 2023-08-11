@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
-import logo from '../../logo.png';
+import { Link } from 'react-router-dom';
+import logo from '../../logo2.png';
+import MobillMenu from 'shared/components/icons/MobillMenu';
+import UserLight from 'shared/components/icons/UserLight';
+import BasketLight from 'shared/components/icons/BasketLight';
 
 import styles from './Header.module.scss';
 
@@ -24,6 +28,15 @@ export default function Header() {
 
   return (
     <header className={styles.container}>
+      <div className={styles.boxMenu}>
+        <MobillMenu />
+      </div>
+
+      <div className={styles.boxBasket}>
+        <UserLight />
+        <BasketLight />
+      </div>
+
       <img src={logo} className={styles.logo} alt="logo" />
 
       {/* <Navigation

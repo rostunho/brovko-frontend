@@ -6,21 +6,16 @@
   position: relative;
 
   max-width: 480px;
-  height: 80px;
-
   margin: 0 auto;
-  padding: 20px 0 0;
   background-color: #191c2c;
   opacity: 50%;
 
   @media screen and (min-width: 768px) {
     max-width: 768px;
-    padding: 24px 0 0;
   }
 
   @media screen and (min-width: 1280px) {
     max-width: 1280px;
-    padding: 30px 0 0;
   }
 }
 
@@ -31,4 +26,19 @@
   transform: translate(-50%);
   height: 40vmin;
   pointer-events: none;
+}
+
+.boxMenu {
+  padding-left: 15px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.boxBasket {
+  display: flex;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  gap: 10px;
+  padding-right: 15px;
+  margin-left: auto;
 }
