@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: Nunito;
 }
 
 .App-logo {
@@ -21,5 +22,3 @@
 p {
   color: #61dafb;
 }
-
-

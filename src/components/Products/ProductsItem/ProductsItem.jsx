@@ -22,11 +22,10 @@ const ProductsItem = () => {
           </div>
         </div>
         <div className={styles.buttons}>
-          <button className={styles.button}>Подробиці</button>
-          <button className={styles.button}>В кошик</button>
+          <Button mode="outlined">Подробиці</Button>
+          <Button mode="primary">В кошик</Button>
         </div>
       </div>
-      <Button>В кошик</Button>
     </div>
   );
 };
