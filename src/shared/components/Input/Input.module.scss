@@ -1,12 +1,12 @@
-.input_wrapper {
-  display: flex;
-  flex-direction: column;
-}
+// .input_wrapper {
+//   display: flex;
+//   flex-direction: column;
+// }
 
 .checkbox_wrapper {
   display: flex;
   flex-direction: row;
-  align-items: start;
+  align-items: flex-start;
   gap: 10px;
 }
 
@@ -17,34 +17,38 @@
 }
 
 .label {
-  font-size: 1.2rem;
+  display: block;
+  // width: 100%;
+
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: start;
   font-weight: var(--font-semi-bold);
-  color: var(--color-dark);
-  margin-bottom: 0.5rem;
-
-  &_sm {
-    font-size: 0.8rem;
-  }
-
-  &_lg {
-    font-size: 1.5rem;
-  }
-
-  &_md {
-    font-size: 1.2rem;
-  }
+  color: rgba(254, 254, 254, 0.7);
 }
 
 .input {
-  display: inline-block;
-  border: 1px solid var(--color-orange);
-  background: var(--color-white);
-  color: var(--color-dark);
-  padding: 0.75rem 2.5rem;
+  display: flex;
+
+  width: 100%;
+  height: 39px;
+  margin-top: 4px;
+  padding: 0 16px;
+
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.333;
+  letter-spacing: 0em;
+  color: #FEFEFE;
   cursor: pointer;
-  font-size: 1.15rem;
-  border-radius: 30px;
-  font-weight: var(--font-semi-bold);
+
+  border: 1px solid rgba(254, 254, 254, 0.7);
+  border-radius: 8px;
+  background-color: transparent;
+
+
   transition: all 0.3s ease 0s;
 
   appearance: none;
@@ -53,9 +57,9 @@
 
   &:hover,
   &:focus {
-    border-color: var(--color-orange-hover);
+    border-color: #F3A610;
     outline: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   &:disabled {
@@ -122,15 +126,16 @@
   }
 
   &_length-sm {
-    max-width: 150px;
+    max-width: 86px;
   }
 
   &_length-md {
-    max-width: 250px;
+    max-width: 137px;
+    text-align: center;
   }
 
   &_length-lg {
-    max-width: 350px;
+    max-width: 100%;
   }
 
   &_sm[type='checkbox'] {

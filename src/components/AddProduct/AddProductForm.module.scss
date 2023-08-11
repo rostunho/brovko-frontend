@@ -1,0 +1,47 @@
+.container {
+    padding: 113px 15px 64px;
+    background-color: #191C2C;
+}
+
+.innerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 16px;
+    margin-top: 8px;
+
+    & .category {
+        display: flex;
+        flex-direction: column;
+        row-gap: 8px;
+    }
+}
+
+.dates {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    &::after {
+        content: url('../../shared/components/icons/line.svg');
+        display: block;
+        box-sizing: border-box;
+        height: 1px;
+        width: 10px;
+        z-index: 20;
+            
+        position: absolute;
+        left: 50%;
+        top: 0%;
+
+        transform: translate(-50%, -50%)
+    }
+}
+

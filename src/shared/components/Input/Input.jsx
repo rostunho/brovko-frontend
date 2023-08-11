@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import styles from './Input.module.scss';
+import classes from './Input.module.scss';
 
 const Input = ({
   label,
@@ -14,22 +14,20 @@ const Input = ({
   size,
   length,
   mode,
+  after,
   ...props
 }) => {
-  const isCheckbox = type === 'checkbox';
+  // const isCheckbox = type === 'checkbox';
 
   return (
-    <div
-      className={`${styles.input_wrapper} ${
-        isCheckbox ? styles.checkbox_wrapper : ''
-      }`}
-    >
-      <label
-        className={`${styles.label} ${styles[`label_${size}`]}`}
-        htmlFor={id}
-      >
-        {label}
-      </label>
+    // <div
+    //   className={`${classes.input_wrapper} ${
+    //     isCheckbox ? classes.checkbox_wrapper : ''
+    //   }`}
+    // >
+    <label className={classes.label}>
+      {label}
+
       <input
         ref={inputRef}
         type={type || 'text'}
@@ -38,14 +36,15 @@ const Input = ({
         value={value}
         pattern={pattern}
         placeholder={placeholder}
-        className={`${styles.input} ${styles[`input_${size}`]} ${
-          styles[`input_length-${length}`]
+        className={`${classes.input} ${classes[`input_${size}`]} ${
+          classes[`input_length-${length}`]
         }`}
         onChange={onChange}
         disabled={mode === 'disabled'}
         {...props}
       />
-    </div>
+    </label>
+    // </div>
   );
 };
 
