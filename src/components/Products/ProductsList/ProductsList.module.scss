@@ -1,0 +1,23 @@
+.products {
+    background-color: #282c34;
+padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 16px;
+        padding-left: 16px;
+}
+
+.productsTitle {
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+}
