@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from './Footer.module.scss';
-import VisaIcon from 'shared/components/icons/VisaIcon';
-import MasterCardIcon from 'shared/components/icons/MasterCardIcon';
+import VisaIcon from 'shared/icons/VisaIcon';
+import MasterCardIcon from 'shared/icons/MasterCardIcon';
 
 export default function Footer() {
   return (

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import PlusOfAdding from '../icons/PlusOfAdding';
+import AddingPlusIcon from '../../icons/AddingPlusIcon';
+import SettingsWheelIcon from '../../icons/SettingsWheelIcon';
 import classes from './Button.module.scss';
 
 export default function Button({
@@ -22,7 +23,8 @@ export default function Button({
       disabled={mode === 'disabled'}
       {...props}
     >
-      {mode === 'adding' && <PlusOfAdding className={classes.icon} />}
+      {mode === 'adding' && <AddingPlusIcon className={classes.icon} />}
+      {mode === 'settings' && <SettingsWheelIcon className={classes.icon} />}
       {children}
     </button>
   );

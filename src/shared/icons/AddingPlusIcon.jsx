@@ -1,11 +1,10 @@
-import * as React from 'react';
-
-export default function PlusOfAdding(props) {
+export default function AddingPlusIcon(props) {
   return (
     <svg
       width={16}
       height={16}
       fill="none"
+      stroke="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >

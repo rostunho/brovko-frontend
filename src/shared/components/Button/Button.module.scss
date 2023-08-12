@@ -16,6 +16,7 @@
   transition: all 0.3s ease 0s;
 
   &:hover,
+  &:focus,
   &:active {
     background-color: #C3840A;
   }
@@ -60,19 +61,23 @@
     }
   }
 
-  &_adding {
+  &_adding, &_settings {
     justify-content: flex-start;
     align-self: flex-start;
     column-gap: 16px;
     height: auto;
     padding: 0 0 0 9px;
     color: #FEFEFE;
+    fill: #FEFEFE;
+    stroke: #FEFEFE;
     background-color: transparent;
     
     &:hover,
     &:focus,
     &:active {
       color: #F3A610;
+      fill: #F3A610;
+      stroke: #F3A610;
       background-color: transparent;
     }
 

@@ -5,32 +5,25 @@
 
 .innerContainer {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
-    row-gap: 16px;
-    margin-top: 8px;
+    align-items: flex-end;
+    column-gap: 16px;
+    width: 100%;
 
-    & .category {
-        display: flex;
-        flex-direction: column;
-        row-gap: 8px;
+    &_single {
+        padding-right: 52.7586%;
     }
 }
 
 .dates {
     position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-end;
+    column-gap: 16px;
 
     &::after {
-        content: url('../../shared/components/icons/line.svg');
+        content: url('../../shared/components/icons/shortline.svg');
         display: block;
         box-sizing: border-box;
         height: 1px;
@@ -44,4 +37,21 @@
         transform: translate(-50%, -50%)
     }
 }
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 16px;
+    margin-top: 8px;
+    box-sizing: border-box;
+
+    & .category {
+        display: flex;
+        flex-direction: column;
+        row-gap: 8px;
+    }
+}
+
+
 

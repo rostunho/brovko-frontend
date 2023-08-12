@@ -14,7 +14,9 @@ const Input = ({
   size,
   length,
   mode,
-  after,
+  icon,
+  metric,
+  style,
   ...props
 }) => {
   // const isCheckbox = type === 'checkbox';
@@ -25,7 +27,10 @@ const Input = ({
     //     isCheckbox ? classes.checkbox_wrapper : ''
     //   }`}
     // >
-    <label className={classes.label}>
+    <label
+      className={`${classes.label} ${classes[`label_length-${length}`]}`}
+      style={style}
+    >
       {label}
 
       <input
@@ -36,13 +41,22 @@ const Input = ({
         value={value}
         pattern={pattern}
         placeholder={placeholder}
-        className={`${classes.input} ${classes[`input_${size}`]} ${
-          classes[`input_length-${length}`]
-        }`}
+        className={`${classes.input} ${classes[`input_${size}`]} `}
         onChange={onChange}
         disabled={mode === 'disabled'}
         {...props}
       />
+      {icon && (
+        <button type="button" className={classes.icon}>
+          {icon}
+        </button>
+      )}
+      {metric && metric !== 'м3' && <p className={classes.metric}>{metric}</p>}
+      {metric === 'м3' && (
+        <p className={classes.metric}>
+          м<sup>3</sup>
+        </p>
+      )}
     </label>
     // </div>
   );
