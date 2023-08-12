@@ -1,4 +1,5 @@
 import Input from './Input';
+import CalendarIcon from '../../icons/CalendarIcon';
 
 const meta = {
   title: 'Components/Input',
@@ -31,6 +32,32 @@ const meta = {
     },
     length: {
       options: ['sm', 'md', 'lg'],
+      control: { type: 'radio' },
+    },
+    icon: {
+      options: ['with', 'without'],
+      mapping: {
+        with: <CalendarIcon />,
+        without: '',
+      },
+      control: { type: 'radio' },
+    },
+    metric: {
+      options: ['with', 'without'],
+      mapping: {
+        with: (
+          <p
+            style={{
+              fontFamily: 'Nunito, sans-serif',
+              fonSize: '14px',
+              color: 'rgba(254, 254, 254, 0.7)',
+            }}
+          >
+            см
+          </p>
+        ),
+        without: '',
+      },
       control: { type: 'radio' },
     },
   },
@@ -97,3 +124,23 @@ DisabledСheckBox.args = {
   size: 'sm',
   mode: 'disabled',
 };
+
+// export const InputWithIcon = Template.bind({});
+// DisabledСheckBox.args = {
+//   id: 'InputWithIcon',
+//   name: 'InputWithIcon',
+//   label: 'InputWithIcon',
+//   type: 'text',
+//   length: 'md',
+//   mode: 'enabled',
+// };
+
+// export const InputWithMetric = Template.bind({});
+// DisabledСheckBox.args = {
+//   id: 'InputWithMetric',
+//   name: 'InputWithMetric',
+//   label: 'InputWithMetric',
+//   type: 'text',
+//   length: 'md',
+//   mode: 'enabled',
+// };

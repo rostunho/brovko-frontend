@@ -1,4 +1,4 @@
-import StarEmpty from 'shared/components/icons/StarEmpty';
+import StarEmpty from 'shared/icons/StarEmpty';
 import Button from 'shared/components/Button/Button';
 
 import styles from './ProductsItem.module.scss';

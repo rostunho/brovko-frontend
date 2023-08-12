@@ -9,7 +9,7 @@ const meta = {
       type: 'string',
       description: 'Button appearance options',
       defaultValue: 'primary',
-      options: ['primary', 'outlined', 'adding', 'secondary'],
+      options: ['primary', 'outlined', 'adding', 'settings', 'secondary'],
       control: { type: 'radio' },
     },
     size: {

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../logo2.png';
-import MobillMenu from 'shared/components/icons/MobillMenu';
-import UserLight from 'shared/components/icons/UserLight';
-import BasketLight from 'shared/components/icons/BasketLight';
+import MobillMenu from 'shared/icons/MobillMenu';
+import UserLight from 'shared/icons/UserLight';
+import BasketLight from 'shared/icons/BasketLight';
 
 import styles from './Header.module.scss';
 

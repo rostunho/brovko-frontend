@@ -18,7 +18,8 @@
 
 .label {
   display: block;
-  // width: 100%;
+  position: relative;
+  width: 100%;
 
   font-family: 'Nunito', sans-serif;
   font-size: 12px;
@@ -26,11 +27,33 @@
   text-align: start;
   font-weight: var(--font-semi-bold);
   color: rgba(254, 254, 254, 0.7);
+
+  &_length-sm {
+      min-width: 86px;
+ 
+
+      & .input{
+        text-align: center;
+      }
+    }
+  
+  &_length-md {
+      min-width: 137px;
+ 
+    
+    & .input {
+      text-align: center;
+    }
+  }
+  
+  &_length-lg {
+    max-width: 100%;
+  }
 }
 
 .input {
   display: flex;
-
+ 
   width: 100%;
   height: 39px;
   margin-top: 4px;
@@ -125,19 +148,6 @@
     padding: 0.5rem 1.5rem;
   }
 
-  &_length-sm {
-    max-width: 86px;
-  }
-
-  &_length-md {
-    max-width: 137px;
-    text-align: center;
-  }
-
-  &_length-lg {
-    max-width: 100%;
-  }
-
   &_sm[type='checkbox'] {
     width: 20px;
     height: 20px;
@@ -174,3 +184,43 @@
     }
   }
 }
+
+.icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  height: 16px;
+  right: 16px;
+  bottom: 11px;
+
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  fill: #FEFEFE;
+  stroke: #FEFEFE;
+
+  &:hover,
+  &:focus,
+  &:active {
+    stroke: #F3A610;
+    fill: #F3A610;
+  }
+}
+
+.metric {
+  position: absolute;
+  right: 6px;
+  bottom: 4px;
+
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: rgba(254, 254, 254, 0.7);
+}
+
+
