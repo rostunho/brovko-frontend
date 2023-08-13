@@ -1,0 +1,31 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 28px;
+  margin-left: auto;
+
+  @media screen and (min-width: 1280px) {
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 160px;
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4px;
+  margin-left: auto;
+  margin-right: 5px;
+}
+
+.burger {
+  cursor: pointer;
+
+  @media screen and (min-width: 768px) {
+    margin-left: 22px;
+  }
+}

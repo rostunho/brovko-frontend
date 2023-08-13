@@ -6,7 +6,7 @@ import MobileMenu from 'components/MobileMenu/MobileMenu';
 export default function TempPreview() {
   return (
     <div className="App">
-      <MobileMenu />
+      {/* <MobileMenu /> */}
       <ProductsList />
     </div>
   );
