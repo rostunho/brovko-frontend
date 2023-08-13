@@ -1,0 +1,45 @@
+.screen {
+  position: relative;
+  bottom: 90px;
+  height: 510px;
+  @media screen and (min-width: 768px) {
+    height: 1100px;
+  }
+  @media screen and (min-width: 1280px) {
+    height: 1525px;
+  }
+}
+
+.title {
+  position: absolute;
+  color: var(--unnamed, #fefefe);
+  font-family: Amatic SC;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 64px; /* 133.333% */
+  letter-spacing: 0.48px;
+  padding: 332px 61px 40px 15px;
+  @media screen and (min-width: 768px) {
+    padding: 532px 161px 240px 315px;
+  }
+  @media screen and (min-width: 1280px) {
+    padding: 732px 161px 140px 315px;
+  }
+}
+
+.img {
+  position: absolute;
+  width: 320px;
+  z-index: -10;
+  background: rgba(19, 19, 19, 0.2);
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+  @media screen and (min-width: 768px) {
+    width: 768px;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 1280px;
+  }
+}
