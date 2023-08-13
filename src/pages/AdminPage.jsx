@@ -7,7 +7,7 @@ export default function AdminPage() {
     <>
       {/* <Header /> */}
       <AddProductForm />
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

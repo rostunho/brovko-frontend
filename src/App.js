@@ -10,6 +10,7 @@ function App() {
     <Routes>
       <Route path="/" element={<SharedLayout />}>
         {/* Public Routes */}
+        <Route path="" element={<Navigate to="/main" replace />} />
         {publicRoutes.map(({ path, Component }) => (
           <Route key={path} path={path} element={<Component />} />
         ))}

@@ -10,7 +10,6 @@ export default function TempPreview() {
     <div className="App">
       {/* <Header /> */}
       <ProductsList />
-      <Footer />
     </div>
   );
 }
