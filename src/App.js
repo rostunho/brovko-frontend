@@ -1,4 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router';
+
+import SharedLayout from 'components/SharedLayout/SharedLayout';
 import { authRoutes, publicRoutes } from './routes';
 
 import './App.css';
@@ -6,18 +8,20 @@ import './App.css';
 function App() {
   return (
     <Routes>
-      {/* Public Routes */}
-      {publicRoutes.map(({ path, Component }) => (
-        <Route key={path} path={path} element={<Component />} />
-      ))}
+      <Route path="/" element={<SharedLayout />}>
+        {/* Public Routes */}
+        {publicRoutes.map(({ path, Component }) => (
+          <Route key={path} path={path} element={<Component />} />
+        ))}
 
-      {/* Auth Routes */}
-      {authRoutes.map(({ path, Component }) => (
-        <Route key={path} path={path} element={<Component />} />
-      ))}
+        {/* Auth Routes */}
+        {authRoutes.map(({ path, Component }) => (
+          <Route key={path} path={path} element={<Component />} />
+        ))}
 
-      {/* Redirect */}
-      <Route path="*" element={<Navigate to="/" />} />
+        {/* Redirect */}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Route>
     </Routes>
   );
 }
