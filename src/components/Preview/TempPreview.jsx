@@ -12,7 +12,6 @@ export default function TempPreview() {
       <Header />
       <Hero />
       <ProductsList />
-      <Footer />
     </div>
   );
 }
