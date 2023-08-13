@@ -1,6 +1,7 @@
 import AboutPage from 'pages/AboutPage/AboutPage';
 import AdminPage from 'pages/AdminPage';
 import TempPreview from 'components/Preview/TempPreview';
+import MainPage from 'pages/MainPage/MainPage';
 import RegisterUserPage from 'pages/RegisterUserPage/RegisterUserPage';
 import LoginUserPage from 'pages/LoginUserPage/LoginUserPage';
 import UserDashboardPage from 'pages/UserDashboardPage/UserDashboardPage';
@@ -26,8 +27,12 @@ export const authRoutes = [
 ];
 
 export const publicRoutes = [
+  //   {
+  //     path: '/',
+  //     Component: TempPreview,
+  //   },
   {
-    path: '/',
+    path: '/main',
     Component: TempPreview,
   },
   {

@@ -1,57 +1,54 @@
 .container {
-    padding: 113px 15px 64px;
-    background-color: #191C2C;
+  padding: 113px 15px 64px;
+  background-color: #191c2c;
 }
 
 .innerContainer {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    column-gap: 16px;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  column-gap: 16px;
+  width: 100%;
 
-    &_single {
-        padding-right: 52.7586%;
-    }
+  &_single {
+    padding-right: 52.7586%;
+  }
 }
 
 .dates {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    column-gap: 16px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  column-gap: 16px;
 
-    &::after {
-        content: url('../../shared/components/icons/shortline.svg');
-        display: block;
-        box-sizing: border-box;
-        height: 1px;
-        width: 10px;
-        z-index: 20;
-            
-        position: absolute;
-        left: 50%;
-        top: 40%;
+  &::after {
+    content: url('../../shared/icons/shortline.svg');
+    display: block;
+    box-sizing: border-box;
+    height: 1px;
+    width: 10px;
+    z-index: 20;
 
-        transform: translate(-50%, -50%)
-    }
+    position: absolute;
+    left: 50%;
+    top: 40%;
+
+    transform: translate(-50%, -50%);
+  }
 }
 
 .form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 16px;
+  margin-top: 8px;
+  box-sizing: border-box;
+
+  & .category {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    row-gap: 16px;
-    margin-top: 8px;
-    box-sizing: border-box;
-
-    & .category {
-        display: flex;
-        flex-direction: column;
-        row-gap: 8px;
-    }
+    row-gap: 8px;
+  }
 }
-
-
-
