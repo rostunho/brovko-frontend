@@ -1,5 +1,5 @@
 import * as React from 'react';
-export default function MobillMenu() {
+export default function MobillMenuIcon(props) {
   return (
     <svg
       width="32"
@@ -7,6 +7,7 @@ export default function MobillMenu() {
       viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         d="M28.4445 25.7778H3.55556C3.31981 25.7778 3.09372 25.6841 2.92702 25.5174C2.76032 25.3507 2.66667 25.1246 2.66667 24.8889C2.66667 24.6531 2.76032 24.427 2.92702 24.2603C3.09372 24.0936 3.31981 24 3.55556 24H28.4445C28.6802 24 28.9063 24.0936 29.073 24.2603C29.2397 24.427 29.3333 24.6531 29.3333 24.8889C29.3333 25.1246 29.2397 25.3507 29.073 25.5174C28.9063 25.6841 28.6802 25.7778 28.4445 25.7778Z"
