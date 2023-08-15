@@ -1,9 +1,8 @@
 .footer {
-  background: var(--bg, #191c2c);
+  background: white;
   padding-bottom: 12px;
-  padding-left: 15px;
-  padding-right: 15px;
-  color: white;
+  // padding-left: 15px;
+  // padding-right: 15px;
 }
 
 .footerContainer {
@@ -71,13 +70,13 @@
 
 .link {
   text-decoration: none;
-  color: white;
+  color: var(--bg, #191c2c);
   font-size: 19px;
 }
 
 .copy {
   margin-top: 20px;
-  color: rgba(254, 254, 254, 0.7);
+  color: var(--bg, #191c2c);
   font-size: 12px;
   text-align: center;
 }

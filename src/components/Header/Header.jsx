@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../logo2.png';
-// import MobillMenuIcon from 'shared/icons/MobillMenuIcon';
+import Logo from 'shared/icons/Logo';
 import Navigation from 'components/Navigation/Navigation';
 import UserLight from 'shared/icons/UserLight';
 import BasketLight from 'shared/icons/BasketLight';
@@ -29,21 +28,20 @@ export default function Header() {
 
   return (
     <header className={styles.container}>
-      <div className={styles.boxMenu}>
+      <div>
         <Navigation
           isDesktop={isDesktop}
           isTablet={isTablet}
           isMobile={isMobile}
         />
-        {/* <MobillMenuIcon /> */}
       </div>
-
+      <div>
+        <Logo />
+      </div>
       <div className={styles.boxBasket}>
         <UserLight />
         <BasketLight />
       </div>
-
-      <img src={logo} className={styles.logo} alt="logo" />
     </header>
   );
 }

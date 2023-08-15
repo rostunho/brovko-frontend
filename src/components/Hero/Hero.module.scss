@@ -1,45 +1,123 @@
-.screen {
-  position: relative;
-  bottom: 90px;
-  height: 510px;
+// .screen {
+//   position: relative;
+//   bottom: 90px;
+//   height: 510px;
+//   @media screen and (min-width: 768px) {
+//     height: 1100px;
+//   }
+//   @media screen and (min-width: 1280px) {
+//     height: 1525px;
+//   }
+// }
+
+// .title {
+//   position: absolute;
+//   top: 50%;
+//   left: 0%;
+//   color: var(--unnamed, #fefefe);
+//   font-family: Amatic SC;
+//   font-size: 48px;
+//   font-style: normal;
+//   font-weight: 700;
+//   line-height: 64px; /* 133.333% */
+//   letter-spacing: 0.48px;
+//   padding: 0 61px 0 15px;
+//   @media screen and (min-width: 768px) {
+//     padding: 532px 161px 240px 315px;
+//   }
+//   @media screen and (min-width: 1280px) {
+//     padding: 732px 161px 140px 315px;
+//   }
+// }
+
+// .img {
+//   position: absolute;
+//   width: 320px;
+//   height: 521px;
+//   z-index: -10;
+//   background: rgba(19, 19, 19, 0.2);
+//   top: 0;
+//   left: 50%;
+//   transform: translate(-50%);
+//   @media screen and (min-width: 768px) {
+//     width: 768px;
+//   }
+//   @media screen and (min-width: 1280px) {
+//     width: 1280px;
+//   }
+// }
+
+// ==================
+
+.hero {
+  margin-left: -16px;
+  margin-right: -16px;
+  padding-top: 318px;
+  padding-bottom: 95px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  max-width: 1600px;
+  background-color: lightgray;
+
+  @media screen and (max-width: 767px) {
+    .title {
+      width: auto;
+    }
+    background-image: url('../../shared/images/heroLight.jpg');
+
+    @media screen and (min-device-pixel-ratio: 2) and (max-width: 767px),
+      screen and (min-resolution: 192dpi) and (max-width: 767px),
+      screen and (min-resolution: 2dppx) and (max-width: 767px) {
+      background-image: url('../../shared/images/heroLight2.jpg');
+    }
+  }
+
   @media screen and (min-width: 768px) {
-    height: 1100px;
+    .title {
+      width: 360px;
+    }
+    background-image: url('../../shared/images/heroLight.jpg');
+
+    @media screen and (min-device-pixel-ratio: 2) and (min-width: 768px),
+      screen and (min-resolution: 192dpi) and (min-width: 768px),
+      screen and (min-resolution: 2dppx) and (min-width: 768px) {
+      background-image: url('../../shared/images/heroLight2.jpg');
+    }
   }
-  @media screen and (min-width: 1280px) {
-    height: 1525px;
+
+  @media screen and (min-width: 1200px) {
+    padding-top: 200px;
+    padding-bottom: 200px;
+    .title {
+      width: 696px;
+      font-size: 44px;
+      line-height: 1.36;
+    }
+    background-image: url('../../shared/images/heroLight.jpg');
+
+    @media screen and (min-device-pixel-ratio: 2) and (min-width: 1200px),
+      screen and (min-resolution: 192dpi) and (min-width: 1200px),
+      screen and (min-resolution: 2dppx) and (min-width: 1200px) {
+      background-image: url('../../shared/images/heroLight2.jpg');
+    }
   }
+}
+
+.container {
+  padding-left: 16px;
+  padding-right: 60px;
 }
 
 .title {
-  position: absolute;
-  color: var(--unnamed, #fefefe);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
   font-family: Amatic SC;
-  font-size: 48px;
-  font-style: normal;
   font-weight: 700;
+  font-size: 48px;
   line-height: 64px; /* 133.333% */
   letter-spacing: 0.48px;
-  padding: 332px 61px 40px 15px;
-  @media screen and (min-width: 768px) {
-    padding: 532px 161px 240px 315px;
-  }
-  @media screen and (min-width: 1280px) {
-    padding: 732px 161px 140px 315px;
-  }
-}
-
-.img {
-  position: absolute;
-  width: 320px;
-  z-index: -10;
-  background: rgba(19, 19, 19, 0.2);
-  top: 0;
-  left: 50%;
-  transform: translate(-50%);
-  @media screen and (min-width: 768px) {
-    width: 768px;
-  }
-  @media screen and (min-width: 1280px) {
-    width: 1280px;
-  }
+  text-transform: uppercase;
+  color: var(--unnamed, #fefefe);
 }
