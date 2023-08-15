@@ -3,15 +3,21 @@ import Button from 'shared/components/Button/Button';
 
 import styles from './ProductsItem.module.scss';
 
-const ProductsItem = () => {
+const ProductsItem = ({ product }) => {
   return (
     <div className={styles.productCard}>
-      <div className={styles.image}>Тут буде фотка смаколика</div>
+      <div className={styles.image}>
+        {product.picture ? (
+          <img src={product.picture} className={styles.img} alt="Product" />
+        ) : (
+          <p> тут буде фото смаколика</p>
+        )}
+      </div>
       <div className={styles.description}>
         <div className={styles.info}>
           <div className={styles.textDesc}>
-            <p className={styles.name}>Name</p>
-            <p className={styles.price}>Price</p>
+            <p className={styles.name}>{product.name}</p>
+            <p className={styles.price}>{product.price}</p>
           </div>
           <div className={styles.rating}>
             <StarEmpty />
