@@ -3,15 +3,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
-  max-width: 320px;
-  margin: 0 auto;
-  background: linear-gradient(
-    360deg,
-    rgba(25, 28, 44, 0.3) 0%,
-    rgba(19, 19, 19, 0) 100%
-  );
-  box-shadow: 0px 1px 10px 0px rgba(19, 19, 19, 0.5);
+  max-width: 100%;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 
   @media screen and (min-width: 768px) {
     max-width: 768px;
@@ -22,26 +18,7 @@
   }
 }
 
-.logo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%);
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.boxMenu {
-  padding-left: 15px;
-  padding-top: 24px;
-  padding-bottom: 24px;
-}
-
 .boxBasket {
   display: flex;
-  padding-top: 24px;
-  padding-bottom: 24px;
   gap: 8px;
-  padding-right: 15px;
-  margin-left: auto;
 }

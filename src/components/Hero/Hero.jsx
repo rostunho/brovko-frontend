@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Button from 'shared/components/Button';
 import styles from './Hero.module.scss';
 
-import heroMob1x from '../../shared/images/hero.png';
-import heroMob2x from '../../shared/images/hero2x.png';
+import heroMob1x from '../../shared/images/heroLight.jpg';
+import heroMob2x from '../../shared/images/heroLight2.jpg';
 
 const Hero = () => {
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  // const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
-  useEffect(() => {
-    function handleResize() {
-      setScreenWidth(window.innerWidth);
-    }
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  // useEffect(() => {
+  //   function handleResize() {
+  //     setScreenWidth(window.innerWidth);
+  //   }
+  //   window.addEventListener('resize', handleResize);
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //   };
+  // }, []);
 
   //   const getImage = () => {
   //     if (screenWidth < 768 && window.devicePixelRatio === 1) {
@@ -47,28 +49,27 @@ const Hero = () => {
   //     }
   //   };
 
-  const getImage = () => {
-    return heroMob1x;
-    // if (screenWidth < 768 && window.devicePixelRatio === 1) {
-    //   return heroMob1x;
-    // } else if (screenWidth < 768 && window.devicePixelRatio === 2) {
-    //   return heroMob2x;
-    // } else if (screenWidth < 768) {
-    //   return heroMob2x;
-    // }
-  };
+  // const getImage = () => {
+  //   return heroMob1x;
+  // if (screenWidth < 768 && window.devicePixelRatio === 1) {
+  //   return heroMob1x;
+  // } else if (screenWidth < 768 && window.devicePixelRatio === 2) {
+  //   return heroMob2x;
+  // } else if (screenWidth < 768) {
+  //   return heroMob2x;
+  // }
+  // };
 
   return (
     <>
-      <div className={styles.screen}>
-        <img
-          className={styles.img}
-          src={getImage()}
-          alt="hero"
-          loading="lazy"
-        />
-        <h1 className={styles.title}>ЯК ДЛЯ ЛЮДЕЙ, ТІЛЬКИ СМАЧНІШЕ</h1>
-      </div>
+      <section className={styles.hero}>
+        <div className={styles.container}>
+          <h1 className={styles.title}>ЯК ДЛЯ ЛЮДЕЙ, ТІЛЬКИ СМАЧНІШЕ</h1>
+          <Link to="/about">
+            <Button>Перейти до смаколиків</Button>
+          </Link>
+        </div>
+      </section>
     </>
   );
 };

@@ -6,6 +6,7 @@ import './index.css';
 import App from './App';
 import { store } from 'redux/store';
 import reportWebVitals from './reportWebVitals';
+import Navigation from 'components/Navigation/Navigation';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
