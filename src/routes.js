@@ -2,9 +2,11 @@ import AboutPage from 'pages/AboutPage/AboutPage';
 import AdminPage from 'pages/AdminPage';
 import TempPreview from 'components/Preview/TempPreview';
 // import MainPage from 'pages/MainPage/MainPage';
+import WereToBuyPage from 'pages/WereToBuyPage/WereToBuyPage';
 import RegisterUserPage from 'pages/RegisterUserPage/RegisterUserPage';
 import LoginUserPage from 'pages/LoginUserPage/LoginUserPage';
 import UserDashboardPage from 'pages/UserDashboardPage/UserDashboardPage';
+import ContactsPage from 'pages/ContactsPage/ContactsPage';
 import ProductListPage from 'pages/ProductListPage/ProductListPage';
 
 export const authRoutes = [
@@ -36,8 +38,16 @@ export const publicRoutes = [
     Component: TempPreview,
   },
   {
+    path: '/were-to-buy',
+    Component: WereToBuyPage,
+  },
+  {
     path: '/about',
     Component: AboutPage,
+  },
+  {
+    path: '/contacts',
+    Component: ContactsPage,
   },
   {
     path: '/product-list-page',

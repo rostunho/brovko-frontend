@@ -1,5 +1,7 @@
 import { createPortal } from 'react-dom';
 import Logo from 'shared/icons/Logo';
+import BasketLight from 'shared/icons/BasketLight';
+import UserLight from 'shared/icons/UserLight';
 import CrossIcon from 'shared/icons/CrossIcon';
 import styles from './MobileMenu.module.scss';
 
@@ -7,11 +9,12 @@ export default function MobileMenu({ children, onClick, isMobile }) {
   return createPortal(
     <div className={styles.mobileMenu}>
       <div className={styles.head}>
-        <div onClick={onClick}>
-          <Logo isMobile={isMobile} />
-        </div>
-
         <CrossIcon className={styles.closeButton} onClick={onClick} />
+        <Logo className={styles.closeButton} onClick={onClick} />
+        <div className={styles.boxBasket}>
+          <UserLight className={styles.closeButton} onClick={onClick} />
+          <BasketLight className={styles.closeButton} onClick={onClick} />
+        </div>
       </div>
       {children}
     </div>,

@@ -27,20 +27,22 @@ export default function Header() {
   }, [isDesktop, isMobile, isTablet]);
 
   return (
-    <header className={styles.container}>
-      <div>
-        <Navigation
-          isDesktop={isDesktop}
-          isTablet={isTablet}
-          isMobile={isMobile}
-        />
-      </div>
-      <div>
-        <Logo />
-      </div>
-      <div className={styles.boxBasket}>
-        <UserLight />
-        <BasketLight />
+    <header className={styles.header}>
+      <div className={styles.container}>
+        <div>
+          <Navigation
+            isDesktop={isDesktop}
+            isTablet={isTablet}
+            isMobile={isMobile}
+          />
+        </div>
+        <div>
+          <Logo />
+        </div>
+        <div className={styles.boxBasket}>
+          <UserLight />
+          <BasketLight />
+        </div>
       </div>
     </header>
   );
