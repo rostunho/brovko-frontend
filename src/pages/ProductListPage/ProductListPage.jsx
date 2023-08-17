@@ -1,5 +1,5 @@
-import styles from './ProductListPage.module.scss';
+import ProductList from 'components/Products/ProductsList';
 
 export default function ProductListPage() {
-  <>Product List Page</>;
+  <ProductList />;
 }
