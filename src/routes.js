@@ -1,7 +1,8 @@
 import AboutPage from 'pages/AboutPage/AboutPage';
 import AdminPage from 'pages/AdminPage';
 import TempPreview from 'components/Preview/TempPreview';
-// import MainPage from 'pages/MainPage/MainPage';
+import StartPage from 'pages/StartPage/StartPage';
+import MainPage from 'pages/MainPage/MainPage';
 import WereToBuyPage from 'pages/WereToBuyPage/WereToBuyPage';
 import RegisterUserPage from 'pages/RegisterUserPage/RegisterUserPage';
 import LoginUserPage from 'pages/LoginUserPage/LoginUserPage';
@@ -14,10 +15,7 @@ export const authRoutes = [
     path: '/admin',
     Component: AdminPage,
   },
-  {
-    path: '/register',
-    Component: RegisterUserPage,
-  },
+
   {
     path: '/login',
     Component: LoginUserPage,
@@ -29,28 +27,36 @@ export const authRoutes = [
 ];
 
 export const publicRoutes = [
-  //   {
-  //     path: '/',
-  //     Component: TempPreview,
-  //   },
   {
-    path: '/main',
-    Component: TempPreview,
+    path: '/',
+    Component: MainPage,
   },
   {
-    path: '/were-to-buy',
-    Component: WereToBuyPage,
+    path: '/main',
+    Component: MainPage,
+  },
+  {
+    path: '/start',
+    Component: StartPage,
+  },
+  {
+    path: '/register',
+    Component: RegisterUserPage,
+  },
+  {
+    path: '/product-list-page',
+    Component: ProductListPage,
   },
   {
     path: '/about',
     Component: AboutPage,
   },
   {
-    path: '/contacts',
-    Component: ContactsPage,
+    path: '/were-to-buy',
+    Component: WereToBuyPage,
   },
   {
-    path: '/product-list-page',
-    Component: ProductListPage,
+    path: '/contacts',
+    Component: ContactsPage,
   },
 ];

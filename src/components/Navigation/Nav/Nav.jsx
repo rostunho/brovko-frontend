@@ -6,7 +6,7 @@ export default function Nav({ onClick }) {
     <nav>
       <ul className={styles.list}>
         <li className={styles.item} onClick={onClick}>
-          <NavLink className={styles.link} to="/main">
+          <NavLink className={styles.link} to="/product-list-page">
             Крамничка
           </NavLink>
         </li>
