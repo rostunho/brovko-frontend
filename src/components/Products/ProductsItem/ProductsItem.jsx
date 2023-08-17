@@ -1,5 +1,6 @@
 import StarEmpty from 'shared/icons/StarEmpty';
 import Button from 'shared/components/Button/Button';
+import Image from 'shared/components/Image';
 
 import styles from './ProductsItem.module.scss';
 
@@ -7,11 +8,7 @@ const ProductsItem = ({ product }) => {
   return (
     <div className={styles.productCard}>
       <div className={styles.image}>
-        {product.picture ? (
-          <img src={product.picture} className={styles.img} alt="Product" />
-        ) : (
-          <p> тут буде фото смаколика</p>
-        )}
+        <Image src={product.picture} />
       </div>
       <div className={styles.description}>
         <div className={styles.info}>

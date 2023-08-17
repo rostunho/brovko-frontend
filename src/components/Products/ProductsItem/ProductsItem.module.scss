@@ -1,5 +1,5 @@
 .productCard {
-    width: 288px;
+    max-width: 448px;
     border-radius: 16px;
     padding-top: 16px;
     padding-bottom: 16px;
@@ -9,15 +9,22 @@
     box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
 }
 
+@media screen and (min-width: 768px) {
+    .productCard {
+        width: 288px;
+    }
+    }
+
 .image {
-    width: 264px;
     height: 264px;
     margin-bottom: 12px;
-    background-color:brown;
+    background-color:#fefefe;
     border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    border: solid red 1px;
 }
 
 .img {
