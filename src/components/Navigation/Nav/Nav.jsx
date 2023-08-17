@@ -26,6 +26,11 @@ export default function Nav({ onClick }) {
             КОНТАКТИ
           </NavLink>
         </li>
+        <li className={styles.item} onClick={onClick}>
+          <NavLink className={styles.link} to="/start">
+            START PAGE (тимчасова кнопка)
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );

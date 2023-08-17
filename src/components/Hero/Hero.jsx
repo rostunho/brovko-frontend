@@ -65,7 +65,7 @@ const Hero = () => {
       <section className={styles.hero}>
         <div className={styles.container}>
           <h1 className={styles.title}>ЯК ДЛЯ ЛЮДЕЙ, ТІЛЬКИ СМАЧНІШЕ</h1>
-          <Link to="/about">
+          <Link to="/product-list-page">
             <Button>Перейти до смаколиків</Button>
           </Link>
         </div>
