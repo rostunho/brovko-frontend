@@ -4,24 +4,24 @@ import defaultImage from './defaultImage.png';
 
 const Image = props => {
   const {
-    imageURL,
-    imageAlt = 'Смаколик',
-    imageHeight = '100%',
-    imageWidth = '100%',
-    imageClassName,
-    imageStyle,
+    src,
+    alt = 'Смаколик',
+    height = '100%',
+    width = '100%',
+    className,
+    style,
   } = props;
   const imageStyles = {
-    ...imageStyle,
+    ...style,
   };
   return (
     <img
-      className={imageClassName || styles.img}
+      className={className || styles.img}
       style={imageStyles}
-      src={imageURL || defaultImage}
-      alt={imageAlt}
-      height={imageHeight}
-      width={imageWidth}
+      src={src || defaultImage}
+      alt={alt}
+      height={height}
+      width={width}
     />
   );
 };
