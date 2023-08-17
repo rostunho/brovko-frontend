@@ -37,7 +37,9 @@ export default function Header() {
           />
         </div>
         <div>
-          <Logo />
+          <Link to="/main">
+            <Logo />
+          </Link>
         </div>
         <div className={styles.boxBasket}>
           <UserLight />

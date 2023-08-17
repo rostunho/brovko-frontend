@@ -6,7 +6,7 @@ export default function Nav({ onClick }) {
     <nav>
       <ul className={styles.list}>
         <li className={styles.item} onClick={onClick}>
-          <NavLink className={styles.link} to="/main">
+          <NavLink className={styles.link} to="/product-list-page">
             Крамничка
           </NavLink>
         </li>
@@ -24,6 +24,11 @@ export default function Nav({ onClick }) {
         <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/contacts">
             КОНТАКТИ
+          </NavLink>
+        </li>
+        <li className={styles.item} onClick={onClick}>
+          <NavLink className={styles.link} to="/start">
+            START PAGE (тимчасова кнопка)
           </NavLink>
         </li>
       </ul>
