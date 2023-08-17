@@ -16,7 +16,8 @@
     }
 
 .image {
-    height: 264px;
+    width: 78vw;
+    height: 78vw;
     margin-bottom: 12px;
     background-color:#fefefe;
     border-radius: 8px;
@@ -25,6 +26,20 @@
     align-items: center;
     overflow: hidden;
     border: solid red 1px;
+}
+
+@media screen and (min-width: 480px) and (max-width: 767px) {
+    .image {
+        width: 416px;
+        height: 416px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .image {
+        width: 256px;
+        height: 256px;
+    }
 }
 
 .img {
