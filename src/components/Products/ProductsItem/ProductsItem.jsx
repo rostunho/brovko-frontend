@@ -9,7 +9,6 @@ const ProductsItem = ({ product }) => {
     <div className={styles.productCard}>
       <div className={styles.image}>
         <Image src={product.picture} />
-        {/* console.log({product.picture}) */}
       </div>
       <div className={styles.description}>
         <div className={styles.info}>
