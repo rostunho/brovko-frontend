@@ -6,6 +6,8 @@ import { fetchAllProducts } from 'redux/products/productsOperations';
 
 import ProductsItem from '../ProductsItem';
 
+import Swiper from 'components/Swiper/Swiper';
+
 import styles from './ProductsList.module.scss';
 
 const ProductList = () => {
@@ -20,6 +22,7 @@ const ProductList = () => {
 
   return (
     <div className={styles.products}>
+      <Swiper />
       <h2 className={styles.productsTitle}>Наші смаколики</h2>
       {products && (
         <ul className={styles.list}>
