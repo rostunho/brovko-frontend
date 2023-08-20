@@ -18,3 +18,8 @@ export const getProductsByCategory = async (category = 'sets', page = 1) => {
   });
   return data;
 };
+
+export const deleteProductById = async id => {
+  const { data } = instance.delete(`/products/${id}`);
+  return data;
+};
