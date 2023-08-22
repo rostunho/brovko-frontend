@@ -10,11 +10,12 @@ const ProductsItem = ({ product }) => {
       <div className={styles.image}>
         <Image src={product.picture} />
       </div>
+
       <div className={styles.description}>
         <div className={styles.info}>
           <div className={styles.textDesc}>
             <p className={styles.name}>{product.name}</p>
-            <p className={styles.price}>{product.price}</p>
+            <p className={styles.price}>{product.price} грн</p>
           </div>
           <div className={styles.rating}>
             <StarEmpty />
