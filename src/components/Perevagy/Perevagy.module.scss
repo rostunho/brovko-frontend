@@ -1,0 +1,53 @@
+.container {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+.title {
+  //   color: var(--unnamed, #191c2c);
+  text-align: center;
+  /* h2 */
+  font-family: Amatic SC;
+  font-size: 32px;
+  //   font-style: normal;
+  //   font-weight: 700;
+  //   line-height: normal;
+  letter-spacing: 0.96px;
+  margin-bottom: 24px;
+}
+.icon {
+  width: 288px;
+  height: 64px;
+  padding: 16px 128px;
+  text-align: center;
+  flex-shrink: 0;
+  border-radius: 12px 12px 0px 0px;
+  background: var(--unnamed, #f3a610);
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.card {
+  width: 288px;
+  height: 172px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: var(--unnamed, #fff);
+  /* тінь для карток */
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
+}
+
+.text {
+  color: var(--unnamed, #191c2c);
+  padding: 16px 12px 0 12px;
+
+  /* основний текст */
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
