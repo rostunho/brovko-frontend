@@ -9,6 +9,7 @@ export default function MainPage() {
     <>
       <Hero />
       {/* <WeInInstagram /> */}
+      <h2 style={{fontSize:'20px', textAlign: 'center', color: '#FEFEFE', fontWeight: '700' }}>Ми в Instagram</h2>
       <TestInsta />
     </>
   );
