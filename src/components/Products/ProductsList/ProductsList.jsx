@@ -5,6 +5,7 @@ import { getAllProducts } from 'redux/products/productsSelectors';
 import { fetchAllProducts } from 'redux/products/productsOperations';
 
 import ProductsItem from '../ProductsItem';
+import Heading from 'shared/components/Heading/Heading';
 
 import Swiper from 'components/Swiper/Swiper';
 
@@ -23,7 +24,8 @@ const ProductList = () => {
   return (
     <div className={styles.products}>
       <Swiper />
-      <h2 className={styles.productsTitle}>Наші смаколики</h2>
+      {/* <h2 className={styles.productsTitle}>Наші смаколики</h2> */}
+      <Heading>Наші смаколики</Heading>
       {products && (
         <ul className={styles.list}>
           {products.map(product => {

@@ -9,9 +9,9 @@
 
   font-family: 'Nunito', sans-serif;
   letter-spacing: 0em;
-  
+
   border: none;
-  border-radius: 8px;  
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease 0s;
 
@@ -61,7 +61,8 @@
     }
   }
 
-  &_adding, &_settings {
+  &_adding,
+  &_settings {
     justify-content: flex-start;
     align-self: flex-start;
     column-gap: 16px;
@@ -71,7 +72,7 @@
     fill: #FEFEFE;
     stroke: #FEFEFE;
     background-color: transparent;
-    
+
     &:hover,
     &:focus,
     &:active {
@@ -86,6 +87,18 @@
     &:hover:disabled,
     &:active:disabled {
       color: rgba(254, 254, 254, 0.7);
+      background-color: transparent;
+    }
+  }
+
+  &_goBack {
+    min-width: 40px;
+    padding: 8px 0 0 0;
+    background-color: transparent;
+
+    &:hover,
+    &:focus,
+    &:active {
       background-color: transparent;
     }
   }

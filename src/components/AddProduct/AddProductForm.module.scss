@@ -1,17 +1,55 @@
 .container {
-  padding: 113px 15px 64px;
-  background-color: #191c2c;
+  // padding: 32px 15px 64px;
+  background-color: #fff;
 }
 
 .innerContainer {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  column-gap: 16px;
+  column-gap: 12px;
   width: 100%;
 
   &_single {
-    padding-right: 52.7586%;
+    // padding-right: 48vw;
+    padding-right: 52.08%;
+  }
+
+  &_tripple {
+    position: relative;
+    column-gap: 15;
+
+    &::before {
+      content: url('../../shared/icons/smallcross.svg');
+      stroke: #000;
+      display: block;
+      box-sizing: border-box;
+      height: 8px;
+      width: 8px;
+      z-index: 20;
+
+      position: absolute;
+      top: 55%;
+      left: 32.2%;
+
+      // transform: translate(-70%, -33.33%);
+    }
+
+    &::after {
+      content: url('../../shared/icons/smallcross.svg');
+      stroke: #000;
+      display: block;
+      box-sizing: border-box;
+      height: 8px;
+      width: 8px;
+      z-index: 20;
+
+      position: absolute;
+      top: 55%;
+      right: 32.2%;
+
+      // transform: translate(+70%, -33.33%);
+    }
   }
 }
 
@@ -20,21 +58,22 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  column-gap: 16px;
+  column-gap: 12px;
 
   &::after {
     content: url('../../shared/icons/shortline.svg');
+    stroke: #000;
     display: block;
     box-sizing: border-box;
     height: 1px;
-    width: 10px;
+    width: 6px;
     z-index: 20;
 
     position: absolute;
+    top: 45%;
     left: 50%;
-    top: 40%;
 
-    transform: translate(-50%, -50%);
+    transform: translate(-45%, -50%);
   }
 }
 

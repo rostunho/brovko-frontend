@@ -12,7 +12,7 @@ const Input = ({
   pattern,
   inputRef,
   size,
-  length,
+  length = 'lg',
   mode,
   icon,
   metric,
@@ -41,7 +41,7 @@ const Input = ({
         value={value}
         pattern={pattern}
         placeholder={placeholder}
-        className={`${classes.input} ${classes[`input_${size}`]} `}
+        className={`${classes.input} `}
         onChange={onChange}
         disabled={mode === 'disabled'}
         {...props}
