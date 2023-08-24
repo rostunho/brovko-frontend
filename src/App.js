@@ -1,6 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router';
+// import { lazy, Suspense } from 'react';
 
 import SharedLayout from 'components/SharedLayout/SharedLayout';
+
 import { authRoutes, publicRoutes } from './routes';
 
 import './App.css';
