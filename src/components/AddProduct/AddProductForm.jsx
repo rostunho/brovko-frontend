@@ -55,9 +55,17 @@ export default function AddProductForm() {
           <Input label="Глибина" length="sm" metric="см" />
         </div>
 
-        <Input label="Розмір" length="md" metric="м3" />
+        <div
+          className={`${classes.innerContainer} ${classes.innerContainer_single}`}
+        >
+          <Input label="Розмір" length="md" metric="м3" />
+        </div>
 
-        <Input label="ID" length="md" />
+        <div
+          className={`${classes.innerContainer} ${classes.innerContainer_single}`}
+        >
+          <Input label="ID" length="md" />
+        </div>
 
         <Input label="Сторінка" на сайті icon={<LinkIcon />} />
 

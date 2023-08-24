@@ -30,10 +30,21 @@
   color: var(--unnamed, #191c2c);
 
   &_length-sm {
+    position: relative;
     min-width: 86px;
 
-    & .input {
-      text-align: center;
+    &:not(:last-child)::after {
+      content: url('../../icons/smallcross.svg');
+      stroke: #000;
+      display: block;
+      box-sizing: border-box;
+      height: 8px;
+      width: 8px;
+      z-index: 20;
+
+      position: absolute;
+      right: -9.5px;
+      bottom: 20px;
     }
   }
 
