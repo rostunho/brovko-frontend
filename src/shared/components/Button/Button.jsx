@@ -27,8 +27,8 @@ export default function Button({
       disabled={disabled}
       {...props}
     >
-      {mode === 'adding' && <AddingPlusIcon className={classes.icon} />}
-      {mode === 'settings' && <SettingsWheelIcon className={classes.icon} />}
+      {mode === 'adding' && <AddingPlusIcon />}
+      {mode === 'settings' && <SettingsWheelIcon />}
       {mode === 'goBack' && <GoBackIcon />}
       {children}
     </button>

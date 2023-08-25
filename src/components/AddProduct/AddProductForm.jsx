@@ -21,7 +21,7 @@ export default function AddProductForm() {
         </div>
 
         <div className={classes.innerContainer}>
-          <Input label="Ціна" length="md" />
+          <Input label="Ціна" length="md" placeholder="00.00" />
           <Input label="Cобівартість" length="md" />
         </div>
 
@@ -67,9 +67,9 @@ export default function AddProductForm() {
           <Input label="ID" length="md" />
         </div>
 
-        <Input label="Сторінка" на сайті icon={<LinkIcon />} />
+        <Input label="Сторінка на сайті" icon={<LinkIcon />} />
 
-        <Input label="Ярлики" icon={<SettingsWheelIcon />} />
+        <Input label="Ярлики" icon={<SettingsWheelIcon unfilled />} />
 
         <Button mode="settings">Додаткові ціни </Button>
 

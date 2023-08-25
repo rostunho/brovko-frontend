@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import EyeIcon from 'shared/icons/EyeIcon';
 import classes from './Input.module.scss';
 
 const Input = ({
@@ -46,9 +47,9 @@ const Input = ({
         disabled={mode === 'disabled'}
         {...props}
       />
-      {icon && (
+      {(icon || type === 'password') && (
         <button type="button" className={classes.icon}>
-          {icon}
+          {icon || <EyeIcon />}
         </button>
       )}
       {metric && metric !== 'м3' && <p className={classes.metric}>{metric}</p>}
@@ -76,7 +77,7 @@ Input.propTypes = {
   name: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
-  size: PropTypes.oneOf(['sm', 'md', 'lg']),
+  // size: PropTypes.oneOf(['sm', 'md', 'lg']),
   length: PropTypes.oneOf(['sm', 'md', 'lg']),
   mode: PropTypes.string,
 };

@@ -18,7 +18,7 @@
   &:hover,
   &:focus,
   &:active {
-    background-color: #C3840A;
+    background-color: #c3840a;
   }
 
   &:focus {
@@ -34,21 +34,21 @@
   }
 
   &_primary {
-    color: #FEFEFE;
-    background-color: #F3A610;
+    color: #fefefe;
+    background-color: #f3a610;
   }
 
   &_outlined {
-    color: #F3A610;
-    border: 1px solid #F3A610;
+    color: #f3a610;
+    border: 1px solid #f3a610;
     background-color: transparent;
 
     &:hover,
     &:focus,
     &:active {
-      color: #FEFEFE;
+      color: #fefefe;
       border: none;
-      background-color: #F3A610;
+      background-color: #f3a610;
     }
 
     &:disabled,
@@ -68,17 +68,17 @@
     column-gap: 16px;
     height: auto;
     padding: 0 0 0 9px;
-    color: #FEFEFE;
-    fill: #FEFEFE;
-    stroke: #FEFEFE;
+    color: #a3a5a4;
+    fill: #191c2c;
+    stroke: #191c2c;
     background-color: transparent;
 
     &:hover,
     &:focus,
     &:active {
-      color: #F3A610;
-      fill: #F3A610;
-      stroke: #F3A610;
+      color: #f3a610;
+      fill: #f3a610;
+      stroke: #f3a610;
       background-color: transparent;
     }
 
@@ -120,15 +120,15 @@
   }
 }
 
-.icon {
-  fill: #FEFEFE;
-  fill-opacity: 0.7;
-}
+// .icon {
+//   fill: #191c2c;
+//   fill-opacity: 0.7;
+// }
 
-.button:hover .icon {
-  fill: #F3A610;
-  fill-opacity: 1;
-}
+// .button:hover .icon {
+//   fill: #f3a610;
+//   fill-opacity: 1;
+// }
 
 .button:disabled .icon,
 .button:focus:disabled .icon,
@@ -136,7 +136,6 @@
 .button:active:disabled .icon {
   color: rgba(254, 254, 254, 0.7);
   background-color: transparent;
-  fill: #FEFEFE;
+  fill: #fefefe;
   fill-opacity: 0.4;
-  ;
 }
