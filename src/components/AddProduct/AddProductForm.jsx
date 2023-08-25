@@ -74,6 +74,8 @@ export default function AddProductForm() {
 
         <Input label="Ярлики" icon={<SettingsWheelIcon unfilled />} />
 
+        <Input label="Комплект" type="checkbox" />
+
         <Button mode="settings">Додаткові ціни </Button>
 
         <Button mode="settings">Характеристики</Button>

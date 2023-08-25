@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import EyeIcon from 'shared/icons/EyeIcon';
 import classes from './Input.module.scss';
@@ -9,6 +10,8 @@ const Input = ({
   name,
   value,
   onChange,
+  onFocus,
+  onBlur,
   placeholder,
   pattern,
   inputRef,
@@ -18,9 +21,15 @@ const Input = ({
   icon,
   metric,
   style,
+  checked,
   ...props
 }) => {
-  // const isCheckbox = type === 'checkbox';
+  const [checkboxChecked, setCheckboxChecked] = useState(false);
+  const isCheckbox = type === 'checkbox';
+
+  const handleChackbox = () => {
+    setCheckboxChecked(!checkboxChecked);
+  };
 
   return (
     // <div
@@ -29,8 +38,13 @@ const Input = ({
     //   }`}
     // >
     <label
-      className={`${classes.label} ${classes[`label_length-${length}`]}`}
-      style={style}
+      // className={`${classes.label} ${classes[`label_length-${length}`]}`}
+      className={`${
+        isCheckbox
+          ? `${classes.label} ${classes['checkbox-label']}`
+          : `${classes.label} ${classes[`label_length-${length}`]}`
+      }`}
+      style={{ color: isCheckbox && checkboxChecked && '#f3a610' }}
     >
       {label}
 
@@ -43,7 +57,13 @@ const Input = ({
         pattern={pattern}
         placeholder={placeholder}
         className={`${classes.input} `}
-        onChange={onChange}
+        onChange={() => {
+          handleChackbox();
+          onChange && onChange();
+        }}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        checked={checkboxChecked}
         disabled={mode === 'disabled'}
         {...props}
       />
