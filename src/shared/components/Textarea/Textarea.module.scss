@@ -1,0 +1,33 @@
+.label {
+  display: block;
+  position: relative;
+  width: 100%;
+
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  color: var(--unnamed, #191c2c);
+}
+
+.textarea {
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px 16px;
+
+  font-family: 'Nunito', sans-serif;
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #a3a5a4;
+
+  outline: none;
+  resize: none;
+  border: 1px solid #191c2c;
+  border-radius: 8px;
+  background-color: transparent;
+}

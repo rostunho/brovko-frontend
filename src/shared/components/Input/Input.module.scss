@@ -16,61 +16,98 @@
   margin-bottom: 0;
 }
 
+// .checkbox-label {
+//   display: flex;
+//   flex-direction: row-reverse;
+
+//   // width: 280px;
+// }
+
 .label {
   display: block;
   position: relative;
   width: 100%;
 
   font-family: 'Nunito', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
+  font-style: normal;
   font-weight: 400;
-  text-align: start;
-  font-weight: var(--font-semi-bold);
-  color: rgba(254, 254, 254, 0.7);
+  line-height: normal;
 
-  &_length-sm {
-      min-width: 86px;
- 
+  color: var(--unnamed, #191c2c);
 
-      & .input{
-        text-align: center;
-      }
-    }
-  
-  &_length-md {
-      min-width: 137px;
- 
-    
-    & .input {
-      text-align: center;
+  &.checkbox-label {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 16px;
+
+    height: 16px;
+    margin-left: 16px;
+    color: #a3a5a4;
+    cursor: pointer;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: #f3a610;
     }
   }
-  
+
+  &_length-sm {
+    position: relative;
+    min-width: 86px;
+
+    &:not(:last-child)::after {
+      content: url('../../icons/smallcross.svg');
+      stroke: #000;
+      display: block;
+      box-sizing: border-box;
+      height: 8px;
+      width: 8px;
+      z-index: 20;
+
+      position: absolute;
+      right: -9.5px;
+      bottom: 20px;
+    }
+  }
+
+  &_length-md {
+    min-width: 138px;
+
+    & .input {
+      text-align: center;
+      justify-content: center;
+    }
+  }
+
   &_length-lg {
-    max-width: 100%;
+    min-width: 288px;
   }
 }
 
 .input {
   display: flex;
- 
+
   width: 100%;
-  height: 39px;
+  height: 40px;
   margin-top: 4px;
   padding: 0 16px;
 
   font-family: 'Nunito', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.333;
-  letter-spacing: 0em;
-  color: #FEFEFE;
-  cursor: pointer;
 
-  border: 1px solid rgba(254, 254, 254, 0.7);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #a3a5a4;
+
+  cursor: pointer;
+  border: 1px solid #191c2c;
   border-radius: 8px;
   background-color: transparent;
-
 
   transition: all 0.3s ease 0s;
 
@@ -80,7 +117,7 @@
 
   &:hover,
   &:focus {
-    border-color: #F3A610;
+    border-color: #f3a610;
     outline: none;
     // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
@@ -93,22 +130,27 @@
 
   &[type='checkbox'] {
     position: relative;
+    width: 16px;
+    height: 16px;
     cursor: pointer;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     outline: none;
-    border: 2px solid var(--color-orange);
+    border: 1px solid #191c2c;
     border-radius: 4px;
     background-color: transparent;
     padding: 0;
+    margin: 0;
 
     &::before {
       content: '';
       position: absolute;
       top: 2px;
       left: 2px;
-      background-color: var(--color-orange);
+      width: 10.5px;
+      height: 10.5px;
+      background-color: #f3a610;
       border-radius: 2px;
       opacity: 0;
       transition: opacity 0.3s ease;
@@ -117,13 +159,12 @@
     &:checked {
       &::before {
         opacity: 1;
-        border-color: var(--color-orange);
       }
     }
 
     &:hover::before {
       opacity: 0.8;
-      background-color: var(--color-orange-hover);
+      background-color: #f3a610;
     }
 
     &:disabled {
@@ -189,24 +230,25 @@
   position: absolute;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  padding: 0;
 
-  height: 16px;
+  height: 40px;
+  width: 24px;
   right: 16px;
-  bottom: 11px;
+  bottom: 0;
 
   border: none;
   outline: none;
   background: none;
   cursor: pointer;
-  fill: #FEFEFE;
-  stroke: #FEFEFE;
+  fill: #191c2c;
+  stroke: #191c2c;
 
   &:hover,
   &:focus,
   &:active {
-    stroke: #F3A610;
-    fill: #F3A610;
+    stroke: #f3a610;
+    fill: #f3a610;
   }
 }
 
@@ -220,7 +262,5 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: rgba(254, 254, 254, 0.7);
+  color: #191c2c;
 }
-
-

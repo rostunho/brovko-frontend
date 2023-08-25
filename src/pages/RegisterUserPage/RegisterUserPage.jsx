@@ -11,7 +11,7 @@ export default function RegisterUserPage() {
   // };
   return (
     <>
-      <Heading>Реєстрація</Heading>
+      <Heading withGoBack>Реєстрація</Heading>
       {/* <RegisterForm onSubmit={handleRegister} /> */}
     </>
   );
