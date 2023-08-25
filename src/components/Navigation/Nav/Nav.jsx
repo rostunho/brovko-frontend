@@ -11,21 +11,31 @@ export default function Nav({ onClick }) {
           </NavLink>
         </li>
         <li className={styles.item} onClick={onClick}>
-          <NavLink className={styles.link} to="/were-to-buy">
-            Де придбати
+          <NavLink className={styles.link} to="/actions">
+            Акції
           </NavLink>
         </li>
         <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/about">
-            Про нас
+            Про Бровка
           </NavLink>
         </li>
-
+        <li className={styles.item} onClick={onClick}>
+          <NavLink className={styles.link} to="/perevagy">
+            Чому це корисно?
+          </NavLink>
+        </li>
         <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/contacts">
             КОНТАКТИ
           </NavLink>
         </li>
+        <li className={styles.item} onClick={onClick}>
+          <NavLink className={styles.link} to="/where-to-buy">
+            Де придбати
+          </NavLink>
+        </li>
+
         <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/start">
             START PAGE (тимчасова кнопка)

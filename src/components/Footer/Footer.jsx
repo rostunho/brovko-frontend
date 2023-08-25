@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import styles from './Footer.module.scss';
 import VisaIcon from 'shared/icons/VisaIcon';
 import MasterCardIcon from 'shared/icons/MasterCardIcon';
+import { NavLink } from 'react-router-dom';
 
-export default function Footer() {
+export default function Footer({ onClick }) {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContainer}>
@@ -47,6 +48,11 @@ export default function Footer() {
             <li>
               <Link to="/shipping-and-payments" className={styles.link}>
                 Оплата та доставка
+              </Link>
+            </li>
+            <li className={styles.item} onClick={onClick}>
+              <Link className={styles.link} to="/where-to-buy">
+                Обмін та повернення
               </Link>
             </li>
           </ul>

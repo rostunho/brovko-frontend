@@ -49,7 +49,7 @@
 
 .linksList {
   list-style: none;
-  padding: 0;
+  padding-bottom: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -72,6 +72,14 @@
   text-decoration: none;
   color: var(--bg, #191c2c);
   font-size: 19px;
+  &:hover,
+  &:focus {
+    color: #f3a610;
+  }
+
+  &:global(.active) {
+    color: #f3a610;
+  }
 }
 
 .copy {
