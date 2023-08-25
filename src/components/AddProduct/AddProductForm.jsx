@@ -1,6 +1,7 @@
+import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
 import Button from 'shared/components/Button/Button';
-import Heading from 'shared/components/Heading';
+import Textarea from 'shared/components/Textarea/Textarea';
 import CalendarIcon from 'shared/icons/CalendarIcon';
 import LinkIcon from 'shared/icons/LinkIcon';
 import SettingsWheelIcon from 'shared/icons/SettingsWheelIcon';
@@ -69,6 +70,8 @@ export default function AddProductForm() {
 
         <Input label="Сторінка на сайті" icon={<LinkIcon />} />
 
+        <Textarea label="Нотатка :" rows="3" />
+
         <Input label="Ярлики" icon={<SettingsWheelIcon unfilled />} />
 
         <Button mode="settings">Додаткові ціни </Button>
@@ -76,6 +79,8 @@ export default function AddProductForm() {
         <Button mode="settings">Характеристики</Button>
 
         <Button mode="adding">Різновиди товарів</Button>
+
+        <Textarea label="Опис :" rows="6" />
 
         <Button type="submit" style={{ marginTop: '56px' }}>
           Зберегти
