@@ -1,24 +1,31 @@
 .products {
+
     background: var(--unnamed, #FEFEFE);
     // padding-top: 32px;
     padding-bottom: 30px;
+
 }
 
 .productsTitle {
-    color: var(--unnamed, #191C2C);
-    font-family: Amatic SC;
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 24px;
+  color: var(--unnamed, #191c2c);
+  font-family: Amatic SC;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 24px;
 }
 
 .list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 24px;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.goBackButton {
+  position: absolute;
+  top: 10;
 }
