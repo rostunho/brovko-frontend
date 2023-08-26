@@ -14,8 +14,6 @@ export default function Button({
   disabled,
   ...props
 }) {
-  console.log(mode);
-
   return (
     <button
       type={type || 'button'}

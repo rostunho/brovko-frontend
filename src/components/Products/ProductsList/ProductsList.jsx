@@ -19,12 +19,11 @@ const ProductList = () => {
   }, [dispatch]);
 
   const { products } = useSelector(getAllProducts);
-  console.log(products);
+  // console.log(products);
 
   return (
-
     <div className={styles.products}>
-      <Swiper />
+      {/* <Swiper /> */}
       {/* <h2 className={styles.productsTitle}>Наші смаколики</h2> */}
       <Heading>Наші смаколики</Heading>
       {products && (
@@ -37,7 +36,6 @@ const ProductList = () => {
         </ul>
       )}
     </div>
-
   );
 };
 
