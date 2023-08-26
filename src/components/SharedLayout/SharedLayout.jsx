@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 import Header from 'components/Header/Header';
 import Footer from 'components/Footer';
+import Rectangle from 'components/Rectangle/Rectangle';
 
 import styles from './SharedLayout.module.scss';
 
@@ -11,6 +12,7 @@ const SharedLayout = () => {
       <Header />
       <main>
         <Outlet />
+        <Rectangle />
       </main>
       <Footer />
     </div>
