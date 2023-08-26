@@ -80,7 +80,9 @@ export default function AddProductForm() {
 
         <Button mode="settings">Характеристики</Button>
 
-        <Button mode="adding">Різновиди товарів</Button>
+        <Button mode="adding" small>
+          Різновиди товарів
+        </Button>
 
         <Textarea label="Опис :" rows="6" />
 

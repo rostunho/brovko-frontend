@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import EyeIcon from 'shared/icons/EyeIcon';
+import SearchIcon from 'shared/icons/SearchIcon';
 import classes from './Input.module.scss';
 
 const Input = ({
@@ -22,6 +23,7 @@ const Input = ({
   metric,
   style,
   checked,
+  onClick,
   ...props
 }) => {
   const [checkboxChecked, setCheckboxChecked] = useState(false);
@@ -56,7 +58,7 @@ const Input = ({
         value={value}
         pattern={pattern}
         placeholder={placeholder}
-        className={`${classes.input} `}
+        className={`${classes.input}`}
         onChange={() => {
           handleChackbox();
           onChange && onChange();
@@ -67,11 +69,17 @@ const Input = ({
         disabled={mode === 'disabled'}
         {...props}
       />
-      {(icon || type === 'password') && (
-        <button type="button" className={classes.icon}>
-          {icon || <EyeIcon />}
+      {type === 'password' && (
+        <button type="button" className={classes.icon} onClick={onClick}>
+          <EyeIcon />
         </button>
       )}
+      {type === 'search' && (
+        <button type="button" className={classes.icon} onClick={onClick}>
+          <SearchIcon />
+        </button>
+      )}
+
       {metric && metric !== 'м3' && <p className={classes.metric}>{metric}</p>}
       {metric === 'м3' && (
         <p className={classes.metric}>
