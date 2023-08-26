@@ -17,7 +17,7 @@ const ProductList = () => {
   }, [dispatch]);
 
   const { products } = useSelector(getAllProducts);
-  console.log(products);
+  // console.log(products);
 
   return (
     <div className={styles.products}>
