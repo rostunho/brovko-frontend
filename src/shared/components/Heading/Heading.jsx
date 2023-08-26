@@ -1,10 +1,19 @@
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../Button/Button';
 import classes from './Heading.module.scss';
 
 export default function Heading({ type = 'h2', withGoBack, children }) {
+  const location = useLocation();
+  const from = location.state?.from || '/';
+  const navigate = useNavigate();
+
+  const onGoBackClick = () => {
+    navigate(from);
+  };
+
   return (
     <div className={classes.container}>
-      {withGoBack && <Button mode="goBack" />}
+      {withGoBack && <Button mode="goBack" onClick={onGoBackClick} />}
       {type === 'h1' && (
         <h1 className={`${classes.heading} ${classes.main}`}>{children}</h1>
       )}
