@@ -1,0 +1,47 @@
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.imagesWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
+  text-align: center;
+//   background-image: url(./frame.svg);
+//   background-size: cover;
+//   background-position: center center;
+}
+
+.imagesWrapper > * {
+  aspect-ratio: 1/1;
+  position: relative;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.imagesWrapper > *::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(./frame.svg);
+    background-size: cover;
+    z-index: -1;
+  }
+  
+.iconContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
