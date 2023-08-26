@@ -10,12 +10,11 @@ export default function Button({
   onClick,
   mode = 'primary',
   size = 'md',
+  small,
   style,
   disabled,
   ...props
 }) {
-  console.log(mode);
-
   return (
     <button
       type={type || 'button'}
@@ -27,7 +26,7 @@ export default function Button({
       disabled={disabled}
       {...props}
     >
-      {mode === 'adding' && <AddingPlusIcon />}
+      {mode === 'adding' && <AddingPlusIcon small={small} />}
       {mode === 'settings' && <SettingsWheelIcon />}
       {mode === 'goBack' && <GoBackIcon />}
       {children}
