@@ -1,18 +1,40 @@
+import { NavLink } from 'react-router-dom';
 import styles from './RegisterUserPage.module.scss';
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/user/userOperations';
 import RegisterForm from 'components/AuthForm/RegisterForm/RegisterForm';
 import Heading from 'shared/components/Heading/Heading';
+import GoogleIcon from 'shared/icons/GoogleIcon';
 
 export default function RegisterUserPage() {
-  // const dispatch = useDispatch();
-  // const handleRegister = data => {
-  //   dispatch(register(data));
-  // };
+  const dispatch = useDispatch();
+  const handleRegister = data => {
+    dispatch(register(data));
+  };
   return (
     <>
+    <div className={styles.container}>
       <Heading withGoBack>Реєстрація</Heading>
-      {/* <RegisterForm onSubmit={handleRegister} /> */}
+      <p className={styles.description}>Створення облікового запису допоможе купувати швидше, а також переглядати замовлення зроблені раніше.</p>
+      <RegisterForm onSubmit={handleRegister} />
+      <div className={styles.redirContainer}>
+      <p className={styles.text}>або</p>
+            <a
+              href="https://www.google.com.ua/?hl=uk"
+              className={styles.navLink}
+            >
+              <GoogleIcon className={styles.googleIcon} />
+              Продовжити з Google
+            </a>
+            
+              <p className={styles.redirectText}>
+                Вже є аккаунт?{' '}
+                <NavLink to="/login" className={styles.logLink}>
+                  Увійти
+                </NavLink>
+              </p>
+            </div>
+            </div>
     </>
   );
 }
