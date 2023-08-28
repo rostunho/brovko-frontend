@@ -24,19 +24,13 @@ const ProductList = () => {
   // Стан для пошуку та фільтрації
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSortingOption, setSelectedSortingOption] = useState(null);
 
   // обробкa події відправки форми
   const handleSearchSubmit = formData => {
     setSearchTerm(formData.search); // Оновити стан пошуку
     console.log('Form data submitted:', formData);
   };
-
-  // Фільтруємо продукти за пошуковим терміном
-  // const filteredProducts = searchTerm
-  //   ? products.filter(product =>
-  //       product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  //     )
-  //   : products;
 
   if (!products) {
     return null;
@@ -56,17 +50,51 @@ const ProductList = () => {
     return nameMatch && categoryMatch;
   });
 
-  console.log(filteredProducts);
+  // console.log('filteredProducts', filteredProducts);
+
+  // сортування
+  let sortedProducts = [...filteredProducts]; //копія масиву
+  // console.log('sortedProducts1', sortedProducts);
+  // console.log('selectedSortingOption', selectedSortingOption);
+
+  if (selectedSortingOption) {
+    if (selectedSortingOption === 'Від дешевих до дорогих') {
+      sortedProducts.sort((a, b) => {
+        console.log('a.price:', a.price, 'b.price:', b.price);
+        return a.price - b.price;
+      });
+    } else if (selectedSortingOption === 'Від дорогих до дешевих') {
+      sortedProducts.sort((a, b) => {
+        console.log('a.price:', a.price, 'b.price:', b.price);
+        return b.price - a.price;
+      });
+    } else if (selectedSortingOption === 'За рейтингом') {
+      sortedProducts.sort((a, b) => {
+        console.log('a.rating:', a.rating, 'b.rating:', b.rating);
+        return b.rating - a.rating;
+      });
+    } else if (selectedSortingOption === 'Новинки') {
+      sortedProducts.sort((a, b) => {
+        console.log('a.createdAt:', a.createdAt, 'b.createdAt:', b.createdAt);
+        // return b.createdAt.localeCompare(a.createdAt);
+      });
+    }
+  }
+
+  console.log('sortedProducts', sortedProducts);
 
   return (
     <div className={styles.products}>
       <Heading withGoBack>Крамничка</Heading>
       <SearchBar onSubmit={handleSearchSubmit} />
-      <Filter onCategorySelect={category => setSelectedCategory(category)} />
+      <Filter
+        onCategorySelect={category => setSelectedCategory(category)}
+        onSortingSelect={option => setSelectedSortingOption(option)}
+      />
 
-      {filteredProducts.length > 0 ? (
+      {sortedProducts.length > 0 ? (
         <ul className={styles.list}>
-          {filteredProducts.map(product => (
+          {sortedProducts.map(product => (
             <li key={product.id}>
               <ProductsItem product={product} />
             </li>
