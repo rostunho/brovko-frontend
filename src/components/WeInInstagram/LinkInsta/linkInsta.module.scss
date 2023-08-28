@@ -13,9 +13,9 @@
   grid-template-columns: 1fr 1fr;
   grid-auto-rows: 1fr;
   text-align: center;
-//   background-image: url(./frame.svg);
-//   background-size: cover;
-//   background-position: center center;
+  //   background-image: url(./frame.svg);
+  //   background-size: cover;
+  //   background-position: center center;
 }
 
 .imagesWrapper > * {
@@ -23,20 +23,22 @@
   position: relative;
   overflow: hidden;
   object-fit: cover;
+  z-index: -1;
 }
 
-.imagesWrapper > *::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url(./frame.svg);
-    background-size: cover;
-    z-index: -1;
-  }
-  
+// .imagesWrapper > img::before {
+//   content: '';
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 16px;
+//   height: 16px;
+//   background-image: url(./frame.svg);
+//   background-color: black;
+//   background-size: cover;
+//   z-index: 1000;
+// }
+
 .iconContainer {
   position: absolute;
   width: 100%;
@@ -44,4 +46,60 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
+}
+
+.imageWithFrame {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  &::before {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 7px;
+    right: 4px;
+    width: 16px;
+    height: 16px;
+    background-image: url(./frame.svg);
+    background-size: cover;
+    z-index: 999999;
+  }
+}
+
+.containerLC {
+  display: flex;
+}
+
+.imagesLikes {
+  display: block;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    width: 10%;
+    height: 10%;
+    background-image: url(./like.svg);
+    background-size: cover;
+    background-color: black;
+    z-index: 999999;
+  }
+}
+
+.imagesComents {
+  display: block;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    width: 10%;
+    height: 10%;
+    background-image: url(./comment.svg);
+    background-size: cover;
+    background-color: black;
+    z-index: 999999;
+  }
 }

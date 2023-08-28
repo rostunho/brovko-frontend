@@ -13,14 +13,26 @@ const LinkInsta = () => {
         className={styles.imageContainer}
         href="https://www.instagram.com/brovko.pet/"
       >
-  <div className={styles.imagesWrapper}>
-          <Image src={brovko1} />
-          <Image src={brovko2} />
-          <Image src={brovko3} />
-          <Image src={brovko4} />
-        </div>
         <div className={styles.iconContainer}>
           <InstagramIconWe />
+        </div>
+        <div className={styles.imagesWrapper}>
+          <div className={styles.imageWithFrame}>
+            <Image src={brovko1} />
+            <div className={styles.containerLC}>
+              <p className={styles.imagesLikes}>19</p>
+              <p className={styles.imagesComents}>5</p>
+            </div>
+          </div>
+          <div className={styles.imageWithFrame}>
+            <Image src={brovko2} />
+          </div>
+          <div className={styles.imageWithFrame}>
+            <Image src={brovko3} />
+          </div>
+          <div className={styles.imageWithFrame}>
+            <Image src={brovko4} />
+          </div>
         </div>
       </a>
     </>
