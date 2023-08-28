@@ -1,4 +1,39 @@
 .container {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.buttonContainer {
+  position: relative;
+}
+
+.dropdownMenu {
+  position: absolute;
+  z-index: 10;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  width: 100%;
+  height: max-content;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 1px solid var(--input, #7b7b7b);
+  background: var(--white, #fff);
+  margin-top: 4px;
+}
+.dropdownLi {
+  color: var(--black, #191c2c);
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+  padding: 8px 16px 8px 16px;
+
+  &:hover {
+    background-color: #f3a610;
+    color: white;
+  }
 }

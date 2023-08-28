@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types';
+import styles from './Filter.module.scss';
 
 const DropdownMenu = ({ items, onSelect }) => {
   return (
-    <ul>
+    <ul className={styles.dropdownMenu}>
       {items.map((item, index) => (
-        <li key={index} onClick={() => onSelect(item)}>
+        <li
+          className={styles.dropdownLi}
+          key={index}
+          onClick={() => onSelect(item)}
+        >
           {item}
         </li>
       ))}
