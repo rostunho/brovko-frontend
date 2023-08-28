@@ -73,14 +73,14 @@
 }
 
 .imagesLikes {
-  display: block;
+  // display: block;
   &::after {
     content: '';
     position: absolute;
-    top: 50%;
-    right: 50%;
-    width: 10%;
-    height: 10%;
+    // top: 50%;
+    // right: 50%;
+    // width: 10%;
+    // height: 10%;
     background-image: url(./like.svg);
     background-size: cover;
     background-color: black;
@@ -89,14 +89,14 @@
 }
 
 .imagesComents {
-  display: block;
+  // display: block;
   &::after {
     content: '';
     position: absolute;
-    top: 50%;
-    right: 50%;
-    width: 10%;
-    height: 10%;
+    // top: 50%;
+    // right: 50%;
+    // width: 10%;
+    // height: 10%;
     background-image: url(./comment.svg);
     background-size: cover;
     background-color: black;
