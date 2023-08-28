@@ -1,0 +1,27 @@
+.searchForm {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  border-radius: 8px;
+  border: 1px solid var(--input, #7b7b7b);
+  margin-bottom: 16px;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.searchInput {
+  font-family: Nunito;
+  font-weight: 400;
+  line-height: normal;
+
+  outline: none;
+  height: 42px;
+  background-color: transparent;
+  border: none;
+  color: black;
+  font-size: 14px;
+  padding: 8px 16px;
+}
