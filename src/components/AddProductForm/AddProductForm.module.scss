@@ -1,10 +1,10 @@
 .container {
-  // padding: 32px 15px 64px;
   padding-bottom: 32px;
   background-color: #fff;
 }
 
 .innerContainer {
+  // position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -13,7 +13,9 @@
 
   &_single {
     // padding-right: 48vw;
-    padding-right: 52.08%;
+    // padding-right: 52.08%;
+    justify-content: flex-start;
+    width: calc(50% - 6px);
   }
 
   &_tripple {

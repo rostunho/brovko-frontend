@@ -1,38 +1,53 @@
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
+import Select from 'shared/components/Select/Select';
 import Button from 'shared/components/Button/Button';
 import Textarea from 'shared/components/Textarea/Textarea';
+import Prompt from 'shared/components/Prompt/Prompt';
 import CalendarIcon from 'shared/icons/CalendarIcon';
 import LinkIcon from 'shared/icons/LinkIcon';
 import SettingsWheelIcon from 'shared/icons/SettingsWheelIcon';
-import classes from './AddProductForm.module.scss';
+import styles from './AddProductForm.module.scss';
 
 export default function AddProductForm() {
   return (
-    <div className={classes.container}>
+    <div className={styles.container}>
       <Heading withGoBack>Додати новий товар </Heading>
-      <form className={classes.form}>
+      <form
+        className={styles.form}
+        onSubmit={e => {
+          e.preventDefault();
+          console.dir(e.target.elements[2].value); // change to form submit
+        }}
+      >
         <Input label="Назва" />
 
         <Input label="Назва для документів" />
 
-        <div className={classes.category}>
-          <Input label="Категорія" />
+        <div className={styles.category}>
+          <Select
+            label="Категорія"
+            name="Category"
+            data={['Супер категорія', 'Мега категорія', 'Гіпер категорія']} // edit later
+          />
           <Button mode="adding">Додати категорію </Button>
         </div>
 
-        <div className={classes.innerContainer}>
+        <div className={styles.innerContainer}>
           <Input label="Ціна" length="md" placeholder="00.00" />
           <Input label="Cобівартість" length="md" />
         </div>
 
         <div
-          className={`${classes.innerContainer} ${classes.innerContainer_single}`}
+          className={`${styles.innerContainer} ${styles.innerContainer_single}`}
         >
           <Input label="Знижка" length="md" />
+          <Prompt>
+            Знижку можна вказувати в абсолютному значенні, або у %
+          </Prompt>
         </div>
 
-        <div className={classes.dates}>
+        <div className={styles.dates}>
           <Input label="Період знижки" length="md" icon={<CalendarIcon />} />
           <Input length="md" icon={<CalendarIcon />} />
         </div>
@@ -41,7 +56,7 @@ export default function AddProductForm() {
 
         <Input label="Виробник" />
 
-        <div className={classes.innerContainer}>
+        <div className={styles.innerContainer}>
           <Input label="SKU" length="md" />
           <Input label="Вага" length="md" metric="кг" />
         </div>
@@ -49,7 +64,7 @@ export default function AddProductForm() {
         <Input label="Штрихкод" length="md" />
 
         <div
-          className={`${classes.innerContainer} ${classes.innerContainer_tripple}`}
+          className={`${styles.innerContainer} ${styles.innerContainer_tripple}`}
         >
           <Input label="Висота" length="sm" metric="см" />
           <Input label="Довжина" length="sm" metric="см" />
@@ -57,13 +72,13 @@ export default function AddProductForm() {
         </div>
 
         <div
-          className={`${classes.innerContainer} ${classes.innerContainer_single}`}
+          className={`${styles.innerContainer} ${styles.innerContainer_single}`}
         >
           <Input label="Розмір" length="md" metric="м3" />
         </div>
 
         <div
-          className={`${classes.innerContainer} ${classes.innerContainer_single}`}
+          className={`${styles.innerContainer} ${styles.innerContainer_single}`}
         >
           <Input label="ID" length="md" />
         </div>
@@ -76,11 +91,15 @@ export default function AddProductForm() {
 
         <Input label="Комплект" type="checkbox" />
 
-        <Button mode="settings">Додаткові ціни </Button>
+        <Button mode="settings" size="sm">
+          Додаткові ціни
+        </Button>
 
-        <Button mode="settings">Характеристики</Button>
+        <Button mode="settings" size="sm">
+          Характеристики
+        </Button>
 
-        <Button mode="adding" small>
+        <Button mode="adding" size="sm">
           Різновиди товарів
         </Button>
 

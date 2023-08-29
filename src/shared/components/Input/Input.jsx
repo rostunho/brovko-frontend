@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import EyeIcon from 'shared/icons/EyeIcon';
 import SearchIcon from 'shared/icons/SearchIcon';
-import classes from './Input.module.scss';
+import styles from './Input.module.scss';
 
 const Input = ({
   label,
@@ -35,16 +35,16 @@ const Input = ({
 
   return (
     // <div
-    //   className={`${classes.input_wrapper} ${
-    //     isCheckbox ? classes.checkbox_wrapper : ''
+    //   className={`${styles.input_wrapper} ${
+    //     isCheckbox ? styles.checkbox_wrapper : ''
     //   }`}
     // >
     <label
-      // className={`${classes.label} ${classes[`label_length-${length}`]}`}
+      // className={`${styles.label} ${styles[`label_length-${length}`]}`}
       className={`${
         isCheckbox
-          ? `${classes.label} ${classes['checkbox-label']}`
-          : `${classes.label} ${classes[`label_length-${length}`]}`
+          ? `${styles.label} ${styles['checkbox-label']}`
+          : `${styles.label} ${styles[`label_length-${length}`]}`
       }`}
       style={{ color: isCheckbox && checkboxChecked && '#f3a610' }}
     >
@@ -58,7 +58,7 @@ const Input = ({
         value={value}
         pattern={pattern}
         placeholder={placeholder}
-        className={`${classes.input}`}
+        className={`${styles.input}`}
         onChange={() => {
           handleChackbox();
           onChange && onChange();
@@ -70,21 +70,26 @@ const Input = ({
         {...props}
       />
       {type === 'password' && (
-        <button type="button" className={classes.icon} onClick={onClick}>
+        <button type="button" className={styles.icon} onClick={onClick}>
           <EyeIcon />
         </button>
       )}
       {type === 'search' && (
-        <button type="button" className={classes.icon} onClick={onClick}>
+        <button type="button" className={styles.icon} onClick={onClick}>
           <SearchIcon />
         </button>
       )}
 
-      {metric && metric !== 'м3' && <p className={classes.metric}>{metric}</p>}
+      {metric && metric !== 'м3' && <p className={styles.metric}>{metric}</p>}
       {metric === 'м3' && (
-        <p className={classes.metric}>
+        <p className={styles.metric}>
           м<sup>3</sup>
         </p>
+      )}
+      {icon && (
+        <button type="button" className={styles.icon}>
+          {icon}
+        </button>
       )}
     </label>
     // </div>
