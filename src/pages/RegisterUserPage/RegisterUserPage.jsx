@@ -13,28 +13,31 @@ export default function RegisterUserPage() {
   };
   return (
     <>
-    <div className={styles.container}>
-      <Heading withGoBack>Реєстрація</Heading>
-      <p className={styles.description}>Створення облікового запису допоможе купувати швидше, а також переглядати замовлення зроблені раніше.</p>
-      <RegisterForm onSubmit={handleRegister} />
-      <div className={styles.redirContainer}>
-      <p className={styles.text}>або</p>
-            <a
-              href="https://www.google.com.ua/?hl=uk"
-              className={styles.navLink}
-            >
-              <GoogleIcon className={styles.googleIcon} />
-              Продовжити з Google
-            </a>
-            
-              <p className={styles.redirectText}>
-                Вже є аккаунт?{' '}
-                <NavLink to="/login" className={styles.logLink}>
-                  Увійти
-                </NavLink>
-              </p>
-            </div>
-            </div>
+      <div className={styles.container}>
+        <Heading withGoBack>Реєстрація</Heading>
+        <p className={styles.description}>
+          Створення облікового запису допоможе купувати швидше, а також
+          переглядати замовлення зроблені раніше.
+        </p>
+        <RegisterForm onSubmit={handleRegister} />
+        <div className={styles.redirContainer}>
+          <p className={styles.text}>або</p>
+          <a
+            href="https://brovko-backend.onrender.com/api/user/google"
+            className={styles.navLink}
+          >
+            <GoogleIcon className={styles.googleIcon} />
+            Продовжити з Google
+          </a>
+
+          <p className={styles.redirectText}>
+            Вже є аккаунт?{' '}
+            <NavLink to="/login" className={styles.logLink}>
+              Увійти
+            </NavLink>
+          </p>
+        </div>
+      </div>
     </>
   );
 }
