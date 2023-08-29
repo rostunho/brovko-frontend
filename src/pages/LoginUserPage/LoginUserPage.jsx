@@ -20,7 +20,7 @@ export default function LoginUserPage() {
       <div className={styles.redirContainer}>
       <p className={styles.text}>або</p>
             <a
-              href="https://www.google.com.ua/?hl=uk"
+              href="https://brovko-backend.onrender.com/api/user/google"
               className={styles.navLink}
             >
               <GoogleIcon className={styles.googleIcon} />

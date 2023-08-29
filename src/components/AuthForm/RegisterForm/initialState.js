@@ -1,7 +1,7 @@
 const initialState = {
   email: '',
   password: '',
-  onfirmPassaword: '',
+  confirmPassword: '',
 };
 
 export default initialState;
