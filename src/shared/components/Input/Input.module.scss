@@ -42,6 +42,7 @@
     justify-content: flex-end;
     align-items: center;
     column-gap: 16px;
+    width: fit-content;
 
     height: 16px;
     margin-left: 16px;
@@ -148,15 +149,17 @@
       position: absolute;
       top: 2px;
       left: 2px;
-      width: 10.5px;
-      height: 10.5px;
+      width: 10px;
+      height: 10px;
       background-color: #f3a610;
+
       border-radius: 2px;
       opacity: 0;
       transition: opacity 0.3s ease;
     }
 
     &:checked {
+      border: 1px solid #f3a610;
       &::before {
         opacity: 1;
       }

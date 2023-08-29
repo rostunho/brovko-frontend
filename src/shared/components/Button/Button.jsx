@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import AddingPlusIcon from '../../icons/AddingPlusIcon';
 import SettingsWheelIcon from '../../icons/SettingsWheelIcon';
 import GoBackIcon from 'shared/icons/GoBackIcon';
-import classes from './Button.module.scss';
+import styles from './Button.module.scss';
 
 export default function Button({
   children,
@@ -18,15 +18,15 @@ export default function Button({
   return (
     <button
       type={type || 'button'}
-      className={`${classes.button} ${classes[`button_${size}`]} ${
-        classes[`button_${mode}`]
+      className={`${styles.button} ${styles[`button_${size}`]} ${
+        styles[`button_${mode}`]
       } `}
       style={style}
       onClick={onClick}
       disabled={disabled}
       {...props}
     >
-      {mode === 'adding' && <AddingPlusIcon small={small} />}
+      {mode === 'adding' && <AddingPlusIcon small={size === 'sm'} />}
       {mode === 'settings' && <SettingsWheelIcon />}
       {mode === 'goBack' && <GoBackIcon />}
       {children}
