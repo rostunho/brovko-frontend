@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import AddingPlusIcon from '../../icons/AddingPlusIcon';
 import SettingsWheelIcon from '../../icons/SettingsWheelIcon';
 import GoBackIcon from 'shared/icons/GoBackIcon';
 import styles from './Button.module.scss';
+import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
 
 export default function Button({
   children,
@@ -13,8 +15,16 @@ export default function Button({
   small,
   style,
   disabled,
+  icon,
   ...props
 }) {
+  const [clickOnSort, setClickOnSort] = useState(false);
+
+  const onSortClick = () => {
+    onClick && onClick();
+    setClickOnSort(!clickOnSort);
+  };
+
   return (
     <button
       type={type || 'button'}
@@ -22,7 +32,7 @@ export default function Button({
         styles[`button_${mode}`]
       } `}
       style={style}
-      onClick={onClick}
+      onClick={onSortClick}
       disabled={disabled}
       {...props}
     >
@@ -30,6 +40,11 @@ export default function Button({
       {mode === 'settings' && <SettingsWheelIcon />}
       {mode === 'goBack' && <GoBackIcon />}
       {children}
+      {mode === 'sort' && (
+        <DropdownArrowIcon
+          className={`${styles.icon} ${clickOnSort && styles['icon--reverse']}`}
+        />
+      )}
     </button>
   );
 }

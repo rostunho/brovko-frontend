@@ -135,26 +135,54 @@
   &_lg {
     font-size: 14px;
     font-weight: bold;
-      
+
     padding: 1rem 3.5rem;
   }
 
   &_sm {
     padding: 0;
     margin-left: 16px;
-    // padding: 0.5rem 1.5rem;
   }
 }
 
-// .icon {
-//   fill: #191c2c;
-//   fill-opacity: 0.7;
-// }
+.button_sort {
+  justify-content: space-between;
+  width: 138px;
+  padding: 0 16px;
 
-// .button:hover .icon {
-//   fill: #f3a610;
-//   fill-opacity: 1;
-// }
+  color: #191c2c;
+  background-color: transparent;
+  border: 1px solid #7b7b7b;
+  border-radius: 8px;
+
+  &:hover,
+  &:focus,
+  &:active {
+    border: none;
+    background-color: #f3a610;
+    color: #fefefe;
+
+    & .icon {
+      stroke: #fefefe;
+    }
+  }
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: #191c2c;
+  stroke: #191c2c;
+
+  &--reverse {
+    transform: rotate(180deg);
+  }
+}
+
+.button:hover .icon {
+  fill: #fff;
+  fill-opacity: 1;
+}
 
 .button:disabled .icon,
 .button:focus:disabled .icon,

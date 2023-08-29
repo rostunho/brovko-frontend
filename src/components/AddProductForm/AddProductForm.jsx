@@ -108,6 +108,15 @@ export default function AddProductForm() {
         <Button type="submit" style={{ marginTop: '56px' }}>
           Зберегти
         </Button>
+
+        <Button
+          type="submit"
+          mode="sort"
+          // icon={<DropdownArrowIcon />}
+          style={{ marginTop: '56px' }}
+        >
+          Зберегти
+        </Button>
       </form>
     </div>
   );
