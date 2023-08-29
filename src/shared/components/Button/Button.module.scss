@@ -61,6 +61,28 @@
     }
   }
 
+  &_outlinedGrey {
+    color: #7b7b7b;
+    border: 1px solid #7b7b7b;
+    background-color: transparent;
+    &:hover,
+    &:focus,
+    &:active {
+      color: #fefefe;
+      border: none;
+      background-color: #f3a610;
+    }
+
+    &:disabled,
+    &:focus:disabled,
+    &:hover:disabled,
+    &:active:disabled {
+      color: rgba(254, 254, 254, 0.7);
+      background-color: transparent;
+      border: 1px solid rgba(254, 254, 254, 0.7);
+    }
+  }
+
   &_adding,
   &_settings {
     justify-content: flex-start;
@@ -111,7 +133,9 @@
   }
 
   &_lg {
-    font-size: 1.5rem;
+    font-size: 14px;
+    font-weight: bold;
+      
     padding: 1rem 3.5rem;
   }
 

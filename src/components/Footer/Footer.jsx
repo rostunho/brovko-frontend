@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styles from './Footer.module.scss';
 import VisaIcon from 'shared/icons/VisaIcon';
 import MasterCardIcon from 'shared/icons/MasterCardIcon';
-import { NavLink } from 'react-router-dom';
+import Rectangle from 'components/Rectangle/Rectangle';
 
 export default function Footer({ onClick }) {
   return (
@@ -62,6 +62,7 @@ export default function Footer({ onClick }) {
           </div>
         </div>
       </div>
+      <Rectangle />
 
       <p className={styles.copy}>Copyright 2023 &copy; Бровко</p>
     </footer>

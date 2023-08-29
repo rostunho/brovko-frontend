@@ -59,9 +59,10 @@ const Input = ({
         pattern={pattern}
         placeholder={placeholder}
         className={`${styles.input}`}
-        onChange={() => {
+
+        onChange={e => {
           handleChackbox();
-          onChange && onChange();
+          onChange && onChange(e);
         }}
         onFocus={onFocus}
         onBlur={onBlur}
