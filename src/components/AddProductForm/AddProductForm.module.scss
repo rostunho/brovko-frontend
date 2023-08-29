@@ -1,0 +1,96 @@
+.container {
+  padding-bottom: 32px;
+  background-color: #fff;
+}
+
+.innerContainer {
+  // position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  column-gap: 12px;
+  width: 100%;
+
+  &_single {
+    // padding-right: 48vw;
+    // padding-right: 52.08%;
+    justify-content: flex-start;
+    width: calc(50% - 6px);
+  }
+
+  &_tripple {
+    position: relative;
+    column-gap: 15;
+
+    // &::before {
+    //   content: url('../../shared/icons/smallcross.svg');
+    //   stroke: #000;
+    //   display: block;
+    //   box-sizing: border-box;
+    //   height: 8px;
+    //   width: 8px;
+    //   z-index: 20;
+
+    //   position: absolute;
+    //   top: 55%;
+    //   left: 32.2%;
+
+    //   // transform: translate(-70%, -33.33%);
+    // }
+
+    // &::after {
+    //   content: url('../../shared/icons/smallcross.svg');
+    //   stroke: #000;
+    //   display: block;
+    //   box-sizing: border-box;
+    //   height: 8px;
+    //   width: 8px;
+    //   z-index: 20;
+
+    //   position: absolute;
+    //   top: 55%;
+    //   right: 32.2%;
+
+    //   // transform: translate(+70%, -33.33%);
+    // }
+  }
+}
+
+.dates {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  column-gap: 12px;
+
+  &::after {
+    content: url('../../shared/icons/shortline.svg');
+    stroke: #000;
+    display: block;
+    box-sizing: border-box;
+    height: 1px;
+    width: 6px;
+    z-index: 20;
+
+    position: absolute;
+    top: 45%;
+    left: 50%;
+
+    transform: translate(-45%, -50%);
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 16px;
+  margin-top: 8px;
+  box-sizing: border-box;
+
+  & .category {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+  }
+}

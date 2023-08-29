@@ -18,7 +18,7 @@ const Navigation = ({ isMobile }) => {
 
   const toggleMobileMenu = e => {
     e.preventDefault();
-    console.log('Toggle Mobile Menu');
+    // console.log('Toggle Mobile Menu');
     setShowMobileMenu(showMobileMenu => !showMobileMenu);
   };
 

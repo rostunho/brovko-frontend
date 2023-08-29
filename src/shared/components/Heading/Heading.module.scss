@@ -1,20 +1,28 @@
+.container {
+    display: flex;
+    align-items: center;
+}
+
 .heading {
-    font-family: 'Amatic SC', cursive;
-    font-size: 48px;
+    width: 100%;
+    padding: 32px 0 24px 0;
+
+    font-family: Amatic SC;
+    font-size: 32px;
+    font-style: normal;
     font-weight: 700;
-    line-height: 1.333;
-    letter-spacing: 0.01em;
-    text-align: left;
-    color: #FEFEFE;
+    line-height: normal;
+    letter-spacing: 0.96px;
+    text-align: center;
 
     &.main {
         font-size: 48px;
-        line-height: 1.333;
+        // line-height: normal;
     }
     
     &.large {
         font-size: 32px;
-        line-height: 2;
+        // line-height: 2;
         text-align: center;
     }
 

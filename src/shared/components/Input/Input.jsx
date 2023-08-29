@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import classes from './Input.module.scss';
+import EyeIcon from 'shared/icons/EyeIcon';
+import SearchIcon from 'shared/icons/SearchIcon';
+import styles from './Input.module.scss';
 
 const Input = ({
   label,
@@ -8,28 +11,42 @@ const Input = ({
   name,
   value,
   onChange,
+  onFocus,
+  onBlur,
   placeholder,
   pattern,
   inputRef,
   size,
-  length,
+  length = 'lg',
   mode,
   icon,
   metric,
   style,
+  checked,
+  onClick,
   ...props
 }) => {
-  // const isCheckbox = type === 'checkbox';
+  const [checkboxChecked, setCheckboxChecked] = useState(false);
+  const isCheckbox = type === 'checkbox';
+
+  const handleChackbox = () => {
+    setCheckboxChecked(!checkboxChecked);
+  };
 
   return (
     // <div
-    //   className={`${classes.input_wrapper} ${
-    //     isCheckbox ? classes.checkbox_wrapper : ''
+    //   className={`${styles.input_wrapper} ${
+    //     isCheckbox ? styles.checkbox_wrapper : ''
     //   }`}
     // >
     <label
-      className={`${classes.label} ${classes[`label_length-${length}`]}`}
-      style={style}
+      // className={`${styles.label} ${styles[`label_length-${length}`]}`}
+      className={`${
+        isCheckbox
+          ? `${styles.label} ${styles['checkbox-label']}`
+          : `${styles.label} ${styles[`label_length-${length}`]}`
+      }`}
+      style={{ color: isCheckbox && checkboxChecked && '#f3a610' }}
     >
       {label}
 
@@ -41,21 +58,39 @@ const Input = ({
         value={value}
         pattern={pattern}
         placeholder={placeholder}
-        className={`${classes.input} ${classes[`input_${size}`]} `}
-        onChange={onChange}
+        className={`${styles.input}`}
+
+        onChange={e => {
+          handleChackbox();
+          onChange && onChange(e);
+        }}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        checked={checkboxChecked}
         disabled={mode === 'disabled'}
         {...props}
       />
-      {icon && (
-        <button type="button" className={classes.icon}>
-          {icon}
+      {type === 'password' && (
+        <button type="button" className={styles.icon} onClick={onClick}>
+          <EyeIcon />
         </button>
       )}
-      {metric && metric !== 'м3' && <p className={classes.metric}>{metric}</p>}
+      {type === 'search' && (
+        <button type="button" className={styles.icon} onClick={onClick}>
+          <SearchIcon />
+        </button>
+      )}
+
+      {metric && metric !== 'м3' && <p className={styles.metric}>{metric}</p>}
       {metric === 'м3' && (
-        <p className={classes.metric}>
+        <p className={styles.metric}>
           м<sup>3</sup>
         </p>
+      )}
+      {icon && (
+        <button type="button" className={styles.icon}>
+          {icon}
+        </button>
       )}
     </label>
     // </div>
@@ -76,7 +111,7 @@ Input.propTypes = {
   name: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
-  size: PropTypes.oneOf(['sm', 'md', 'lg']),
+  // size: PropTypes.oneOf(['sm', 'md', 'lg']),
   length: PropTypes.oneOf(['sm', 'md', 'lg']),
   mode: PropTypes.string,
 };

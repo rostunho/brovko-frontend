@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import styles from './Footer.module.scss';
 import VisaIcon from 'shared/icons/VisaIcon';
 import MasterCardIcon from 'shared/icons/MasterCardIcon';
+import Rectangle from 'components/Rectangle/Rectangle';
 
-export default function Footer() {
+export default function Footer({ onClick }) {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContainer}>
@@ -49,6 +50,11 @@ export default function Footer() {
                 Оплата та доставка
               </Link>
             </li>
+            <li className={styles.item} onClick={onClick}>
+              <Link className={styles.link} to="/where-to-buy">
+                Обмін та повернення
+              </Link>
+            </li>
           </ul>
           <div className={styles.footerIcons}>
             <VisaIcon />
@@ -56,6 +62,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      <Rectangle />
 
       <p className={styles.copy}>Copyright 2023 &copy; Бровко</p>
     </footer>

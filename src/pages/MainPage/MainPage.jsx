@@ -1,4 +1,7 @@
 import Hero from 'components/Hero/Hero';
+import Perevagy from 'components/Perevagy/Perevagy';
+import Swiper from 'components/Swiper/Swiper';
+import Rectangle from 'components/Rectangle/Rectangle';
 import InstagramEmbededRandom from 'components/InstagramEmbededRandom';
 import WeInInstgram from 'components/WeInInstagram';
 
@@ -10,6 +13,9 @@ export default function MainPage() {
       <Hero />
       {/* <InstagramEmbededRandom /> */}
       <WeInInstgram />
+      <Perevagy />
+      <Rectangle />
+      <Swiper />
     </>
   );
 }

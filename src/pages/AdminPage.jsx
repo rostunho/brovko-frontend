@@ -1,4 +1,4 @@
-import AddProductForm from 'components/AddProduct/AddProductForm';
+import AddProductForm from 'components/AddProductForm/AddProductForm';
 
 export default function AdminPage() {
   return (

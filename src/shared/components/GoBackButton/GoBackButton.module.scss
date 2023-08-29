@@ -1,0 +1,26 @@
+.button {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: fit-content;
+  padding: 0;
+}
+
+.ellipse {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.arrow {
+  width: 160px;
+  height: 16px;
+  transform: rotate(90deg);
+  flex-shrink: 0;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+}
