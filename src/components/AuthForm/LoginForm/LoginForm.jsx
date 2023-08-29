@@ -1,18 +1,16 @@
-// import TextField from 'shared/components/TextFields/TextFields';
 import Input from 'shared/components/Input/Input';
 import Button from 'shared/components/Button/Button';
 import useForm from 'shared/hooks/useForm';
-// import fields from './fields';
 import initialState from './initialState';
 
-import styles from './RegisterForm.module.scss';
+import styles from './LoginForm.module.scss';
 
-const RegisterForm = ({ onSubmit }) => {
+const LoginForm = ({ onSubmit }) => {
   const { state, handleChange, handleSubmit } = useForm({
     initialState,
     onSubmit,
   });
-  const { email, password, confirmPassword} = state;
+  const { email, password } = state;
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       {/* <TextField value={email} handleChange={handleChange} {...fields.email} />
@@ -39,21 +37,13 @@ const RegisterForm = ({ onSubmit }) => {
         value={password}
         handleChange={handleChange}
       />
-      <Input
-        label="Підтвердження паролю"
-        type="password"
-        name="confirmPassword"
-        placeholder="Підтвердіть пароль"
-        required="true"
-        value={confirmPassword}
-        handleChange={handleChange}
-      />
+    
 
-      <Button style={{ paddingLeft: 86, paddingRight: 86, marginTop: 36 }} size="lg">
-        Зареєструватися
+      <Button style={{ paddingLeft: 122, paddingRight: 122, marginTop: 36 }} size="lg">
+        Увійти
       </Button>
     </form>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;
