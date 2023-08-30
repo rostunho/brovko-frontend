@@ -1,0 +1,27 @@
+.svg-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .circle {
+    position: absolute;
+    top: -10px; /* Змініть зміщення, якщо потрібно */
+    left: -10px; /* Змініть зміщення, якщо потрібно */
+    width: 200px; /* Діаметр круга + 20px зазор */
+    height: 200px; /* Діаметр круга + 20px зазор */
+    background-color: transparent;
+    border: 2px solid #2B2A29;
+    border-radius: 50%;
+    animation: spin 10s linear infinite;
+    z-index: 9999; /* Розміщення під SVG */
+  }
+  
+  .svg-container {
+    width: 178px;
+    height: 137px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
