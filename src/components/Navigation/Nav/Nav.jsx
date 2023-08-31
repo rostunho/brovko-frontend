@@ -31,14 +31,14 @@ export default function Nav({ onClick }) {
           </NavLink>
         </li>
         <li className={styles.item} onClick={onClick}>
-          <NavLink className={styles.link} to="/where-to-buy">
-            Де придбати
+          <NavLink className={styles.link} to="/shipping-and-payments">
+            Оплата та доставка
           </NavLink>
         </li>
 
         <li className={styles.item} onClick={onClick}>
-          <NavLink className={styles.link} to="/start">
-            START PAGE (тимчасова кнопка)
+          <NavLink className={styles.link} to="/exchange-and-return">
+            Обмін і повернення
           </NavLink>
         </li>
       </ul>
