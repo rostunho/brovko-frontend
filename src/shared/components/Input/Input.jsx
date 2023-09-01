@@ -21,6 +21,7 @@ const Input = ({
   mode,
   icon,
   metric,
+  link,
   style,
   checked,
   onClick,
@@ -86,10 +87,14 @@ const Input = ({
           м<sup>3</sup>
         </p>
       )}
-      {icon && (
+      {icon && !link ? (
         <button type="button" className={styles.icon}>
           {icon}
         </button>
+      ) : (
+        <a href={link} className={styles.icon} target="_blank" rel="noreferrer">
+          {icon}
+        </a>
       )}
     </label>
     // </div>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { addNewProduct } from 'shared/services/products';
 import { addRequest } from './initialState';
 import { getActiveCategories } from 'shared/services/categories';
 import Heading from 'shared/components/Heading';
@@ -26,8 +27,36 @@ export default function AddProductForm() {
 
   const handleInputChange = e => {
     const updatedRequest = { ...request };
+
+    if (e.target.name.includes('-')) {
+      const [obj, key] = devideInputName(e.target.name);
+      updatedRequest.product[0][obj][key] = e.target.value;
+      setRequest(updatedRequest);
+      return;
+    }
+
+    // if (updatedRequest[0][e.target.name].isArray()) {
+    //   updatedRequest.product[0][e.target.name] = [...e.target.value];
+    // }
+
     updatedRequest.product[0][e.target.name] = e.target.value;
     setRequest(updatedRequest);
+  };
+
+  const devideInputName = name => {
+    const idx = name.indexOf('-');
+    const obj = name.slice(0, idx);
+    const key = name.slice(idx + 1, name.length);
+
+    return [obj, key];
+  };
+
+  const volumeCount = () => {
+    const currentData = { ...request };
+    const { height, width, length } = currentData.product[0];
+    const volume = (Number(height) * Number(width) * Number(length)) / 1000000;
+
+    return volume.toFixed(2);
   };
 
   return (
@@ -35,9 +64,9 @@ export default function AddProductForm() {
       <Heading withGoBack>Додати новий товар </Heading>
       <form
         className={styles.form}
-        onSubmit={e => {
+        onSubmit={async e => {
           e.preventDefault();
-          console.dir(e.target.elements[2].value); // change to form submit
+          addNewProduct(request); // change to form submit
         }}
       >
         <Input label="Назва" name="name" onChange={handleInputChange} />
@@ -57,63 +86,157 @@ export default function AddProductForm() {
           <Input
             label="Ціна"
             name="costPerItem"
-            onChange={handleInputChange} // paused here
+            onChange={handleInputChange}
             length="md"
             placeholder="00.00"
           />
-          <Input label="Cобівартість" length="md" />
+          <Input
+            label="Cобівартість"
+            name="expenses"
+            length="md"
+            onChange={handleInputChange}
+          />
         </div>
 
         <div
           className={`${styles.innerContainer} ${styles.innerContainer_single}`}
         >
-          <Input label="Знижка" length="md" />
+          <Input
+            label="Знижка"
+            name="discount-value"
+            onChange={handleInputChange}
+            length="md"
+          />
           <Prompt>
             Знижку можна вказувати в абсолютному значенні, або у %
           </Prompt>
         </div>
 
         <div className={styles.dates}>
-          <Input label="Період знижки" length="md" icon={<CalendarIcon />} />
-          <Input length="md" icon={<CalendarIcon />} />
+          <Input
+            // type="date"
+            label="Період знижки"
+            name="discount-date_start"
+            onChange={handleInputChange}
+            length="md"
+            icon={<CalendarIcon />}
+          />
+          <Input
+            // type="date"
+            name="discount-date_end"
+            onChange={handleInputChange}
+            length="md"
+            icon={<CalendarIcon />}
+          />
         </div>
 
-        <Input label="Постачальник" />
+        <Input
+          label="Постачальник"
+          name="supplier"
+          onChange={handleInputChange}
+        />
 
-        <Input label="Виробник" />
+        <Input
+          label="Виробник"
+          name="manufacturer"
+          onChange={handleInputChange}
+        />
 
         <div className={styles.innerContainer}>
-          <Input label="SKU" length="md" />
-          <Input label="Вага" length="md" metric="кг" />
+          <Input
+            label="SKU"
+            name="sku"
+            length="md"
+            onChange={handleInputChange}
+          />
+          <Input
+            label="Вага"
+            name="weight"
+            onChange={handleInputChange}
+            length="md"
+            metric="кг"
+          />
         </div>
 
-        <Input label="Штрихкод" length="md" />
+        <Input
+          label="Штрихкод"
+          name="barcode"
+          length="md"
+          onChange={handleInputChange}
+        />
 
         <div
           className={`${styles.innerContainer} ${styles.innerContainer_tripple}`}
         >
-          <Input label="Висота" length="sm" metric="см" />
-          <Input label="Довжина" length="sm" metric="см" />
-          <Input label="Глибина" length="sm" metric="см" />
+          <Input
+            label="Висота"
+            name="height"
+            onChange={handleInputChange}
+            length="sm"
+            metric="см"
+          />
+          <Input
+            label="Довжина"
+            name="length"
+            onChange={handleInputChange}
+            length="sm"
+            metric="см"
+          />
+          <Input
+            label="Ширина"
+            name="width"
+            onChange={handleInputChange}
+            length="sm"
+            metric="см"
+          />
         </div>
 
         <div
           className={`${styles.innerContainer} ${styles.innerContainer_single}`}
         >
-          <Input label="Розмір" length="md" metric="м3" />
+          <Input
+            label="Розмір"
+            name="volume"
+            value={volumeCount()}
+            length="md"
+            metric="м3"
+          />
         </div>
 
         <div
           className={`${styles.innerContainer} ${styles.innerContainer_single}`}
         >
-          <Input label="ID" length="md" />
+          <Input
+            label="ID"
+            name="id"
+            length="md"
+            onChange={handleInputChange}
+          />
         </div>
 
-        <Input label="Сторінка на сайті" icon={<LinkIcon />} />
+        <Input
+          label="Сторінка на сайті"
+          name="url"
+          onChange={handleInputChange}
+          icon={<LinkIcon />}
+          link="http://localhost:3000/main" // to change later
+        />
 
-        <Textarea label="Нотатка :" rows="3" />
+        <Input label="Нотатка :" name="note" onChange={handleInputChange} />
 
-        <Input label="Ярлики" icon={<SettingsWheelIcon unfilled />} />
+        <Textarea
+          label="Ключові слова :"
+          name="keywords"
+          onChange={handleInputChange}
+          rows="3"
+        />
+
+        <Input
+          label="Ярлики"
+          name="name"
+          onChange={() => {}} // add new function
+          icon={<SettingsWheelIcon unfilled />}
+        />
 
         <Input label="Комплект" type="checkbox" />
 
@@ -129,18 +252,14 @@ export default function AddProductForm() {
           Різновиди товарів
         </Button>
 
-        <Textarea label="Опис :" rows="6" />
+        <Textarea
+          label="Опис :"
+          name="description"
+          onChange={handleInputChange}
+          rows="6"
+        />
 
         <Button type="submit" style={{ marginTop: '56px' }}>
-          Зберегти
-        </Button>
-
-        <Button
-          type="submit"
-          mode="sort"
-          // icon={<DropdownArrowIcon />}
-          style={{ marginTop: '56px' }}
-        >
           Зберегти
         </Button>
       </form>
