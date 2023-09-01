@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import { addRequest } from './initialState';
+import { getActiveCategories } from 'shared/services/categories';
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
 import Select from 'shared/components/Select/Select';
@@ -10,6 +13,23 @@ import SettingsWheelIcon from 'shared/icons/SettingsWheelIcon';
 import styles from './AddProductForm.module.scss';
 
 export default function AddProductForm() {
+  const [request, setRequest] = useState(addRequest);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const activeCategories = await getActiveCategories();
+      const categoryNames = activeCategories.caregory.map(el => el.name);
+      setCategories(categoryNames);
+    })();
+  }, []);
+
+  const handleInputChange = e => {
+    const updatedRequest = { ...request };
+    updatedRequest.product[0][e.target.name] = e.target.value;
+    setRequest(updatedRequest);
+  };
+
   return (
     <div className={styles.container}>
       <Heading withGoBack>Додати новий товар </Heading>
@@ -20,21 +40,27 @@ export default function AddProductForm() {
           console.dir(e.target.elements[2].value); // change to form submit
         }}
       >
-        <Input label="Назва" />
+        <Input label="Назва" name="name" onChange={handleInputChange} />
 
-        <Input label="Назва для документів" />
+        <Input
+          label="Назва для документів"
+          name="nameForDocuments"
+          onChange={handleInputChange}
+        />
 
         <div className={styles.category}>
-          <Select
-            label="Категорія"
-            name="Category"
-            data={['Супер категорія', 'Мега категорія', 'Гіпер категорія']} // edit later
-          />
+          <Select label="Категорія" name="Category" data={categories} />
           <Button mode="adding">Додати категорію </Button>
         </div>
 
         <div className={styles.innerContainer}>
-          <Input label="Ціна" length="md" placeholder="00.00" />
+          <Input
+            label="Ціна"
+            name="costPerItem"
+            onChange={handleInputChange} // paused here
+            length="md"
+            placeholder="00.00"
+          />
           <Input label="Cобівартість" length="md" />
         </div>
 
