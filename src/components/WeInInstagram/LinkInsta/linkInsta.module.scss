@@ -1,0 +1,68 @@
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.imagesWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
+  text-align: center;
+}
+
+.imagesWrapper > * {
+  aspect-ratio: 1/1;
+  position: relative;
+  overflow: hidden;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.iconContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.imageWithFrame {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  &::before {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 7px;
+    right: 4px;
+    width: 16px;
+    height: 16px;
+    background-image: url(./frame.svg);
+    background-size: cover;
+    z-index: 999999;
+  }
+}
+
+.likeComent {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 71px;
+  height: 16px;
+  background-image: url(./like-coment.svg);
+  background-size: cover;
+  z-index: 999999;
+}

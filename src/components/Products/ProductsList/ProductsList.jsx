@@ -81,7 +81,7 @@ const ProductList = () => {
     }
   }
 
-  console.log('sortedProducts', sortedProducts);
+  // console.log('sortedProducts', sortedProducts);
 
   return (
     <div className={styles.products}>

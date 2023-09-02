@@ -34,6 +34,7 @@ export default function Select({
   const onOptionPress = category => {
     setCurrentValue(category);
     toggleDropdown();
+    // props.onOptionPress(category);
   };
 
   return (

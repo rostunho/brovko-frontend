@@ -21,6 +21,7 @@ const Input = ({
   mode,
   icon,
   metric,
+  link,
   style,
   checked,
   onClick,
@@ -59,9 +60,8 @@ const Input = ({
         pattern={pattern}
         placeholder={placeholder}
         className={`${styles.input}`}
-
         onChange={e => {
-          handleChackbox();
+          isCheckbox && handleChackbox();
           onChange && onChange(e);
         }}
         onFocus={onFocus}
@@ -87,10 +87,14 @@ const Input = ({
           м<sup>3</sup>
         </p>
       )}
-      {icon && (
+      {icon && !link ? (
         <button type="button" className={styles.icon}>
           {icon}
         </button>
+      ) : (
+        <a href={link} className={styles.icon} target="_blank" rel="noreferrer">
+          {icon}
+        </a>
       )}
     </label>
     // </div>
