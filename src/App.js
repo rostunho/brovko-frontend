@@ -6,6 +6,7 @@ import SharedLayout from 'components/SharedLayout/SharedLayout';
 import { authRoutes, publicRoutes } from './routes';
 
 import './App.css';
+import Spiner from 'components/Loader/Loader';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
             key={path}
             path={path}
             element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<Spiner/>}>
                 <Component />
               </Suspense>
             }
