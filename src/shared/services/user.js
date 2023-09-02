@@ -7,15 +7,38 @@ const setToken = token => {
   instance.defaults.headers.authorization = '';
 };
 
+instance.interceptors.response.use(
+  response => response,
+  async error => {
+    if (error.response.status === 401) {
+      const refreshToken = localStorage.getItem('refreshToken');
+      try {
+        const { data: result } = await instance.post('/user/refresh', {
+          refreshToken,
+        });
+        setToken(result.accessToken);
+        localStorage.setItem('refreshToken', result.refreshToken);
+        return instance(error.config);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 export const register = async data => {
   const { data: result } = await instance.post('/user/register', data);
-  setToken(result.token);
+  setToken(result.accessToken);
+  localStorage.setItem('refreshToken', result.refreshToken);
   return result;
 };
 
 export const login = async data => {
   const { data: result } = await instance.post('/user/login', data);
-  setToken(result.token);
+  setToken(result.accessToken);
+  localStorage.setItem('refreshToken', result.refreshToken);
+
   return result;
 };
 
