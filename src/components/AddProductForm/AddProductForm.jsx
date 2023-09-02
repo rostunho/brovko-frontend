@@ -66,7 +66,7 @@ export default function AddProductForm() {
         className={styles.form}
         onSubmit={async e => {
           e.preventDefault();
-          addNewProduct(request); // change to form submit
+          await addNewProduct(request); // change to form submit
         }}
       >
         <Input label="Назва" name="name" onChange={handleInputChange} />

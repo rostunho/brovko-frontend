@@ -25,14 +25,15 @@ export const deleteProductById = async id => {
   return data;
 };
 
-export const addNewProduct = async data => {
-  console.log(JSON.stringify(data));
+export const addNewProduct = async body => {
+  console.log(JSON.stringify(body));
+
+  const url = 'https://brovko.salesdrive.me/product-handler';
+  const data = JSON.stringify(body);
+  const headers = { 'Content-Type': 'application/json' };
 
   try {
-    const response = await axios.post(
-      'https://brovko.salesdrive.me/product-handler',
-      JSON.stringify(data)
-    );
+    const response = await axios.post(url, data, { headers });
     console.log('Post request response:', response.data);
   } catch (error) {
     console.log(error.message);
