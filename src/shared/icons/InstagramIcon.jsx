@@ -11,7 +11,7 @@ export default function InstagramIcon() {
         d="M16 21.3334C17.4145 21.3334 18.771 20.7715 19.7712 19.7713C20.7714 18.7711 21.3333 17.4146 21.3333 16.0001C21.3333 14.5856 20.7714 13.229 19.7712 12.2288C18.771 11.2287 17.4145 10.6667 16 10.6667C14.5855 10.6667 13.2289 11.2287 12.2288 12.2288C11.2286 13.229 10.6667 14.5856 10.6667 16.0001C10.6667 17.4146 11.2286 18.7711 12.2288 19.7713C13.2289 20.7715 14.5855 21.3334 16 21.3334Z"
         stroke="#FEFEFE"
         strokeWidth="2"
-        stroke-linecap="round"
+        strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
@@ -23,7 +23,7 @@ export default function InstagramIcon() {
         d="M23.3333 8.67995L23.3467 8.66528"
         stroke="#FEFEFE"
         strokeWidth="2"
-        stroke-linecap="round"
+        strokeLinecap="round"
         strokeLinejoin="round"
       />
     </svg>

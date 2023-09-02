@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from 'shared/components/Button';
 import styles from './Hero.module.scss';
 
-import heroMob1x from '../../shared/images/heroLight.jpg';
-import heroMob2x from '../../shared/images/heroLight2.jpg';
+// import heroMob1x from '../../shared/images/heroLight.jpg';
+// import heroMob2x from '../../shared/images/heroLight2.jpg';
 
 const Hero = () => {
   // const [screenWidth, setScreenWidth] = useState(window.innerWidth);

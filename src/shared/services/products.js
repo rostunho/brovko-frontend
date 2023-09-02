@@ -1,3 +1,4 @@
+import axios from 'axios';
 import instance from './instance';
 
 export const getAllProducts = async (page = 1) => {
@@ -21,5 +22,21 @@ export const getProductsByCategory = async (category = 'sets', page = 1) => {
 
 export const deleteProductById = async id => {
   const { data } = instance.delete(`/products/${id}`);
+  return data;
+};
+
+export const addNewProduct = async data => {
+  console.log(JSON.stringify(data));
+
+  try {
+    const response = await axios.post(
+      'https://brovko.salesdrive.me/product-handler',
+      JSON.stringify(data)
+    );
+    console.log('Post request response:', response.data);
+  } catch (error) {
+    console.log(error.message);
+  }
+
   return data;
 };
