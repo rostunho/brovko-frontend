@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { addNewProduct } from 'shared/services/products';
-import { addRequest } from './initialState';
+import { addRequestTemplate } from './AddRequestTemplate';
 import { getActiveCategories } from 'shared/services/categories';
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
@@ -14,7 +14,7 @@ import SettingsWheelIcon from 'shared/icons/SettingsWheelIcon';
 import styles from './AddProductForm.module.scss';
 
 export default function AddProductForm() {
-  const [request, setRequest] = useState(addRequest);
+  const [request, setRequest] = useState(addRequestTemplate);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {

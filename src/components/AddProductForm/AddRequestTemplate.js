@@ -1,7 +1,7 @@
-// const FORM_KEY = process.env.REACT_APP_BROVKO_FORM_KEY;
+const FORM_KEY = process.env.REACT_APP_BROVKO_FORM_KEY;
 
-export const addRequest = {
-  form: 'lviEFy_dB30cvOXyN9aJkl6Ri2MS7FwjDOC8UkxjwZpmI6xn2iWJ3fVKv__sw6n639zjOa1WwjjWiKXq',
+export const addRequestTemplate = {
+  form: FORM_KEY,
   action: 'update',
   dontUpdateFields: [],
   product: [
