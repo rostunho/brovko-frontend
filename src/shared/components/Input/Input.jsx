@@ -34,6 +34,8 @@ const Input = ({
     setCheckboxChecked(!checkboxChecked);
   };
 
+  const withIcon = icon || type === 'password' || type === 'search';
+
   return (
     // <div
     //   className={`${styles.input_wrapper} ${
@@ -59,7 +61,7 @@ const Input = ({
         value={value}
         pattern={pattern}
         placeholder={placeholder}
-        className={`${styles.input}`}
+        className={`${styles.input} ${withIcon && styles['with-icon']}`}
         onChange={e => {
           isCheckbox && handleChackbox();
           onChange && onChange(e);
