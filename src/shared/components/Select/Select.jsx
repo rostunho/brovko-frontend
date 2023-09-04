@@ -10,6 +10,7 @@ export default function Select({
   defaultValue,
   form,
   size,
+  fetchSelectorValue, // "витягує" поточне значення селектора в батьківський компонент
   openedDropdown,
   enteringField,
   onSaveClick,
@@ -30,13 +31,16 @@ export default function Select({
     if (!defaultOption) {
       return;
     }
-
-    setCategories([defaultOption, ...data]);
+    setCategories([{ name: defaultOption, id: '' }, ...data]);
   }, [defaultOption, data]);
 
   useEffect(() => {
     setDropdownIsOpen(openedDropdown);
   }, [openedDropdown]);
+
+  useEffect(() => {
+    fetchSelectorValue(currentValue);
+  }, [currentValue, fetchSelectorValue]);
 
   const toggleDropdown = () => {
     setDropdownIsOpen(!dropdownIsOpen);
@@ -45,6 +49,7 @@ export default function Select({
   const onOptionPress = category => {
     setCurrentValue(category);
     toggleDropdown();
+    fetchSelectorValue(currentValue);
     // props.onOptionPress(category);
   };
 
@@ -71,14 +76,11 @@ export default function Select({
       {dropdownIsOpen && (
         <fieldset className={styles['dropdown-container']}>
           {enteringField && (
-            <label className={`${styles.label} ${styles['label-options']}  `}>
+            <label className={`${styles.label} ${styles['label-options']}`}>
               <input
                 className={`${styles.option} ${styles['add-category']}`}
                 placeholder="Введіть назву категорії"
                 autoFocus
-                onClick={() => {
-                  console.log('CLICK !!');
-                }}
               />
               <button
                 type="button"
@@ -90,7 +92,7 @@ export default function Select({
             </label>
           )}
           {categories.map(category => {
-            const isCheched = currentValue === category;
+            const isCheched = currentValue === category.name;
             return (
               <label
                 key={id++}
@@ -98,15 +100,15 @@ export default function Select({
                   enteringField && styles['label-options--disabled']
                 } ${isCheched && styles['is-checked']}`}
               >
-                {category}
+                {category.name}
                 <input
                   disabled={enteringField ? true : false}
                   type="radio"
                   name="option"
-                  value={category}
+                  value={category.name}
                   className={styles.option}
                   defaultChecked={currentValue === category}
-                  onClick={() => onOptionPress(category)}
+                  onClick={() => onOptionPress(category.name)}
                 />
               </label>
             );

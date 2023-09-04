@@ -17,14 +17,18 @@ import styles from './AddProductForm.module.scss';
 export default function AddProductForm() {
   const [requestBody, setRequestBody] = useState(addRequestTemplate);
   const [categories, setCategories] = useState([]);
+  const [categoryValue, setCategoryValue] = useState('Без категорії');
   // const [categoryAdding, setCategoryAdding] = useState(false);
 
   useEffect(() => {
     (async () => {
       const activeCategories = await getActiveCategories();
-      const categoryNames = activeCategories.caregory.map(el => el.name);
+      const categoryNames = activeCategories.caregory.map(el => {
+        return { name: el.name, id: el.id };
+      });
       setCategories(categoryNames);
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleInputChange = e => {
@@ -37,10 +41,14 @@ export default function AddProductForm() {
       return;
     }
 
-    console.log('Input is changed !!');
-
     updatedRequestBody.product[0][e.target.name] = e.target.value;
     setRequestBody(updatedRequestBody);
+  };
+
+  const fetchSelectorValue = value => {
+    setCategoryValue(value);
+    console.log(categoryValue);
+    return value;
   };
 
   const devideInputName = name => {
@@ -66,7 +74,8 @@ export default function AddProductForm() {
         className={styles.form}
         onSubmit={async e => {
           e.preventDefault();
-          await addNewProduct(requestBody); // change to form submit
+          await addNewProduct(requestBody);
+          // console.log(e.target[2].value);
         }}
       >
         <Input label="Назва" name="name" onChange={handleInputChange} />
@@ -77,7 +86,10 @@ export default function AddProductForm() {
           onChange={handleInputChange}
         />
 
-        <CategorySelector categories={categories} />
+        <CategorySelector
+          data={categories}
+          fetchSelectorValue={fetchSelectorValue}
+        />
 
         {/* <div className={styles.category}>
           <Select

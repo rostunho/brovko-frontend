@@ -3,7 +3,12 @@ import Select from 'shared/components/Select/Select';
 import Button from 'shared/components/Button/Button';
 import styles from './CategorySelector.module.scss';
 
-export default function CategorySelector({ categories, ...props }) {
+export default function CategorySelector({
+  data,
+  fetchSelectorValue,
+  ...props
+}) {
+  //   const [selectorValue, setSelectorValue] = useState('Без категорії');
   const [addCategorieFieldShown, setAddCategorieFieldShown] = useState(false);
   const [openedDropdown, setOpenedDropdown] = useState(false);
 
@@ -22,8 +27,9 @@ export default function CategorySelector({ categories, ...props }) {
         className={styles.select}
         label="Категорія"
         name="Category"
-        data={categories}
+        data={data}
         defaultValue="Без категорії"
+        fetchSelectorValue={fetchSelectorValue}
         openedDropdown={openedDropdown}
         enteringField={addCategorieFieldShown}
         onSaveClick={saveNewCategory}
