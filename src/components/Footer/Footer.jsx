@@ -1,48 +1,65 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import FooterItem from './FooterItem';
-import styles from './Footer.module.scss';
+import FooterIcon from './FooterIcon';
+import {
+  aboutUsLinks,
+  supportLinks,
+  companyLinks,
+  socialIconsData,
+  bankIconsData,
+} from './FooterData';
+
 import ArrowDownIcon from 'shared/icons/ArrowDownIcon';
-import InstaIcon from 'shared/icons/InstaIcon';
-import ViberIcon from 'shared/icons/ViberIcon';
-import TelegramIcon from 'shared/icons/TelegramIcon';
-import VisaIcon from 'shared/icons/VisaIcon';
-import MasterCardIcon from 'shared/icons/MasterCardIcon';
 import Rectangle from 'components/Rectangle/Rectangle';
+import styles from './Footer.module.scss';
 
 export default function Footer({ onClick }) {
-  const [openedSection, setOpenedSection] = useState(null);
+  const [footerState, setFooterState] = useState({
+    openedSection: null,
+    socialIconStates: {},
+    bankIconStates: {},
+  });
+
   const toggleSection = sectionLabel => {
-    setOpenedSection(prevSection =>
-      prevSection === sectionLabel ? null : sectionLabel
-    );
-  };
-  const aboutUsLinks = [
-    { url: '/about', label: 'Про Бровка' },
-    { url: '/perevagy', label: 'Чому це корисно' },
-    { url: '/contacts', label: 'Контакти' },
-  ];
-
-  const supportLinks = [
-    { url: '/shipping-and-payments', label: 'Оплата та доставка' },
-    { url: '/exchange-and-return', label: 'Обмін і повернення' },
-  ];
-
-  const companyLinks = [
-    { url: '/product-list-page', label: 'Крамничка' },
-    { url: '/actions', label: 'Акції' },
-  ];
-
-  const openInstagram = () => {
-    window.open('https://www.instagram.com/brovko.pet/', '_blank');
+    setFooterState(prevState => ({
+      ...prevState,
+      openedSection:
+        prevState.openedSection === sectionLabel ? null : sectionLabel,
+    }));
   };
 
-  const openTelegram = () => {
-    window.open('https://t.me/brovko_telegram_account', '_blank');
-  };
+  const location = useLocation();
 
-  const openViber = () => {
-    window.open('viber://chat?number=+380685072222', '_blank');
+  useEffect(() => {
+    // Скидаємо стани іконок при зміні шляху (URL)
+    setFooterState(prevState => ({
+      ...prevState,
+      socialIconStates: {},
+      bankIconStates: {},
+    }));
+  }, [location.pathname]);
+
+  const handleIconClick = (iconLabel, isSocialIcon) => {
+    setFooterState(prevState => {
+      if (isSocialIcon) {
+        return {
+          ...prevState,
+          socialIconStates: {
+            ...prevState.socialIconStates,
+            [iconLabel]: !prevState.socialIconStates[iconLabel],
+          },
+        };
+      } else {
+        return {
+          ...prevState,
+          bankIconStates: {
+            ...prevState.bankIconStates,
+            [iconLabel]: !prevState.bankIconStates[iconLabel],
+          },
+        };
+      }
+    });
   };
 
   return (
@@ -53,21 +70,21 @@ export default function Footer({ onClick }) {
             links={aboutUsLinks}
             icon={<ArrowDownIcon />}
             label="Про нас"
-            isOpen={openedSection === 'Про нас'}
+            isOpen={footerState.openedSection === 'Про нас'}
             onToggle={toggleSection}
           />
           <FooterItem
             links={supportLinks}
             icon={<ArrowDownIcon />}
             label="Допомога"
-            isOpen={openedSection === 'Допомога'}
+            isOpen={footerState.openedSection === 'Допомога'}
             onToggle={toggleSection}
           />
           <FooterItem
             links={companyLinks}
             icon={<ArrowDownIcon />}
             label="Для вас"
-            isOpen={openedSection === 'Для вас'}
+            isOpen={footerState.openedSection === 'Для вас'}
             onToggle={toggleSection}
           />
         </div>
@@ -78,23 +95,28 @@ export default function Footer({ onClick }) {
           </a>
           <div className={styles.footerIconsContainers}>
             <div className={styles.socialIcons}>
-              <button className={styles.iconButton} onClick={openInstagram}>
-                <InstaIcon className={styles.icon} />
-              </button>
-              <button className={styles.iconButton} onClick={openViber}>
-                <ViberIcon className={styles.icon} />
-              </button>
-              <button className={styles.iconButton} onClick={openTelegram}>
-                <TelegramIcon className={styles.icon} />
-              </button>
+              {socialIconsData.map(({ label, href, icon }) => (
+                <FooterIcon
+                  key={label}
+                  href={href}
+                  icon={icon}
+                  label={label}
+                  isActive={footerState.socialIconStates[label]}
+                  onClick={() => handleIconClick(label, true)}
+                />
+              ))}
             </div>
             <div className={styles.bankIcons}>
-              <button className={styles.iconButton} onClick={openTelegram}>
-                <VisaIcon className={styles.icon} />{' '}
-              </button>
-              <button className={styles.iconButton} onClick={openTelegram}>
-                <MasterCardIcon className={styles.icon} />
-              </button>
+              {bankIconsData.map(({ label, href, icon }) => (
+                <FooterIcon
+                  key={label}
+                  href={href}
+                  icon={icon}
+                  label={label}
+                  isActive={footerState.bankIconStates[label]}
+                  onClick={() => handleIconClick(label, false)}
+                />
+              ))}
             </div>
           </div>
         </div>

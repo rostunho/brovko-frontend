@@ -19,7 +19,7 @@ const ProductList = () => {
   }, [dispatch]);
 
   const { products } = useSelector(getAllProducts);
-  // console.log(products);
+  console.log('products:', products);
 
   // Стан для пошуку та фільтрації
   const [searchTerm, setSearchTerm] = useState('');
@@ -28,8 +28,9 @@ const ProductList = () => {
 
   // обробкa події відправки форми
   const handleSearchSubmit = formData => {
+    // console.log('handleSearchSubmit is called');
     setSearchTerm(formData.search); // Оновити стан пошуку
-    console.log('Form data submitted:', formData);
+    // console.log('Form data submitted:', formData);
   };
 
   if (!products) {
@@ -95,7 +96,7 @@ const ProductList = () => {
       {sortedProducts.length > 0 ? (
         <ul className={styles.list}>
           {sortedProducts.map(product => (
-            <li key={product.id}>
+            <li key={product._id}>
               <ProductsItem product={product} />
             </li>
           ))}
