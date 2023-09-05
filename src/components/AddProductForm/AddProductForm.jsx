@@ -4,7 +4,8 @@ import { addRequestTemplate } from './AddRequestTemplate';
 import { getActiveCategories } from 'shared/services/categories';
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
-import Select from 'shared/components/Select/Select';
+// import Select from 'shared/components/Select/Select';
+import CategorySelector from 'components/CategorySelector/CategorySelector';
 import Button from 'shared/components/Button/Button';
 import Textarea from 'shared/components/Textarea/Textarea';
 import Prompt from 'shared/components/Prompt/Prompt';
@@ -14,33 +15,40 @@ import SettingsWheelIcon from 'shared/icons/SettingsWheelIcon';
 import styles from './AddProductForm.module.scss';
 
 export default function AddProductForm() {
-  const [request, setRequest] = useState(addRequestTemplate);
+  const [requestBody, setRequestBody] = useState(addRequestTemplate);
   const [categories, setCategories] = useState([]);
+  const [categoryValue, setCategoryValue] = useState('Без категорії');
+  // const [categoryAdding, setCategoryAdding] = useState(false);
 
   useEffect(() => {
     (async () => {
       const activeCategories = await getActiveCategories();
-      const categoryNames = activeCategories.caregory.map(el => el.name);
+      const categoryNames = activeCategories.caregory.map(el => {
+        return { name: el.name, id: el.id };
+      });
       setCategories(categoryNames);
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleInputChange = e => {
-    const updatedRequest = { ...request };
+    const updatedRequestBody = { ...requestBody };
 
     if (e.target.name.includes('-')) {
       const [obj, key] = devideInputName(e.target.name);
-      updatedRequest.product[0][obj][key] = e.target.value;
-      setRequest(updatedRequest);
+      updatedRequestBody.product[0][obj][key] = e.target.value;
+      setRequestBody(updatedRequestBody);
       return;
     }
 
-    // if (updatedRequest[0][e.target.name].isArray()) {
-    //   updatedRequest.product[0][e.target.name] = [...e.target.value];
-    // }
+    updatedRequestBody.product[0][e.target.name] = e.target.value;
+    setRequestBody(updatedRequestBody);
+  };
 
-    updatedRequest.product[0][e.target.name] = e.target.value;
-    setRequest(updatedRequest);
+  const fetchSelectorValue = value => {
+    setCategoryValue(value);
+    console.log(categoryValue);
+    return value;
   };
 
   const devideInputName = name => {
@@ -52,7 +60,7 @@ export default function AddProductForm() {
   };
 
   const volumeCount = () => {
-    const currentData = { ...request };
+    const currentData = { ...requestBody };
     const { height, width, length } = currentData.product[0];
     const volume = (Number(height) * Number(width) * Number(length)) / 1000000;
 
@@ -66,7 +74,8 @@ export default function AddProductForm() {
         className={styles.form}
         onSubmit={async e => {
           e.preventDefault();
-          await addNewProduct(request); // change to form submit
+          await addNewProduct(requestBody);
+          // console.log(e.target[2].value);
         }}
       >
         <Input label="Назва" name="name" onChange={handleInputChange} />
@@ -77,10 +86,20 @@ export default function AddProductForm() {
           onChange={handleInputChange}
         />
 
-        <div className={styles.category}>
-          <Select label="Категорія" name="Category" data={categories} />
+        <CategorySelector
+          data={categories}
+          fetchSelectorValue={fetchSelectorValue}
+        />
+
+        {/* <div className={styles.category}>
+          <Select
+            label="Категорія"
+            name="Category"
+            data={categories}
+            defaultValue="Без категорії"
+          />
           <Button mode="adding">Додати категорію </Button>
-        </div>
+        </div> */}
 
         <div className={styles.innerContainer}>
           <Input

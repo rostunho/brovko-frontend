@@ -31,7 +31,8 @@ export const addNewProduct = async body => {
   console.log(JSON.stringify(body));
 
   try {
-    const url = `${BROVKO_API}/products/add-product`;
+    // const url = `${BROVKO_API}/products/add-product`;
+    const url = 'http://localhost:5000/api/products/add-product';
     const data = JSON.stringify(body);
     const headers = { 'Content-Type': 'application/json' };
 
@@ -41,8 +42,5 @@ export const addNewProduct = async body => {
     return response.data;
   } catch (error) {
     console.log(error.message);
-    // console.log(response.message);
   }
-
-  // return data;
 };
