@@ -2,7 +2,7 @@ import { useState } from 'react';
 import DropdownMenu from './DropdownMenu';
 import Button from 'shared/components/Button';
 import ArrowDownIcon from 'shared/icons/ArrowDownIcon';
-import Select from 'shared/components/Select';
+import Selector from 'shared/components/Selector';
 import { categories, sortingOptions } from './constants';
 import styles from './Filter.module.scss';
 
@@ -49,7 +49,7 @@ export default function Filter({ onCategorySelect, onSortingSelect }) {
         )}
       </div>
       <div className={styles.buttonContainer}>
-        {/* <Select
+        {/* <Selector
           size="sm"
           data={sortingOptions}
           onOptionPress={handleSortingSelect}

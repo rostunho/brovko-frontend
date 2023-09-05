@@ -28,8 +28,6 @@ export const deleteProductById = async id => {
 };
 
 export const addNewProduct = async body => {
-  console.log(JSON.stringify(body));
-
   try {
     // const url = `${BROVKO_API}/products/add-product`;
     const url = 'http://localhost:5000/api/products/add-product';

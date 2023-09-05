@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
-import SaveIcon from 'shared/icons/SaveIcon';
-import styles from './Select.module.scss';
+import { initialSelectorValue } from './initialSelectorValue';
+import styles from './Selector.module.scss';
 
-export default function Select({
-  data,
+export default function Selector({
+  label = 'Категорія :',
   name,
+  data,
   defaultValue,
   form,
   size,
@@ -20,10 +21,11 @@ export default function Select({
   defaultOption = 'Без категорії',
   ...props
 }) {
-  const [currentValue, setCurrentValue] = useState(defaultValue);
+  const [currentValue, setCurrentValue] = useState(
+    defaultValue || initialSelectorValue
+  );
   const [categories, setCategories] = useState([]);
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-  // const [enteringField, setEnteringField] = useState(false);
 
   let id = 0;
 
@@ -39,7 +41,7 @@ export default function Select({
   }, [openedDropdown]);
 
   useEffect(() => {
-    fetchSelectorValue(currentValue);
+    fetchSelectorValue && fetchSelectorValue(currentValue);
   }, [currentValue, fetchSelectorValue]);
 
   const toggleDropdown = () => {
@@ -47,19 +49,17 @@ export default function Select({
   };
 
   const onOptionPress = category => {
-    setCurrentValue(category);
+    setCurrentValue(prevValue => ({ ...prevValue, ...category }));
     toggleDropdown();
-    fetchSelectorValue(currentValue);
-    // props.onOptionPress(category);
   };
 
   return (
     <div className={styles.container}>
       <label className={styles.label}>
-        Категорія
+        {label}
         <input
           className={styles.select}
-          value={currentValue}
+          value={currentValue.name}
           readOnly
           onClick={toggleDropdown}
         />
@@ -75,22 +75,6 @@ export default function Select({
       </label>
       {dropdownIsOpen && (
         <fieldset className={styles['dropdown-container']}>
-          {enteringField && (
-            <label className={`${styles.label} ${styles['label-options']}`}>
-              <input
-                className={`${styles.option} ${styles['add-category']}`}
-                placeholder="Введіть назву категорії"
-                autoFocus
-              />
-              <button
-                type="button"
-                className={`${styles.button} ${styles['button--save']}`}
-                onClick={onSaveClick}
-              >
-                <SaveIcon className={`${styles.icon} ${styles['icon-save']}`} />
-              </button>
-            </label>
-          )}
           {categories.map(category => {
             const isCheched = currentValue === category.name;
             return (
@@ -108,7 +92,7 @@ export default function Select({
                   value={category.name}
                   className={styles.option}
                   defaultChecked={currentValue === category}
-                  onClick={() => onOptionPress(category.name)}
+                  onClick={() => onOptionPress(category)}
                 />
               </label>
             );
@@ -119,7 +103,10 @@ export default function Select({
   );
 }
 
-Select.propTypes = {
+Selector.propTypes = {
   data: PropTypes.array,
-  //   data: PropTypes.array.isRequired,
+  defaultValue: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string,
+  }),
 };
