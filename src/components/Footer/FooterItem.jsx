@@ -4,12 +4,6 @@ import { Link } from 'react-router-dom';
 import styles from './Footer.module.scss';
 
 const FooterItem = ({ icon, links, label, isOpen, onToggle }) => {
-  //   const [isOpen, setIsOpen] = useState(false);
-
-  //   const toggleOpen = () => {
-  //     setIsOpen(!isOpen);
-  //   };
-
   const toggleOpen = () => {
     onToggle(label);
   };

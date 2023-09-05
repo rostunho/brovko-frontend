@@ -92,9 +92,16 @@ const Input = ({
           {icon}
         </button>
       ) : (
-        <a href={link} className={styles.icon} target="_blank" rel="noreferrer">
-          {icon}
-        </a>
+        <>
+          {/* <a
+            href={link}
+            className={styles.icon}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {icon}
+          </a> */}
+        </>
       )}
     </label>
     // </div>
