@@ -22,6 +22,9 @@ const LazyContactsPage = lazy(() => import('pages/ContactsPage/ContactsPage'));
 const LazyProductListPage = lazy(() =>
   import('pages/ProductListPage/ProductListPage')
 );
+const LazyProductDetailPage = lazy(() =>
+  import('pages/ProductDetailPage/ProductDetailPage.jsx')
+);
 const LazyExchangeAndReturnPage = lazy(() =>
   import('pages/ExchangeAndReturnPage/ExchangeAndReturnPage')
 );
@@ -71,6 +74,10 @@ export const publicRoutes = [
   {
     path: '/product-list-page',
     Component: LazyProductListPage,
+  },
+  {
+    path: '/product/:productId',
+    Component: LazyProductDetailPage,
   },
   {
     path: '/about',

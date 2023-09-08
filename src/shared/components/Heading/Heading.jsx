@@ -7,8 +7,10 @@ export default function Heading({ type = 'h2', withGoBack, children }) {
   const from = location.state?.from || '/';
   const navigate = useNavigate();
 
+  console.log('from:', location);
+
   const onGoBackClick = () => {
-    navigate(from);
+    navigate(-1);
   };
 
   return (

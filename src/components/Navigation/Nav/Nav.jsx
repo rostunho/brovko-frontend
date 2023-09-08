@@ -36,9 +36,27 @@ export default function Nav({ onClick }) {
           </NavLink>
         </li>
 
-        <li className={styles.item} onClick={onClick}>
+        {/* <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/exchange-and-return">
             Обмін і повернення
+          </NavLink>
+        </li> */}
+
+        <li className={styles.item} onClick={onClick}>
+          <NavLink className={styles.link} to="/register">
+            Реєстрація
+          </NavLink>
+        </li>
+
+        <li className={styles.item} onClick={onClick}>
+          <NavLink className={styles.link} to="/admin">
+            Адмін
+          </NavLink>
+        </li>
+
+        <li className={styles.item} onClick={onClick}>
+          <NavLink className={styles.link} to="/login">
+            LogIn
           </NavLink>
         </li>
       </ul>
