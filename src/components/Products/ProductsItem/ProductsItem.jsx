@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import StarEmpty from 'shared/icons/StarEmpty';
 import Button from 'shared/components/Button/Button';
 import Image from 'shared/components/Image';
@@ -26,7 +27,10 @@ const ProductsItem = ({ product }) => {
           </div>
         </div>
         <div className={styles.buttons}>
-          <Button mode="outlined">Подробиці</Button>
+          <Link to={`/product/${product._id}`}>
+            <Button mode="outlined">Подробиці</Button>
+          </Link>
+
           <Button mode="primary">В кошик</Button>
         </div>
       </div>

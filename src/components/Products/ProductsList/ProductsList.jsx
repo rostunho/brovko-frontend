@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { getAllProducts } from 'redux/products/productsSelectors';
 import { fetchAllProducts } from 'redux/products/productsOperations';
@@ -97,7 +98,9 @@ const ProductList = () => {
         <ul className={styles.list}>
           {sortedProducts.map(product => (
             <li key={product._id}>
+              {/* <Link to={`/product/${product._id}`}> */}
               <ProductsItem product={product} />
+              {/* </Link> */}
             </li>
           ))}
         </ul>

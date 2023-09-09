@@ -22,6 +22,11 @@ export const getProductsByCategory = async (category = 'sets', page = 1) => {
   return data;
 };
 
+export const getProductById = async id => {
+  const { data } = await axios.get(`/products/${id}`);
+  return data;
+};
+
 export const deleteProductById = async id => {
   const { data } = instance.delete(`/products/${id}`);
   return data;
