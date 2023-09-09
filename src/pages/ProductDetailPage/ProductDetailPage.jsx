@@ -1,15 +1,20 @@
-import { useParams } from 'react-router-dom';
+import { useParams, Outlet, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getAllProducts } from 'redux/products/productsSelectors';
 
 import Heading from 'shared/components/Heading';
 import Image from 'shared/components/Image';
 import StarEmpty from 'shared/icons/StarEmpty';
+import ProductDescription from './ProductDescription';
 
 import styles from './ProductDetailPage.module.scss';
 import Button from 'shared/components/Button';
 
 export default function ProductDetailPage() {
+  const location = useLocation();
+  const from = location.state?.from || '/';
+
   const { productId } = useParams();
 
   const allProducts = useSelector(getAllProducts);
@@ -42,9 +47,11 @@ export default function ProductDetailPage() {
           <Image className={styles.imageSlider} src={product.picture} />
           <Image className={styles.imageSlider} src={product.picture} />
         </div>
-        <div className={styles.description}>
-          <h3>Склад:</h3>
-          <p className={styles.descriptionText}>{product.description}</p>
+        <div className={styles.contentContainer}>
+          <p className={styles.contentText}>
+            <span className={styles.contentHeader}>СКЛАД:</span>
+            {product.description}
+          </p>
         </div>
         <div className={styles.price}>
           <h3>
@@ -56,9 +63,26 @@ export default function ProductDetailPage() {
             <Button mode={'adding'} style={{ minWidth: '24px' }}></Button>
           </div>
         </div>
-        <Button type="submit" style={{ marginTop: '33px' }}>
+
+        <Button
+          type="submit"
+          style={{ paddingLeft: 86, paddingRight: 86, marginTop: 33 }}
+        >
           Додати в кошик
         </Button>
+
+        <div className={styles.descriptionContainer}>
+          <h3 style={{ marginBottom: 8 }}>Опис</h3>
+          {product.description}
+          <Link
+            to={`/product/${productId}/description`}
+            state={{ from: location.state?.from } ?? '/'}
+            className={styles.readMoreLink}
+          >
+            <p> Читати повністю </p>
+          </Link>
+        </div>
+        <Outlet />
       </div>
     </>
   );

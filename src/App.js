@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router';
+import { Routes, Route, Navigate, Outlet } from 'react-router';
 import { Suspense } from 'react';
 
 import SharedLayout from 'components/SharedLayout/SharedLayout';
@@ -6,6 +6,7 @@ import SharedLayout from 'components/SharedLayout/SharedLayout';
 import { authRoutes, publicRoutes } from './routes';
 
 import './App.css';
+import ProductDescription from 'pages/ProductDetailPage/ProductDescription';
 
 function App() {
   return (
@@ -41,6 +42,11 @@ function App() {
 
         {/* Redirect */}
         <Route path="*" element={<Navigate to="/" />} />
+      </Route>
+
+      {/* Вкладений маршрут для відображення деталей товару */}
+      <Route path="/product/:productId" element={<Outlet />}>
+        <Route path="description" element={<ProductDescription />} />
       </Route>
     </Routes>
   );

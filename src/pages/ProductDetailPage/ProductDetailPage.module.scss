@@ -81,23 +81,8 @@
   line-height: normal;
 }
 
-.description {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  border: 1px solid var(--Accent, #f3a610);
-}
-
-.descriptionText {
-  width: 288px;
-  color: var(--Black, #191c2c);
-  font: 14px normal 400 Nunito;
-  line-height: normal;
-  word-wrap: break-word;
-  white-space: normal;
-}
-
 .price {
+  border: 1px solid var(--Accent, #f3a610);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -108,4 +93,51 @@
   display: flex;
   flex-direction: row;
   gap: 8px;
+}
+
+.contentContainer {
+  border: 1px solid var(--Accent, #f3a610);
+  color: var(--Black, #191c2c);
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.contentText {
+  color: var(--Black, #191c2c);
+  font-size: 14px;
+}
+
+.contentHeader {
+  display: inline;
+  margin-right: 8px;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.descriptionContainer {
+  border: 1px solid var(--Accent, #f3a610);
+  margin-top: 20px;
+
+  color: var(--Black, #191c2c);
+  word-wrap: break-word;
+  white-space: normal;
+}
+.descriptionText {
+  color: var(--Black, #191c2c);
+  font-size: 14px;
+  max-height: 57px;
+  overflow: hidden;
+  position: relative;
+}
+
+.readMoreButton {
+  color: var(--Accent, #f3a610);
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 8px;
+}
+.expanded {
+  max-height: none;
 }
