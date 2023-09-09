@@ -1,26 +1,20 @@
 .productCard {
   max-width: 448px;
   width: 92vw;
-  // width: 100%;
   display: flex;
   flex-direction: column;
   gap: 12px;
   padding-top: 16px;
   padding-bottom: 16px;
-  //   padding-right: 12px;
-  //   padding-left: 12px;
-  background: var(--unnamed, rgb(242, 241, 241));
+  // background: var(--unnamed, rgb(242, 241, 241));
   border-radius: 16px;
-}
+  // border: solid grey 1px;
 
-@media screen and (min-width: 480px) and (max-width: 767px) {
-  .productCard {
+  @media screen and (min-width: 480px) and (max-width: 767px) {
     width: 448px;
   }
-}
 
-@media screen and (min-width: 768px) {
-  .productCard {
+  @media screen and (min-width: 768px) {
     width: 288px;
     height: 100%;
   }
@@ -28,26 +22,46 @@
 
 .image {
   // width: 78vw;
-  width: 100%;
-  height: 86vw;
-  margin-right: 0;
+  width: 288px;
+  height: 288px;
+  margin-top: 10px;
   background-color: #fefefe;
   border-radius: 8px;
   overflow: hidden;
   border: solid red 1px;
-}
 
-@media screen and (min-width: 480px) and (max-width: 767px) {
-  .image {
+  @media screen and (min-width: 480px) and (max-width: 767px) {
     width: 424px;
     height: 424px;
   }
-}
 
-@media screen and (min-width: 768px) {
-  .image {
+  @media screen and (min-width: 768px) {
     width: 264px;
     height: 264px;
+  }
+}
+
+.imageSliderContainer {
+  border: 1px solid var(--Accent, #f3a610);
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.imageSlider {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  border: 1px solid var(--Accent, #f3a610);
+  // background: lightgray 50%;
+
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    width: 448px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 288px;
+    height: 100%;
   }
 }
 
@@ -65,4 +79,33 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid var(--Accent, #f3a610);
+}
+
+.descriptionText {
+  width: 288px;
+  color: var(--Black, #191c2c);
+  font: 14px normal 400 Nunito;
+  line-height: normal;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.price {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1px;
+}
+
+.amount {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
 }
