@@ -7,11 +7,10 @@ import { getAllProducts } from 'redux/products/productsSelectors';
 import Heading from 'shared/components/Heading';
 import Image from 'shared/components/Image';
 import StarEmpty from 'shared/icons/StarEmpty';
-import ProductDescription from './ProductDescription';
+import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
 
 import styles from './ProductDetailPage.module.scss';
 import Button from 'shared/components/Button';
-import react from 'react';
 
 export default function ProductDetailPage() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -66,9 +65,15 @@ export default function ProductDetailPage() {
             {product.price} {product.currencyId}
           </h3>
           <div className={styles.amount}>
-            <Button mode={'adding'} style={{ minWidth: '24px' }}></Button>
+            <Button
+              mode={'adding'}
+              style={{ minWidth: '24px', fill: '#f3a610' }}
+            ></Button>
             <h3>1</h3>
-            <Button mode={'adding'} style={{ minWidth: '24px' }}></Button>
+            <Button
+              mode={'adding'}
+              style={{ minWidth: '24px', fill: '#f3a610' }}
+            ></Button>
           </div>
         </div>
 
@@ -86,15 +91,18 @@ export default function ProductDetailPage() {
               <Outlet />
             ) : (
               <>
-                {product.description.slice(0, 50)}
+                <p className={styles.descriptionText}>
+                  {product.description.slice(0, 20)}
+                </p>
                 {!isExpanded && (
                   <Link
                     to={`description`}
-                    state={{ from: location.state?.from } ?? '/'}
+                    state={{ from: location }}
                     className={styles.readMoreLink}
                     onClick={handleReadMoreClick}
                   >
-                    <p>Читати повністю</p>
+                    <p className={styles.readMoreButton}>Читати повністю</p>
+                    <DropdownArrowIcon className={`${styles.readMoreIcon} `} />
                   </Link>
                 )}
               </>
@@ -102,6 +110,27 @@ export default function ProductDetailPage() {
           ) : (
             <p>Завантаження...</p>
           )}
+        </div>
+        <div className={styles.rewieContainer}>
+          <Link to={`rewie`} state={{ from: location }}>
+            <div className={styles.rewieTitleContainer}>
+              <h3 className={styles.rewieTitle}>
+                Відгуки покупців <span className={styles.rewieCount}>(8)</span>
+              </h3>
+            </div>
+
+            <p className={styles.descriptionText}>
+              Ваші відгуки допоможуть іншим у виборі смаколика для свого
+              улюбленця!
+            </p>
+            <Button
+              type="submit"
+              mode="outlined"
+              style={{ paddingLeft: 86, paddingRight: 86, marginTop: 20 }}
+            >
+              Залишити відгук
+            </Button>
+          </Link>
         </div>
       </div>
     </>
