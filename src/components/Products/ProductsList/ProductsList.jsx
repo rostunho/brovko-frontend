@@ -20,7 +20,7 @@ const ProductList = () => {
   }, [dispatch]);
 
   const { products } = useSelector(getAllProducts);
-  console.log('products:', products);
+  // console.log('products:', products);
 
   // Стан для пошуку та фільтрації
   const [searchTerm, setSearchTerm] = useState('');
@@ -62,22 +62,22 @@ const ProductList = () => {
   if (selectedSortingOption) {
     if (selectedSortingOption === 'Від дешевих до дорогих') {
       sortedProducts.sort((a, b) => {
-        console.log('a.price:', a.price, 'b.price:', b.price);
+        // console.log('a.price:', a.price, 'b.price:', b.price);
         return a.price - b.price;
       });
     } else if (selectedSortingOption === 'Від дорогих до дешевих') {
       sortedProducts.sort((a, b) => {
-        console.log('a.price:', a.price, 'b.price:', b.price);
+        // console.log('a.price:', a.price, 'b.price:', b.price);
         return b.price - a.price;
       });
     } else if (selectedSortingOption === 'За рейтингом') {
       sortedProducts.sort((a, b) => {
-        console.log('a.rating:', a.rating, 'b.rating:', b.rating);
+        // console.log('a.rating:', a.rating, 'b.rating:', b.rating);
         return b.rating - a.rating;
       });
     } else if (selectedSortingOption === 'Новинки') {
       sortedProducts.sort((a, b) => {
-        console.log('a.createdAt:', a.createdAt, 'b.createdAt:', b.createdAt);
+        // console.log('a.createdAt:', a.createdAt, 'b.createdAt:', b.createdAt);
         // return b.createdAt.localeCompare(a.createdAt);
       });
     }

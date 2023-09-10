@@ -4,7 +4,7 @@ import BasketLight from 'shared/icons/BasketLight';
 import UserLight from 'shared/icons/UserLight';
 import CrossIcon from 'shared/icons/CrossIcon';
 import styles from './MobileMenu.module.scss';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 export default function MobileMenu({ children, onClick, isMobile }) {
   return createPortal(

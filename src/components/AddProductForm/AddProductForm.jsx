@@ -4,6 +4,7 @@ import { getActiveCategories } from 'shared/services/categories';
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
 import Selector from 'shared/components/Selector/Selector';
+import AddCategoryPopup from 'components/AddCategoryPopup/AddCategoryPopup';
 import Button from 'shared/components/Button/Button';
 import Textarea from 'shared/components/Textarea/Textarea';
 import Prompt from 'shared/components/Prompt/Prompt';
@@ -20,6 +21,7 @@ export default function AddProductForm() {
   const [categories, setCategories] = useState([]);
   const [selectorValue, fetchSelectorValue] = useSelectorValue();
   const [productSize, setProductSize] = useState('0');
+  const [categoryModalisOpen, setCategoryModalisOpen] = useState(true);
   const formRef = useRef();
 
   useEffect(() => {
@@ -59,8 +61,15 @@ export default function AddProductForm() {
 
   const handleSubmit = async event => {
     event.preventDefault();
+
+    console.log(requestBody);
+
     await addNewProduct(requestBody);
     formRef.current.reset();
+  };
+
+  const toggleCategoryModal = () => {
+    setCategoryModalisOpen(!categoryModalisOpen);
   };
 
   return (
@@ -85,8 +94,14 @@ export default function AddProductForm() {
             data={categories}
             fetchSelectorValue={fetchSelectorValue}
           />
-          <Button mode="adding">Додати категорію </Button>
+          <Button mode="adding" onClick={toggleCategoryModal}>
+            Додати категорію
+          </Button>
         </div>
+
+        {categoryModalisOpen && (
+          <AddCategoryPopup closeModal={toggleCategoryModal} />
+        )}
 
         <div className={styles.innerContainer}>
           <Input

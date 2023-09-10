@@ -27,14 +27,14 @@ export default function Filter({ onCategorySelect, onSortingSelect }) {
     setShowCategoriesMenu(false);
     setSelectedCategory(category === 'Всі категорії' ? null : category); // Збросити вибрану категорію
     onCategorySelect(category === 'Всі категорії' ? null : category); // Виклик функції батьківського компонента
-    console.log(category);
+    // console.log(category);
   };
 
   const handleSortingSelect = option => {
     setShowSortingMenu(false);
     setSelectedSortingOption(option);
     onSortingSelect(option);
-    console.log('Option:', option);
+    // console.log('Option:', option);
   };
 
   return (

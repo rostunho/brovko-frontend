@@ -5,7 +5,7 @@ import styles from './Modal.module.scss';
 
 const modalEl = document.querySelector('#modal-root');
 
-const Modal = ({ closeModal, children }) => {
+const Modal = ({ closeModal, centered, children }) => {
   const closeModalOnClick = useCallback(
     ({ key, target, currentTarget }) => {
       if (key === 'Escape' || target === currentTarget) {
@@ -23,7 +23,11 @@ const Modal = ({ closeModal, children }) => {
 
   return createPortal(
     <div className={styles.backdrop} onClick={closeModalOnClick}>
-      <div className={styles.modal}>{children}</div>
+      <div
+        className={`${styles.modal} ${centered && styles['modal--centered']}`}
+      >
+        {children}
+      </div>
     </div>,
     modalEl
   );
