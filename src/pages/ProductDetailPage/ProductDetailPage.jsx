@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams, Outlet, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -10,8 +11,11 @@ import ProductDescription from './ProductDescription';
 
 import styles from './ProductDetailPage.module.scss';
 import Button from 'shared/components/Button';
+import react from 'react';
 
 export default function ProductDetailPage() {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const location = useLocation();
   const from = location.state?.from || '/';
 
@@ -20,13 +24,17 @@ export default function ProductDetailPage() {
   const allProducts = useSelector(getAllProducts);
 
   const product =
-    allProducts && allProducts.products.find(p => p._id === productId);
+    allProducts && allProducts.products?.find(p => p._id === productId);
 
   if (!product) {
     return <p>Товар не знайдено</p>;
   }
 
   const { name } = product;
+
+  const handleReadMoreClick = () => {
+    setIsExpanded(true);
+  };
 
   return (
     <>
@@ -73,16 +81,28 @@ export default function ProductDetailPage() {
 
         <div className={styles.descriptionContainer}>
           <h3 style={{ marginBottom: 8 }}>Опис</h3>
-          {product.description}
-          <Link
-            to={`/product/${productId}/description`}
-            state={{ from: location.state?.from } ?? '/'}
-            className={styles.readMoreLink}
-          >
-            <p> Читати повністю </p>
-          </Link>
+          {product ? (
+            isExpanded ? (
+              <Outlet />
+            ) : (
+              <>
+                {product.description.slice(0, 50)}
+                {!isExpanded && (
+                  <Link
+                    to={`description`}
+                    state={{ from: location.state?.from } ?? '/'}
+                    className={styles.readMoreLink}
+                    onClick={handleReadMoreClick}
+                  >
+                    <p>Читати повністю</p>
+                  </Link>
+                )}
+              </>
+            )
+          ) : (
+            <p>Завантаження...</p>
+          )}
         </div>
-        <Outlet />
       </div>
     </>
   );
