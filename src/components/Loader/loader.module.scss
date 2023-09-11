@@ -20,7 +20,7 @@
 // }
 
 #ground {
-   fill: rgba(0, 0, 0, 0.5);
+  fill: rgba(0, 0, 0, 0.5);
 }
 
 #pawleft {
@@ -40,12 +40,34 @@
   0% {
     transform: rotate(0deg) translateY(0);
   }
-  50% {
-    transform: rotate(10deg) translateY(1px);
+  // 10% {
+  //   transform: rotate(10deg) translateY(1px);
+  // }
+  20% {
+    transform: rotate(-90deg) translate(5%, -1% );
   }
-  /* 60% {
-    transform: rotate(20deg) translateY(-3px);
-  } */
+  // 30% {
+  //   transform: rotate(10deg) translateY(1px);
+  // }
+  40% {
+    transform: rotate(-90deg) translate(8%, -10% );
+  }
+  // 50% {
+  //   transform: rotate(10deg) translateY(1px);
+
+  // }
+  60% {
+    transform: rotate(-60deg) translate(-8%, -10% );
+  }
+  // 70% {
+  //   transform: rotate(20deg) translateY(-3px);
+  // }
+  // 80% {
+  //   transform: rotate(10deg) translateY(1px);
+  // }
+  // 90% {
+  //   transform: rotate(10deg) translateY(1px);
+  // }
   100% {
     transform: rotate(0deg) translateY(0);
   }
