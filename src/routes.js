@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-import ProductDescription from 'pages/ProductDetailPage/ProductDescription';
+import ProductDescriptionPage from 'pages/ProductDetailPage/ProductDescription';
 
 const LazyAboutPage = lazy(() => import('pages/AboutPage/AboutPage'));
 const LazyAdminPage = lazy(() => import('pages/AdminPage'));
@@ -101,7 +101,7 @@ export const publicRoutes = [
     children: [
       {
         path: 'description',
-        element: <ProductDescription />,
+        element: <ProductDescriptionPage />,
       },
     ],
   },
