@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  height: 96px;
+  // height: 96px;
 }
 
 .heading {
@@ -28,6 +28,11 @@
     &.with-goback {
       margin-left: 12px;
     }
+  }
+
+  &.medium {
+    font-size: 28px;
+    padding: 0;
   }
 
   // .medium {

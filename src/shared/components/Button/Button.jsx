@@ -53,7 +53,7 @@ Button.propTypes = {
   children: PropTypes.node,
   type: PropTypes.oneOf(['button', 'submit']),
   mode: PropTypes.string,
-  // mode: PropTypes.oneOf(['adding', 'settings', 'goBack']),
+  // mode: PropTypes.oneOf(['adding', 'settings', 'goBack', 'outlined']),
   size: PropTypes.oneOf(['sm', 'md', 'lg']),
   onClick: PropTypes.func,
 };

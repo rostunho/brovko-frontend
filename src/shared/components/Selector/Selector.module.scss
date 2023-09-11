@@ -110,6 +110,8 @@
   right: 0;
   padding: 8px 0;
   width: calc(100% - 40px);
+  max-height: 210px;
+  overflow: scroll;
 
   border-radius: 8px;
   border: 1px solid #7b7b7b;

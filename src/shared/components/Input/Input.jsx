@@ -25,6 +25,7 @@ const Input = ({
   style,
   checked,
   onClick,
+  additionalFunction,
   ...props
 }) => {
   const [checkboxChecked, setCheckboxChecked] = useState(false);
@@ -32,6 +33,7 @@ const Input = ({
 
   const handleChackbox = () => {
     setCheckboxChecked(!checkboxChecked);
+    additionalFunction && additionalFunction();
   };
 
   const withIcon = icon || type === 'password' || type === 'search';

@@ -1,4 +1,4 @@
-import { addRequestTemplate } from 'components/AddProductForm/AddRequestTemplate';
+import { addProductRequestTemplate } from 'components/AddProductForm/addProductRequestTemplate';
 
 export const addProductReducer = (state, action) => {
   const { type, payload } = action;
@@ -94,7 +94,7 @@ export const addProductReducer = (state, action) => {
       return newState;
 
     case 'CLEAR_FORM':
-      return { ...addRequestTemplate };
+      return { ...addProductRequestTemplate };
 
     default:
       return state;

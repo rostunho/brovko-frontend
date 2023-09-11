@@ -5,18 +5,18 @@ import css from './QuantityButton.module.scss';
 
 const QuantityButton = ({ value = 1, setValue, mode, size }) => {
   const addOne = () => {
-    setValue((prevValue) => prevValue + 1);
+    setValue(prevValue => prevValue + 1);
   };
 
   const minusOne = () => {
-    setValue((prevValue) => prevValue - 1);
+    setValue(prevValue => prevValue - 1);
   };
 
   return (
     <div
-      className={`${css['quantity-container']} ${css[`quantity-container_${mode}`]} ${
-        css[`quantity-container_${size}`]
-      }`}
+      className={`${css['quantity-container']} ${
+        css[`quantity-container_${mode}`]
+      } ${css[`quantity-container_${size}`]}`}
     >
       <button
         className={css['quantity-container__button']}

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import instance from './instance';
 
-const BROVKO_API = process.env.REACT_APP_BROVKO_API;
+// const BROVKO_API = process.env.REACT_APP_BROVKO_API;
 
 export const getAllProducts = async (page = 1) => {
   const { data } = await instance.get('/products', {

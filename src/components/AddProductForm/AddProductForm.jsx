@@ -4,6 +4,7 @@ import { getActiveCategories } from 'shared/services/categories';
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
 import Selector from 'shared/components/Selector/Selector';
+import AddCategoryPopup from 'components/AddCategoryPopup/AddCategoryPopup';
 import Button from 'shared/components/Button/Button';
 import Textarea from 'shared/components/Textarea/Textarea';
 import Prompt from 'shared/components/Prompt/Prompt';
@@ -20,6 +21,7 @@ export default function AddProductForm() {
   const [categories, setCategories] = useState([]);
   const [selectorValue, fetchSelectorValue] = useSelectorValue();
   const [productSize, setProductSize] = useState('0');
+  const [categoryModalisOpen, setCategoryModalisOpen] = useState(false);
   const formRef = useRef();
 
   useEffect(() => {
@@ -59,8 +61,13 @@ export default function AddProductForm() {
 
   const handleSubmit = async event => {
     event.preventDefault();
+
     await addNewProduct(requestBody);
     formRef.current.reset();
+  };
+
+  const toggleCategoryModal = () => {
+    setCategoryModalisOpen(!categoryModalisOpen);
   };
 
   return (
@@ -83,10 +90,21 @@ export default function AddProductForm() {
           <Selector
             name="Category"
             data={categories}
+            defaultValue={{ name: 'Без категорії' }}
+            defaultOption="Без категорії"
             fetchSelectorValue={fetchSelectorValue}
           />
-          <Button mode="adding">Додати категорію </Button>
+          <Button mode="adding" onClick={toggleCategoryModal}>
+            Додати категорію
+          </Button>
         </div>
+
+        {categoryModalisOpen && (
+          <AddCategoryPopup
+            data={categories}
+            closeModal={toggleCategoryModal}
+          />
+        )}
 
         <div className={styles.innerContainer}>
           <Input
@@ -94,7 +112,6 @@ export default function AddProductForm() {
             name="costPerItem"
             onChange={e => dispatchRequestBody(e, 'ADD_PRICE')}
             length="md"
-            // placeholder="00.00"
           />
           <Input
             label="Cобівартість :"
@@ -213,7 +230,7 @@ export default function AddProductForm() {
           className={`${styles.innerContainer} ${styles.innerContainer_single}`}
         >
           <Input
-            label="ID :"
+            label="ID товару :"
             name="id"
             length="md"
             onChange={e => dispatchRequestBody(e, 'ADD_ID')}

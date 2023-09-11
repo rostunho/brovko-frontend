@@ -78,6 +78,7 @@
 
 .label_length-md {
   min-width: 138px;
+  width: calc(50% - 6px);
 
   & .input {
     text-align: center;
@@ -86,7 +87,7 @@
 }
 
 .label_length-lg {
-  min-width: 288px;
+  min-width: 256px;
 }
 
 .input {
