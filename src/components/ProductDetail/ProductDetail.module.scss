@@ -146,6 +146,10 @@
 
 .readMoreIcon {
   stroke: #f3a610;
+
+  &-reverse {
+    transform: rotate(180deg);
+  }
 }
 
 .expanded {
@@ -154,6 +158,7 @@
 
 .rewieContainer {
   display: flex;
+  flex-direction: column;
 }
 
 .rewieTitleContainer {
@@ -164,8 +169,65 @@
 
 .rewieTitle {
   color: var(--Black, #191c2c);
+  margin-bottom: 8px;
 }
 
 .rewieCount {
   color: var(--Gray, #a3a5a4);
+}
+
+.reviewItem {
+  padding: 16px;
+  width: 288px;
+  // height: 146px;
+  border-radius: 8px;
+  border: 1px solid var(--Stroke, #f0f0f0);
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 8px;
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+  margin-left: 16px;
+}
+
+.userName {
+  color: var(--Black, #191c2c);
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.reviewDate {
+  color: var(--Gray, #a3a5a4);
+  font-family: Nunito;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.reviewText {
+  margin-top: 12px;
+  color: var(--Black, #191c2c);
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.reviewList {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
