@@ -25,7 +25,7 @@
 
 #pawleft {
   animation: rotatefront 1s ease-in-out infinite;
-  transform-origin: center;
+  transform-origin: center ;
   background-color: #2c0edb;
   fill: red;
 }
@@ -44,20 +44,20 @@
   //   transform: rotate(10deg) translateY(1px);
   // }
   20% {
-    transform: rotate(-90deg) translate(5%, -1% );
+    transform: rotate(-45deg) translate(20px, -2px );
   }
   // 30% {
   //   transform: rotate(10deg) translateY(1px);
   // }
   40% {
-    transform: rotate(-90deg) translate(8%, -10% );
+    transform: rotate(-45deg) translate(10px, -10px );
   }
   // 50% {
   //   transform: rotate(10deg) translateY(1px);
 
   // }
   60% {
-    transform: rotate(-60deg) translate(-8%, -10% );
+    transform: rotate(-45deg) translate(0px, -15px);
   }
   // 70% {
   //   transform: rotate(20deg) translateY(-3px);
