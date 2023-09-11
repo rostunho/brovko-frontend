@@ -78,13 +78,7 @@ export default function AddCategoryPopup({ data, closeModal, ...prop }) {
           />
         )}
 
-        <Button
-          type="button"
-          size="lg"
-          mode="outlined"
-          onClick={onSave}
-          style={{ marginTop: '16px' }}
-        >
+        <Button type="button" onClick={onSave} style={{ marginTop: '16px' }}>
           Зберегти
         </Button>
       </form>
