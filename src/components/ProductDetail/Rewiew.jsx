@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
 import Button from 'shared/components/Button';
+import fakeReviewsData from './fakeRewiewsData';
+import ReviewItem from './RewiewItem';
+
 import styles from './ProductDetail.module.scss';
 
 export default function Review({ location }) {
   return (
     <div className={styles.rewieContainer}>
+      <h3 className={styles.rewieTitle}>
+        Відгуки покупців <span className={styles.rewieCount}>(8)</span>
+      </h3>
       <Link to={`rewie`} state={{ from: location }}>
-        <div className={styles.rewieTitleContainer}>
-          <h3 className={styles.rewieTitle}>
-            Відгуки покупців <span className={styles.rewieCount}>(8)</span>
-          </h3>
-        </div>
-
         <p className={styles.descriptionText}>
           Ваші відгуки допоможуть іншим у виборі смаколика для свого улюбленця!
         </p>
@@ -23,6 +23,12 @@ export default function Review({ location }) {
           Залишити відгук
         </Button>
       </Link>
+
+      <div className={styles.reviewList}>
+        {fakeReviewsData.map(review => (
+          <ReviewItem key={review.id} review={review} />
+        ))}
+      </div>
     </div>
   );
 }
