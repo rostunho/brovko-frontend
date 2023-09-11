@@ -1,0 +1,51 @@
+.title {
+  color: var(--Black, #191c2c);
+  /* h2 */
+  font-family: Amatic SC;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.96px;
+  padding-left: 61px;
+  padding-top: 32px;
+  padding-right: 60px;
+}
+
+.wrapperButton {
+  margin-left: auto;
+  width: 256px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 60px;
+  gap: 8px;
+}
+
+.textTotal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px;
+}
+
+.text {
+  color: var(--Black, #191c2c);
+  /* h3 */
+  font-family: Nunito;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding-left: 16px;
+}
+
+.total {
+  color: var(--Black, #191c2c);
+  /* h3 */
+  font-family: Nunito;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding-right: 16px;
+}
