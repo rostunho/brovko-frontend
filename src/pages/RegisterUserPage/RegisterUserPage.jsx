@@ -1,16 +1,22 @@
 import { NavLink } from 'react-router-dom';
 import styles from './RegisterUserPage.module.scss';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import { register } from 'redux/user/userOperations';
+import { selectIsLogin } from 'redux/user/userSelectors';
 import RegisterForm from 'components/AuthForm/RegisterForm/RegisterForm';
 import Heading from 'shared/components/Heading/Heading';
 import GoogleIcon from 'shared/icons/GoogleIcon';
 
 export default function RegisterUserPage() {
+  const isUserLogin = useSelector(selectIsLogin);
   const dispatch = useDispatch();
   const handleRegister = data => {
     dispatch(register(data));
   };
+  if (isUserLogin) {
+    return <Navigate to="/user-dashboard" />;
+  }
   return (
     <>
       <div className={styles.container}>

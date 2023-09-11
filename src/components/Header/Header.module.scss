@@ -29,3 +29,7 @@
   display: flex;
   gap: 8px;
 }
+
+.userIcon:hover * {
+  fill: var(--unnamed, #f3a610);
+}

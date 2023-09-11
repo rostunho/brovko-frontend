@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Input from 'shared/components/Input/Input';
 import Button from 'shared/components/Button/Button';
 import useForm from 'shared/hooks/useForm';
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
 
 import initialState from './initialState';
 
@@ -15,11 +15,15 @@ const RegisterForm = ({ onSubmit }) => {
     initialState,
     onSubmit,
   });
-  const { email, password, confirmPassword } = state;
+  const { email, password } = state;
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showConfirmPassword, setShowConfirmPassword] = useState('');
+
   return (
     <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
       <Input
         label="E-mail"
+        style={{ backgroundColor: '#801f1f' }}
         type="email"
         name="email"
         placeholder="Введіть свій e-mail"
