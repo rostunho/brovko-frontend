@@ -20,7 +20,7 @@
   // width: 87.5%;
   width: calc(100% - 32px);
   max-width: 420px;
-  padding: 32px 16px;
+  padding: 0 16px 32px; // якщо вставиш компонент Heading (заголовок), там вже буде верхній паддінг 32px.
   border: 1px solid var(--Stroke, #f0f0f0);
   background: var(--White, #fff);
 
@@ -35,10 +35,30 @@
 }
 
 .modal--centered {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-
-  top: 40%;
+  top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  outline: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+
+  stroke: #191c2c;
+
+  &:hover,
+  &:focus,
+  &:active {
+    stroke: #f3a610;
+  }
 }

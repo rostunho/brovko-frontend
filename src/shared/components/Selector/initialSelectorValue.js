@@ -1,1 +1,1 @@
-export const initialSelectorValue = { name: 'Без категорії', id: '' };
+export const initialSelectorValue = { name: '', id: '' };

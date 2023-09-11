@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../Button/Button';
 import styles from './Heading.module.scss';
 
-export default function Heading({ type = 'h2', withGoBack, children }) {
+export default function Heading({ type = 'h2', withGoBack, style, children }) {
   const location = useLocation();
   const from = location.state?.from || '/';
   const navigate = useNavigate();
@@ -21,6 +21,7 @@ export default function Heading({ type = 'h2', withGoBack, children }) {
           className={`${styles.heading} ${styles.main} ${
             withGoBack && styles['with-goback']
           }`}
+          style={style}
         >
           {children}
         </h1>
@@ -30,6 +31,7 @@ export default function Heading({ type = 'h2', withGoBack, children }) {
           className={`${styles.heading} ${styles.large} ${
             withGoBack && styles['with-goback']
           }`}
+          style={style}
         >
           {children}
         </h2>
@@ -39,6 +41,7 @@ export default function Heading({ type = 'h2', withGoBack, children }) {
           className={`${styles.heading} ${styles.medium} ${
             withGoBack && styles['with-goback']
           }`}
+          style={style}
         >
           {children}
         </h3>
@@ -48,6 +51,7 @@ export default function Heading({ type = 'h2', withGoBack, children }) {
           className={`${styles.heading} ${styles.small} ${
             withGoBack && styles['with-goback']
           }`}
+          style={style}
         >
           {children}
         </h4>

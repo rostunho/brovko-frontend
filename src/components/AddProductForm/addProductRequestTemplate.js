@@ -1,6 +1,6 @@
 const FORM_KEY = process.env.REACT_APP_BROVKO_FORM_KEY;
 
-export const addRequestTemplate = {
+export const addProductRequestTemplate = {
   form: FORM_KEY,
   action: 'update',
   dontUpdateFields: [],

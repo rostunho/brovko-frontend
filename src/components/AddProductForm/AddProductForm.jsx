@@ -21,7 +21,7 @@ export default function AddProductForm() {
   const [categories, setCategories] = useState([]);
   const [selectorValue, fetchSelectorValue] = useSelectorValue();
   const [productSize, setProductSize] = useState('0');
-  const [categoryModalisOpen, setCategoryModalisOpen] = useState(true);
+  const [categoryModalisOpen, setCategoryModalisOpen] = useState(false);
   const formRef = useRef();
 
   useEffect(() => {
@@ -62,8 +62,6 @@ export default function AddProductForm() {
   const handleSubmit = async event => {
     event.preventDefault();
 
-    console.log(requestBody);
-
     await addNewProduct(requestBody);
     formRef.current.reset();
   };
@@ -92,6 +90,8 @@ export default function AddProductForm() {
           <Selector
             name="Category"
             data={categories}
+            defaultValue={{ name: 'Без категорії' }}
+            defaultOption="Без категорії"
             fetchSelectorValue={fetchSelectorValue}
           />
           <Button mode="adding" onClick={toggleCategoryModal}>
@@ -100,7 +100,10 @@ export default function AddProductForm() {
         </div>
 
         {categoryModalisOpen && (
-          <AddCategoryPopup closeModal={toggleCategoryModal} />
+          <AddCategoryPopup
+            data={categories}
+            closeModal={toggleCategoryModal}
+          />
         )}
 
         <div className={styles.innerContainer}>
@@ -109,7 +112,6 @@ export default function AddProductForm() {
             name="costPerItem"
             onChange={e => dispatchRequestBody(e, 'ADD_PRICE')}
             length="md"
-            // placeholder="00.00"
           />
           <Input
             label="Cобівартість :"
@@ -228,7 +230,7 @@ export default function AddProductForm() {
           className={`${styles.innerContainer} ${styles.innerContainer_single}`}
         >
           <Input
-            label="ID :"
+            label="ID товару :"
             name="id"
             length="md"
             onChange={e => dispatchRequestBody(e, 'ADD_ID')}

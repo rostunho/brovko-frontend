@@ -78,6 +78,7 @@
 
 .label_length-md {
   min-width: 138px;
+  width: calc(50% - 6px);
 
   & .input {
     text-align: center;

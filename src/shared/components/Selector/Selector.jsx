@@ -7,18 +7,21 @@ import styles from './Selector.module.scss';
 export default function Selector({
   label = 'Категорія :',
   name,
+  value,
   data,
   defaultValue,
+  placeholder,
   form,
   size,
   fetchSelectorValue, // "витягує" поточне значення селектора в батьківський компонент
   openedDropdown,
   enteringField,
   onSaveClick,
+  onChange,
   multiple,
   required,
   disabled,
-  defaultOption = 'Без категорії',
+  defaultOption,
   ...props
 }) {
   const [currentValue, setCurrentValue] = useState(
@@ -31,6 +34,7 @@ export default function Selector({
 
   useEffect(() => {
     if (!defaultOption) {
+      setCategories([...data]);
       return;
     }
     setCategories([{ name: defaultOption, id: '' }, ...data]);
@@ -41,8 +45,9 @@ export default function Selector({
   }, [openedDropdown]);
 
   useEffect(() => {
-    fetchSelectorValue && fetchSelectorValue(currentValue);
-  }, [currentValue, fetchSelectorValue]);
+    fetchSelectorValue && fetchSelectorValue({ ...currentValue });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentValue]);
 
   const toggleDropdown = () => {
     setDropdownIsOpen(!dropdownIsOpen);
@@ -59,9 +64,11 @@ export default function Selector({
         {label}
         <input
           className={styles.select}
-          value={currentValue.name}
+          value={value || currentValue.name}
           readOnly
           onClick={toggleDropdown}
+          placeholder={placeholder}
+          onChange={onChange}
         />
         <button
           type="button"
@@ -76,7 +83,7 @@ export default function Selector({
       {dropdownIsOpen && (
         <fieldset className={styles['dropdown-container']}>
           {categories.map(category => {
-            const isCheched = currentValue === category.name;
+            const isCheched = currentValue.name === category.name;
             return (
               <label
                 key={id++}
@@ -88,11 +95,12 @@ export default function Selector({
                 <input
                   disabled={enteringField ? true : false}
                   type="radio"
-                  name="option"
+                  name={name || 'option'}
                   value={category.name}
                   className={styles.option}
-                  defaultChecked={currentValue === category}
+                  defaultChecked={currentValue.name === category.name}
                   onClick={() => onOptionPress(category)}
+                  onChange={onChange}
                 />
               </label>
             );

@@ -1,6 +1,25 @@
+import axios from 'axios';
 import instance from './instance';
+
+// const BROVKO_API = process.env.REACT_APP_BROVKO_API;
 
 export const getActiveCategories = async () => {
   const { data } = await instance.get('/categories');
   return data;
+};
+
+export const addNewCategory = async body => {
+  try {
+    // const url = `${BROVKO_API}/categories/add-category`;
+    const url = 'http://localhost:5000/api/categories/add-category';
+    const data = JSON.stringify(body);
+    const headers = { 'Content-Type': 'application/json' };
+
+    const response = await axios.post(url, data, { headers });
+    console.log('Post request response:', response.data);
+    console.log(response.data.message);
+    return response.data;
+  } catch (error) {
+    console.log(error.message);
+  }
 };
