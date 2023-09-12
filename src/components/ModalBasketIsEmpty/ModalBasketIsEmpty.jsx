@@ -12,6 +12,7 @@ const ModalBasketIsEmpty = () => {
         <div className={styles.wrapperButton}>
           <Button
             mode="primary"
+            size="lg"
             style={{
               paddingLeft: 16,
               paddingRight: 16,
