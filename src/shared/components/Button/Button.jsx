@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import AddingPlusIcon from '../../icons/AddingPlusIcon';
 import SettingsWheelIcon from '../../icons/SettingsWheelIcon';
 import GoBackIcon from 'shared/icons/GoBackIcon';
-import styles from './Button.module.scss';
 import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
+import CrossIcon from 'shared/icons/CrossIcon';
+import styles from './Button.module.scss';
 
 export default function Button({
   children,
@@ -45,6 +46,7 @@ export default function Button({
           className={`${styles.icon} ${clickOnSort && styles['icon--reverse']}`}
         />
       )}
+      {mode === 'close' && <CrossIcon large={size === 'lg'} />}
     </button>
   );
 }

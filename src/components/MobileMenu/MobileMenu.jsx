@@ -2,7 +2,7 @@ import { createPortal } from 'react-dom';
 import Logo from 'shared/icons/Logo';
 import BasketLight from 'shared/icons/BasketLight';
 import UserLight from 'shared/icons/UserLight';
-import CrossIcon from 'shared/icons/CrossIcon';
+import Button from 'shared/components/Button';
 import styles from './MobileMenu.module.scss';
 // import { Link } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ export default function MobileMenu({ children, onClick, isMobile }) {
   return createPortal(
     <div className={styles.mobileMenu}>
       <div className={styles.head}>
-        <CrossIcon className={styles.closeButton} onClick={onClick} />
+        <Button mode="close" size="lg" onClick={onClick} />
 
         <Logo onClick={onClick} />
 

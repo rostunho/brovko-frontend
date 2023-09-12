@@ -44,7 +44,6 @@
   width: 100%;
   font-size: 14px;
   font-weight: bold;
-  padding: 1rem 3.5rem;
 }
 
 .button_sm {
@@ -169,6 +168,42 @@
     & .icon {
       stroke: #fefefe;
     }
+  }
+}
+
+.button_lg.button_close {
+  width: 32px;
+  height: 32px;
+  stroke: #000;
+  fill: #000;
+  background-color: transparent;
+  padding: 0;
+  &:hover,
+  &:focus,
+  &:active {
+    stroke: #f3a610;
+    // fill: #f3a610;
+  }
+}
+
+.button_md.button_close {
+  min-width: 16px;
+  width: 16px;
+  height: 16px;
+
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  stroke: #191c2c;
+
+  &:hover,
+  &:focus,
+  &:active {
+    stroke: #f3a610;
   }
 }
 
