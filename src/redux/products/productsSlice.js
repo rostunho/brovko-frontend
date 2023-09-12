@@ -20,7 +20,8 @@ const productsSlice = createSlice({
       })
       .addCase(fetchAllProducts.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.items = payload;
+        state.items = payload.products;
+        state.totalPages = payload.totalPage;
       })
       .addCase(fetchAllProducts.rejected, (store, { payload }) => {
         store.loading = false;

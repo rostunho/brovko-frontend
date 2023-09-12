@@ -13,13 +13,13 @@ import Filter from 'components/Filter/Filter';
 import styles from './ProductsList.module.scss';
 
 const ProductList = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchAllProducts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchAllProducts());
+  // }, [dispatch]);
 
-  const { products } = useSelector(getAllProducts);
+  const products = useSelector(getAllProducts);
   // console.log('products:', products);
 
   // Стан для пошуку та фільтрації
