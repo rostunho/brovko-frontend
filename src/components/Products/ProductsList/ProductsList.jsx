@@ -20,7 +20,7 @@ const ProductList = () => {
   // }, [dispatch]);
 
   const products = useSelector(getAllProducts);
-  // console.log('products:', products);
+  console.log('products:', products);
 
   // Стан для пошуку та фільтрації
   const [searchTerm, setSearchTerm] = useState('');

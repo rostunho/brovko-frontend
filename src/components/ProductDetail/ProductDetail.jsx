@@ -20,7 +20,11 @@ export default function ProductDetail() {
   const location = useLocation();
   const from = location.state?.from || '/';
   const allProducts = useSelector(getAllProducts);
-  const product = allProducts.products?.find(p => p._id === productId);
+  const product = allProducts?.find(p => p._id === productId);
+
+  console.log('allProducts', allProducts);
+  console.log('product', product);
+  console.log('productID', productId);
 
   const [isExpanded, setIsExpanded] = useState(false);
   // Отримуємо isExpanded з location.state

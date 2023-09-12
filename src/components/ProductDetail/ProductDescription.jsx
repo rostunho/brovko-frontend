@@ -15,7 +15,8 @@ export default function ProductDescription() {
 
   const { productId } = useParams();
   const allProducts = useSelector(getAllProducts);
-  const product = allProducts.products?.find(p => p._id === productId);
+  console.log('allProducts:', allProducts);
+  const product = allProducts?.find(p => p._id === productId);
 
   // оновлення стану при завантаженні компонента
   useEffect(() => {
