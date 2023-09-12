@@ -20,7 +20,7 @@ const Navigation = ({ isMobile }) => {
   //   }, [isDesktop]);
 
   const toggleMobileMenu = e => {
-    e.preventDefault();
+    // e.preventDefault();
     // console.log('Toggle Mobile Menu');
     setShowMobileMenu(showMobileMenu => !showMobileMenu);
   };

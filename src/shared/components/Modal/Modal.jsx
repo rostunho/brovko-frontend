@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import CrossIconModal from 'shared/icons/CrossIconModal';
+import Button from '../Button';
+// import CrossIconModal from 'shared/icons/CrossIconModal';
 import styles from './Modal.module.scss';
 
 const modalEl = document.querySelector('#modal-root');
@@ -32,13 +33,7 @@ const Modal = ({ closeModal, centered, children }) => {
         className={`${styles.modal} ${centered && styles['modal--centered']}`}
       >
         {children}
-        <button
-          type="button"
-          className={styles['close-button']}
-          onClick={closeModal}
-        >
-          <CrossIconModal />
-        </button>
+        <Button mode="close" size="md" onClick={closeModal} />
       </div>
     </div>,
     modalEl
