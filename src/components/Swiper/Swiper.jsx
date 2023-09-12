@@ -14,6 +14,7 @@ const Swiper = () => {
 
   useEffect(() => {
     timeOut =
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       autoplay &&
       setTimeout(() => {
         setCurrentIdx(currentIdx === imgArray.length - 1 ? 0 : currentIdx + 1);
