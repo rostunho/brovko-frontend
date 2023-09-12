@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   align-self: center;
-  height: 39px;
+  height: 40px;
   padding: 0 16px;
 
   font-size: 14px;
@@ -174,8 +174,8 @@
 .button_lg.button_close {
   width: 32px;
   height: 32px;
-  stroke: #000;
-  fill: #000;
+  stroke: #2b2a29;
+  // fill: #2b2a29;
   background-color: transparent;
   padding: 0;
   &:hover,
@@ -204,6 +204,21 @@
   &:focus,
   &:active {
     stroke: #f3a610;
+  }
+}
+
+.button_menu {
+  min-width: 32px;
+  height: 32px;
+  padding: 0;
+  fill: #2b2a29;
+  background-color: transparent;
+
+  &:hover,
+  &:focus,
+  &:active {
+    fill: #f3a610;
+    background-color: transparent;
   }
 }
 

@@ -5,6 +5,7 @@ import SettingsWheelIcon from '../../icons/SettingsWheelIcon';
 import GoBackIcon from 'shared/icons/GoBackIcon';
 import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
 import CrossIcon from 'shared/icons/CrossIcon';
+import MobileMenuIcon from 'shared/icons/MobileMenuIcon';
 import styles from './Button.module.scss';
 
 export default function Button({
@@ -47,6 +48,7 @@ export default function Button({
         />
       )}
       {mode === 'close' && <CrossIcon large={size === 'lg'} />}
+      {mode === 'menu' && <MobileMenuIcon />}
     </button>
   );
 }
