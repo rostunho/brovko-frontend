@@ -5,13 +5,14 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  padding: 60px 42px 33px 43px;
+  text-align: center;
+  padding: 60px 22px 33px 23px;
 }
 
 .wrapperButton {
   display: flex;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-bottom: 60px;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 40px;
   gap: 16px;
 }

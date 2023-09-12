@@ -1,0 +1,108 @@
+.wrapper-allproduct {
+  display: flex;
+  // justify-content: flex-start;
+  padding-left: 16px;
+  padding-right: 12px;
+  padding-bottom: 20px;
+  // width: 256px;
+}
+
+.wrapper-textblock {
+  height: 80px;
+  padding-left: 12px;
+  padding-bottom: 4px;
+}
+
+.wrapper-textandbasket {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrapper-imageblock {
+  // width: 78vw;
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+
+  /* Shadow for cards */
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
+}
+
+.wrapperButton {
+  margin-left: auto;
+  width: 256px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 60px;
+  gap: 8px;
+}
+
+.text-product {
+  color: var(--Black, #191c2c);
+  /* Additional */
+  font-family: Nunito;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.wrapper-quantityandtotal {
+  display: flex;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.quantity-container {
+  display: flex;
+  align-items: center;
+  width: 8rem;
+  background-color: transparent;
+  font-size: 1.5rem;
+}
+
+.plus-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  outline: none;
+  border: none;
+
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+}
+
+.minus-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  outline: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+}
+
+.value {
+  color: var(--Black, #191c2c);
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
+.total {
+  color: var(--Black, #191c2c);
+  /* Main */
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
