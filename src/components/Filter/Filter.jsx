@@ -41,7 +41,6 @@ export default function Filter({ onCategorySelect, onSortingSelect }) {
     <div className={styles.container}>
       <div className={styles.buttonContainer}>
         <Button size="sm" mode="sort" onClick={handleCategoryClick}>
-          {' '}
           Всі категорії
         </Button>
         {showCategoriesMenu && (

@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import EyeIcon from 'shared/icons/EyeIcon';
+import PasswordToggler from '../PasswordToggler/PasswordToggler';
 import SearchIcon from 'shared/icons/SearchIcon';
 import styles from './Input.module.scss';
 
 const Input = ({
   label,
   id,
-  type,
+  type = 'text',
   name,
   value,
   onChange,
@@ -29,23 +29,31 @@ const Input = ({
   ...props
 }) => {
   const [checkboxChecked, setCheckboxChecked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const isCheckbox = type === 'checkbox';
+  const withIcon = icon || type === 'password' || type === 'search';
 
   const handleChackbox = () => {
     setCheckboxChecked(!checkboxChecked);
     additionalFunction && additionalFunction();
   };
 
-  const withIcon = icon || type === 'password' || type === 'search';
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleType = () => {
+    if (type === 'password' && !showPassword) {
+      return 'password';
+    } else if (type === 'password' && showPassword) {
+      return 'text';
+    } else {
+      return type;
+    }
+  };
 
   return (
-    // <div
-    //   className={`${styles.input_wrapper} ${
-    //     isCheckbox ? styles.checkbox_wrapper : ''
-    //   }`}
-    // >
     <label
-      // className={`${styles.label} ${styles[`label_length-${length}`]}`}
       className={`${
         isCheckbox
           ? `${styles.label} ${styles['checkbox-label']}`
@@ -57,7 +65,7 @@ const Input = ({
 
       <input
         ref={inputRef}
-        type={type || 'text'}
+        type={handleType()}
         id={id}
         name={name}
         value={value}
@@ -76,7 +84,7 @@ const Input = ({
       />
       {type === 'password' && (
         <button type="button" className={styles.icon} onClick={onClick}>
-          <EyeIcon />
+          <PasswordToggler onClick={toggleShowPassword} />
         </button>
       )}
       {type === 'search' && (
@@ -91,21 +99,10 @@ const Input = ({
           м<sup>3</sup>
         </p>
       )}
-      {icon && !link ? (
+      {icon && !link && (
         <button type="button" className={styles.icon}>
           {icon}
         </button>
-      ) : (
-        <>
-          {/* <a
-            href={link}
-            className={styles.icon}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {icon}
-          </a> */}
-        </>
       )}
     </label>
     // </div>
