@@ -42,7 +42,9 @@ export default function ProductDetail() {
     return <p>Товар не знайдено</p>;
   }
 
-  const { name, picture, description, price, currencyId } = product;
+  const { name, picture, note, price, currencyId } = product;
+
+  console.log('note', note);
 
   return (
     <>
@@ -51,7 +53,7 @@ export default function ProductDetail() {
         <Rating />
         <Image className={styles.image} src={picture} />
         <ImageSlider picture={picture} />
-        <Content description={description} />
+        <Content note={note} />
         <Price price={price} currencyId={currencyId} />
         <Button
           type="submit"
@@ -65,7 +67,11 @@ export default function ProductDetail() {
           location={location}
           handleReadMoreClick={handleReadMoreClick}
         />
-        <Review location={location} />
+        <Review
+          isExpanded={isExpanded}
+          location={location}
+          handleReadMoreClick={handleReadMoreClick}
+        />
       </div>
     </>
   );

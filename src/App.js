@@ -31,8 +31,11 @@ const LazyProductListPage = lazy(() =>
 const LazyProductDetailPage = lazy(() =>
   import('pages/ProductDetailPage/ProductDetailPage.jsx')
 );
-const ProductDescription = lazy(() =>
+const LazyProductDescription = lazy(() =>
   import('pages/ProductDetailPage/ProductDescription')
+);
+const LazyProductRewiewPage = lazy(() =>
+  import('pages/ProductDetailPage/ProductRewiewPage')
 );
 const LazyExchangeAndReturnPage = lazy(() =>
   import('pages/ExchangeAndReturnPage/ExchangeAndReturnPage')
@@ -54,7 +57,8 @@ function App() {
         <Route path="/product-list-page" element={<LazyProductListPage />} />
 
         <Route path="/product/:productId" element={<LazyProductDetailPage />}>
-          <Route path="description" element={<ProductDescription />} />
+          <Route path="description" element={<LazyProductDescription />} />
+          <Route path="rewiew" element={<LazyProductRewiewPage />} />
         </Route>
 
         <Route path="/about" element={<LazyAboutPage />} />

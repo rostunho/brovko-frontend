@@ -1,4 +1,4 @@
-import Rating from './Rating';
+import RewiewRating from './RewiewRating';
 import styles from './ProductDetail.module.scss';
 import AvatarIcon from 'shared/icons/AvatarIcon';
 
@@ -23,7 +23,7 @@ const ReviewItem = ({ review }) => {
       </div>
 
       {/* <p className={styles.reviewRating}>Rating: {review.rating}</p> */}
-      <Rating />
+      <RewiewRating />
 
       <p className={styles.reviewText}>{review.text}</p>
     </div>
