@@ -7,12 +7,7 @@ import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
 
 import styles from './ProductDetail.module.scss';
 
-export default function Review({
-  product,
-  isExpanded,
-  location,
-  handleReadMoreClick,
-}) {
+export default function Review({ isExpanded, location, handleReadMoreClick }) {
   return (
     <div className={styles.rewieContainer}>
       <h3 className={styles.rewieTitle}>
@@ -31,7 +26,7 @@ export default function Review({
         </Button>
       </Link>
 
-      {product ? (
+      {fakeReviewsData ? (
         isExpanded ? (
           <Outlet />
         ) : (
@@ -42,7 +37,7 @@ export default function Review({
               ))}
             </div>
             <Link
-              to={`review`}
+              to={`rewiew`}
               state={{ from: location, isExpanded: true }}
               className={styles.readMoreLink}
               onClick={handleReadMoreClick}
