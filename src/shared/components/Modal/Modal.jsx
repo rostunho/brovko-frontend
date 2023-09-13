@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import { useBodyScrollLock } from 'shared/hooks/useBodyScrollLock';
 import Button from '../Button';
-// import CrossIconModal from 'shared/icons/CrossIconModal';
 import styles from './Modal.module.scss';
 
 const modalEl = document.querySelector('#modal-root');
@@ -16,16 +16,13 @@ const Modal = ({ closeModal, centered, children }) => {
     [closeModal]
   );
 
+  useBodyScrollLock();
+
   useEffect(() => {
     document.addEventListener('keydown', closeModalOnClick);
 
     return () => document.removeEventListener('keydown', closeModalOnClick);
   }, [closeModalOnClick]);
-
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => (document.body.style.overflow = 'auto');
-  }, []);
 
   return createPortal(
     <div className={styles.backdrop} onClick={closeModalOnClick}>
