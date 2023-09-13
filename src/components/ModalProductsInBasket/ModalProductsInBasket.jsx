@@ -3,6 +3,7 @@ import Button from 'shared/components/Button';
 import Modal from 'shared/components/Modal/Modal';
 import Heading from 'shared/components/Heading';
 import QuantityButtonModal from 'shared/components/QuantityButtonModal/QuantityButtonModal';
+import Rectangle from 'components/Rectangle/Rectangle';
 
 import styles from './ModalProductsInBasket.module.scss';
 
@@ -13,6 +14,8 @@ const ModalProductsInBasket = () => {
         <Heading>Товари у кошику</Heading>
         <QuantityButtonModal />
         <QuantityButtonModal />
+        <QuantityButtonModal />
+        <Rectangle padding={true} />
         <div className={styles.textTotal}>
           <h3 className={styles['text-sum']}>Загальна сума:</h3>
           <p className={styles.total}>
@@ -20,9 +23,10 @@ const ModalProductsInBasket = () => {
           </p>
         </div>
         <div className={styles.wrapperButton}>
-          <Button mode="outlined" size="lg">
+          <Button mode="outlined" size="lg" style={{ marginBottom: '12px' }}>
             Повернутись до покупок
           </Button>
+
           <Button mode="primary" size="lg">
             Оформити замовлення
           </Button>

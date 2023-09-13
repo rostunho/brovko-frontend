@@ -30,6 +30,7 @@ export default function RegisterUserPage() {
           <p className={styles.text}>або</p>
           <a
             href="https://brovko-backend.onrender.com/api/user/google"
+            // href="http://localhost:5000/api/user/google"
             className={styles.navLink}
           >
             <GoogleIcon className={styles.googleIcon} />
