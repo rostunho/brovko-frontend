@@ -35,7 +35,7 @@ const LazyProductDescription = lazy(() =>
   import('pages/ProductDetailPage/ProductDescription')
 );
 const LazyProductReviewPage = lazy(() =>
-  import('components/ProductDetail/ReviewPage')
+  import('pages/ProductDetailPage/ProductReviewPage')
 );
 const LazyExchangeAndReturnPage = lazy(() =>
   import('pages/ExchangeAndReturnPage/ExchangeAndReturnPage')

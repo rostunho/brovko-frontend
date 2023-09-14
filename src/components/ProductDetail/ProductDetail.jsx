@@ -11,9 +11,9 @@ import Rating from 'components/ProductDetail/Rating';
 import ImageSlider from 'components/ProductDetail/ImageSlider';
 import Content from 'components/ProductDetail/Content';
 import Price from 'components/ProductDetail/Price';
-import Description from 'components/ProductDetail/Description';
-import ReviewContainer from './ReviewContainer';
-import Review from 'components/ProductDetail/Review';
+import Description from 'components/ProductDetail/ProductDescription/Description';
+import ReviewContainer from './ProductReview/ReviewContainer';
+import Review from 'components/ProductDetail/ProductReview/Review';
 
 import styles from './ProductDetail.module.scss';
 
@@ -83,7 +83,7 @@ export default function ProductDetail() {
           location={location}
           handleReadMoreClick={handleReadMoreClick}
         />
-        <ReviewContainer />
+        {/* <ReviewContainer /> */}
         <Review
           isExpandedReview={isExpandedReview}
           location={location}

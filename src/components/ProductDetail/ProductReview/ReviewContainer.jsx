@@ -5,7 +5,7 @@ import fakeReviewsData from './fakeRewiewsData';
 import ReviewItem from './ReviewItem';
 import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
 
-import styles from './ProductDetail.module.scss';
+import styles from '../ProductDetail.module.scss';
 
 export default function ReviewContainer({
   isExpandedReview,

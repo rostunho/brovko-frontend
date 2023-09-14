@@ -1,6 +1,7 @@
 import RewiewRating from './ReviewRating';
-import styles from './ProductDetail.module.scss';
 import AvatarIcon from 'shared/icons/AvatarIcon';
+
+import styles from '../ProductDetail.module.scss';
 
 const ReviewItem = ({ review }) => {
   return (
