@@ -6,14 +6,15 @@ import styles from './ProductDetail.module.scss';
 
 export default function Description({
   product,
-  isExpanded,
+  isExpandedDescription,
   location,
   handleReadMoreClick,
 }) {
+  console.log('isExpandedDescription', isExpandedDescription);
   return (
     <div className={styles.descriptionContainer}>
       {product ? (
-        isExpanded ? (
+        isExpandedDescription ? (
           <Outlet />
         ) : (
           <>
@@ -21,10 +22,10 @@ export default function Description({
             <p className={styles.descriptionText}>
               {product.description.slice(0, 20)}
             </p>
-            {!isExpanded && (
+            {!isExpandedDescription && (
               <Link
                 to={`description`}
-                state={{ from: location, isExpanded: true }}
+                state={{ from: location, isExpandedDescription: true }}
                 className={styles.readMoreLink}
                 onClick={handleReadMoreClick}
               >

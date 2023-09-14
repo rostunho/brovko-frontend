@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { useParams, useLocation, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getAllProducts } from 'redux/products/productsSelectors';
 
@@ -11,7 +12,8 @@ import ImageSlider from 'components/ProductDetail/ImageSlider';
 import Content from 'components/ProductDetail/Content';
 import Price from 'components/ProductDetail/Price';
 import Description from 'components/ProductDetail/Description';
-import Review from 'components/ProductDetail/Rewiew';
+import ReviewContainer from './ReviewContainer';
+import Review from 'components/ProductDetail/Review';
 
 import styles from './ProductDetail.module.scss';
 
@@ -22,27 +24,41 @@ export default function ProductDetail() {
   const allProducts = useSelector(getAllProducts);
   const product = allProducts?.find(p => p._id === productId);
 
-  console.log('allProducts', allProducts);
-  console.log('product', product);
-  console.log('productID', productId);
+  // console.log('allProducts', allProducts);
+  // console.log('product', product);
+  // console.log('productID', productId);
 
-  const [isExpanded, setIsExpanded] = useState(false);
-  // Отримуємо isExpanded з location.state
-  const isExpandedFromLocation = location.state?.isExpanded || false;
-  // Встановлюємо isExpanded залежно від значення isExpandedFromLocation
-  if (isExpanded !== isExpandedFromLocation) {
-    setIsExpanded(isExpandedFromLocation);
-  }
+  const [isExpandedDescription, setIsExpandedDescription] = useState(false);
+  const [isExpandedReview, setIsExpandedReview] = useState(false);
+  console.log('isExpandedDescription', isExpandedDescription);
+  console.log('isExpandedReview', isExpandedReview);
+
+  useEffect(() => {
+    // Встановлюємо isExpandedDescription з location.state
+    const isExpandedDescriptionFromLocation =
+      location.state?.isExpandedDescription || false;
+    setIsExpandedDescription(isExpandedDescriptionFromLocation);
+
+    // Встановлюємо isExpandedReview з location.state
+    const isExpandedReviewFromLocation =
+      location.state?.isExpandedReview || false;
+    setIsExpandedReview(isExpandedReviewFromLocation);
+  }, [location.state]);
 
   const handleReadMoreClick = () => {
-    setIsExpanded(true);
+    setIsExpandedDescription(true);
+    console.log('isExpandedDescription click', isExpandedDescription);
+  };
+
+  const handleReadReviewClick = () => {
+    setIsExpandedReview(true);
   };
 
   if (!product) {
     return <p>Товар не знайдено</p>;
   }
 
-  const { name, picture, note, price, currencyId } = product;
+  const { name, picture, note, price, currencyId, review } = product;
 
   console.log('note', note);
 
@@ -63,15 +79,17 @@ export default function ProductDetail() {
         </Button>
         <Description
           product={product}
-          isExpanded={isExpanded}
+          isExpandedDescription={isExpandedDescription}
           location={location}
           handleReadMoreClick={handleReadMoreClick}
         />
+        <ReviewContainer />
         <Review
-          isExpanded={isExpanded}
+          isExpandedReview={isExpandedReview}
           location={location}
-          handleReadMoreClick={handleReadMoreClick}
-        />
+          handleReadReviewClic={handleReadReviewClick}
+          review={review}
+        />{' '}
       </div>
     </>
   );

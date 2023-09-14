@@ -1,4 +1,4 @@
-import RewiewRating from './RewiewRating';
+import RewiewRating from './ReviewRating';
 import styles from './ProductDetail.module.scss';
 import AvatarIcon from 'shared/icons/AvatarIcon';
 
