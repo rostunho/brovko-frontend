@@ -14,6 +14,9 @@ export default function GoogleAuth() {
       case '/login':
         return 'Увійти з Google';
 
+      case '/order/login':
+        return 'Увійти з Google';
+
       case '/register':
         return 'Продовжити з Google';
 

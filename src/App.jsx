@@ -4,8 +4,8 @@ import { lazy } from 'react';
 
 import SharedLayout from 'components/SharedLayout/SharedLayout';
 import AuthFormWrapper from 'components/AuthSection/AuthFormWrapper/AuthFormWrapper';
-import RegisterForm from 'components/AuthSection/RegisterForm/RegisterForm';
 import LoginForm from 'components/AuthSection/LoginForm/LoginForm';
+import OrderForm from 'components/OrderForm/OrderForm';
 import { authRoutes, publicRoutes } from './routes';
 import './App.css';
 
@@ -73,7 +73,7 @@ function App() {
             index
             element={<AuthFormWrapper form={<LoginForm />} />}
           />
-          <Route path="order-form" element={<div>N E W U S E R</div>} />
+          <Route path="order-form" element={<OrderForm />} />
         </Route>
 
         <Route path="/about" element={<LazyAboutPage />} />
