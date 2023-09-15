@@ -40,12 +40,7 @@ export default function Filter({ onCategorySelect, onSortingSelect }) {
   return (
     <div className={styles.container}>
       <div className={styles.buttonContainer}>
-        <Button
-          size="sm"
-          mode="sort"
-          onClick={handleCategoryClick}
-          style={{ fontWeight: 400 }}
-        >
+        <Button size="sm" mode="sort" onClick={handleCategoryClick}>
           Всі категорії
         </Button>
         {showCategoriesMenu && (
