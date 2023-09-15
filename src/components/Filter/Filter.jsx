@@ -46,7 +46,6 @@ export default function Filter({ onCategorySelect, onSortingSelect }) {
           onClick={handleCategoryClick}
           style={{ fontWeight: 400 }}
         >
-          {' '}
           Всі категорії
         </Button>
         {showCategoriesMenu && (
