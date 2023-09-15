@@ -4,9 +4,9 @@ import * as api from 'shared/services/products';
 
 export const fetchAllProducts = createAsyncThunk(
   'products/fetch-all',
-  async (_, thunkAPI) => {
+  async (page, thunkAPI) => {
     try {
-      const data = await api.getAllProducts();
+      const data = await api.getAllProducts(page);
       return data;
     } catch ({ response }) {
       return thunkAPI.rejectWithValue(response.data);
