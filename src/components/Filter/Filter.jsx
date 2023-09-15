@@ -40,7 +40,12 @@ export default function Filter({ onCategorySelect, onSortingSelect }) {
   return (
     <div className={styles.container}>
       <div className={styles.buttonContainer}>
-        <Button size="sm" mode="sort" onClick={handleCategoryClick}>
+        <Button
+          size="sm"
+          mode="sort"
+          onClick={handleCategoryClick}
+          style={{ fontWeight: 400 }}
+        >
           Всі категорії
         </Button>
         {showCategoriesMenu && (
@@ -53,7 +58,12 @@ export default function Filter({ onCategorySelect, onSortingSelect }) {
           data={sortingOptions}
           onOptionPress={handleSortingSelect}
         /> */}
-        <Button size="sm" mode="sort" onClick={handleSortingClick}>
+        <Button
+          size="sm"
+          mode="sort"
+          onClick={handleSortingClick}
+          style={{ fontWeight: 400 }}
+        >
           Сортування
         </Button>
         {showSortingMenu && (
