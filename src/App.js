@@ -42,6 +42,8 @@ const LazyExchangeAndReturnPage = lazy(() =>
 );
 const LazyNotFoundPage = lazy(() => import('pages/NotFoundPage/NotFoundPage'));
 
+const OrderPage = lazy(() => import('pages/OrderPage'));
+
 function App() {
   return (
     <Routes>
@@ -60,6 +62,8 @@ function App() {
           <Route path="description" element={<LazyProductDescription />} />
           <Route path="review" element={<LazyProductReviewPage />} />
         </Route>
+
+        <Route path="/order" element={<OrderPage />} />
 
         <Route path="/about" element={<LazyAboutPage />} />
         <Route path="/where-to-buy" element={<LazyWereToBuyPage />} />

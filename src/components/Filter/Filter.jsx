@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import DropdownMenu from './DropdownMenu';
 import Button from 'shared/components/Button';
-import ArrowDownIcon from 'shared/icons/ArrowDownIcon';
-import Selector from 'shared/components/Selector';
+// import ArrowDownIcon from 'shared/icons/ArrowDownIcon';
+// import Selector from 'shared/components/Selector';
 import { categories, sortingOptions } from './constants';
 import styles from './Filter.module.scss';
 
