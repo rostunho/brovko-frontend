@@ -8,7 +8,7 @@ export const register = createAsyncThunk(
       const result = await api.register(data);
       return result;
     } catch ({ response }) {
-      console.log(response.data.message);
+      // console.log(response.data.message);
       return rejectWithValue(response.data.message);
     }
   }
@@ -21,7 +21,7 @@ export const login = createAsyncThunk(
       const result = await api.login(data);
       return result;
     } catch ({ response }) {
-      console.log(response.data.message);
+      // console.log(response.data.message);
       return rejectWithValue(response.data.message);
     }
   }
@@ -35,7 +35,7 @@ export const current = createAsyncThunk(
       const data = await api.current(user.token);
       return data;
     } catch ({ response }) {
-      console.log(response.data.message);
+      // console.log(response.data.message);
       return rejectWithValue(response.data.message);
     }
   },
@@ -49,6 +49,18 @@ export const current = createAsyncThunk(
   }
 );
 
+export const googleAuth = createAsyncThunk(
+  'user/google',
+  async (token, { rejectWithValue }) => {
+    try {
+      const result = await api.current(token);
+      return result;
+    } catch ({ response }) {
+      return rejectWithValue(response.data);
+    }
+  }
+);
+
 export const logout = createAsyncThunk(
   'user/logout',
   async (_, { rejectWithValue }) => {
@@ -56,7 +68,7 @@ export const logout = createAsyncThunk(
       const data = await api.logout();
       return data;
     } catch ({ response }) {
-      console.log(response.data.message);
+      // console.log(response.data.message);
       return rejectWithValue(response.data.message);
     }
   }

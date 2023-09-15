@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { register, login, current, logout } from './userOperations';
+import { register, login, current, logout, googleAuth } from './userOperations';
 
 const initialState = {
   user: {},
@@ -35,14 +35,28 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, { payload }) => {
-        const { user, token, pets } = payload;
+        const { user, token } = payload;
         state.loading = false;
         state.user = user;
         state.token = token;
         state.isLogin = true;
-        state.pets = pets;
       })
       .addCase(login.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(googleAuth.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(googleAuth.fulfilled, (state, { payload }) => {
+        const { user, token } = payload;
+        state.loading = false;
+        state.user = user;
+        state.token = token;
+        state.isLogin = true;
+      })
+      .addCase(googleAuth.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       })
@@ -51,12 +65,11 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(current.fulfilled, (state, { payload }) => {
-        const { user, token, pets } = payload;
+        const { user, token } = payload;
         state.loading = false;
         state.user = user;
         state.token = token;
         state.isLogin = true;
-        state.pets = pets;
       })
       .addCase(current.rejected, (state, { payload }) => {
         state.loading = false;
@@ -72,7 +85,6 @@ const userSlice = createSlice({
         state.user = {};
         state.token = '';
         state.isLogin = false;
-        state.pets = {};
       })
       .addCase(logout.rejected, (state, { payload }) => {
         state.loading = false;

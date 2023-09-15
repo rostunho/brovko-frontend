@@ -1,6 +1,8 @@
 import axios from 'axios';
 import instance from './instance';
 
+// const BROVKO_API = process.env.REACT_APP_BROVKO_API;
+
 export const getAllProducts = async (page = 1) => {
   const { data } = await instance.get('/products', {
     params: {
@@ -20,23 +22,28 @@ export const getProductsByCategory = async (category = 'sets', page = 1) => {
   return data;
 };
 
+export const getProductById = async id => {
+  const { data } = await axios.get(`/products/${id}`);
+  return data;
+};
+
 export const deleteProductById = async id => {
   const { data } = instance.delete(`/products/${id}`);
   return data;
 };
 
-export const addNewProduct = async data => {
-  console.log(JSON.stringify(data));
-
+export const addNewProduct = async body => {
   try {
-    const response = await axios.post(
-      'https://brovko.salesdrive.me/product-handler',
-      JSON.stringify(data)
-    );
+    // const url = `${BROVKO_API}/products/add-product`;
+    const url = 'http://localhost:5000/api/products/add-product';
+    const data = JSON.stringify(body);
+    const headers = { 'Content-Type': 'application/json' };
+
+    const response = await axios.post(url, data, { headers });
     console.log('Post request response:', response.data);
+    console.log(response.data.message);
+    return response.data;
   } catch (error) {
     console.log(error.message);
   }
-
-  return data;
 };

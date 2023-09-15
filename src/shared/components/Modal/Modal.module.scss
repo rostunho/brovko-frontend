@@ -1,0 +1,40 @@
+.backdrop {
+  position: fixed;
+  padding: 0 20;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(2px);
+  z-index: 1200;
+}
+
+.modal {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-radius: 16px;
+  // width: 87.5%;
+  width: calc(100% - 32px);
+  max-width: 420px;
+  padding: 0 16px 32px; // якщо вставиш компонент Heading (заголовок), там вже буде верхній паддінг 32px.
+  border: 1px solid var(--Stroke, #f0f0f0);
+  background: var(--White, #fff);
+
+  /* Shadow for cards */
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
+
+  @media screen and (min-height: 800px) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.modal--centered {
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

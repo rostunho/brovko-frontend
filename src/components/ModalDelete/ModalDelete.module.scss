@@ -1,0 +1,18 @@
+.text {
+  color: var(--Black, #191c2c);
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  padding: 60px 22px 33px 23px;
+}
+
+.wrapperButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 40px;
+  gap: 16px;
+}

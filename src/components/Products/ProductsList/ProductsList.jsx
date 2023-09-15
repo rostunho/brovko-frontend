@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { getAllProducts } from 'redux/products/productsSelectors';
 import { fetchAllProducts } from 'redux/products/productsOperations';
@@ -12,14 +13,14 @@ import Filter from 'components/Filter/Filter';
 import styles from './ProductsList.module.scss';
 
 const ProductList = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchAllProducts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchAllProducts());
+  // }, [dispatch]);
 
-  const { products } = useSelector(getAllProducts);
-  // console.log(products);
+  const products = useSelector(getAllProducts);
+  console.log('products:', products);
 
   // Стан для пошуку та фільтрації
   const [searchTerm, setSearchTerm] = useState('');
@@ -28,8 +29,9 @@ const ProductList = () => {
 
   // обробкa події відправки форми
   const handleSearchSubmit = formData => {
+    // console.log('handleSearchSubmit is called');
     setSearchTerm(formData.search); // Оновити стан пошуку
-    console.log('Form data submitted:', formData);
+    // console.log('Form data submitted:', formData);
   };
 
   if (!products) {
@@ -60,22 +62,22 @@ const ProductList = () => {
   if (selectedSortingOption) {
     if (selectedSortingOption === 'Від дешевих до дорогих') {
       sortedProducts.sort((a, b) => {
-        console.log('a.price:', a.price, 'b.price:', b.price);
+        // console.log('a.price:', a.price, 'b.price:', b.price);
         return a.price - b.price;
       });
     } else if (selectedSortingOption === 'Від дорогих до дешевих') {
       sortedProducts.sort((a, b) => {
-        console.log('a.price:', a.price, 'b.price:', b.price);
+        // console.log('a.price:', a.price, 'b.price:', b.price);
         return b.price - a.price;
       });
     } else if (selectedSortingOption === 'За рейтингом') {
       sortedProducts.sort((a, b) => {
-        console.log('a.rating:', a.rating, 'b.rating:', b.rating);
+        // console.log('a.rating:', a.rating, 'b.rating:', b.rating);
         return b.rating - a.rating;
       });
     } else if (selectedSortingOption === 'Новинки') {
       sortedProducts.sort((a, b) => {
-        console.log('a.createdAt:', a.createdAt, 'b.createdAt:', b.createdAt);
+        // console.log('a.createdAt:', a.createdAt, 'b.createdAt:', b.createdAt);
         // return b.createdAt.localeCompare(a.createdAt);
       });
     }
@@ -95,8 +97,10 @@ const ProductList = () => {
       {sortedProducts.length > 0 ? (
         <ul className={styles.list}>
           {sortedProducts.map(product => (
-            <li key={product.id}>
+            <li key={product._id}>
+              {/* <Link to={`/product/${product._id}`}> */}
               <ProductsItem product={product} />
+              {/* </Link> */}
             </li>
           ))}
         </ul>

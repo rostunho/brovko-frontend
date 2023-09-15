@@ -85,20 +85,22 @@
     transform: rotate(180deg);
   }
 }
-.iconButton {
+
+.icon {
   background: none;
   padding: 0;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease 0s;
+  fill: #818185;
 
   &:hover,
   &:focus,
   &:active {
-    color: black;
-    fill: black;
-    stroke: black;
+    color: #f3a610;
+    fill: #f3a610;
+    stroke: #f3a610;
     background-color: transparent;
   }
 }

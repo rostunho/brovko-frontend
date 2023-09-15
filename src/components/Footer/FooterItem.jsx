@@ -1,15 +1,9 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styles from './Footer.module.scss';
 
 const FooterItem = ({ icon, links, label, isOpen, onToggle }) => {
-  //   const [isOpen, setIsOpen] = useState(false);
-
-  //   const toggleOpen = () => {
-  //     setIsOpen(!isOpen);
-  //   };
-
   const toggleOpen = () => {
     onToggle(label);
   };

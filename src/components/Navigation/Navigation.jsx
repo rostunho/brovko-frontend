@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
-import Nav from './Nav/Nav';
+import { useSelector } from 'react-redux';
 import UserNav from './UserNav/UserNav';
 import AuthNav from './AuthNav/AuthNav';
 import MobileMenu from '../MobileMenu/MobileMenu';
-import MobillMenuIcon from 'shared/icons/MobillMenuIcon';
+// import MobileMenuIcon from 'shared/icons/MobileMenuIcon';
+import { selectIsLogin } from 'redux/user/userSelectors';
+import Nav from './Nav/Nav';
+import Button from 'shared/components/Button';
 import styles from './Navigation.module.scss';
 
 const Navigation = ({ isMobile }) => {
   //   const userLoggedIn = true;
+  const isUserLogin = useSelector(selectIsLogin);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   //   useEffect(() => {
@@ -17,7 +21,7 @@ const Navigation = ({ isMobile }) => {
   //   }, [isDesktop]);
 
   const toggleMobileMenu = e => {
-    e.preventDefault();
+    // e.preventDefault();
     // console.log('Toggle Mobile Menu');
     setShowMobileMenu(showMobileMenu => !showMobileMenu);
   };
@@ -26,16 +30,20 @@ const Navigation = ({ isMobile }) => {
     <div className={styles.navigation}>
       {
         <>
-          <MobillMenuIcon
+          <Button mode="menu" onClick={toggleMobileMenu} />
+          {/* <MobileMenuIcon
             className={styles.burger}
             onClick={toggleMobileMenu}
-          />
+          /> */}
+          {!isUserLogin && <AuthNav />}
+          {isUserLogin && <UserNav />}
         </>
       }
       {showMobileMenu && (
         <MobileMenu onClick={toggleMobileMenu} isMobile={isMobile}>
           {/* <UserNav onClick={toggleMobileMenu} />
           <AuthNav onClick={toggleMobileMenu} /> */}
+
           <Nav onClick={toggleMobileMenu} />
         </MobileMenu>
       )}

@@ -10,7 +10,7 @@ function GoBackButton() {
   const navigate = useNavigate();
 
   return (
-    <button className={styles.button} onClick={() => navigate(from)}>
+    <button className={styles.button} onClick={() => navigate(-1)}>
       <div className={styles.ellipse}>
         <EllipseIcon />
       </div>

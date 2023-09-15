@@ -42,7 +42,9 @@ export default function Header() {
           </Link>
         </div>
         <div className={styles.boxBasket}>
-          <UserLight />
+          <Link to="./login" className={styles.userIcon}>
+            <UserLight />
+          </Link>
           <BasketLight />
         </div>
       </div>
