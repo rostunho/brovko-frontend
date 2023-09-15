@@ -24,7 +24,7 @@ export default function Button({
       type={type || 'button'}
       className={`${styles.button} ${styles[`button_${size}`]} ${
         styles[`button_${mode}`]
-      } `}
+      }`}
       style={style}
       onClick={onClick}
       disabled={disabled}
