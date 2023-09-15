@@ -3,6 +3,9 @@ import { Routes, Route, Navigate } from 'react-router';
 import { lazy } from 'react';
 
 import SharedLayout from 'components/SharedLayout/SharedLayout';
+import AuthFormWrapper from 'components/AuthSection/AuthFormWrapper/AuthFormWrapper';
+import LoginForm from 'components/AuthSection/LoginForm/LoginForm';
+import OrderForm from 'components/OrderForm/OrderForm';
 import { authRoutes, publicRoutes } from './routes';
 import './App.css';
 
@@ -63,7 +66,15 @@ function App() {
           <Route path="review" element={<LazyProductReviewPage />} />
         </Route>
 
-        <Route path="/order" element={<OrderPage />} />
+        <Route path="/order" element={<OrderPage />}>
+          <Route index element={<Navigate to="/order/login" />} />
+          <Route
+            path="login"
+            index
+            element={<AuthFormWrapper form={<LoginForm />} />}
+          />
+          <Route path="order-form" element={<OrderForm />} />
+        </Route>
 
         <Route path="/about" element={<LazyAboutPage />} />
         <Route path="/where-to-buy" element={<LazyWereToBuyPage />} />

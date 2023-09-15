@@ -1,0 +1,13 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.list {
+  margin-top: 4px;
+}
+
+.list li:first-child {
+  margin-bottom: 20px;
+}
