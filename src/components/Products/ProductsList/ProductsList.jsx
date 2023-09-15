@@ -6,7 +6,6 @@ import { getAllProducts } from 'redux/products/productsSelectors';
 import { fetchAllProducts } from 'redux/products/productsOperations';
 
 import ProductsItem from '../ProductsItem';
-import Heading from 'shared/components/Heading/Heading';
 import SearchBar from 'shared/components/SearchBar/SearchBar';
 import Filter from 'components/Filter/Filter';
 
@@ -87,7 +86,6 @@ const ProductList = () => {
 
   return (
     <div className={styles.products}>
-      <Heading withGoBack>Крамничка</Heading>
       <SearchBar onSubmit={handleSearchSubmit} />
       <Filter
         onCategorySelect={category => setSelectedCategory(category)}
