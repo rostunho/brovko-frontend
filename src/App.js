@@ -39,6 +39,8 @@ const LazyExchangeAndReturnPage = lazy(() =>
 );
 const LazyNotFoundPage = lazy(() => import('pages/NotFoundPage/NotFoundPage'));
 
+const OrderPage = lazy(() => import('pages/OrderPage'));
+
 function App() {
   return (
     <Routes>
@@ -56,6 +58,8 @@ function App() {
         <Route path="/product/:productId" element={<LazyProductDetailPage />}>
           <Route path="description" element={<ProductDescription />} />
         </Route>
+
+        <Route path="/order" element={<OrderPage />} />
 
         <Route path="/about" element={<LazyAboutPage />} />
         <Route path="/where-to-buy" element={<LazyWereToBuyPage />} />
