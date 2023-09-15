@@ -1,18 +1,26 @@
+import { useDispatch } from 'react-redux';
+import { login } from 'redux/user/userOperations';
+
 import { useRef } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Input from 'shared/components/Input/Input';
 import Button from 'shared/components/Button/Button';
 import useForm from 'shared/hooks/useForm';
 import initialState from './initialState';
 import styles from './LoginForm.module.scss';
 
-const LoginForm = ({ onSubmit }) => {
-  const formRef = useRef(null);
-
+const LoginForm = () => {
   const { state, handleChange, handleSubmit } = useForm({
     initialState,
-    onSubmit,
+    onSubmit: dispatchUser,
   });
+  const dispatch = useDispatch();
+  const formRef = useRef(null);
+
+  function dispatchUser(data) {
+    dispatch(login(data));
+  }
+
   const { email, password } = state;
   return (
     <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
@@ -42,8 +50,8 @@ const LoginForm = ({ onSubmit }) => {
   );
 };
 
-LoginForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+// LoginForm.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+// };
 
 export default LoginForm;

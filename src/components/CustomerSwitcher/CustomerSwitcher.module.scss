@@ -1,0 +1,23 @@
+.list {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 10.5px 16px;
+}
+
+.link {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #191c2c;
+
+  &:hover,
+  &:focus {
+    color: #f3a610;
+  }
+}
+
+.link--active {
+  color: #f3a610;
+}
