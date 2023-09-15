@@ -1,12 +1,13 @@
-import { NavLink } from 'react-router-dom';
-import styles from './LoginUserPage.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { login } from 'redux/user/userOperations';
 import { selectIsLogin } from 'redux/user/userSelectors';
-import LoginForm from 'components/AuthForm/LoginForm/LoginForm';
+import LoginForm from 'components/AuthSection/LoginForm/LoginForm';
 import Heading from 'shared/components/Heading/Heading';
-import GoogleIcon from 'shared/icons/GoogleIcon';
+import Text from 'shared/components/Text/Text';
+import AuthSwitcher from 'components/AuthSection/AuthSwitcher/AuthSwitcher';
+import GoogleAuth from 'components/AuthSection/GoogleAuth/GoogleAuth';
+import styles from './LoginUserPage.module.scss';
 
 export default function LoginUserPage() {
   const isUserLogin = useSelector(selectIsLogin);
@@ -18,29 +19,18 @@ export default function LoginUserPage() {
     return <Navigate to="/user-dashboard" />;
   }
   return (
-    <>
-      <div className={styles.container}>
-        <Heading withGoBack>Вхід</Heading>
+    <section className={styles.container}>
+      <Heading withGoBack>Вхід</Heading>
 
-        <LoginForm onSubmit={handleLogin} />
-        <div className={styles.redirContainer}>
-          <p className={styles.text}>або</p>
-          <a
-            href="https://brovko-backend.onrender.com/api/user/google"
-            className={styles.navLink}
-          >
-            <GoogleIcon className={styles.googleIcon} />
-            Увійти з Google
-          </a>
+      <LoginForm onSubmit={handleLogin} />
 
-          <p className={styles.redirectText}>
-            Немає аккаунту?{' '}
-            <NavLink to="/register" className={styles.regLink}>
-              Зареєструватися
-            </NavLink>
-          </p>
-        </div>
-      </div>
-    </>
+      <Text type="centered">або</Text>
+
+      <GoogleAuth />
+
+      <AuthSwitcher to="/register" linkLabel="Зареєструватися">
+        Вже є акаунт ?
+      </AuthSwitcher>
+    </section>
   );
 }

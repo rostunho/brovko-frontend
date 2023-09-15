@@ -3,22 +3,25 @@ import Input from 'shared/components/Input/Input';
 import Button from 'shared/components/Button/Button';
 import useForm from 'shared/hooks/useForm';
 import { useRef } from 'react';
+
 import initialState from './initialState';
 
-import styles from './LoginForm.module.scss';
+import styles from './RegisterForm.module.scss';
 
-const LoginForm = ({ onSubmit }) => {
+const RegisterForm = ({ onSubmit }) => {
   const formRef = useRef(null);
 
   const { state, handleChange, handleSubmit } = useForm({
     initialState,
     onSubmit,
   });
-  const { email, password } = state;
+  const { email, password, confirmPassword } = state;
+
   return (
     <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
       <Input
         label="E-mail"
+        style={{ backgroundColor: '#801f1f' }}
         type="email"
         name="email"
         placeholder="Введіть свій e-mail"
@@ -35,20 +38,25 @@ const LoginForm = ({ onSubmit }) => {
         value={password}
         onChange={handleChange}
       />
+      <Input
+        label="Підтвердження паролю"
+        type="password"
+        name="confirmPassword"
+        placeholder="Підтвердіть пароль"
+        required={true}
+        value={confirmPassword}
+        onChange={handleChange}
+      />
 
-      <Button
-        type="submit"
-        style={{ paddingLeft: 122, paddingRight: 122, marginTop: 36 }}
-        size="lg"
-      >
-        Увійти
+      <Button type="submit" size="lg">
+        Зареєструватися
       </Button>
     </form>
   );
 };
 
-LoginForm.propTypes = {
+RegisterForm.propTyprs = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default LoginForm;
+export default RegisterForm;

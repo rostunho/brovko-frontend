@@ -1,12 +1,13 @@
-import { NavLink } from 'react-router-dom';
-import styles from './RegisterUserPage.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { register } from 'redux/user/userOperations';
 import { selectIsLogin } from 'redux/user/userSelectors';
-import RegisterForm from 'components/AuthForm/RegisterForm/RegisterForm';
+import RegisterForm from 'components/AuthSection/RegisterForm/RegisterForm';
 import Heading from 'shared/components/Heading/Heading';
-import GoogleIcon from 'shared/icons/GoogleIcon';
+import Text from 'shared/components/Text/Text';
+import GoogleAuth from 'components/AuthSection/GoogleAuth/GoogleAuth';
+import AuthSwitcher from 'components/AuthSection/AuthSwitcher/AuthSwitcher';
+import styles from './RegisterUserPage.module.scss';
 
 export default function RegisterUserPage() {
   const isUserLogin = useSelector(selectIsLogin);
@@ -18,33 +19,23 @@ export default function RegisterUserPage() {
     return <Navigate to="/user-dashboard" />;
   }
   return (
-    <>
-      <div className={styles.container}>
-        <Heading withGoBack>Реєстрація</Heading>
-        <p className={styles.description}>
-          Створення облікового запису допоможе купувати швидше, а також
-          переглядати замовлення зроблені раніше.
-        </p>
-        <RegisterForm onSubmit={handleRegister} />
-        <div className={styles.redirContainer}>
-          <p className={styles.text}>або</p>
-          <a
-            href="https://brovko-backend.onrender.com/api/user/google"
-            // href="http://localhost:5000/api/user/google"
-            className={styles.navLink}
-          >
-            <GoogleIcon className={styles.googleIcon} />
-            Продовжити з Google
-          </a>
+    <section className={styles.container}>
+      <Heading withGoBack>Реєстрація</Heading>
 
-          <p className={styles.redirectText}>
-            Вже є аккаунт?{' '}
-            <NavLink to="/login" className={styles.logLink}>
-              Увійти
-            </NavLink>
-          </p>
-        </div>
-      </div>
-    </>
+      <Text style={{ marginBottom: '24px' }}>
+        Створення облікового запису допоможе купувати швидше, а також
+        переглядати замовлення зроблені раніше.
+      </Text>
+
+      <RegisterForm onSubmit={handleRegister} />
+
+      <Text type="centered">або</Text>
+
+      <GoogleAuth />
+
+      <AuthSwitcher to="/login" linkLabel="Увійти">
+        Вже є акаунт ?
+      </AuthSwitcher>
+    </section>
   );
 }
