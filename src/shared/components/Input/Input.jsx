@@ -64,6 +64,7 @@ const Input = ({
       {label}
 
       <input
+        className={`${styles.input} ${withIcon && styles['with-icon']}`}
         ref={inputRef}
         type={handleType()}
         id={id}
@@ -71,7 +72,6 @@ const Input = ({
         value={value}
         pattern={pattern}
         placeholder={placeholder}
-        className={`${styles.input} ${withIcon && styles['with-icon']}`}
         onChange={e => {
           isCheckbox && handleChackbox();
           onChange && onChange(e);
@@ -119,6 +119,7 @@ Input.propTypes = {
     'number',
     'search',
     'checkbox',
+    'tel',
   ]),
   name: PropTypes.string,
   onChange: PropTypes.func,

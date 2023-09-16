@@ -1,3 +1,5 @@
+// NEED TO REFACTOR FOR CLEANING
+
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
@@ -9,6 +11,7 @@ export default function Selector({
   name,
   value,
   data,
+  hotOptionsData,
   defaultValue,
   placeholder,
   form,
@@ -27,10 +30,11 @@ export default function Selector({
   const [currentValue, setCurrentValue] = useState(
     defaultValue || initialSelectorValue
   );
-  const [categories, setCategories] = useState([]);
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const hotOptions = hotOptionsData || [];
 
-  let id = 0;
+  // let id = 0;
 
   useEffect(() => {
     if (!defaultOption) {
@@ -58,12 +62,17 @@ export default function Selector({
     toggleDropdown();
   };
 
+  const onhotOptionPress = option => {
+    setCurrentValue(prevValue => ({ ...prevValue, name: option }));
+  };
+
   return (
     <div className={styles.container}>
       <label className={styles.label}>
         {label}
         <input
           className={styles.select}
+          name={name}
           value={value || currentValue.name}
           readOnly
           onClick={toggleDropdown}
@@ -86,7 +95,8 @@ export default function Selector({
             const isCheched = currentValue.name === category.name;
             return (
               <label
-                key={id++}
+                // key={id++}
+                key={categories.indexOf(category)}
                 className={`${styles.label} ${styles['label-options']} ${
                   enteringField && styles['label-options--disabled']
                 } ${isCheched && styles['is-checked']}`}
@@ -107,14 +117,35 @@ export default function Selector({
           })}
         </fieldset>
       )}
+
+      {hotOptions.length > 0 && (
+        <ul className={styles['hot-option-list']}>
+          {hotOptions.map(option => {
+            return (
+              <li
+                key={hotOptions.indexOf(option)}
+                onClick={() => onhotOptionPress(option)}
+              >
+                <p className={styles['hot-option-text']}>{option}</p>
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 }
 
 Selector.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(
+    PropTypes.exact({
+      name: PropTypes.string.isRequired, // Ключами об'єкта можуть бути тільки "name"
+      id: PropTypes.string, // і тільки "id". Жодних інших.
+    })
+  ),
   defaultValue: PropTypes.shape({
     name: PropTypes.string.isRequired,
     id: PropTypes.string,
   }),
+  hotOptionsData: PropTypes.arrayOf(PropTypes.string),
 };

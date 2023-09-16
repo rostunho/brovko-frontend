@@ -16,36 +16,36 @@
   color: #191c2c;
   cursor: pointer;
   pointer-events: none;
+}
 
-  &.label-options {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
+.label.label-options {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
 
-    height: 35px;
-    padding-left: 16px;
-    pointer-events: auto;
-    cursor: pointer;
+  height: 35px;
+  padding-left: 16px;
+  pointer-events: auto;
+  cursor: pointer;
+
+  &:hover,
+  &:focus,
+  &.is-checked {
+    color: #fefefe;
+    background-color: #f3a610;
+  }
+
+  &--disabled {
+    color: #a3a5a4;
+    cursor: default;
 
     &:hover,
     &:focus,
+    &:active,
     &.is-checked {
-      color: #fefefe;
-      background-color: #f3a610;
-    }
-
-    &--disabled {
+      background-color: #fff;
       color: #a3a5a4;
-      cursor: default;
-
-      &:hover,
-      &:focus,
-      &:active,
-      &.is-checked {
-        background-color: #fff;
-        color: #a3a5a4;
-      }
     }
   }
 }
@@ -140,13 +140,6 @@
 
   -webkit-appearance: none;
   appearance: none;
-
-  // &:hover,
-  // &:focus,
-  // &:active {
-  //   background-color: #f3a610;
-  //   color: #fff;
-  // }
 
   &:disabled {
     background-color: #fff;
@@ -257,5 +250,28 @@
   &:active {
     stroke: #f3a610;
     fill: #f3a610;
+  }
+}
+
+.hot-option-list {
+  display: flex;
+  gap: 8px;
+  overflow: scroll;
+  padding: 4px 0;
+}
+
+.hot-option-text {
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #a3a5a4;
+  cursor: pointer;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #f3a610;
   }
 }

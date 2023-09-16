@@ -3,7 +3,7 @@ import { lazy } from 'react';
 import ProductDescriptionPage from 'pages/ProductDetailPage/ProductDescription';
 
 const LazyAboutPage = lazy(() => import('pages/AboutPage/AboutPage'));
-const LazyAdminPage = lazy(() => import('pages/AdminPage'));
+const LazyAdminPage = lazy(() => import('pages/AdminPage/AdminPage'));
 
 const LazyStartPage = lazy(() => import('pages/StartPage/StartPage'));
 const LazyMainPage = lazy(() => import('pages/MainPage/MainPage'));

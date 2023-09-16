@@ -9,7 +9,7 @@ import OrderForm from 'components/OrderForm/OrderForm';
 import { authRoutes, publicRoutes } from './routes';
 import './App.css';
 
-const LazyAdminPage = lazy(() => import('pages/AdminPage'));
+const LazyAdminPage = lazy(() => import('pages/AdminPage/AdminPage'));
 const LazyLoginUserPage = lazy(() =>
   import('pages/LoginUserPage/LoginUserPage')
 );
