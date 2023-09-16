@@ -10,6 +10,7 @@ const Input = ({
   type = 'text',
   name,
   value,
+  onClick,
   onChange,
   onFocus,
   onBlur,
@@ -24,13 +25,15 @@ const Input = ({
   link,
   style,
   checked,
-  onClick,
+  defaultChecked,
   additionalFunction,
   ...props
 }) => {
   const [checkboxChecked, setCheckboxChecked] = useState(false);
+  // const [selectedRedio, setSelectedRedio] = useState(value);
   const [showPassword, setShowPassword] = useState(false);
   const isCheckbox = type === 'checkbox';
+  const isRadio = type === 'radio';
   const withIcon = icon || type === 'password' || type === 'search';
 
   const handleChackbox = () => {
@@ -54,17 +57,16 @@ const Input = ({
 
   return (
     <label
-      className={`${
-        isCheckbox
-          ? `${styles.label} ${styles['checkbox-label']}`
-          : `${styles.label} ${styles[`label_length-${length}`]}`
+      className={`${styles.label} ${
+        isCheckbox ? styles['checkbox-label'] : ''
+      } ${isRadio ? styles['radio-label'] : ''} ${
+        styles[`label_length-${length}`]
       }`}
       style={{ color: isCheckbox && checkboxChecked && '#f3a610' }}
     >
       {label}
-
       <input
-        className={`${styles.input} ${withIcon && styles['with-icon']}`}
+        className={`${styles.input} ${withIcon ? styles['with-icon'] : ''}`}
         ref={inputRef}
         type={handleType()}
         id={id}
@@ -74,11 +76,13 @@ const Input = ({
         placeholder={placeholder}
         onChange={e => {
           isCheckbox && handleChackbox();
+          // isRadio && setSelectedRedio(e.target.value);
           onChange && onChange(e);
         }}
         onFocus={onFocus}
         onBlur={onBlur}
-        checked={checkboxChecked}
+        checked={checked || checkboxChecked}
+        defaultChecked={defaultChecked}
         disabled={mode === 'disabled'}
         {...props}
       />
@@ -120,6 +124,7 @@ Input.propTypes = {
     'search',
     'checkbox',
     'tel',
+    'radio',
   ]),
   name: PropTypes.string,
   onChange: PropTypes.func,
