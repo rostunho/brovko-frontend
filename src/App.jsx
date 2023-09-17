@@ -55,13 +55,13 @@ function App() {
         <Route path="" element={<Navigate to="/main" replace />} />
 
         {/* Public Routes */}
-        <Route path="/main" element={<LazyMainPage />} />
-        <Route path="/perevagy" element={<LazyPerevagyPage />} />
-        <Route path="/start" element={<LazyStartPage />} />
-        <Route path="/register" element={<LazyRegisterUserPage />} />
-        <Route path="/product-list-page" element={<LazyProductListPage />} />
+        <Route path="main" element={<LazyMainPage />} />
+        <Route path="perevagy" element={<LazyPerevagyPage />} />
+        <Route path="start" element={<LazyStartPage />} />
+        <Route path="register" element={<LazyRegisterUserPage />} />
+        <Route path="product-list-page" element={<LazyProductListPage />} />
 
-        <Route path="/product/:productId" element={<LazyProductDetailPage />}>
+        <Route path="product/:productId" element={<LazyProductDetailPage />}>
           <Route path="description" element={<LazyProductDescription />} />
           <Route path="review" element={<LazyProductReviewPage />} />
         </Route>
@@ -76,11 +76,11 @@ function App() {
           <Route path="order-form" element={<OrderForm />} />
         </Route>
 
-        <Route path="/about" element={<LazyAboutPage />} />
-        <Route path="/where-to-buy" element={<LazyWereToBuyPage />} />
-        <Route path="/contacts" element={<LazyContactsPage />} />
+        <Route path="about" element={<LazyAboutPage />} />
+        <Route path="where-to-buy" element={<LazyWereToBuyPage />} />
+        <Route path="contacts" element={<LazyContactsPage />} />
         <Route
-          path="/exchange-and-return"
+          path="exchange-and-return"
           element={<LazyExchangeAndReturnPage />}
         />
 

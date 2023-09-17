@@ -24,7 +24,7 @@ export default function Review({
             {!isExpandedReview && (
               <SharedLinkButton
                 to={`review`}
-                state={{ from: location, isExpandedReview: true }}
+                state={{ from: '/product-list-page', isExpandedReview: true }}
                 label="Дивитися всі відгуки"
                 onClick={handleReadReviewClick}
               />

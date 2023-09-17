@@ -8,7 +8,6 @@ import styles from '../ProductDetail.module.scss';
 export default function Description({
   product,
   isExpandedDescription,
-  location,
   handleReadMoreClick,
 }) {
   return (
@@ -28,7 +27,10 @@ export default function Description({
             {!isExpandedDescription && (
               <SharedLinkButton
                 to={`description`}
-                state={{ from: location, isExpandedDescription: true }}
+                state={{
+                  from: '/product-list-page',
+                  isExpandedDescription: true,
+                }}
                 label="Читати повністю"
                 onClick={handleReadMoreClick}
               />
