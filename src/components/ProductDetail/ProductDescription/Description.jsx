@@ -27,7 +27,10 @@ export default function Description({
             {!isExpandedDescription && (
               <SharedLinkButton
                 to={`description`}
-                state={{ isExpandedDescription: true }}
+                state={{
+                  from: '/product-list-page',
+                  isExpandedDescription: true,
+                }}
                 label="Читати повністю"
                 onClick={handleReadMoreClick}
               />
