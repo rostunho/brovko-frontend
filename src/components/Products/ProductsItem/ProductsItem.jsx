@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import StarEmpty from 'shared/icons/StarEmpty';
 import Button from 'shared/components/Button/Button';
 import Image from 'shared/components/Image';
@@ -6,6 +7,8 @@ import Image from 'shared/components/Image';
 import styles from './ProductsItem.module.scss';
 
 const ProductsItem = ({ product }) => {
+  const location = useLocation();
+
   return (
     <div className={styles.productCard}>
       <div className={styles.image}>
@@ -27,7 +30,11 @@ const ProductsItem = ({ product }) => {
           </div>
         </div>
         <div className={styles.buttons}>
-          <Link to={`/product/${product._id}`}>
+          <Link
+            to={`/product/${product._id}`}
+            // state={{ from: location.state?.from } || '/'}
+            state={{ from: location }}
+          >
             <Button mode="outlined">Подробиці</Button>
           </Link>
 

@@ -1,5 +1,5 @@
 // import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Button from 'shared/components/Button';
 import styles from './Hero.module.scss';
 
@@ -7,6 +7,8 @@ import styles from './Hero.module.scss';
 // import heroMob2x from '../../shared/images/heroLight2.jpg';
 
 const Hero = () => {
+  const location = useLocation();
+
   // const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   // useEffect(() => {
@@ -65,7 +67,11 @@ const Hero = () => {
       <section className={styles.hero}>
         <div className={styles.container}>
           <h1 className={styles.title}>ЯК ДЛЯ ЛЮДЕЙ, ТІЛЬКИ СМАЧНІШЕ</h1>
-          <Link to="/product-list-page">
+          <Link
+            to="/product-list-page"
+            // state={{ from: location.state?.from } || '/'}
+            state={{ from: location }}
+          >
             <Button>Перейти до смаколиків</Button>
           </Link>
         </div>

@@ -21,17 +21,13 @@ export default function ProductDetail() {
   const { productId } = useParams();
   const location = useLocation();
   const from = location.state?.from || '/';
+  // const from = location;
+
   const allProducts = useSelector(getAllProducts);
   const product = allProducts?.find(p => p._id === productId);
 
-  // console.log('allProducts', allProducts);
-  // console.log('product', product);
-  // console.log('productID', productId);
-
   const [isExpandedDescription, setIsExpandedDescription] = useState(false);
   const [isExpandedReview, setIsExpandedReview] = useState(false);
-  console.log('isExpandedDescription', isExpandedDescription);
-  console.log('isExpandedReview', isExpandedReview);
 
   useEffect(() => {
     // Встановлюємо isExpandedDescription з location.state
@@ -47,7 +43,6 @@ export default function ProductDetail() {
 
   const handleReadMoreClick = () => {
     setIsExpandedDescription(true);
-    console.log('isExpandedDescription click', isExpandedDescription);
   };
 
   const handleReadReviewClick = () => {
@@ -60,11 +55,11 @@ export default function ProductDetail() {
 
   const { name, picture, note, price, currencyId, review } = product;
 
-  console.log('note', note);
-
   return (
     <>
-      <Heading withGoBack>{name}</Heading>
+      <Heading withGoBack state={from}>
+        {name}
+      </Heading>
       <div className={styles.productCard}>
         <Rating />
         <Image className={styles.image} src={picture} />
@@ -80,13 +75,12 @@ export default function ProductDetail() {
         <Description
           product={product}
           isExpandedDescription={isExpandedDescription}
-          location={location}
+          // location={location}
           handleReadMoreClick={handleReadMoreClick}
         />
-        {/* <ReviewContainer /> */}
         <Review
           isExpandedReview={isExpandedReview}
-          location={location}
+          // location={location}
           handleReadReviewClic={handleReadReviewClick}
           review={review}
         />{' '}

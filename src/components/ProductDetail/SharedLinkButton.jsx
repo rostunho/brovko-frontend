@@ -3,6 +3,7 @@ import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
 import styles from './ProductDetail.module.scss';
 
 export default function SharedLinkButton({ to, state, label, onClick }) {
+  console.log('stateClick', state);
   return (
     <Link
       className={styles.readMoreLink}

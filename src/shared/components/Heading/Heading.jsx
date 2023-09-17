@@ -4,10 +4,10 @@ import styles from './Heading.module.scss';
 
 export default function Heading({ type = 'h2', withGoBack, style, children }) {
   const location = useLocation();
-  const from = location.state?.from || '/';
-  const navigate = useNavigate();
 
-  // console.log('from:', location);
+  const from = location.state?.from ?? '/';
+
+  const navigate = useNavigate();
 
   const onGoBackClick = () => {
     navigate(from);
