@@ -4,6 +4,10 @@ import Selector from 'shared/components/Selector';
 import Input from 'shared/components/Input';
 import styles from './DeliveryForm.module.scss';
 
+// testing fields
+import { NewInput } from 'shared/components/NewInput';
+// testing fields
+
 export default function DeliveryForm() {
   const [selectedRadioButton, setSelectedRadioButton] = useState('Відділення');
 
@@ -64,6 +68,32 @@ export default function DeliveryForm() {
         />
         <input type="radio" />
         <Input type="checkbox" label="Test" />
+
+        {/* testing start */}
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <NewInput
+          type="text"
+          label="Test LG Text Input"
+          placeholder="Введіть назву міста"
+        />
+        <NewInput
+          type="email"
+          label="Test MD Input"
+          placeholder="Text of placeholder"
+          length="md"
+        />
+        <NewInput
+          type="text"
+          label="Test SM"
+          placeholder="Text of placeholder"
+          length="sm"
+        />
+
+        {/* testing end */}
       </form>
     </div>
   );
