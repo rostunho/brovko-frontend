@@ -5,7 +5,7 @@ import Input from 'shared/components/Input';
 import styles from './DeliveryForm.module.scss';
 
 // testing fields
-import { NewInput } from 'shared/components/NewInput';
+import NewInput from 'shared/components/NewInput';
 // testing fields
 
 export default function DeliveryForm() {
@@ -79,12 +79,12 @@ export default function DeliveryForm() {
           type="text"
           label="Test LG Text Input"
           placeholder="Введіть назву міста"
+          length="md"
         />
         <NewInput
           type="email"
           label="Test MD Input"
-          placeholder="Text of placeholder"
-          length="md"
+          placeholder="Enter your E-mail"
         />
         <NewInput
           type="text"
