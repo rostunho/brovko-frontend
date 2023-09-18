@@ -22,6 +22,7 @@ export default function ProductDetail() {
   const location = useLocation();
   const from = location.state?.from || '/';
   // const from = location;
+  console.log('from', from);
 
   const allProducts = useSelector(getAllProducts);
   const product = allProducts?.find(p => p._id === productId);

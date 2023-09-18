@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import UserNav from './UserNav/UserNav';
-import AuthNav from './AuthNav/AuthNav';
+import AllUserNav from './AllUserNav';
+import AuthNav from './AuthNav';
+import ProductrNav from './ProductNav';
 import MobileMenu from '../MobileMenu/MobileMenu';
-// import MobileMenuIcon from 'shared/icons/MobileMenuIcon';
 import { selectIsLogin } from 'redux/user/userSelectors';
-import Nav from './Nav/Nav';
+
 import Button from 'shared/components/Button';
 import styles from './Navigation.module.scss';
 
@@ -35,16 +35,15 @@ const Navigation = ({ isMobile }) => {
             className={styles.burger}
             onClick={toggleMobileMenu}
           /> */}
-          {!isUserLogin && <AuthNav />}
-          {isUserLogin && <UserNav />}
+          {/* {!isUserLogin && <AuthNav />}
+          {isUserLogin && <UserNav />} */}
         </>
       }
       {showMobileMenu && (
         <MobileMenu onClick={toggleMobileMenu} isMobile={isMobile}>
-          {/* <UserNav onClick={toggleMobileMenu} />
-          <AuthNav onClick={toggleMobileMenu} /> */}
-
-          <Nav onClick={toggleMobileMenu} />
+          <ProductrNav onClick={toggleMobileMenu} />
+          <AllUserNav onClick={toggleMobileMenu} />
+          <AuthNav onClick={toggleMobileMenu} />
         </MobileMenu>
       )}
     </div>

@@ -14,14 +14,6 @@ const LazyWereToBuyPage = lazy(() =>
   import('pages/WereToBuyPage/WereToBuyPage')
 );
 
-const LazyRegisterUserPage = lazy(() =>
-  import('pages/RegisterUserPage/RegisterUserPage')
-);
-
-const LazyLoginUserPage = lazy(() =>
-  import('pages/LoginUserPage/LoginUserPage')
-);
-
 const LazyUserDashboardPage = lazy(() =>
   import('pages/UserDashboardPage/UserDashboardPage')
 );
@@ -48,23 +40,21 @@ export const LazyNotFoundPage = lazy(() =>
   import('pages/NotFoundPage/NotFoundPage')
 );
 
-export const authRoutes = [
+export const adminRoutes = [
   {
     path: '/admin',
     Component: LazyAdminPage,
   },
+];
 
-  {
-    path: '/login',
-    Component: LazyLoginUserPage,
-  },
+export const privatRoutes = [
   {
     path: '/user-dashboard',
     Component: LazyUserDashboardPage,
   },
 ];
 
-export const publicRoutes = [
+export const userRoutes = [
   {
     path: '/',
     Component: LazyMainPage,
@@ -74,10 +64,12 @@ export const publicRoutes = [
     path: '/main',
     Component: LazyMainPage,
   },
+
   {
     path: '*',
     Component: LazyNotFoundPage,
   },
+
   {
     path: '/perevagy',
     Component: LazyPerevagyPage,
@@ -86,10 +78,7 @@ export const publicRoutes = [
     path: '/start',
     Component: LazyStartPage,
   },
-  {
-    path: '/register',
-    Component: LazyRegisterUserPage,
-  },
+
   {
     path: '/product-list-page',
     Component: LazyProductListPage,

@@ -28,7 +28,7 @@ export default function Description({
               <SharedLinkButton
                 to={`description`}
                 state={{
-                  from: '/product-list-page',
+                  from: '/products/product-list-page',
                   isExpandedDescription: true,
                 }}
                 label="Читати повністю"

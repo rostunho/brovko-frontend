@@ -42,10 +42,12 @@ export default function Header() {
           </Link>
         </div>
         <div className={styles.boxBasket}>
-          <Link to="./login" className={styles.userIcon}>
+          <Link to="./auth/login" className={styles.userIcon}>
             <UserLight />
           </Link>
-          <BasketLight />
+          <Link to="./order" className={styles.userIcon}>
+            <BasketLight />
+          </Link>
         </div>
       </div>
     </header>
