@@ -8,10 +8,11 @@ import styles from '../ProductDetail.module.scss';
 
 export default function Description({
   product,
+  location,
   isExpandedDescription,
   handleReadMoreClick,
 }) {
-  const location = useLocation();
+  // const location = useLocation();
 
   return (
     <div className={styles.descriptionContainer}>
@@ -32,7 +33,7 @@ export default function Description({
                 to={`description`}
                 state={{ isExpandedDescription: true }}
                 // state={{
-                //   from: '/shop/product-list-page',
+                //   from: location.state.from,
                 //   isExpandedDescription: true,
                 // }}
                 label="Читати повністю"
