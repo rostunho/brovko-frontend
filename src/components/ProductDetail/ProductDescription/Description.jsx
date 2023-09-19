@@ -8,12 +8,9 @@ import styles from '../ProductDetail.module.scss';
 
 export default function Description({
   product,
-  location,
   isExpandedDescription,
   handleReadMoreClick,
 }) {
-  // const location = useLocation();
-
   return (
     <div className={styles.descriptionContainer}>
       {product ? (
