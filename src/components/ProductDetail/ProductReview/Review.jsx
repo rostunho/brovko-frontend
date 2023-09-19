@@ -26,7 +26,7 @@ export default function Review({
                 to={`review`}
                 // state={{ isExpandedReview: true }}
                 state={{
-                  from: '/products/product-list-page',
+                  from: location,
                   isExpandedReview: true,
                 }}
                 label="Дивитися всі відгуки"

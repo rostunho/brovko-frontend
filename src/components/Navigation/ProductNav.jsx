@@ -10,7 +10,7 @@ export default function ProductsNav({ onClick }) {
     <nav>
       <ul className={styles.list}>
         <li className={styles.item} onClick={onClick}>
-          <NavLink className={styles.link} to="/products/product-list-page">
+          <NavLink className={styles.link} to="/shop/product-list-page">
             Крамничка
           </NavLink>
         </li>

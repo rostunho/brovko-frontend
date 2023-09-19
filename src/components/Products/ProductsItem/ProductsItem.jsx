@@ -31,9 +31,9 @@ const ProductsItem = ({ product }) => {
         </div>
         <div className={styles.buttons}>
           <Link
-            to={`/products/product/${product._id}`}
-            state={{ from: location.state?.from } || '/'}
-            // state={{ from: location }}
+            to={`/shop/product/${product._id}`}
+            // state={{ from: location.state?.from } ?? '/'}
+            state={{ from: '/shop/product-list-page' }}
           >
             <Button mode="outlined">Подробиці</Button>
           </Link>

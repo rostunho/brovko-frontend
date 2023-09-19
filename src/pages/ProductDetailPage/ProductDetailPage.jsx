@@ -1,5 +1,5 @@
 // import { useState } from 'react';
-// import { useParams, Outlet, useLocation } from 'react-router-dom';
+import { useParams, Outlet, useLocation } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
 // import { Link } from 'react-router-dom';
 // import { getAllProducts } from 'redux/products/productsSelectors';
@@ -150,7 +150,7 @@
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 import styles from './ProductDetailPage.module.scss';
 
-export default function ProductDetailPage() {
+export default function ProductDetailPage({ name }) {
   return (
     <>
       <ProductDetail />

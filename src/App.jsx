@@ -18,31 +18,29 @@ const OrderPage = lazy(() => import('pages/OrderPage'));
 
 function App() {
   return (
-   
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
+    <Routes>
+      <Route path="/" element={<SharedLayout />}>
         <Route path="/main" element={<LazyMainPage />} />
-        
-        <Route path="/all/*" element={<AllUsersRoutes />} />
-        
-        <Route path="/products/*" element={<ProductsRoutes />} />
-        
-          <Route path="/auth/*" element={<AuthRoutes />} />
 
-          <Route path="/order" element={<OrderPage />}>
-            <Route index element={<Navigate to="/order/login" />} />
-            <Route
-              path="login"
-              index
-              element={<AuthFormWrapper form={<LoginForm />} />}
-            />
-            <Route path="order-form" element={<OrderForm />} />
-          </Route>
-          {/* Not Found */}
-          <Route path="*" element={<LazyNotFoundPage />} />
+        <Route path="/all/*" element={<AllUsersRoutes />} />
+
+        <Route path="/shop/*" element={<ProductsRoutes />} />
+
+        <Route path="/auth/*" element={<AuthRoutes />} />
+
+        <Route path="/order" element={<OrderPage />}>
+          <Route index element={<Navigate to="/order/login" />} />
+          <Route
+            path="login"
+            index
+            element={<AuthFormWrapper form={<LoginForm />} />}
+          />
+          <Route path="order-form" element={<OrderForm />} />
         </Route>
-      </Routes>
-   
+        {/* Not Found */}
+        <Route path="*" element={<LazyNotFoundPage />} />
+      </Route>
+    </Routes>
   );
 }
 
