@@ -10,5 +10,5 @@ export default function Text({ type = 'regular', children, ...props }) {
 }
 
 Text.propTypes = {
-  type: PropTypes.oneOf(['regular', 'centered']),
+  type: PropTypes.oneOf(['regular', 'centered', 'error']),
 };

@@ -1,6 +1,7 @@
 .input-box {
   position: relative;
   display: block;
+  min-height: 40px;
 
   font-family: 'Nunito', sans-serif;
   font-size: 14px;
@@ -69,3 +70,25 @@
 // .input__type--text {
 //   background-color: transparent;
 // }
+
+input.input--not-valid {
+  border: 1px solid #f84147;
+
+  &:hover,
+  &focus,
+  &:not(:focus),
+  &:active,
+  &:not(:active) {
+    border: 1px solid #f84147;
+  }
+}
+
+input.input--is-valid:focus:not(:placeholder-shown) {
+  border: 2px solid #f3a610;
+}
+
+.warning-icon {
+  position: absolute;
+  top: 31px;
+  right: 16px;
+}

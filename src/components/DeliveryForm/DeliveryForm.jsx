@@ -83,6 +83,7 @@ export default function DeliveryForm() {
         />
         <NewInput
           type="email"
+          name="email"
           label="Test MD Input"
           placeholder="Enter your E-mail"
         />
