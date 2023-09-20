@@ -3,26 +3,11 @@
   margin-bottom: 24px;
 }
 
-.ul {
+.buttons {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-}
-
-.pageNumber {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #191c2c;
-  border-radius: 50%;
-  border: 1px solid #f3a610;
-}
-
-.active {
-  color: #fefefe;
-  background-color: #f3a610;
 }
 
 .arrowPrev {
@@ -35,7 +20,7 @@
   position: static;
   background-color: transparent;
   border: none;
-  margin-top: -5px;
+  margin-top: -8px;
   transform: rotate(180deg);
 }
 

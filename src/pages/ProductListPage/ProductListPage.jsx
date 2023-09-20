@@ -6,7 +6,7 @@ import { fetchAllProducts } from 'redux/products/productsOperations';
 import Heading from 'shared/components/Heading/Heading';
 import Pagination from 'components/Products/Pagination';
 import ProductList from 'components/Products/ProductsList/ProductsList';
-import styles from './ProductListPage.module.scss';
+// import styles from './ProductListPage.module.scss';
 
 export default function ProductListPage() {
   const [page, setPage] = useState(1);
