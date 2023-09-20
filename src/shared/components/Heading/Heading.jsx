@@ -5,7 +5,8 @@ import styles from './Heading.module.scss';
 export default function Heading({ type = 'h2', withGoBack, style, children }) {
   const location = useLocation();
 
-  const from = location.state?.from ?? '/';
+  const from = location.state?.from || '/main';
+  // const from = location;
 
   const navigate = useNavigate();
 

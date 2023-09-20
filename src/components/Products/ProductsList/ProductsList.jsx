@@ -14,8 +14,6 @@ import Filter from 'components/Filter/Filter';
 import styles from './ProductsList.module.scss';
 
 const ProductList = () => {
-  // const location = useLocation();
-
   const products = useSelector(getAllProducts);
   console.log('products:', products);
 

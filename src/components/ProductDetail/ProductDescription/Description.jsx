@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import DescriptionHeader from './DescriptionHeader';
 import DescriptionText from './DescriptionText';
 import SharedLinkButton from '../SharedLinkButton';
@@ -27,10 +28,11 @@ export default function Description({
             {!isExpandedDescription && (
               <SharedLinkButton
                 to={`description`}
-                state={{
-                  from: '/product-list-page',
-                  isExpandedDescription: true,
-                }}
+                state={{ isExpandedDescription: true }}
+                // state={{
+                //   from: location.state.from,
+                //   isExpandedDescription: true,
+                // }}
                 label="Читати повністю"
                 onClick={handleReadMoreClick}
               />

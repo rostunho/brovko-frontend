@@ -58,3 +58,17 @@
     line-height: 1.35;
   }
 }
+
+.wrap {
+  display: flex;
+  justify-content: baseline;
+  align-items: center;
+  text-decoration: none;
+  margin: 0 5px;
+  color: var(--unnamed, #191c2c);
+  font-family: 'Nunito';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
