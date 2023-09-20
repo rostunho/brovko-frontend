@@ -1,7 +1,7 @@
 .input-box {
   position: relative;
   display: block;
-  min-height: 40px;
+  min-height: 63px;
 
   font-family: 'Nunito', sans-serif;
   font-size: 14px;
@@ -75,8 +75,8 @@ input.input--not-valid {
   border: 1px solid #f84147;
 
   &:hover,
-  &focus,
-  &:not(:focus),
+  &focus:not(:placeholder-shown),
+//   &:not(:focus):not(:placeholder-shown),
   &:active,
   &:not(:active) {
     border: 1px solid #f84147;

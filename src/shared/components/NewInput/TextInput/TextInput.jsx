@@ -1,30 +1,30 @@
-import React from 'react';
+import { type } from '@testing-library/user-event/dist/type';
+import { useState, useEffect } from 'react';
 
-export default function TextInput({
-  //   type,
-  //   className,
-  //   name,
-  //   placeholder,
-  //   value,
-  //   onChange,
-  //   onFocus,
-  //   onBlur,
-  //   defaultValue,
-  ...props
-}) {
+export default function TextInput({ rootValueHandling, ...props }) {
+  const { type, onChange } = props;
+  const { valueRef, updateRootValue } = rootValueHandling;
+  const [localValue, setLocalValue] = useState('');
+  // console.log(localValue);
+
+  useEffect(() => {
+    valueRef.current = localValue;
+    updateRootValue();
+  }, [localValue, updateRootValue, valueRef]);
+
+  const handleOnChange = event => {
+    onChange && onChange(event);
+    const { value } = event.target;
+    setLocalValue(value);
+  };
+
   return (
     <input
-      //   type={type}
-      //   className={className}
-      //   name={name}
-      //   placeholder={placeholder}
-      //   value={value}
-      //   inputMode={type === 'email' ? 'email' : 'text'}
-      //   onFocus={onFocus}
-      //   onBlur={onBlur}
-      //   onChange={onChange}
-      //   defaultValue={defaultValue}
       {...props}
+      onChange={handleOnChange}
+      inputMode="text"
+      data-type={type}
+      aria-label="Номер телефону"
     />
   );
 }

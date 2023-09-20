@@ -15,7 +15,7 @@ export default function DeliveryForm() {
     <div className={styles.container}>
       <Heading type="h3">Доставка</Heading>
 
-      <form>
+      <form noValidate>
         <Selector
           label="Населений пункт"
           placeholder="Оберіть населений пункт"
@@ -77,22 +77,31 @@ export default function DeliveryForm() {
 
         <NewInput
           type="text"
-          label="Test LG Text Input"
+          label="Text length='md' "
           placeholder="Введіть назву міста"
           length="md"
         />
         <NewInput
           type="email"
           name="email"
-          label="Test MD Input"
+          label="Email length='lg (defaul)"
           placeholder="Enter your E-mail"
         />
         <NewInput
           type="text"
-          label="Test SM"
+          label="Text length='sm'"
           placeholder="Text of placeholder"
           length="sm"
         />
+        <hr />
+        <NewInput type="tel" label="Tel length='lg' (default)" metrical="m3" />
+        <NewInput
+          type="number"
+          label="Number length='md'"
+          length="md"
+          metrical="m3"
+        />
+        <NewInput type="number" label="Number 'sm'" length="sm" metrical="m3" />
 
         {/* testing end */}
       </form>

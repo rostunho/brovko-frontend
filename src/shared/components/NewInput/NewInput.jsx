@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { validateInputValue } from 'utils';
 import { errorMessages } from './errorMessages';
@@ -11,20 +11,30 @@ export default function NewInput({
   type = 'text',
   label,
   placeholder,
+  //   додатковий клас для підпису (якщо потрібен)
   labelClassName,
+  //   додатковий клас для інпуту (якщо потрібен)
   inputClassName,
   name,
   value,
+  //   довжина блоку з інпутом
   length = 'lg',
   onChange,
   onFocus,
   onBlur,
+  //   метричні одиниці "кг", "км", тощо (якщо потрібні)
+  metrical,
+  pattern,
   ...props
 }) {
-  const [currentValue, setCurrentValue] = useState('');
+  const [rootValue, setRootValue] = useState('');
   const [validationChecking, setValidationChecking] = useState('pending');
   const [additionalClass, setAdditionalClass] = useState('');
   const [error, setError] = useState({ message: '' });
+  const valueRef = useRef(''); // ? to delete
+  const rootValueHandling = { valueRef, updateRootValue }; // ?to delete
+
+  //   console.log('REF CURRENT IN ROOT: ', valueRef);
 
   useEffect(() => {
     switch (validationChecking) {
@@ -42,9 +52,14 @@ export default function NewInput({
     }
   }, [validationChecking]);
 
+  function updateRootValue() {
+    setRootValue(valueRef.current);
+  }
+
   const handleOnChange = event => {
+    // console.log('EVENT IS: ', event);
     onChange && onChange(event);
-    setCurrentValue(event.target.value);
+    // setRootValue(event.target.value);
     validateInput(event);
   };
 
@@ -60,7 +75,10 @@ export default function NewInput({
   };
 
   const validateInput = event => {
-    const { value, type } = event.target;
+    // console.log('EVENT IN ROOT: ', event);
+
+    const { value } = event.target;
+    const { type } = event.target.dataset;
     if (type === 'text') {
       setValidationChecking('pending');
       return;
@@ -71,15 +89,19 @@ export default function NewInput({
   };
 
   const handleValidationResult = (result, event) => {
+    // const { type } = event;
+    const { type } = event.target.dataset;
+    // console.log('!!!!!!!!', type);
+    const { value } = event.target;
     if (result) {
       setValidationChecking('isValid');
       setErrorMessage('');
     } else {
-      if (event.type === 'blur') {
+      if (event.type === 'blur' && value) {
         setValidationChecking('notValid');
         setErrorMessage(errorMessages[type]);
       } else {
-        setValidationChecking('pending');
+        setValidationChecking('pending1');
       }
     }
   };
@@ -98,15 +120,18 @@ export default function NewInput({
         {label}
         <InputElement
           type={type}
-          className={`${styles.input} ${styles[`${additionalClass}`]} ${
-            inputClassName ? inputClassName : ''
-          }`}
+          className={`${styles.input} ${
+            type === 'number' ? '' : styles[`${additionalClass}`]
+          } ${inputClassName ? inputClassName : ''}`}
           name={name}
           placeholder={placeholder}
-          value={currentValue}
+          value={rootValue}
           onChange={handleOnChange}
           onFocus={handleOnFocus}
           onBlur={handleOnBlur}
+          length={length}
+          metrical={metrical}
+          rootValueHandling={rootValueHandling} // об'єкт з інструментами для оновлення головного стейту
           {...props}
         />
         {error.message && (
@@ -122,6 +147,7 @@ export default function NewInput({
 
 NewInput.propTypes = {
   label: PropTypes.string,
+  length: PropTypes.oneOf(['lg', 'md', 'sm']),
   type: PropTypes.oneOf([
     'text',
     'number',
