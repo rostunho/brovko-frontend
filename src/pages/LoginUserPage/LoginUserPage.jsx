@@ -15,7 +15,7 @@ export default function LoginUserPage() {
     dispatch(login(data));
   };
   if (isUserLogin) {
-    return <Navigate to="/user-dashboard" />;
+    return <Navigate to="/product-list-page" />;
   }
   return (
     <>
