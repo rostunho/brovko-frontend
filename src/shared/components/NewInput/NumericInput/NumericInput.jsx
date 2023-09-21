@@ -143,8 +143,8 @@ export default function NumericInput({ rootValueHandling, ...props }) {
         className={`${className} ${styles['input--metric']}`}
         inputMode={type === 'number' ? 'numeric' : 'tel'}
         placeholder="00.00"
-        aria-label={type === 'number' && 'Числове значення.'}
-        data-type={type === 'number' ? 'number' : type}
+        aria-label={type === 'number' && 'Number'}
+        data-type={type}
         onChange={handleOnChange}
         minLength={8}
         maxLength={18}

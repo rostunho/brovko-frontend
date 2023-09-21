@@ -102,7 +102,10 @@ export default function DeliveryForm() {
           metrical="m3"
         />
         <NewInput type="number" label="Number 'sm'" length="sm" metrical="m3" />
-
+        <hr />
+        <NewInput type="password" label="Your password" />
+        <NewInput type="url" label="Your url" />
+        <NewInput type="date" label="Your date" />
         {/* testing end */}
       </form>
     </div>

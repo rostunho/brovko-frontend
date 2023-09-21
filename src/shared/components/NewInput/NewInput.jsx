@@ -75,7 +75,8 @@ export default function NewInput({
     const { value } = event.target;
     const { type } = event.target.dataset;
 
-    if (type === 'text') {
+    if (type === 'text' || type === 'password' || type === 'date') {
+      // забрати звідси type==='date'
       setValidationChecking('pending');
       return;
     }
@@ -88,10 +89,6 @@ export default function NewInput({
     const { type } = event.target.dataset;
     const { value } = event.target;
     const { type: eventType } = event;
-    // console.log('event.type: ', event.type);
-    // console.log('eventType: ', eventType);
-    // console.log('type: ', type);
-    // console.log('EVENT: ', event);
     if (result) {
       setValidationChecking('isValid');
       setErrorMessage('');
@@ -103,7 +100,7 @@ export default function NewInput({
         setValidationChecking('notValid');
         setErrorMessage(errorMessages[type]);
       } else {
-        setValidationChecking('pending1');
+        setValidationChecking('pending');
       }
     }
   };
