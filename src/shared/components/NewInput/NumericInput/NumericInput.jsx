@@ -69,18 +69,70 @@ export default function NumericInput({ rootValueHandling, ...props }) {
     type === 'tel' ? setInputValue(parsedValue) : setNumberValue(value);
   };
 
-  const disableBackspaceKey = event => {
-    console.log('EVENT-KEY IS :', event.key);
+  const handleKeyDown = event => {
+    disableBackKeys(event);
+    allowCharacters(event);
+  };
 
-    if (event.key === 'Backspace' && inputValue === phonePrefix) {
+  const handleDoubleClick = event => {
+    event.target.select();
+  };
+
+  const handleMouseUp = event => {
+    const { selectionStart, selectionEnd, value } = event.target;
+    selectionStart === 0 &&
+      selectionEnd === value.length &&
+      event.target.select();
+  };
+
+  const disableBackKeys = event => {
+    const { selectedStart, selectedEnd } = event.target;
+
+    event.key === 'Backspace' &&
+      inputValue === phonePrefix &&
+      selectedStart > 6 &&
+      selectedStart === selectedEnd &&
       event.preventDefault();
+
+    event.key === 'ArrowLeft' &&
+      inputValue.length <= 4 &&
+      event.preventDefault();
+  };
+
+  const allowCharacters = event => {
+    const keyCode = event.keyCode || event.which;
+    const key = event.key;
+
+    const allowedCharacters = ['+', '(', ')', ' '];
+
+    if (allowedCharacters.includes(key)) {
+      return;
     }
 
-    console.log('length :', inputValue.length);
-
-    if (event.key === 'ArrowLeft' && inputValue.length <= 4) {
-      event.preventDefault();
+    if (
+      (keyCode >= 48 && keyCode <= 57) || // 0-9
+      (keyCode >= 37 && keyCode <= 40) || // Клавіші навігації (стрілки)
+      keyCode === 16 || // Shift
+      keyCode === 17 || // Ctrl
+      keyCode === 13 || // Enter
+      keyCode === 9 || // Tab
+      keyCode === 8 // Backspace
+    ) {
+      return;
     }
+
+    keyCode === 36 && event.target.setSelectionRange(6, 6);
+
+    event.preventDefault();
+  };
+
+  const setCursorStartPosition = event => {
+    const { onFocus, onClick } = props;
+    onFocus && onFocus();
+    onClick && onClick();
+
+    const { selectionStart } = event.target;
+    selectionStart < 6 && event.target.setSelectionRange(6, 6);
   };
 
   return (
@@ -96,7 +148,11 @@ export default function NumericInput({ rootValueHandling, ...props }) {
         onChange={handleOnChange}
         minLength={8}
         maxLength={18}
-        onKeyDown={disableBackspaceKey}
+        onClick={setCursorStartPosition}
+        onDoubleClick={handleDoubleClick}
+        onFocus={setCursorStartPosition}
+        onKeyDown={handleKeyDown}
+        onMouseUp={handleMouseUp}
       />
       {showMetricalParams && (
         <span className={styles[metricClassName]}>

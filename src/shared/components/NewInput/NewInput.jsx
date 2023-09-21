@@ -88,10 +88,10 @@ export default function NewInput({
     const { type } = event.target.dataset;
     const { value } = event.target;
     const { type: eventType } = event;
-    console.log('event.type: ', event.type);
-    console.log('eventType: ', eventType);
-    console.log('type: ', type);
-    console.log('EVENT: ', event);
+    // console.log('event.type: ', event.type);
+    // console.log('eventType: ', eventType);
+    // console.log('type: ', type);
+    // console.log('EVENT: ', event);
     if (result) {
       setValidationChecking('isValid');
       setErrorMessage('');
