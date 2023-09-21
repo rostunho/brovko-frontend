@@ -31,10 +31,8 @@ export default function NewInput({
   const [validationChecking, setValidationChecking] = useState('pending');
   const [additionalClass, setAdditionalClass] = useState('');
   const [error, setError] = useState({ message: '' });
-  const valueRef = useRef(''); // ? to delete
-  const rootValueHandling = { valueRef, updateRootValue }; // ?to delete
-
-  //   console.log('REF CURRENT IN ROOT: ', valueRef);
+  const valueRef = useRef('');
+  const rootValueHandling = { valueRef, updateRootValue };
 
   useEffect(() => {
     switch (validationChecking) {
@@ -53,13 +51,12 @@ export default function NewInput({
   }, [validationChecking]);
 
   function updateRootValue() {
+    setRootValue('');
     setRootValue(valueRef.current);
   }
 
   const handleOnChange = event => {
-    // console.log('EVENT IS: ', event);
     onChange && onChange(event);
-    // setRootValue(event.target.value);
     validateInput(event);
   };
 
@@ -75,10 +72,9 @@ export default function NewInput({
   };
 
   const validateInput = event => {
-    // console.log('EVENT IN ROOT: ', event);
-
     const { value } = event.target;
     const { type } = event.target.dataset;
+
     if (type === 'text') {
       setValidationChecking('pending');
       return;
@@ -89,15 +85,21 @@ export default function NewInput({
   };
 
   const handleValidationResult = (result, event) => {
-    // const { type } = event;
     const { type } = event.target.dataset;
-    // console.log('!!!!!!!!', type);
     const { value } = event.target;
+    const { type: eventType } = event;
+    console.log('event.type: ', event.type);
+    console.log('eventType: ', eventType);
+    console.log('type: ', type);
+    console.log('EVENT: ', event);
     if (result) {
       setValidationChecking('isValid');
       setErrorMessage('');
     } else {
-      if (event.type === 'blur' && value) {
+      if (eventType === 'blur' && value) {
+        setValidationChecking('notValid');
+        setErrorMessage(errorMessages[type]);
+      } else if (eventType === 'change' && type === 'number') {
         setValidationChecking('notValid');
         setErrorMessage(errorMessages[type]);
       } else {

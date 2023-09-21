@@ -1,40 +1,40 @@
 import { useState, useEffect } from 'react';
-import { toPhoneFormat } from 'utils';
+import { toPhoneFormat, parsePhoneNumber } from 'utils';
 import styles from './NumericInput.module.scss';
 
 export default function NumericInput({ rootValueHandling, ...props }) {
   const { type, metrical, length, className, onChange } = props;
-
   const { valueRef, updateRootValue } = rootValueHandling;
+
   const phonePrefix = '+380';
-  const [phoneValue, setPhoneValue] = useState(phonePrefix);
-  //   const [phoneValue, setPhoneValue] = useState('');
-  //   const [phoneBody, setPhoneBody] = useState('');
+  const [inputValue, setInputValue] = useState(phonePrefix);
+  const [phoneFormatValue, setPhoneFormatValue] = useState('');
+
   const [numberValue, setNumberValue] = useState('');
   const [metricClassName, setMetricClassName] = useState('');
-  //   const [isFirstRender, setIsFirstRender] = useState(true);
   const showMetricalParams = metrical && length !== 'lg';
-  //   console.log('NUMBER VALUE: ', typeof numberValue);
-  //   console.log('NUMBER VALUE: ', numberValue);
 
+  // type="tel" handling
   useEffect(() => {
     if (type !== 'tel') {
       return;
     }
 
-    valueRef.current = setFullPhoneNumber();
-
+    updatePhoneNumber();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [phoneValue, type, valueRef]);
+  }, [inputValue, phoneFormatValue, type, valueRef]);
 
+  // type="number" handling
   useEffect(() => {
     if (type !== 'number') {
       return;
     }
+
     valueRef.current = numberValue;
     updateRootValue();
   }, [numberValue, type, updateRootValue, valueRef]);
 
+  // generating of className of metric data
   useEffect(() => {
     switch (length) {
       case 'lg':
@@ -51,36 +51,37 @@ export default function NumericInput({ rootValueHandling, ...props }) {
     }
   }, [length]);
 
-  function setFullPhoneNumber() {
-    valueRef.current = '';
-    updateRootValue();
-    const formattedValue = toPhoneFormat(phoneValue);
-    console.log('!!!!!  :', formattedValue);
-    valueRef.current = formattedValue;
+  function updatePhoneNumber() {
+    const formattedValue = toPhoneFormat(inputValue);
+    // setPhoneFormatValue('');
+    setPhoneFormatValue(formattedValue);
+
+    valueRef.current = phoneFormatValue;
     updateRootValue();
   }
 
-  //   const updatePhoneValue = value => {
-  //     setPhoneValue();
-  //   };
-
   const handleOnChange = event => {
     onChange && onChange(event);
-    const { value } = event.target;
-    // setPhoneValue('');
-    // console.log('TESTING :', normalizePhoneValue(value));
 
-    type === 'tel' ? setPhoneValue(value) : setNumberValue(value);
+    const { value } = event.target;
+    const parsedValue = parsePhoneNumber(value);
+
+    type === 'tel' ? setInputValue(parsedValue) : setNumberValue(value);
   };
 
-  //   const normalizePhoneValue = value => {
-  //     const temp = value.split().splice(0, 4).join();
-  //     console.log('TEMP1 :', temp);
-  //     const temp2 = toPhoneFormat(temp);
-  //     console.log('TEMP2 :', temp2);
-  //     // setPhoneValue(temp2);
-  //     return temp2;
-  //   };
+  const disableBackspaceKey = event => {
+    console.log('EVENT-KEY IS :', event.key);
+
+    if (event.key === 'Backspace' && inputValue === phonePrefix) {
+      event.preventDefault();
+    }
+
+    console.log('length :', inputValue.length);
+
+    if (event.key === 'ArrowLeft' && inputValue.length <= 4) {
+      event.preventDefault();
+    }
+  };
 
   return (
     <>
@@ -93,6 +94,9 @@ export default function NumericInput({ rootValueHandling, ...props }) {
         aria-label={type === 'number' && 'Числове значення.'}
         data-type={type === 'number' ? 'number' : type}
         onChange={handleOnChange}
+        minLength={8}
+        maxLength={18}
+        onKeyDown={disableBackspaceKey}
       />
       {showMetricalParams && (
         <span className={styles[metricClassName]}>
