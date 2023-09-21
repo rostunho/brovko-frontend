@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { selectUser } from 'redux/user/userSelectors';
 import Button from 'shared/components/Button/Button';
-import styles from './UserNav.module.scss';
+import styles from './Navigation.module.scss';
 
 export default function UserNav() {
   const { email } = useSelector(selectUser);
   return (
-    <div className={styles.wrap}>
+    <div className={styles.userNavWrap}>
       {email}
       <Button
         mode="outlined"

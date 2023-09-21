@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import Nav from './Nav/Nav';
-import UserNav from './UserNav/UserNav';
-import AuthNav from './AuthNav/AuthNav';
+import Nav from './AllUserNav';
+import UserNav from './UserNav';
+import AuthNav from './AuthNav';
 import MobileMenu from '../MobileMenu/MobileMenu';
 import MobillMenuIcon from 'shared/icons/MobillMenuIcon';
 import { selectIsLogin } from 'redux/user/userSelectors';
