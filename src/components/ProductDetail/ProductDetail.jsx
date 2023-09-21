@@ -62,11 +62,9 @@ export default function ProductDetail() {
 
   return (
     <>
-      <div className={styles.titleContainer}>
-        <GoBackButton from={'/shop/product-list-page'} />
-        <h2 className={styles.title}>{name}</h2>
-      </div>
-
+      <Heading withGoBack from={'/shop/product-list-page'}>
+        {name}
+      </Heading>
       <div className={styles.productCard}>
         <Rating />
         <Image className={styles.image} src={picture} />

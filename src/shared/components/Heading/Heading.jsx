@@ -2,7 +2,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../Button/Button';
 import styles from './Heading.module.scss';
 
-export default function Heading({ type = 'h2', withGoBack, style, children }) {
+export default function Heading({
+  type = 'h2',
+  withGoBack,
+  style,
+  children,
+  fromHC,
+}) {
   const location = useLocation();
 
   const from = location.state?.from || '/main';
@@ -11,7 +17,11 @@ export default function Heading({ type = 'h2', withGoBack, style, children }) {
   const navigate = useNavigate();
 
   const onGoBackClick = () => {
-    navigate(from);
+    if (fromHC) {
+      navigate(fromHC);
+    } else {
+      navigate(from);
+    }
   };
 
   return (
