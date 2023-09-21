@@ -1,46 +1,27 @@
-import { NavLink } from 'react-router-dom';
-import styles from './LoginUserPage.module.scss';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { login } from 'redux/user/userOperations';
 import { selectIsLogin } from 'redux/user/userSelectors';
-import LoginForm from 'components/AuthForm/LoginForm/LoginForm';
+import LoginForm from 'components/AuthSection/LoginForm/LoginForm';
 import Heading from 'shared/components/Heading/Heading';
-import GoogleIcon from 'shared/icons/GoogleIcon';
+import AuthFormWrapper from 'components/AuthSection/AuthFormWrapper/AuthFormWrapper';
+import AuthSwitcher from 'components/AuthSection/AuthSwitcher/AuthSwitcher';
+import styles from './LoginUserPage.module.scss';
 
 export default function LoginUserPage() {
   const isUserLogin = useSelector(selectIsLogin);
-  const dispatch = useDispatch();
-  const handleLogin = data => {
-    dispatch(login(data));
-  };
+
   if (isUserLogin) {
     return <Navigate to="/product-list-page" />;
   }
   return (
-    <>
-      <div className={styles.container}>
-        <Heading withGoBack>Вхід</Heading>
+    <section className={styles.container}>
+      <Heading withGoBack>Вхід</Heading>
 
-        <LoginForm onSubmit={handleLogin} />
-        <div className={styles.redirContainer}>
-          <p className={styles.text}>або</p>
-          <a
-            href="https://brovko-backend.onrender.com/api/user/google"
-            className={styles.navLink}
-          >
-            <GoogleIcon className={styles.googleIcon} />
-            Увійти з Google
-          </a>
+      <AuthFormWrapper form={<LoginForm />} />
 
-          <p className={styles.redirectText}>
-            Немає аккаунту?{' '}
-            <NavLink to="/register" className={styles.regLink}>
-              Зареєструватися
-            </NavLink>
-          </p>
-        </div>
-      </div>
-    </>
+      <AuthSwitcher to="/register" linkLabel="Зареєструватися">
+        Вже є акаунт ?
+      </AuthSwitcher>
+    </section>
   );
 }

@@ -1,0 +1,29 @@
+.container {
+  margin: 0 auto;
+  margin-bottom: 24px;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.arrowPrev {
+  position: static;
+  background-color: transparent;
+  border: none;
+}
+
+.arrowNext {
+  position: static;
+  background-color: transparent;
+  border: none;
+  margin-top: -8px;
+  transform: rotate(180deg);
+}
+
+.disabled {
+  display: none;
+}

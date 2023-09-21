@@ -1,0 +1,12 @@
+.icon {
+  width: 24px;
+  height: 24px;
+  //   fill: #191c2c;
+  //   stroke: #191c2c;
+  fill: inherit;
+  stroke: inherit;
+}
+
+.icon--reverse {
+  transform: rotate(180deg);
+}

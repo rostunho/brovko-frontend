@@ -4,13 +4,15 @@ import ArrowIcon from 'shared/icons/ArrowIcon';
 import EllipseIcon from 'shared/icons/EllipseIcon';
 import styles from './GoBackButton.module.scss';
 
-function GoBackButton() {
-  const location = useLocation();
-  const from = location.state?.from || '/';
+function GoBackButton({ from }) {
   const navigate = useNavigate();
 
+  const onGoBackClick = () => {
+    navigate(from);
+  };
+
   return (
-    <button className={styles.button} onClick={() => navigate(-1)}>
+    <button className={styles.button} onClick={onGoBackClick} from={from}>
       <div className={styles.ellipse}>
         <EllipseIcon />
       </div>

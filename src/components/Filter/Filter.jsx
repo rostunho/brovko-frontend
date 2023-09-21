@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import DropdownMenu from './DropdownMenu';
 import Button from 'shared/components/Button';
-import ArrowDownIcon from 'shared/icons/ArrowDownIcon';
-import Selector from 'shared/components/Selector';
+// import ArrowDownIcon from 'shared/icons/ArrowDownIcon';
+// import Selector from 'shared/components/Selector';
 import { categories, sortingOptions } from './constants';
 import styles from './Filter.module.scss';
 
@@ -41,7 +41,6 @@ export default function Filter({ onCategorySelect, onSortingSelect }) {
     <div className={styles.container}>
       <div className={styles.buttonContainer}>
         <Button size="sm" mode="sort" onClick={handleCategoryClick}>
-          {' '}
           Всі категорії
         </Button>
         {showCategoriesMenu && (
@@ -54,7 +53,12 @@ export default function Filter({ onCategorySelect, onSortingSelect }) {
           data={sortingOptions}
           onOptionPress={handleSortingSelect}
         /> */}
-        <Button size="sm" mode="sort" onClick={handleSortingClick}>
+        <Button
+          size="sm"
+          mode="sort"
+          onClick={handleSortingClick}
+          style={{ fontWeight: 400 }}
+        >
           Сортування
         </Button>
         {showSortingMenu && (

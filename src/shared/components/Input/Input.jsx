@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import EyeIcon from 'shared/icons/EyeIcon';
+import PasswordToggler from '../PasswordToggler/PasswordToggler';
 import SearchIcon from 'shared/icons/SearchIcon';
 import styles from './Input.module.scss';
 
 const Input = ({
   label,
   id,
-  type,
+  type = 'text',
   name,
   value,
+  onClick,
   onChange,
   onFocus,
   onBlur,
@@ -24,59 +25,70 @@ const Input = ({
   link,
   style,
   checked,
-  onClick,
+  defaultChecked,
   additionalFunction,
   ...props
 }) => {
   const [checkboxChecked, setCheckboxChecked] = useState(false);
+  // const [selectedRedio, setSelectedRedio] = useState(value);
+  const [showPassword, setShowPassword] = useState(false);
   const isCheckbox = type === 'checkbox';
+  const isRadio = type === 'radio';
+  const withIcon = icon || type === 'password' || type === 'search';
 
   const handleChackbox = () => {
     setCheckboxChecked(!checkboxChecked);
     additionalFunction && additionalFunction();
   };
 
-  const withIcon = icon || type === 'password' || type === 'search';
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleType = () => {
+    if (type === 'password' && !showPassword) {
+      return 'password';
+    } else if (type === 'password' && showPassword) {
+      return 'text';
+    } else {
+      return type;
+    }
+  };
 
   return (
-    // <div
-    //   className={`${styles.input_wrapper} ${
-    //     isCheckbox ? styles.checkbox_wrapper : ''
-    //   }`}
-    // >
     <label
-      // className={`${styles.label} ${styles[`label_length-${length}`]}`}
-      className={`${
-        isCheckbox
-          ? `${styles.label} ${styles['checkbox-label']}`
-          : `${styles.label} ${styles[`label_length-${length}`]}`
+      className={`${styles.label} ${
+        isCheckbox ? styles['checkbox-label'] : ''
+      } ${isRadio ? styles['radio-label'] : ''} ${
+        styles[`label_length-${length}`]
       }`}
       style={{ color: isCheckbox && checkboxChecked && '#f3a610' }}
     >
       {label}
-
       <input
+        className={`${styles.input} ${withIcon ? styles['with-icon'] : ''}`}
         ref={inputRef}
-        type={type || 'text'}
+        type={handleType()}
         id={id}
         name={name}
         value={value}
         pattern={pattern}
         placeholder={placeholder}
-        className={`${styles.input} ${withIcon && styles['with-icon']}`}
         onChange={e => {
           isCheckbox && handleChackbox();
+          // isRadio && setSelectedRedio(e.target.value);
           onChange && onChange(e);
         }}
         onFocus={onFocus}
         onBlur={onBlur}
-        checked={checkboxChecked}
+        checked={checked || checkboxChecked}
+        defaultChecked={defaultChecked}
         disabled={mode === 'disabled'}
         {...props}
       />
       {type === 'password' && (
         <button type="button" className={styles.icon} onClick={onClick}>
-          <EyeIcon />
+          <PasswordToggler onClick={toggleShowPassword} />
         </button>
       )}
       {type === 'search' && (
@@ -91,21 +103,10 @@ const Input = ({
           м<sup>3</sup>
         </p>
       )}
-      {icon && !link ? (
+      {icon && !link && (
         <button type="button" className={styles.icon}>
           {icon}
         </button>
-      ) : (
-        <>
-          {/* <a
-            href={link}
-            className={styles.icon}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {icon}
-          </a> */}
-        </>
       )}
     </label>
     // </div>
@@ -122,6 +123,8 @@ Input.propTypes = {
     'number',
     'search',
     'checkbox',
+    'tel',
+    'radio',
   ]),
   name: PropTypes.string,
   onChange: PropTypes.func,

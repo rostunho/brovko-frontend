@@ -38,27 +38,3 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
-
-.close-button {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  outline: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  background-color: transparent;
-
-  stroke: #191c2c;
-
-  &:hover,
-  &:focus,
-  &:active {
-    stroke: #f3a610;
-  }
-}

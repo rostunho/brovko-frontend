@@ -1,0 +1,20 @@
+.text {
+  text-align: center;
+
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #a3a5a4;
+}
+
+.link {
+  @extend .text;
+  color: #f3a610;
+  text-decoration-line: underline;
+}
+
+.text--regular {
+  margin-top: 12px;
+}

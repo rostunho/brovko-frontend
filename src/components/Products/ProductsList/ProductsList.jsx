@@ -1,26 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams, useLocation } from 'react-router-dom';
+
 import { Link } from 'react-router-dom';
 
 import { getAllProducts } from 'redux/products/productsSelectors';
 import { fetchAllProducts } from 'redux/products/productsOperations';
 
 import ProductsItem from '../ProductsItem';
-import Heading from 'shared/components/Heading/Heading';
 import SearchBar from 'shared/components/SearchBar/SearchBar';
 import Filter from 'components/Filter/Filter';
 
 import styles from './ProductsList.module.scss';
 
 const ProductList = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchAllProducts());
-  }, [dispatch]);
-
-  const { products } = useSelector(getAllProducts);
-  // console.log('products:', products);
+  const products = useSelector(getAllProducts);
+  console.log('products:', products);
 
   // Стан для пошуку та фільтрації
   const [searchTerm, setSearchTerm] = useState('');
@@ -29,9 +24,7 @@ const ProductList = () => {
 
   // обробкa події відправки форми
   const handleSearchSubmit = formData => {
-    // console.log('handleSearchSubmit is called');
     setSearchTerm(formData.search); // Оновити стан пошуку
-    // console.log('Form data submitted:', formData);
   };
 
   if (!products) {
@@ -42,22 +35,15 @@ const ProductList = () => {
     const nameMatch =
       !searchTerm ||
       product.name.toLowerCase().includes(searchTerm.toLowerCase());
-
     if (!selectedCategory) {
       return nameMatch;
     }
-
     const categoryMatch = product.categoryId.includes(selectedCategory);
-
     return nameMatch && categoryMatch;
   });
 
-  // console.log('filteredProducts', filteredProducts);
-
   // сортування
   let sortedProducts = [...filteredProducts]; //копія масиву
-  // console.log('sortedProducts1', sortedProducts);
-  // console.log('selectedSortingOption', selectedSortingOption);
 
   if (selectedSortingOption) {
     if (selectedSortingOption === 'Від дешевих до дорогих') {
@@ -83,11 +69,8 @@ const ProductList = () => {
     }
   }
 
-  // console.log('sortedProducts', sortedProducts);
-
   return (
     <div className={styles.products}>
-      <Heading withGoBack>Крамничка</Heading>
       <SearchBar onSubmit={handleSearchSubmit} />
       <Filter
         onCategorySelect={category => setSelectedCategory(category)}
@@ -98,9 +81,7 @@ const ProductList = () => {
         <ul className={styles.list}>
           {sortedProducts.map(product => (
             <li key={product._id}>
-              {/* <Link to={`/product/${product._id}`}> */}
               <ProductsItem product={product} />
-              {/* </Link> */}
             </li>
           ))}
         </ul>

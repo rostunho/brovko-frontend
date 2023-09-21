@@ -1,16 +1,36 @@
 import { NavLink } from 'react-router-dom';
-import styles from './Navigation.module.scss';
 
-export default function AuthNav() {
+import styles from './Nav.module.scss';
+
+export default function AuthNav({ onClick }) {
   return (
-    <div className={styles.wrap}>
-      <NavLink to="/register" className={styles.authLink}>
-        Реєстрація
-      </NavLink>{' '}
-      |
-      <NavLink to="login" className={styles.authLink}>
-        Вхід
-      </NavLink>
-    </div>
+    <nav>
+      <ul className={styles.list}>
+        <li className={styles.item} onClick={onClick}>
+          <NavLink className={styles.link} to="/auth/register">
+            Реєстрація
+          </NavLink>
+        </li>
+
+        <li className={styles.item} onClick={onClick}>
+          <NavLink className={styles.link} to="/auth/login">
+            LogIn
+          </NavLink>
+        </li>
+
+        <li className={styles.item} onClick={onClick}>
+          <NavLink className={styles.link} to="/order">
+            ORDER
+          </NavLink>
+        </li>
+
+        <li className={styles.item} onClick={onClick}>
+          <NavLink className={styles.link} to="/main">
+            Вийти
+          </NavLink>
+        </li>
+      </ul>
+    </nav>
+
   );
 }

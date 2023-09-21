@@ -9,37 +9,36 @@
   width: 100%;
   padding: 32px 0 24px 0;
 
-  font-family: Amatic SC;
+  font-family: 'Amatic SC', cursive;
   font-size: 32px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
   letter-spacing: 0.96px;
   text-align: center;
-
-  &.main {
-    font-size: 48px;
-  }
-
-  &.large {
-    font-size: 32px;
-    text-align: center;
-
-    &.with-goback {
-      margin-left: 12px;
-    }
-  }
-
-  &.medium {
-    font-size: 28px;
-    padding: 0;
-  }
-
-  // .medium {
-
-  // }
-
-  // .small {
-
-  // }
 }
+
+.h1 {
+  font-size: 48px;
+}
+
+.h2 {
+  font-size: 32px;
+  text-align: center;
+}
+
+.h2.with-goback {
+  margin-left: 12px;
+}
+
+.h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0;
+  text-align: start;
+  padding: 8px 0;
+}
+
+// .h4 {
+
+// }
