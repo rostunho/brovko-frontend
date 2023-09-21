@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+
 import styles from './Nav.module.scss';
 
 export default function AuthNav({ onClick }) {
@@ -30,5 +31,6 @@ export default function AuthNav({ onClick }) {
         </li>
       </ul>
     </nav>
+
   );
 }
