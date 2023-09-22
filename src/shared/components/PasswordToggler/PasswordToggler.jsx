@@ -6,9 +6,11 @@ import styles from './PasswordToggler.module.scss';
 export default function PasswordToggler({ onClick, ...props }) {
   const [eyeIsOpen, setEyeIsOpen] = useState(true);
 
-  const toggleIcon = () => {
+  const toggleIcon = event => {
+    // console.log('toggleIcon in PasswordToggler :', event);
+
     setEyeIsOpen(!eyeIsOpen);
-    onClick && onClick();
+    onClick && onClick(event);
   };
 
   return (

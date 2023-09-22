@@ -15,7 +15,7 @@ export default function DeliveryForm() {
     <div className={styles.container}>
       <Heading type="h3">Доставка</Heading>
 
-      <form noValidate>
+      <form name="delivery-form" noValidate>
         <Selector
           label="Населений пункт"
           placeholder="Оберіть населений пункт"

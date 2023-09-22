@@ -5,10 +5,11 @@ import CalendarIcon from 'shared/icons/CalendarIcon';
 import styles from './InputWithIcon.module.scss';
 
 export default function InputWithIcon({ rootValueHandling, ...props }) {
-  const { type, className, onChange } = props;
+  const { type, error, className, onChange } = props;
   const { valueRef, updateRootValue } = rootValueHandling;
 
   const [localValue, setLocalValue] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     valueRef.current = localValue;
@@ -16,13 +17,41 @@ export default function InputWithIcon({ rootValueHandling, ...props }) {
   });
 
   const handleOnChange = event => {
-    onChange && onChange();
+    onChange && onChange(event);
 
     const { value } = event.target;
     setLocalValue(value);
   };
 
-  const ActualInputIcon = () => {
+  const handleOnClick = event => {
+    const { lenght } = event.target.value;
+    event.target.setSelectionRange(lenght, lenght);
+
+    toggleOnIconClick(event);
+  };
+
+  const toggleOnIconClick = event => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleType = () => {
+    if (type === 'password' && !showPassword) {
+      return 'password';
+    }
+
+    if (type === 'password' && showPassword) {
+      return 'text';
+    }
+
+    // DELETE FROM HERE
+    if (type === 'date') {
+      return 'text';
+    }
+
+    return type; // for type="url"
+  };
+
+  const handleInputIcon = () => {
     switch (type) {
       case 'password':
         return <PasswordToggler />;
@@ -39,14 +68,21 @@ export default function InputWithIcon({ rootValueHandling, ...props }) {
     <>
       <input
         {...props}
-        type={type === 'date' ? 'text' : type} // TO CHANGE
+        type={handleType()} // TO CHANGE INTO handleType
         data-type={type}
         className={className}
         onChange={handleOnChange}
+        onClick={handleOnClick}
       />
-      <button type="button" className={styles['input-button']}>
-        {ActualInputIcon()}
-      </button>
+      {!error.message && (
+        <button
+          type="button"
+          className={styles['input-button']}
+          data-button="icon"
+        >
+          {handleInputIcon()}
+        </button>
+      )}
     </>
   );
 }

@@ -56,6 +56,8 @@ export default function NewInput({
   }
 
   const handleOnChange = event => {
+    console.log('event in handleOnChange of NewInput :', event);
+
     onChange && onChange(event);
     validateInput(event);
   };
@@ -75,7 +77,7 @@ export default function NewInput({
     const { value } = event.target;
     const { type } = event.target.dataset;
 
-    if (type === 'text' || type === 'password' || type === 'date') {
+    if (type === 'text' || type === 'date') {
       // забрати звідси type==='date'
       setValidationChecking('pending');
       return;
@@ -86,14 +88,14 @@ export default function NewInput({
   };
 
   const handleValidationResult = (result, event) => {
-    const { type } = event.target.dataset;
+    const { type, button } = event.target.dataset;
     const { value } = event.target;
     const { type: eventType } = event;
     if (result) {
       setValidationChecking('isValid');
       setErrorMessage('');
     } else {
-      if (eventType === 'blur' && value) {
+      if (eventType === 'blur' && value && !button) {
         setValidationChecking('notValid');
         setErrorMessage(errorMessages[type]);
       } else if (eventType === 'change' && type === 'number') {
@@ -125,11 +127,13 @@ export default function NewInput({
           name={name}
           placeholder={placeholder}
           value={rootValue}
+          onClick={e => console.log('EVENT IN CLICK :', e)}
           onChange={handleOnChange}
           onFocus={handleOnFocus}
           onBlur={handleOnBlur}
           length={length}
           metrical={metrical}
+          error={error}
           rootValueHandling={rootValueHandling} // об'єкт з інструментами для оновлення головного стейту
           {...props}
         />
