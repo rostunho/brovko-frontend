@@ -43,10 +43,11 @@
 .quantity-container {
   display: flex;
   align-items: center;
-  width: 8rem;
+  // width: 8rem;
   background-color: transparent;
-  font-size: 1.5rem;
-  padding-top: 20px;
+  // font-size: 1.5rem;
+  // padding-top: 20px;
+  justify-content: flex-end;
 }
 
 .plus-button {
@@ -83,6 +84,11 @@
   line-height: normal;
   padding-right: 8px;
   padding-left: 8px;
+}
+
+.custom-value {
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .wrapper-basketblock {

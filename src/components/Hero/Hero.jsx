@@ -68,7 +68,7 @@ const Hero = () => {
         <div className={styles.container}>
           <h1 className={styles.title}>ЯК ДЛЯ ЛЮДЕЙ, ТІЛЬКИ СМАЧНІШЕ</h1>
           <Link
-            to="/product-list-page"
+            to="/shop/product-list-page"
             // state={{ from: location.state?.from } || '/'}
             state={{ from: location }}
           >
