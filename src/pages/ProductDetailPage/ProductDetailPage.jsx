@@ -157,7 +157,6 @@ export default function ProductDetailPage({}) {
   const { productId } = useParams();
   const location = useLocation();
   const from = location.state?.from || '/';
-  console.log('from:', from);
 
   const allProducts = useSelector(getAllProducts);
   const product = allProducts?.find(p => p._id === productId);
@@ -170,13 +169,11 @@ export default function ProductDetailPage({}) {
     const isExpandedDescriptionFromLocation =
       location.state?.isExpandedDescription || false;
     setIsExpandedDescription(isExpandedDescriptionFromLocation);
-    console.log('isExpandedDescription', isExpandedDescription);
 
     // Встановлюємо isExpandedReview з location.state
     const isExpandedReviewFromLocation =
       location.state?.isExpandedReview || false;
     setIsExpandedReview(isExpandedReviewFromLocation);
-    console.log('isExpandedReview', isExpandedReview);
   }, [location.state]);
 
   const handleReadMoreClick = () => {
