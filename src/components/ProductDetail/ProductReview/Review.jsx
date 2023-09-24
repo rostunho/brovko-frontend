@@ -1,4 +1,6 @@
 import { Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getAllReviews } from 'redux/reviews/reviewsSelectors';
 import fakeReviewsData from './fakeRewiewsData';
 import SharedLinkButton from '../SharedLinkButton';
 import ReviewContainer from './ReviewContainer';
@@ -9,9 +11,11 @@ export default function Review({
   location,
   handleReadReviewClick,
 }) {
+  const reviews = useSelector(getAllReviews);
+  console.log('reviews:', reviews);
   return (
     <>
-      {fakeReviewsData ? (
+      {reviews ? (
         isExpandedReview ? (
           <>
             <Outlet />
@@ -19,7 +23,7 @@ export default function Review({
         ) : (
           <>
             <ReviewContainer />
-            <ReviewList reviews={fakeReviewsData.slice(0, 1)} />
+            <ReviewList reviews={reviews.slice(0, 1)} />
 
             {!isExpandedReview && (
               <SharedLinkButton

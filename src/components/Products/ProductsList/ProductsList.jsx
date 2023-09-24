@@ -5,6 +5,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import { getAllProducts } from 'redux/products/productsSelectors';
+import { getAllReviews } from 'redux/reviews/reviewsSelectors';
 import { fetchAllProducts } from 'redux/products/productsOperations';
 
 import ProductsItem from '../ProductsItem';
@@ -15,7 +16,6 @@ import styles from './ProductsList.module.scss';
 
 const ProductList = () => {
   const products = useSelector(getAllProducts);
-  console.log('products:', products);
 
   // Стан для пошуку та фільтрації
   const [searchTerm, setSearchTerm] = useState('');

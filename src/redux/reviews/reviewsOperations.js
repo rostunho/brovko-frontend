@@ -5,9 +5,9 @@ export const fetchReviews = createAsyncThunk(
   'reviews/fetchReviews',
   async (_, thunkAPI) => {
     try {
-      const data = await api.get('/reviews');
+      const data = await api.getReviews('/reviews');
+      console.log('data', data);
       return data;
-      //   console.log('data', data);
     } catch ({ response }) {
       return thunkAPI.rejectWithValue(response.data);
     }
