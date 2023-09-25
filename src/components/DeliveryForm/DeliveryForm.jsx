@@ -4,6 +4,10 @@ import Selector from 'shared/components/Selector';
 import Input from 'shared/components/Input';
 import styles from './DeliveryForm.module.scss';
 
+// testing fields
+import NewInput from 'shared/components/NewInput';
+// testing fields
+
 export default function DeliveryForm() {
   const [selectedRadioButton, setSelectedRadioButton] = useState('Відділення');
 
@@ -11,7 +15,13 @@ export default function DeliveryForm() {
     <div className={styles.container}>
       <Heading type="h3">Доставка</Heading>
 
-      <form>
+      <form
+        name="delivery-form"
+        onSubmit={e => {
+          e.preventDefault();
+          console.log(e);
+        }}
+      >
         <Selector
           label="Населений пункт"
           placeholder="Оберіть населений пункт"
@@ -64,6 +74,52 @@ export default function DeliveryForm() {
         />
         <input type="radio" />
         <Input type="checkbox" label="Test" />
+
+        {/* testing start */}
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <NewInput
+          type="text"
+          label="Text length='md' "
+          placeholder="Введіть назву міста"
+          length="md"
+        />
+        <NewInput
+          type="email"
+          name="email"
+          label="Email length='lg (defaul)"
+          placeholder="Enter your E-mail"
+        />
+        <NewInput
+          type="text"
+          label="Text length='sm'"
+          placeholder="Text of placeholder"
+          length="sm"
+        />
+        <hr />
+        <NewInput type="tel" label="Tel length='lg' (default)" />
+        <NewInput
+          type="number"
+          label="Number length='md'"
+          length="md"
+          metrical="m3"
+        />
+        <NewInput type="number" label="Number 'sm'" length="sm" />
+        <hr />
+        <NewInput type="password" label="Your password" />
+        <NewInput type="url" label="Your url" />
+        <NewInput type="date" label="Your date" />
+        <hr />
+        <NewInput type="checkbox" label="Test Checkbox" />
+
+        <NewInput type="radio" name="test-name" label="test one" />
+        <NewInput type="radio" name="test-name" label="test two" />
+
+        <button type="submit">TEST SUBMIT</button>
+        {/* testing end */}
       </form>
     </div>
   );
