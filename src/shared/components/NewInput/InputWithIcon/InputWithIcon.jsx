@@ -24,9 +24,6 @@ export default function InputWithIcon({ rootValueHandling, ...props }) {
   };
 
   const handleOnClick = event => {
-    const { lenght } = event.target.value;
-    event.target.setSelectionRange(lenght, lenght);
-
     toggleOnIconClick(event);
   };
 
@@ -72,13 +69,13 @@ export default function InputWithIcon({ rootValueHandling, ...props }) {
         data-type={type}
         className={className}
         onChange={handleOnChange}
-        onClick={handleOnClick}
       />
       {!error.message && (
         <button
           type="button"
           className={styles['input-button']}
-          data-button="icon"
+          data-button="icon" // MAYBE DELETE LATER
+          onClick={handleOnClick}
         >
           {handleInputIcon()}
         </button>

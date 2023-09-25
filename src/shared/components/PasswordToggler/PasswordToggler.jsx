@@ -7,10 +7,8 @@ export default function PasswordToggler({ onClick, ...props }) {
   const [eyeIsOpen, setEyeIsOpen] = useState(true);
 
   const toggleIcon = event => {
-    // console.log('toggleIcon in PasswordToggler :', event);
-
-    setEyeIsOpen(!eyeIsOpen);
     onClick && onClick(event);
+    setEyeIsOpen(!eyeIsOpen);
   };
 
   return (

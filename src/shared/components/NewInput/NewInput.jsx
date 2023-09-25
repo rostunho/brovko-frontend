@@ -56,8 +56,6 @@ export default function NewInput({
   }
 
   const handleOnChange = event => {
-    console.log('event in handleOnChange of NewInput :', event);
-
     onChange && onChange(event);
     validateInput(event);
   };
@@ -70,7 +68,7 @@ export default function NewInput({
 
   const handleOnBlur = event => {
     onBlur && onBlur(event);
-    validateInput(event);
+    // validateInput(event);
   };
 
   const validateInput = event => {
@@ -91,11 +89,15 @@ export default function NewInput({
     const { type, button } = event.target.dataset;
     const { value } = event.target;
     const { type: eventType } = event;
+
+    console.log('event type :', eventType);
+    console.log('button is :', button);
     if (result) {
       setValidationChecking('isValid');
       setErrorMessage('');
     } else {
       if (eventType === 'blur' && value && !button) {
+        console.log('TARGET');
         setValidationChecking('notValid');
         setErrorMessage(errorMessages[type]);
       } else if (eventType === 'change' && type === 'number') {
@@ -139,7 +141,7 @@ export default function NewInput({
         />
         {error.message && (
           <>
-            <WarningIcon className={styles['warning-icon']} />
+            {/* <WarningIcon className={styles['warning-icon']} /> */}
             <Text type="error">{error.message}</Text>
           </>
         )}
