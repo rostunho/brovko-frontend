@@ -15,7 +15,13 @@ export default function DeliveryForm() {
     <div className={styles.container}>
       <Heading type="h3">Доставка</Heading>
 
-      <form name="delivery-form" noValidate>
+      <form
+        name="delivery-form"
+        onSubmit={e => {
+          e.preventDefault();
+          console.log(e);
+        }}
+      >
         <Selector
           label="Населений пункт"
           placeholder="Оберіть населений пункт"
@@ -94,18 +100,25 @@ export default function DeliveryForm() {
           length="sm"
         />
         <hr />
-        <NewInput type="tel" label="Tel length='lg' (default)" metrical="m3" />
+        <NewInput type="tel" label="Tel length='lg' (default)" />
         <NewInput
           type="number"
           label="Number length='md'"
           length="md"
           metrical="m3"
         />
-        <NewInput type="number" label="Number 'sm'" length="sm" metrical="m3" />
+        <NewInput type="number" label="Number 'sm'" length="sm" />
         <hr />
         <NewInput type="password" label="Your password" />
         <NewInput type="url" label="Your url" />
         <NewInput type="date" label="Your date" />
+        <hr />
+        <NewInput type="checkbox" />
+
+        <NewInput type="radio" name="test-name" />
+        <NewInput type="radio" name="test-name" />
+
+        <button type="submit">TEST SUBMIT</button>
         {/* testing end */}
       </form>
     </div>

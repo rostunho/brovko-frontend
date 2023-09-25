@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { toPhoneFormat, parsePhoneNumber } from 'utils';
 import styles from './NumericInput.module.scss';
 
-export default function NumericInput({ rootValueHandling, ...props }) {
+export default function NumericInput({ rootStateHandling, ...props }) {
   const { type, metrical, length, className, onChange } = props;
-  const { valueRef, updateRootValue } = rootValueHandling;
+  const { valueRef, updateRootValue } = rootStateHandling;
 
   const phonePrefix = '+380';
   const [inputValue, setInputValue] = useState(phonePrefix);
@@ -140,7 +140,9 @@ export default function NumericInput({ rootValueHandling, ...props }) {
       <input
         {...props}
         type={type === 'number' ? 'text' : 'tel'}
-        className={`${className} ${styles['input--metric']}`}
+        className={`${className} ${styles[`input--numeric-${length}`]} ${
+          metrical ? styles['input--metric'] : ''
+        }`}
         inputMode={type === 'number' ? 'numeric' : 'tel'}
         placeholder="00.00"
         aria-label={type === 'number' && 'Number'}

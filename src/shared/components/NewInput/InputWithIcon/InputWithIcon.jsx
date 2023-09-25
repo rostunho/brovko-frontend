@@ -4,9 +4,9 @@ import LinkIcon from 'shared/icons/LinkIcon';
 import CalendarIcon from 'shared/icons/CalendarIcon';
 import styles from './InputWithIcon.module.scss';
 
-export default function InputWithIcon({ rootValueHandling, ...props }) {
-  const { type, error, className, onChange } = props;
-  const { valueRef, updateRootValue } = rootValueHandling;
+export default function InputWithIcon({ rootStateHandling, ...props }) {
+  const { type, className, onChange, onFocus, onClick } = props;
+  const { valueRef, updateRootValue } = rootStateHandling;
 
   const [localValue, setLocalValue] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -24,6 +24,9 @@ export default function InputWithIcon({ rootValueHandling, ...props }) {
   };
 
   const handleOnClick = event => {
+    onClick && onClick(event);
+
+    // setButtonInFocus(true);
     toggleOnIconClick(event);
   };
 
@@ -51,7 +54,7 @@ export default function InputWithIcon({ rootValueHandling, ...props }) {
   const handleInputIcon = () => {
     switch (type) {
       case 'password':
-        return <PasswordToggler />;
+        return <PasswordToggler {...props} />;
       case 'url':
         return <LinkIcon />;
       case 'date':
@@ -69,17 +72,18 @@ export default function InputWithIcon({ rootValueHandling, ...props }) {
         data-type={type}
         className={className}
         onChange={handleOnChange}
+        // onClick={onClick}
       />
-      {!error.message && (
-        <button
-          type="button"
-          className={styles['input-button']}
-          data-button="icon" // MAYBE DELETE LATER
-          onClick={handleOnClick}
-        >
-          {handleInputIcon()}
-        </button>
-      )}
+
+      <button
+        tabIndex="-1"
+        type="button"
+        className={styles['input-button']}
+        onClick={handleOnClick}
+        onFocus={onFocus}
+      >
+        {handleInputIcon()}
+      </button>
     </>
   );
 }

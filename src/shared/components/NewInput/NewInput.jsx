@@ -4,7 +4,7 @@ import { validateInputValue } from 'utils';
 import { errorMessages } from './errorMessages';
 import InputElement from './InputElement';
 import Text from '../Text/Text';
-import WarningIcon from 'shared/icons/WarningIcon';
+// import WarningIcon from 'shared/icons/WarningIcon';
 import styles from './NewInput.module.scss';
 
 export default function NewInput({
@@ -19,6 +19,7 @@ export default function NewInput({
   value,
   //   довжина блоку з інпутом
   length = 'lg',
+  onClick,
   onChange,
   onFocus,
   onBlur,
@@ -32,7 +33,7 @@ export default function NewInput({
   const [additionalClass, setAdditionalClass] = useState('');
   const [error, setError] = useState({ message: '' });
   const valueRef = useRef('');
-  const rootValueHandling = { valueRef, updateRootValue };
+  const rootStateHandling = { valueRef, updateRootValue };
 
   useEffect(() => {
     switch (validationChecking) {
@@ -55,57 +56,85 @@ export default function NewInput({
     setRootValue(valueRef.current);
   }
 
+  const handleOnClick = event => {
+    onClick && onClick(event);
+  };
+
   const handleOnChange = event => {
     onChange && onChange(event);
-    validateInput(event);
+
+    // КОТЕЛ ВАЛІДАЦІЇ
+    if (
+      event.target.dataset.type === 'text' ||
+      event.target.dataset.type === 'date'
+    ) {
+      return;
+    }
+
+    // не валідуємо, якщо інпут порожній
+    if (!rootValue) {
+      return;
+    }
+
+    // виходимо, якщо в телефоні інтуп залишається в стані за замовчуванням
+    if (event.target.dataset.type === 'tel' && event.target.value.length <= 6) {
+      return;
+    }
+
+    if (rootValue.length <= 8) {
+      setValidationChecking('pending');
+    }
+
+    const validationResult = validateInputValue(
+      event.target.value,
+      event.target.dataset.type
+    );
+
+    if (validationResult) {
+      setErrorMessage('');
+      setValidationChecking('isValid');
+    }
   };
 
   const handleOnFocus = event => {
     onFocus && onFocus(event);
+
     setValidationChecking('pending');
     setErrorMessage('');
   };
 
   const handleOnBlur = event => {
     onBlur && onBlur(event);
-    // validateInput(event);
-  };
 
-  const validateInput = event => {
-    const { value } = event.target;
-    const { type } = event.target.dataset;
-
-    if (type === 'text' || type === 'date') {
-      // забрати звідси type==='date'
-      setValidationChecking('pending');
+    // КОТЕЛ ВАЛІДАЦІЇ
+    if (
+      event.target.dataset.type === 'text' ||
+      event.target.dataset.type === 'date'
+    ) {
       return;
     }
 
-    const result = validateInputValue(value, type);
-    handleValidationResult(result, event);
-  };
+    // не валідуємо, якщо інпут порожній
+    if (!rootValue) {
+      return;
+    }
 
-  const handleValidationResult = (result, event) => {
-    const { type, button } = event.target.dataset;
-    const { value } = event.target;
-    const { type: eventType } = event;
+    // виходимо, якщо в телефоні інтуп залишається в стані за замовчуванням
+    if (event.target.dataset.type === 'tel' && event.target.value.length <= 6) {
+      return;
+    }
 
-    console.log('event type :', eventType);
-    console.log('button is :', button);
-    if (result) {
-      setValidationChecking('isValid');
+    const validationResult = validateInputValue(
+      event.target.value,
+      event.target.dataset.type
+    );
+
+    if (validationResult) {
       setErrorMessage('');
+      setValidationChecking('isValid');
     } else {
-      if (eventType === 'blur' && value && !button) {
-        console.log('TARGET');
-        setValidationChecking('notValid');
-        setErrorMessage(errorMessages[type]);
-      } else if (eventType === 'change' && type === 'number') {
-        setValidationChecking('notValid');
-        setErrorMessage(errorMessages[type]);
-      } else {
-        setValidationChecking('pending');
-      }
+      setValidationChecking('notValid');
+      setErrorMessage(errorMessages[event.target.dataset.type]);
     }
   };
 
@@ -123,29 +152,29 @@ export default function NewInput({
         {label}
         <InputElement
           type={type}
+          value={rootValue}
           className={`${styles.input} ${
             type === 'number' ? '' : styles[`${additionalClass}`]
           } ${inputClassName ? inputClassName : ''}`}
           name={name}
           placeholder={placeholder}
-          value={rootValue}
-          onClick={e => console.log('EVENT IN CLICK :', e)}
+          onClick={handleOnClick}
           onChange={handleOnChange}
           onFocus={handleOnFocus}
           onBlur={handleOnBlur}
           length={length}
           metrical={metrical}
           error={error}
-          rootValueHandling={rootValueHandling} // об'єкт з інструментами для оновлення головного стейту
+          rootStateHandling={rootStateHandling} // об'єкт з інструментами для оновлення головного стейту
           {...props}
         />
-        {error.message && (
-          <>
-            {/* <WarningIcon className={styles['warning-icon']} /> */}
-            <Text type="error">{error.message}</Text>
-          </>
-        )}
       </label>
+      {error.message && (
+        <>
+          {/* <WarningIcon className={styles['warning-icon']} /> */}
+          <Text type="error">{error.message}</Text>
+        </>
+      )}
     </>
   );
 }

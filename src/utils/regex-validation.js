@@ -3,7 +3,6 @@ export const regex = {
   number: /^(?![\d.eE]*[eE])\d*(?:[.,]\d*)?$/,
   tel: /^\+\d{2} \(\d{3}\) \d{3} \d{4}$/,
   password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
-  // password: /^.*$/,
   url: /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/,
 };
 
