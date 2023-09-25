@@ -32,8 +32,11 @@ export default function NewInput({
   const [validationChecking, setValidationChecking] = useState('pending');
   const [additionalClass, setAdditionalClass] = useState('');
   const [error, setError] = useState({ message: '' });
+  const [checkBoxIsChecked, setCheckBoxIsChecked] = useState(false);
   const valueRef = useRef('');
   const rootStateHandling = { valueRef, updateRootValue };
+  const isCheckbox = type === 'checkbox';
+  const isRadio = type === 'radio';
 
   useEffect(() => {
     switch (validationChecking) {
@@ -62,6 +65,8 @@ export default function NewInput({
 
   const handleOnChange = event => {
     onChange && onChange(event);
+
+    isCheckbox && setCheckBoxIsChecked(!checkBoxIsChecked);
 
     // КОТЕЛ ВАЛІДАЦІЇ
     if (
@@ -147,6 +152,8 @@ export default function NewInput({
       <label
         className={`${styles['input-box']} ${
           styles[`input-box__length--${length}`]
+        } ${isCheckbox || isRadio ? styles['input-box__controls'] : ''} ${
+          checkBoxIsChecked ? styles['input-box__controls--checked'] : ''
         } ${labelClassName ? labelClassName : ''}`}
       >
         {label}

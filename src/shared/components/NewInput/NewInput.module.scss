@@ -23,6 +23,28 @@
   width: 86px;
 }
 
+.input-box__controls {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+
+  min-height: fit-content;
+  width: fit-content;
+  cursor: pointer;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #f3a610;
+  }
+}
+
+.input-box__controls--checked {
+  color: #f3a610;
+}
+
 .input {
   display: flex;
   align-items: center;
@@ -91,4 +113,69 @@ input.input--is-valid:focus:not(:placeholder-shown) {
   position: absolute;
   top: 31px;
   right: 16px;
+}
+
+.input[type='checkbox'] {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+  border: 1px solid #191c2c;
+  border-radius: 4px;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    background-color: #f3a610;
+
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:checked {
+    border: 1px solid #f3a610;
+    &::before {
+      opacity: 1;
+    }
+  }
+}
+
+.input[type='radio'] {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #f3a610;
+  border-radius: 50%;
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+
+  &:checked::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #f3a610;
+  }
 }

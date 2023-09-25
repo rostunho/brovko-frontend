@@ -113,10 +113,10 @@ export default function DeliveryForm() {
         <NewInput type="url" label="Your url" />
         <NewInput type="date" label="Your date" />
         <hr />
-        <NewInput type="checkbox" />
+        <NewInput type="checkbox" label="Test Checkbox" />
 
-        <NewInput type="radio" name="test-name" />
-        <NewInput type="radio" name="test-name" />
+        <NewInput type="radio" name="test-name" label="test one" />
+        <NewInput type="radio" name="test-name" label="test two" />
 
         <button type="submit">TEST SUBMIT</button>
         {/* testing end */}
