@@ -15,6 +15,37 @@
   margin: 12px 0;
 }
 
+.text--divider {
+  position: relative;
+  color: #a3a5a4;
+  margin: 12px auto;
+  padding: 0 16px;
+  background-color: #fff;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    right: 50%;
+    transform: translateY(-50%);
+    width: calc(100vw / 2 - 16px);
+    height: 1px;
+    background-color: #a3a5a4;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%);
+    width: calc(100vw / 2 - 16px);
+    height: 1px;
+    background-color: #a3a5a4;
+  }
+}
+
 .text--error {
   font-size: 12px;
   font-weight: 400;

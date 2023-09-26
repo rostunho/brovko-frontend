@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { login } from 'redux/user/userOperations';
 
 import { useRef } from 'react';
@@ -42,6 +43,7 @@ const LoginForm = () => {
         value={password}
         onChange={handleChange}
       />
+      <NavLink to="#">Забули пароль</NavLink>
 
       <Button type="submit" size="lg">
         Увійти
