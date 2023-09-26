@@ -4,8 +4,12 @@ import instance from './instance';
 // const BROVKO_API = process.env.REACT_APP_BROVKO_API;
 
 export const getActiveCategories = async () => {
-  const { data } = await instance.get('/categories');
-  return data;
+  try {
+    const { data } = await instance.get('/categories');
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 export const addNewCategory = async body => {
