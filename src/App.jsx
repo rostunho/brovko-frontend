@@ -15,6 +15,7 @@ const LazyMainPage = lazy(() => import('pages/MainPage/MainPage'));
 const LazyNotFoundPage = lazy(() => import('pages/NotFoundPage/NotFoundPage'));
 
 const OrderPage = lazy(() => import('pages/OrderPage'));
+const AdminPage = lazy(() => import('pages/AdminPage'));
 
 function App() {
   return (
@@ -28,11 +29,11 @@ function App() {
 
         <Route path="/auth/*" element={<AuthRoutes />} />
 
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="/order" element={<OrderPage />}>
           <Route index element={<Navigate to="/order/login" />} />
           <Route
             path="login"
-            index
             element={<AuthFormWrapper form={<LoginForm />} />}
           />
           <Route path="order-form" element={<OrderForm />} />
