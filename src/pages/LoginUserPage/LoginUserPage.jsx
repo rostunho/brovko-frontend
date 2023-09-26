@@ -19,7 +19,7 @@ export default function LoginUserPage() {
 
       <AuthFormWrapper form={<LoginForm />} />
 
-      <AuthSwitcher to="/register" linkLabel="Зареєструватися">
+      <AuthSwitcher to="/auth/register" linkLabel="Зареєструватися">
         Вже є акаунт ?
       </AuthSwitcher>
     </section>
