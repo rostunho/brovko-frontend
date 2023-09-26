@@ -9,7 +9,7 @@ export default function ArrowDownIcon() {
     >
       <path
         d="M7 10L12 15L17 10"
-        stroke="#191C2C"
+        stroke="inherit"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"

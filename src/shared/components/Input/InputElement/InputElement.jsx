@@ -10,7 +10,12 @@ export default function InputElement({ rootStateHandling, ...props }) {
     return <TextInput rootStateHandling={rootStateHandling} {...props} />;
   } else if (type === 'tel' || type === 'number') {
     return <NumericInput rootStateHandling={rootStateHandling} {...props} />;
-  } else if (type === 'password' || type === 'url' || type === 'date') {
+  } else if (
+    type === 'password' ||
+    type === 'url' ||
+    type === 'date' ||
+    type === 'search'
+  ) {
     return <InputWithIcon rootStateHandling={rootStateHandling} {...props} />;
   } else if (type === 'checkbox' || type === 'radio') {
     return <SelectingInput rootStateHandling={rootStateHandling} {...props} />;

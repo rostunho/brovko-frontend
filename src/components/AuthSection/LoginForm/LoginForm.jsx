@@ -4,7 +4,7 @@ import { login } from 'redux/user/userOperations';
 
 import { useRef } from 'react';
 // import PropTypes from 'prop-types';
-import Input from 'shared/components/Input/Input';
+import OldInput from 'shared/components/OldInput/OldInput';
 import Button from 'shared/components/Button/Button';
 import useForm from 'shared/hooks/useForm';
 import initialState from './initialState';
@@ -25,7 +25,7 @@ const LoginForm = () => {
   const { email, password } = state;
   return (
     <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
-      <Input
+      <OldInput
         label="E-mail"
         type="email"
         name="email"
@@ -34,7 +34,7 @@ const LoginForm = () => {
         value={email}
         onChange={handleChange}
       />
-      <Input
+      <OldInput
         label="Пароль"
         type="password"
         name="password"

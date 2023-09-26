@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import PasswordToggler from 'shared/components/PasswordToggler/PasswordToggler';
 import LinkIcon from 'shared/icons/LinkIcon';
 import CalendarIcon from 'shared/icons/CalendarIcon';
+import SearchIcon from 'shared/icons/SearchIcon';
 import styles from './InputWithIcon.module.scss';
 
 export default function InputWithIcon({ rootStateHandling, ...props }) {
@@ -27,7 +28,7 @@ export default function InputWithIcon({ rootStateHandling, ...props }) {
     onClick && onClick(event);
 
     // setButtonInFocus(true);
-    toggleOnIconClick(event);
+    type === 'password' && toggleOnIconClick(event);
   };
 
   const toggleOnIconClick = event => {
@@ -59,6 +60,8 @@ export default function InputWithIcon({ rootStateHandling, ...props }) {
         return <LinkIcon />;
       case 'date':
         return <CalendarIcon />;
+      case 'search':
+        return <SearchIcon />;
       default:
         return null;
     }

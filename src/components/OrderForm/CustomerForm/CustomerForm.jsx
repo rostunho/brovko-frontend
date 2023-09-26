@@ -1,4 +1,5 @@
 import Input from 'shared/components/Input';
+
 import styles from './CustomerForm.module.scss';
 
 export default function CustomerForm() {

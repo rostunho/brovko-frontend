@@ -1,4 +1,4 @@
-import Input from './Input';
+import Input from './OldInput';
 import CalendarIcon from '../../icons/CalendarIcon';
 
 const meta = {

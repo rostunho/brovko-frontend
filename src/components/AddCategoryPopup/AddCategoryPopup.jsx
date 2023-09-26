@@ -3,7 +3,7 @@ import { addNewCategory } from 'shared/services/categories';
 import Modal from 'shared/components/Modal/Modal';
 import Heading from 'shared/components/Heading';
 import Selector from 'shared/components/Selector';
-import Input from 'shared/components/Input';
+import OldInput from 'shared/components/OldInput';
 import Button from 'shared/components/Button';
 import { addCategoryRequestTemplate } from './addCategoryRequestTemplate';
 import styles from './AddCategoryPopup.module.scss';
@@ -48,19 +48,19 @@ export default function AddCategoryPopup({ data, closeModal, ...prop }) {
     <Modal centered closeModal={closeModal}>
       <Heading>Додати категорію</Heading>
       <form className={styles.wrapper} ref={formRef}>
-        <Input
+        <OldInput
           label="Назва нової категорії :"
           name="name"
           placeholder="Введіть назву нової категорії"
           onChange={onInputChange}
         />
-        <Input
+        <OldInput
           label="ID нової категорії :"
           name="id"
           length="md"
           onChange={onInputChange}
         />
-        <Input
+        <OldInput
           type="checkbox"
           label="Зробити підкатегорією :"
           placeholder="Введіть назву нової категорії"

@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import Heading from 'shared/components/Heading';
+import LocationSelector from 'shared/components/LocationSelector';
 import Selector from 'shared/components/Selector';
-import Input from 'shared/components/Input';
+// import OldInput from 'shared/components/OldInput';
+import OldInput from 'shared/components/OldInput';
 import styles from './DeliveryForm.module.scss';
 
 // testing fields
-import NewInput from 'shared/components/NewInput';
+import Input from 'shared/components/OldInput';
 // testing fields
 
 export default function DeliveryForm() {
@@ -22,6 +24,7 @@ export default function DeliveryForm() {
           console.log(e);
         }}
       >
+        <LocationSelector />
         <Selector
           label="Населений пункт"
           placeholder="Оберіть населений пункт"
@@ -41,82 +44,6 @@ export default function DeliveryForm() {
             'Запоріжжя',
           ]}
         />
-
-        <Input
-          type="radio"
-          name="test-name"
-          value="Відділення"
-          checked={selectedRadioButton === 'Відділення'}
-          onChange={() => {
-            setSelectedRadioButton('Відділення');
-          }}
-          label="Доставка до відділення Нової Пошти"
-        />
-        <Input
-          type="radio"
-          name="test-name"
-          value="Поштомат"
-          checked={selectedRadioButton === 'Поштомат'}
-          onChange={() => {
-            setSelectedRadioButton('Поштомат');
-          }}
-          label="Доставка у поштомат Нової Пошти"
-        />
-        <Input
-          type="radio"
-          name="test-name"
-          value="Адреса"
-          checked={selectedRadioButton === 'Адреса'}
-          onChange={() => {
-            setSelectedRadioButton('Адреса');
-          }}
-          label="Доставка Новою Поштою за адресою"
-        />
-        <input type="radio" />
-        <Input type="checkbox" label="Test" />
-
-        {/* testing start */}
-        <br />
-        <br />
-        <br />
-        <br />
-
-        <NewInput
-          type="text"
-          label="Text length='md' "
-          placeholder="Введіть назву міста"
-          length="md"
-        />
-        <NewInput
-          type="email"
-          name="email"
-          label="Email length='lg (defaul)"
-          placeholder="Enter your E-mail"
-        />
-        <NewInput
-          type="text"
-          label="Text length='sm'"
-          placeholder="Text of placeholder"
-          length="sm"
-        />
-        <hr />
-        <NewInput type="tel" label="Tel length='lg' (default)" />
-        <NewInput
-          type="number"
-          label="Number length='md'"
-          length="md"
-          metrical="m3"
-        />
-        <NewInput type="number" label="Number 'sm'" length="sm" />
-        <hr />
-        <NewInput type="password" label="Your password" />
-        <NewInput type="url" label="Your url" />
-        <NewInput type="date" label="Your date" />
-        <hr />
-        <NewInput type="checkbox" label="Test Checkbox" />
-
-        <NewInput type="radio" name="test-name" label="test one" />
-        <NewInput type="radio" name="test-name" label="test two" />
 
         <button type="submit">TEST SUBMIT</button>
         {/* testing end */}
