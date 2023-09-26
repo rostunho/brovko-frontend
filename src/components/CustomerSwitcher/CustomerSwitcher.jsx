@@ -1,9 +1,8 @@
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import styles from './CustomerSwitcher.module.scss';
 
 export default function CustomerSwitcher() {
-  const [activeIs, setActiveIs] = useState('first');
+  const { pathname } = useLocation();
 
   return (
     <ul className={styles.list}>
@@ -11,9 +10,8 @@ export default function CustomerSwitcher() {
         <NavLink
           to="/order/login"
           className={`${styles.link} ${
-            activeIs === 'first' && styles['link--active']
+            pathname === '/order/login' ? styles['link--active'] : ''
           }`}
-          onClick={() => setActiveIs('first')}
         >
           Вхід для клієнтів
         </NavLink>
@@ -22,9 +20,8 @@ export default function CustomerSwitcher() {
         <NavLink
           to="/order/order-form"
           className={`${styles.link} ${
-            activeIs === 'second' && styles['link--active']
+            pathname === '/order/order-form' ? styles['link--active'] : ''
           }`}
-          onClick={() => setActiveIs('second')}
         >
           Я новий користувач
         </NavLink>
