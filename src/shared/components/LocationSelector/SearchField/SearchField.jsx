@@ -5,11 +5,13 @@ import styles from './SearchField.module.scss';
 export default function SearchField({
   label,
   value,
+  name,
   selectorIsOpen,
-  selectedCity,
+  selectedData,
   onChange,
   onClick,
   placeholder,
+  dataRef,
   ...props
 }) {
   const handleOnClick = event => {
@@ -20,15 +22,17 @@ export default function SearchField({
     <label className={styles.label}>
       {label}
       <input
+        {...props}
         type="search"
         value={value}
         className={styles.input}
         placeholder={placeholder}
         onChange={onChange}
+        data-ref={dataRef}
         // onClick={onClick}
       />
       <button type="button" className={styles.button} onClick={handleOnClick}>
-        {selectorIsOpen || selectedCity ? <CrossIcon /> : <ArrowDownIcon />}
+        {selectorIsOpen || selectedData ? <CrossIcon /> : <ArrowDownIcon />}
       </button>
     </label>
   );
