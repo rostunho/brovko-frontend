@@ -1,5 +1,6 @@
 // import { useState } from 'react';
 import { useParams, Outlet, useLocation } from 'react-router-dom';
+
 // import { useSelector } from 'react-redux';
 // import { Link } from 'react-router-dom';
 // import { getAllProducts } from 'redux/products/productsSelectors';
@@ -147,8 +148,10 @@ import { useParams, Outlet, useLocation } from 'react-router-dom';
 //   );
 // }
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { getAllProducts } from 'redux/products/productsSelectors';
+import { getAllReviews } from 'redux/reviews/reviewsSelectors';
 import Heading from 'shared/components/Heading';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 import styles from './ProductDetailPage.module.scss';
@@ -157,11 +160,17 @@ export default function ProductDetailPage({}) {
   const { productId } = useParams();
   const location = useLocation();
   const from = location.state?.from || '/';
-  console.log('from:', from);
 
   const allProducts = useSelector(getAllProducts);
-  const product = allProducts?.find(p => p._id === productId);
+  const allReviews = useSelector(getAllReviews);
 
+  console.log('allProducts', allProducts);
+  console.log('allReviews', allReviews);
+
+  const product = allProducts?.find(p => p._id === productId);
+  const reviews = allReviews?.find(r => r.productId === productId);
+
+  // ===============================================
   const [isExpandedDescription, setIsExpandedDescription] = useState(false);
   const [isExpandedReview, setIsExpandedReview] = useState(false);
 
@@ -170,13 +179,11 @@ export default function ProductDetailPage({}) {
     const isExpandedDescriptionFromLocation =
       location.state?.isExpandedDescription || false;
     setIsExpandedDescription(isExpandedDescriptionFromLocation);
-    console.log('isExpandedDescription', isExpandedDescription);
 
     // Встановлюємо isExpandedReview з location.state
     const isExpandedReviewFromLocation =
       location.state?.isExpandedReview || false;
     setIsExpandedReview(isExpandedReviewFromLocation);
-    console.log('isExpandedReview', isExpandedReview);
   }, [location.state]);
 
   const handleReadMoreClick = () => {
@@ -198,6 +205,7 @@ export default function ProductDetailPage({}) {
       </Heading>
       <ProductDetail
         product={product}
+        reviews={reviews}
         isExpandedDescription={isExpandedDescription}
         isExpandedReview={isExpandedReview}
         handleReadMoreClick={handleReadMoreClick}

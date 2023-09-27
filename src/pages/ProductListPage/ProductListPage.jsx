@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { fetchAllProducts } from 'redux/products/productsOperations';
+import { fetchReviews } from 'redux/reviews/reviewsOperations';
 
 import Heading from 'shared/components/Heading/Heading';
 import Pagination from 'components/Products/Pagination';
@@ -19,6 +20,10 @@ export default function ProductListPage() {
   const handleChangePage = pageNumber => {
     setPage(pageNumber);
   };
+
+  useEffect(() => {
+    dispatch(fetchReviews());
+  }, [dispatch]);
 
   return (
     <>
