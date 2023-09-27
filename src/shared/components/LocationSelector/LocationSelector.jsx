@@ -1,66 +1,52 @@
 import { useState, useEffect } from 'react';
-import { searchCity } from 'shared/services/nova-poshta';
+import PropTypes from 'prop-types';
 import SearchField from './SearchField';
 import LocationList from './LocationList';
 import HotOptions from './HotOptions';
 import styles from './LocationSelector.module.scss';
 
 export default function LocationSelector({
+  data,
+  name,
   withHotOptions,
   label,
   placeholder,
+  extractSearchValue,
+  extractData,
   ...props
 }) {
-  const [searchInputValue, setSearchInputValue] = useState('');
-  const [cities, setCities] = useState([]);
-  const [selectedCity, setSelectedCity] = useState(null);
+  const [searchValue, setSearchValue] = useState('');
+  const [selectedData, sesetSelectedData] = useState(null);
   const [selectorIsOpen, setSelectorIsOpen] = useState(false);
 
   useEffect(() => {
-    if (searchInputValue.length < 1) {
-      return;
-    }
-    (async () => {
-      try {
-        const searchValue = searchInputValue.toLowerCase();
-        const response = await searchCity(searchValue);
-        const { Addresses: addresses } = response;
-
-        if (!response) {
-          return;
-        }
-
-        setCities([...addresses]);
-        console.log(addresses);
-      } catch (error) {
-        console.log(error.message);
-      }
-    })();
-  }, [searchInputValue]);
+    extractSearchValue(searchValue);
+  }, [extractSearchValue, searchValue]);
 
   useEffect(() => {
-    searchInputValue.length > 0 && !selectedCity
+    searchValue.length > 0 && !selectedData
       ? setSelectorIsOpen(true)
       : setSelectorIsOpen(false);
-  }, [searchInputValue.length, selectedCity]);
+  }, [searchValue.length, selectedData]);
 
   useEffect(() => {
-    selectedCity && setSearchInputValue(selectedCity.Present);
-  }, [selectedCity]);
+    selectedData && setSearchValue(selectedData.Present);
+    extractData(selectedData);
+  }, [extractData, selectedData]);
 
   const handleOnIconClick = event => {
     toggleSelector();
 
-    setSearchInputValue('');
-    setSelectedCity(null);
+    setSearchValue('');
+    sesetSelectedData(null);
   };
 
   const handleOnChange = event => {
-    setSearchInputValue(event.target.value);
+    setSearchValue(event.target.value);
   };
 
   const selectCity = data => {
-    setSelectedCity(data);
+    sesetSelectedData(data);
     setSelectorIsOpen(false);
   };
 
@@ -74,16 +60,26 @@ export default function LocationSelector({
         <SearchField
           label={label}
           placeholder={placeholder}
-          value={searchInputValue}
+          value={searchValue}
           selectorIsOpen={selectorIsOpen}
-          selectedCity={selectedCity}
-          setSearchInputValue={setSearchInputValue}
+          selectedData={selectedData}
           onChange={handleOnChange}
           onClick={handleOnIconClick}
+          dataRef={selectedData && selectedData.Ref}
         />
-        {selectorIsOpen && <LocationList data={cities} onClick={selectCity} />}
+        {selectorIsOpen && <LocationList data={data} onClick={selectCity} />}
       </div>
       {withHotOptions && <HotOptions onClick={selectCity} />}
     </>
   );
 }
+
+LocationSelector.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      Present: PropTypes.string,
+      MainDescription: PropTypes.string,
+      ...PropTypes.any,
+    })
+  ),
+};
