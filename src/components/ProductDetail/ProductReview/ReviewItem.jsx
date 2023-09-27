@@ -3,40 +3,51 @@ import AvatarIcon from 'shared/icons/AvatarIcon';
 
 import styles from '../ProductDetail.module.scss';
 
-const ReviewItem = ({ reviews }) => {
-  console.log('review ITEM', reviews);
-  const ownerOfFirstReview = reviews[0]?.comments[0]?.owner;
-
-  if (ownerOfFirstReview) {
-    // Тут ви можете використовувати ownerOfFirstReview
-    console.log('owner', ownerOfFirstReview);
-    console.log('_id', reviews[0]?.comments[0]?._id);
-  } else {
-    console.log('Owner не знайдено');
-  }
+const ReviewItem = ({ review, isExpandedReview }) => {
   return (
-    <div className={styles.reviewItem}>
-      <div className={styles.userInfo}>
-        {/* Відображати <AvatarIcon />, якщо фото користувача відсутнє */}
-        {reviews.comments.owner.avatar ? (
-          <img
-            src={reviews.comments.owner.avatar}
-            alt={reviews.owner.name}
-            className={styles.avatar}
-          />
-        ) : (
-          <AvatarIcon fill="#FF5733" className={styles.avatar} />
-        )}
-        <div>
-          <p className={styles.userName}>{reviews.comments.owner.name}</p>
-          <p className={styles.reviewDate}>{reviews.createdAt}</p>
-        </div>
-      </div>
+    <div>
+      {isExpandedReview ? (
+        <ul className={styles.reviewBox}>
+          {review.text.map((text, index) => (
+            <li className={styles.reviewItem} key={index}>
+              <div className={styles.userInfo}>
+                <AvatarIcon fill="#FF5733" className={styles.avatar} />
+                <div>
+                  <p className={styles.userName}>
+                    {' '}
+                    {review.owner.email || review.owner.name}
+                  </p>
+                  <p className={styles.reviewDate}>
+                    {new Date(text.createdAt).toLocaleString()}
+                  </p>
+                </div>
+              </div>
 
-      {/* <p className={styles.reviewRating}>Rating: {review.rating}</p> */}
-      <RewiewRating rating={reviews.rating} />
+              <RewiewRating />
+              <p className={styles.reviewText}>{text.text}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <>
+          <div className={styles.userInfo}>
+            <AvatarIcon fill="#FF5733" className={styles.avatar} />
+            <div>
+              <p className={styles.userName}>
+                {' '}
+                {review.owner.email || review.owner.name}
+              </p>
+              <p className={styles.reviewDate}>
+                {new Date(review.text[0].createdAt).toLocaleString()}
+              </p>
+            </div>
+          </div>
 
-      <p className={styles.reviewText}>{reviews.text[0]}</p>
+          <RewiewRating />
+
+          <p className={styles.reviewText}>{review.text[0].text}</p>
+        </>
+      )}
     </div>
   );
 };

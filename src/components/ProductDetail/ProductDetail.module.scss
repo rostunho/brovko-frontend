@@ -213,6 +213,11 @@
   // height: 146px;
   border-radius: 8px;
   border: 1px solid var(--Stroke, #f0f0f0);
+  margin-bottom: 12px;
+}
+
+.reviewBox {
+  // margin-bottom: 12px;
 }
 
 .userInfo {
@@ -260,7 +265,7 @@
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  // gap: 12px;
 }
 
 // ======swiper========

@@ -151,7 +151,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAllProducts } from 'redux/products/productsSelectors';
-
+import { getAllReviews } from 'redux/reviews/reviewsSelectors';
 import Heading from 'shared/components/Heading';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 import styles from './ProductDetailPage.module.scss';
@@ -162,8 +162,15 @@ export default function ProductDetailPage({}) {
   const from = location.state?.from || '/';
 
   const allProducts = useSelector(getAllProducts);
-  const product = allProducts?.find(p => p._id === productId);
+  const allReviews = useSelector(getAllReviews);
 
+  console.log('allProducts', allProducts);
+  console.log('allReviews', allReviews);
+
+  const product = allProducts?.find(p => p._id === productId);
+  const reviews = allReviews?.find(r => r.productId === productId);
+
+  // ===============================================
   const [isExpandedDescription, setIsExpandedDescription] = useState(false);
   const [isExpandedReview, setIsExpandedReview] = useState(false);
 
@@ -198,6 +205,7 @@ export default function ProductDetailPage({}) {
       </Heading>
       <ProductDetail
         product={product}
+        reviews={reviews}
         isExpandedDescription={isExpandedDescription}
         isExpandedReview={isExpandedReview}
         handleReadMoreClick={handleReadMoreClick}

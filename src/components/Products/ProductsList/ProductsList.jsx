@@ -17,6 +17,12 @@ import styles from './ProductsList.module.scss';
 const ProductList = () => {
   const products = useSelector(getAllProducts);
 
+  // const _id = '65087f6d57d8d6b305b68bee';
+  // const product = products.find(product => product._id === _id);
+  // console.log('product', product);
+
+  const reviews = useSelector(getAllReviews);
+
   // Стан для пошуку та фільтрації
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);

@@ -12,13 +12,14 @@ import styles from './ProductDetail.module.scss';
 
 export default function ProductDetail({
   product,
+  reviews,
   isExpandedDescription,
   isExpandedReview,
   handleReadMoreClick,
   handleReadReviewClick,
   location,
 }) {
-  const { picture, note, price, currencyId, review } = product;
+  const { picture, note, price, currencyId } = product;
 
   return (
     <>
@@ -44,7 +45,7 @@ export default function ProductDetail({
           isExpandedReview={isExpandedReview}
           location={location}
           handleReadReviewClic={handleReadReviewClick}
-          review={review}
+          reviews={reviews}
         />{' '}
       </div>
     </>

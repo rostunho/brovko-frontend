@@ -1,18 +1,15 @@
 import { Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { getAllReviews } from 'redux/reviews/reviewsSelectors';
 import fakeReviewsData from './fakeRewiewsData';
 import SharedLinkButton from '../SharedLinkButton';
 import ReviewContainer from './ReviewContainer';
 import ReviewList from './ReviewList';
 
 export default function Review({
+  reviews,
   isExpandedReview,
   location,
   handleReadReviewClick,
 }) {
-  const reviews = useSelector(getAllReviews);
-  console.log('reviews:', reviews);
   return (
     <>
       {reviews ? (
@@ -23,16 +20,12 @@ export default function Review({
         ) : (
           <>
             <ReviewContainer />
-            <ReviewList reviews={reviews.slice(0, 1)} />
+            <ReviewList reviews={reviews} isExpandedReview={isExpandedReview} />
 
             {!isExpandedReview && (
               <SharedLinkButton
                 to={`review`}
                 state={{ isExpandedReview: true }}
-                // state={{
-                //   from: location.state.from,
-                //   isExpandedReview: true,
-                // }}
                 label="Дивитися всі відгуки"
                 onClick={handleReadReviewClick}
               />
@@ -40,7 +33,7 @@ export default function Review({
           </>
         )
       ) : (
-        <p>Завантаження...</p>
+        <p>Для цього смаколика ще не написано жодного відгука....</p>
       )}
     </>
   );

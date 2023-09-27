@@ -1,12 +1,19 @@
 import ReviewItem from './ReviewItem';
 import styles from '../ProductDetail.module.scss';
 
-function ReviewList({ reviews }) {
-  console.log('reviews', reviews);
+function ReviewList({ reviews, isExpandedReview = true }) {
+  const displayedReviews = isExpandedReview
+    ? reviews.comments
+    : reviews.comments.slice(0, 1);
+
   return (
     <div className={styles.reviewList}>
-      {reviews.map(review => (
-        <ReviewItem key={review._id} reviews={reviews} />
+      {displayedReviews.map(review => (
+        <ReviewItem
+          key={review._id}
+          review={review}
+          isExpandedReview={isExpandedReview}
+        />
       ))}
     </div>
   );
