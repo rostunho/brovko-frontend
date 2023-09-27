@@ -31,7 +31,14 @@ const RegisterForm = () => {
   }
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
+    <form
+      ref={formRef}
+      onSubmit={e => {
+        handleSubmit(e);
+        setConfirmPassword('');
+      }}
+      className={styles.form}
+    >
       <Input
         label="E-mail"
         style={{ backgroundColor: '#801f1f' }}

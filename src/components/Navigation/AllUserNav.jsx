@@ -2,25 +2,21 @@ import { NavLink } from 'react-router-dom';
 import styles from './Nav.module.scss';
 
 export default function UserNav({ onClick }) {
-
   return (
     <nav>
       <ul className={styles.list}>
         <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/all/actions">
-
             Акції
           </NavLink>
         </li>
         <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/all/about">
-
             Про Бровка
           </NavLink>
         </li>
         <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/all/perevagy">
-
             Чому це корисно?
           </NavLink>
         </li>
@@ -44,29 +40,10 @@ export default function UserNav({ onClick }) {
         </li> */}
 
         <li className={styles.item} onClick={onClick}>
-
           <NavLink className={styles.link} to="/admin">
             Адмін
           </NavLink>
         </li>
-
-
-
-        {/* <div className={styles.wrap}>
-          {email}
-          <Button
-            mode="outlined"
-            style={{
-              padding: 5,
-              margin: 5,
-              minWidth: 60,
-              height: 20,
-              border: 0,
-            }}
-          >
-            Вийти
-          </Button>
-        </div> */}
       </ul>
     </nav>
     //

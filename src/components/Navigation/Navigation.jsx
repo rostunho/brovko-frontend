@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-
 import { useSelector } from 'react-redux';
 import AllUserNav from './AllUserNav';
 import AuthNav from './AuthNav';
@@ -13,7 +12,7 @@ import styles from './Navigation.module.scss';
 
 const Navigation = ({ isMobile }) => {
   //   const userLoggedIn = true;
-  const isUserLogin = useSelector(selectIsLogin);
+  // const isUserLogin = useSelector(selectIsLogin);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   //   useEffect(() => {
@@ -37,8 +36,6 @@ const Navigation = ({ isMobile }) => {
             className={styles.burger}
             onClick={toggleMobileMenu}
           /> */}
-          {/* {!isUserLogin && <AuthNav />}
-          {isUserLogin && <UserNav />} */}
         </>
       }
       {showMobileMenu && (
