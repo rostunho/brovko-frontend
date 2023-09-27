@@ -5,6 +5,8 @@ import Header from 'components/Header/Header';
 import Footer from 'components/Footer';
 import Rectangle from 'components/Rectangle/Rectangle';
 
+import ModalProductsInBasket from 'components/ModalProductsInBasket/ModalProductsInBasket';
+
 import styles from './SharedLayout.module.scss';
 
 const SharedLayout = () => {
@@ -12,6 +14,7 @@ const SharedLayout = () => {
     <div className={styles.layout}>
       <Header />
       <main>
+        <ModalProductsInBasket />
         <Suspense fallback={<div>Loading page...</div>}>
           <Outlet />
         </Suspense>
