@@ -9,6 +9,8 @@ const LazyLoginUserPage = lazy(() =>
   import('pages/LoginUserPage/LoginUserPage')
 );
 
+const TempAuthPage = lazy(() => import('pages/TempAuthPage/TempAuthPage'));
+
 export const authRoutes = [
   {
     path: '/register',
@@ -17,6 +19,10 @@ export const authRoutes = [
   {
     path: '/login',
     Component: LazyLoginUserPage,
+  },
+  {
+    path: '/temp',
+    Component: TempAuthPage,
   },
 ];
 
