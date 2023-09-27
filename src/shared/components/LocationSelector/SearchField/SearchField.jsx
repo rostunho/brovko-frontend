@@ -4,22 +4,31 @@ import styles from './SearchField.module.scss';
 
 export default function SearchField({
   label,
+  value,
   selectorIsOpen,
+  selectedCity,
   onChange,
   onClick,
+  placeholder,
   ...props
 }) {
   const handleOnClick = event => {
     onClick && onClick(event);
-    console.log(onClick);
   };
 
   return (
     <label className={styles.label}>
       {label}
-      <input type="search" className={styles.input} onChange={onChange} />
+      <input
+        type="search"
+        value={value}
+        className={styles.input}
+        placeholder={placeholder}
+        onChange={onChange}
+        // onClick={onClick}
+      />
       <button type="button" className={styles.button} onClick={handleOnClick}>
-        {selectorIsOpen ? <CrossIcon /> : <ArrowDownIcon />}
+        {selectorIsOpen || selectedCity ? <CrossIcon /> : <ArrowDownIcon />}
       </button>
     </label>
   );

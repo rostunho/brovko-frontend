@@ -18,8 +18,16 @@ export const searchCity = async searchValue => {
     const body = JSON.stringify(template);
     const { data } = await axios.post(NOVA_POSHTA_API, body);
 
-    return data;
+    //якщо масив помилок не порожній, викидаємо помилку з нативним повідомленням
+    if (data.errors.length > 0) {
+      throw Error(data.errors);
+    }
+    //..
+
+    const cities = data.data[0];
+    return cities;
   } catch (error) {
+    // одразу ж обробляємо викинуту помилку
     console.log(error.message);
   }
 };

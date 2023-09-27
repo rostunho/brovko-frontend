@@ -1,53 +1,67 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { searchCity } from 'shared/services/nova-poshta';
 import SearchField from './SearchField';
+import LocationList from './LocationList';
+import HotOptions from './HotOptions';
 import styles from './LocationSelector.module.scss';
 
-export default function LocationSelector() {
+export default function LocationSelector({
+  withHotOptions,
+  label,
+  placeholder,
+  ...props
+}) {
   const [searchInputValue, setSearchInputValue] = useState('');
   const [cities, setCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState(null);
   const [selectorIsOpen, setSelectorIsOpen] = useState(false);
 
   useEffect(() => {
-    if (searchInputValue.length < 3) {
+    if (searchInputValue.length < 1) {
       return;
     }
     (async () => {
       try {
         const searchValue = searchInputValue.toLowerCase();
         const response = await searchCity(searchValue);
+        const { Addresses: addresses } = response;
 
-        console.log(response);
+        if (!response) {
+          return;
+        }
+
+        setCities([...addresses]);
+        console.log(addresses);
       } catch (error) {
         console.log(error.message);
       }
     })();
   }, [searchInputValue]);
 
-  // const searchBody = {
-  //   apiKey: '1e5739f85d91dd3927bf602c8ecf5dd2',
-  //   modelName: 'Address',
-  //   calledMethod: 'searchSettlements',
-  //   methodProperties: {
-  //     CityName: 'київ',
-  //     Limit: '50',
-  //     Page: '1',
-  //   },
-  // };
+  useEffect(() => {
+    searchInputValue.length > 0 && !selectedCity
+      ? setSelectorIsOpen(true)
+      : setSelectorIsOpen(false);
+  }, [searchInputValue.length, selectedCity]);
 
-  // const citySearch = async () => {
-  //   const url = 'https://api.novaposhta.ua/v2.0/json/';
-  //   const body = JSON.stringify(searchBody);
-  //   const response = await axios.post(url, body);
-  //   // console.log(response.data);
-  // };
-  // citySearch();
+  useEffect(() => {
+    selectedCity && setSearchInputValue(selectedCity.Present);
+  }, [selectedCity]);
 
-  /////////////////////////
+  const handleOnIconClick = event => {
+    toggleSelector();
+
+    setSearchInputValue('');
+    setSelectedCity(null);
+  };
 
   const handleOnChange = event => {
     setSearchInputValue(event.target.value);
+  };
+
+  const selectCity = data => {
+    setSelectedCity(data);
+    setSelectorIsOpen(false);
   };
 
   const toggleSelector = () => {
@@ -55,15 +69,21 @@ export default function LocationSelector() {
   };
 
   return (
-    <div className={styles.form}>
-      <SearchField
-        label="Населений пункт"
-        placeholder="Оберіть населений пункт"
-        value={searchInputValue}
-        selectorIsOpen={selectorIsOpen}
-        onChange={handleOnChange}
-        onClick={toggleSelector}
-      />
-    </div>
+    <>
+      <div className={styles.wrapper}>
+        <SearchField
+          label={label}
+          placeholder={placeholder}
+          value={searchInputValue}
+          selectorIsOpen={selectorIsOpen}
+          selectedCity={selectedCity}
+          setSearchInputValue={setSearchInputValue}
+          onChange={handleOnChange}
+          onClick={handleOnIconClick}
+        />
+        {selectorIsOpen && <LocationList data={cities} onClick={selectCity} />}
+      </div>
+      {withHotOptions && <HotOptions onClick={selectCity} />}
+    </>
   );
 }
