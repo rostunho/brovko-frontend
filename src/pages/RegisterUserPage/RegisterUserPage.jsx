@@ -12,7 +12,7 @@ export default function RegisterUserPage() {
   const isUserLogin = useSelector(selectIsLogin);
 
   if (isUserLogin) {
-    return <Navigate to="/user-dashboard" />;
+    return <Navigate to="/shop/product-list-page" />;
   }
   return (
     <section className={styles.container}>

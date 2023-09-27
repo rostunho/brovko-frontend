@@ -11,7 +11,7 @@ export default function LoginUserPage() {
   const isUserLogin = useSelector(selectIsLogin);
 
   if (isUserLogin) {
-    return <Navigate to="/product-list-page" />;
+    return <Navigate to="/shop/product-list-page" />;
   }
   return (
     <section className={styles.container}>
