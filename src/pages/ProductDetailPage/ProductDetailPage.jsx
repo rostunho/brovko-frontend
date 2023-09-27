@@ -146,14 +146,63 @@ import { useParams, Outlet, useLocation } from 'react-router-dom';
 //     </>
 //   );
 // }
-
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { getAllProducts } from 'redux/products/productsSelectors';
+import Heading from 'shared/components/Heading';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 import styles from './ProductDetailPage.module.scss';
 
-export default function ProductDetailPage({ name }) {
+export default function ProductDetailPage({}) {
+  const { productId } = useParams();
+  const location = useLocation();
+  const from = location.state?.from || '/';
+  console.log('from:', from);
+
+  const allProducts = useSelector(getAllProducts);
+  const product = allProducts?.find(p => p._id === productId);
+
+  const [isExpandedDescription, setIsExpandedDescription] = useState(false);
+  const [isExpandedReview, setIsExpandedReview] = useState(false);
+
+  useEffect(() => {
+    // Встановлюємо isExpandedDescription з location.state
+    const isExpandedDescriptionFromLocation =
+      location.state?.isExpandedDescription || false;
+    setIsExpandedDescription(isExpandedDescriptionFromLocation);
+    console.log('isExpandedDescription', isExpandedDescription);
+
+    // Встановлюємо isExpandedReview з location.state
+    const isExpandedReviewFromLocation =
+      location.state?.isExpandedReview || false;
+    setIsExpandedReview(isExpandedReviewFromLocation);
+    console.log('isExpandedReview', isExpandedReview);
+  }, [location.state]);
+
+  const handleReadMoreClick = () => {
+    setIsExpandedDescription(true);
+  };
+
+  const handleReadReviewClick = () => {
+    setIsExpandedReview(true);
+  };
+
+  if (!product) {
+    return <p>Товар не знайдено</p>;
+  }
+
   return (
     <>
-      <ProductDetail />
+      <Heading withGoBack fromHC={'/shop/product-list-page'}>
+        {product.name}
+      </Heading>
+      <ProductDetail
+        product={product}
+        isExpandedDescription={isExpandedDescription}
+        isExpandedReview={isExpandedReview}
+        handleReadMoreClick={handleReadMoreClick}
+        handleReadReviewClick={handleReadReviewClick}
+      />
     </>
   );
 }

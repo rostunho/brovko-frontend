@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import useForm from 'shared/hooks/useForm';
 import { useRef } from 'react';
-import Input from '../Input/Input';
+import OldInput from '../OldInput/OldInput';
 
 import style from './SearchBar.module.scss';
 
@@ -22,7 +22,7 @@ const SearchBar = ({ onSubmit }) => {
       onSubmit={handleSubmitSearch}
     >
       <div className={style.container}>
-        <Input
+        <OldInput
           className={style.searchInput}
           type="search"
           name="search"

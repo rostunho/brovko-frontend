@@ -1,0 +1,92 @@
+.label {
+  position: relative;
+  display: block;
+  min-height: 63px;
+
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #191c2c;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  // min-height: 40px;
+  padding: 10.5px 36px 10.5px 12px;
+  margin-top: 4px;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  line-height: normal;
+  text-align: start;
+  vertical-align: bottom;
+  color: inherit;
+
+  border-radius: 8px;
+  border: 1px solid #7b7b7b;
+  outline: none;
+  cursor: pointer;
+
+  &::placeholder {
+    color: #a3a5a4;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    border: 1px solid #f3a610;
+  }
+}
+
+input[type='search'] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+
+  &::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+}
+
+.button {
+  position: absolute;
+  top: 31px;
+  right: 12px;
+  padding: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 24px;
+  height: 24px;
+
+  stroke: #191c2c;
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+  &:hover,
+  &:focus,
+  &:active {
+    stroke: #f3a610;
+    fill: #f3a610;
+  }
+}
+
+.input:hover + button,
+.input:focus + button,
+.input:active + button {
+  stroke: #f3a610;
+  fill: #f3a610;
+}

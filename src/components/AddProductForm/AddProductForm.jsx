@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { addNewProduct } from 'shared/services/products';
 import { getActiveCategories } from 'shared/services/categories';
 import Heading from 'shared/components/Heading';
-import Input from 'shared/components/Input';
+import OldInput from 'shared/components/OldInput';
 import Selector from 'shared/components/Selector/Selector';
 import AddCategoryPopup from 'components/AddCategoryPopup/AddCategoryPopup';
 import Button from 'shared/components/Button/Button';
@@ -74,13 +74,13 @@ export default function AddProductForm() {
     <div className={styles.container}>
       <Heading withGoBack>Додати новий товар</Heading>
       <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
-        <Input
+        <OldInput
           label="Назва :"
           name="name"
           onChange={e => dispatchRequestBody(e, 'ADD_NAME')}
         />
 
-        <Input
+        <OldInput
           label="Назва для документів :"
           name="nameForDocuments"
           onChange={e => dispatchRequestBody(e, 'ADD_NAME_FOR_DOCS')}
@@ -107,13 +107,13 @@ export default function AddProductForm() {
         )}
 
         <div className={styles.innerContainer}>
-          <Input
+          <OldInput
             label="Ціна :"
             name="costPerItem"
             onChange={e => dispatchRequestBody(e, 'ADD_PRICE')}
             length="md"
           />
-          <Input
+          <OldInput
             label="Cобівартість :"
             name="expenses"
             length="md"
@@ -124,7 +124,7 @@ export default function AddProductForm() {
         <div
           className={`${styles.innerContainer} ${styles.innerContainer_single}`}
         >
-          <Input
+          <OldInput
             label="Знижка :"
             name="discount-value"
             onChange={e => dispatchRequestBody(e, 'ADD_DISCOUNT_VALUE')}
@@ -136,7 +136,7 @@ export default function AddProductForm() {
         </div>
 
         <div className={styles.dates}>
-          <Input
+          <OldInput
             // type="date"
             label="Період знижки :"
             name="discount-date_start"
@@ -144,7 +144,7 @@ export default function AddProductForm() {
             length="md"
             icon={<CalendarIcon />}
           />
-          <Input
+          <OldInput
             // type="date"
             name="discount-date_end"
             onChange={e => dispatchRequestBody(e, 'ADD_DISCOUNT_END')}
@@ -153,26 +153,26 @@ export default function AddProductForm() {
           />
         </div>
 
-        <Input
+        <OldInput
           label="Постачальник :"
           name="supplier"
           onChange={e => dispatchRequestBody(e, 'ADD_SUPPLIER')}
         />
 
-        <Input
+        <OldInput
           label="Виробник :"
           name="manufacturer"
           onChange={e => dispatchRequestBody(e, 'ADD_MANUFACTURER')}
         />
 
         <div className={styles.innerContainer}>
-          <Input
+          <OldInput
             label="SKU :"
             name="sku"
             length="md"
             onChange={e => dispatchRequestBody(e, 'ADD_SKU')}
           />
-          <Input
+          <OldInput
             label="Вага :"
             name="weight"
             onChange={e => dispatchRequestBody(e, 'ADD_WEIGHT')}
@@ -181,7 +181,7 @@ export default function AddProductForm() {
           />
         </div>
 
-        <Input
+        <OldInput
           label="Штрихкод :"
           name="barcode"
           length="md"
@@ -191,21 +191,21 @@ export default function AddProductForm() {
         <div
           className={`${styles.innerContainer} ${styles.innerContainer_tripple}`}
         >
-          <Input
+          <OldInput
             label="Висота :"
             name="height"
             onChange={e => dispatchRequestBody(e, 'ADD_HEIGHT')}
             length="sm"
             metric="см"
           />
-          <Input
+          <OldInput
             label="Довжина :"
             name="length"
             onChange={e => dispatchRequestBody(e, 'ADD_LENGTH')}
             length="sm"
             metric="см"
           />
-          <Input
+          <OldInput
             label="Ширина :"
             name="width"
             onChange={e => dispatchRequestBody(e, 'ADD_WIDTH')}
@@ -217,7 +217,7 @@ export default function AddProductForm() {
         <div
           className={`${styles.innerContainer} ${styles.innerContainer_single}`}
         >
-          <Input
+          <OldInput
             label="Розмір :"
             name="volume"
             value={productSize}
@@ -229,7 +229,7 @@ export default function AddProductForm() {
         <div
           className={`${styles.innerContainer} ${styles.innerContainer_single}`}
         >
-          <Input
+          <OldInput
             label="ID товару :"
             name="id"
             length="md"
@@ -237,7 +237,7 @@ export default function AddProductForm() {
           />
         </div>
 
-        <Input
+        <OldInput
           label="Сторінка на сайті :"
           name="url"
           onChange={e => dispatchRequestBody(e, 'ADD_URL')}
@@ -245,7 +245,7 @@ export default function AddProductForm() {
           link="http://localhost:3000/main" // to change later
         />
 
-        <Input
+        <OldInput
           label="Нотатка :"
           name="note"
           onChange={e => dispatchRequestBody(e, 'ADD_NOTE')}
@@ -258,14 +258,14 @@ export default function AddProductForm() {
           rows="3"
         />
 
-        <Input
+        <OldInput
           label="Ярлики :"
           name="name"
           onChange={() => {}} // add new function
           icon={<SettingsWheelIcon unfilled />}
         />
 
-        <Input label="Комплект" type="checkbox" />
+        <OldInput label="Комплект" type="checkbox" />
 
         <Button mode="settings" size="sm">
           Додаткові ціни

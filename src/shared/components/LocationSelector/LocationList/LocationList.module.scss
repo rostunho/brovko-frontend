@@ -1,0 +1,56 @@
+.dropdown {
+  position: absolute;
+  width: 100%;
+  max-height: 210px;
+  margin: 4px 0 0;
+  padding: 8px 16px;
+
+  background-color: #fff;
+  overflow-y: scroll;
+  border-radius: 8px;
+  border: 1px solid #7b7b7b;
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
+}
+
+.label {
+  display: block;
+  position: relative;
+  width: 100%;
+  min-height: 35px;
+  padding: 8px 0;
+  cursor: pointer;
+
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #191c2c;
+  // color: red;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #f3a610;
+  }
+}
+
+.option {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+
+  // white-space: wrap;
+
+  // background-color: rgba(243, 166, 16, 0.25);
+
+  // disable default styles
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
