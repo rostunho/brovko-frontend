@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react';
 import Input from 'shared/components/Input';
 import styles from './DeliveryMethod.module.scss';
 
-export default function DeliveryMethod({ extractDeliveryMethod, ...props }) {
+export default function DeliveryMethod({ handleDeliveryMethod, ...props }) {
   const [selectedMethod, setSelectedMethod] = useState({
-    describe: '',
-    method: '',
+    describe: 'Доставка на відділення Нової Пошти',
+    method: 'warehouse',
   });
 
   useEffect(() => {
-    extractDeliveryMethod(selectedMethod);
-  }, [extractDeliveryMethod, selectedMethod]);
+    handleDeliveryMethod(selectedMethod);
+  }, [handleDeliveryMethod, selectedMethod]);
 
   const selectMethod = event => {
     const { value, dataset } = event.target;
