@@ -5,6 +5,7 @@ import { getAllReviews } from 'redux/reviews/reviewsSelectors';
 
 import useNavigationLogic from '../useNavigationLogiс';
 import fakeReviewsData from './fakeRewiewsData';
+import ReviewContainer from './ReviewContainer';
 import ReviewList from './ReviewList';
 import ReadMoreBackButton from '../ReadMoreBackButton';
 
@@ -27,6 +28,7 @@ export default function ReviewPage() {
 
   return (
     <div>
+      <ReviewContainer />
       <ReviewList reviews={reviews} />
 
       <ReadMoreBackButton to={backLinkHref} label="Назад" />

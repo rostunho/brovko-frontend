@@ -1,4 +1,3 @@
-import Heading from 'shared/components/Heading';
 import Image from 'shared/components/Image';
 import Button from 'shared/components/Button';
 import Rating from 'components/ProductDetail/Rating';

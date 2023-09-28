@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import fakeReviewsData from './fakeRewiewsData';
 import SharedLinkButton from '../SharedLinkButton';
@@ -7,9 +8,13 @@ import ReviewList from './ReviewList';
 export default function Review({
   reviews,
   isExpandedReview,
-  location,
   handleReadReviewClick,
 }) {
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // const toggleReviewModal = () => {
+  //   setIsModalOpen(!isModalOpen);
+  // };
   return (
     <>
       {reviews ? (
@@ -33,7 +38,10 @@ export default function Review({
           </>
         )
       ) : (
-        <p>Для цього смаколика ще не написано жодного відгука....</p>
+        <>
+          <ReviewContainer />
+          <p>Для цього смаколика ще не написано жодного відгука....</p>
+        </>
       )}
     </>
   );
