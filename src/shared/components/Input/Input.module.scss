@@ -28,7 +28,7 @@
   flex-direction: row-reverse;
   justify-content: flex-end;
   align-items: center;
-  gap: 16px;
+  // gap: 16px;
 
   min-height: fit-content;
   width: fit-content;
@@ -157,7 +157,7 @@ input.input--is-valid:focus:not(:placeholder-shown) {
   position: relative;
   width: 20px;
   height: 20px;
-  margin: 0;
+  margin: 0 16px 0 0;
   padding: 0;
   border: 1px solid #f3a610;
   border-radius: 50%;

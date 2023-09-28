@@ -39,6 +39,10 @@ export default function Input({
   const isRadio = type === 'radio';
 
   useEffect(() => {
+    value && setRootValue(value);
+  }, [value]);
+
+  useEffect(() => {
     switch (validationChecking) {
       case 'pending':
         setAdditionalClass('');
@@ -73,7 +77,8 @@ export default function Input({
       event.target.dataset.type === 'text' ||
       event.target.dataset.type === 'search' ||
       event.target.dataset.type === 'search' ||
-      event.target.dataset.type === 'date'
+      event.target.dataset.type === 'date' ||
+      event.target.dataset.type === 'radio'
     ) {
       return;
     }

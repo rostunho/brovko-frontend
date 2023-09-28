@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import { searchCity } from 'shared/services/nova-poshta';
 import Heading from 'shared/components/Heading';
-import LocationSelector from 'shared/components/LocationSelector';
+import { LocationSelector } from 'shared/components/LocationSelector';
+import DeliveryMethod from './DeliveryMethod';
 import styles from './DeliveryForm.module.scss';
 
 export default function DeliveryForm() {
   const [cities, setCities] = useState([]);
   const [targetCity, setTargetCity] = useState('');
   const [selectedCityData, setSelectedCityData] = useState(null);
+
+  const [deliveryMethod, setDeliveryMethod] = useState(null);
 
   // fetch cities data from nova-poshta api
   useEffect(() => {
@@ -40,6 +43,10 @@ export default function DeliveryForm() {
     setSelectedCityData(data);
   };
 
+  const extractDeliveryMethod = data => {
+    setDeliveryMethod(data);
+  };
+
   return (
     <div className={styles.container}>
       <Heading type="h3">Доставка</Heading>
@@ -59,6 +66,8 @@ export default function DeliveryForm() {
           extractSearchValue={extractTargetCity}
           extractData={extractCityData}
         />
+
+        <DeliveryMethod extractDeliveryMethod={extractDeliveryMethod} />
 
         <button type="submit" style={{ marginTop: '100px' }}>
           TEST SUBMIT
