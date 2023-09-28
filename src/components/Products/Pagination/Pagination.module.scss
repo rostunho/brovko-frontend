@@ -7,13 +7,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
 }
 
 .arrowPrev {
   position: static;
   background-color: transparent;
   border: none;
+  margin-right: 10px;
 }
 
 .arrowNext {
