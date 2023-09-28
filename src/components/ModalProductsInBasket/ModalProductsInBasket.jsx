@@ -10,8 +10,9 @@ import Rectangle from 'components/Rectangle/Rectangle';
 
 import styles from './ModalProductsInBasket.module.scss';
 
-const ModalProductsInBasket = () => {
+const ModalProductsInBasket = ({ closeModal }) => {
   const [order, setOrder] = useState([]);
+  let key = 0;
 
   const navigate = useNavigate();
 
@@ -30,14 +31,14 @@ const ModalProductsInBasket = () => {
   }, []);
 
   const orderList = order.map(item => (
-    <li>
+    <li key={key++}>
       <QuantityButtonModal />
     </li>
   ));
 
   return (
     <div>
-      <Modal>
+      <Modal closeModal={closeModal}>
         <Heading>Товари у кошику</Heading>
         <ul>{orderList}</ul>
         <QuantityButtonModal />
