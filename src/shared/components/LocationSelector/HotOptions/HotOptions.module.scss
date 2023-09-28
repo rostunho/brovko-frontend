@@ -1,0 +1,28 @@
+.list {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 2px;
+}
+
+.item {
+  display: inline-block;
+
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #a3a5a4;
+  cursor: pointer;
+
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #f3a610;
+  }
+}

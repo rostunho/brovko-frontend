@@ -1,4 +1,3 @@
-import RegisterForm from 'components/AuthSection/RegisterForm/RegisterForm';
 import Text from 'shared/components/Text/Text';
 import GoogleAuth from 'components/AuthSection/GoogleAuth/GoogleAuth';
 
@@ -8,7 +7,7 @@ export default function AuthFormWrapper({ form }) {
       {form}
       {/* <RegisterForm /> */}
 
-      <Text type="centered">або</Text>
+      <Text type="divider">або </Text>
 
       <GoogleAuth />
     </>

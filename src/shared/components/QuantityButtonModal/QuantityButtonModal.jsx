@@ -1,19 +1,20 @@
-import AddingPlusIcon from 'shared/icons/AddingPlusIcon';
-
-import AddingMinusIcon from 'shared/icons/AddingMinusIcon';
+import { useState } from 'react';
+import QuntityButtons from './QuantityButtons';
 import Image from '../Image';
 import BasketSmall from 'shared/icons/BasketSmall';
 
 import styles from './QuantityButtonModal.module.scss';
 
-const QuantityButtonModal = ({ value = 1, setValue }) => {
-  const addOne = () => {
-    setValue(prevValue => prevValue + 1);
-  };
+const QuantityButtonModal = () => {
+  const [value, setValue] = useState(1);
 
-  const minusOne = () => {
-    setValue(prevValue => prevValue - 1);
-  };
+  // const addOne = () => {
+  //   setValue(prevValue => prevValue + 1);
+  // };
+
+  // const minusOne = () => {
+  //   setValue(prevValue => prevValue - 1);
+  // };
 
   return (
     <div className={styles['wrapper-allproduct']}>
@@ -25,7 +26,7 @@ const QuantityButtonModal = ({ value = 1, setValue }) => {
         <p className={styles['text-product']}>Вим’я-кокос-лохина</p>
 
         <div className={styles['quantity-container']}>
-          <button
+          {/* <button
             className={styles['plus-button']}
             type="button"
             onClick={addOne}
@@ -41,7 +42,8 @@ const QuantityButtonModal = ({ value = 1, setValue }) => {
             disabled={value <= 1}
           >
             <AddingMinusIcon />
-          </button>
+          </button> */}
+          <QuntityButtons value={value} setValue={setValue} />
         </div>
       </div>
       <div className={styles['wrapper-basketblock']}>

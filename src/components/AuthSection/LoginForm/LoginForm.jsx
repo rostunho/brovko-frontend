@@ -1,9 +1,10 @@
 import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { login } from 'redux/user/userOperations';
 
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 // import PropTypes from 'prop-types';
-import Input from 'shared/components/Input/Input';
+import OldInput from 'shared/components/OldInput/OldInput';
 import Button from 'shared/components/Button/Button';
 import useForm from 'shared/hooks/useForm';
 import initialState from './initialState';
@@ -14,17 +15,22 @@ const LoginForm = () => {
     initialState,
     onSubmit: dispatchUser,
   });
+  const { email, password } = state;
   const dispatch = useDispatch();
   const formRef = useRef(null);
+  const [validationData, setValidationData] = useState(false);
+  useEffect(() => {
+    const condition = email && password.length > 0;
+    condition ? setValidationData(true) : setValidationData(false);
+  }, [email, password]);
 
   function dispatchUser(data) {
     dispatch(login(data));
   }
 
-  const { email, password } = state;
   return (
     <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
-      <Input
+      <OldInput
         label="E-mail"
         type="email"
         name="email"
@@ -33,7 +39,7 @@ const LoginForm = () => {
         value={email}
         onChange={handleChange}
       />
-      <Input
+      <OldInput
         label="Пароль"
         type="password"
         name="password"
@@ -42,8 +48,9 @@ const LoginForm = () => {
         value={password}
         onChange={handleChange}
       />
+      <NavLink to="#">Забули пароль</NavLink>
 
-      <Button type="submit" size="lg">
+      <Button type="submit" size="lg" disabled={!validationData}>
         Увійти
       </Button>
     </form>

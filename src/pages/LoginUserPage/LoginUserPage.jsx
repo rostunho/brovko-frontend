@@ -11,7 +11,7 @@ export default function LoginUserPage() {
   const isUserLogin = useSelector(selectIsLogin);
 
   if (isUserLogin) {
-    return <Navigate to="/user-dashboard" />;
+    return <Navigate to="/shop/product-list-page" />;
   }
   return (
     <section className={styles.container}>
@@ -19,7 +19,7 @@ export default function LoginUserPage() {
 
       <AuthFormWrapper form={<LoginForm />} />
 
-      <AuthSwitcher to="/register" linkLabel="Зареєструватися">
+      <AuthSwitcher to="/auth/register" linkLabel="Зареєструватися">
         Вже є акаунт ?
       </AuthSwitcher>
     </section>

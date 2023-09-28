@@ -4,6 +4,14 @@
   gap: 16px;
 }
 
+.form input {
+  color: var(--bg, #191c2c);
+}
+
 .form button {
   margin-top: 36px;
+  &:hover,
+  &:focus {
+    background-color: #f39610;
+  }
 }

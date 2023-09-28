@@ -9,7 +9,7 @@ import ReadMoreBackButton from '../ReadMoreBackButton';
 
 export default function ProductDescription(isExpandedDescriptionFromLocation) {
   const initialState = 'isExpandedDescription';
-  const navigateTo = `../`;
+  const navigateTo = `.`;
 
   const backLinkHref = useNavigationLogic(initialState, navigateTo);
 

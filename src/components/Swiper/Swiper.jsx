@@ -9,6 +9,21 @@ import styles from './Swiper.module.scss';
 const Swiper = () => {
   const [currentIdx, setCurrentIdx] = useState(1);
   const [autoplay, setAutoplay] = useState(true);
+  const [startX, setStartX] = useState(null);
+
+  const handleTouchStart = e => {
+    setStartX(e.changedTouches[0].clientX);
+  };
+
+  const handleTouchEnd = e => {
+    const endX = e.changedTouches[0].clientX;
+    const deltaX = endX - startX;
+    if (deltaX > 50) {
+      setCurrentIdx(currentIdx === 1 ? imgArray.length - 1 : currentIdx - 1);
+    } else if (deltaX < -50) {
+      setCurrentIdx(currentIdx === imgArray.length - 1 ? 0 : currentIdx + 1);
+    }
+  };
 
   let timeOut = null;
 
@@ -30,6 +45,15 @@ const Swiper = () => {
       }}
       onMouseLeave={() => {
         setAutoplay(true);
+      }}
+      onTouchStart={e => {
+        clearTimeout(timeOut);
+        setAutoplay(false);
+        handleTouchStart(e);
+      }}
+      onTouchEnd={e => {
+        setAutoplay(true);
+        handleTouchEnd(e);
       }}
     >
       <Heading>Шість крутих смаків!</Heading>

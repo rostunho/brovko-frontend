@@ -1,0 +1,28 @@
+.input-button {
+  position: absolute;
+  top: 31px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+
+  padding: 0;
+
+  background-color: transparent;
+  border: none;
+  outline: none;
+  fill: #191c2c;
+  stroke: #191c2c;
+
+  &:hover,
+  &:focus,
+  &:active {
+    fill: #f3a610;
+    stroke: #f3a610;
+  }
+}
+
+.input[type='date'] {
+  &::-webkit-calendar-picker-indicator {
+    font-variant-caps: titling-caps;
+  }
+}

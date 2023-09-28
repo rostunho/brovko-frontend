@@ -1,3 +1,6 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Button from 'shared/components/Button';
 
 import Modal from 'shared/components/Modal/Modal';
@@ -7,12 +10,37 @@ import Rectangle from 'components/Rectangle/Rectangle';
 
 import styles from './ModalProductsInBasket.module.scss';
 
-const ModalProductsInBasket = () => {
+const ModalProductsInBasket = ({ closeModal }) => {
+  const [order, setOrder] = useState([]);
+  let key = 0;
+
+  const navigate = useNavigate();
+
+  const hendlClickReturn = () => {
+    navigate('/product-list-page');
+  };
+
+  const hendlClickOrder = () => {
+    navigate('/order-page');
+  };
+
+  useEffect(() => {
+    const storedJsonString = localStorage.getItem('orders');
+    const restoredArray = JSON.parse(storedJsonString);
+    setOrder(prevstate => [...prevstate, restoredArray]);
+  }, []);
+
+  const orderList = order.map(item => (
+    <li key={key++}>
+      <QuantityButtonModal />
+    </li>
+  ));
+
   return (
     <div>
-      <Modal>
+      <Modal closeModal={closeModal}>
         <Heading>Товари у кошику</Heading>
-        <QuantityButtonModal />
+        <ul>{orderList}</ul>
         <QuantityButtonModal />
         <QuantityButtonModal />
         <Rectangle padding={true} />
@@ -23,11 +51,16 @@ const ModalProductsInBasket = () => {
           </p>
         </div>
         <div className={styles.wrapperButton}>
-          <Button mode="outlined" size="lg" style={{ marginBottom: '12px' }}>
+          <Button
+            mode="outlined"
+            size="lg"
+            style={{ marginBottom: '12px' }}
+            onClick={hendlClickReturn}
+          >
             Повернутись до покупок
           </Button>
 
-          <Button mode="primary" size="lg">
+          <Button mode="primary" size="lg" onClick={hendlClickOrder}>
             Оформити замовлення
           </Button>
         </div>

@@ -3,7 +3,6 @@ import GoogleIcon from 'shared/icons/GoogleIcon';
 import styles from './GoogleAuth.module.scss';
 
 const GOOGLE_AUTH = process.env.REACT_APP_GOOGLE_AUTH;
-console.log(GOOGLE_AUTH);
 
 export default function GoogleAuth() {
   const { pathname } = useLocation();
@@ -26,7 +25,11 @@ export default function GoogleAuth() {
   }
 
   return (
-    <a href={GOOGLE_AUTH} className={styles['nav-link']}>
+    <a
+      // href="https://brovko-backend.onrender.com/api/user/google"
+      href="http://localhost:5005/api/user/google"
+      className={styles['nav-link']}
+    >
       <GoogleIcon />
       {label}
     </a>

@@ -1,1 +1,2 @@
-export { default } from './Input.jsx';
+export { default } from './Input';
+export { errorMessages } from './errorMessages';

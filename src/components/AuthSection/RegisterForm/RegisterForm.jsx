@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/user/userOperations';
 // import PropTypes from 'prop-types';
-import Input from 'shared/components/Input/Input';
+import OldInput from 'shared/components/OldInput/OldInput';
 import Button from 'shared/components/Button/Button';
 import useForm from 'shared/hooks/useForm';
 import initialState from './initialState';
@@ -31,8 +31,17 @@ const RegisterForm = () => {
   }
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
-      <Input
+
+    <form
+      ref={formRef}
+      onSubmit={e => {
+        handleSubmit(e);
+        setConfirmPassword('');
+      }}
+      className={styles.form}
+    >
+      <OldInput
+
         label="E-mail"
         style={{ backgroundColor: '#801f1f' }}
         type="email"
@@ -42,7 +51,7 @@ const RegisterForm = () => {
         value={email}
         onChange={handleChange}
       />
-      <Input
+      <OldInput
         label="Пароль"
         type="password"
         name="password"
@@ -51,7 +60,7 @@ const RegisterForm = () => {
         value={password}
         onChange={handleChange}
       />
-      <Input
+      <OldInput
         label="Підтвердження паролю"
         type="password"
         name="confirmPassword"

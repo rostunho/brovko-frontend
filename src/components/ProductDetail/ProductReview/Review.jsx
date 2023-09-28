@@ -5,13 +5,14 @@ import ReviewContainer from './ReviewContainer';
 import ReviewList from './ReviewList';
 
 export default function Review({
+  reviews,
   isExpandedReview,
   location,
   handleReadReviewClick,
 }) {
   return (
     <>
-      {fakeReviewsData ? (
+      {reviews ? (
         isExpandedReview ? (
           <>
             <Outlet />
@@ -19,12 +20,12 @@ export default function Review({
         ) : (
           <>
             <ReviewContainer />
-            <ReviewList reviews={fakeReviewsData.slice(0, 1)} />
+            <ReviewList reviews={reviews} isExpandedReview={isExpandedReview} />
 
             {!isExpandedReview && (
               <SharedLinkButton
                 to={`review`}
-                state={{ from: location, isExpandedReview: true }}
+                state={{ isExpandedReview: true }}
                 label="Дивитися всі відгуки"
                 onClick={handleReadReviewClick}
               />
@@ -32,7 +33,7 @@ export default function Review({
           </>
         )
       ) : (
-        <p>Завантаження...</p>
+        <p>Для цього смаколика ще не написано жодного відгука....</p>
       )}
     </>
   );

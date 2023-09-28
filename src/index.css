@@ -52,5 +52,11 @@ li {
 }
 
 a {
-  text-decoration: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #68baee;
+  text-decoration-line: none;
 }

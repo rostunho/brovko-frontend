@@ -1,0 +1,23 @@
+.ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pageNumber {
+  margin-right: 10px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #191c2c;
+  border-radius: 50%;
+  border: 1px solid #f3a610;
+}
+
+.active {
+  color: #fefefe;
+  background-color: #f3a610;
+}

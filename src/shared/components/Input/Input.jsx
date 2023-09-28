@@ -1,131 +1,213 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import PasswordToggler from '../PasswordToggler/PasswordToggler';
-import SearchIcon from 'shared/icons/SearchIcon';
+import { validateInputValue } from 'utils';
+import { errorMessages } from './errorMessages';
+import InputElement from './InputElement';
+import Text from '../Text/Text';
+// import WarningIcon from 'shared/icons/WarningIcon';
 import styles from './Input.module.scss';
 
-const Input = ({
-  label,
-  id,
+export default function Input({
   type = 'text',
+  label,
+  placeholder,
+  //   додатковий клас для підпису (якщо потрібен)
+  labelClassName,
+  //   додатковий клас для інпуту (якщо потрібен)
+  inputClassName,
   name,
   value,
+  //   довжина блоку з інпутом
+  length = 'lg',
+  onClick,
   onChange,
   onFocus,
   onBlur,
-  placeholder,
+  //   метричні одиниці "кг", "км", тощо (якщо потрібні)
+  metrical,
   pattern,
-  inputRef,
-  size,
-  length = 'lg',
-  mode,
-  icon,
-  metric,
-  link,
-  style,
-  checked,
-  onClick,
-  additionalFunction,
   ...props
-}) => {
-  const [checkboxChecked, setCheckboxChecked] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+}) {
+  const [rootValue, setRootValue] = useState('');
+  const [validationChecking, setValidationChecking] = useState('pending');
+  const [additionalClass, setAdditionalClass] = useState('');
+  const [error, setError] = useState({ message: '' });
+  const [checkBoxIsChecked, setCheckBoxIsChecked] = useState(false);
+  const valueRef = useRef('');
+  const rootStateHandling = { valueRef, updateRootValue };
   const isCheckbox = type === 'checkbox';
-  const withIcon = icon || type === 'password' || type === 'search';
+  const isRadio = type === 'radio';
 
-  const handleChackbox = () => {
-    setCheckboxChecked(!checkboxChecked);
-    additionalFunction && additionalFunction();
+  useEffect(() => {
+    value && setRootValue(value);
+  }, [value]);
+
+  useEffect(() => {
+    switch (validationChecking) {
+      case 'pending':
+        setAdditionalClass('');
+        break;
+      case 'isValid':
+        setAdditionalClass('input--is-valid');
+        break;
+      case 'notValid':
+        setAdditionalClass('input--not-valid');
+        break;
+      default:
+        setAdditionalClass('');
+    }
+  }, [validationChecking]);
+
+  function updateRootValue() {
+    setRootValue('');
+    setRootValue(valueRef.current);
+  }
+
+  const handleOnClick = event => {
+    onClick && onClick(event);
   };
 
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+  const handleOnChange = event => {
+    onChange && onChange(event);
 
-  const handleType = () => {
-    if (type === 'password' && !showPassword) {
-      return 'password';
-    } else if (type === 'password' && showPassword) {
-      return 'text';
-    } else {
-      return type;
+    isCheckbox && setCheckBoxIsChecked(!checkBoxIsChecked);
+
+    // КОТЕЛ ВАЛІДАЦІЇ
+    if (
+      event.target.dataset.type === 'text' ||
+      event.target.dataset.type === 'search' ||
+      event.target.dataset.type === 'search' ||
+      event.target.dataset.type === 'date'
+    ) {
+      return;
+    }
+
+    // не валідуємо, якщо інпут порожній
+    if (!rootValue) {
+      return;
+    }
+
+    // виходимо, якщо в телефоні інтуп залишається в стані за замовчуванням
+    if (event.target.dataset.type === 'tel' && event.target.value.length <= 6) {
+      return;
+    }
+
+    if (rootValue.length <= 8) {
+      setValidationChecking('pending');
+    }
+
+    const validationResult = validateInputValue(
+      event.target.value,
+      event.target.dataset.type
+    );
+
+    if (validationResult) {
+      setErrorMessage('');
+      setValidationChecking('isValid');
     }
   };
 
+  const handleOnFocus = event => {
+    onFocus && onFocus(event);
+
+    setValidationChecking('pending');
+    setErrorMessage('');
+  };
+
+  const handleOnBlur = event => {
+    onBlur && onBlur(event);
+
+    // КОТЕЛ ВАЛІДАЦІЇ
+    if (
+      event.target.dataset.type === 'text' ||
+      event.target.dataset.type === 'search' ||
+      event.target.dataset.type === 'date'
+    ) {
+      return;
+    }
+
+    // не валідуємо, якщо інпут порожній
+    if (!rootValue) {
+      return;
+    }
+
+    // виходимо, якщо в телефоні інтуп залишається в стані за замовчуванням
+    if (event.target.dataset.type === 'tel' && event.target.value.length <= 6) {
+      return;
+    }
+
+    const validationResult = validateInputValue(
+      event.target.value,
+      event.target.dataset.type
+    );
+
+    if (validationResult) {
+      setErrorMessage('');
+      setValidationChecking('isValid');
+    } else {
+      setValidationChecking('notValid');
+      setErrorMessage(errorMessages[event.target.dataset.type]);
+    }
+  };
+
+  const setErrorMessage = value => {
+    setError(prevError => ({ ...prevError, message: value }));
+  };
+
+  const additionalClassCondition =
+    type === 'number' || type === 'radio' || type === 'checkbox';
+
   return (
-    <label
-      className={`${
-        isCheckbox
-          ? `${styles.label} ${styles['checkbox-label']}`
-          : `${styles.label} ${styles[`label_length-${length}`]}`
-      }`}
-      style={{ color: isCheckbox && checkboxChecked && '#f3a610' }}
-    >
-      {label}
-
-      <input
-        ref={inputRef}
-        type={handleType()}
-        id={id}
-        name={name}
-        value={value}
-        pattern={pattern}
-        placeholder={placeholder}
-        className={`${styles.input} ${withIcon && styles['with-icon']}`}
-        onChange={e => {
-          isCheckbox && handleChackbox();
-          onChange && onChange(e);
-        }}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        checked={checkboxChecked}
-        disabled={mode === 'disabled'}
-        {...props}
-      />
-      {type === 'password' && (
-        <button type="button" className={styles.icon} onClick={onClick}>
-          <PasswordToggler onClick={toggleShowPassword} />
-        </button>
-      )}
-      {type === 'search' && (
-        <button type="button" className={styles.icon} onClick={onClick}>
-          <SearchIcon />
-        </button>
-      )}
-
-      {metric && metric !== 'м3' && <p className={styles.metric}>{metric}</p>}
-      {metric === 'м3' && (
-        <p className={styles.metric}>
-          м<sup>3</sup>
-        </p>
-      )}
-      {icon && !link && (
-        <button type="button" className={styles.icon}>
-          {icon}
-        </button>
-      )}
-    </label>
-    // </div>
+    <>
+      <label
+        className={`${styles['input-box']} ${
+          styles[`input-box__length--${length}`]
+        } ${isCheckbox || isRadio ? styles['input-box__controls'] : ''} ${
+          checkBoxIsChecked ? styles['input-box__controls--checked'] : ''
+        } ${labelClassName ? labelClassName : ''}`}
+      >
+        {label}
+        <InputElement
+          type={type}
+          value={rootValue}
+          className={`${styles.input} ${
+            additionalClassCondition ? '' : styles[`${additionalClass}`]
+          } ${inputClassName ? inputClassName : ''}`}
+          name={name}
+          placeholder={placeholder}
+          onClick={handleOnClick}
+          onChange={handleOnChange}
+          onFocus={handleOnFocus}
+          onBlur={handleOnBlur}
+          length={length}
+          metrical={metrical}
+          error={error}
+          rootStateHandling={rootStateHandling} // об'єкт з інструментами для оновлення головного стейту
+          {...props}
+        />
+        {/* <WarningIcon className={styles['warning-icon']} /> */}
+        <Text type="error" className={styles['input-error']}>
+          {error.message}
+        </Text>
+      </label>
+      {error.message && <></>}
+    </>
   );
-};
+}
 
 Input.propTypes = {
   label: PropTypes.string,
-  id: PropTypes.string,
+  length: PropTypes.oneOf(['lg', 'md', 'sm']),
   type: PropTypes.oneOf([
     'text',
+    'number',
     'password',
     'email',
-    'number',
+    'tel',
     'search',
+    'url',
+    'date',
     'checkbox',
+    'radio',
   ]),
-  name: PropTypes.string,
-  onChange: PropTypes.func,
-  placeholder: PropTypes.string,
-  // size: PropTypes.oneOf(['sm', 'md', 'lg']),
-  length: PropTypes.oneOf(['sm', 'md', 'lg']),
-  mode: PropTypes.string,
 };
-
-export default Input;
