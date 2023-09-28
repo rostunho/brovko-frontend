@@ -128,7 +128,7 @@ input.input--is-valid:focus:not(:placeholder-shown) {
   border-radius: 4px;
   background-color: transparent;
   padding: 0;
-  margin: 0;
+  margin: 0 16px 0 0;
   cursor: pointer;
 
   &::before {

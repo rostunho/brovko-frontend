@@ -77,8 +77,7 @@ export default function Input({
       event.target.dataset.type === 'text' ||
       event.target.dataset.type === 'search' ||
       event.target.dataset.type === 'search' ||
-      event.target.dataset.type === 'date' ||
-      event.target.dataset.type === 'radio'
+      event.target.dataset.type === 'date'
     ) {
       return;
     }
@@ -155,6 +154,9 @@ export default function Input({
     setError(prevError => ({ ...prevError, message: value }));
   };
 
+  const additionalClassCondition =
+    type === 'number' || type === 'radio' || type === 'checkbox';
+
   return (
     <>
       <label
@@ -169,7 +171,7 @@ export default function Input({
           type={type}
           value={rootValue}
           className={`${styles.input} ${
-            type === 'number' ? '' : styles[`${additionalClass}`]
+            additionalClassCondition ? '' : styles[`${additionalClass}`]
           } ${inputClassName ? inputClassName : ''}`}
           name={name}
           placeholder={placeholder}
