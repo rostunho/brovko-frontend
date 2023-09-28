@@ -9,7 +9,6 @@ import style from './Pagination.module.scss';
 
 const Pagination = ({ page, onChangePage }) => {
   const totalPages = useSelector(selectTotalPages);
-  console.log(totalPages);
   // const totalPages = 90;
 
   const totalPagesArray = Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -34,26 +33,28 @@ const Pagination = ({ page, onChangePage }) => {
 
   return (
     <div className={style.container}>
-      <div className={style.buttons}>
-        <Button
-          mode="goBack"
-          className={`${style.arrowPrev} ${page === 1 ? style.disabled : ''}`}
-          onClick={onPrevPageClick}
-        />
-        <PageNumbersList
-          totalPagesArray={totalPagesArray}
-          totalPages={totalPages}
-          page={page}
-          handleChangePage={handleChangePage}
-        />
-        <Button
-          mode="goBack"
-          className={`${style.arrowNext} ${
-            page === totalPages ? style.disabled : ''
-          }`}
-          onClick={onNextPageClick}
-        />
-      </div>
+      {totalPages && (
+        <div className={style.buttons}>
+          <Button
+            mode="goBack"
+            className={`${style.arrowPrev} ${page === 1 ? style.disabled : ''}`}
+            onClick={onPrevPageClick}
+          />
+          <PageNumbersList
+            totalPagesArray={totalPagesArray}
+            totalPages={totalPages}
+            page={page}
+            handleChangePage={handleChangePage}
+          />
+          <Button
+            mode="goBack"
+            className={`${style.arrowNext} ${
+              page === totalPages ? style.disabled : ''
+            }`}
+            onClick={onNextPageClick}
+          />
+        </div>
+      )}
     </div>
   );
 };
