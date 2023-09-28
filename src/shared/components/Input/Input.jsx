@@ -39,6 +39,10 @@ export default function Input({
   const isRadio = type === 'radio';
 
   useEffect(() => {
+    value && setRootValue(value);
+  }, [value]);
+
+  useEffect(() => {
     switch (validationChecking) {
       case 'pending':
         setAdditionalClass('');
@@ -150,6 +154,9 @@ export default function Input({
     setError(prevError => ({ ...prevError, message: value }));
   };
 
+  const additionalClassCondition =
+    type === 'number' || type === 'radio' || type === 'checkbox';
+
   return (
     <>
       <label
@@ -164,7 +171,7 @@ export default function Input({
           type={type}
           value={rootValue}
           className={`${styles.input} ${
-            type === 'number' ? '' : styles[`${additionalClass}`]
+            additionalClassCondition ? '' : styles[`${additionalClass}`]
           } ${inputClassName ? inputClassName : ''}`}
           name={name}
           placeholder={placeholder}

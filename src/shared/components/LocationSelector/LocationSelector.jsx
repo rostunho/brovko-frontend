@@ -16,12 +16,17 @@ export default function LocationSelector({
   ...props
 }) {
   const [searchValue, setSearchValue] = useState('');
-  const [selectedData, sesetSelectedData] = useState(null);
+  const [selectedData, setSelectedData] = useState(null);
   const [selectorIsOpen, setSelectorIsOpen] = useState(false);
 
   useEffect(() => {
-    extractSearchValue(searchValue);
+    extractSearchValue && extractSearchValue(searchValue);
   }, [extractSearchValue, searchValue]);
+
+  useEffect(() => {
+    selectedData && setSearchValue(selectedData.Present);
+    extractData && extractData(selectedData);
+  }, [extractData, selectedData]);
 
   useEffect(() => {
     searchValue.length > 0 && !selectedData
@@ -29,16 +34,11 @@ export default function LocationSelector({
       : setSelectorIsOpen(false);
   }, [searchValue.length, selectedData]);
 
-  useEffect(() => {
-    selectedData && setSearchValue(selectedData.Present);
-    extractData(selectedData);
-  }, [extractData, selectedData]);
-
   const handleOnIconClick = event => {
     toggleSelector();
 
     setSearchValue('');
-    sesetSelectedData(null);
+    setSelectedData(null);
   };
 
   const handleOnChange = event => {
@@ -46,7 +46,7 @@ export default function LocationSelector({
   };
 
   const selectCity = data => {
-    sesetSelectedData(data);
+    setSelectedData(data);
     setSelectorIsOpen(false);
   };
 
@@ -82,4 +82,6 @@ LocationSelector.propTypes = {
       ...PropTypes.any,
     })
   ),
+  extractSearchValue: PropTypes.func.isRequired,
+  extractData: PropTypes.func.isRequired,
 };
