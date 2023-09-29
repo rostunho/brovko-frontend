@@ -26,7 +26,8 @@ export default function LocationSelector({
   useEffect(() => {
     selectedData && setSearchValue(selectedData.Present);
     extractData && extractData(selectedData);
-  }, [extractData, selectedData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedData]);
 
   useEffect(() => {
     searchValue.length > 0 && !selectedData
