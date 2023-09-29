@@ -1,9 +1,10 @@
 import { useParams, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { getAllProducts } from 'redux/products/productsSelectors';
 import { getAllReviews } from 'redux/reviews/reviewsSelectors';
+import { fetchReviews } from 'redux/reviews/reviewsOperations';
 import Heading from 'shared/components/Heading';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 import styles from './ProductDetailPage.module.scss';
@@ -21,6 +22,10 @@ export default function ProductDetailPage() {
 
   const product = allProducts?.find(p => p._id === productId);
   const reviews = allReviews?.find(r => r.productId === productId);
+
+  // ================================================
+
+  // Сортування масиву коментарів за датою створення
 
   // ===============================================
   const [isExpandedDescription, setIsExpandedDescription] = useState(false);

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchReviews } from './reviewsOperations';
+import { fetchReviews, submitReview } from './reviewsOperations';
 
 const initialState = {
   items: [],
@@ -21,6 +21,17 @@ const reviewsSlice = createSlice({
         state.items = payload.reviews;
       })
       .addCase(fetchReviews.rejected, (store, { payload }) => {
+        store.loading = false;
+        store.error = payload;
+      })
+      .addCase(submitReview.pending, store => {
+        store.loading = true;
+      })
+      .addCase(submitReview.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.items = payload.reviews;
+      })
+      .addCase(submitReview.rejected, (store, { payload }) => {
         store.loading = false;
         store.error = payload;
       });

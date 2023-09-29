@@ -13,3 +13,29 @@ export const fetchReviews = createAsyncThunk(
     }
   }
 );
+
+export const submitReview = createAsyncThunk(
+  'reviews/submitReview',
+  async (reviewData, thunkAPI) => {
+    try {
+      const response = await api.submitReview(reviewData); // Додати відгук на сервер
+      console.log('addReview response:', response);
+
+      if (response.status === 200) {
+        console.log('New review added successfully');
+
+        // Отримати оновлені відгуки з сервера
+        const updatedReviews = await api.getReviews();
+
+        // Повернути дані відгука, які можуть бути корисними на сторінці
+        return { response, updatedReviews };
+      } else {
+        console.error('Error adding review:', response.statusText);
+        return thunkAPI.rejectWithValue(response.data);
+      }
+    } catch (error) {
+      console.error('Error adding review:', error);
+      throw error;
+    }
+  }
+);

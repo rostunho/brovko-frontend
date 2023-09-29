@@ -4,29 +4,29 @@ import AvatarIcon from 'shared/icons/AvatarIcon';
 import styles from '../ProductDetail.module.scss';
 
 const ReviewItem = ({ review, isExpandedReview }) => {
+  console.log('review', review);
+  console.log('review.createdAt', review.createdAt);
   return (
     <div>
       {isExpandedReview ? (
         <ul className={styles.reviewBox}>
-          {review.text.map((text, index) => (
-            <li className={styles.reviewItem} key={index}>
-              <div className={styles.userInfo}>
-                <AvatarIcon fill="#FF5733" className={styles.avatar} />
-                <div>
-                  <p className={styles.userName}>
-                    {' '}
-                    {review.owner.email || review.owner.name}
-                  </p>
-                  <p className={styles.reviewDate}>
-                    {new Date(text.createdAt).toLocaleString()}
-                  </p>
-                </div>
+          <li className={styles.reviewItem}>
+            <div className={styles.userInfo}>
+              <AvatarIcon fill="#FF5733" className={styles.avatar} />
+              <div>
+                <p className={styles.userName}>
+                  {' '}
+                  {review.owner.email || review.owner.name}
+                </p>
+                <p className={styles.reviewDate}>
+                  {new Date(review.createdAt).toLocaleString()}
+                </p>
               </div>
+            </div>
 
-              <RewiewRating />
-              <p className={styles.reviewText}>{text.text}</p>
-            </li>
-          ))}
+            <RewiewRating />
+            <p className={styles.reviewText}>{review.text}</p>
+          </li>
         </ul>
       ) : (
         <>
@@ -38,14 +38,14 @@ const ReviewItem = ({ review, isExpandedReview }) => {
                 {review.owner.email || review.owner.name}
               </p>
               <p className={styles.reviewDate}>
-                {new Date(review.text[0].createdAt).toLocaleString()}
+                {new Date(review.createdAt).toLocaleString()}
               </p>
             </div>
           </div>
 
           <RewiewRating />
 
-          <p className={styles.reviewText}>{review.text[0].text}</p>
+          <p className={styles.reviewText}>{review.text}</p>
         </>
       )}
     </div>
