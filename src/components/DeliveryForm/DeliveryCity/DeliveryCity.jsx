@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { searchCity } from 'shared/services/nova-poshta-api';
+import { findCity } from 'shared/services/nova-poshta-api';
 import { LocationSelector } from 'shared/components/LocationSelector';
 
 export default function DeliveryCity({ handleData }) {
@@ -21,12 +21,11 @@ export default function DeliveryCity({ handleData }) {
 
     try {
       const value = targetCity.toLowerCase();
-      const response = await searchCity(value);
-      const { Addresses: addresses } = response;
-
+      const response = await findCity(value);
       if (!response) {
         return;
       }
+      const { Addresses: addresses } = response;
 
       setCities([...addresses]);
     } catch (error) {

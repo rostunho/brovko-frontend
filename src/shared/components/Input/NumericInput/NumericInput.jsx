@@ -3,7 +3,7 @@ import { toPhoneFormat, parsePhoneNumber } from 'utils';
 import styles from './NumericInput.module.scss';
 
 export default function NumericInput({ rootStateHandling, ...props }) {
-  const { type, metrical, length, className, onChange } = props;
+  const { type, placeholder, metrical, length, className, onChange } = props;
   const { valueRef, updateRootValue } = rootStateHandling;
 
   const phonePrefix = '+380';
@@ -144,7 +144,7 @@ export default function NumericInput({ rootStateHandling, ...props }) {
           metrical ? styles['input--metric'] : ''
         }`}
         inputMode={type === 'number' ? 'numeric' : 'tel'}
-        placeholder="00.00"
+        placeholder={placeholder}
         aria-label={type === 'number' && 'Number'}
         data-type={type}
         onChange={handleOnChange}
