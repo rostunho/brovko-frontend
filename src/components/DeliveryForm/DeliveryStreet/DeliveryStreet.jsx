@@ -4,6 +4,8 @@ import { LocationSelector } from 'shared/components/LocationSelector';
 import Input from 'shared/components/Input';
 import styles from './DeliveryStreet.module.scss';
 
+// import { nan } from 'shared/services/nova-poshta-api';
+
 export default function DeliveryStreet({ cityRef, handleData }) {
   const [streets, setStreets] = useState([]);
   const [targetStreet, setTargetStreet] = useState('');
@@ -48,6 +50,9 @@ export default function DeliveryStreet({ cityRef, handleData }) {
   const handleApartment = event => {
     setApartment(event.target.value);
   };
+
+  // nan('12345');
+  // nan('1234s');
 
   return (
     <>
