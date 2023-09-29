@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import largestCities from '../largestCities';
 
