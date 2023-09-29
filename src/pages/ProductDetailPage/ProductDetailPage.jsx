@@ -8,7 +8,7 @@ import Heading from 'shared/components/Heading';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 import styles from './ProductDetailPage.module.scss';
 
-export default function ProductDetailPage({}) {
+export default function ProductDetailPage() {
   const { productId } = useParams();
   const location = useLocation();
   const from = location.state?.from || '/';

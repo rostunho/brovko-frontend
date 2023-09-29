@@ -6,9 +6,14 @@ import styles from '../ProductDetail.module.scss';
 export default function ReviewContainer({ productId }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const toggleReviewModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const openModal = () => {
+    setIsModalOpen(true);
   };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className={styles.rewieContainer}>
       <h3 className={styles.rewieTitle}>
@@ -20,16 +25,19 @@ export default function ReviewContainer({ productId }) {
       </p>
       <Button
         type="button"
-        onClick={toggleReviewModal}
+        onClick={openModal}
         mode="outlined"
         style={{ paddingLeft: 86, paddingRight: 86, marginTop: 20 }}
       >
         Залишити відгук
       </Button>
-      <AddReviewFormModal
-        closeModal={toggleReviewModal}
-        productId={productId}
-      />
+      {isModalOpen && (
+        <AddReviewFormModal
+          closeModal={closeModal}
+          isOpen={isModalOpen}
+          productId={productId}
+        />
+      )}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Modal from 'shared/components/Modal/Modal';
 import { submitReview } from 'shared/services/reviews';
 
-export default function AddReviewFormModal({ closeModal, onSubmit }) {
+export default function AddReviewFormModal({ isOpen, closeModal }) {
   const [text, setText] = useState('');
   const { productId } = useParams();
 
@@ -14,18 +14,14 @@ export default function AddReviewFormModal({ closeModal, onSubmit }) {
       productId,
       text,
     };
-    console.log('reviewData', reviewData);
+
     submitReview(reviewData);
-    closeModal();
     setText('');
+    closeModal();
   };
 
-  console.log('text', text);
-  console.log('productId', productId);
-
   return (
-    // <Modal centered closeModal={closeModal}>
-    <>
+    <Modal centered isOpen={isOpen} closeModal={closeModal}>
       <h2>Додати відгук</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -40,8 +36,6 @@ export default function AddReviewFormModal({ closeModal, onSubmit }) {
         </div>
         <button type="submit">Додати відгук</button>
       </form>
-    </>
-
-    // </Modal>
+    </Modal>
   );
 }

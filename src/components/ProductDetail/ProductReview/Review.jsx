@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import fakeReviewsData from './fakeRewiewsData';
 import SharedLinkButton from '../SharedLinkButton';
 import ReviewContainer from './ReviewContainer';
 import ReviewList from './ReviewList';
@@ -10,11 +9,6 @@ export default function Review({
   isExpandedReview,
   handleReadReviewClick,
 }) {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // const toggleReviewModal = () => {
-  //   setIsModalOpen(!isModalOpen);
-  // };
   return (
     <>
       {reviews ? (
