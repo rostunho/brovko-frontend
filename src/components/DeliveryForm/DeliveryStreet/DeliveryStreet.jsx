@@ -63,16 +63,19 @@ export default function DeliveryStreet({ cityRef, handleData }) {
         <div className={styles['inner-container']}>
           <Input
             type="number"
+            labelClassName={styles.building}
             label="Будинок"
             length="md"
             onChange={handleBuilding}
           />
-          <Input
-            type="number"
-            label="Квартира"
-            length="md"
-            onChange={handleApartment}
-          />
+          {building && (
+            <Input
+              type="number"
+              label="Квартира"
+              length="md"
+              onChange={handleApartment}
+            />
+          )}
         </div>
       )}
     </>
