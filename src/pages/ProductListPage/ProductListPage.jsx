@@ -11,6 +11,7 @@ import ProductList from 'components/Products/ProductsList/ProductsList';
 
 export default function ProductListPage() {
   const [page, setPage] = useState(1);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
