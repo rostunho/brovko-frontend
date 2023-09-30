@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { fetchAllProducts } from 'redux/products/productsOperations';
 import { fetchReviews } from 'redux/reviews/reviewsOperations';
-import { getAllReviews } from 'redux/reviews/reviewsSelectors';
-import { submitReview } from 'redux/reviews/reviewsOperations';
 
 import Heading from 'shared/components/Heading/Heading';
 import Pagination from 'components/Products/Pagination';
@@ -16,8 +14,6 @@ export default function ProductListPage() {
 
   const dispatch = useDispatch();
 
-  const reviews = useSelector(getAllReviews);
-
   useEffect(() => {
     dispatch(fetchAllProducts(page));
   }, [dispatch, page]);
@@ -28,7 +24,6 @@ export default function ProductListPage() {
 
   useEffect(() => {
     dispatch(fetchReviews());
-    dispatch(submitReview());
   }, [dispatch]);
 
   return (

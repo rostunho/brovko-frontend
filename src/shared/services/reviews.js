@@ -17,7 +17,7 @@ export const submitReview = async reviewData => {
     const response = await instance.post('/reviews', reviewData);
     console.log('submit Review response:', response);
 
-    if (response.status === 200) {
+    if (response.status === 200 || 201) {
       return true;
     } else {
       console.error('Помилка при відправці відгуку:', response.statusText);

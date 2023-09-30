@@ -1,3 +1,6 @@
+// import { useDispatch } from 'react-redux';
+// import { addToCart } from 'redux/cart/cartActions';
+
 import Image from 'shared/components/Image';
 import Button from 'shared/components/Button';
 import Rating from 'components/ProductDetail/Rating';
@@ -20,6 +23,16 @@ export default function ProductDetail({
 }) {
   const { picture, note, price, currencyId } = product;
 
+  // const dispatch = useDispatch();
+  // const [quantity, setQuantity] = useState(1);
+
+  const handleAddToCart = () => {
+    console.log('додавли 1 шт. до кошику');
+
+    // dispatch(addToCart(product, quantity));
+    // setQuantity(1);
+  };
+
   return (
     <>
       <div className={styles.productCard}>
@@ -29,6 +42,7 @@ export default function ProductDetail({
         <Content note={note} />
         <Price price={price} currencyId={currencyId} />
         <Button
+          onClick={handleAddToCart}
           type="submit"
           style={{ paddingLeft: 86, paddingRight: 86, marginTop: 33 }}
         >

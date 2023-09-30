@@ -1,3 +1,5 @@
+// import { useDispatch } from 'react-redux';
+// import { addToCart } from 'redux/cart/cartActions';
 import { Link } from 'react-router-dom';
 import { useParams, useLocation } from 'react-router-dom';
 import StarEmpty from 'shared/icons/StarEmpty';
@@ -8,6 +10,13 @@ import styles from './ProductsItem.module.scss';
 
 const ProductsItem = ({ product }) => {
   const location = useLocation();
+
+  // const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    console.log('додали 1 шт. до кошику');
+    // dispatch(addToCart(product, 1)); // Додаємо одну одиницю товару
+  };
 
   return (
     <div className={styles.productCard}>
@@ -38,7 +47,9 @@ const ProductsItem = ({ product }) => {
             <Button mode="outlined">Подробиці</Button>
           </Link>
 
-          <Button mode="primary">В кошик</Button>
+          <Button onClick={handleAddToCart} mode="primary">
+            В кошик
+          </Button>
         </div>
       </div>
     </div>

@@ -14,20 +14,20 @@ export const fetchReviews = createAsyncThunk(
   }
 );
 
-export const submitReview = createAsyncThunk(
-  'reviews/submitReview',
+export const fetchAddReview = createAsyncThunk(
+  'reviews/addReview',
   async (reviewData, thunkAPI) => {
     try {
       const response = await api.submitReview(reviewData); // Додати відгук на сервер
       console.log('addReview response:', response);
 
-      if (response.status === 200) {
+      if (response.status === 200 || 201) {
         console.log('New review added successfully');
 
         // Отримати оновлені відгуки з сервера
         const updatedReviews = await api.getReviews();
 
-        // Повернути дані відгука, які можуть бути корисними на сторінці
+        // Повернути дані відгука, для рендера на сторінці
         return { response, updatedReviews };
       } else {
         console.error('Error adding review:', response.statusText);

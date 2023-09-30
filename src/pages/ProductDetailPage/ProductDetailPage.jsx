@@ -1,13 +1,11 @@
 import { useParams, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { getAllProducts } from 'redux/products/productsSelectors';
 import { getAllReviews } from 'redux/reviews/reviewsSelectors';
-import { fetchReviews } from 'redux/reviews/reviewsOperations';
 import Heading from 'shared/components/Heading';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
-import styles from './ProductDetailPage.module.scss';
 
 export default function ProductDetailPage() {
   const { productId } = useParams();
@@ -17,17 +15,14 @@ export default function ProductDetailPage() {
   const allProducts = useSelector(getAllProducts);
   const allReviews = useSelector(getAllReviews);
 
-  console.log('allProducts', allProducts);
-  console.log('allReviews', allReviews);
+  // console.log('allProducts', allProducts);
+  // console.log('allReviews', allReviews);
 
   const product = allProducts?.find(p => p._id === productId);
   const reviews = allReviews?.find(r => r.productId === productId);
 
   // ================================================
 
-  // Сортування масиву коментарів за датою створення
-
-  // ===============================================
   const [isExpandedDescription, setIsExpandedDescription] = useState(false);
   const [isExpandedReview, setIsExpandedReview] = useState(false);
 
@@ -50,6 +45,7 @@ export default function ProductDetailPage() {
   const handleReadReviewClick = () => {
     setIsExpandedReview(true);
   };
+  // ===============================================
 
   if (!product) {
     return <p>Товар не знайдено</p>;

@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getAllProducts } from 'redux/products/productsSelectors';
 import { getAllReviews } from 'redux/reviews/reviewsSelectors';
+import { submitReview } from 'redux/reviews/reviewsOperations';
 
 import useNavigationLogic from 'components/ProductDetail/useNavigationLogiс';
 import ReviewContainer from 'components/ProductDetail/ProductReview/ReviewContainer';

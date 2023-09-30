@@ -2,7 +2,6 @@ import ReviewItem from './ReviewItem';
 import styles from '../ProductDetail.module.scss';
 
 function ReviewList({ reviews, isExpandedReview = true }) {
-  console.log('reviews', reviews);
   if (!reviews || !reviews.comments) {
     return <></>;
   }
@@ -22,16 +21,9 @@ function ReviewList({ reviews, isExpandedReview = true }) {
       return dateB - dateA; // Сортування в зворотньому порядку (новіші вище)
     });
 
-  console.log('sortedReviews', sortedReviews);
-
-  // const displayedReviews = isExpandedReview
-  //   ? reviews.comments
-  //   : reviews.comments.slice(0, 1);
   const displayedReviews = isExpandedReview
     ? sortedReviews
     : sortedReviews.slice(0, 1);
-
-  console.log('displayedReviews', displayedReviews);
 
   return (
     <div className={styles.reviewList}>

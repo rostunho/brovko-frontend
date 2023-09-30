@@ -4,8 +4,6 @@ import AvatarIcon from 'shared/icons/AvatarIcon';
 import styles from '../ProductDetail.module.scss';
 
 const ReviewItem = ({ review, isExpandedReview }) => {
-  console.log('review', review);
-  console.log('review.createdAt', review.createdAt);
   return (
     <div>
       {isExpandedReview ? (
