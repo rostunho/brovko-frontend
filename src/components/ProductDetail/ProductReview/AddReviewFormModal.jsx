@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Modal from 'shared/components/Modal/Modal';
-import { submitReview } from 'shared/services/reviews';
 import { fetchAddReview } from 'redux/reviews/reviewsOperations';
 
 export default function AddReviewFormModal({ isOpen, closeModal }) {
