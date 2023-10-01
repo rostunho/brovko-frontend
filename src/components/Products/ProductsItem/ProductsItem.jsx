@@ -1,7 +1,7 @@
-// import { useDispatch } from 'react-redux';
-// import { addToCart } from 'redux/cart/cartActions';
+import { useDispatch } from 'react-redux';
+import { addOrder } from 'redux/basket/basketSlice';
 import { Link } from 'react-router-dom';
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import StarEmpty from 'shared/icons/StarEmpty';
 import Button from 'shared/components/Button/Button';
 import Image from 'shared/components/Image';
@@ -11,11 +11,12 @@ import styles from './ProductsItem.module.scss';
 const ProductsItem = ({ product }) => {
   const location = useLocation();
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    console.log('додали 1 шт. до кошику');
-    // dispatch(addToCart(product, 1)); // Додаємо одну одиницю товару
+    console.log('додавли 1 шт. до кошику');
+    console.log('product', product);
+    dispatch(addOrder(product));
   };
 
   return (
