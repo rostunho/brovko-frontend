@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addOrder } from 'redux/basket/basketSlice';
 
 import Button from 'shared/components/Button';
-
 import Modal from 'shared/components/Modal/Modal';
 import Heading from 'shared/components/Heading';
 import QuantityButtonModal from 'shared/components/QuantityButtonModal/QuantityButtonModal';
@@ -11,8 +12,14 @@ import Rectangle from 'components/Rectangle/Rectangle';
 import styles from './ModalProductsInBasket.module.scss';
 
 const ModalProductsInBasket = ({ closeModal }) => {
-  const [order, setOrder] = useState([]);
+  const orders = useSelector(state => state.basket);
+  // const dispatch = useDispatch();
+
   let key = 0;
+
+  // const handlePlusOneOrder = () => {
+  //   dispatch(addOrder(order));
+  // };
 
   const navigate = useNavigate();
 
@@ -24,13 +31,7 @@ const ModalProductsInBasket = ({ closeModal }) => {
     navigate('/order-page');
   };
 
-  useEffect(() => {
-    const storedJsonString = localStorage.getItem('orders');
-    const restoredArray = JSON.parse(storedJsonString);
-    setOrder(prevstate => [...prevstate, restoredArray]);
-  }, []);
-
-  const orderList = order.map(item => (
+  const orderList = orders.map(item => (
     <li key={key++}>
       <QuantityButtonModal />
     </li>
@@ -41,8 +42,6 @@ const ModalProductsInBasket = ({ closeModal }) => {
       <Modal closeModal={closeModal}>
         <Heading>Товари у кошику</Heading>
         <ul>{orderList}</ul>
-        <QuantityButtonModal />
-        <QuantityButtonModal />
         <Rectangle padding={true} />
         <div className={styles.textTotal}>
           <h3 className={styles['text-sum']}>Загальна сума:</h3>
@@ -50,6 +49,9 @@ const ModalProductsInBasket = ({ closeModal }) => {
             0<span>₴</span>
           </p>
         </div>
+        {/* Delete */}
+        {/* <button type="button" onClick={handlePlusOneOrder}></button> */}
+        {/* Delete */}
         <div className={styles.wrapperButton}>
           <Button
             mode="outlined"
