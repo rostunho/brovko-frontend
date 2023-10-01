@@ -15,5 +15,5 @@ export function ReviewStatistics({ productId }) {
 
   const numberOfReviews = sortedReviews.length;
 
-  return { numberOfReviews, sortedReviews };
+  return numberOfReviews;
 }

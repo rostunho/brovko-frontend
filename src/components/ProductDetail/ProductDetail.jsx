@@ -1,5 +1,6 @@
 import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { addOrder } from 'redux/basket/basketSlice';
 // import { addToCart } from 'redux/cart/cartActions';
 
 import Image from 'shared/components/Image';
@@ -24,17 +25,17 @@ export default function ProductDetail({
   location,
 }) {
   const { picture, note, price, currencyId } = product;
+
   const [value, setValue] = useState(1);
   console.log('value', value);
 
-  // const dispatch = useDispatch();
-  // const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    console.log('додавли 1 шт. до кошику');
-
-    // dispatch(addToCart(product, quantity));
-    // setQuantity(1);
+    console.log('додавли до кошику', value);
+    console.log('product', product);
+    dispatch(addOrder(product, value));
+    // setValue(1);
   };
 
   return (
