@@ -40,14 +40,14 @@
   line-height: normal;
 }
 
+.quantityButtoms-container {
+  padding-top: 20px;
+}
+
 .quantity-container {
   display: flex;
   align-items: center;
-  // width: 8rem;
   background-color: transparent;
-  // font-size: 1.5rem;
-  // padding-top: 20px;
-  justify-content: flex-end;
 }
 
 .plus-button {

@@ -5,19 +5,21 @@ import storage from 'redux-persist/lib/storage';
 import productsReducer from './products/productsSlice';
 import userReduser from './user/userSlice';
 import reviewsReduser from './reviews/reviewsSlice';
+import { basketReducer } from './basket/basketSlice';
+
+const rootReducer = combineReducers({
+  products: productsReducer,
+  user: userReduser,
+  reviews: reviewsReduser,
+  basket: basketReducer,
+});
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['token'],
+  whitelist: ['token', 'basket'],
 };
 
-const persistedAuthReducer = persistReducer(persistConfig, userReduser);
+const persistedAuthReducer = persistReducer(persistConfig, rootReducer);
 
-const rootReducer = combineReducers({
-  products: productsReducer,
-  user: persistedAuthReducer,
-  reviews: reviewsReduser,
-});
-
-export default rootReducer;
+export default persistedAuthReducer;
