@@ -1,9 +1,13 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Button from 'shared/components/Button';
 import AddReviewFormModal from './AddReviewFormModal';
+import { ReviewStatistics } from './ReviewStatistics';
 import styles from '../ProductDetail.module.scss';
 
-export default function ReviewContainer({ productId }) {
+export default function ReviewContainer() {
+  const { productId } = useParams();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -14,10 +18,13 @@ export default function ReviewContainer({ productId }) {
     setIsModalOpen(false);
   };
 
+  const numberOfReviews = ReviewStatistics({ productId });
+
   return (
     <div className={styles.rewieContainer}>
       <h3 className={styles.rewieTitle}>
-        Відгуки покупців <span className={styles.rewieCount}>(8)</span>
+        Відгуки покупців{' '}
+        <span className={styles.rewieCount}>{numberOfReviews}</span>
       </h3>
 
       <p className={styles.descriptionText}>
