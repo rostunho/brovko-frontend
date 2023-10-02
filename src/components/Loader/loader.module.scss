@@ -25,7 +25,7 @@
 
 #pawleft {
   animation: rotatefront 1s ease-in-out infinite;
-  transform-origin: center ;
+  transform-origin: center;
   background-color: #2c0edb;
   fill: red;
 }
@@ -44,21 +44,21 @@
   //   transform: rotate(10deg) translateY(1px);
   // }
   20% {
-    transform: rotate(-45deg) translate(20px, -2px );
+    transform: rotate(-45deg) translate(20px, -2px);
   }
   // 30% {
   //   transform: rotate(10deg) translateY(1px);
   // }
-  40% {
-    transform: rotate(-45deg) translate(10px, -10px );
-  }
+  // 40% {
+  //   transform: rotate(-45deg) translate(10px, -10px );
+  // }
   // 50% {
   //   transform: rotate(10deg) translateY(1px);
 
   // }
-  60% {
-    transform: rotate(-45deg) translate(0px, -15px);
-  }
+  // 60% {
+  //   transform: rotate(-45deg) translate(0px, -15px);
+  // }
   // 70% {
   //   transform: rotate(20deg) translateY(-3px);
   // }
@@ -104,7 +104,7 @@
   0% {
     transform: rotate(0deg) translateY(0);
   }
-  50% {
+  20% {
     transform: rotate(-8deg) translateY(10px);
   }
   /* 60% {
@@ -158,8 +158,8 @@
   0% {
     transform: rotate(0deg) translateY(0);
   }
-  50% {
-    transform: rotate(30deg) translateY(-33px) translateX(-18px);
+  20% {
+    transform: rotate(45deg) translateY(-25px) translateX(-58px);
   }
   /* 60% {
     transform: rotate(20deg) translateY(-3px);
@@ -169,4 +169,114 @@
   }
 }
 
+#back {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+  background-color: #2c0edb;
+  fill: red;
+}
 
+@keyframes rotatebacktop {
+  0% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+  20% {
+    transform: rotate(-12deg) translate(20px, 0px);
+  }
+  /* 60% {
+    transform: rotate(20deg) translateY(-3px);
+  } */
+  100% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+}
+
+#face {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+}
+
+#ear1 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+}
+
+#ear2 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+}
+
+#ear3 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+}
+
+#ear4 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+}
+
+#ear5 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+}
+
+#eye1 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+}
+
+#eye2 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+}
+
+#eyebrow {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+}
+
+#mustache1 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+}
+
+#mustache2 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+}
+
+#mustache3 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+}
+
+#mustache4 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+}
+
+#mustache5 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+}
+
+#mouth {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+}
