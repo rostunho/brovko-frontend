@@ -32,10 +32,11 @@ export default function ProductDetail({
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    console.log('додавли до кошику', value);
     console.log('product', product);
+    console.log('додавли до кошику', value);
+
     dispatch(addOrder(product, value));
-    // setValue(1);
+    setValue(1);
   };
 
   return (
@@ -54,7 +55,7 @@ export default function ProductDetail({
         <Button
           onClick={handleAddToCart}
           value={value}
-          setValue={setValue}
+          // setValue={setValue}
           type="submit"
           style={{ paddingLeft: 86, paddingRight: 86, marginTop: 33 }}
         >
