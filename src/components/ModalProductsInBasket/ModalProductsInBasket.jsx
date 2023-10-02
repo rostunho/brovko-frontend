@@ -13,13 +13,8 @@ import styles from './ModalProductsInBasket.module.scss';
 
 const ModalProductsInBasket = ({ closeModal }) => {
   const orders = useSelector(state => state.basket);
-  // const dispatch = useDispatch();
-
-  let key = 0;
-
-  // const handlePlusOneOrder = () => {
-  //   dispatch(addOrder(order));
-  // };
+  console.log('orders', orders);
+  // console.log('value', orders.value);
 
   const navigate = useNavigate();
 
@@ -31,11 +26,20 @@ const ModalProductsInBasket = ({ closeModal }) => {
     navigate('/order-page');
   };
 
-  const orderList = orders.map(item => (
-    <li key={key++}>
-      <QuantityButtonModal />
-    </li>
-  ));
+  const orderList = Array.isArray(orders)
+    ? orders.map(({ _id, name, note, picture, price, value }) => (
+        <li key={_id}>
+          <QuantityButtonModal
+            id={_id}
+            name={name}
+            note={note}
+            picture={picture}
+            price={price}
+            val={value}
+          />
+        </li>
+      ))
+    : null;
 
   return (
     <div>
@@ -49,9 +53,6 @@ const ModalProductsInBasket = ({ closeModal }) => {
             0<span>₴</span>
           </p>
         </div>
-        {/* Delete */}
-        {/* <button type="button" onClick={handlePlusOneOrder}></button> */}
-        {/* Delete */}
         <div className={styles.wrapperButton}>
           <Button
             mode="outlined"
