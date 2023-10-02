@@ -8,8 +8,18 @@ import { deleteOrder, changeQuantity } from 'redux/basket/basketSlice';
 
 import styles from './QuantityButtonModal.module.scss';
 
-const QuantityButtonModal = () => {
-  const [value, setValue] = useState(1);
+const QuantityButtonModal = ({
+  id,
+  picture,
+  name,
+  note,
+  price,
+  currencyId,
+  val,
+}) => {
+  console.log('val', val);
+  const [value, setValue] = useState(val || 1);
+  const currentPrice = price * value;
 
   const dispatch = useDispatch();
 
@@ -17,18 +27,21 @@ const QuantityButtonModal = () => {
     dispatch(deleteOrder());
   };
 
-  // useEffect(() => {
-  //   dispatch(changeQuantity({ quantity: value }));
-  // }, [dispatch, value]);
+  useEffect(() => {
+    console.log(value);
+    if (value !== 1) {
+      dispatch(changeQuantity({ id, value }));
+    }
+  }, [value]);
 
   return (
     <div className={styles['wrapper-allproduct']}>
       <div className={styles['wrapper-imageblock']}>
-        <Image height={80} width={80} />
+        <Image height={80} width={80} src={picture[0]} />
       </div>
       <div className={styles['wrapper-quantityblock']}>
-        <p className={styles['text-product']}>Паляничка</p>
-        <p className={styles['text-product']}>Вим’я-кокос-лохина</p>
+        <p className={styles['text-product']}>{name}</p>
+        <p className={styles['text-product']}>{note}</p>
         <div className={styles['quantityButtoms-container']}>
           <QuntityButtons value={value} setValue={setValue} />
         </div>
@@ -43,7 +56,8 @@ const QuantityButtonModal = () => {
         </button>
 
         <p className={styles['total']}>
-          0<span>₴</span>
+          {currentPrice}
+          <span>₴</span>
         </p>
       </div>
     </div>

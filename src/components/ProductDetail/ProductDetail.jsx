@@ -24,7 +24,7 @@ export default function ProductDetail({
   handleReadReviewClick,
   location,
 }) {
-  const { picture, note, price, currencyId } = product;
+  const { _id, picture, name, note, price, currencyId } = product;
 
   const [value, setValue] = useState(1);
   console.log('value', value);
@@ -33,10 +33,8 @@ export default function ProductDetail({
 
   const handleAddToCart = () => {
     console.log('product', product);
-    console.log('додавли до кошику', value);
-
-    dispatch(addOrder(product, value));
-    setValue(1);
+    dispatch(addOrder({ ...product, value: value }));
+    // setValue(1);
   };
 
   return (
