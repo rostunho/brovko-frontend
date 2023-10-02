@@ -7,6 +7,7 @@ export default function QuntityButtons({
   setValue,
   buttonStyles,
   valueStyles,
+  hadleQuantityClick,
 }) {
   const addOne = () => {
     setValue(prevValue => prevValue + 1);

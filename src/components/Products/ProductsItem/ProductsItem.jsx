@@ -16,7 +16,7 @@ const ProductsItem = ({ product }) => {
   const handleAddToCart = () => {
     console.log('додавли 1 шт. до кошику');
     console.log('product', product);
-    dispatch(addOrder(product));
+    dispatch(addOrder({ ...product, value: 1 }));
   };
 
   return (

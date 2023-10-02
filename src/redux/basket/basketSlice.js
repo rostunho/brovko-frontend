@@ -12,10 +12,14 @@ const basketSlice = createSlice({
       state.splice(index, 1);
     },
     changeQuantity(state, action) {
-      // return {
-      //   ...state,
-      //   quantity: action.payload.quantity,
-      // };
+      const { id, value } = action.payload;
+      console.log('action', action);
+      console.log('newValue', value);
+      const orderToUpdate = state.find(order => order._id === id);
+      console.log('orderToUpdate', orderToUpdate);
+      if (orderToUpdate) {
+        orderToUpdate.value = value;
+      }
     },
   },
 });
