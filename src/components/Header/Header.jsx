@@ -4,6 +4,8 @@ import Logo from 'shared/icons/Logo';
 import Navigation from 'components/Navigation/Navigation';
 import UserLight from 'shared/icons/UserLight';
 import BasketLight from 'shared/icons/BasketLight';
+import ModalProductsInBasket from 'components/ModalProductsInBasket/ModalProductsInBasket';
+import Button from 'shared/components/Button';
 
 import styles from './Header.module.scss';
 
@@ -26,6 +28,18 @@ export default function Header() {
     return () => window.removeEventListener('resize', handleResize);
   }, [isDesktop, isMobile, isTablet]);
 
+  const [basketIsOpen, setBasketIsOpen] = useState(false); // змінити пізніше
+  console.log('basketIsOpen', basketIsOpen);
+
+  const openModal = () => {
+    setBasketIsOpen(true);
+  };
+
+  const closeModal = () => {
+    console.log('close');
+    setBasketIsOpen(false);
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -45,9 +59,10 @@ export default function Header() {
           <Link to="./auth/login" className={styles.userIcon}>
             <UserLight />
           </Link>
-          <Link to="./order" className={styles.userIcon}>
+          <button type="button" onClick={openModal} className={styles.userIcon}>
             <BasketLight />
-          </Link>
+          </button>
+          {basketIsOpen && <ModalProductsInBasket closeModal={closeModal} />}
         </div>
       </div>
     </header>

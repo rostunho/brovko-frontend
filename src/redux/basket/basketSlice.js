@@ -13,10 +13,7 @@ const basketSlice = createSlice({
     },
     changeQuantity(state, action) {
       const { id, value } = action.payload;
-      console.log('action', action);
-      console.log('newValue', value);
       const orderToUpdate = state.find(order => order._id === id);
-      console.log('orderToUpdate', orderToUpdate);
       if (orderToUpdate) {
         orderToUpdate.value = value;
       }

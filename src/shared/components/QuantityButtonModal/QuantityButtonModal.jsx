@@ -17,8 +17,8 @@ const QuantityButtonModal = ({
   currencyId,
   val,
 }) => {
-  console.log('val', val);
   const [value, setValue] = useState(val || 1);
+  console.log('value', value);
   const currentPrice = price * value;
 
   const dispatch = useDispatch();
@@ -28,10 +28,10 @@ const QuantityButtonModal = ({
   };
 
   useEffect(() => {
-    console.log(value);
-    if (value !== 1) {
-      dispatch(changeQuantity({ id, value }));
-    }
+    // if (value !== 1) {
+    //   dispatch(changeQuantity({ id, value }));
+    // }
+    dispatch(changeQuantity({ id, value }));
   }, [value]);
 
   return (

@@ -30,6 +30,15 @@
   gap: 8px;
 }
 
+.userIcon {
+  outline: none;
+  border: none;
+
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+}
+
 .userIcon:hover * {
   fill: var(--unnamed, #f3a610);
 }
