@@ -1,1 +1,1 @@
-export const getAllOrders = store => store.basket;
+export const getAllOrders = state => state.basket;

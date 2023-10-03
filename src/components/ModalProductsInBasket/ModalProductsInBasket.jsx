@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addOrder } from 'redux/basket/basketSlice';
+import { getAllOrders } from 'redux/basket/basketSelectors';
 
 import Button from 'shared/components/Button';
 import Modal from 'shared/components/Modal/Modal';
@@ -12,9 +13,19 @@ import Rectangle from 'components/Rectangle/Rectangle';
 import styles from './ModalProductsInBasket.module.scss';
 
 const ModalProductsInBasket = ({ closeModal }) => {
-  const orders = useSelector(state => state.basket);
+  console.log('closeModal', closeModal);
+  const orders = useSelector(getAllOrders);
   console.log('orders', orders);
-  // console.log('value', orders.value);
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  useEffect(() => {
+    // eslint-disable-next-line array-callback-return
+    const totalAmount = orders.reduce((total, { price, value }) => {
+      return total + price * value;
+    }, 0);
+
+    setTotalAmount(totalAmount);
+  }, [orders]);
 
   const navigate = useNavigate();
 
@@ -50,7 +61,8 @@ const ModalProductsInBasket = ({ closeModal }) => {
         <div className={styles.textTotal}>
           <h3 className={styles['text-sum']}>Загальна сума:</h3>
           <p className={styles.total}>
-            0<span>₴</span>
+            {totalAmount}
+            <span>₴</span>
           </p>
         </div>
         <div className={styles.wrapperButton}>
