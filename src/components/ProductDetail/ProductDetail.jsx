@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addOrder } from 'redux/basket/basketSlice';
+import { getAllOrders } from 'redux/basket/basketSelectors';
 // import { addToCart } from 'redux/cart/cartActions';
 
 import Image from 'shared/components/Image';
@@ -24,16 +25,21 @@ export default function ProductDetail({
   handleReadReviewClick,
   location,
 }) {
+  const orders = useSelector(getAllOrders);
+
   const { _id, picture, name, note, price, currencyId } = product;
 
   const [value, setValue] = useState(1);
-  console.log('value', value);
 
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    console.log('product', product);
+    const result = orders.some(order => order._id === product._id);
+    if (result) {
+      return;
+    }
     dispatch(addOrder({ ...product, value: value }));
+    alert('Product in basket');
     // setValue(1);
   };
 

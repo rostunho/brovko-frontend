@@ -1,7 +1,8 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addOrder } from 'redux/basket/basketSlice';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { getAllOrders } from 'redux/basket/basketSelectors';
 import StarEmpty from 'shared/icons/StarEmpty';
 import Button from 'shared/components/Button/Button';
 import Image from 'shared/components/Image';
@@ -9,14 +10,18 @@ import Image from 'shared/components/Image';
 import styles from './ProductsItem.module.scss';
 
 const ProductsItem = ({ product }) => {
+  const orders = useSelector(getAllOrders);
   const location = useLocation();
 
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    console.log('додавли 1 шт. до кошику');
-    console.log('product', product);
+    const result = orders.some(order => order._id === product._id);
+    if (result) {
+      return;
+    }
     dispatch(addOrder({ ...product, value: 1 }));
+    alert('Product in basket');
   };
 
   return (

@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getAllOrders } from 'redux/basket/basketSelectors';
 import Logo from 'shared/icons/Logo';
 import Navigation from 'components/Navigation/Navigation';
 import UserLight from 'shared/icons/UserLight';
 import BasketLight from 'shared/icons/BasketLight';
 import ModalProductsInBasket from 'components/ModalProductsInBasket/ModalProductsInBasket';
-import Button from 'shared/components/Button';
+import Ellipse from 'shared/icons/Ellipse';
 
 import styles from './Header.module.scss';
 
 export default function Header() {
+  const orders = useSelector(getAllOrders);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1280);
   const [isTablet, setIsTablet] = useState(
     window.innerWidth >= 768 && window.innerWidth < 1280
@@ -28,15 +31,13 @@ export default function Header() {
     return () => window.removeEventListener('resize', handleResize);
   }, [isDesktop, isMobile, isTablet]);
 
-  const [basketIsOpen, setBasketIsOpen] = useState(false); // змінити пізніше
-  console.log('basketIsOpen', basketIsOpen);
+  const [basketIsOpen, setBasketIsOpen] = useState(false);
 
   const openModal = () => {
     setBasketIsOpen(true);
   };
 
   const closeModal = () => {
-    console.log('close');
     setBasketIsOpen(false);
   };
 
@@ -50,7 +51,7 @@ export default function Header() {
             isMobile={isMobile}
           />
         </div>
-        <div>
+        <div className={styles.logo}>
           <Link to="/main">
             <Logo />
           </Link>
@@ -59,8 +60,16 @@ export default function Header() {
           <Link to="./auth/login" className={styles.userIcon}>
             <UserLight />
           </Link>
-          <button type="button" onClick={openModal} className={styles.userIcon}>
+          <button
+            type="button"
+            onClick={openModal}
+            className={styles.buttonBasket}
+          >
             <BasketLight />
+            <div className={styles.ellips}>
+              <Ellipse />
+              <span className={styles.ellipsSpan}>{orders.length}</span>
+            </div>
           </button>
           {basketIsOpen && <ModalProductsInBasket closeModal={closeModal} />}
         </div>

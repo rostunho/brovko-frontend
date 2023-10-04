@@ -18,7 +18,6 @@ const QuantityButtonModal = ({
   val,
 }) => {
   const [value, setValue] = useState(val || 1);
-  console.log('value', value);
   const currentPrice = price * value;
 
   const dispatch = useDispatch();
@@ -28,10 +27,8 @@ const QuantityButtonModal = ({
   };
 
   useEffect(() => {
-    // if (value !== 1) {
-    //   dispatch(changeQuantity({ id, value }));
-    // }
     dispatch(changeQuantity({ id, value }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   return (
