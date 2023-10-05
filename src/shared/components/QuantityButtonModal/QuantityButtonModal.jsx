@@ -34,7 +34,7 @@ const QuantityButtonModal = ({
   return (
     <div className={styles['wrapper-allproduct']}>
       <div className={styles['wrapper-imageblock']}>
-        <Image height={80} width={80} src={picture[0]} />
+        <Image height={80} width={80} src={picture} />
       </div>
       <div className={styles['wrapper-quantityblock']}>
         <p className={styles['text-product']}>{name}</p>
@@ -53,7 +53,7 @@ const QuantityButtonModal = ({
         </button>
 
         <p className={styles['total']}>
-          {currentPrice}
+          {currentPrice || 0}
           <span>₴</span>
         </p>
       </div>
