@@ -67,6 +67,11 @@
   backdrop-filter: blur(2px);
 }
 
+.logo {
+  padding-left: 75px;
+  padding-right: 35px;
+}
+
 .closeMobileMenu {
   animation-name: burgerDropOut;
   animation-duration: 500ms;

@@ -15,7 +15,9 @@ export default function MobileMenu({ children, onClick, isMobile }) {
       <div className={styles.head}>
         <Button mode="close" size="lg" onClick={onClick} />
 
-        <Logo onClick={onClick} />
+        <div className={styles.logo}>
+          <Logo onClick={onClick} />
+        </div>
 
         <div className={styles.boxBasket}>
           <UserLight className={styles.closeButton} onClick={onClick} />
