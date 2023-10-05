@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getAllOrders } from 'redux/basket/basketSelectors';
 
@@ -32,7 +32,7 @@ const ModalProductsInBasket = ({ closeModal }) => {
   };
 
   const hendlClickOrder = () => {
-    navigate('/order-page');
+    navigate('/order');
     closeModal();
   };
 
@@ -73,7 +73,7 @@ const ModalProductsInBasket = ({ closeModal }) => {
           >
             Повернутись до покупок
           </Button>
-
+          <Link></Link>
           <Button mode="primary" size="lg" onClick={hendlClickOrder}>
             Оформити замовлення
           </Button>
