@@ -1,3 +1,4 @@
+import Loader from 'components/Loader';
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
@@ -28,7 +29,7 @@ export const authRoutes = [
 
 export default function AuthRoutes() {
   return (
-    <Suspense fallback={<div>Loading page...</div>}>
+    <Suspense fallback={<Loader />}>
       <Routes>
         <>
           {authRoutes.map(({ path, Component }) => (

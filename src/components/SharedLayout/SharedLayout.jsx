@@ -8,13 +8,14 @@ import Rectangle from 'components/Rectangle/Rectangle';
 import ModalProductsInBasket from 'components/ModalProductsInBasket/ModalProductsInBasket';
 
 import styles from './SharedLayout.module.scss';
+import Loader from 'components/Loader';
 
 const SharedLayout = () => {
   return (
     <div className={styles.layout}>
       <Header />
       <main>
-        <Suspense fallback={<div>Loading page...</div>}>
+      <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
         <Rectangle />

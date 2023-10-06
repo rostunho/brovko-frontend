@@ -5,6 +5,7 @@ import AuthFormWrapper from 'components/AuthSection/AuthFormWrapper/AuthFormWrap
 import LoginForm from 'components/AuthSection/LoginForm/LoginForm';
 
 import OrderForm from 'components/OrderForm/OrderForm';
+import Loader from 'components/Loader';
 
 const LazyUserDashboardPage = lazy(() =>
   import('pages/UserDashboardPage/UserDashboardPage')
@@ -27,7 +28,7 @@ const OrderPage = lazy(() => import('pages/OrderPage'));
 
 export default function ProductsRoutes() {
   return (
-    <Suspense fallback={<div>Loading page...</div>}>
+    <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="product-list-page" element={<LazyProductListPage />} />
         <Route path="product/:productId" element={<LazyProductDetailPage />}>

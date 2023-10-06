@@ -3,7 +3,7 @@ import styles from './loader.module.scss';
 
 const Spiner = () => {
   return (
-    <div>
+    <div className={styles.container}>
       {/* <img src={paw} alt="Your paw" /> */}
       <svg
         width="178"
