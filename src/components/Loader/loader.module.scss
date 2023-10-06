@@ -280,3 +280,32 @@
   transform-origin: center;
   fill: red;
 }
+
+#stomak1 {
+  animation: rotatestomak 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+
+}
+#stomak2 {
+  animation: rotatestomak 1s ease-in-out infinite;
+  transform-origin: center;
+  fill: red;
+
+}
+
+
+@keyframes rotatestomak {
+  0% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+  20% {
+    transform: rotate(30deg) translate(0px, -20px);
+  }
+  /* 60% {
+    transform: rotate(20deg) translateY(-3px);
+  } */
+  100% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+}
