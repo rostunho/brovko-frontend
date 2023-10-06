@@ -1,55 +1,60 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import QuntityButtons from './QuantityButtons';
 import Image from '../Image';
 import BasketSmall from 'shared/icons/BasketSmall';
+import { useDispatch } from 'react-redux';
+
+import { deleteOrder, changeQuantity } from 'redux/basket/basketSlice';
 
 import styles from './QuantityButtonModal.module.scss';
 
-const QuantityButtonModal = () => {
-  const [value, setValue] = useState(1);
+const QuantityButtonModal = ({
+  id,
+  picture,
+  name,
+  note,
+  price,
+  currencyId,
+  val,
+}) => {
+  const [value, setValue] = useState(val || 1);
+  const currentPrice = price * value;
 
-  // const addOne = () => {
-  //   setValue(prevValue => prevValue + 1);
-  // };
+  const dispatch = useDispatch();
 
-  // const minusOne = () => {
-  //   setValue(prevValue => prevValue - 1);
-  // };
+  const hahdleBasketClick = () => {
+    dispatch(deleteOrder());
+  };
+
+  useEffect(() => {
+    dispatch(changeQuantity({ id, value }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   return (
     <div className={styles['wrapper-allproduct']}>
       <div className={styles['wrapper-imageblock']}>
-        <Image height={80} width={80} />
+        <Image height={80} width={80} src={picture} />
       </div>
       <div className={styles['wrapper-quantityblock']}>
-        <p className={styles['text-product']}>Паляничка</p>
-        <p className={styles['text-product']}>Вим’я-кокос-лохина</p>
-
-        <div className={styles['quantity-container']}>
-          {/* <button
-            className={styles['plus-button']}
-            type="button"
-            onClick={addOne}
-            disabled={value >= 99}
-          >
-            <AddingPlusIcon />
-          </button>
-          <p className={styles['value']}>{value}</p>
-          <button
-            className={styles['minus-button']}
-            type="button"
-            onClick={minusOne}
-            disabled={value <= 1}
-          >
-            <AddingMinusIcon />
-          </button> */}
+        <p className={styles['text-product']}>{name}</p>
+        <p className={styles['text-product']}>{note}</p>
+        <div className={styles['quantityButtoms-container']}>
           <QuntityButtons value={value} setValue={setValue} />
         </div>
       </div>
       <div className={styles['wrapper-basketblock']}>
-        <BasketSmall />
+        <button
+          className={styles['minus-button']}
+          type="button"
+          onClick={hahdleBasketClick}
+        >
+          <BasketSmall />
+        </button>
+
         <p className={styles['total']}>
-          0<span>₴</span>
+          {currentPrice || 0}
+          <span>₴</span>
         </p>
       </div>
     </div>

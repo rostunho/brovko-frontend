@@ -9,6 +9,7 @@ import styles from './Button.module.scss';
 
 export default function Button({
   children,
+  className,
   type,
   onClick,
   mode = 'primary',
@@ -24,7 +25,7 @@ export default function Button({
       type={type || 'button'}
       className={`${styles.button} ${styles[`button_${size}`]} ${
         styles[`button_${mode}`]
-      }`}
+      } ${className ? className : ''}`}
       style={style}
       onClick={onClick}
       disabled={disabled}

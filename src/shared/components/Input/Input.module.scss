@@ -17,6 +17,7 @@
 
 .input-box__length--md {
   width: 138px;
+  width: calc(50% - 6px);
 }
 
 .input-box__length--sm {

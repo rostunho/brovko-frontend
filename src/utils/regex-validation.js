@@ -2,7 +2,9 @@ export const regex = {
   email: /^[\w.-]+@[\w.-]+\.\w+$/,
   number: /^(?![\d.eE]*[eE])\d*(?:[.,]\d*)?$/,
   tel: /^\+\d{2} \(\d{3}\) \d{3} \d{4}$/,
-  password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+  password:
+    // eslint-disable-next-line no-useless-escape
+    /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/,
   url: /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/,
   radio: /.*/,
   checkbox: /.*/,

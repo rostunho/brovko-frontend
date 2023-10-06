@@ -26,6 +26,7 @@ export default function Input({
   //   метричні одиниці "кг", "км", тощо (якщо потрібні)
   metrical,
   pattern,
+  validateStatus,
   ...props
 }) {
   const [rootValue, setRootValue] = useState('');
@@ -38,11 +39,18 @@ export default function Input({
   const isCheckbox = type === 'checkbox';
   const isRadio = type === 'radio';
 
+  useEffect(handleValidation, [validateStatus, validationChecking]);
+
   useEffect(() => {
     value && setRootValue(value);
   }, [value]);
 
-  useEffect(() => {
+  function updateRootValue() {
+    setRootValue('');
+    setRootValue(valueRef.current);
+  }
+
+  function handleValidation() {
     switch (validationChecking) {
       case 'pending':
         setAdditionalClass('');
@@ -56,11 +64,8 @@ export default function Input({
       default:
         setAdditionalClass('');
     }
-  }, [validationChecking]);
 
-  function updateRootValue() {
-    setRootValue('');
-    setRootValue(valueRef.current);
+    validateStatus && validateStatus(validationChecking);
   }
 
   const handleOnClick = event => {
@@ -186,9 +191,11 @@ export default function Input({
           {...props}
         />
         {/* <WarningIcon className={styles['warning-icon']} /> */}
-        <Text type="error" className={styles['input-error']}>
-          {error.message}
-        </Text>
+        {error.message && (
+          <Text type="error" className={styles['input-error']}>
+            {error.message}
+          </Text>
+        )}
       </label>
       {error.message && <></>}
     </>

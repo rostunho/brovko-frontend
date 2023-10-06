@@ -1,15 +1,25 @@
 import { useState } from 'react';
 import Heading from 'shared/components/Heading';
 import DeliveryCity from './DeliveryCity';
+import DeliveryStreet from './DeliveryStreet';
 import DeliveryMethod from './DeliveryMethod';
 import styles from './DeliveryForm.module.scss';
 
 export default function DeliveryForm() {
   const [city, setCity] = useState(null);
+  const [street, setStreet] = useState(null);
+  const [building, setBuilding] = useState(null);
+  const [apartment, setApartment] = useState(null);
   const [deliveryMethod, setDeliveryMethod] = useState(null);
 
   const handleCityData = data => {
     setCity(data);
+  };
+
+  const handleStreetData = (streetData, building, apartment) => {
+    setStreet(streetData);
+    setBuilding(building);
+    setApartment(apartment);
   };
 
   const handleDeliveryMethod = data => {
@@ -37,6 +47,11 @@ export default function DeliveryForm() {
             extractData={() => {}}
           />
         )} */}
+
+        {deliveryMethod?.method === 'address' && city?.Ref && (
+          <DeliveryStreet cityRef={city.Ref} handleData={handleStreetData} />
+        )}
+
         <button type="submit" style={{ marginTop: '100px' }}>
           TEST SUBMIT
         </button>

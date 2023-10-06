@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom';
-import fakeReviewsData from './fakeRewiewsData';
 import SharedLinkButton from '../SharedLinkButton';
 import ReviewContainer from './ReviewContainer';
 import ReviewList from './ReviewList';
@@ -7,7 +6,6 @@ import ReviewList from './ReviewList';
 export default function Review({
   reviews,
   isExpandedReview,
-  location,
   handleReadReviewClick,
 }) {
   return (
@@ -33,7 +31,10 @@ export default function Review({
           </>
         )
       ) : (
-        <p>Для цього смаколика ще не написано жодного відгука....</p>
+        <>
+          <ReviewContainer />
+          <p>Для цього смаколика ще не написано жодного відгука....</p>
+        </>
       )}
     </>
   );

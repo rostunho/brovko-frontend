@@ -4,7 +4,7 @@ import { login } from 'redux/user/userOperations';
 
 import { useEffect, useRef, useState } from 'react';
 // import PropTypes from 'prop-types';
-import OldInput from 'shared/components/OldInput/OldInput';
+import Input from 'shared/components/Input';
 import Button from 'shared/components/Button/Button';
 import useForm from 'shared/hooks/useForm';
 import initialState from './initialState';
@@ -18,11 +18,15 @@ const LoginForm = () => {
   const { email, password } = state;
   const dispatch = useDispatch();
   const formRef = useRef(null);
-  const [validationData, setValidationData] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(null);
+  const [isValidPassword, setIsValidPassword] = useState(null);
+  const [showSubmitButton, setShowSubmitButton] = useState(false);
+
   useEffect(() => {
-    const condition = email && password.length > 0;
-    condition ? setValidationData(true) : setValidationData(false);
-  }, [email, password]);
+    isValidEmail === 'isValid' && isValidPassword === 'isValid'
+      ? setShowSubmitButton(true)
+      : setShowSubmitButton(false);
+  }, [isValidEmail, isValidPassword]);
 
   function dispatchUser(data) {
     dispatch(login(data));
@@ -30,27 +34,34 @@ const LoginForm = () => {
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
-      <OldInput
+      <Input
         label="E-mail"
         type="email"
         name="email"
         placeholder="Введіть свій e-mail"
         required={true}
         value={email}
+        validateStatus={setIsValidEmail}
         onChange={handleChange}
       />
-      <OldInput
+      <Input
         label="Пароль"
         type="password"
         name="password"
         placeholder="Введіть пароль"
         required={true}
         value={password}
+        validateStatus={setIsValidPassword}
         onChange={handleChange}
       />
       <NavLink to="#">Забули пароль</NavLink>
 
-      <Button type="submit" size="lg" disabled={!validationData}>
+      <Button
+        type="submit"
+        className={styles['submit-button']}
+        size="lg"
+        disabled={!showSubmitButton}
+      >
         Увійти
       </Button>
     </form>
