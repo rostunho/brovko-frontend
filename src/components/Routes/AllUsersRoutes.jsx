@@ -1,3 +1,4 @@
+import Loader from 'components/Loader';
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
@@ -40,7 +41,7 @@ export const allUserRoutes = [
 
 export default function AllUsersRoutes() {
   return (
-    <Suspense fallback={<div>Loading page...</div>}>
+    <Suspense fallback={<Loader />}>
       <Routes>
         <>
           {allUserRoutes.map(({ path, Component }) => (

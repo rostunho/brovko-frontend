@@ -1,7 +1,7 @@
 import axios from 'axios';
 import instance from './instance';
 
-// const BROVKO_API = process.env.REACT_APP_BROVKO_API;
+const BROVKO_API = process.env.REACT_APP_BROVKO_API;
 
 export const getAllProducts = async (page = 1) => {
   const { data } = await instance.get('/products', {
@@ -34,8 +34,8 @@ export const deleteProductById = async id => {
 
 export const addNewProduct = async body => {
   try {
-    // const url = `${BROVKO_API}/products/add-product`;
-    const url = 'http://localhost:5000/api/products/add-product';
+    const url = `${BROVKO_API}/products/add-product`;
+    // const url = 'http://localhost:5000/api/products/add-product';
     const data = JSON.stringify(body);
     const headers = { 'Content-Type': 'application/json' };
 

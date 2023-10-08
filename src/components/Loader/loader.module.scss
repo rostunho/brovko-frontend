@@ -1,0 +1,273 @@
+// .paw {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   z-index: 999;
+//   width: fit-content;
+//   transform: translate(-50%, -50%);
+//   animation-name: spin;
+//   animation-delay: 0s;
+//   animation-duration: 1.5s;
+//   animation-timing-function: linear;
+//   animation-iteration-count: infinite;
+//   fill: red;
+// }
+
+// @keyframes spin {
+//   to {
+//     transform: translate(-50%, -50%) rotate(360deg);
+//   }
+// }
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 999;
+  width: fit-content;
+  transform: translate(-50%, -50%);
+}
+#ground {
+  fill: rgba(0, 0, 0, 0.5);
+}
+
+#pawleft {
+  animation: rotatefront 1s ease-in-out infinite;
+  transform-origin: center;
+}
+#pawright {
+  animation: rotatefront 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes rotatefront {
+  0% {
+    transform: rotate(0deg) translateY(0);
+  }
+  // 10% {
+  //   transform: rotate(10deg) translateY(1px);
+  // }
+  20% {
+    transform: rotate(-45deg) translate(20px, -2px);
+  }
+  // 30% {
+  //   transform: rotate(10deg) translateY(1px);
+  // }
+  // 40% {
+  //   transform: rotate(-45deg) translate(10px, -10px );
+  // }
+  // 50% {
+  //   transform: rotate(10deg) translateY(1px);
+
+  // }
+  // 60% {
+  //   transform: rotate(-45deg) translate(0px, -15px);
+  // }
+  // 70% {
+  //   transform: rotate(20deg) translateY(-3px);
+  // }
+  // 80% {
+  //   transform: rotate(10deg) translateY(1px);
+  // }
+  // 90% {
+  //   transform: rotate(10deg) translateY(1px);
+  // }
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+}
+
+#pawleftrear {
+  animation: rotateback 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#pawrightrear {
+  animation: rotateback 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#stomak4 {
+  animation: rotateback 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#stomak3 {
+  animation: rotateback 1s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes rotateback {
+  0% {
+    transform: rotate(0deg) translateY(0);
+  }
+  20% {
+    transform: rotate(-8deg) translateY(10px);
+  }
+  /* 60% {
+    transform: rotate(20deg) translateY(-3px);
+  } */
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+}
+
+#tail {
+  animation: rotatetail 1s ease-in-out infinite;
+  transform-origin: center;
+}
+#tail1 {
+  animation: rotatetail 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#tail-1 {
+  animation: rotatetail 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#tail-2 {
+  animation: rotatetail 1s ease-in-out infinite;
+  transform-origin: center;
+}
+#tail3 {
+  animation: rotatetail 1s ease-in-out infinite;
+  transform-origin: center;
+}
+#tail2 {
+  animation: rotatetail 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes rotatetail {
+  0% {
+    transform: rotate(0deg) translateY(0);
+  }
+  20% {
+    transform: rotate(45deg) translateY(-25px) translateX(-58px);
+  }
+  /* 60% {
+    transform: rotate(20deg) translateY(-3px);
+  } */
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+}
+
+#back {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes rotatebacktop {
+  0% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+  20% {
+    transform: rotate(-12deg) translate(20px, 0px);
+  }
+  /* 60% {
+    transform: rotate(20deg) translateY(-3px);
+  } */
+  100% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+}
+
+#face {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#ear1 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#ear2 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#ear3 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#ear4 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#ear5 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#eye1 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#eye2 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#eyebrow {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#mustache1 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#mustache2 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#mustache3 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#mustache4 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#mustache5 {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#mouth {
+  animation: rotatebacktop 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#stomak1 {
+  animation: rotatestomak 1s ease-in-out infinite;
+  transform-origin: center;
+}
+#stomak2 {
+  animation: rotatestomak 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes rotatestomak {
+  0% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+  20% {
+    transform: rotate(30deg) translate(0px, -20px);
+  }
+  /* 60% {
+    transform: rotate(20deg) translateY(-3px);
+  } */
+  100% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+}
