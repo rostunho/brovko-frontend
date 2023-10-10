@@ -25,7 +25,7 @@ export default function DeliveryWarehouse({ handleData, cityName, cityRef }) {
     //   return;
     // }
 
-    const value = targetWarehouse.toLowerCase();
+    const value = targetWarehouse ? targetWarehouse.toLowerCase() : '';
 
     const response = await findWarehouse(value, cityName, cityRef);
 
@@ -58,7 +58,6 @@ export default function DeliveryWarehouse({ handleData, cityName, cityRef }) {
       placeholder="Вкажіть номер, або адресу"
       extractSearchValue={extractTargetWarehouse}
       extractData={extractWarehouseData}
-      deliveryPoint
     />
   );
 }

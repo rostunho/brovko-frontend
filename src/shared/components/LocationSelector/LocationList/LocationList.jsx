@@ -4,12 +4,7 @@ import largestCities from '../largestCities';
 
 import styles from './LocationList.module.scss';
 
-export default function LocationList({
-  data = [],
-  onClick,
-  deliveryPoint,
-  ...props
-}) {
+export default function LocationList({ data = [], onClick, ...props }) {
   const [options, setOptions] = useState(data);
   let i = 0;
 
@@ -22,7 +17,7 @@ export default function LocationList({
       {options.map(option => {
         return (
           <label key={i++} className={styles.label}>
-            {!deliveryPoint ? option.Present : option.Description}
+            {option.Present || option.Description}
             <input
               type="radio"
               name="option"

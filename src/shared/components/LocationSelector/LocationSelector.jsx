@@ -24,16 +24,21 @@ export default function LocationSelector({
   }, [extractSearchValue, searchValue]);
 
   useEffect(() => {
-    selectedData && setSearchValue(selectedData.Present);
+    selectedData &&
+      setSearchValue(selectedData.Present || selectedData.Description);
     extractData && extractData(selectedData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedData]);
 
   useEffect(() => {
+    if (!searchValue) {
+      return;
+    }
+
     searchValue.length > 0 && !selectedData
       ? setSelectorIsOpen(true)
       : setSelectorIsOpen(false);
-  }, [searchValue.length, selectedData]);
+  }, [searchValue, selectedData]);
 
   const handleOnIconClick = event => {
     toggleSelector();
@@ -46,7 +51,7 @@ export default function LocationSelector({
     setSearchValue(event.target.value);
   };
 
-  const selectCity = data => {
+  const onOptionClick = data => {
     setSelectedData(data);
     setSelectorIsOpen(false);
   };
@@ -69,10 +74,10 @@ export default function LocationSelector({
           dataRef={selectedData && selectedData.Ref}
         />
         {selectorIsOpen && data.length > 0 && (
-          <LocationList data={data} onClick={selectCity} {...props} />
+          <LocationList data={data} onClick={onOptionClick} />
         )}
       </div>
-      {withHotOptions && <HotOptions onClick={selectCity} />}
+      {withHotOptions && <HotOptions onClick={onOptionClick} />}
     </>
   );
 }
