@@ -33,7 +33,6 @@ export default function DeliveryWarehouse({
     const value = targetWarehouse ? targetWarehouse.toLowerCase() : '';
 
     const response = await findWarehouse(value, cityRef, postMachine);
-    console.log(response);
 
     if (!response) {
       return;
@@ -46,8 +45,6 @@ export default function DeliveryWarehouse({
         : point.TypeOfWarehouse !== 'f9316480-5f2d-425d-bc2c-ac7cd29decf0' &&
           point.TypeOfWarehouse !== '95dc212d-479c-4ffb-a8ab-8c1b9073d0bc'
     );
-
-    console.log('result :>> ', result);
 
     setWarehouses(result);
   }

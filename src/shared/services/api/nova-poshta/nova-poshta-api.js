@@ -66,8 +66,6 @@ export const findWarehouse = async (searchValue, cityRef, postMachine) => {
   try {
     const valueIsNumber = isNumericString(searchValue);
 
-    console.log('valueIsNumber :>> ', valueIsNumber);
-
     const bodyTemplate = {
       apiKey: API_KEY,
       modelName: 'Address',
@@ -86,8 +84,6 @@ export const findWarehouse = async (searchValue, cityRef, postMachine) => {
       },
     };
 
-    console.log('bodyTemplate :>> ', bodyTemplate);
-
     const body = JSON.stringify(bodyTemplate);
 
     const { data } = await axios.post(NOVA_POSHTA_API, body);
@@ -103,9 +99,3 @@ export const findWarehouse = async (searchValue, cityRef, postMachine) => {
     console.log(error.message);
   }
 };
-
-console.log(findCity('льв'));
-
-findWarehouse('Город', 'Львів', 'e71abb60-4b33-11e4-ab6d-005056801329').then(
-  () => console.log()
-);

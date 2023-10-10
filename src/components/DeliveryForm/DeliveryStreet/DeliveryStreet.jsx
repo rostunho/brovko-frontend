@@ -67,7 +67,7 @@ export default function DeliveryStreet({ cityRef, handleData }) {
       {selectedStreetData?.Present && (
         <div className={styles['inner-container']}>
           <Input
-            type="number"
+            type="text"
             labelClassName={styles.building}
             label="Будинок"
             length="md"
@@ -75,7 +75,7 @@ export default function DeliveryStreet({ cityRef, handleData }) {
           />
           {building && (
             <Input
-              type="number"
+              type="text"
               label="Квартира"
               length="md"
               onChange={handleApartment}
