@@ -3,7 +3,7 @@ import { findWarehouse } from 'shared/services/api';
 import { LocationSelector } from 'shared/components/LocationSelector';
 
 export default function DeliveryWarehouse({ handleData, cityName, cityRef }) {
-  const [warehouses, setWarehouses] = useState(['A', 'B', 'C']);
+  const [warehouses, setWarehouses] = useState([]);
   const [targetWarehouse, setTargetWarehouse] = useState('');
   const [selectedWarehouseData, setSelectedWarehouseData] = useState(null);
 
@@ -34,7 +34,13 @@ export default function DeliveryWarehouse({ handleData, cityName, cityRef }) {
       return;
     }
 
-    setWarehouses(response);
+    const result = response.filter(
+      point =>
+        point.TypeOfWarehouse !== 'f9316480-5f2d-425d-bc2c-ac7cd29decf0' &&
+        point.TypeOfWarehouse !== '95dc212d-479c-4ffb-a8ab-8c1b9073d0bc'
+    ); // Відсікаємо поштомати Нової Пошти і Приватбанку
+
+    setWarehouses(result);
   }
 
   const extractTargetWarehouse = data => {

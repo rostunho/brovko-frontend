@@ -22,7 +22,7 @@ export default function LocationList({
       {options.map(option => {
         return (
           <label key={i++} className={styles.label}>
-            {option.Present}
+            {!deliveryPoint ? option.Present : option.Description}
             <input
               type="radio"
               name="option"
