@@ -63,6 +63,14 @@ export default function DeliveryForm() {
             cityRef={city.Ref}
           />
         )}
+        {deliveryMethod?.method === 'postMachine' && city?.Ref && (
+          <DeliveryWarehouse
+            handleData={handleWarehouseData}
+            // cityName={city.MainDescription}
+            cityRef={city.Ref}
+            postMachine
+          />
+        )}
         <button type="submit" style={{ marginTop: '100px' }}>
           TEST SUBMIT
         </button>

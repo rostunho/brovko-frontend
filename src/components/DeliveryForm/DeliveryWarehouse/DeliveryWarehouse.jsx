@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react';
 import { findWarehouse } from 'shared/services/api';
 import { LocationSelector } from 'shared/components/LocationSelector';
 
-export default function DeliveryWarehouse({ handleData, cityName, cityRef }) {
+export default function DeliveryWarehouse({
+  handleData,
+  cityName,
+  cityRef,
+  postMachine,
+}) {
   const [warehouses, setWarehouses] = useState([]);
   const [targetWarehouse, setTargetWarehouse] = useState('');
   const [selectedWarehouseData, setSelectedWarehouseData] = useState(null);
@@ -27,18 +32,22 @@ export default function DeliveryWarehouse({ handleData, cityName, cityRef }) {
 
     const value = targetWarehouse ? targetWarehouse.toLowerCase() : '';
 
-    const response = await findWarehouse(value, cityName, cityRef);
-
+    const response = await findWarehouse(value, cityRef, postMachine);
     console.log(response);
+
     if (!response) {
       return;
     }
 
-    const result = response.filter(
-      point =>
-        point.TypeOfWarehouse !== 'f9316480-5f2d-425d-bc2c-ac7cd29decf0' &&
-        point.TypeOfWarehouse !== '95dc212d-479c-4ffb-a8ab-8c1b9073d0bc'
-    ); // Відсікаємо поштомати Нової Пошти і Приватбанку
+    const result = response.filter(point =>
+      postMachine
+        ? point.TypeOfWarehouse === 'f9316480-5f2d-425d-bc2c-ac7cd29decf0' ||
+          point.TypeOfWarehouse === '95dc212d-479c-4ffb-a8ab-8c1b9073d0bc'
+        : point.TypeOfWarehouse !== 'f9316480-5f2d-425d-bc2c-ac7cd29decf0' &&
+          point.TypeOfWarehouse !== '95dc212d-479c-4ffb-a8ab-8c1b9073d0bc'
+    );
+
+    console.log('result :>> ', result);
 
     setWarehouses(result);
   }
@@ -53,7 +62,7 @@ export default function DeliveryWarehouse({ handleData, cityName, cityRef }) {
 
   return (
     <LocationSelector
-      label="Відділення Нової Пошти"
+      label={!postMachine ? 'Відділення Нової Пошти' : 'Поштомат Нової Пошти'}
       data={warehouses}
       placeholder="Вкажіть номер, або адресу"
       extractSearchValue={extractTargetWarehouse}
