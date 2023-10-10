@@ -71,9 +71,6 @@ export default function DeliveryForm() {
             postMachine
           />
         )}
-        <button type="submit" style={{ marginTop: '100px' }}>
-          TEST SUBMIT
-        </button>
       </form>
     </div>
   );
