@@ -15,7 +15,7 @@ export const getActiveCategories = async () => {
 export const addNewCategory = async body => {
   try {
     const url = `${BROVKO_API}/categories/add-category`;
-    // const url = 'http://localhost:5005/api/categories/add-category';
+    // const url = 'http://localhost:5000/api/categories/add-category';
     const data = JSON.stringify(body);
     const headers = { 'Content-Type': 'application/json' };
 

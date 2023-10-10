@@ -8,20 +8,14 @@ import Rectangle from 'components/Rectangle/Rectangle';
 import ModalProductsInBasket from 'components/ModalProductsInBasket/ModalProductsInBasket';
 
 import styles from './SharedLayout.module.scss';
+import Loader from 'components/Loader';
 
 const SharedLayout = () => {
-  const [basketIsOpen, setBasketIsOpen] = useState(true); // змінити пізніше
-
-  const closeModal = () => {
-    setBasketIsOpen(false);
-  };
   return (
     <div className={styles.layout}>
       <Header />
       <main>
-        {/* змінити пізніше */}
-        {basketIsOpen && <ModalProductsInBasket closeModal={closeModal} />}
-        <Suspense fallback={<div>Loading page...</div>}>
+      <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
         <Rectangle />

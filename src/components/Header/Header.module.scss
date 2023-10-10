@@ -25,11 +25,52 @@
   }
 }
 
+.logo {
+  padding-left: 75px;
+  padding-right: 35px;
+}
+
 .boxBasket {
   display: flex;
   gap: 8px;
 }
 
+.userIcon {
+  outline: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+}
+
 .userIcon:hover * {
   fill: var(--unnamed, #f3a610);
+}
+
+.buttonBasket {
+  position: relative;
+  outline: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+}
+
+.ellips {
+  position: absolute;
+  top: 60%;
+  left: 60%;
+}
+
+.ellipsSpan {
+  position: absolute;
+  left: 30%;
+  width: 7px;
+  color: var(--white_text, #fefefe);
+  /* Additional */
+  font-family: Nunito;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
