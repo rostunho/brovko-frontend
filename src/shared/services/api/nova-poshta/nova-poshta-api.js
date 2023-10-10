@@ -62,7 +62,7 @@ export const findStreet = async (searchValue, cityRef) => {
   }
 };
 
-export const findWarehouse = async (searchValue, cityName, cityRef) => {
+export const findWarehouse = async (searchValue, cityRef, postMachine) => {
   try {
     const valueIsNumber = isNumericString(searchValue);
 
@@ -72,9 +72,11 @@ export const findWarehouse = async (searchValue, cityName, cityRef) => {
       calledMethod: 'getWarehouses',
       methodProperties: {
         SettlementRef: cityRef,
-        CityName: cityName, // назва міста, потрібна для пошуку по вулиці
+        // CityName: cityName, // назва міста, потрібна для пошуку по вулиці
         FindByString: !valueIsNumber ? searchValue : '', // можна шукати по назві вулиці (працює в комбінації із CityName)
-        TypeOfWarehouseRef: '841339c7-591a-42e2-8233-7a0a00f0ed6f', // поштове відділення
+        TypeOfWarehouseRef: postMachine
+          ? 'f9316480-5f2d-425d-bc2c-ac7cd29decf0'
+          : '',
         Page: '1',
         Limit: '50',
         Language: 'UA',
@@ -83,6 +85,7 @@ export const findWarehouse = async (searchValue, cityName, cityRef) => {
     };
 
     const body = JSON.stringify(bodyTemplate);
+
     const { data } = await axios.post(NOVA_POSHTA_API, body);
 
     //якщо масив помилок не порожній, викидаємо помилку з нативним повідомленням
@@ -91,8 +94,7 @@ export const findWarehouse = async (searchValue, cityName, cityRef) => {
     }
     //..
 
-    const streets = data.data[0];
-    return streets;
+    return data.data;
   } catch (error) {
     console.log(error.message);
   }

@@ -17,7 +17,7 @@ export default function LocationList({ data = [], onClick, ...props }) {
       {options.map(option => {
         return (
           <label key={i++} className={styles.label}>
-            {option.Present}
+            {option.Present || option.Description}
             <input
               type="radio"
               name="option"

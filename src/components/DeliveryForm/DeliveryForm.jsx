@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Heading from 'shared/components/Heading';
 import DeliveryCity from './DeliveryCity';
 import DeliveryStreet from './DeliveryStreet';
+import DeliveryWarehouse from './DeliveryWarehouse';
 import DeliveryMethod from './DeliveryMethod';
 import styles from './DeliveryForm.module.scss';
 
@@ -10,6 +11,7 @@ export default function DeliveryForm() {
   const [street, setStreet] = useState(null);
   const [building, setBuilding] = useState(null);
   const [apartment, setApartment] = useState(null);
+  const [warehouse, setWarehouse] = useState(null);
   const [deliveryMethod, setDeliveryMethod] = useState(null);
 
   const handleCityData = data => {
@@ -20,6 +22,10 @@ export default function DeliveryForm() {
     setStreet(streetData);
     setBuilding(building);
     setApartment(apartment);
+  };
+
+  const handleWarehouseData = data => {
+    setWarehouse(data);
   };
 
   const handleDeliveryMethod = data => {
@@ -38,7 +44,6 @@ export default function DeliveryForm() {
         }}
       >
         <DeliveryCity handleData={handleCityData} />
-
         <DeliveryMethod handleDeliveryMethod={handleDeliveryMethod} />
         {/* {deliveryMethod?.method === 'address' && (
           <StreetSelector
@@ -51,7 +56,21 @@ export default function DeliveryForm() {
         {deliveryMethod?.method === 'address' && city?.Ref && (
           <DeliveryStreet cityRef={city.Ref} handleData={handleStreetData} />
         )}
-
+        {deliveryMethod?.method === 'warehouse' && city?.Ref && (
+          <DeliveryWarehouse
+            handleData={handleWarehouseData}
+            cityName={city.MainDescription}
+            cityRef={city.Ref}
+          />
+        )}
+        {deliveryMethod?.method === 'postMachine' && city?.Ref && (
+          <DeliveryWarehouse
+            handleData={handleWarehouseData}
+            // cityName={city.MainDescription}
+            cityRef={city.Ref}
+            postMachine
+          />
+        )}
         <button type="submit" style={{ marginTop: '100px' }}>
           TEST SUBMIT
         </button>

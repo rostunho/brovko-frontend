@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { addNewCategory } from 'shared/services/categories';
+import { addNewCategory } from 'shared/services/api/brovko/categories';
 import Modal from 'shared/components/Modal/Modal';
 import Heading from 'shared/components/Heading';
 import Selector from 'shared/components/Selector';

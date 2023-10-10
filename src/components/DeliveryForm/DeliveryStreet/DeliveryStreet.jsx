@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { findStreet } from 'shared/services/nova-poshta-api';
+import { findStreet } from 'shared/services/api/nova-poshta/nova-poshta-api';
 import { LocationSelector } from 'shared/components/LocationSelector';
 import Input from 'shared/components/Input';
 import styles from './DeliveryStreet.module.scss';
@@ -59,7 +59,7 @@ export default function DeliveryStreet({ cityRef, handleData }) {
       <LocationSelector
         data={streets}
         label="Оберіть вулицю"
-        placeholder="Вкажіть"
+        placeholder="Вкажіть назву вулиці"
         extractSearchValue={extractTargetStreet}
         extractData={extractStreetData}
       />
@@ -67,7 +67,7 @@ export default function DeliveryStreet({ cityRef, handleData }) {
       {selectedStreetData?.Present && (
         <div className={styles['inner-container']}>
           <Input
-            type="number"
+            type="text"
             labelClassName={styles.building}
             label="Будинок"
             length="md"
@@ -75,7 +75,7 @@ export default function DeliveryStreet({ cityRef, handleData }) {
           />
           {building && (
             <Input
-              type="number"
+              type="text"
               label="Квартира"
               length="md"
               onChange={handleApartment}

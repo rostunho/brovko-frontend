@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import * as api from 'shared/services/products';
+import * as api from 'shared/services/api/brovko/products';
 
 export const fetchAllProducts = createAsyncThunk(
   'products/fetch-all',
