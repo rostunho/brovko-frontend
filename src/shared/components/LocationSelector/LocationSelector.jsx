@@ -68,7 +68,9 @@ export default function LocationSelector({
           onClick={handleOnIconClick}
           dataRef={selectedData && selectedData.Ref}
         />
-        {selectorIsOpen && <LocationList data={data} onClick={selectCity} />}
+        {selectorIsOpen && (
+          <LocationList data={data} onClick={selectCity} {...props} />
+        )}
       </div>
       {withHotOptions && <HotOptions onClick={selectCity} />}
     </>

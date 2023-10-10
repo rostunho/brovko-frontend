@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
-import { addNewProduct } from 'shared/services/products';
-import { getActiveCategories } from 'shared/services/categories';
+// import { addNewProduct } from 'shared/services/products';
+// import { getActiveCategories } from 'shared/services/api/brovko/categories';
+import { addNewProduct, getActiveCategories } from 'shared/services/api';
 import Heading from 'shared/components/Heading';
 import OldInput from 'shared/components/OldInput';
 import Selector from 'shared/components/Selector/Selector';

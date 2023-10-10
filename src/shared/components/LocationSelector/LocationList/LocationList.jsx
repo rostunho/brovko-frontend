@@ -4,7 +4,12 @@ import largestCities from '../largestCities';
 
 import styles from './LocationList.module.scss';
 
-export default function LocationList({ data = [], onClick, ...props }) {
+export default function LocationList({
+  data = [],
+  onClick,
+  deliveryPoint,
+  ...props
+}) {
   const [options, setOptions] = useState(data);
   let i = 0;
 

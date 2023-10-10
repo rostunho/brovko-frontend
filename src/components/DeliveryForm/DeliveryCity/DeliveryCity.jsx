@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { findCity } from 'shared/services/nova-poshta-api';
+import { findCity } from 'shared/services/api/nova-poshta/nova-poshta-api';
 import { LocationSelector } from 'shared/components/LocationSelector';
 
 export default function DeliveryCity({ handleData }) {

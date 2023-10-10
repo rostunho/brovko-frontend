@@ -21,6 +21,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
+        <Route index element={<Navigate to="/main" />} />
         <Route path="/main" element={<LazyMainPage />} />
 
         <Route path="/all/*" element={<AllUsersRoutes />} />
