@@ -32,7 +32,7 @@ function App() {
 
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/order" element={<OrderPage />}>
-          <Route index element={<Navigate to="/order/login" />} />
+          <Route index element={<Navigate to="/order/login" replace />} />
           <Route
             path="login"
             element={<AuthFormWrapper form={<LoginForm />} />}

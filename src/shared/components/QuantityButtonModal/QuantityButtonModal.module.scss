@@ -1,21 +1,25 @@
 .wrapper-allproduct {
   display: flex;
   justify-content: space-between;
-  padding-left: 16px;
-  padding-right: 12px;
-  padding-bottom: 20px;
+  // padding-left: 16px;
+  // padding-right: 12px;
+  // padding-bottom: 20px;
 }
 
 .wrapper-quantityblock {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   height: 80px;
-  padding-left: 12px;
-  padding-bottom: 4px;
+  margin-left: 12px;
+  // padding-bottom: 4px;
 }
 
 .wrapper-imageblock {
   width: 80px;
   height: 80px;
   border-radius: 12px;
+  overflow: hidden;
 
   /* Shadow for cards */
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
@@ -94,15 +98,19 @@
 .wrapper-basketblock {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-left: auto;
 }
 
 .total {
   color: var(--Black, #191c2c);
-  padding-top: 38px;
+  // padding-top: 38px;
   /* Main */
   font-family: Nunito;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  margin-bottom: 3px;
 }

@@ -1,5 +1,7 @@
 .line-container {
   position: relative;
+  width: 100%;
+  height: 5px;
 
   .line {
     position: absolute;
@@ -9,7 +11,7 @@
     width: 100%;
     height: 5px;
     background: radial-gradient(
-      49.53% 49.53% at 50% -22.43%,
+      50% 49.53% at 50% -22.43%,
       #f3a610 0%,
       rgba(243, 166, 16, 0) 100%
     );

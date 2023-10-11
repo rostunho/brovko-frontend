@@ -1,18 +1,13 @@
-.container {
-  padding-bottom: 64px;
-}
-
-.textTotal {
+.text-total {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 18px;
+  padding-bottom: 20px;
 }
 
 .text-sum {
   color: var(--Black, #191c2c);
-  /* h3 */
-  font-family: Nunito;
+  font-family: 'Nunito', sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -24,11 +19,18 @@
 
 .total {
   color: var(--Black, #191c2c);
-  /* h3 */
-  font-family: Nunito;
+  font-family: 'Nunito', sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  padding-right: 16px;
+  //   padding-right: 16px;
+}
+
+.list {
+  padding-bottom: 32px;
+}
+
+li:not(:last-child) {
+  margin-bottom: 20px;
 }
