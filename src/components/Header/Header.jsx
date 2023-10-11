@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { getAllOrders } from 'redux/basket/basketSelectors';
 import Logo from 'shared/icons/Logo';
 import Navigation from 'components/Navigation/Navigation';
@@ -18,6 +18,7 @@ export default function Header() {
     window.innerWidth >= 768 && window.innerWidth < 1280
   );
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,12 +34,20 @@ export default function Header() {
 
   const [basketIsOpen, setBasketIsOpen] = useState(false);
 
+  const handleOnClick = () => {
+    !pathname.includes('order') ? openModal() : scrollToBottom();
+  };
+
   const openModal = () => {
     setBasketIsOpen(true);
   };
 
   const closeModal = () => {
     setBasketIsOpen(false);
+  };
+
+  const scrollToBottom = () => {
+    window.scrollBy({ top: 86, behavior: 'smooth' });
   };
 
   return (
@@ -62,7 +71,7 @@ export default function Header() {
           </Link>
           <button
             type="button"
-            onClick={openModal}
+            onClick={handleOnClick}
             className={styles.buttonBasket}
           >
             <BasketLight />

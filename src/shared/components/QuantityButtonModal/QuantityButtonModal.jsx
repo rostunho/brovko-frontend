@@ -54,7 +54,7 @@ const QuantityButtonModal = ({
 
         <p className={styles['total']}>
           {currentPrice || 0}
-          <span>₴</span>
+          <span> ₴</span>
         </p>
       </div>
     </div>
