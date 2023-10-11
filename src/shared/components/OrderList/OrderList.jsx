@@ -20,7 +20,7 @@ export default function OrderList({ totalLabel, lastCheck }) {
 
   const orderList = Array.isArray(orders)
     ? orders.map(({ _id, name, note, picture, price, value }) => (
-        <li key={_id}>
+        <li key={_id} className={styles.item}>
           <QuantityButtonModal
             id={_id}
             name={name}
