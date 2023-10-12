@@ -75,10 +75,12 @@ export default function Header() {
             className={styles.buttonBasket}
           >
             <BasketLight />
-            <div className={styles.ellips}>
-              <Ellipse />
-              <span className={styles.ellipsSpan}>{orders.length}</span>
-            </div>
+            {orders.length !== 0 && (
+              <div className={styles.ellips}>
+                <Ellipse />
+                <span className={styles.ellipsSpan}>{orders.length}</span>
+              </div>
+            )}
           </button>
           {basketIsOpen && <ModalProductsInBasket closeModal={closeModal} />}
         </div>

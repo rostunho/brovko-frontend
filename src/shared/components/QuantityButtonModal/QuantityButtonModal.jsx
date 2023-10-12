@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 
 import { deleteOrder, changeQuantity } from 'redux/basket/basketSlice';
 
+import ModalDelete from 'components/ModalDelete/ModalDelete';
+
 import styles from './QuantityButtonModal.module.scss';
 
 const QuantityButtonModal = ({
@@ -16,6 +18,8 @@ const QuantityButtonModal = ({
   price,
   currencyId,
   val,
+  setModalDelete,
+  setOrderId,
 }) => {
   const [value, setValue] = useState(val || 1);
   const currentPrice = price * value;
@@ -23,7 +27,9 @@ const QuantityButtonModal = ({
   const dispatch = useDispatch();
 
   const hahdleBasketClick = () => {
-    dispatch(deleteOrder());
+    setOrderId(id);
+    setModalDelete(true);
+    // dispatch(deleteOrder());
   };
 
   useEffect(() => {
