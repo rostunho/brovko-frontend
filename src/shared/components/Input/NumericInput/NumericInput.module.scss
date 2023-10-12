@@ -13,14 +13,31 @@ input.input--metric {
   padding-right: 24px;
 }
 
+.currency + input {
+  padding-right: 36px;
+}
+
 .input--metric-length-md {
   position: absolute;
-  top: 40px;
+  // top: 40px;
+  bottom: 4px;
   right: 8px;
+  color: #a3a5a4;
 }
 
 .input--metric-length-sm {
   position: absolute;
-  top: 40px;
+  // top: 40px;
+  bottom: 4px;
   right: 8px;
+  color: #a3a5a4;
+}
+
+.currency {
+  position: absolute;
+  // top: 43px;
+  bottom: 4px;
+  right: 8px;
+  font-size: 12px;
+  color: #a3a5a4;
 }

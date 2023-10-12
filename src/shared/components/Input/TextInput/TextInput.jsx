@@ -1,11 +1,11 @@
-import { type } from '@testing-library/user-event/dist/type';
 import { useState, useEffect } from 'react';
 
 export default function TextInput({ rootStateHandling, ...props }) {
   const { type, onChange } = props;
   const { valueRef, updateRootValue } = rootStateHandling;
   const [localValue, setLocalValue] = useState('');
-  // console.log(localValue);
+
+  console.log('TEXT-INPUT RERENDERING');
 
   useEffect(() => {
     valueRef.current = localValue;
@@ -24,7 +24,6 @@ export default function TextInput({ rootStateHandling, ...props }) {
       onChange={handleOnChange}
       inputMode="text"
       data-type={type}
-      aria-label="Номер телефону"
     />
   );
 }

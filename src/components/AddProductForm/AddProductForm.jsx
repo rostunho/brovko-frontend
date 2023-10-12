@@ -1,9 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
-// import { addNewProduct } from 'shared/services/products';
-// import { getActiveCategories } from 'shared/services/api/brovko/categories';
 import { addNewProduct, getActiveCategories } from 'shared/services/api';
 import Heading from 'shared/components/Heading';
+
 import OldInput from 'shared/components/OldInput';
+
+import Input from 'shared/components/Input';
 import Selector from 'shared/components/Selector/Selector';
 import AddCategoryPopup from 'components/AddCategoryPopup/AddCategoryPopup';
 import Button from 'shared/components/Button/Button';
@@ -75,13 +76,13 @@ export default function AddProductForm() {
     <div className={styles.container}>
       <Heading withGoBack>Додати новий товар</Heading>
       <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
-        <OldInput
+        <Input
           label="Назва :"
           name="name"
-          onChange={e => dispatchRequestBody(e, 'ADD_NAME')}
+          onBlur={e => dispatchRequestBody(e, 'ADD_NAME')}
         />
 
-        <OldInput
+        <Input
           label="Назва для документів :"
           name="nameForDocuments"
           onChange={e => dispatchRequestBody(e, 'ADD_NAME_FOR_DOCS')}
@@ -108,24 +109,26 @@ export default function AddProductForm() {
         )}
 
         <div className={styles.innerContainer}>
-          <OldInput
+          <Input
+            type="number"
             label="Ціна :"
             name="costPerItem"
-            onChange={e => dispatchRequestBody(e, 'ADD_PRICE')}
             length="md"
+            currency="UAH"
+            onChange={e => dispatchRequestBody(e, 'ADD_PRICE')}
           />
-          <OldInput
+          <Input
+            type="number"
             label="Cобівартість :"
             name="expenses"
             length="md"
+            currency="UAH"
             onChange={e => dispatchRequestBody(e, 'ADD_EXPENSES')}
           />
         </div>
 
-        <div
-          className={`${styles.innerContainer} ${styles.innerContainer_single}`}
-        >
-          <OldInput
+        <div className={`${styles.innerContainer} `}>
+          <Input
             label="Знижка :"
             name="discount-value"
             onChange={e => dispatchRequestBody(e, 'ADD_DISCOUNT_VALUE')}
@@ -137,16 +140,16 @@ export default function AddProductForm() {
         </div>
 
         <div className={styles.dates}>
-          <OldInput
-            // type="date"
+          <Input
+            type="date"
             label="Період знижки :"
             name="discount-date_start"
             onChange={e => dispatchRequestBody(e, 'ADD_DISCOUNT_START')}
             length="md"
             icon={<CalendarIcon />}
           />
-          <OldInput
-            // type="date"
+          <Input
+            type="date"
             name="discount-date_end"
             onChange={e => dispatchRequestBody(e, 'ADD_DISCOUNT_END')}
             length="md"
@@ -154,35 +157,36 @@ export default function AddProductForm() {
           />
         </div>
 
-        <OldInput
+        <Input
           label="Постачальник :"
           name="supplier"
           onChange={e => dispatchRequestBody(e, 'ADD_SUPPLIER')}
         />
 
-        <OldInput
+        <Input
           label="Виробник :"
           name="manufacturer"
           onChange={e => dispatchRequestBody(e, 'ADD_MANUFACTURER')}
         />
 
         <div className={styles.innerContainer}>
-          <OldInput
+          <Input
             label="SKU :"
             name="sku"
             length="md"
             onChange={e => dispatchRequestBody(e, 'ADD_SKU')}
           />
-          <OldInput
+          <Input
+            type="number"
             label="Вага :"
             name="weight"
             onChange={e => dispatchRequestBody(e, 'ADD_WEIGHT')}
             length="md"
-            metric="кг"
+            metrical="кг"
           />
         </div>
 
-        <OldInput
+        <Input
           label="Штрихкод :"
           name="barcode"
           length="md"
@@ -192,45 +196,50 @@ export default function AddProductForm() {
         <div
           className={`${styles.innerContainer} ${styles.innerContainer_tripple}`}
         >
-          <OldInput
+          <Input
+            type="number"
             label="Висота :"
             name="height"
             onChange={e => dispatchRequestBody(e, 'ADD_HEIGHT')}
             length="sm"
-            metric="см"
+            metrical="см"
           />
-          <OldInput
+          <Input
+            type="number"
             label="Довжина :"
             name="length"
             onChange={e => dispatchRequestBody(e, 'ADD_LENGTH')}
             length="sm"
-            metric="см"
+            metrical="см"
           />
-          <OldInput
+          <Input
+            type="number"
             label="Ширина :"
             name="width"
             onChange={e => dispatchRequestBody(e, 'ADD_WIDTH')}
             length="sm"
-            metric="см"
+            metrical="см"
           />
         </div>
 
         <div
           className={`${styles.innerContainer} ${styles.innerContainer_single}`}
         >
-          <OldInput
+          <Input
+            type="number"
             label="Розмір :"
             name="volume"
             value={productSize}
             length="md"
-            metric="м3"
+            metrical="м3"
+            readOnly
           />
         </div>
 
         <div
           className={`${styles.innerContainer} ${styles.innerContainer_single}`}
         >
-          <OldInput
+          <Input
             label="ID товару :"
             name="id"
             length="md"
@@ -238,7 +247,7 @@ export default function AddProductForm() {
           />
         </div>
 
-        <OldInput
+        <Input
           label="Сторінка на сайті :"
           name="url"
           onChange={e => dispatchRequestBody(e, 'ADD_URL')}
@@ -246,7 +255,7 @@ export default function AddProductForm() {
           link="http://localhost:3000/main" // to change later
         />
 
-        <OldInput
+        <Input
           label="Нотатка :"
           name="note"
           onChange={e => dispatchRequestBody(e, 'ADD_NOTE')}
@@ -259,14 +268,14 @@ export default function AddProductForm() {
           rows="3"
         />
 
-        <OldInput
+        <Input
           label="Ярлики :"
           name="name"
           onChange={() => {}} // add new function
           icon={<SettingsWheelIcon unfilled />}
         />
 
-        <OldInput label="Комплект" type="checkbox" />
+        <Input label="Комплект" type="checkbox" />
 
         <Button mode="settings" size="sm">
           Додаткові ціни

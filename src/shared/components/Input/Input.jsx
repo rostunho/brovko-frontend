@@ -25,6 +25,7 @@ export default function Input({
   onBlur,
   //   метричні одиниці "кг", "км", тощо (якщо потрібні)
   metrical,
+  currency,
   pattern,
   validateStatus,
   ...props
@@ -38,6 +39,8 @@ export default function Input({
   const rootStateHandling = { valueRef, updateRootValue };
   const isCheckbox = type === 'checkbox';
   const isRadio = type === 'radio';
+
+  console.log('INPUT RERENDERING');
 
   useEffect(handleValidation, [validateStatus, validationChecking]);
 
@@ -174,7 +177,7 @@ export default function Input({
         {label}
         <InputElement
           type={type}
-          value={rootValue}
+          value={value || rootValue} // перевірити, чи не вплине на інші інпути
           className={`${styles.input} ${
             additionalClassCondition ? '' : styles[`${additionalClass}`]
           } ${inputClassName ? inputClassName : ''}`}
@@ -186,6 +189,7 @@ export default function Input({
           onBlur={handleOnBlur}
           length={length}
           metrical={metrical}
+          currency={currency}
           error={error}
           rootStateHandling={rootStateHandling} // об'єкт з інструментами для оновлення головного стейту
           {...props}

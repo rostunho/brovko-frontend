@@ -3,7 +3,8 @@ import { toPhoneFormat, parsePhoneNumber } from 'utils';
 import styles from './NumericInput.module.scss';
 
 export default function NumericInput({ rootStateHandling, ...props }) {
-  const { type, placeholder, metrical, length, className, onChange } = props;
+  const { type, placeholder, metrical, currency, length, className, onChange } =
+    props;
   const { valueRef, updateRootValue } = rootStateHandling;
 
   const phonePrefix = '+380';
@@ -13,6 +14,7 @@ export default function NumericInput({ rootStateHandling, ...props }) {
   const [numberValue, setNumberValue] = useState('');
   const [metricClassName, setMetricClassName] = useState('');
   const showMetricalParams = metrical && length !== 'lg';
+  const showCurrencyParams = currency && length !== 'lg';
 
   // type="tel" handling
   useEffect(() => {
@@ -35,6 +37,7 @@ export default function NumericInput({ rootStateHandling, ...props }) {
   }, [numberValue, type, updateRootValue, valueRef]);
 
   // generating of className of metric data
+  // прибрати, якщо в підсумку стилі середнього і короткого інтпутів не відрізнятимуться
   useEffect(() => {
     switch (length) {
       case 'lg':
@@ -87,13 +90,11 @@ export default function NumericInput({ rootStateHandling, ...props }) {
 
   const disableBackKeys = event => {
     const { selectedStart, selectedEnd } = event.target;
-
     event.key === 'Backspace' &&
       inputValue === phonePrefix &&
       selectedStart > 6 &&
       selectedStart === selectedEnd &&
       event.preventDefault();
-
     event.key === 'ArrowLeft' &&
       inputValue.length <= 4 &&
       event.preventDefault();
@@ -102,13 +103,10 @@ export default function NumericInput({ rootStateHandling, ...props }) {
   const allowCharacters = event => {
     const keyCode = event.keyCode || event.which;
     const key = event.key;
-
     const allowedCharacters = ['+', '(', ')', ' '];
-
     if (allowedCharacters.includes(key)) {
       return;
     }
-
     if (
       (keyCode >= 48 && keyCode <= 57) || // 0-9
       (keyCode >= 37 && keyCode <= 40) || // Клавіші навігації (стрілки)
@@ -120,9 +118,7 @@ export default function NumericInput({ rootStateHandling, ...props }) {
     ) {
       return;
     }
-
     keyCode === 36 && event.target.setSelectionRange(6, 6);
-
     event.preventDefault();
   };
 
@@ -130,13 +126,15 @@ export default function NumericInput({ rootStateHandling, ...props }) {
     const { onFocus, onClick } = props;
     onFocus && onFocus();
     onClick && onClick();
-
     const { selectionStart } = event.target;
     selectionStart < 6 && event.target.setSelectionRange(6, 6);
   };
 
   return (
     <>
+      {showCurrencyParams && (
+        <span className={styles.currency}>{currency}</span>
+      )}
       <input
         {...props}
         type={type === 'number' ? 'text' : 'tel'}
@@ -158,7 +156,7 @@ export default function NumericInput({ rootStateHandling, ...props }) {
       />
       {showMetricalParams && (
         <span className={styles[metricClassName]}>
-          {metrical === 'm3' ? 'м³' : metrical}
+          {metrical === 'м3' ? 'м³' : metrical}
         </span>
       )}
     </>
