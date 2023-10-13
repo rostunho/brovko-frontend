@@ -1,29 +1,26 @@
 import Button from 'shared/components/Button';
 
-import Modal from 'shared/components/Modal/Modal';
-
 import styles from './ModalBasketIsEmpty.module.scss';
 
-const ModalBasketIsEmpty = () => {
+const ModalBasketIsEmpty = ({ hendlClickReturn }) => {
   return (
     <div>
-      <Modal>
-        <p className={styles.text}>Ваш кошик порожній</p>
-        <div className={styles.wrapperButton}>
-          <Button
-            mode="primary"
-            size="lg"
-            style={{
-              paddingLeft: 16,
-              paddingRight: 16,
-              paddingTop: 10,
-              paddingBottom: 10,
-            }}
-          >
-            Повернутись до покупок
-          </Button>
-        </div>
-      </Modal>
+      <p className={styles.text}>Ваш кошик порожній</p>
+      <div className={styles.wrapperButton}>
+        <Button
+          onClick={hendlClickReturn}
+          mode="primary"
+          size="lg"
+          style={{
+            paddingLeft: 16,
+            paddingRight: 16,
+            paddingTop: 10,
+            paddingBottom: 10,
+          }}
+        >
+          Повернутись до покупок
+        </Button>
+      </div>
     </div>
   );
 };

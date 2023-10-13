@@ -1,19 +1,33 @@
+import { useDispatch } from 'react-redux';
 import Button from 'shared/components/Button';
-
-import Modal from 'shared/components/Modal/Modal';
+import { deleteOrder } from 'redux/basket/basketSlice';
 
 import styles from './ModalDelete.module.scss';
 
-const ModalDelete = () => {
+const ModalDelete = ({ setModalDelete, orderId }) => {
+  console.log('orderId', orderId);
+  const dispatch = useDispatch();
+
+  const hahdleBasketDel = () => {
+    dispatch(deleteOrder(orderId));
+    setModalDelete(false);
+  };
+
+  const hahdleBasketClose = () => {
+    setModalDelete(false);
+  };
+
   return (
     <div>
-      <Modal>
-        <p className={styles.text}>Видалити цей товар з кошику?</p>
-        <div className={styles.wrapperButton}>
-          <Button mode="outlined">Скасувати</Button>
-          <Button mode="primary">Так</Button>
-        </div>
-      </Modal>
+      <p className={styles.text}>Видалити цей товар з кошику?</p>
+      <div className={styles.wrapperButton}>
+        <Button mode="outlined" onClick={hahdleBasketClose}>
+          Скасувати
+        </Button>
+        <Button mode="primary" onClick={hahdleBasketDel}>
+          Так
+        </Button>
+      </div>
     </div>
   );
 };

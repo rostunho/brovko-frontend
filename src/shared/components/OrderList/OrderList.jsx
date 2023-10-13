@@ -6,7 +6,12 @@ import Heading from '../Heading';
 import Rectangle from 'components/Rectangle/Rectangle';
 import styles from './OrderList.module.scss';
 
-export default function OrderList({ totalLabel, lastCheck }) {
+export default function OrderList({
+  totalLabel,
+  lastCheck,
+  setModalDelete,
+  setOrderId,
+}) {
   const orders = useSelector(getAllOrders);
   const [totalAmount, setTotalAmount] = useState(0);
 
@@ -28,6 +33,8 @@ export default function OrderList({ totalLabel, lastCheck }) {
             picture={picture}
             price={price}
             val={value}
+            setModalDelete={setModalDelete}
+            setOrderId={setOrderId}
           />
         </li>
       ))

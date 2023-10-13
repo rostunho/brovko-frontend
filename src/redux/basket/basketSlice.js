@@ -8,7 +8,7 @@ const basketSlice = createSlice({
       state.push(action.payload);
     },
     deleteOrder(state, action) {
-      const index = state.findIndex(task => task.id === action.payload);
+      const index = state.findIndex(task => task._id === action.payload);
       state.splice(index, 1);
     },
     changeQuantity(state, action) {
