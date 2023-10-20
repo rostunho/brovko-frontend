@@ -37,7 +37,7 @@ export default function Input({
   const isCheckbox = type === 'checkbox';
   const isRadio = type === 'radio';
 
-  console.log('INPUT RERENDERING');
+  // console.log('INPUT RERENDERING');
 
   useEffect(handleValidation, [validateStatus, validationChecking]);
 
