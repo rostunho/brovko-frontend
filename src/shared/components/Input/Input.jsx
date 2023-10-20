@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { validateInputValue } from 'utils';
 import { errorMessages } from './errorMessages';
 import InputElement from './InputElement';
 import Text from '../Text/Text';
-// import WarningIcon from 'shared/icons/WarningIcon';
+import WarningIcon from 'shared/icons/WarningIcon';
 import styles from './Input.module.scss';
 
 export default function Input({
@@ -30,28 +30,16 @@ export default function Input({
   validateStatus,
   ...props
 }) {
-  const [rootValue, setRootValue] = useState('');
   const [validationChecking, setValidationChecking] = useState('pending');
   const [additionalClass, setAdditionalClass] = useState('');
   const [error, setError] = useState({ message: '' });
   const [checkBoxIsChecked, setCheckBoxIsChecked] = useState(false);
-  const valueRef = useRef('');
-  const rootStateHandling = { valueRef, updateRootValue };
   const isCheckbox = type === 'checkbox';
   const isRadio = type === 'radio';
 
   console.log('INPUT RERENDERING');
 
   useEffect(handleValidation, [validateStatus, validationChecking]);
-
-  useEffect(() => {
-    value && setRootValue(value);
-  }, [value]);
-
-  function updateRootValue() {
-    setRootValue('');
-    setRootValue(valueRef.current);
-  }
 
   function handleValidation() {
     switch (validationChecking) {
@@ -84,14 +72,13 @@ export default function Input({
     if (
       event.target.dataset.type === 'text' ||
       event.target.dataset.type === 'search' ||
-      event.target.dataset.type === 'search' ||
       event.target.dataset.type === 'date'
     ) {
       return;
     }
 
     // не валідуємо, якщо інпут порожній
-    if (!rootValue) {
+    if (!event.target.value && event.target.dataset.type !== 'checkbox') {
       return;
     }
 
@@ -100,7 +87,7 @@ export default function Input({
       return;
     }
 
-    if (rootValue.length <= 8) {
+    if (event.target.value.length <= 8) {
       setValidationChecking('pending');
     }
 
@@ -113,6 +100,9 @@ export default function Input({
       setErrorMessage('');
       setValidationChecking('isValid');
     }
+    // console.log('event.target.value :>> ', event.target.value);
+    // console.log('event.target.dataset.type :>> ', event.target.dataset.type);
+    // console.log('event.target.checked :>> ', event.target.checked);
   };
 
   const handleOnFocus = event => {
@@ -135,7 +125,7 @@ export default function Input({
     }
 
     // не валідуємо, якщо інпут порожній
-    if (!rootValue) {
+    if (!event.target.value) {
       return;
     }
 
@@ -177,7 +167,7 @@ export default function Input({
         {label}
         <InputElement
           type={type}
-          value={value || rootValue} // перевірити, чи не вплине на інші інпути
+          value={value} // перевірити, чи не вплине на інші інпути
           className={`${styles.input} ${
             additionalClassCondition ? '' : styles[`${additionalClass}`]
           } ${inputClassName ? inputClassName : ''}`}
@@ -191,10 +181,9 @@ export default function Input({
           metrical={metrical}
           currency={currency}
           error={error}
-          rootStateHandling={rootStateHandling} // об'єкт з інструментами для оновлення головного стейту
           {...props}
         />
-        {/* <WarningIcon className={styles['warning-icon']} /> */}
+        {error.message && <WarningIcon className={styles['warning-icon']} />}
         {error.message && (
           <Text type="error" className={styles['input-error']}>
             {error.message}

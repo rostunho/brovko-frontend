@@ -40,7 +40,7 @@ export const addNewProduct = async body => {
     const headers = { 'Content-Type': 'application/json' };
 
     const response = await axios.post(url, data, { headers });
-    console.log('Post request response:', response.data);
+    console.log('Post request response:', response);
     console.log(response.data.message);
     return response.data;
   } catch (error) {

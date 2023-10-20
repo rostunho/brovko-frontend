@@ -5,23 +5,13 @@ import CalendarIcon from 'shared/icons/CalendarIcon';
 import SearchIcon from 'shared/icons/SearchIcon';
 import styles from './InputWithIcon.module.scss';
 
-export default function InputWithIcon({ rootStateHandling, ...props }) {
+export default function InputWithIcon({ ...props }) {
   const { type, className, onChange, onFocus, onClick } = props;
-  const { valueRef, updateRootValue } = rootStateHandling;
 
-  const [localValue, setLocalValue] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
-  useEffect(() => {
-    valueRef.current = localValue;
-    updateRootValue();
-  });
 
   const handleOnChange = event => {
     onChange && onChange(event);
-
-    const { value } = event.target;
-    setLocalValue(value);
   };
 
   const handleOnClick = event => {

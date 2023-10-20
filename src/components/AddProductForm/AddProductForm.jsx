@@ -1,9 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { addNewProduct, getActiveCategories } from 'shared/services/api';
 import Heading from 'shared/components/Heading';
-
-import OldInput from 'shared/components/OldInput';
-
 import Input from 'shared/components/Input';
 import Selector from 'shared/components/Selector/Selector';
 import AddCategoryPopup from 'components/AddCategoryPopup/AddCategoryPopup';
@@ -59,7 +56,7 @@ export default function AddProductForm() {
     const size = (Number(height) * Number(width) * Number(length)) / 1000000;
 
     setProductSize(size.toFixed(2));
-  }, [requestBody]);
+  }, [productSize, requestBody]);
 
   const handleSubmit = async event => {
     event.preventDefault();

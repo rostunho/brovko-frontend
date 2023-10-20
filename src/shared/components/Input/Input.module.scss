@@ -131,7 +131,8 @@ input.input--is-valid:focus:not(:placeholder-shown) {
 .warning-icon {
   position: absolute;
   top: 31px;
-  right: 12px;
+  right: 16px;
+  background-color: #fff;
 }
 
 .input[type='checkbox'] {
