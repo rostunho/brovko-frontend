@@ -34,13 +34,13 @@ export const deleteProductById = async id => {
 
 export const addNewProduct = async body => {
   try {
-    const url = `${BROVKO_API}/products/add-product`;
-    // const url = 'http://localhost:5000/api/products/add-product';
+    // const url = `${BROVKO_API}/products/add-product`;
+    const url = 'http://localhost:5005/api/products/add-product';
     const data = JSON.stringify(body);
     const headers = { 'Content-Type': 'application/json' };
 
     const response = await axios.post(url, data, { headers });
-    console.log('Post request response:', response.data);
+    console.log('Post request response:', response);
     console.log(response.data.message);
     return response.data;
   } catch (error) {

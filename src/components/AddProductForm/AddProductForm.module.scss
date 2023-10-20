@@ -5,16 +5,16 @@
 
 .innerContainer {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-end;
   column-gap: 12px;
   width: 100%;
 }
 
-.innerContainer_single {
-  justify-content: flex-start;
-  width: calc(50% - 6px);
-}
+// .innerContainer_single {
+//   justify-content: flex-start;
+//   width: calc(50% - 6px);
+// }
 
 .innerContainer_tripple {
   position: relative;

@@ -36,6 +36,8 @@ const OldInput = ({
   const isRadio = type === 'radio';
   const withIcon = icon || type === 'password' || type === 'search';
 
+  console.log('OLD INPUT RERENDERING');
+
   const handleChackbox = () => {
     setCheckboxChecked(!checkboxChecked);
     additionalFunction && additionalFunction();
