@@ -1,6 +1,6 @@
 import CustomerForm from './CustomerForm/CustomerForm';
-import { DeliveryForm } from 'components/DeliveryForm';
-import PaymentMethod from 'components/PaymentMethod';
+import { DeliveryForm } from 'components/OrderForm/DeliveryForm';
+import PaymentMethod from 'components/OrderForm/PaymentMethod';
 import OrderButtons from './OrderButtons/OrderButtons';
 
 export default function OrderForm() {
