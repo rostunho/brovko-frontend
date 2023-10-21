@@ -1,7 +1,9 @@
 import styles from './popup.module.scss'
 
-const PopUp = () => {
-  return <p className={styles.textMessage}>PopUp</p>;
+
+
+const PopUp = ({message = 'PopUp'}) => {
+  return <p className={styles.textMessage}>{message}</p>;
 };
 
 export default PopUp;
