@@ -66,16 +66,9 @@ export default function DeliveryForm({ getData }) {
     <div className={styles.container}>
       <Heading type="h3">Доставка</Heading>
 
-      <form
-        name="delivery-form"
-        onSubmit={e => {
-          e.preventDefault();
-          console.log(e);
-        }}
-      >
-        <DeliveryCity handleData={handleCityData} />
-        <DeliveryMethod handleDeliveryMethod={handleDeliveryMethod} />
-        {/* {deliveryMethod?.method === 'address' && (
+      <DeliveryCity handleData={handleCityData} />
+      <DeliveryMethod handleDeliveryMethod={handleDeliveryMethod} />
+      {/* {deliveryMethod?.method === 'address' && (
           <StreetSelector
             label="Вулиця"
             extractSearchValue={() => {}}
@@ -83,25 +76,24 @@ export default function DeliveryForm({ getData }) {
           />
         )} */}
 
-        {deliveryMethod?.method === 'address' && city?.Ref && (
-          <DeliveryStreet cityRef={city.Ref} handleData={handleStreetData} />
-        )}
-        {deliveryMethod?.method === 'warehouse' && city?.Ref && (
-          <DeliveryWarehouse
-            handleData={handleWarehouseData}
-            cityName={city.MainDescription}
-            cityRef={city.Ref}
-          />
-        )}
-        {deliveryMethod?.method === 'postMachine' && city?.Ref && (
-          <DeliveryWarehouse
-            handleData={handleWarehouseData}
-            // cityName={city.MainDescription}
-            cityRef={city.Ref}
-            postMachine
-          />
-        )}
-      </form>
+      {deliveryMethod?.method === 'address' && city?.Ref && (
+        <DeliveryStreet cityRef={city.Ref} handleData={handleStreetData} />
+      )}
+      {deliveryMethod?.method === 'warehouse' && city?.Ref && (
+        <DeliveryWarehouse
+          handleData={handleWarehouseData}
+          cityName={city.MainDescription}
+          cityRef={city.Ref}
+        />
+      )}
+      {deliveryMethod?.method === 'postMachine' && city?.Ref && (
+        <DeliveryWarehouse
+          handleData={handleWarehouseData}
+          // cityName={city.MainDescription}
+          cityRef={city.Ref}
+          postMachine
+        />
+      )}
     </div>
   );
 }

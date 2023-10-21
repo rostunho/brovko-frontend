@@ -48,7 +48,7 @@ export default function CustomerForm({ getData }) {
   };
 
   return (
-    <form className={styles.form}>
+    <div className={styles.form}>
       <Input
         name="lastName"
         label="Прізвище*"
@@ -80,6 +80,6 @@ export default function CustomerForm({ getData }) {
         placeholder="Введіть свій E-mail"
         onChange={e => handleOnChange(e, 'ADD_EMAIL')}
       />
-    </form>
+    </div>
   );
 }

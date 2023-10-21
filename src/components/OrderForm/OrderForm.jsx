@@ -22,11 +22,11 @@ export default function OrderForm() {
   };
 
   return (
-    <>
+    <form>
       <CustomerForm getData={getCustomerData} />
       <DeliveryForm getData={getDeliveryData} />
       <PaymentMethod getData={getPaymentMethod} />
       <OrderButtons />
-    </>
+    </form>
   );
 }
