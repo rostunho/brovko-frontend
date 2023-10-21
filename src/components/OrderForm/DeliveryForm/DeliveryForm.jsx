@@ -34,6 +34,16 @@ export default function DeliveryForm({ getData }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apartment]);
 
+  useEffect(() => {
+    getData({ deliveryMethod: { ...deliveryMethod } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deliveryMethod]);
+
+  useEffect(() => {
+    getData({ warehouse: { ...warehouse } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [warehouse]);
+
   const handleCityData = data => {
     setCity(data);
   };

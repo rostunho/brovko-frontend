@@ -7,6 +7,7 @@ import OrderButtons from './OrderButtons/OrderButtons';
 export default function OrderForm() {
   const [customer, setCustomer] = useState({});
   const [delivery, setDelivery] = useState({});
+  const [paymentMethod, setPaymentMethod] = useState({});
 
   const getCustomerData = data => {
     setCustomer(data);
@@ -16,11 +17,15 @@ export default function OrderForm() {
     setDelivery(currentData => ({ ...currentData, ...data }));
   };
 
+  const getPaymentMethod = data => {
+    setPaymentMethod(data);
+  };
+
   return (
     <>
       <CustomerForm getData={getCustomerData} />
       <DeliveryForm getData={getDeliveryData} />
-      <PaymentMethod />
+      <PaymentMethod getData={getPaymentMethod} />
       <OrderButtons />
     </>
   );

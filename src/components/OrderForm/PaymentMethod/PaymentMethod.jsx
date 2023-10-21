@@ -3,15 +3,16 @@ import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
 import styles from './PaymentMethod.module.scss';
 
-export default function PaymentMethod({ extractMethod, ...props }) {
+export default function PaymentMethod({ getData, ...props }) {
   const [paymentMethod, setPaymentMethod] = useState({
     describe: 'Готівка',
     method: 'cash',
   });
 
   useEffect(() => {
-    extractMethod && extractMethod(paymentMethod);
-  }, [extractMethod, paymentMethod]);
+    getData({ ...paymentMethod });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [paymentMethod]);
 
   const selectMethod = event => {
     const { value, dataset } = event.target;
