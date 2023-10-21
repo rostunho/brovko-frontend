@@ -6,15 +6,20 @@ import OrderButtons from './OrderButtons/OrderButtons';
 
 export default function OrderForm() {
   const [customer, setCustomer] = useState({});
+  const [delivery, setDelivery] = useState({});
 
   const getCustomerData = data => {
     setCustomer(data);
   };
 
+  const getDeliveryData = data => {
+    setDelivery(currentData => ({ ...currentData, ...data }));
+  };
+
   return (
     <>
       <CustomerForm getData={getCustomerData} />
-      <DeliveryForm />
+      <DeliveryForm getData={getDeliveryData} />
       <PaymentMethod />
       <OrderButtons />
     </>

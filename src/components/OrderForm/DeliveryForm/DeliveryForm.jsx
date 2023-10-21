@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Heading from 'shared/components/Heading';
 import DeliveryCity from './DeliveryCity';
 import DeliveryStreet from './DeliveryStreet';
@@ -6,13 +6,33 @@ import DeliveryWarehouse from './DeliveryWarehouse';
 import DeliveryMethod from './DeliveryMethod';
 import styles from './DeliveryForm.module.scss';
 
-export default function DeliveryForm() {
+export default function DeliveryForm({ getData }) {
   const [city, setCity] = useState(null);
   const [street, setStreet] = useState(null);
   const [building, setBuilding] = useState(null);
   const [apartment, setApartment] = useState(null);
   const [warehouse, setWarehouse] = useState(null);
   const [deliveryMethod, setDeliveryMethod] = useState(null);
+
+  useEffect(() => {
+    getData({ city: { ...city } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [city]);
+
+  useEffect(() => {
+    getData({ street: { ...street } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [street]);
+
+  useEffect(() => {
+    getData({ building: building });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [building]);
+
+  useEffect(() => {
+    getData({ apartment: apartment });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [apartment]);
 
   const handleCityData = data => {
     setCity(data);
