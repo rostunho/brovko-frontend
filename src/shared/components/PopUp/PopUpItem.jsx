@@ -1,11 +1,11 @@
 import React from 'react';
 
 
-import styles from './popup.module.scss'
+import styles from './popupitem.module.scss'
 
 const PopUpItem = ({ message }) => {
   return <p
-//    className={styles.textMessage}
+   className={styles.textMessage}
   >{message}</p>;
 };
 export default PopUpItem;
