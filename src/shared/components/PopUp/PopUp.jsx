@@ -1,25 +1,29 @@
 import PopUpItem from './PopUpItem';
 
-import React from 'react';
-import { connect } from 'react-redux';
+// import React from 'react';
+import {  useSelector } from 'react-redux';
 
-import styles from './popup.module.scss'
+import styles from './popup.module.scss';
+import { getAllPopups } from 'redux/popup/popupSelectors';
 
-const popups = ['pop', 'up']
+// const popups = ['pop','up'];
 
 const PopUp = () => {
 
+  const popups = useSelector(getAllPopups)
   return (
-<> 
-<ul className={styles.container}>
-    {popups.map((popup, index) => (
-      <li className={styles.textMessage} style={{animationDelay: `${index}s`}}><PopUpItem key={index} message={popup}
-      //  index={index}
-       /></li>   
-     
-    ))}
- </ul>
-      </>
+    <>
+      {popups.length > 0 && <ul className={styles.container}>
+        {popups.map((popup, index) => (
+          <li key={index}
+            className={styles.textMessage}
+            style={{ animationDelay: `${index}s` }}
+          >
+            <PopUpItem  message={popup} />
+          </li>
+        ))}
+      </ul>}
+    </>
   );
 };
 
@@ -29,4 +33,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(PopUp);
+export default PopUp;

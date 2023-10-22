@@ -1,1 +1,1 @@
-export const getAllPopups = state => state.popup;
+export const getAllPopups = state => state.popups;
