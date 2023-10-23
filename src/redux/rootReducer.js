@@ -6,7 +6,7 @@ import productsReducer from './products/productsSlice';
 import userReduser from './user/userSlice';
 import reviewsReduser from './reviews/reviewsSlice';
 import { basketReducer } from './basket/basketSlice';
-import { popupReducer } from './popup/popupSlice';
+import popupReducer from './popup/popupSlice';
 
 const rootReducer = combineReducers({
   products: productsReducer,

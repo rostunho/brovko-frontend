@@ -9,11 +9,11 @@ import { getAllPopups } from 'redux/popup/popupSelectors';
 // const popups = ['pop','up'];
 
 const PopUp = () => {
-
+// const popups = ['pop','up'];
   const popups = useSelector(getAllPopups)
+  console.log(popups)
   return (
-    <>
-      {popups.length > 0 && <ul className={styles.container}>
+    <>{popups.length > 0 && <ul className={styles.container}>
         {popups.map((popup, index) => (
           <li key={index}
             className={styles.textMessage}
@@ -23,6 +23,7 @@ const PopUp = () => {
           </li>
         ))}
       </ul>}
+    
     </>
   );
 };

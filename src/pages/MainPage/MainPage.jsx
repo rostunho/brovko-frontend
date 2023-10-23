@@ -5,14 +5,13 @@ import Rectangle from 'components/Rectangle/Rectangle';
 // import Loader from 'components/Loader';
 // import InstagramEmbededRandom from 'components/InstagramEmbededRandom';
 import WeInInstgram from 'components/WeInInstagram';
-import PopUp from 'shared/components/PopUp';
 
 // import styles from './MainPage.scss';
 
 export default function MainPage() {
   return (
     <>
-      <PopUp />
+      
       {/* <Loader /> */}
       <Hero />
       <Perevagy />
