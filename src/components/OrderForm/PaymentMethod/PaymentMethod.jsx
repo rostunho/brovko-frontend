@@ -44,7 +44,7 @@ export default function PaymentMethod({ getData, ...props }) {
             type="radio"
             name="payment"
             label="Карткою онлайн"
-            value="Онлайн"
+            value="Картка Приватбанку"
             data-paymethod="online"
             onChange={selectMethod}
           />
