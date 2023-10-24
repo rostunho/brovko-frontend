@@ -3,6 +3,7 @@ import CustomerForm from './CustomerForm/CustomerForm';
 import { DeliveryForm } from 'components/OrderForm/DeliveryForm';
 import PaymentMethod from 'components/OrderForm/PaymentMethod';
 import OrderButtons from './OrderButtons/OrderButtons';
+import PayForm from 'components/Pay/PayForm';
 
 export default function OrderForm() {
   const [customer, setCustomer] = useState({});
@@ -22,11 +23,14 @@ export default function OrderForm() {
   };
 
   return (
-    <form>
-      <CustomerForm getData={getCustomerData} />
-      <DeliveryForm getData={getDeliveryData} />
-      <PaymentMethod getData={getPaymentMethod} />
-      <OrderButtons />
-    </form>
+    <>
+      <form>
+        <CustomerForm getData={getCustomerData} />
+        <DeliveryForm getData={getDeliveryData} />
+        <PaymentMethod getData={getPaymentMethod} />
+        <OrderButtons />
+      </form>
+      <PayForm />
+    </>
   );
 }
