@@ -17,7 +17,7 @@ const PopUp = () => {
         {popups.map((popup, index) => (
           <li key={index}
             className={styles.textMessage}
-            style={{ animationDelay: `${index}s` }}
+            // style={{ animationDelay: `1s` }}
           >
             <PopUpItem  message={popup} />
           </li>

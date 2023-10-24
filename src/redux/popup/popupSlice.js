@@ -1,20 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
+// import { useSelector } from 'react-redux';
+
+// const popups = useSelector(getAllPopups)
 
 const popupSlice = createSlice({
   name: 'popups',
-  initialState: ['Popup1', 'Popup2','Popup3'] ,
+  initialState: [],
   reducers: {
-    addPopUp(state, action) {
-      return [...state.popups, action.payload];
+    addPopUp: (state, action) => {
+      state.push(action.payload);
     },
-    deletePopUp(state, action) {
-      const index = state.popups.findIndex(
-        message => message.id === action.payload
-      );
-      if (index !== -1) {
-        state.splice(index, 1);
-      }
-    },
+    deletePopUp: (state) => {
+        state.pop()}
   },
 });
 

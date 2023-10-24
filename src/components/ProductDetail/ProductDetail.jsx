@@ -15,6 +15,9 @@ import Description from 'components/ProductDetail/ProductDescription/Description
 import Review from 'components/ProductDetail/ProductReview/Review';
 
 import styles from './ProductDetail.module.scss';
+import { addPopUp } from 'redux/popup/popupSlice';
+import { getAllPopups } from 'redux/popup/popupSelectors';
+import { addPopupOperation } from 'redux/popup/popupOperations';
 
 export default function ProductDetail({
   product,
@@ -26,20 +29,25 @@ export default function ProductDetail({
   location,
 }) {
   const orders = useSelector(getAllOrders);
-
+  const popups = useSelector(getAllPopups)
   const { _id, picture, name, note, price, currencyId } = product;
 
   const [value, setValue] = useState(1);
 
   const dispatch = useDispatch();
 
+  const handleAddPopup = (text) => {
+    dispatch(addPopupOperation(text));
+  };
+
   const handleAddToCart = () => {
     const result = orders.some(order => order._id === product._id);
     if (result) {
+      handleAddPopup('you have alredy Product in basket')
       return;
     }
     dispatch(addOrder({ ...product, value: value }));
-    alert('Product in basket');
+    handleAddPopup('Product in basket');
     // setValue(1);
   };
 
