@@ -7,58 +7,32 @@ import { DeliveryForm } from 'components/OrderForm/DeliveryForm';
 import PaymentMethod from 'components/OrderForm/PaymentMethod';
 import Button from 'shared/components/Button';
 import PayForm from 'components/Pay/PayForm';
-// import { useAddOrderState } from 'shared/hooks/useAddOrderState';
-import { addOrderRequestTemplate } from './addOrderRequestTemplate';
+import {
+  addNewOrder,
+  generateAddOrderRequestBody,
+} from 'shared/services/api/brovko/orders';
 
 export default function OrderForm() {
-  // const [orderBody, dispatchOrderBody] = useAddOrderState();
   const [customer, setCustomer] = useState({});
   const [delivery, setDelivery] = useState({});
   const [paymentMethod, setPaymentMethod] = useState({});
+  const [currentOrderId, setCurrentOrderId] = useState(null);
   const productsInBasket = useSelector(getAllOrders);
   const navigate = useNavigate();
 
-  console.log('productsInBasket :>> ', productsInBasket);
-
-  const createAddOrderRequestBody = event => {
+  const createNewOrder = async event => {
     event.preventDefault();
-    const requestBody = { ...addOrderRequestTemplate };
 
-    requestBody.products = productsInBasket.map(product => {
-      return {
-        id: product.id,
-        name: product.name,
-        costPerItem: product.price,
-        amount: product.value,
-        description: product.description,
-        discount: '', // TO ADD
-        sku: '',
-        commission: '',
-      };
-    });
+    const addOrderRequestBody = generateAddOrderRequestBody(
+      productsInBasket,
+      customer,
+      delivery,
+      paymentMethod
+    );
 
-    requestBody.payment_method = paymentMethod.describe;
-    requestBody.shipping_method = delivery.deliveryMethod.describe;
-    requestBody.shipping_address = delivery.city.Present;
-    requestBody.sajt = 'brovko.pet';
-    requestBody.lName = customer.lastName;
-    requestBody.fName = customer.firstName;
-    requestBody.mName = customer.middleName;
-    requestBody.phone = customer.phone;
-    requestBody.email = customer.email;
-    requestBody.novaposhta.ServiceType =
-      delivery.deliveryMethod.method === 'address' ? 'Doors' : 'Warehouse';
-    requestBody.novaposhta.area =
-      delivery.city.Area + ' ' + delivery.city.ParentRegionTypes;
-    requestBody.novaposhta.region =
-      delivery.city.Region + ' ' + delivery.city.RegionTypes;
-    requestBody.novaposhta.city = delivery.city.Ref;
-    requestBody.novaposhta.WarehouseNumber = delivery.warehouse.Ref;
-    requestBody.novaposhta.Street = delivery.street.Present;
-    requestBody.novaposhta.BuildingNumber = delivery.building;
-    requestBody.novaposhta.Flat = delivery.apartment;
+    const { data } = await addNewOrder(addOrderRequestBody);
 
-    console.log('requestBody :>> ', requestBody);
+    setCurrentOrderId(data.data.orderId.toString());
   };
 
   const getCustomerData = data => {
@@ -75,7 +49,7 @@ export default function OrderForm() {
 
   return (
     <>
-      <form onSubmit={createAddOrderRequestBody}>
+      <form onSubmit={createNewOrder}>
         <CustomerForm getData={getCustomerData} />
         <DeliveryForm getData={getDeliveryData} />
         <PaymentMethod getData={getPaymentMethod} />
