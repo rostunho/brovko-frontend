@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import Button from 'shared/components/Button';
 const MERCHANT_ACCOUNT = process.env.REACT_APP_MERCHANT_ACCOUNT;
 
-console.log(MERCHANT_ACCOUNT);
+// console.log(MERCHANT_ACCOUNT);
 
 export default function PayForm() {
   const formFields = [];
@@ -125,9 +126,9 @@ export default function PayForm() {
         {formFields}
       </form>
 
-      <button type="submit" onClick={handleSubmit}>
+      <Button type="submit" size="lg" onClick={handleSubmit}>
         Оплатити
-      </button>
+      </Button>
     </>
   );
 }
