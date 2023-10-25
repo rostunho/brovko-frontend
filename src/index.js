@@ -7,6 +7,7 @@ import './index.css';
 import App from './App';
 import { store, persistor } from 'redux/store';
 import reportWebVitals from './reportWebVitals';
+import PopUp from 'shared/components/PopUp';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,6 +16,7 @@ root.render(
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
           <App />
+          <PopUp />
         </BrowserRouter>
       </PersistGate>
     </Provider>

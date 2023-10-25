@@ -8,6 +8,7 @@ import Button from 'shared/components/Button/Button';
 import Image from 'shared/components/Image';
 
 import styles from './ProductsItem.module.scss';
+import { addPopupOperation } from 'redux/popup/popupOperations';
 
 const ProductsItem = ({ product }) => {
   const orders = useSelector(getAllOrders);
@@ -21,7 +22,7 @@ const ProductsItem = ({ product }) => {
       return;
     }
     dispatch(addOrder({ ...product, value: 1 }));
-    alert('Product in basket');
+    dispatch(addPopupOperation('Товар додано в кошик'));
   };
 
   return (
