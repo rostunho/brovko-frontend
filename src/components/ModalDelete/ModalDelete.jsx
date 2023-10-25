@@ -5,7 +5,6 @@ import { deleteOrder } from 'redux/basket/basketSlice';
 import styles from './ModalDelete.module.scss';
 
 const ModalDelete = ({ setModalDelete, orderId }) => {
-  console.log('orderId', orderId);
   const dispatch = useDispatch();
 
   const hahdleBasketDel = () => {
