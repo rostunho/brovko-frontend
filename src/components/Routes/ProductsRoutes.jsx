@@ -31,6 +31,7 @@ export default function ProductsRoutes() {
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="product-list-page" element={<LazyProductListPage />} />
+        <Route path="user" element={<LazyUserDashboardPage />} />
         <Route path="product/:productId" element={<LazyProductDetailPage />}>
           <Route path="description" element={<LazyProductDescription />} />
           <Route path="review" element={<LazyProductReviewPage />} />
