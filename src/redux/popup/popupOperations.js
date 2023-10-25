@@ -1,13 +1,10 @@
-// import { useDispatch } from 'react-redux';
 import { addPopUp, deletePopUp } from './popupSlice.js';
 
-// const dispatch = useDispatch()
-export const addPopupOperation = text => dispatch => {
-    console.log('Adding popup:', text);
+ export const addPopupOperation = text => dispatch => {
   dispatch(addPopUp( text ));
 
   setTimeout(() => {
-    console.log('Removing popup');
     dispatch(deletePopUp());
   }, 10000);
 };
+

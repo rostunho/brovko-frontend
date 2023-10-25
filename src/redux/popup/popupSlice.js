@@ -1,7 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { useSelector } from 'react-redux';
-
-// const popups = useSelector(getAllPopups)
 
 const popupSlice = createSlice({
   name: 'popups',
@@ -10,8 +7,9 @@ const popupSlice = createSlice({
     addPopUp: (state, action) => {
       state.push(action.payload);
     },
-    deletePopUp: (state) => {
-        state.pop()}
+    deletePopUp: state => {
+      state.pop();
+    },
   },
 });
 

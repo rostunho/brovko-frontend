@@ -15,8 +15,6 @@ import Description from 'components/ProductDetail/ProductDescription/Description
 import Review from 'components/ProductDetail/ProductReview/Review';
 
 import styles from './ProductDetail.module.scss';
-import { addPopUp } from 'redux/popup/popupSlice';
-import { getAllPopups } from 'redux/popup/popupSelectors';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 
 export default function ProductDetail({
@@ -29,7 +27,6 @@ export default function ProductDetail({
   location,
 }) {
   const orders = useSelector(getAllOrders);
-  const popups = useSelector(getAllPopups)
   const { _id, picture, name, note, price, currencyId } = product;
 
   const [value, setValue] = useState(1);
@@ -43,11 +40,11 @@ export default function ProductDetail({
   const handleAddToCart = () => {
     const result = orders.some(order => order._id === product._id);
     if (result) {
-      handleAddPopup('you have alredy Product in basket')
+      handleAddPopup('Товар вже знаходиться в кошику')
       return;
     }
     dispatch(addOrder({ ...product, value: value }));
-    handleAddPopup('Product in basket');
+    dispatch(addPopupOperation('Товар додано в кошик'))
     // setValue(1);
   };
 
