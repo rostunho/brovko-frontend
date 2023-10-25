@@ -5,7 +5,7 @@ import CalendarIcon from 'shared/icons/CalendarIcon';
 import SearchIcon from 'shared/icons/SearchIcon';
 import styles from './InputWithIcon.module.scss';
 
-export default function InputWithIcon({ ...props }) {
+export default function InputWithIcon({ length, ...props }) {
   const { type, className, onChange, onFocus, onClick } = props;
 
   const [showPassword, setShowPassword] = useState(false);

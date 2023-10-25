@@ -180,7 +180,7 @@ export default function Input({
           length={length}
           metrical={metrical}
           currency={currency}
-          error={error}
+          // error={error}
           {...props}
         />
         {error.message && <WarningIcon className={styles['warning-icon']} />}

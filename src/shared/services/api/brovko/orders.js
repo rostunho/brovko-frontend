@@ -74,6 +74,9 @@ export const generateAddOrderRequestBody = (
   requestBody.novaposhta.BuildingNumber = delivery.building?.toString();
   requestBody.novaposhta.Flat = delivery.apartment?.toString();
 
-  console.log('requestBody :>> ', requestBody);
+  // console.log('requestBody :>> ', requestBody);
   return requestBody;
 };
+
+const test = Date.now();
+console.log('test :>> ', test);

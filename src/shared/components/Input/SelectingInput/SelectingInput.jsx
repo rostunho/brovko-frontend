@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './SelectingInput.module.scss';
 
-export default function SelectingInput({ rootStateHandling, ...props }) {
+export default function SelectingInput({ length, ...props }) {
   const { type, className, onChange } = props;
 
   const handleOnChange = event => {

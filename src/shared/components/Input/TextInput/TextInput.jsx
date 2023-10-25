@@ -1,4 +1,4 @@
-export default function TextInput({ rootStateHandling, ...props }) {
+export default function TextInput({ length, ...props }) {
   const { type, onChange } = props;
 
   const handleOnChange = event => {
