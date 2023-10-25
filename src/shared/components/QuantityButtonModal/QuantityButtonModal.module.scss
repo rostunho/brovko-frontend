@@ -35,7 +35,7 @@
 }
 
 .text-product {
-  color: var(--Black, #191c2c);
+  color: var(--black-text-color);
   /* Additional */
   font-family: Nunito;
   font-size: 12px;
@@ -80,7 +80,7 @@
 }
 
 .value {
-  color: var(--Black, #191c2c);
+  color: var(--black-text-color);
   font-family: Nunito;
   font-size: 14px;
   font-style: normal;
@@ -104,7 +104,7 @@
 }
 
 .total {
-  color: var(--Black, #191c2c);
+  color: var(--black-text-color);
   // padding-top: 38px;
   /* Main */
   font-family: Nunito;

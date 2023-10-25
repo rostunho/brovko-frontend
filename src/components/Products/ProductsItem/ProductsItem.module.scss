@@ -32,7 +32,7 @@
   width: 100%;
   height: 86vw;
   margin-right: 0;
-  background-color: #fefefe;
+  background-color: var(--white-text-color);
   border-radius: 8px;
   overflow: hidden;
   border: solid red 1px;
@@ -69,7 +69,7 @@
 
 .name {
   font-weight: 700;
-  color: var(--unnamed, #191c2c);
+  color: var(--black-text-color);
   margin: 0;
   max-width: 100%;
 }

@@ -8,7 +8,7 @@
 
 .icon {
   display: block;
-  fill: #191c2c;
+  fill: var(--black-text-color);
   cursor: pointer;
 
   &:hover,

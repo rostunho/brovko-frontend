@@ -23,7 +23,7 @@
 }
 
 .title {
-  color: var(--Black, #191c2c);
+  color: var(--black-text-color);
   margin-left: 50px;
   /* h2 */
   font-family: Amatic SC;
@@ -44,7 +44,7 @@
   width: 100%;
   height: 86vw;
   margin-top: 10px;
-  background-color: #fefefe;
+  background-color: var(--white-text-color);
   border-radius: 8px;
   overflow: hidden;
   border: solid red 1px;
@@ -127,13 +127,13 @@
 
 .contentContainer {
   // border: 1px solid var(--Accent, #f3a610);
-  color: var(--Black, #191c2c);
+  color: var(--black-text-color);
   word-wrap: break-word;
   white-space: normal;
 }
 
 .contentText {
-  color: var(--Black, #191c2c);
+  color: var(--black-text-color);
   font-size: 14px;
 }
 
@@ -150,13 +150,13 @@
   // border: 1px solid var(--Accent, #f3a610);
   margin-top: 20px;
   // max-height: 57px;
-  color: var(--Black, #191c2c);
+  color: var(--black-text-color);
   word-wrap: break-word;
   white-space: normal;
 }
 
 .descriptionText {
-  color: var(--Black, #191c2c);
+  color: var(--black-text-color);
   font-size: 14px;
 
   overflow: hidden;
@@ -199,7 +199,7 @@
 }
 
 .rewieTitle {
-  color: var(--Black, #191c2c);
+  color: var(--black-text-color);
   margin-bottom: 8px;
 }
 
@@ -234,7 +234,7 @@
 }
 
 .userName {
-  color: var(--Black, #191c2c);
+  color: var(--black-text-color);
   font-family: Nunito;
   font-size: 14px;
   font-style: normal;
@@ -253,7 +253,7 @@
 
 .reviewText {
   margin-top: 12px;
-  color: var(--Black, #191c2c);
+  color: var(--black-text-color);
   font-family: Nunito;
   font-size: 14px;
   font-style: normal;

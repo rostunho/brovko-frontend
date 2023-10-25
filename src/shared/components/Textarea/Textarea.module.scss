@@ -9,7 +9,7 @@
   font-weight: 400;
   line-height: normal;
 
-  color: var(--unnamed, #191c2c);
+  color: var(--black-text-color);
 }
 
 .textarea {
@@ -27,7 +27,7 @@
 
   outline: none;
   resize: none;
-  border: 1px solid #191c2c;
+  border: 1px solid var(--black-text-color);
   border-radius: 8px;
   background-color: transparent;
 }

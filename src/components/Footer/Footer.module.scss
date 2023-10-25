@@ -25,7 +25,7 @@
 }
 
 .label {
-  color: var(--black, #191c2c);
+  color: var(--black-text-color);
   font-family: Nunito;
   font-size: 14px;
   font-style: normal;
@@ -54,7 +54,7 @@
 
 .link {
   text-decoration: none;
-  color: var(--bg, #191c2c);
+  color: var(--black-text-color);
   font-family: Nunito;
   font-size: 14px;
   font-style: normal;
@@ -116,7 +116,7 @@
 
 .copy {
   margin-top: 20px;
-  color: var(--bg, #191c2c);
+  color: var(--black-text-color);
   font-size: 12px;
   text-align: center;
 }

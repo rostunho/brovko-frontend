@@ -11,7 +11,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: #191c2c;
+  color: var(--black-text-color);
 }
 
 .input-box__length--lg {
@@ -144,7 +144,7 @@ input.input--is-valid:focus:not(:placeholder-shown) {
   -webkit-appearance: none;
   -moz-appearance: none;
   outline: none;
-  border: 1px solid #191c2c;
+  border: 1px solid var(--black-text-color);
   border-radius: 4px;
   background-color: transparent;
   padding: 0;

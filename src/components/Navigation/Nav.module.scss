@@ -29,7 +29,7 @@
 }
 
 .link {
-  color: var(--unnamed, #191c2c);
+  color: var(--black-text-color);
   font-family: Amatic SC;
   font-size: 32px;
   font-style: normal;
@@ -59,14 +59,13 @@
   }
 }
 
-
 .wrap {
   display: flex;
   justify-content: baseline;
   align-items: center;
   text-decoration: none;
   margin: 0 5px;
-  color: var(--unnamed, #191c2c);
+  color: var(--black-text-color);
   font-family: 'Nunito';
   font-size: 14px;
   font-style: normal;

@@ -13,7 +13,7 @@
   font-weight: 400;
   line-height: normal;
 
-  color: #191c2c;
+  color: var(--black-text-color);
   cursor: pointer;
   pointer-events: none;
 }
@@ -32,7 +32,7 @@
   &:hover,
   &:focus,
   &.is-checked {
-    color: #fefefe;
+    color: var(--white-text-color);
     background-color: #f3a610;
   }
 
@@ -69,7 +69,7 @@
   //   cursor: pointer;
   pointer-events: auto;
   cursor: pointer;
-  border: 1px solid #191c2c;
+  border: 1px solid var(--black-text-color);
   border-radius: 8px;
   background-color: transparent;
 
@@ -134,7 +134,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: #191c2c;
+  color: var(--black-text-color);
   // pointer-events: none;
   cursor: pointer;
 
@@ -153,8 +153,8 @@
 
     color: #f3a610;
 
-    border-top: 1px solid #191c2c;
-    border-bottom: 1px solid #191c2c;
+    border-top: 1px solid var(--black-text-color);
+    border-bottom: 1px solid var(--black-text-color);
     border-left: none;
     border-right: none;
 
@@ -189,8 +189,8 @@
   right: 16px;
   bottom: 0;
 
-  fill: #191c2c;
-  stroke: #191c2c;
+  fill: var(--black-text-color);
+  stroke: var(--black-text-color);
   // pointer-events: none;
   background-color: transparent;
   border: none;
@@ -241,8 +241,8 @@
 
 .icon-save {
   height: 35px;
-  fill: #191c2c;
-  stroke: #191c2c;
+  fill: var(--black-text-color);
+  stroke: var(--black-text-color);
   pointer-events: auto;
 
   &:hover,

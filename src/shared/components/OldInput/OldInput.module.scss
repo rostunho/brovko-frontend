@@ -22,7 +22,7 @@
   font-weight: 400;
   line-height: normal;
 
-  color: var(--unnamed, #191c2c);
+  color: var(--black-text-color);
 }
 
 .label.checkbox-label {
@@ -104,7 +104,7 @@
   color: #a3a5a4;
 
   cursor: pointer;
-  border: 1px solid #191c2c;
+  border: 1px solid var(--black-text-color);
   border-radius: 8px;
   background-color: transparent;
 
@@ -164,7 +164,7 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   outline: none;
-  border: 1px solid #191c2c;
+  border: 1px solid var(--black-text-color);
   border-radius: 4px;
   background-color: transparent;
   padding: 0;
@@ -273,8 +273,8 @@
   outline: none;
   background: none;
   cursor: pointer;
-  fill: #191c2c;
-  stroke: #191c2c;
+  fill: var(--black-text-color);
+  stroke: var(--black-text-color);
 
   &:hover,
   &:focus,
@@ -294,5 +294,5 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: #191c2c;
+  color: var(--black-text-color);
 }

@@ -64,7 +64,7 @@
 }
 
 .button_primary {
-  color: #fefefe;
+  color: var(--white-text-color);
   background-color: #f3a610;
 }
 
@@ -76,7 +76,7 @@
   &:hover,
   &:focus,
   &:active {
-    color: #fefefe;
+    color: var(--white-text-color);
     border: none;
     background-color: #f3a610;
   }
@@ -98,7 +98,7 @@
   &:hover,
   &:focus,
   &:active {
-    color: #fefefe;
+    color: var(--white-text-color);
     border: none;
     background-color: #f3a610;
   }
@@ -124,8 +124,8 @@
   font-weight: 400;
 
   color: #a3a5a4;
-  fill: #191c2c;
-  stroke: #191c2c;
+  fill: var(--black-text-color);
+  stroke: var(--black-text-color);
   background-color: transparent;
 
   &:hover,
@@ -169,7 +169,7 @@
   padding: 0 16px;
 
   font-weight: 400;
-  color: #191c2c;
+  color: var(--black-text-color);
   background-color: transparent;
   border: 1px solid #7b7b7b;
   border-radius: 8px;
@@ -179,10 +179,10 @@
   &:active {
     border: none;
     background-color: #f3a610;
-    color: #fefefe;
+    color: var(--white-text-color);
 
     & .icon {
-      stroke: #fefefe;
+      stroke: var(--white-text-color);
     }
   }
 }
@@ -215,7 +215,7 @@
   padding: 0;
   margin: 0;
   background-color: transparent;
-  stroke: #191c2c;
+  stroke: var(--black-text-color);
 
   &:hover,
   &:focus,
@@ -244,8 +244,8 @@
 .icon {
   width: 24px;
   height: 24px;
-  fill: #191c2c;
-  stroke: #191c2c;
+  fill: var(--black-text-color);
+  stroke: var(--black-text-color);
 
   // &--reverse {
   //   transform: rotate(180deg);
@@ -263,6 +263,6 @@
 .button:active:disabled .icon {
   color: rgba(254, 254, 254, 0.7);
   background-color: transparent;
-  fill: #fefefe;
+  fill: var(--white-text-color);
   fill-opacity: 0.4;
 }

@@ -8,7 +8,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: #191c2c;
+  color: var(--black-text-color);
 }
 
 .input {
@@ -71,7 +71,7 @@ input[type='search'] {
   width: 24px;
   height: 24px;
 
-  stroke: #191c2c;
+  stroke: var(--black-text-color);
   background-color: transparent;
   border: none;
   outline: none;
