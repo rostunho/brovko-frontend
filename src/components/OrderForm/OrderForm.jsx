@@ -16,14 +16,10 @@ export default function OrderForm() {
   const [customer, setCustomer] = useState({});
   const [delivery, setDelivery] = useState({});
   const [paymentMethod, setPaymentMethod] = useState({});
-
-
-  const createNewOrder = async () => {
-  const [currentOrderId, setCurrentOrderId] = useState(null);
   const productsInBasket = useSelector(getAllOrders);
   const navigate = useNavigate();
 
-
+  const createNewOrder = async () => {
     const addOrderRequestBody = generateAddOrderRequestBody(
       productsInBasket,
       customer,
@@ -35,10 +31,8 @@ export default function OrderForm() {
       data: { data },
     } = await addNewOrder(addOrderRequestBody);
     console.log(data);
-    // setCurrentOrderId(data.data.orderId.toString());
     return data;
   };
-
 
   const getCustomerData = data => {
     setCustomer(data);
