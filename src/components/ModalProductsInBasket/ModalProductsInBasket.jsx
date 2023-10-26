@@ -5,7 +5,7 @@ import { getAllOrders } from 'redux/basket/basketSelectors';
 
 import Modal from 'shared/components/Modal/Modal';
 import ModalDelete from 'components/ModalDelete/ModalDelete';
-import ProductInBasket from 'components/ProductsInBasket';
+import ProductInBasket from 'components/ProductsInBasket/ProductsInBasket';
 import ModalBasketIsEmpty from 'components/ModalBasketIsEmpty/ModalBasketIsEmpty';
 
 const ModalProductsInBasket = ({ closeModal }) => {
