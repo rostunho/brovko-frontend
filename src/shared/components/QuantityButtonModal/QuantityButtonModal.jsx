@@ -4,9 +4,7 @@ import Image from '../Image';
 import BasketSmall from 'shared/icons/BasketSmall';
 import { useDispatch } from 'react-redux';
 
-import { deleteOrder, changeQuantity } from 'redux/basket/basketSlice';
-
-import ModalDelete from 'components/ModalDelete/ModalDelete';
+import { changeQuantity } from 'redux/basket/basketSlice';
 
 import styles from './QuantityButtonModal.module.scss';
 
@@ -22,7 +20,7 @@ const QuantityButtonModal = ({
   setOrderId,
 }) => {
   const [value, setValue] = useState(val || 1);
-  const currentPrice = price * value;
+  const currentPrice = (price * value).toFixed(2);
 
   const dispatch = useDispatch();
 
