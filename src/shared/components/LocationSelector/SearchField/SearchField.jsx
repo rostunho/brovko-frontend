@@ -19,11 +19,12 @@ export default function SearchField({
   };
 
   return (
-    <label className={styles.label}>
-      {label}
+    <div className={styles.label}>
+      <label htmlFor={name}>{label}</label>
       <input
         {...props}
         type="search"
+        id={name}
         value={value}
         className={styles.input}
         placeholder={placeholder}
@@ -34,6 +35,6 @@ export default function SearchField({
       <button type="button" className={styles.button} onClick={handleOnClick}>
         {selectorIsOpen || selectedData ? <CrossIcon /> : <ArrowDownIcon />}
       </button>
-    </label>
+    </div>
   );
 }
