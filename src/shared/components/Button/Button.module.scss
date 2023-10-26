@@ -20,7 +20,7 @@
   &:hover,
   &:focus,
   &:active {
-    background-color: #f3a610;
+    background-color: var(--accent-color);
     box-shadow: 0px 2px 5px 1px rgba(255, 193, 7, 0.4);
   }
 
@@ -64,21 +64,21 @@
 }
 
 .button_primary {
-  color: #fefefe;
-  background-color: #f3a610;
+  color: var(--white-text-color);
+  background-color: var(--accent-color);
 }
 
 .button_outlined {
-  color: #f3a610;
-  border: 1px solid #f3a610;
+  color: var(--accent-color);
+  border: var(--border-accent);
   background-color: transparent;
 
   &:hover,
   &:focus,
   &:active {
-    color: #fefefe;
+    color: var(--white-text-color);
     border: none;
-    background-color: #f3a610;
+    background-color: var(--accent-color);
   }
 
   &:disabled,
@@ -92,15 +92,15 @@
 }
 
 .button_outlinedGrey {
-  color: #7b7b7b;
-  border: 1px solid #7b7b7b;
+  color: var(--input_stroke);
+  border: var(--border-primary);
   background-color: transparent;
   &:hover,
   &:focus,
   &:active {
-    color: #fefefe;
+    color: var(--white-text-color);
     border: none;
-    background-color: #f3a610;
+    background-color: var(--accent-color);
   }
 
   &:disabled,
@@ -123,17 +123,17 @@
 
   font-weight: 400;
 
-  color: #a3a5a4;
-  fill: #191c2c;
-  stroke: #191c2c;
+  color: var(--gray-color);
+  fill: var(--black-text-color);
+  stroke: var(--black-text-color);
   background-color: transparent;
 
   &:hover,
   &:focus,
   &:active {
-    color: #f3a610;
-    fill: #f3a610;
-    stroke: #f3a610;
+    color: var(--accent-color);
+    fill: var(--accent-color);
+    stroke: var(--accent-color);
     background-color: transparent;
     box-shadow: none;
   }
@@ -169,20 +169,20 @@
   padding: 0 16px;
 
   font-weight: 400;
-  color: #191c2c;
+  color: var(--black-text-color);
   background-color: transparent;
-  border: 1px solid #7b7b7b;
+  border: var(--border-primary);
   border-radius: 8px;
 
   &:hover,
   &:focus,
   &:active {
     border: none;
-    background-color: #f3a610;
-    color: #fefefe;
+    background-color: var(--accent-color);
+    color: var(--white-text-color);
 
     & .icon {
-      stroke: #fefefe;
+      stroke: var(--white-text-color);
     }
   }
 }
@@ -197,7 +197,7 @@
   &:hover,
   &:focus,
   &:active {
-    stroke: #f3a610;
+    stroke: var(--accent-color);
     // fill: #f3a610;
     box-shadow: none;
   }
@@ -215,12 +215,12 @@
   padding: 0;
   margin: 0;
   background-color: transparent;
-  stroke: #191c2c;
+  stroke: var(--black-text-color);
 
   &:hover,
   &:focus,
   &:active {
-    stroke: #f3a610;
+    stroke: var(--accent-color);
     box-shadow: none;
   }
 }
@@ -235,7 +235,7 @@
   &:hover,
   &:focus,
   &:active {
-    fill: #f3a610;
+    fill: var(--accent-color);
     background-color: transparent;
     box-shadow: none;
   }
@@ -244,8 +244,8 @@
 .icon {
   width: 24px;
   height: 24px;
-  fill: #191c2c;
-  stroke: #191c2c;
+  fill: var(--black-text-color);
+  stroke: var(--black-text-color);
 
   // &--reverse {
   //   transform: rotate(180deg);
@@ -263,6 +263,6 @@
 .button:active:disabled .icon {
   color: rgba(254, 254, 254, 0.7);
   background-color: transparent;
-  fill: #fefefe;
+  fill: var(--white-text-color);
   fill-opacity: 0.4;
 }

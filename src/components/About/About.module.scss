@@ -1,5 +1,5 @@
 .about {
-  background: var(--unnamed, #fefefe);
+  background: var(--white-text-color);
   padding-top: 32px;
   // padding-left: 15px;
   // padding-right: 15px;
@@ -7,7 +7,7 @@
 }
 
 .aboutText {
-  color: var(--bg, #191c2c);
+  color: var(--black-text-color);
   /* основний текст */
   font-family: Nunito;
   font-size: 14px;

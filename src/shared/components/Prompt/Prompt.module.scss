@@ -8,12 +8,12 @@
 
 .icon {
   display: block;
-  fill: #191c2c;
+  fill: var(--black-text-color);
   cursor: pointer;
 
   &:hover,
   &:focus {
-    fill: #f3a610;
+    fill: var(--accent-color);
   }
 }
 
@@ -30,9 +30,9 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: #a3a5a4;
+  color: var(--gray-color);
 
-  border: 1px solid #a3a5a4;
+  border: var(--border-gray);
   border-radius: 8px;
-  background-color: #fff;
+  background-color: var(--white-bg-color);
 }

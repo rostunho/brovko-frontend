@@ -12,14 +12,14 @@
   background-color: transparent;
   border: none;
   outline: none;
-  fill: #191c2c;
-  stroke: #191c2c;
+  fill: var(--black-text-color);
+  stroke: var(--black-text-color);
 
   &:hover,
   &:focus,
   &:active {
-    fill: #f3a610;
-    stroke: #f3a610;
+    fill: var(--accent-color);
+    stroke: var(--accent-color);
     background-color: transparent;
   }
 }

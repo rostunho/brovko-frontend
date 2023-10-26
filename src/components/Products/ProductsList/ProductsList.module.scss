@@ -1,13 +1,11 @@
 .products {
-
-    background: var(--unnamed, #FEFEFE);
-    // padding-top: 32px;
-    padding-bottom: 30px;
-
+  background: var(--white-text-color);
+  // padding-top: 32px;
+  padding-bottom: 30px;
 }
 
 .productsTitle {
-  color: var(--unnamed, #191c2c);
+  color: var(--black-text-color);
   font-family: Amatic SC;
   font-size: 32px;
   font-style: normal;

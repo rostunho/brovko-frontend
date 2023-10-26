@@ -8,7 +8,9 @@ const LazyAdminPage = lazy(() => import('pages/AdminPage/AdminPage'));
 const LazyStartPage = lazy(() => import('pages/StartPage/StartPage'));
 const LazyMainPage = lazy(() => import('pages/MainPage/MainPage'));
 
-const LazyPerevagyPage = lazy(() => import('pages/PerevagyPage/PerevagyPage'));
+const LazyPerevagyPage = lazy(() =>
+  import('pages/AdvantagesPage/AdvantagesPage')
+);
 
 const LazyWereToBuyPage = lazy(() =>
   import('pages/WereToBuyPage/WereToBuyPage')

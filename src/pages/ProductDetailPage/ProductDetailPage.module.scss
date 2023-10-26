@@ -25,7 +25,7 @@
   width: 288px;
   height: 288px;
   margin-top: 10px;
-  background-color: #fefefe;
+  background-color: var(--white-text-color);
   border-radius: 8px;
   overflow: hidden;
   border: solid red 1px;
@@ -52,7 +52,7 @@
   width: 80px;
   height: 80px;
   border-radius: 12px;
-  border: 1px solid var(--Accent, #f3a610);
+  border: var(--border-accent);
   // background: lightgray 50%;
 
   @media screen and (min-width: 480px) and (max-width: 767px) {
@@ -73,7 +73,7 @@
 
 .ratingText {
   padding-left: 3px;
-  color: var(--Gray, #a3a5a4);
+  color: var(--gray-color);
   font-family: Nunito;
   font-size: 12px;
   font-style: normal;
@@ -97,13 +97,13 @@
 
 .contentContainer {
   // border: 1px solid var(--Accent, #f3a610);
-  color: var(--Black, #191c2c);
+  color: var(--black-text-color);
   word-wrap: break-word;
   white-space: normal;
 }
 
 .contentText {
-  color: var(--Black, #191c2c);
+  color: var(--black-text-color);
   font-size: 14px;
 }
 
@@ -120,12 +120,12 @@
   // border: 1px solid var(--Accent, #f3a610);
   margin-top: 20px;
   // max-height: 57px;
-  color: var(--Black, #191c2c);
+  color: var(--black-text-color);
   word-wrap: break-word;
   white-space: normal;
 }
 .descriptionText {
-  color: var(--Black, #191c2c);
+  color: var(--black-text-color);
   font-size: 14px;
 
   overflow: hidden;
@@ -141,11 +141,11 @@
 
 .readMoreButton {
   display: inline-block;
-  color: #f3a610;
+  color: var(--accent-color);
 }
 
 .readMoreIcon {
-  stroke: #f3a610;
+  stroke: var(--accent-color);
 }
 
 .expanded {
@@ -163,9 +163,9 @@
 }
 
 .rewieTitle {
-  color: var(--Black, #191c2c);
+  color: var(--black-text-color);
 }
 
 .rewieCount {
-  color: var(--Gray, #a3a5a4);
+  color: var(--gray-color);
 }

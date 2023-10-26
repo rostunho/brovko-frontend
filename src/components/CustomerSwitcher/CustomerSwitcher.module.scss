@@ -10,14 +10,14 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: #191c2c;
+  color: var(--black-text-color);
 
   &:hover,
   &:focus {
-    color: #f3a610;
+    color: var(--accent-color);
   }
 }
 
 .link--active {
-  color: #f3a610;
+  color: var(--accent-color);
 }

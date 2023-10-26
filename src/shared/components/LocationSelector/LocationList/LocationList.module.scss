@@ -9,8 +9,8 @@
   background-color: #fff;
   overflow-y: scroll;
   border-radius: 8px;
-  border: 1px solid #7b7b7b;
-  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
+  border: var(--border-primary);
+  box-shadow: var(--box-shadow);
 }
 
 .label {
@@ -26,13 +26,13 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: #191c2c;
+  color: var(--black-text-color);
   // color: red;
 
   &:hover,
   &:focus,
   &:active {
-    color: #f3a610;
+    color: var(--accent-color);
   }
 }
 

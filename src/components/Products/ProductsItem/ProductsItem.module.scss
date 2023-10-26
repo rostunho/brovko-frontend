@@ -10,8 +10,8 @@
   padding-bottom: 16px;
   padding-right: 12px;
   padding-left: 12px;
-  background: var(--unnamed, #fff);
-  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
+  background: var(--white-bg-color);
+  box-shadow: var(--box-shadow);
 }
 
 @media screen and (min-width: 480px) and (max-width: 767px) {
@@ -32,7 +32,7 @@
   width: 100%;
   height: 86vw;
   margin-right: 0;
-  background-color: #fefefe;
+  background-color: var(--white-text-color);
   border-radius: 8px;
   overflow: hidden;
   border: solid red 1px;
@@ -69,14 +69,14 @@
 
 .name {
   font-weight: 700;
-  color: var(--unnamed, #191c2c);
+  color: var(--black-text-color);
   margin: 0;
   max-width: 100%;
 }
 
 .price {
   font-weight: 400px;
-  color: var(--unnamed, #a3a5a4);
+  color: var(--gray-color);
   // opacity: 70%;
   margin: 0;
 }

@@ -13,7 +13,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: #a3a5a4;
+  color: var(--gray-color);
   cursor: pointer;
 
   &:not(:last-child) {
@@ -23,6 +23,6 @@
   &:hover,
   &:focus,
   &:active {
-    color: #f3a610;
+    color: var(--accent-color);
   }
 }

@@ -4,8 +4,12 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 const LazyAboutPage = lazy(() => import('pages/AboutPage/AboutPage'));
 const LazyStartPage = lazy(() => import('pages/StartPage/StartPage'));
-const LazyPerevagyPage = lazy(() => import('pages/PerevagyPage/PerevagyPage'));
-const LazyWereToBuyPage = lazy(() => import('pages/WereToBuyPage/WereToBuyPage'));
+const LazyAdvantagesPage = lazy(() =>
+  import('pages/AdvantagesPage/AdvantagesPage')
+);
+const LazyWereToBuyPage = lazy(() =>
+  import('pages/WereToBuyPage/WereToBuyPage')
+);
 const LazyContactsPage = lazy(() => import('pages/ContactsPage/ContactsPage'));
 const LazyExchangeAndReturnPage = lazy(() =>
   import('pages/ExchangeAndReturnPage/ExchangeAndReturnPage')
@@ -18,7 +22,7 @@ export const allUserRoutes = [
   },
   {
     path: '/perevagy',
-    Component: LazyPerevagyPage,
+    Component: LazyAdvantagesPage,
   },
   {
     path: '/start',

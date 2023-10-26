@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-bottom: 1px solid var(--gray, #a3a5a4);
+  border-bottom: var(--border-gray);
 }
 .footerTitle {
   display: flex;
@@ -25,14 +25,14 @@
 }
 
 .label {
-  color: var(--black, #191c2c);
+  color: var(--black-text-color);
   font-family: Nunito;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   &.opened {
-    color: var(--opened-label-color, #a3a5a4);
+    color: var(--gray-color);
   }
 }
 
@@ -54,7 +54,7 @@
 
 .link {
   text-decoration: none;
-  color: var(--bg, #191c2c);
+  color: var(--black-text-color);
   font-family: Nunito;
   font-size: 14px;
   font-style: normal;
@@ -63,11 +63,11 @@
 
   &:hover,
   &:focus {
-    color: #f3a610;
+    color: var(--accent-color);
   }
 
   &:global(.active) {
-    color: #f3a610;
+    color: var(--accent-color);
   }
 }
 
@@ -98,9 +98,9 @@
   &:hover,
   &:focus,
   &:active {
-    color: #f3a610;
-    fill: #f3a610;
-    stroke: #f3a610;
+    color: var(--accent-color);
+    fill: var(--accent-color);
+    stroke: var(--accent-color);
     background-color: transparent;
   }
 }
@@ -116,7 +116,7 @@
 
 .copy {
   margin-top: 20px;
-  color: var(--bg, #191c2c);
+  color: var(--black-text-color);
   font-size: 12px;
   text-align: center;
 }

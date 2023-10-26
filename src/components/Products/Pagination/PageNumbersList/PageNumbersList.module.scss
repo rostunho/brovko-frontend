@@ -12,12 +12,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #191c2c;
+  color: var(--black-text-color);
   border-radius: 50%;
-  border: 1px solid #f3a610;
+  border: var(--border-accent);
 }
 
 .active {
-  color: #fefefe;
-  background-color: #f3a610;
+  color: var(--white-text-color);
+  background-color: var(--accent-color);
 }

@@ -44,7 +44,7 @@
 }
 
 .userIcon:hover * {
-  fill: var(--unnamed, #f3a610);
+  fill: var(--accent-color);
 }
 
 .buttonBasket {
@@ -66,7 +66,7 @@
   position: absolute;
   left: 30%;
   width: 7px;
-  color: var(--white_text, #fefefe);
+  color: var(--white-text-color);
   /* Additional */
   font-family: Nunito;
   font-size: 12px;

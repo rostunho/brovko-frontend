@@ -6,12 +6,12 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: #a3a5a4;
+  color: var(--gray-color);
 }
 
 .link {
   @extend .text;
-  color: #68baee;
+  color: var(--link-color);
   text-decoration-line: underline;
 }
 

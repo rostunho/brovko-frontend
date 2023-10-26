@@ -22,7 +22,7 @@
   font-weight: 400;
   line-height: normal;
 
-  color: var(--unnamed, #191c2c);
+  color: var(--black-text-color);
 }
 
 .label.checkbox-label {
@@ -34,14 +34,14 @@
   width: fit-content;
 
   height: 16px;
-  color: #a3a5a4;
+  color: var(--gray-color);
   cursor: pointer;
 
   &:hover,
   &:focus,
   &:active,
   &:checked {
-    color: #f3a610;
+    color: var(--accent-color);
   }
 }
 
@@ -101,10 +101,10 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: #a3a5a4;
+  color: var(--gray-color);
 
   cursor: pointer;
-  border: 1px solid #191c2c;
+  border: 1px solid var(--black-text-color);
   border-radius: 8px;
   background-color: transparent;
 
@@ -116,13 +116,13 @@
 
   &:hover,
   &:focus {
-    border-color: #f3a610;
+    border-color: var(--accent-color);
     outline: none;
   }
 
   &:disabled {
-    border-color: var(--color-gray);
-    color: var(--color-white);
+    border-color: var(--gray-color);
+    color: var(--white-text-color);
     cursor: not-allowed;
   }
 
@@ -140,7 +140,7 @@
   height: 20px;
   margin: 0;
   padding: 0;
-  border: 1px solid #f3a610;
+  border: var(--border-accent);
   border-radius: 50%;
 
   &:checked::before {
@@ -151,7 +151,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: #f3a610;
+    background-color: var(--accent-color);
   }
 }
 
@@ -164,7 +164,7 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   outline: none;
-  border: 1px solid #191c2c;
+  border: 1px solid var(--black-text-color);
   border-radius: 4px;
   background-color: transparent;
   padding: 0;
@@ -177,7 +177,7 @@
     left: 2px;
     width: 10px;
     height: 10px;
-    background-color: #f3a610;
+    background-color: var(--accent-color);
 
     border-radius: 2px;
     opacity: 0;
@@ -185,7 +185,7 @@
   }
 
   &:checked {
-    border: 1px solid #f3a610;
+    border: var(--border-accent);
     &::before {
       opacity: 1;
     }
@@ -193,18 +193,18 @@
 
   &:hover::before {
     opacity: 0.8;
-    background-color: #f3a610;
+    background-color: var(--accent-color);
   }
 
   &:disabled {
-    border-color: var(--color-gray);
+    border-color: var(--gray-color);
     color: var(--color-white);
     cursor: not-allowed;
   }
 
   &:disabled::before {
     opacity: 0.8;
-    background-color: var(--color-gray);
+    background-color: var(--gray-color);
   }
 }
 
@@ -273,14 +273,14 @@
   outline: none;
   background: none;
   cursor: pointer;
-  fill: #191c2c;
-  stroke: #191c2c;
+  fill: var(--black-text-color);
+  stroke: var(--black-text-color);
 
   &:hover,
   &:focus,
   &:active {
-    stroke: #f3a610;
-    fill: #f3a610;
+    stroke: var(--accent-color);
+    fill: var(--accent-color);
   }
 }
 
@@ -294,5 +294,5 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: #191c2c;
+  color: var(--black-text-color);
 }

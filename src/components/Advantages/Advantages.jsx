@@ -1,9 +1,9 @@
-import styles from './Perevagy.module.scss';
+import styles from './Advantages.module.scss';
 import { cardData, getIconComponent } from './cardData';
 import Heading from 'shared/components/Heading';
 import Rectangle from 'components/Rectangle/Rectangle';
 
-export default function Perevagy() {
+export default function Advantages() {
   return (
     <div className={styles.container}>
       <Heading>Чому снеки від Бровка?</Heading>
