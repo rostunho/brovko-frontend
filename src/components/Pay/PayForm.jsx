@@ -1,11 +1,3 @@
-<<<<<<< Updated upstream
-import React, { useState } from 'react';
-const MERCHANT_ACCOUNT = process.env.REACT_APP_MERCHANT_ACCOUNT;
-
-console.log(MERCHANT_ACCOUNT);
-
-export default function PayForm() {
-=======
 import React, { useState, useEffect, useMemo } from 'react';
 import Button from 'shared/components/Button';
 const MERCHANT_ACCOUNT = process.env.REACT_APP_MERCHANT_ACCOUNT;
@@ -15,7 +7,6 @@ export default function PayForm({
   productsInBasket,
   createNewOrder,
 }) {
->>>>>>> Stashed changes
   const formFields = [];
   const initialState = useMemo(() => {
     return {
@@ -169,14 +160,9 @@ export default function PayForm({
       >
         {formFields}
       </form>
-<<<<<<< Updated upstream
-
-      <button type="submit" onClick={handleSubmit}>
-=======
       <Button type="submit" size="lg" onClick={handleSubmit}>
->>>>>>> Stashed changes
         Оплатити
-      </button>
+      </Button>
     </>
   );
 }

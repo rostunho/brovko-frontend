@@ -1,20 +1,29 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
+import { getAllOrders } from 'redux/basket/basketSelectors';
 import CustomerForm from './CustomerForm/CustomerForm';
 import { DeliveryForm } from 'components/OrderForm/DeliveryForm';
 import PaymentMethod from 'components/OrderForm/PaymentMethod';
-import OrderButtons from './OrderButtons/OrderButtons';
+import Button from 'shared/components/Button';
 import PayForm from 'components/Pay/PayForm';
+import {
+  addNewOrder,
+  generateAddOrderRequestBody,
+} from 'shared/services/api/brovko/orders';
 
 export default function OrderForm() {
   const [customer, setCustomer] = useState({});
   const [delivery, setDelivery] = useState({});
   const [paymentMethod, setPaymentMethod] = useState({});
-<<<<<<< Updated upstream
-=======
+
+
+  const createNewOrder = async () => {
+  const [currentOrderId, setCurrentOrderId] = useState(null);
   const productsInBasket = useSelector(getAllOrders);
   const navigate = useNavigate();
 
-  const createNewOrder = async () => {
+
     const addOrderRequestBody = generateAddOrderRequestBody(
       productsInBasket,
       customer,
@@ -29,7 +38,7 @@ export default function OrderForm() {
     // setCurrentOrderId(data.data.orderId.toString());
     return data;
   };
->>>>>>> Stashed changes
+
 
   const getCustomerData = data => {
     setCustomer(data);
@@ -45,15 +54,26 @@ export default function OrderForm() {
 
   return (
     <>
-      <form>
+      <form onSubmit={createNewOrder}>
         <CustomerForm getData={getCustomerData} />
         <DeliveryForm getData={getDeliveryData} />
         <PaymentMethod getData={getPaymentMethod} />
-        <OrderButtons />
+
+        <Button
+          size="lg"
+          mode="outlined"
+          style={{ marginBottom: '20px' }}
+          onClick={() => navigate('/shop/product-list-page')}
+        >
+          Повернутись до покупок
+        </Button>
+
+        {paymentMethod.method === 'cash' && (
+          <Button type="submit" size="lg">
+            Підтверджую замовлення
+          </Button>
+        )}
       </form>
-<<<<<<< Updated upstream
-      <PayForm />
-=======
       {paymentMethod.method === 'online' && (
         <PayForm
           createNewOrder={createNewOrder}
@@ -61,7 +81,6 @@ export default function OrderForm() {
           productsInBasket={productsInBasket}
         />
       )}
->>>>>>> Stashed changes
     </>
   );
 }

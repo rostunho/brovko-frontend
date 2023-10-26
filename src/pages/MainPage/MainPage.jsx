@@ -11,6 +11,7 @@ import WeInInstgram from 'components/WeInInstagram';
 export default function MainPage() {
   return (
     <>
+      
       {/* <Loader /> */}
       <Hero />
       <Perevagy />

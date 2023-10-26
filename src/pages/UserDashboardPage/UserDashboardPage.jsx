@@ -1,5 +1,39 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+
+import { logout } from 'redux/user/userOperations';
+import { selectIsLogin } from 'redux/user/userSelectors';
+
+import Heading from 'shared/components/Heading/Heading';
+import PersonalData from 'components/UserDashboard/PersonalData/PersonalData';
+import Contacts from 'components/UserDashboard/Contacts/Contacts';
+import OrdersHistory from 'components/UserDashboard/OrdersHistory/OrdersHistory';
+
 import styles from './UserDashboardPage.module.scss';
 
 export default function UserDashboardPage() {
-  return <>User Dashboard</>;
+  const dispatch = useDispatch();
+  const isUserLogin = useSelector(selectIsLogin);
+
+  const onLogout = () => {
+    console.log('click');
+    dispatch(logout());
+  };
+
+  if (!isUserLogin) {
+    return <Navigate to="/auth/login" />;
+  }
+  return (
+    <>
+      <Heading withGoBack>Мій профіль</Heading>
+      <div>
+        <PersonalData />
+        <Contacts />
+        <OrdersHistory />
+      </div>
+      <p className={styles.logoutBtn} onClick={onLogout}>
+        Вийти
+      </p>
+    </>
+  );
 }
