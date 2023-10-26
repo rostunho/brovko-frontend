@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { nanoid } from 'nanoid';
 import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
 import { initialSelectorValue } from './initialSelectorValue';
 import styles from './Selector.module.scss';
@@ -34,7 +35,8 @@ export default function Selector({
   const [categories, setCategories] = useState([]);
   const hotOptions = hotOptionsData || [];
 
-  // let id = 0;
+  const id = nanoid(6);
+  let key = 0;
 
   useEffect(() => {
     if (!defaultOption) {
@@ -68,10 +70,11 @@ export default function Selector({
 
   return (
     <div className={styles.container}>
-      <label className={styles.label}>
-        {label}
+      <div className={styles.label}>
+        <label htmlFor={id}>{label}</label>
         <input
           className={styles.select}
+          id={id}
           name={name}
           value={value || currentValue.name}
           readOnly
@@ -88,15 +91,15 @@ export default function Selector({
         >
           <DropdownArrowIcon className={`${styles.icon} `} />
         </button>
-      </label>
+      </div>
       {dropdownIsOpen && (
         <fieldset className={styles['dropdown-container']}>
           {categories.map(category => {
             const isCheched = currentValue.name === category.name;
             return (
               <label
-                // key={id++}
-                key={categories.indexOf(category)}
+                key={key++}
+                // key={categories.indexOf(category)}
                 className={`${styles.label} ${styles['label-options']} ${
                   enteringField && styles['label-options--disabled']
                 } ${isCheched && styles['is-checked']}`}

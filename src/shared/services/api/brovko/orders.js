@@ -77,6 +77,3 @@ export const generateAddOrderRequestBody = (
   // console.log('requestBody :>> ', requestBody);
   return requestBody;
 };
-
-const test = Date.now();
-console.log('test :>> ', test);

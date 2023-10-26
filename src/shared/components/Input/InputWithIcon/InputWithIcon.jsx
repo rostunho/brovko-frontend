@@ -1,13 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import PasswordToggler from 'shared/components/PasswordToggler/PasswordToggler';
 import LinkIcon from 'shared/icons/LinkIcon';
 import CalendarIcon from 'shared/icons/CalendarIcon';
 import SearchIcon from 'shared/icons/SearchIcon';
 import styles from './InputWithIcon.module.scss';
 
-export default function InputWithIcon({ length, ...props }) {
-  const { type, className, onChange, onFocus, onClick } = props;
-
+export default function InputWithIcon({
+  type,
+  className,
+  onChange,
+  onFocus,
+  onClick,
+  length,
+  icon,
+  link,
+  ...props
+}) {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleOnChange = event => {

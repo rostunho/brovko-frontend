@@ -1,6 +1,11 @@
-export default function TextInput({ length, ...props }) {
-  const { type, onChange } = props;
-
+export default function TextInput({
+  length,
+  link,
+  icon,
+  type,
+  onChange,
+  ...props
+}) {
   const handleOnChange = event => {
     onChange && onChange(event);
   };

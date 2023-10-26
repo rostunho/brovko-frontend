@@ -2,9 +2,17 @@ import { useState, useEffect } from 'react';
 import { toPhoneFormat, parsePhoneNumber } from 'utils';
 import styles from './NumericInput.module.scss';
 
-export default function NumericInput({ value, length, ...props }) {
-  const { type, placeholder, metrical, currency, className, onChange } = props;
-
+export default function NumericInput({
+  type,
+  placeholder,
+  className,
+  onChange,
+  value,
+  length,
+  currency,
+  metrical,
+  ...props
+}) {
   const phonePrefix = '+380';
   const [phoneValue, setInputValue] = useState(phonePrefix);
   const [metricClassName, setMetricClassName] = useState('');
