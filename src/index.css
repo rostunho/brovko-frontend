@@ -1,3 +1,5 @@
+@import './theme/abstract/_variables.scss';
+
 *,
 *::before,
 *::after {
@@ -57,6 +59,6 @@ a {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: #68baee;
+  color: var(--link-color);
   text-decoration-line: none;
 }

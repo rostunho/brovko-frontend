@@ -30,18 +30,18 @@
   color: inherit;
 
   border-radius: 8px;
-  border: 1px solid #7b7b7b;
+  border: var(--border-primary);
   outline: none;
   cursor: pointer;
 
   &::placeholder {
-    color: #a3a5a4;
+    color: var(--gray-color);
   }
 
   &:hover,
   &:focus,
   &:active {
-    border: 1px solid #f3a610;
+    border: var(--border-accent);
   }
 }
 
@@ -79,14 +79,14 @@ input[type='search'] {
   &:hover,
   &:focus,
   &:active {
-    stroke: #f3a610;
-    fill: #f3a610;
+    stroke: var(--accent-color);
+    fill: var(--accent-color);
   }
 }
 
 .input:hover + button,
 .input:focus + button,
 .input:active + button {
-  stroke: #f3a610;
-  fill: #f3a610;
+  stroke: var(--accent-color);
+  fill: var(--accent-color);
 }

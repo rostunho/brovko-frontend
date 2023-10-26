@@ -56,12 +56,12 @@
   &:hover,
   &:focus,
   &:active {
-    color: #f3a610;
+    color: var(--accent-color);
   }
 }
 
 .input-box__controls--checked {
-  color: #f3a610;
+  color: var(--accent-color);
 }
 
 .input {
@@ -81,18 +81,18 @@
   color: inherit;
 
   border-radius: 8px;
-  border: 1px solid #7b7b7b;
+  border: var(--border-primary);
   outline: none;
   cursor: pointer;
 
   &::placeholder {
-    color: #a3a5a4;
+    color: var(--gray-color);
   }
 
   &:hover,
   &:focus,
   &:active {
-    border: 1px solid #f3a610;
+    border: var(--border-accent);
   }
 
   //   &:invalid:not(:focus):not(:placeholder-shown) {
@@ -113,19 +113,19 @@
 // }
 
 input.input--not-valid {
-  border: 1px solid #f84147;
+  border: var(--border-error);
 
   &:hover,
   &focus:not(:placeholder-shown),
 //   &:not(:focus):not(:placeholder-shown),
   &:active,
   &:not(:active) {
-    border: 1px solid #f84147;
+    border: var(--border-error);
   }
 }
 
 input.input--is-valid:focus:not(:placeholder-shown) {
-  border: 2px solid #f3a610;
+  border: 2px solid var(--accent-color);
 }
 
 .warning-icon {
@@ -158,7 +158,7 @@ input.input--is-valid:focus:not(:placeholder-shown) {
     left: 2px;
     width: 10px;
     height: 10px;
-    background-color: #f3a610;
+    background-color: var(--accent-color);
 
     border-radius: 2px;
     opacity: 0;
@@ -166,7 +166,7 @@ input.input--is-valid:focus:not(:placeholder-shown) {
   }
 
   &:checked {
-    border: 1px solid #f3a610;
+    border: var(--border-accent);
     &::before {
       opacity: 1;
     }
@@ -179,7 +179,7 @@ input.input--is-valid:focus:not(:placeholder-shown) {
   height: 20px;
   margin: 0 16px 0 0;
   padding: 0;
-  border: 1px solid #f3a610;
+  border: var(--border-accent);
   border-radius: 50%;
   cursor: pointer;
 
@@ -196,7 +196,7 @@ input.input--is-valid:focus:not(:placeholder-shown) {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: #f3a610;
+    background-color: var(--accent-color);
   }
 }
 

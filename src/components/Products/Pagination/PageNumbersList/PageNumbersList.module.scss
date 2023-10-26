@@ -14,10 +14,10 @@
   align-items: center;
   color: var(--black-text-color);
   border-radius: 50%;
-  border: 1px solid #f3a610;
+  border: var(--border-accent);
 }
 
 .active {
   color: var(--white-text-color);
-  background-color: #f3a610;
+  background-color: var(--accent-color);
 }

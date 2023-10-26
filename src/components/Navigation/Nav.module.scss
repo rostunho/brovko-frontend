@@ -42,11 +42,11 @@
 
   &:hover,
   &:focus {
-    color: #f3a610;
+    color: var(--accent-color);
   }
 
   &:global(.active) {
-    color: #f3a610;
+    color: var(--accent-color);
   }
 
   @media screen and (min-width: 768px) {

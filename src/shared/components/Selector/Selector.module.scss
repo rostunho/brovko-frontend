@@ -33,19 +33,19 @@
   &:focus,
   &.is-checked {
     color: var(--white-text-color);
-    background-color: #f3a610;
+    background-color: var(--accent-color);
   }
 
   &--disabled {
-    color: #a3a5a4;
+    color: var(--gray-color);
     cursor: default;
 
     &:hover,
     &:focus,
     &:active,
     &.is-checked {
-      background-color: #fff;
-      color: #a3a5a4;
+      background-color: var(--white-bg-color);
+      color: var(--gray-color);
     }
   }
 }
@@ -64,7 +64,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: #a3a5a4;
+  color: var(--gray-color);
 
   //   cursor: pointer;
   pointer-events: auto;
@@ -86,17 +86,17 @@
   &:hover,
   &:focus,
   &:active {
-    border-color: #f3a610;
+    border-color: var(--accent-color);
     outline: none;
 
     & + .button {
-      stroke: #f3a610;
+      stroke: var(--accent-color);
     }
   }
 
   &:disabled {
-    border-color: var(--color-gray);
-    color: var(--color-white);
+    border-color: var(--gray-color);
+    color: var(--white-text-color);
     cursor: not-allowed;
   }
 }
@@ -112,9 +112,9 @@
   overflow: scroll;
 
   border-radius: 8px;
-  border: 1px solid #7b7b7b;
-  background-color: #fff;
-  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
+  border: var(--border-primary);
+  background-color: var(--white-bg-color);
+  box-shadow: var(--box-shadow);
 }
 
 .option {
@@ -151,7 +151,7 @@
     appearance: auto;
     opacity: 1;
 
-    color: #f3a610;
+    color: var(--accent-color);
 
     border-top: 1px solid var(--black-text-color);
     border-bottom: 1px solid var(--black-text-color);
@@ -159,14 +159,14 @@
     border-right: none;
 
     &::placeholder {
-      color: #a3a5a4;
+      color: var(--gray-color);
     }
 
     &:hover,
     &:focus {
-      border-top-color: #f3a610;
-      border-bottom-color: #f3a610;
-      background-color: #fff;
+      border-top-color: var(--accent-color);
+      border-bottom-color: var(--accent-color);
+      background-color: var(--white-bg-color);
       outline: none;
       // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
@@ -202,8 +202,8 @@
   &:hover .icon,
   &:focus .icon,
   &:active .icon {
-    fill: #f3a610;
-    stroke: #f3a610;
+    fill: var(--accent-color);
+    stroke: var(--accent-color);
   }
 }
 
@@ -248,8 +248,8 @@
   &:hover,
   &:focus,
   &:active {
-    stroke: #f3a610;
-    fill: #f3a610;
+    stroke: var(--accent-color);
+    fill: var(--accent-color);
   }
 }
 
@@ -266,7 +266,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: #a3a5a4;
+  color: var(--gray-color);
   cursor: pointer;
 
   &:hover,

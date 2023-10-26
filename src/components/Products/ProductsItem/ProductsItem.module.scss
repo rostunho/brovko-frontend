@@ -10,8 +10,8 @@
   padding-bottom: 16px;
   padding-right: 12px;
   padding-left: 12px;
-  background: var(--unnamed, #fff);
-  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
+  background: var(--white-bg-color);
+  box-shadow: var(--box-shadow);
 }
 
 @media screen and (min-width: 480px) and (max-width: 767px) {
@@ -76,7 +76,7 @@
 
 .price {
   font-weight: 400px;
-  color: var(--unnamed, #a3a5a4);
+  color: var(--gray-color);
   // opacity: 70%;
   margin: 0;
 }

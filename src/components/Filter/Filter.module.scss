@@ -18,8 +18,9 @@
   height: max-content;
   flex-shrink: 0;
   border-radius: 8px;
-  border: 1px solid var(--input, #7b7b7b);
-  background: var(--white, #fff);
+  // border: 1px solid var(--input, #7b7b7b);
+  border: var(--border-primery);
+  background: var(--white-bg-color);
   margin-top: 4px;
 }
 .dropdownLi {
@@ -33,7 +34,7 @@
   padding: 8px 16px 8px 16px;
 
   &:hover {
-    background-color: #f3a610;
-    color: white;
+    background-color: var(--accent-color);
+    color: var(--white-text-color);
   }
 }

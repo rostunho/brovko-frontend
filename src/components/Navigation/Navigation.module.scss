@@ -55,6 +55,6 @@
 
   &:global(.active) {
     font-weight: bold;
-    color: var(--unnamed, #f3a610);
+    color: var(--accent-color);
   }
 }

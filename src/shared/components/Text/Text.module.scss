@@ -11,16 +11,16 @@
 
 .text--centered {
   text-align: center;
-  color: #a3a5a4;
+  color: var(--gray-color);
   margin: 12px 0;
 }
 
 .text--divider {
   position: relative;
-  color: #a3a5a4;
+  color: var(--gray-color);
   margin: 12px auto;
   padding: 0 16px;
-  background-color: #fff;
+  background-color: var(--white-bg-color);
 
   &::before {
     content: '';
@@ -31,7 +31,7 @@
     transform: translateY(-50%);
     width: calc(100vw / 2 - 16px);
     height: 1px;
-    background-color: #a3a5a4;
+    background-color: var(--gray-color);
   }
   &::after {
     content: '';
@@ -42,7 +42,7 @@
     transform: translateY(-50%);
     width: calc(100vw / 2 - 16px);
     height: 1px;
-    background-color: #a3a5a4;
+    background-color: var(--gray-color);
   }
 }
 
@@ -50,5 +50,5 @@
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
-  color: #f84147;
+  color: var(--error-color);
 }

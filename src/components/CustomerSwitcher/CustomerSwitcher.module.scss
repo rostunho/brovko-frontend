@@ -14,10 +14,10 @@
 
   &:hover,
   &:focus {
-    color: #f3a610;
+    color: var(--accent-color);
   }
 }
 
 .link--active {
-  color: #f3a610;
+  color: var(--accent-color);
 }

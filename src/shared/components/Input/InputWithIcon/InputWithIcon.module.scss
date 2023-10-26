@@ -18,8 +18,8 @@
   &:hover,
   &:focus,
   &:active {
-    fill: #f3a610;
-    stroke: #f3a610;
+    fill: var(--accent-color);
+    stroke: var(--accent-color);
     background-color: transparent;
   }
 }

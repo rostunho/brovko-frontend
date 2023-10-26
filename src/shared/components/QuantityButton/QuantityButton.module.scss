@@ -17,10 +17,10 @@
   &__button {
     &:hover,
     :focus {
-      color: var(--color-orange-hover);
+      color: var(--accent-color);
     }
     &:disabled {
-      color: var(--color-gray);
+      color: var(--gray-color);
       cursor: not-allowed;
     }
   }
@@ -30,7 +30,7 @@
   }
 
   &_outlined {
-    border: 2px solid var(--color-orange);
+    border: 2px solid var(--accent-color);
     border-radius: 2rem;
   }
   &_sm {

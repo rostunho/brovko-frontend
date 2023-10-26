@@ -71,7 +71,8 @@
   width: 80px;
   height: 80px;
   border-radius: 12px;
-  border: 1px solid var(--Accent, #f3a610);
+  border: var(--border-accent);
+
   // background: lightgray 50%;
 
   @media screen and (min-width: 480px) and (max-width: 767px) {
@@ -92,7 +93,7 @@
 
 .ratingText {
   padding-left: 3px;
-  color: var(--Gray, #a3a5a4);
+  color: var(--gray-color);
   font-family: Nunito;
   font-size: 12px;
   font-style: normal;
@@ -127,13 +128,13 @@
 
 .contentContainer {
   // border: 1px solid var(--Accent, #f3a610);
-  color: var(--black-text-color);
+  // color: var(--black-text-color);
   word-wrap: break-word;
   white-space: normal;
 }
 
 .contentText {
-  color: var(--black-text-color);
+  // color: var(--black-text-color);
   font-size: 14px;
 }
 
@@ -150,13 +151,13 @@
   // border: 1px solid var(--Accent, #f3a610);
   margin-top: 20px;
   // max-height: 57px;
-  color: var(--black-text-color);
+  // color: var(--black-text-color);
   word-wrap: break-word;
   white-space: normal;
 }
 
 .descriptionText {
-  color: var(--black-text-color);
+  // color: var(--black-text-color);
   font-size: 14px;
 
   overflow: hidden;
@@ -172,11 +173,11 @@
 
 .readMoreButton {
   display: inline-block;
-  color: #f3a610;
+  color: var(--accent-color);
 }
 
 .readMoreIcon {
-  stroke: #f3a610;
+  stroke: var(--accent-color);
 
   &-reverse {
     transform: rotate(180deg);
@@ -204,7 +205,7 @@
 }
 
 .rewieCount {
-  color: var(--Gray, #a3a5a4);
+  color: var(--gray-color);
 }
 
 .reviewItem {
@@ -243,7 +244,7 @@
 }
 
 .reviewDate {
-  color: var(--Gray, #a3a5a4);
+  color: var(--gray-color);
   font-family: Nunito;
   font-size: 12px;
   font-style: normal;
@@ -288,7 +289,7 @@
   // border: 1px solid var(--Accent, #f3a610);
   overflow: hidden;
   object-fit: cover;
-  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--box-shadow);
 }
 
 .visibleImages {
@@ -312,7 +313,7 @@
 }
 
 .dot {
-  background-color: #f3a610;
+  background-color: var(--accent-color);
   opacity: 50%;
   width: 12px;
   height: 12px;
@@ -321,7 +322,7 @@
 }
 
 .activeDot {
-  background-color: #f3a610;
+  background-color: var(--accent-color);
   width: 12px;
   height: 12px;
   border-radius: 50%;

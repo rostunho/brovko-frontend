@@ -22,7 +22,7 @@ input.input--metric {
   // top: 40px;
   bottom: 4px;
   right: 8px;
-  color: #a3a5a4;
+  color: var(--gray-color);
 }
 
 .input--metric-length-sm {
@@ -30,7 +30,7 @@ input.input--metric {
   // top: 40px;
   bottom: 4px;
   right: 8px;
-  color: #a3a5a4;
+  color: var(--gray-color);
 }
 
 .currency {
@@ -39,5 +39,5 @@ input.input--metric {
   bottom: 4px;
   right: 8px;
   font-size: 12px;
-  color: #a3a5a4;
+  color: var(--gray-color);
 }

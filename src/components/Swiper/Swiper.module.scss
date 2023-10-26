@@ -15,7 +15,7 @@
   border-radius: 12px;
   overflow: hidden;
   object-fit: cover;
-  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--box-shadow);
 }
 
 .visibleImages {
@@ -39,7 +39,7 @@
 }
 
 .dot {
-  background-color: #f3a610;
+  background-color: var(--accent-color);
   opacity: 50%;
   width: 12px;
   height: 12px;
@@ -48,7 +48,7 @@
 }
 
 .activeDot {
-  background-color: #f3a610;
+  background-color: var(--accent-color);
   width: 12px;
   height: 12px;
   border-radius: 50%;
