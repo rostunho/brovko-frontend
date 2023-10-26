@@ -247,6 +247,7 @@ export default function AddProductForm() {
         <Input
           label="Сторінка на сайті :"
           name="url"
+          type="url"
           onChange={e => dispatchRequestBody(e, 'ADD_URL')}
           icon={<LinkIcon />}
           link="http://localhost:3000/main" // to change later

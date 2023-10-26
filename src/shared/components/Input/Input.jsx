@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { nanoid } from 'nanoid';
 import { validateInputValue } from 'utils';
 import { errorMessages } from './errorMessages';
 import InputElement from './InputElement';
@@ -36,6 +37,7 @@ export default function Input({
   const [checkBoxIsChecked, setCheckBoxIsChecked] = useState(false);
   const isCheckbox = type === 'checkbox';
   const isRadio = type === 'radio';
+  const id = nanoid(6);
 
   // console.log('INPUT RERENDERING');
 
@@ -157,16 +159,17 @@ export default function Input({
 
   return (
     <>
-      <label
+      <div
         className={`${styles['input-box']} ${
           styles[`input-box__length--${length}`]
         } ${isCheckbox || isRadio ? styles['input-box__controls'] : ''} ${
           checkBoxIsChecked ? styles['input-box__controls--checked'] : ''
         } ${labelClassName ? labelClassName : ''}`}
       >
-        {label}
+        <label htmlFor={id}>{label}</label>
         <InputElement
           type={type}
+          id={id}
           value={value} // перевірити, чи не вплине на інші інпути
           className={`${styles.input} ${
             additionalClassCondition ? '' : styles[`${additionalClass}`]
@@ -189,7 +192,7 @@ export default function Input({
             {error.message}
           </Text>
         )}
-      </label>
+      </div>
       {error.message && <></>}
     </>
   );
