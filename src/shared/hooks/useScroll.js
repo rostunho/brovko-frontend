@@ -9,7 +9,7 @@ export default function useScroll() {
     setScrolledToTop(scrolled);
   };
 
-  const handleScroll = debounce(500, scrollDetecting);
+  const handleScroll = debounce(250, scrollDetecting);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);

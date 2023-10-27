@@ -1,5 +1,6 @@
-import { useState, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
+import useFadeOut from 'shared/hooks/useFadeOut';
 import useScreenWidth from 'shared/hooks/useScreenWidth';
 import useScroll from 'shared/hooks/useScroll';
 
@@ -12,11 +13,17 @@ import styles from './SharedLayout.module.scss';
 import Loader from 'components/Loader';
 
 const SharedLayout = () => {
+  // const [showBackToTopButton, setShowBackToTopButton] = useState(false);
+  const [showToTopButton, fadeOut, setShowToTopButton] = useFadeOut(500);
   const screenWidth = useScreenWidth();
   const scroll = useScroll();
 
-  console.log('screenWidth :>> ', screenWidth);
   console.log('scroll :>> ', scroll);
+
+  useEffect(() => {
+    setShowToTopButton(screenWidth <= 768 && scroll >= 700);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screenWidth, scroll]);
 
   return (
     <div className={styles.layout}>
@@ -26,7 +33,7 @@ const SharedLayout = () => {
           <Outlet />
         </Suspense>
         <Rectangle />
-        <BackToTopButton />
+        {showToTopButton && <BackToTopButton animation={fadeOut} />}
       </main>
       <Footer />
     </div>
