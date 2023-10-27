@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense } from 'react';
+import { useEffect, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import useFadeOut from 'shared/hooks/useFadeOut';
 import useScreenWidth from 'shared/hooks/useScreenWidth';
@@ -13,12 +13,9 @@ import styles from './SharedLayout.module.scss';
 import Loader from 'components/Loader';
 
 const SharedLayout = () => {
-  // const [showBackToTopButton, setShowBackToTopButton] = useState(false);
   const [showToTopButton, fadeOut, setShowToTopButton] = useFadeOut(500);
   const screenWidth = useScreenWidth();
   const scroll = useScroll();
-
-  console.log('scroll :>> ', scroll);
 
   useEffect(() => {
     setShowToTopButton(screenWidth <= 768 && scroll >= 700);

@@ -8,7 +8,7 @@ export default function useFadeOut(ms) {
   useEffect(() => {
     return () => {
       if (timerId) {
-        clearTimeout(timerId); // При розмонтуванні очистити таймер
+        clearTimeout(timerId);
       }
     };
   }, [timerId]);

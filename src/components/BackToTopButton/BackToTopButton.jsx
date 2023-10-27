@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import BackToTopIcon from 'shared/icons/BackToTopIcon';
 import styles from './BackToTopButton.module.scss';
