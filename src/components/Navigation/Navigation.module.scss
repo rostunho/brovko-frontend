@@ -1,3 +1,5 @@
+@import '../../theme/abstract/mixins';
+
 .navigation {
   display: flex;
   align-items: center;
@@ -36,22 +38,16 @@
   text-decoration: none;
   margin: 0 5px;
   color: var(--black-text-color);
-  font-family: 'Nunito';
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
 }
 .authLink {
   display: inline-block;
   text-decoration: none;
   margin: 0 5px;
   color: var(--black-text-color);
-  font-family: 'Nunito';
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
 
   &:global(.active) {
     font-weight: bold;

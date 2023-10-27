@@ -3,3 +3,15 @@
   font-weight: $weight;
   color: $color;
 }
+
+@mixin text-styles(
+  $family: '' Nunito ', sans-serif',
+  $size: 14px,
+  $weight: 400
+) {
+  font-family: $family;
+  font-size: $size;
+  font-style: normal;
+  font-weight: $weight;
+  line-height: normal;
+}

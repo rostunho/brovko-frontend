@@ -1,3 +1,5 @@
+@import '../../theme/abstract/mixins';
+
 .list {
   list-style: none;
   // text-align: center;
@@ -66,9 +68,6 @@
   text-decoration: none;
   margin: 0 5px;
   color: var(--black-text-color);
-  font-family: 'Nunito';
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
 }

@@ -1,3 +1,5 @@
+@import '../../../theme/abstract/mixins';
+
 .wrapper-allproduct {
   display: flex;
   justify-content: space-between;
@@ -81,11 +83,8 @@
 
 .value {
   color: var(--black-text-color);
-  font-family: Nunito;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
   padding-right: 8px;
   padding-left: 8px;
 }
@@ -107,10 +106,7 @@
   color: var(--black-text-color);
   // padding-top: 38px;
   /* Main */
-  font-family: Nunito;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
   margin-bottom: 3px;
 }
