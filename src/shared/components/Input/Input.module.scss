@@ -14,6 +14,12 @@
   color: var(--black-text-color);
 }
 
+.label {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .input-box__length--lg {
   width: 100%;
 }
