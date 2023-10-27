@@ -20,8 +20,8 @@
   &:hover,
   &:focus,
   &:active {
-    background-color: var(--accent-color);
-    box-shadow: 0px 2px 5px 1px rgba(255, 193, 7, 0.4);
+    background-color: #f39610;
+    box-shadow: 0px 1px 5px 0px rgba(255, 193, 7, 0.5);
   }
 
   &:focus {

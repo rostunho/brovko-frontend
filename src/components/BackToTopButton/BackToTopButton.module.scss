@@ -1,0 +1,20 @@
+.to-top-button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+
+  position: fixed;
+  top: calc(100vh - 72px);
+  right: 32px;
+}
+
+.to-top-icon {
+  fill: #f3a610;
+  cursor: pointer;
+  &:hover {
+    fill: #f39610;
+    filter: drop-shadow(0px 1px 5px rgba(255, 193, 7, 0.5));
+  }
+}
