@@ -1,3 +1,5 @@
+@import '../../theme/abstract/mixins';
+
 .container {
   // margin-top: 32px;
   margin-bottom: 32px;
@@ -45,9 +47,5 @@
   padding: 16px 12px 0 12px;
 
   /* основний текст */
-  font-family: Nunito;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  @include text-styles;
 }
