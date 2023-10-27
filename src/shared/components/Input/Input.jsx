@@ -166,7 +166,9 @@ export default function Input({
           checkBoxIsChecked ? styles['input-box__controls--checked'] : ''
         } ${labelClassName ? labelClassName : ''}`}
       >
-        <label htmlFor={id}>{label}</label>
+        <label htmlFor={id} className={styles.label}>
+          {label}
+        </label>
         <InputElement
           type={type}
           id={id}
