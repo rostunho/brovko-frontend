@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { current } from 'redux/user/userOperations';
 import { selectUser } from 'redux/user/userSelectors';
 
-import Heading from 'shared/components/Heading';
+// import Heading from 'shared/components/Heading';
+import UserDataHeading from 'shared/components/UserDataHeading';
 import PersonalDataForm from './PersonalDataForm';
+// import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
 
 import styles from './PersonalData.module.scss';
 
@@ -33,9 +35,13 @@ const PersonalData = () => {
   };
   return (
     <>
-      <div onClick={toggleShowingInfo} className={styles.heading}>
+      {/* <div onClick={toggleShowingInfo} className={styles.heading}>
         <Heading type="h3">Персональні дані</Heading>
-      </div>
+        <DropdownArrowIcon className={styles['heading-icon']} />
+      </div> */}
+      <UserDataHeading onClick={toggleShowingInfo} opened={showInfo}>
+        Персональні дані
+      </UserDataHeading>
       {showInfo && (
         <div className={styles.userInfo}>
           <PersonalDataForm

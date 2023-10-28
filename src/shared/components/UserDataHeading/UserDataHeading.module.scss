@@ -1,0 +1,22 @@
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 32px;
+  // padding-bottom: 5px;
+  border-bottom: var(--border-gray);
+  cursor: pointer;
+}
+
+.showed-info {
+  margin-bottom: 24px;
+}
+
+.heading-icon {
+  stroke: #191c2c;
+}
+
+// .userInfo {
+//   margin-bottom: 32px;
+// }

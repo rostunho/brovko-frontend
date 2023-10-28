@@ -1,10 +1,11 @@
 .logoutBtn {
   color: var(--black-text-color);
-  font-family: Nunito;
+  font-family: 'Nunito', sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   text-decoration-line: underline;
   margin-top: 40px;
+  cursor: pointer;
 }
