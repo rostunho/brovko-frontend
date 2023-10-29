@@ -5,14 +5,10 @@
   margin-bottom: 32px;
 }
 .title {
-  //   color: var(--unnamed, #191c2c);
   text-align: center;
   /* h2 */
   font-family: Amatic SC;
   font-size: 32px;
-  //   font-style: normal;
-  //   font-weight: 700;
-  //   line-height: normal;
   letter-spacing: 0.96px;
   margin-bottom: 24px;
 }
@@ -28,8 +24,8 @@
 
 .box {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 24px;
 }
 .card {
@@ -45,7 +41,5 @@
 .text {
   color: var(--black-text-color);
   padding: 16px 12px 0 12px;
-
-  /* основний текст */
   @include text-styles;
 }

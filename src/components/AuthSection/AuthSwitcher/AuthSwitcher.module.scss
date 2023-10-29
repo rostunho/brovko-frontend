@@ -1,11 +1,8 @@
+@import 'theme/abstract/_mixins.scss';
+
 .text {
   text-align: center;
-
-  font-family: 'Nunito', sans-serif;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  @include text-styles(_, 12px);
   color: var(--gray-color);
 }
 

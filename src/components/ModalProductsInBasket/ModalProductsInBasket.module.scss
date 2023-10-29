@@ -1,3 +1,5 @@
+@import 'theme/abstract/_mixins.scss';
+
 .textTotal {
   display: flex;
   align-items: center;
@@ -8,11 +10,7 @@
 .text-sum {
   color: var(--black-text-color);
   /* h3 */
-  font-family: Nunito;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
+  @include text-styles(Nunito, 16px, normal, 700);
   padding-left: 16px;
   padding-top: 16px;
   padding-bottom: 20px;
@@ -27,10 +25,6 @@
 .total {
   color: var(--black-text-color);
   /* h3 */
-  font-family: Nunito;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
+  @include text-styles(Nunito, 16px, normal, 700);
   padding-right: 16px;
 }

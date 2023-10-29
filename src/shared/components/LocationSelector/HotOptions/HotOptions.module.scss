@@ -1,3 +1,5 @@
+@import 'theme/abstract/_mixins.scss';
+
 .list {
   display: inline-block;
   box-sizing: border-box;
@@ -7,12 +9,7 @@
 
 .item {
   display: inline-block;
-
-  font-family: 'Nunito', sans-serif;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  @include text-styles(Nunito, 12px);
   color: var(--gray-color);
   cursor: pointer;
 

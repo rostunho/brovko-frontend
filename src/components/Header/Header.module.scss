@@ -1,3 +1,5 @@
+@import 'theme/abstract/_mixins.scss';
+
 .header {
   box-sizing: border-box;
   // max-width: 100%;
@@ -17,11 +19,11 @@
   justify-content: space-between;
 
   @media screen and (min-width: 768px) {
-    max-width: 768px;
+    max-width: 100%;
   }
 
   @media screen and (min-width: 1280px) {
-    max-width: 1280px;
+    max-width: 100%;
   }
 }
 
@@ -67,10 +69,5 @@
   left: 30%;
   width: 7px;
   color: var(--white-text-color);
-  /* Additional */
-  font-family: Nunito;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  @include text-styles(Nunito, 12px);
 }

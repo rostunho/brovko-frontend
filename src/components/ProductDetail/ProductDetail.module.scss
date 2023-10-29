@@ -114,7 +114,7 @@
 }
 
 .contentContainer {
-  // border: 1px solid var(--Accent, #f3a610);
+  border: 1px solid var(--Accent, #f3a610);
   // color: var(--black-text-color);
   word-wrap: break-word;
   white-space: normal;
@@ -128,7 +128,7 @@
 .contentHeader {
   display: inline;
   margin-right: 8px;
-  @include text-styles(_, 16px);
+  @include text-styles(Nunito, 16px);
 }
 
 .descriptionContainer {

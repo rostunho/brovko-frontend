@@ -7,11 +7,12 @@
 @mixin text-styles(
   $family: '' Nunito ', sans-serif',
   $size: 14px,
-  $weight: 400
+  $weight: 400,
+  $height: normal
 ) {
   font-family: $family;
   font-size: $size;
   font-style: normal;
   font-weight: $weight;
-  line-height: normal;
+  line-height: $height;
 }

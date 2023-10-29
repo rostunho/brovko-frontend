@@ -1,3 +1,5 @@
+@import 'theme/abstract/_mixins.scss';
+
 .container {
   position: relative;
   display: flex;
@@ -25,11 +27,7 @@
   width: 140px;
   padding: 8px;
 
-  font-family: 'Nunito', sans-serif;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  @include text-styles(Nunito, 12px);
   color: var(--gray-color);
 
   border: var(--border-gray);
