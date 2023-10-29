@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 
 import { lazy } from 'react';
-import './App.css';
+// import './index.css';
 
 import SharedLayout from 'components/SharedLayout/SharedLayout';
 import AllUsersRoutes from 'components/Routes/AllUsersRoutes';

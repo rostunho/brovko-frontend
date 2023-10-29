@@ -1,16 +1,14 @@
+@import '../../theme/abstract/mixins';
+
 .container {
   // margin-top: 32px;
   margin-bottom: 32px;
 }
 .title {
-  //   color: var(--unnamed, #191c2c);
   text-align: center;
   /* h2 */
   font-family: Amatic SC;
   font-size: 32px;
-  //   font-style: normal;
-  //   font-weight: 700;
-  //   line-height: normal;
   letter-spacing: 0.96px;
   margin-bottom: 24px;
 }
@@ -26,8 +24,8 @@
 
 .box {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 24px;
 }
 .card {
@@ -43,11 +41,5 @@
 .text {
   color: var(--black-text-color);
   padding: 16px 12px 0 12px;
-
-  /* основний текст */
-  font-family: Nunito;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  @include text-styles;
 }

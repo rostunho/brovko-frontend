@@ -1,8 +1,7 @@
+@import 'theme/abstract/_mixins.scss';
+
 .text {
-  font-family: 'Nunito', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
+  @include text-styles;
 }
 
 .text--regular {

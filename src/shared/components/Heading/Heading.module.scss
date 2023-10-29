@@ -1,3 +1,5 @@
+@import 'theme/abstract/_mixins.scss';
+
 .container {
   position: relative;
   display: flex;
@@ -9,11 +11,7 @@
   width: 100%;
   padding: 32px 0 24px 0;
 
-  font-family: 'Amatic SC', cursive;
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
+  @include text-styles(Amatic SC, 32px, 700);
   letter-spacing: 0.96px;
   text-align: center;
 }
@@ -32,8 +30,7 @@
 }
 
 .h3 {
-  font-family: 'Nunito', sans-serif;
-  font-size: 16px;
+  @include text-styles(Nunito, 16px);
   letter-spacing: 0;
   text-align: start;
   padding: 8px 0;

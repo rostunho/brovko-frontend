@@ -1,10 +1,8 @@
+@import 'theme/abstract/_mixins.scss';
+
 .logoutBtn {
   color: var(--black-text-color);
-  font-family: Nunito;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  @include text-styles(Nunito, 16px);
   text-decoration-line: underline;
   margin-top: 40px;
 }
