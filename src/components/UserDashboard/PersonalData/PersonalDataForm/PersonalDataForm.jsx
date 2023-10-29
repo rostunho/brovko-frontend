@@ -11,9 +11,14 @@ const PersonalDataForm = ({
   lastName,
   onSubmitForm,
 }) => {
-  const [nameFocused, setNameFocused] = useState(false);
+  const [firstNameFocused, setFirstNameFocused] = useState(false);
+  const [middleNameFocused, setMiddleNameFocused] = useState(false);
   const [lastNameFocused, setLastNameFocused] = useState(false);
-  const [userInfo, setUserInfo] = useState({ firstName, middleName, lastName });
+  const [userInfo, setUserInfo] = useState(() => ({
+    firstName,
+    middleName,
+    lastName,
+  }));
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -30,12 +35,20 @@ const PersonalDataForm = ({
     onSubmitForm(userInfo);
   };
 
-  const onFocusName = () => {
-    setNameFocused(true);
+  const onFocusFirstName = () => {
+    setFirstNameFocused(true);
   };
 
-  const onBlurName = () => {
-    setNameFocused(false);
+  const onBlurFirstName = () => {
+    setFirstNameFocused(false);
+  };
+
+  const onFocusMiddleName = () => {
+    setMiddleNameFocused(true);
+  };
+
+  const onBlurMiddleName = () => {
+    setMiddleNameFocused(false);
   };
 
   const onFocusLastName = () => {
@@ -47,7 +60,7 @@ const PersonalDataForm = ({
   };
 
   const cancelChanging = () => {
-    setUserInfo({ firstName, lastName });
+    setUserInfo({ firstName, middleName, lastName });
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -57,8 +70,8 @@ const PersonalDataForm = ({
         placeholder={firstName}
         value={userInfo.firstName}
         onChange={e => handleChange(e)}
-        onFocus={onFocusName}
-        onBlur={onBlurName}
+        onFocus={onFocusFirstName}
+        onBlur={onBlurFirstName}
         style={{ marginBottom: '16px' }}
       />
       <Input
@@ -67,8 +80,8 @@ const PersonalDataForm = ({
         placeholder={firstName}
         value={userInfo.middleName}
         onChange={e => handleChange(e)}
-        onFocus={onFocusName}
-        onBlur={onBlurName}
+        onFocus={onFocusMiddleName}
+        onBlur={onBlurMiddleName}
         style={{ marginBottom: '16px' }}
       />
       <Input
@@ -86,8 +99,9 @@ const PersonalDataForm = ({
           type="submit"
           size="lg"
           disabled={
-            !nameFocused &&
+            !firstNameFocused &&
             !lastNameFocused &&
+            !middleNameFocused &&
             userInfo.firstName === firstName &&
             userInfo.lastName === lastName
           }

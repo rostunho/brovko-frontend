@@ -12,7 +12,7 @@ export default function ContactsForm() {
         style={{ marginBottom: '16px' }}
       />
       <Input type="email" label="E-mail" style={{ marginBottom: '16px' }} />
-      <Input label="Місто" style={{ marginBottom: '16px' }} />
+      <LocationSelector label="Місто" style={{ marginBottom: '16px' }} />
       <div className={styles.address}>
         <Input label="Будинок" length="md" style={{ marginBottom: '16px' }} />
         <Input label="Квартира" length="md" style={{ marginBottom: '16px' }} />

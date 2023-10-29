@@ -15,7 +15,11 @@ const PersonalData = () => {
   const [showInfo, setShowInfo] = useState(false);
 
   const dispatch = useDispatch();
-  const { name, email } = useSelector(selectUser);
+  const { firstName, middleName, lastName } = useSelector(selectUser);
+
+  console.log('firstName :>> ', firstName);
+  console.log('middleName :>> ', middleName);
+  console.log('lastName :>> ', lastName);
 
   useEffect(() => {
     dispatch(current());
@@ -27,8 +31,6 @@ const PersonalData = () => {
       data
     );
   };
-
-  console.log(name, email);
 
   const toggleShowingInfo = () => {
     setShowInfo(!showInfo);
@@ -45,8 +47,9 @@ const PersonalData = () => {
       {showInfo && (
         <div className={styles.userInfo}>
           <PersonalDataForm
-            firstName={name === undefined ? '' : name}
-            lastName={email === undefined ? '' : email}
+            firstName={firstName}
+            middleName={middleName}
+            lastName={lastName}
             onSubmitForm={onSubmitForm}
           />
         </div>

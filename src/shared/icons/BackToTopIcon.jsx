@@ -28,7 +28,7 @@ export default function BackToTopIcon(props) {
           width="72"
           height="72"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
           <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
