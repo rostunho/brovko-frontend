@@ -7,7 +7,9 @@ import { selectUser } from 'redux/user/userSelectors';
 import UserDataHeading from 'components/UserDashboard/UserDataHeading';
 import ContactsForm from './ContactsForm';
 
-import styles from './Contacts.module.scss';
+import styles from '../Contacts/Contacts.module.scss';
+
+console.log('styles :>> ', styles);
 
 const Contacts = () => {
   const [showInfo, setShowInfo] = useState(false);
@@ -21,8 +23,8 @@ const Contacts = () => {
     setShowInfo(!showInfo);
   };
 
-  console.log('novaPoshta :>> ', novaPoshta);
-  console.log('city :>> ', city);
+  // console.log('novaPoshta :>> ', novaPoshta);
+  // console.log('city :>> ', city);
 
   return (
     <>
@@ -33,7 +35,7 @@ const Contacts = () => {
         Контакти
       </UserDataHeading>
       {showInfo && (
-        <div className={styles['contacts-info']}>
+        <div className={styles.userInfo}>
           <ContactsForm
             phone={phone}
             email={email}

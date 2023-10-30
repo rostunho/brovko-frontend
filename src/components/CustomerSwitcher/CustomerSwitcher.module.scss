@@ -1,4 +1,25 @@
-@import '../../theme/abstract/mixins';
+// @import '../../theme/abstract/mixins';
+
+// .list {
+//   display: flex;
+//   justify-content: space-between;
+//   padding: 24px 10.5px 16px;
+// }
+
+// .link {
+//   /* основний текст */
+//   @include text-styles;
+//   color: var(--black-text-color);
+
+//   &:hover,
+//   &:focus {
+//     color: var(--accent-color);
+//   }
+// }
+
+// .link--active {
+//   color: var(--accent-color);
+// }
 
 .list {
   display: flex;
@@ -7,16 +28,20 @@
 }
 
 .link {
-  /* основний текст */
-  @include text-styles;
-  color: var(--black-text-color);
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  // /* основний текст */
+  // @include text-styles;
+  // color: var(--black-text-color);
 
   &:hover,
   &:focus {
     color: var(--accent-color);
   }
 }
-
 .link--active {
   color: var(--accent-color);
 }

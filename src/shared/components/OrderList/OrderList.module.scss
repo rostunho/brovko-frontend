@@ -9,7 +9,7 @@
 
 .text-sum {
   color: var(--black-text-color);
-  @include text-styles(Nunito, 16px, normal, 700);
+  @include text-styles('Nunito', 16px, normal, 700);
   padding-left: 16px;
   padding-top: 16px;
   padding-bottom: 20px;
@@ -17,7 +17,7 @@
 
 .total {
   color: var(--black-text-color);
-  @include text-styles(Nunito, 16px, normal, 700);
+  @include text-styles('Nunito', 16px, 700);
   //   padding-right: 16px;
 }
 
