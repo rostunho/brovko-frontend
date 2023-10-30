@@ -6,7 +6,13 @@ import styles from './DeliveryStreet.module.scss';
 
 // import { nan } from 'shared/services/nova-poshta-api';
 
-export default function DeliveryStreet({ cityRef, handleData }) {
+export default function DeliveryStreet({
+  cityRef,
+  handleData,
+  profile,
+  initialValue,
+  ...props
+}) {
   const [streets, setStreets] = useState([]);
   const [targetStreet, setTargetStreet] = useState('');
   const [selectedStreetData, setSelectedStreetData] = useState(null);
@@ -62,9 +68,10 @@ export default function DeliveryStreet({ cityRef, handleData }) {
         placeholder="Вкажіть назву вулиці"
         extractSearchValue={extractTargetStreet}
         extractData={extractStreetData}
+        initialValue={initialValue}
       />
 
-      {selectedStreetData?.Present && (
+      {!profile && selectedStreetData?.Present && (
         <div className={styles['inner-container']}>
           <Input
             type="text"

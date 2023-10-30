@@ -13,9 +13,10 @@ export default function LocationSelector({
   placeholder,
   extractSearchValue,
   extractData,
+  initialValue,
   ...props
 }) {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState(() => initialValue || '');
   const [selectedData, setSelectedData] = useState(null);
   const [selectorIsOpen, setSelectorIsOpen] = useState(false);
 
@@ -35,10 +36,10 @@ export default function LocationSelector({
       return;
     }
 
-    searchValue.length > 0 && !selectedData
+    searchValue.length > 0 && !selectedData && searchValue !== initialValue
       ? setSelectorIsOpen(true)
       : setSelectorIsOpen(false);
-  }, [searchValue, selectedData]);
+  }, [initialValue, searchValue, selectedData]);
 
   const handleOnIconClick = event => {
     toggleSelector();
@@ -62,7 +63,7 @@ export default function LocationSelector({
 
   return (
     <>
-      <div className={styles.wrapper}>
+      <div {...props} className={styles.wrapper}>
         <SearchField
           label={label}
           placeholder={placeholder}
@@ -73,7 +74,7 @@ export default function LocationSelector({
           onClick={handleOnIconClick}
           dataRef={selectedData && selectedData.Ref}
         />
-        {selectorIsOpen && data.length > 0 && (
+        {selectorIsOpen && data?.length > 0 && (
           <LocationList data={data} onClick={onOptionClick} />
         )}
       </div>
@@ -90,6 +91,6 @@ LocationSelector.propTypes = {
       ...PropTypes.any,
     })
   ),
-  extractSearchValue: PropTypes.func.isRequired,
-  extractData: PropTypes.func.isRequired,
+  // extractSearchValue: PropTypes.func.isRequired,
+  // extractData: PropTypes.func.isRequired,
 };

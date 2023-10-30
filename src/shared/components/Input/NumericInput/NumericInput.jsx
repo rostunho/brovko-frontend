@@ -124,7 +124,13 @@ export default function NumericInput({
         onFocus={setCursorStartPosition}
         onKeyDown={handleKeyDown}
         onMouseUp={handleMouseUp}
-        value={type === 'tel' ? toPhoneFormat(phoneValue) : value && value}
+        value={
+          type === 'tel'
+            ? value
+              ? toPhoneFormat(value)
+              : toPhoneFormat(phoneValue)
+            : value && value
+        }
       />
       {showMetricalParams && (
         <span className={styles[metricClassName]}>

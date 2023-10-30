@@ -5,7 +5,7 @@ import { current } from 'redux/user/userOperations';
 import { selectUser } from 'redux/user/userSelectors';
 
 // import Heading from 'shared/components/Heading';
-import UserDataHeading from 'shared/components/UserDataHeading';
+import UserDataHeading from 'components/UserDashboard/UserDataHeading';
 import PersonalDataForm from './PersonalDataForm';
 // import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
 

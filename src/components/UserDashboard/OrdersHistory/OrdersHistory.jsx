@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 // import Heading from 'shared/components/Heading/Heading';
-import UserDataHeading from 'shared/components/UserDataHeading';
+import UserDataHeading from 'components/UserDashboard/UserDataHeading';
 
 import styles from './OrdersHistory.module.scss';
 

@@ -1,4 +1,15 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .address {
   display: flex;
   justify-content: space-between;
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 24px;
 }

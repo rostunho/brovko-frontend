@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react';
 import { findCity } from 'shared/services/api/nova-poshta/nova-poshta-api';
 import { LocationSelector } from 'shared/components/LocationSelector';
 
-export default function DeliveryCity({ handleData }) {
+export default function DeliveryCity({
+  handleData,
+  profile,
+  initialValue,
+  ...props
+}) {
   const [cities, setCities] = useState([]);
   const [targetCity, setTargetCity] = useState('');
   const [selectedCityData, setSelectedCityData] = useState(null);
@@ -42,9 +47,10 @@ export default function DeliveryCity({ handleData }) {
   };
   return (
     <LocationSelector
-      withHotOptions
+      withHotOptions={!profile}
       data={cities}
       label="Населений пункт"
+      initialValue={initialValue}
       placeholder={'Вкажіть населений пункт'}
       extractSearchValue={extractTargetCity}
       extractData={extractCityData}

@@ -11,9 +11,9 @@ const PersonalDataForm = ({
   lastName,
   onSubmitForm,
 }) => {
-  const [firstNameFocused, setFirstNameFocused] = useState(false);
-  const [middleNameFocused, setMiddleNameFocused] = useState(false);
-  const [lastNameFocused, setLastNameFocused] = useState(false);
+  // const [firstNameFocused, setFirstNameFocused] = useState(false);
+  // const [middleNameFocused, setMiddleNameFocused] = useState(false);
+  // const [lastNameFocused, setLastNameFocused] = useState(false);
   const [userInfo, setUserInfo] = useState(() => ({
     firstName,
     middleName,
@@ -35,29 +35,29 @@ const PersonalDataForm = ({
     onSubmitForm(userInfo);
   };
 
-  const onFocusFirstName = () => {
-    setFirstNameFocused(true);
-  };
+  // const onFocusFirstName = () => {
+  //   setFirstNameFocused(true);
+  // };
 
-  const onBlurFirstName = () => {
-    setFirstNameFocused(false);
-  };
+  // const onBlurFirstName = () => {
+  //   setFirstNameFocused(false);
+  // };
 
-  const onFocusMiddleName = () => {
-    setMiddleNameFocused(true);
-  };
+  // const onFocusMiddleName = () => {
+  //   setMiddleNameFocused(true);
+  // };
 
-  const onBlurMiddleName = () => {
-    setMiddleNameFocused(false);
-  };
+  // const onBlurMiddleName = () => {
+  //   setMiddleNameFocused(false);
+  // };
 
-  const onFocusLastName = () => {
-    setLastNameFocused(true);
-  };
+  // const onFocusLastName = () => {
+  //   setLastNameFocused(true);
+  // };
 
-  const onBlurLastName = () => {
-    setLastNameFocused(false);
-  };
+  // const onBlurLastName = () => {
+  //   setLastNameFocused(false);
+  // };
 
   const cancelChanging = () => {
     setUserInfo({ firstName, middleName, lastName });
@@ -70,8 +70,8 @@ const PersonalDataForm = ({
         placeholder={firstName}
         value={userInfo.firstName}
         onChange={e => handleChange(e)}
-        onFocus={onFocusFirstName}
-        onBlur={onBlurFirstName}
+        // onFocus={onFocusFirstName}
+        // onBlur={onBlurFirstName}
         style={{ marginBottom: '16px' }}
       />
       <Input
@@ -80,8 +80,8 @@ const PersonalDataForm = ({
         placeholder={firstName}
         value={userInfo.middleName}
         onChange={e => handleChange(e)}
-        onFocus={onFocusMiddleName}
-        onBlur={onBlurMiddleName}
+        // onFocus={onFocusMiddleName}
+        // onBlur={onBlurMiddleName}
         style={{ marginBottom: '16px' }}
       />
       <Input
@@ -90,8 +90,8 @@ const PersonalDataForm = ({
         placeholder={lastName}
         value={userInfo.lastName}
         onChange={e => handleChange(e)}
-        onFocus={onFocusLastName}
-        onBlur={onBlurLastName}
+        // onFocus={onFocusLastName}
+        // onBlur={onBlurLastName}
         style={{ marginBottom: '24px' }}
       />
       <div className={styles.buttonsContainer}>
@@ -99,11 +99,12 @@ const PersonalDataForm = ({
           type="submit"
           size="lg"
           disabled={
-            !firstNameFocused &&
-            !lastNameFocused &&
-            !middleNameFocused &&
+            // !firstNameFocused &&
+            // !lastNameFocused &&
+            // !middleNameFocused &&
             userInfo.firstName === firstName &&
-            userInfo.lastName === lastName
+            userInfo.lastName === lastName &&
+            userInfo.middleName === middleName
           }
         >
           Зберегти

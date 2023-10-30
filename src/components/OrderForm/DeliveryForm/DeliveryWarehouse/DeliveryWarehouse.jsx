@@ -7,6 +7,8 @@ export default function DeliveryWarehouse({
   cityName,
   cityRef,
   postMachine,
+  initialValue,
+  ...props
 }) {
   const [warehouses, setWarehouses] = useState([]);
   const [targetWarehouse, setTargetWarehouse] = useState('');
@@ -15,11 +17,11 @@ export default function DeliveryWarehouse({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => fetchWarehousesFromAPI, [handleData, selectedWarehouseData]);
 
-  // testing ... delete later
-  useEffect(() => {
-    fetchWarehousesFromAPI();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [targetWarehouse]);
+  // // testing ... delete later
+  // useEffect(() => {
+  //   fetchWarehousesFromAPI();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [targetWarehouse]);
 
   useEffect(() => {
     handleData && handleData(selectedWarehouseData);
@@ -61,6 +63,7 @@ export default function DeliveryWarehouse({
     <LocationSelector
       label={!postMachine ? 'Відділення Нової Пошти' : 'Поштомат Нової Пошти'}
       data={warehouses}
+      initialValue={initialValue}
       placeholder="Вкажіть номер, або адресу"
       extractSearchValue={extractTargetWarehouse}
       extractData={extractWarehouseData}
