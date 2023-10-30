@@ -3,14 +3,7 @@ import styles from './image.module.scss';
 import defaultImage from './defaultImage.png';
 
 const Image = props => {
-  const {
-    src,
-    alt = 'Смаколик',
-    height = '100%',
-    width = '100%',
-    className,
-    style,
-  } = props;
+  const { src, alt = 'Смаколик', height, width, className, style } = props;
   const imageStyles = {
     ...style,
   };

@@ -3,9 +3,17 @@ import { getAllReviews } from 'redux/reviews/reviewsSelectors';
 
 export function ReviewStatistics({ productId }) {
   const allReviews = useSelector(getAllReviews);
+
+  if (!allReviews) {
+    return null;
+  }
   const reviews = allReviews?.find(r => r.productId === productId);
 
-  const sortedReviews = reviews?.comments?.flatMap(comment =>
+  if (!reviews) {
+    return null;
+  }
+
+  const sortedReviews = reviews.comments.flatMap(comment =>
     comment.text.map(review => ({
       owner: comment.owner,
       text: review.text,

@@ -1,3 +1,5 @@
+@import '../../theme/abstract/mixins';
+
 .container {
   display: flex;
   justify-content: space-between;
@@ -18,18 +20,13 @@
   height: max-content;
   flex-shrink: 0;
   border-radius: 8px;
-  // border: 1px solid var(--input, #7b7b7b);
   border: var(--border-primery);
   background: var(--white-bg-color);
   margin-top: 4px;
 }
 .dropdownLi {
   color: var(--black-text-color);
-  font-family: Nunito;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  @include text-styles;
   cursor: pointer;
   padding: 8px 16px 8px 16px;
 

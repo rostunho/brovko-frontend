@@ -1,3 +1,5 @@
+@import 'theme/abstract/mixins';
+
 .container {
   position: relative;
 }
@@ -7,11 +9,8 @@
   width: 100%;
   position: relative;
 
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
 
   color: var(--black-text-color);
   cursor: pointer;
@@ -58,12 +57,8 @@
   margin-top: 4px;
   padding: 0 16px;
 
-  font-family: 'Nunito', sans-serif;
-
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
   color: var(--gray-color);
 
   //   cursor: pointer;
@@ -129,11 +124,8 @@
   margin: 0;
   opacity: 0;
 
-  font-family: Nunito, sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
   color: var(--black-text-color);
   // pointer-events: none;
   cursor: pointer;
@@ -261,11 +253,7 @@
 }
 
 .hot-option-text {
-  font-family: 'Nunito', sans-serif;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  @include text-styles(Nunito, 12px);
   color: var(--gray-color);
   cursor: pointer;
 
