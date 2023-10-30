@@ -7,7 +7,7 @@ import { selectUser } from 'redux/user/userSelectors';
 import UserDataHeading from 'components/UserDashboard/UserDataHeading';
 import ContactsForm from './ContactsForm';
 
-import styles from '../Contacts/Contacts.module.scss';
+import styles from './Contacts.module.scss';
 
 console.log('styles :>> ', styles);
 
@@ -35,7 +35,7 @@ const Contacts = () => {
         Контакти
       </UserDataHeading>
       {showInfo && (
-        <div className={styles.userInfo}>
+        <div className={styles['contacts-info']}>
           <ContactsForm
             phone={phone}
             email={email}
