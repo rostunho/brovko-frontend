@@ -9,8 +9,6 @@ import ContactsForm from './ContactsForm';
 
 import styles from './Contacts.module.scss';
 
-console.log('styles :>> ', styles);
-
 const Contacts = () => {
   const [showInfo, setShowInfo] = useState(false);
   const { phone, email, novaPoshta, buildingNumber, flat } =

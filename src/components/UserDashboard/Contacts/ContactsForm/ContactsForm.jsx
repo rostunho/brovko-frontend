@@ -53,13 +53,13 @@ export default function ContactsForm({
         style={{ marginBottom: '16px' }}
         onChange={onCityChange}
       /> */}
-      <DeliveryCity profile initialValue={city.Present} />
+      <DeliveryCity profile initialValue={city?.Present} />
 
       {/* <LocationSelector label="Вулиця" style={{ marginBottom: '16px' }} /> */}
       <DeliveryStreet
         profile
-        cityRef={city.Ref}
-        initialValue={street.Present}
+        cityRef={city?.Ref}
+        initialValue={street?.Present}
       />
 
       <div className={styles.address}>
@@ -80,7 +80,7 @@ export default function ContactsForm({
       {/* <LocationSelector label="Відділення Нової Пошти" /> */}
       <DeliveryWarehouse
         cityRef={city.Ref}
-        initialValue={warehouse.Description}
+        initialValue={warehouse?.Description}
       />
       <div className={styles.buttonsContainer}>
         <Button type="submit" size="lg">

@@ -17,9 +17,9 @@ const PersonalData = () => {
   const dispatch = useDispatch();
   const { firstName, middleName, lastName } = useSelector(selectUser);
 
-  console.log('firstName :>> ', firstName);
-  console.log('middleName :>> ', middleName);
-  console.log('lastName :>> ', lastName);
+  // console.log('firstName :>> ', firstName);
+  // console.log('middleName :>> ', middleName);
+  // console.log('lastName :>> ', lastName);
 
   useEffect(() => {
     dispatch(current());
