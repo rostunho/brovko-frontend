@@ -52,6 +52,7 @@ export const current = createAsyncThunk(
 export const googleAuth = createAsyncThunk(
   'user/google',
   async (token, { rejectWithValue }) => {
+    console.log('token', token);
     try {
       const result = await api.current(token);
       return result;
@@ -68,7 +69,6 @@ export const logout = createAsyncThunk(
       const data = await api.logout();
       return data;
     } catch ({ response }) {
-      // console.log(response.data.message);
       return rejectWithValue(response.data.message);
     }
   }

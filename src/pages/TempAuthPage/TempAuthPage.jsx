@@ -6,6 +6,7 @@ import { Navigate } from 'react-router-dom';
 
 import { googleAuth } from 'redux/user/userOperations';
 import { memoizedSelectLoginAndToken } from 'redux/user/userSelectors';
+import Loader from 'components/Loader';
 
 const TempAuthPage = () => {
   const [searchParams] = useSearchParams();
@@ -22,9 +23,14 @@ const TempAuthPage = () => {
   }, [accessToken, refreshToken, dispatch]);
 
   const { isLogin } = useSelector(memoizedSelectLoginAndToken);
+  console.log('isLogin', isLogin);
 
   if (!isLogin && accessToken) {
-    return <>Loading...</>;
+    return (
+      <>
+        <Loader />
+      </>
+    );
   }
 
   if (isLogin) {
