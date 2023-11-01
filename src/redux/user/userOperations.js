@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from 'shared/services/api/brovko/user';
 
+console.log('api :>> ', api);
+
 export const register = createAsyncThunk(
   'user/register',
   async (data, { rejectWithValue }) => {
@@ -19,6 +21,23 @@ export const login = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const result = await api.login(data);
+      return result;
+    } catch ({ response }) {
+      // console.log(response.data.message);
+      return rejectWithValue(response.data.message);
+    }
+  }
+);
+
+export const update = createAsyncThunk(
+  'user/update',
+  async (data, { rejectWithValue }) => {
+    console.log('data in thunk :>> ', data);
+
+    try {
+      const result = await api.update(data);
+
+      console.log('result in thunk :>> ', result);
       return result;
     } catch ({ response }) {
       // console.log(response.data.message);

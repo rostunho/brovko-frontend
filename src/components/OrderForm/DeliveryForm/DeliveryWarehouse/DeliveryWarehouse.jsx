@@ -15,7 +15,11 @@ export default function DeliveryWarehouse({
   const [selectedWarehouseData, setSelectedWarehouseData] = useState(null);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => fetchWarehousesFromAPI, [handleData, selectedWarehouseData]);
+  useEffect(
+    () => fetchWarehousesFromAPI,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [handleData, selectedWarehouseData, cityRef]
+  );
 
   // // testing ... delete later
   // useEffect(() => {
@@ -25,7 +29,8 @@ export default function DeliveryWarehouse({
 
   useEffect(() => {
     handleData && handleData(selectedWarehouseData);
-  }, [handleData, selectedWarehouseData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedWarehouseData]);
 
   async function fetchWarehousesFromAPI() {
     // if (targetWarehouse.length < 1) {

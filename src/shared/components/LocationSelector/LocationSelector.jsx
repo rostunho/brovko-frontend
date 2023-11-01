@@ -22,7 +22,8 @@ export default function LocationSelector({
 
   useEffect(() => {
     extractSearchValue && extractSearchValue(searchValue);
-  }, [extractSearchValue, searchValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue]);
 
   useEffect(() => {
     selectedData &&
@@ -65,6 +66,8 @@ export default function LocationSelector({
     <>
       <div {...props} className={styles.wrapper}>
         <SearchField
+          {...props}
+          name={name}
           label={label}
           placeholder={placeholder}
           value={searchValue}

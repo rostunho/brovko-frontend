@@ -17,73 +17,131 @@ export default function ContactsForm({
   warehouse,
   buildingNumber,
   flat,
+  id,
+  onSubmitForm,
 }) {
   const [userInfo, setUserInfo] = useState(() => ({
     phone,
     email,
-    city,
-    street,
+    novaPoshta: { city, street, warehouse },
     buildingNumber,
     flat,
+    id,
   }));
 
+  const handleChange = e => {
+    const { name, value } = e.target;
+
+    setUserInfo(prevState => {
+      return { ...prevState, [name]: value };
+    });
+  };
+
+  const handleCityData = data => {
+    // console.log('data :>> ', data);
+    setUserInfo(prevState => {
+      // console.log('prevState :>> ', prevState);
+      return {
+        ...prevState,
+        novaPoshta: { ...prevState.novaPoshta, city: { ...data } },
+      };
+    });
+    // console.log('userInfo :>> ', userInfo);
+  };
+
+  const handleStreetData = data => {
+    setUserInfo(prevState => {
+      // console.log('prevState :>> ', prevState);
+      return {
+        ...prevState,
+        novaPoshta: { ...prevState.novaPoshta, street: { ...data } },
+      };
+    });
+  };
+
+  const handleWarehouseData = data => {
+    setUserInfo(prevState => {
+      // console.log('prevState :>> ', prevState);
+      return {
+        ...prevState,
+        novaPoshta: { ...prevState.novaPoshta, warehouse: { ...data } },
+      };
+    });
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    onSubmitForm({ ...userInfo });
+  };
+
   return (
-    <form
-      className={styles.form}
-      onSubmit={e => {
-        e.preventDefault();
-        console.log(e);
-      }}
-    >
+    <form className={styles.form} onSubmit={handleSubmit}>
       <Input
         type="tel"
-        value={userInfo.phone}
+        name="phone"
+        value={userInfo?.phone}
         label="Номер телефону"
-        // style={{ marginBottom: '16px' }}
+        onChange={handleChange}
       />
       <Input
         type="email"
+        name="email"
         label="E-mail"
-        value={userInfo.email}
-        // style={{ marginBottom: '16px' }}
+        value={userInfo?.email}
+        onChange={handleChange}
       />
-      {/* <LocationSelector
-        label="Місто"
-        initialValue={city.Present}
-        style={{ marginBottom: '16px' }}
-        onChange={onCityChange}
-      /> */}
-      <DeliveryCity profile initialValue={city?.Present} />
 
-      {/* <LocationSelector label="Вулиця" style={{ marginBottom: '16px' }} /> */}
+      <DeliveryCity
+        name="city"
+        profile
+        initialValue={city?.Present}
+        handleData={handleCityData}
+      />
+
       <DeliveryStreet
         profile
-        cityRef={city?.Ref}
+        cityRef={userInfo.novaPoshta.city.Ref}
         initialValue={street?.Present}
+        handleData={handleStreetData}
       />
 
       <div className={styles.address}>
         <Input
           label="Будинок"
-          value={userInfo.buildingNumber}
+          name="buildingNumber"
+          value={userInfo?.buildingNumber}
           length="md"
-          // style={{ marginBottom: '16px' }}
+          onChange={handleChange}
         />
         <Input
           label="Квартира"
-          value={userInfo.flat}
+          name="flat"
+          value={userInfo?.flat}
           length="md"
-          // style={{ marginBottom: '16px' }}
+          onChange={handleChange}
         />
       </div>
 
-      {/* <LocationSelector label="Відділення Нової Пошти" /> */}
       <DeliveryWarehouse
-        cityRef={city.Ref}
+        cityRef={userInfo.novaPoshta.city.Ref}
         initialValue={warehouse?.Description}
+        handleData={handleWarehouseData}
       />
       <div className={styles.buttonsContainer}>
-        <Button type="submit" size="lg">
+        <Button
+          type="submit"
+          size="lg"
+          disabled={
+            userInfo.phone === phone &&
+            userInfo.email === email &&
+            userInfo.buildingNumber === buildingNumber &&
+            userInfo.flat === flat &&
+            userInfo.novaPoshta.city.Ref === city.Ref &&
+            userInfo.novaPoshta.street.Present === street.Present &&
+            userInfo.novaPoshta.warehouse.Description === warehouse.Description
+          }
+        >
           Зберегти
         </Button>
         <Button size="lg" mode="outlined" onClick={() => {}}>

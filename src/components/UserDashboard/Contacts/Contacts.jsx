@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { update } from 'redux/user/userOperations';
 import { selectUser } from 'redux/user/userSelectors';
 
-// import Heading from 'shared/components/Heading/Heading';
 import UserDataHeading from 'components/UserDashboard/UserDataHeading';
 import ContactsForm from './ContactsForm';
 
@@ -11,24 +10,21 @@ import styles from './Contacts.module.scss';
 
 const Contacts = () => {
   const [showInfo, setShowInfo] = useState(false);
-  const { phone, email, novaPoshta, buildingNumber, flat } =
+  const { phone, email, novaPoshta, buildingNumber, flat, _id } =
     useSelector(selectUser);
-  // const { MainDescription, Ref } = novaPoshta.city;
-
   const { city, street, warehouse } = novaPoshta;
+  const dispatch = useDispatch();
+
+  const onSubmitForm = data => {
+    dispatch(update(data));
+  };
 
   const toggleShowingInfo = () => {
     setShowInfo(!showInfo);
   };
 
-  // console.log('novaPoshta :>> ', novaPoshta);
-  // console.log('city :>> ', city);
-
   return (
     <>
-      {/* <div onClick={toggleShowingInfo} className={styles.heading}>
-        <Heading type="h3">Контакти</Heading>
-      </div> */}
       <UserDataHeading onClick={toggleShowingInfo} opened={showInfo}>
         Контакти
       </UserDataHeading>
@@ -42,6 +38,8 @@ const Contacts = () => {
             warehouse={warehouse}
             buildingNumber={buildingNumber}
             flat={flat}
+            id={_id}
+            onSubmitForm={onSubmitForm}
           />
         </div>
       )}
