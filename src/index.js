@@ -8,6 +8,7 @@ import App from './App';
 import { store, persistor } from 'redux/store';
 import reportWebVitals from './reportWebVitals';
 import PopUp from 'shared/components/PopUp';
+import Avatar from 'components/Avatar';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,6 +16,7 @@ root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
+          <Avatar />
           <App />
           <PopUp />
         </BrowserRouter>
