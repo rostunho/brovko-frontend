@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import useForm from 'shared/hooks/useForm';
 import { useRef } from 'react';
 import OldInput from '../OldInput/OldInput';
+import Input from '../Input';
 
 import style from './SearchBar.module.scss';
 

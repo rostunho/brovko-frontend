@@ -89,7 +89,7 @@
 .ratingText {
   padding-left: 3px;
   color: var(--gray-color);
-  @include text-styles(_, 12px);
+  @include text-styles(Nunito, 12px);
 }
 
 .price {
@@ -226,7 +226,7 @@
 
 .reviewDate {
   color: var(--gray-color);
-  @include text-styles(_, 12px);
+  @include text-styles(Nunito, 12px);
 }
 
 .reviewText {

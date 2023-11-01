@@ -7,6 +7,7 @@ import Input from 'shared/components/Input';
 import Button from 'shared/components/Button/Button';
 import useForm from 'shared/hooks/useForm';
 import initialState from './initialState';
+import UserConsent from './UserConsent';
 import styles from './RegisterForm.module.scss';
 
 const RegisterForm = () => {
@@ -80,7 +81,7 @@ const RegisterForm = () => {
         value={confirmPassword}
         onChange={e => setConfirmPassword(e.target.value)}
       />
-
+      <UserConsent />
       <Button
         type="submit"
         className={styles['submit-button']}

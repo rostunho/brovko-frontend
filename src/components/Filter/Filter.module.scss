@@ -4,10 +4,17 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 24px;
+  gap: 12px;
 }
 
 .buttonContainer {
   position: relative;
+}
+
+@media (max-width: 480px) {
+  .buttonContainer {
+    width: 50%;
+  }
 }
 
 .dropdownMenu {
@@ -20,7 +27,7 @@
   height: max-content;
   flex-shrink: 0;
   border-radius: 8px;
-  border: var(--border-primery);
+  border: var(--border-primary);
   background: var(--white-bg-color);
   margin-top: 4px;
 }
