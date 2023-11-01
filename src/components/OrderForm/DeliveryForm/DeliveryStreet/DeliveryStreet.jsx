@@ -23,8 +23,11 @@ export default function DeliveryStreet({
   useEffect(() => fetchStreetsFromAPI, [cityRef, targetStreet]);
 
   useEffect(() => {
-    handleData && handleData(selectedStreetData, building, apartment);
-  }, [apartment, building, handleData, selectedStreetData]);
+    handleData &&
+      selectedStreetData &&
+      handleData(selectedStreetData, building, apartment);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [apartment, building, selectedStreetData]);
 
   async function fetchStreetsFromAPI() {
     if (targetStreet.length < 1) {
