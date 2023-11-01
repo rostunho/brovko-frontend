@@ -66,13 +66,16 @@ const Hero = () => {
     <>
       <section className={styles.hero}>
         <div className={styles.container}>
-          <h1 className={styles.title}>ЯК ДЛЯ ЛЮДЕЙ, ТІЛЬКИ СМАЧНІШЕ</h1>
+          <h1 className={styles.title}>
+            ЯК ДЛЯ ЛЮДЕЙ, <br />
+            ТІЛЬКИ СМАЧНІШЕ
+          </h1>
           <Link
             to="/shop/product-list-page"
             // state={{ from: location.state?.from } || '/'}
             state={{ from: location }}
           >
-            <Button>Перейти до смаколиків</Button>
+            <Button style={{ height: '50px' }}>Перейти до смаколиків</Button>
           </Link>
         </div>
       </section>

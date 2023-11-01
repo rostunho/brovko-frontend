@@ -20,7 +20,7 @@ export default function GoogleAuth() {
         return 'Продовжити з Google';
 
       default:
-        return 'Скористатись акаунтом Google';
+        return 'Увійти з Google';
     }
   }
 

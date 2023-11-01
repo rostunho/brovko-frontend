@@ -26,7 +26,7 @@ export default function Button({
       className={`${styles.button} ${styles[`button_${size}`]} ${
         styles[`button_${mode}`]
       } ${className ? className : ''}`}
-      style={style}
+      style={{ ...style }}
       onClick={onClick}
       disabled={disabled}
       {...props}
