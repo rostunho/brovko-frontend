@@ -23,7 +23,6 @@ const TempAuthPage = () => {
   }, [accessToken, refreshToken, dispatch]);
 
   const { isLogin } = useSelector(memoizedSelectLoginAndToken);
-  console.log('isLogin', isLogin);
 
   if (!isLogin && accessToken) {
     return (

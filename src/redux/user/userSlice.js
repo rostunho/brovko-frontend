@@ -28,7 +28,6 @@ const userSlice = createSlice({
       })
       .addCase(register.fulfilled, (state, { payload }) => {
         const { user, accessToken } = payload;
-        console.log('userReg', user);
         state.loading = false;
         state.user = user;
         state.token = accessToken;
@@ -44,11 +43,9 @@ const userSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, { payload }) => {
         const { user, accessToken } = payload;
-        console.log('userLog', user);
         state.loading = false;
         state.user = user;
         state.token = accessToken;
-        console.log('state.token', state.token);
         state.isLogin = true;
       })
       .addCase(login.rejected, (state, { payload }) => {
@@ -79,7 +76,6 @@ const userSlice = createSlice({
       })
       .addCase(googleAuth.fulfilled, (state, { payload }) => {
         const { user, accessToken } = payload;
-        console.log('userGoog', user);
         state.loading = false;
         state.user = user;
         state.token = accessToken;
@@ -94,15 +90,13 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(current.fulfilled, (state, { payload }) => {
-        const { user, token } = payload;
-        console.log('payload', payload);
+        const { user, accessToken } = payload;
         state.loading = false;
         state.user = user;
-        state.token = token;
+        state.token = accessToken;
         state.isLogin = true;
       })
       .addCase(current.rejected, (state, { payload }) => {
-        console.log('payload', payload);
         state.loading = false;
         state.token = '';
         state.error = payload;
