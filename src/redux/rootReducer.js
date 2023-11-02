@@ -39,14 +39,13 @@ import popupReducer from './popup/popupSlice';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['basket', 'user.token'],
+  whitelist: ['basket'],
 };
 
-// Создайте конфигурацию для сохранения среза user
 const userPersistConfig = {
   key: 'user',
   storage,
-  whitelist: ['token'], // Указываем только токен в whitelist
+  whitelist: ['token'],
 };
 
 const persistedUserReducer = persistReducer(userPersistConfig, userReduser);
@@ -57,7 +56,6 @@ const rootReducer = combineReducers({
   reviews: reviewsReduser,
   basket: basketReducer,
   popups: popupReducer,
-  // Другие части состояния
 });
 
 const persistedAuthReducer = persistReducer(persistConfig, rootReducer);
