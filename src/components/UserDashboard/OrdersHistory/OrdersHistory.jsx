@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 // import Heading from 'shared/components/Heading/Heading';
 import UserDataHeading from 'components/UserDashboard/UserDataHeading';
+import InsideOrdersHistory from './InsideOrdersHistory/InsideOrdersHistory';
 
 import styles from './OrdersHistory.module.scss';
 
@@ -19,7 +20,11 @@ const OrdersHistory = () => {
       <UserDataHeading onClick={toggleShowingInfo} opened={showInfo}>
         Історія замовлень
       </UserDataHeading>
-      {showInfo && <div className={styles.userInfo}>Блок відкрито</div>}
+      {showInfo && (
+        <div className={styles.userInfo}>
+          <InsideOrdersHistory></InsideOrdersHistory>
+        </div>
+      )}
     </>
   );
 };
