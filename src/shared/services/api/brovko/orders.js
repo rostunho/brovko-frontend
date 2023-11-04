@@ -16,7 +16,7 @@ export const getAllOrdersAuth = async () => {
 // додати нове замовлення на SalesDrive
 export const addNewOrder = async body => {
   try {
-    const url = 'http://localhost:5005/api/orders/add-order';
+    const url = 'https://brovko-backend.onrender.com/api/orders/add-order';
     const data = JSON.stringify(body);
     const headers = { 'Content-Type': 'application/json' };
 

@@ -1,7 +1,16 @@
-import Image from "shared/components/Image";
+import Image from 'shared/components/Image';
 
+import styles from './avatar.module.scss';
+import CameraIcon from 'shared/icons/CameraIcon';
 const Avatar = () => {
-  return <Image src='https://www.figma.com/file/wuJFL1lwihdZrrAEeK6OS8/BROVKO-V.2?type=design&node-id=1536-2633&mode=design&t=tJrukVFp2XX6luN8-4' />;
+  return (
+    <>
+      <div className={styles.wrapper}>
+        <Image />
+        <CameraIcon fill='red' />
+      </div>
+    </>
+  );
 };
 
 export default Avatar;
