@@ -16,7 +16,7 @@ export default function UserDashboardPage() {
   const isUserLogin = useSelector(selectIsLogin);
 
   const onLogout = () => {
-    console.log('click');
+    // console.log('click');
     dispatch(logout());
   };
 

@@ -16,8 +16,9 @@ export default function DeliveryCity({
   useEffect(() => fetchCitiesFromAPI, [targetCity]);
 
   useEffect(() => {
-    handleData && handleData(selectedCityData);
-  }, [handleData, selectedCityData]);
+    handleData && selectedCityData && handleData(selectedCityData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCityData]);
 
   async function fetchCitiesFromAPI() {
     if (targetCity.length < 1) {
@@ -47,6 +48,7 @@ export default function DeliveryCity({
   };
   return (
     <LocationSelector
+      {...props}
       withHotOptions={!profile}
       data={cities}
       label="Населений пункт"

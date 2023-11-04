@@ -1,0 +1,23 @@
+.textDetail {
+  padding-top: 22px;
+  padding-bottom: 12px;
+  color: var(--black_text, #191c2c);
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+
+  /* Main */
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  align-self: stretch;
+}

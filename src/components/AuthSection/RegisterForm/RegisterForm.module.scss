@@ -1,3 +1,4 @@
+@import 'theme/abstract/mixins';
 .form {
   display: flex;
   flex-direction: column;
@@ -9,9 +10,18 @@
 // }
 
 .form .submit-button {
-  margin-top: 36px;
+  margin-top: 20px;
   &:hover,
   &:focus {
     background-color: #f39610;
   }
+}
+
+.text {
+  @include text-styles(Nunito, 12px);
+  color: var(--gray-color);
+}
+
+.link {
+  text-decoration-line: underline;
 }

@@ -9,17 +9,20 @@ import { store, persistor } from 'redux/store';
 import reportWebVitals from './reportWebVitals';
 import PopUp from 'shared/components/PopUp';
 import Avatar from 'components/Avatar';
+import AuthLayout from 'components/AuthLayout/AuthLayout';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
+        <AuthLayout>
+          <BrowserRouter>
           <Avatar />
-          <App />
-          <PopUp />
-        </BrowserRouter>
+            <App />
+            <PopUp />
+          </BrowserRouter>
+        </AuthLayout>
       </PersistGate>
     </Provider>
   </React.StrictMode>

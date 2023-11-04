@@ -2,7 +2,7 @@
 
 .text {
   text-align: center;
-  @include text-styles(_, 12px);
+  @include text-styles(Nunito, 12px);
   color: var(--gray-color);
 }
 

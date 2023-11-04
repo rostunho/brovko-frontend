@@ -20,14 +20,14 @@ export default function GoogleAuth() {
         return 'Продовжити з Google';
 
       default:
-        return 'Скористатись акаунтом Google';
+        return 'Увійти з Google';
     }
   }
 
   return (
     <a
-      href="https://brovko-backend.onrender.com/api/user/google"
-      // href="http://localhost:5005/api/user/google"
+      // href="https://brovko-backend.onrender.com/api/user/google"
+      href="http://localhost:5005/api/user/google"
       className={styles['nav-link']}
     >
       <GoogleIcon />

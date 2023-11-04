@@ -25,6 +25,7 @@ export default function SearchField({
         {...props}
         type="search"
         id={name}
+        name={name}
         value={value}
         className={styles.input}
         placeholder={placeholder}

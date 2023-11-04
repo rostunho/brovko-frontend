@@ -1,6 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { register, login, current, logout, googleAuth } from './userOperations';
+import {
+  register,
+  login,
+  current,
+  update,
+  logout,
+  googleAuth,
+} from './userOperations';
 
 const initialState = {
   user: {},
@@ -20,10 +27,10 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(register.fulfilled, (state, { payload }) => {
-        const { user, token } = payload;
+        const { user, accessToken } = payload;
         state.loading = false;
         state.user = user;
-        state.token = token;
+        state.token = accessToken;
         state.isLogin = true;
       })
       .addCase(register.rejected, (state, { payload }) => {
@@ -35,14 +42,32 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, { payload }) => {
-        const { user, token } = payload;
+        const { user, accessToken } = payload;
         state.loading = false;
         state.user = user;
-        state.token = token;
+        state.token = accessToken;
         state.isLogin = true;
       })
       .addCase(login.rejected, (state, { payload }) => {
         state.loading = false;
+        state.error = payload;
+      })
+      .addCase(update.pending, state => {
+        console.log('pending working');
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(update.fulfilled, (state, { payload }) => {
+        console.log('payload in slice :>> ', payload);
+        const { accessToken } = payload;
+        state.loading = false;
+        state.user = payload;
+        state.token = accessToken;
+        state.isLogin = true;
+      })
+      .addCase(update.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.token = '';
         state.error = payload;
       })
       .addCase(googleAuth.pending, state => {
@@ -50,10 +75,10 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(googleAuth.fulfilled, (state, { payload }) => {
-        const { user, token } = payload;
+        const { user, accessToken } = payload;
         state.loading = false;
         state.user = user;
-        state.token = token;
+        state.token = accessToken;
         state.isLogin = true;
       })
       .addCase(googleAuth.rejected, (state, { payload }) => {
@@ -65,10 +90,10 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(current.fulfilled, (state, { payload }) => {
-        const { user, token } = payload;
+        const { user, accessToken } = payload;
         state.loading = false;
         state.user = user;
-        state.token = token;
+        state.token = accessToken;
         state.isLogin = true;
       })
       .addCase(current.rejected, (state, { payload }) => {
