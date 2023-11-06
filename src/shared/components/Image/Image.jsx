@@ -10,17 +10,19 @@ const Image = props => {
     width,
     className,
     style,
-    text,
+    text = "",
   } = props;
   const imageStyles = {
     ...style,
   };
-  const letterAvatar = text.substring(0, 1).toUpperCase();
-  console.log(letterAvatar);
+  // const letterAvatar = text.substring(0, 1).toUpperCase();
+  // console.log(letterAvatar);
   return (
     <>
-      {src || <p> className={styles.letter} {letterAvatar} </p> ||
-      
+      {text.length>0 && !src && (
+        <p className={styles.letter}> {text.substring(0, 1).toUpperCase()} </p>
+      )}
+      {(!text.length>0 || src)  &&  (
         <img
           className={className || styles.img}
           style={imageStyles}
@@ -29,7 +31,7 @@ const Image = props => {
           height={height}
           width={width}
         />
-      }
+      )}
     </>
   );
 };
