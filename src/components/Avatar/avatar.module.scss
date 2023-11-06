@@ -1,9 +1,52 @@
 .wrapper {
+  position: relative;
+  min-width: 0;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 32px;
   width: 96px;
   height: 96px;
   border-radius: 50%;
+  padding: 0;
   overflow: hidden;
+  fill: transparent;
+  background-color: transparent;
 }
+
+.wrapper:hover {
+  fill: #fefefe;
+  background-color: rgba(51, 51, 51, 0.6);
+}
+
+.avatar {
+  position: relative;
+  width: 96px;
+  height: 96px;
+}
+
+.cameraIcon {
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  left: 50%;
+  bottom: 0px;
+  padding-bottom: 5px;
+  padding-top: 7px;
+  padding-left: auto;
+  padding-right: auto;
+  height: 30px;
+  width: 100%;
+  transform: translate(-50%, 0);
+  fill: inherit;
+  background-color: inherit;
+//   visibility: hidden;
+  //   outline: none;
+  //   border: none;
+  // padding: 0;
+  // margin: 0;
+  //   background-color: transparent;
+}
+
+// .cameraIcon:hover * {
+//   fill: var(--accent-color);
+// }
