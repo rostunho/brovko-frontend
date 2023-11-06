@@ -37,7 +37,7 @@ export default function CustomerForm({ user, userIsLoggedIn, getData }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   console.log('user in CustomerForm:>> ', user);
-  console.log('userIsLoggedIn in CustomerForm :>> ', userIsLoggedIn);
+  // console.log('userIsLoggedIn in CustomerForm :>> ', userIsLoggedIn);
 
   useEffect(() => {
     getData({ ...state });

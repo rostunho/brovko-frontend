@@ -34,7 +34,7 @@ export default function OrderForm() {
     const {
       data: { data },
     } = await addNewOrder(addOrderRequestBody);
-    console.log(data);
+    // console.log(data);
     return data;
   };
 
@@ -50,6 +50,14 @@ export default function OrderForm() {
     setPaymentMethod(data);
   };
 
+  const savedPersonalData = {
+    firstName: user.firstName || '',
+    middleName: user.middleName || '',
+    lastName: user.lastName || '',
+    phone: user.phone || '',
+    email: user.email || '',
+  };
+
   return (
     <>
       <form onSubmit={createNewOrder}>
@@ -59,12 +67,12 @@ export default function OrderForm() {
           getData={getCustomerData}
         />
         <DeliveryForm
-          user={user}
+          novaPoshta={user?.novaPoshta || null}
           userIsLoggedIn={userIsLoggedIn}
           getData={getDeliveryData}
         />
         <PaymentMethod
-          user={user}
+          user={savedPersonalData}
           userIsLoggedIn={userIsLoggedIn}
           getData={getPaymentMethod}
         />

@@ -3,6 +3,7 @@ import { findCity } from 'shared/services/api/nova-poshta/nova-poshta-api';
 import { LocationSelector } from 'shared/components/LocationSelector';
 
 export default function DeliveryCity({
+  savedCity,
   handleData,
   profile,
   initialValue,
@@ -11,6 +12,11 @@ export default function DeliveryCity({
   const [cities, setCities] = useState([]);
   const [targetCity, setTargetCity] = useState('');
   const [selectedCityData, setSelectedCityData] = useState(null);
+
+  useEffect(() => {
+    setSelectedCityData(savedCity);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => fetchCitiesFromAPI, [targetCity]);
@@ -52,7 +58,7 @@ export default function DeliveryCity({
       withHotOptions={!profile}
       data={cities}
       label="Населений пункт"
-      initialValue={initialValue}
+      initialValue={savedCity.Present || initialValue}
       placeholder={'Вкажіть населений пункт'}
       extractSearchValue={extractTargetCity}
       extractData={extractCityData}
