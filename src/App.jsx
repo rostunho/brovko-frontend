@@ -1,5 +1,7 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectIsLogin } from 'redux/user/userSelectors';
 
 import { lazy } from 'react';
 // import './index.css';
@@ -18,6 +20,9 @@ const OrderPage = lazy(() => import('pages/OrderPage'));
 const AdminPage = lazy(() => import('pages/AdminPage'));
 
 function App() {
+  const userIsLogin = useSelector(selectIsLogin);
+  // console.log('userIsLogin :>> ', userIsLogin);
+
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
@@ -31,14 +36,24 @@ function App() {
         <Route path="/auth/*" element={<AuthRoutes />} />
 
         <Route path="/admin" element={<AdminPage />} />
+
         <Route path="/order" element={<OrderPage />}>
-          <Route index element={<Navigate to="/order/login" replace />} />
+          <Route
+            index
+            element={
+              <Navigate
+                to={userIsLogin ? '/order/order-form' : '/order/login'}
+                replace
+              />
+            }
+          />
           <Route
             path="login"
             element={<AuthFormWrapper form={<LoginForm />} />}
           />
           <Route path="order-form" element={<OrderForm />} />
         </Route>
+
         {/* Not Found */}
         <Route path="*" element={<LazyNotFoundPage />} />
       </Route>

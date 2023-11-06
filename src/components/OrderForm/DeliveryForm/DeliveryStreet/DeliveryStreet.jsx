@@ -9,8 +9,10 @@ import styles from './DeliveryStreet.module.scss';
 export default function DeliveryStreet({
   cityRef,
   handleData,
+  savedStreet,
   profile,
   initialValue,
+  savedAddress,
   ...props
 }) {
   const [streets, setStreets] = useState([]);
@@ -18,6 +20,17 @@ export default function DeliveryStreet({
   const [selectedStreetData, setSelectedStreetData] = useState(null);
   const [building, setBuilding] = useState('');
   const [apartment, setApartment] = useState('');
+
+  useEffect(() => {
+    savedStreet
+      ? setSelectedStreetData(savedStreet)
+      : setSelectedStreetData(null);
+
+    savedAddress?.buildingNumber && setBuilding(savedAddress.buildingNumber);
+    savedAddress?.flat && setApartment(savedAddress?.flat);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => fetchStreetsFromAPI, [cityRef, targetStreet]);
@@ -71,7 +84,7 @@ export default function DeliveryStreet({
         placeholder="Вкажіть назву вулиці"
         extractSearchValue={extractTargetStreet}
         extractData={extractStreetData}
-        initialValue={initialValue}
+        initialValue={savedStreet?.Present || initialValue}
       />
 
       {!profile && selectedStreetData?.Present && (
@@ -80,6 +93,7 @@ export default function DeliveryStreet({
             type="text"
             labelClassName={styles.building}
             label="Будинок"
+            value={building ? building : ''}
             length="md"
             onChange={handleBuilding}
           />
@@ -87,6 +101,7 @@ export default function DeliveryStreet({
             <Input
               type="text"
               label="Квартира"
+              value={apartment ? apartment : ''}
               length="md"
               onChange={handleApartment}
             />

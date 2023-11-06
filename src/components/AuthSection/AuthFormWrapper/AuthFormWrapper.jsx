@@ -7,7 +7,7 @@ export default function AuthFormWrapper({ form }) {
       {form}
       {/* <RegisterForm /> */}
 
-      <Text type="divider">або </Text>
+      <Text type="divider">або</Text>
 
       <GoogleAuth />
     </>

@@ -8,11 +8,19 @@ export default function DeliveryWarehouse({
   cityRef,
   postMachine,
   initialValue,
+  savedWarehouse,
   ...props
 }) {
   const [warehouses, setWarehouses] = useState([]);
   const [targetWarehouse, setTargetWarehouse] = useState('');
   const [selectedWarehouseData, setSelectedWarehouseData] = useState(null);
+
+  useEffect(() => {
+    savedWarehouse
+      ? setSelectedWarehouseData(savedWarehouse)
+      : setSelectedWarehouseData(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(
@@ -68,7 +76,7 @@ export default function DeliveryWarehouse({
     <LocationSelector
       label={!postMachine ? 'Відділення Нової Пошти' : 'Поштомат Нової Пошти'}
       data={warehouses}
-      initialValue={initialValue}
+      initialValue={savedWarehouse?.Description || initialValue}
       placeholder="Вкажіть номер, або адресу"
       extractSearchValue={extractTargetWarehouse}
       extractData={extractWarehouseData}
