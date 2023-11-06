@@ -14,7 +14,7 @@ export default function DeliveryCity({
   const [selectedCityData, setSelectedCityData] = useState(null);
 
   useEffect(() => {
-    setSelectedCityData(savedCity);
+    savedCity ? setSelectedCityData(savedCity) : setSelectedCityData(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -47,10 +47,12 @@ export default function DeliveryCity({
 
   const extractTargetCity = data => {
     setTargetCity(data);
+    // setCities([]);
   };
 
   const extractCityData = data => {
     setSelectedCityData(data);
+    // setCities([]);
   };
   return (
     <LocationSelector
@@ -58,7 +60,7 @@ export default function DeliveryCity({
       withHotOptions={!profile}
       data={cities}
       label="Населений пункт"
-      initialValue={savedCity.Present || initialValue}
+      initialValue={savedCity?.Present || initialValue}
       placeholder={'Вкажіть населений пункт'}
       extractSearchValue={extractTargetCity}
       extractData={extractCityData}

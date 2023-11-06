@@ -6,7 +6,7 @@ import DeliveryWarehouse from './DeliveryWarehouse';
 import DeliveryMethod from './DeliveryMethod';
 import styles from './DeliveryForm.module.scss';
 
-export default function DeliveryForm({ novaPoshta, getData }) {
+export default function DeliveryForm({ novaPoshta, savedAddress, getData }) {
   const [city, setCity] = useState(novaPoshta?.city || null);
   const [street, setStreet] = useState(null);
   const [building, setBuilding] = useState(null);
@@ -77,13 +77,19 @@ export default function DeliveryForm({ novaPoshta, getData }) {
         )} */}
 
       {deliveryMethod?.method === 'address' && city?.Ref && (
-        <DeliveryStreet cityRef={city.Ref} handleData={handleStreetData} />
+        <DeliveryStreet
+          cityRef={city.Ref}
+          savedStreet={novaPoshta?.street}
+          savedAddress={savedAddress}
+          handleData={handleStreetData}
+        />
       )}
       {deliveryMethod?.method === 'warehouse' && city?.Ref && (
         <DeliveryWarehouse
           handleData={handleWarehouseData}
           cityName={city.MainDescription}
           cityRef={city.Ref}
+          savedWarehouse={novaPoshta?.warehouse}
         />
       )}
       {deliveryMethod?.method === 'postMachine' && city?.Ref && (

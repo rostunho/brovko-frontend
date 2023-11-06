@@ -58,21 +58,27 @@ export default function OrderForm() {
     email: user.email || '',
   };
 
+  const savedAddress = {
+    buildingNumber: user.buildingNumber || '',
+    flat: user.flat || '',
+  };
+
   return (
     <>
       <form onSubmit={createNewOrder}>
         <CustomerForm
-          user={user}
+          user={savedPersonalData}
           userIsLoggedIn={userIsLoggedIn}
           getData={getCustomerData}
         />
         <DeliveryForm
           novaPoshta={user?.novaPoshta || null}
+          savedAddress={savedAddress}
           userIsLoggedIn={userIsLoggedIn}
           getData={getDeliveryData}
         />
         <PaymentMethod
-          user={savedPersonalData}
+          user={user}
           userIsLoggedIn={userIsLoggedIn}
           getData={getPaymentMethod}
         />
