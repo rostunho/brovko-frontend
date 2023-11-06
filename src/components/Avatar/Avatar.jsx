@@ -9,19 +9,21 @@ import { useSelector } from 'react-redux';
 import { selectUser } from 'redux/user/userSelectors';
 
 const Avatar = () => {
-  const text='Діана'
+  const addPhoto = () => {console.log('addPhoto')}
+  // const text='Діана'
   const {firstName} = useSelector(selectUser)
-  console.log(firstName)
+  console.log(useSelector(selectUser))
   return (
     <>
-    <Button className={styles.wrapper}>
+    <Button className={styles.wrapper} onClick={addPhoto}>
       {/* <div > */}
-        <Image src="https://shkvarka.ua/wp-content/uploads/05-1-1-e1695742051394.jpg"  className={styles.avatar} text={text} />
+        <Image   className={styles.avatar} text={firstName} />
         <CameraIcon className={styles.cameraIcon} 
         //  fill='var(--white-text-color)' 
         />
       {/* </div> */}
       </ Button>
+      
     </>
   );
 };
