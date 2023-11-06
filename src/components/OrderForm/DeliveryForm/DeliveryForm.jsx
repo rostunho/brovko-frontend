@@ -6,7 +6,7 @@ import DeliveryWarehouse from './DeliveryWarehouse';
 import DeliveryMethod from './DeliveryMethod';
 import styles from './DeliveryForm.module.scss';
 
-export default function DeliveryForm({ getData }) {
+export default function DeliveryForm({ user, userIsLoggedIn, getData }) {
   const [city, setCity] = useState(null);
   const [street, setStreet] = useState(null);
   const [building, setBuilding] = useState(null);
