@@ -12,6 +12,7 @@ const Contacts = () => {
   const [showInfo, setShowInfo] = useState(false);
   const { phone, email, novaPoshta, buildingNumber, flat, _id } =
     useSelector(selectUser);
+
   const { city, street, warehouse } = novaPoshta;
   const dispatch = useDispatch();
 

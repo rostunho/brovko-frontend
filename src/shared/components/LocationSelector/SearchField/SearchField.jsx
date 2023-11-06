@@ -34,7 +34,11 @@ export default function SearchField({
         // onClick={onClick}
       />
       <button type="button" className={styles.button} onClick={handleOnClick}>
-        {selectorIsOpen || selectedData ? <CrossIcon /> : <ArrowDownIcon />}
+        {selectorIsOpen || selectedData || value ? (
+          <CrossIcon />
+        ) : (
+          <ArrowDownIcon />
+        )}
       </button>
     </div>
   );

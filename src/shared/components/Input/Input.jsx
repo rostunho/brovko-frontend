@@ -188,7 +188,7 @@ export default function Input({
           // error={error}
           {...props}
         />
-        {error.message && <WarningIcon className={styles['warning-icon']} />}
+        {/* {error.message && <WarningIcon className={styles['warning-icon']} />} */}
         {error.message && (
           <Text type="error" className={styles['input-error']}>
             {error.message}
