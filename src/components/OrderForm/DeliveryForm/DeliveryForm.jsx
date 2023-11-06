@@ -6,8 +6,8 @@ import DeliveryWarehouse from './DeliveryWarehouse';
 import DeliveryMethod from './DeliveryMethod';
 import styles from './DeliveryForm.module.scss';
 
-export default function DeliveryForm({ getData }) {
-  const [city, setCity] = useState(null);
+export default function DeliveryForm({ novaPoshta, savedAddress, getData }) {
+  const [city, setCity] = useState(novaPoshta?.city || null);
   const [street, setStreet] = useState(null);
   const [building, setBuilding] = useState(null);
   const [apartment, setApartment] = useState(null);
@@ -66,7 +66,7 @@ export default function DeliveryForm({ getData }) {
     <div className={styles.container}>
       <Heading type="h3">Доставка</Heading>
 
-      <DeliveryCity handleData={handleCityData} />
+      <DeliveryCity handleData={handleCityData} savedCity={novaPoshta?.city} />
       <DeliveryMethod handleDeliveryMethod={handleDeliveryMethod} />
       {/* {deliveryMethod?.method === 'address' && (
           <StreetSelector
@@ -77,13 +77,19 @@ export default function DeliveryForm({ getData }) {
         )} */}
 
       {deliveryMethod?.method === 'address' && city?.Ref && (
-        <DeliveryStreet cityRef={city.Ref} handleData={handleStreetData} />
+        <DeliveryStreet
+          cityRef={city.Ref}
+          savedStreet={novaPoshta?.street}
+          savedAddress={savedAddress}
+          handleData={handleStreetData}
+        />
       )}
       {deliveryMethod?.method === 'warehouse' && city?.Ref && (
         <DeliveryWarehouse
           handleData={handleWarehouseData}
           cityName={city.MainDescription}
           cityRef={city.Ref}
+          savedWarehouse={novaPoshta?.warehouse}
         />
       )}
       {deliveryMethod?.method === 'postMachine' && city?.Ref && (

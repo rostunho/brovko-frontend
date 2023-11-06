@@ -3,6 +3,7 @@ import { findCity } from 'shared/services/api/nova-poshta/nova-poshta-api';
 import { LocationSelector } from 'shared/components/LocationSelector';
 
 export default function DeliveryCity({
+  savedCity,
   handleData,
   profile,
   initialValue,
@@ -12,8 +13,20 @@ export default function DeliveryCity({
   const [targetCity, setTargetCity] = useState('');
   const [selectedCityData, setSelectedCityData] = useState(null);
 
+  useEffect(() => {
+    savedCity ? setSelectedCityData(savedCity) : setSelectedCityData(null);
+    setTargetCity('');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => fetchCitiesFromAPI, [targetCity]);
+  useEffect(() => {
+    if (targetCity.length < 1) {
+      return;
+    }
+    fetchCitiesFromAPI();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [targetCity]);
 
   useEffect(() => {
     handleData && selectedCityData && handleData(selectedCityData);
@@ -41,18 +54,25 @@ export default function DeliveryCity({
 
   const extractTargetCity = data => {
     setTargetCity(data);
+    // setCities([]);
+  };
+
+  const clearCities = () => {
+    setCities();
   };
 
   const extractCityData = data => {
     setSelectedCityData(data);
+    // setCities([]);
   };
   return (
     <LocationSelector
       {...props}
       withHotOptions={!profile}
-      data={cities}
+      data={cities?.length > 0 ? cities : []}
       label="Населений пункт"
-      initialValue={initialValue}
+      initialValue={savedCity?.Present || initialValue}
+      clearInitialList={clearCities}
       placeholder={'Вкажіть населений пункт'}
       extractSearchValue={extractTargetCity}
       extractData={extractCityData}

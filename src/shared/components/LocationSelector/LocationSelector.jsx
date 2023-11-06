@@ -14,6 +14,7 @@ export default function LocationSelector({
   extractSearchValue,
   extractData,
   initialValue,
+  clearInitialList,
   ...props
 }) {
   const [searchValue, setSearchValue] = useState(() => initialValue || '');
@@ -37,12 +38,13 @@ export default function LocationSelector({
       return;
     }
 
-    searchValue.length > 0 && !selectedData && searchValue !== initialValue
+    !selectedData && searchValue !== initialValue
       ? setSelectorIsOpen(true)
       : setSelectorIsOpen(false);
   }, [initialValue, searchValue, selectedData]);
 
   const handleOnIconClick = event => {
+    initialValue && clearInitialList && clearInitialList();
     toggleSelector();
 
     setSearchValue('');
@@ -77,9 +79,7 @@ export default function LocationSelector({
           onClick={handleOnIconClick}
           dataRef={selectedData && selectedData.Ref}
         />
-        {selectorIsOpen && data?.length > 0 && (
-          <LocationList data={data} onClick={onOptionClick} />
-        )}
+        {selectorIsOpen && <LocationList data={data} onClick={onOptionClick} />}
       </div>
       {withHotOptions && <HotOptions onClick={onOptionClick} />}
     </>
