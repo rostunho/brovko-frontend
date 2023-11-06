@@ -5,9 +5,13 @@ import UserLight from 'shared/icons/UserLight';
 
 import styles from './avatar.module.scss';
 import Button from 'shared/components/Button';
+import { useSelector } from 'react-redux';
+import { selectUser } from 'redux/user/userSelectors';
 
 const Avatar = () => {
   const text='Діана'
+  const {firstName} = useSelector(selectUser)
+  console.log(firstName)
   return (
     <>
     <Button className={styles.wrapper}>
