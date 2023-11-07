@@ -27,9 +27,9 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(register.fulfilled, (state, { payload }) => {
-        const { user, accessToken } = payload;
+        const { newUser, accessToken } = payload;
         state.loading = false;
-        state.user = user;
+        state.user = newUser;
         state.token = accessToken;
         state.isLogin = true;
       })
@@ -53,12 +53,10 @@ const userSlice = createSlice({
         state.error = payload;
       })
       .addCase(update.pending, state => {
-        console.log('pending working');
         state.loading = true;
         state.error = null;
       })
       .addCase(update.fulfilled, (state, { payload }) => {
-        console.log('payload in slice :>> ', payload);
         const { accessToken } = payload;
         state.loading = false;
         state.user = payload;
