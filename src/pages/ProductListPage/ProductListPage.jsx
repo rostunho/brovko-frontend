@@ -20,6 +20,10 @@ export default function ProductListPage() {
 
   const handleChangePage = pageNumber => {
     setPage(pageNumber);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   useEffect(() => {

@@ -27,6 +27,15 @@
   width: fit-content;
   transform: translate(-50%, -50%);
 }
+
+.wrapper {
+  position: absolute;
+  width: 100vw;
+  height: 100vw;
+  background-color: #fff;
+  opacity: 70%;
+}
+
 #ground {
   fill: rgba(0, 0, 0, 0.5);
 }
