@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Order from '../Order';
 import styles from './OrderInformation.module.scss';

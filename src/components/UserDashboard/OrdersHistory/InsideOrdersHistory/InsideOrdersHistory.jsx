@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Button from 'shared/components/Button';
 import DownArrowIcon from 'shared/icons/DownArrowIcon';
 import UpArrowIcon from 'shared/icons/UpArrowIcon';
@@ -14,20 +15,31 @@ const InsideOrdersHistory = () => {
 
   const [showDetail, setShowdetail] = useState(false);
 
+  const [showSumAllOrders, setshowSumAllOrders] = useState(0);
+
   const toggleShowDetailsOrder = () => {
     setShowdetail(!showDetail);
   };
 
-  const goToOrders = () => {
-    console.log(goToOrders);
+  const navigate = useNavigate();
+  const goToProducts = () => {
+    navigate('/shop/product-list-page');
   };
+
+  useEffect(() => {
+    const totalAmount = orders.reduce((total, { price, value }) => {
+      return total + price * value;
+    }, 0);
+
+    setshowSumAllOrders(totalAmount);
+  }, [orders]);
 
   return (
     <>
-      {!orders ? (
+      {!orders.length ? (
         <div>
           <p className={styles.text}>У Вас немає попередніх замовлень</p>
-          <Button type="button" size="lg" onClick={goToOrders}>
+          <Button type="button" size="lg" onClick={goToProducts}>
             <p className={styles.spam}>Перейти до смаколиків</p>
           </Button>
         </div>
@@ -47,13 +59,17 @@ const InsideOrdersHistory = () => {
             <p className={styles.statusOrder}>Виконано</p>
             <div className={styles.wrapperText}>
               <p className={styles.quantityOrder}>Кількість товарів</p>
-              <p className={styles.quantityOrderSpam}>3 шт</p>
+              <p className={styles.quantityOrderSpam}>{orders.length} шт</p>
             </div>
             <div className={styles.wrapperText}>
               <p className={styles.sumOrder}>Сума замовлення</p>
-              <p className={styles.sumOrderSpam}>108 ₴</p>
+              <p className={styles.sumOrderSpam}>
+                {showSumAllOrders.toFixed(2)} ₴
+              </p>
             </div>
-            {!showDetail && <OrderInformation />}
+            {!showDetail && (
+              <OrderInformation setshowSumAllOrders={setshowSumAllOrders} />
+            )}
           </div>
         </div>
       )}
