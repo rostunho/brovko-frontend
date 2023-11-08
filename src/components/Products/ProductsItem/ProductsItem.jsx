@@ -16,9 +16,14 @@ const ProductsItem = ({ product }) => {
 
   const dispatch = useDispatch();
 
+  const handleAddPopup = text => {
+    dispatch(addPopupOperation(text));
+  };
+
   const handleAddToCart = () => {
     const result = orders.some(order => order._id === product._id);
     if (result) {
+      handleAddPopup('Товар вже знаходиться в кошику');
       return;
     }
     dispatch(addOrder({ ...product, value: 1 }));

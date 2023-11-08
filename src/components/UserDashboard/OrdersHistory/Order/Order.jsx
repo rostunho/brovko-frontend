@@ -8,9 +8,9 @@ const Order = ({
   name,
   note,
   price,
+  val,
   quantity,
   currencyId,
-  val,
   setModalDelete,
   setOrderId,
 }) => {
@@ -26,8 +26,8 @@ const Order = ({
             <p className={styles['text-product']}>{note}</p>
           </div>
           <div className={styles['wrapper-total']}>
-            <p className={styles['total']}>{quantity} шт</p>
-            <p className={styles['total']}>{price} ₴</p>
+            <p className={styles['total']}>{val} шт</p>
+            <p className={styles['total']}>{price * val} ₴</p>
           </div>
         </div>
       </div>
