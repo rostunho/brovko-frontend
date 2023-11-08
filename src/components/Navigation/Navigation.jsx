@@ -22,7 +22,7 @@ const Navigation = ({ isMobile }) => {
   //   }, [isDesktop]);
 
   const toggleMobileMenu = e => {
-    // e.preventDefault();
+    e.preventDefault();
     // console.log('Toggle Mobile Menu');
     setShowMobileMenu(showMobileMenu => !showMobileMenu);
   };
@@ -31,7 +31,11 @@ const Navigation = ({ isMobile }) => {
     <div className={styles.navigation}>
       {
         <>
-          <Button mode="menu" onClick={toggleMobileMenu} />
+          {showMobileMenu ? (
+            <Button mode="close" size="lg" onClick={toggleMobileMenu} />
+          ) : (
+            <Button mode="menu" onClick={toggleMobileMenu} />
+          )}
           {/* <MobileMenuIcon
             className={styles.burger}
             onClick={toggleMobileMenu}

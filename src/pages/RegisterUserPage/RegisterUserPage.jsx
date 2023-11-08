@@ -26,7 +26,7 @@ export default function RegisterUserPage() {
       <AuthFormWrapper form={<RegisterForm />} />
 
       <AuthSwitcher to="/auth/login" linkLabel="Увійти">
-        Вже є акаунт ?
+        Вже є акаунт?
       </AuthSwitcher>
     </section>
   );

@@ -8,10 +8,11 @@ import UserLight from 'shared/icons/UserLight';
 import BasketLight from 'shared/icons/BasketLight';
 import ModalProductsInBasket from 'components/ModalProductsInBasket/ModalProductsInBasket';
 import Ellipse from 'shared/icons/Ellipse';
+import Button from 'shared/components/Button';
 
 import styles from './Header.module.scss';
 
-export default function Header() {
+export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
   const orders = useSelector(getAllOrders);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1280);
   const [isTablet, setIsTablet] = useState(
@@ -85,6 +86,11 @@ export default function Header() {
           {basketIsOpen && <ModalProductsInBasket closeModal={closeModal} />}
         </div>
       </div>
+      {/* <Button
+        mode={isMobileMenuOpen ? 'close' : 'menu'} // Змінюйте значок на 'close', коли меню відкрите
+        size="lg"
+        onClick={toggleMobileMenu}
+      /> */}
     </header>
   );
 }

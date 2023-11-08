@@ -74,7 +74,7 @@ const ProductList = () => {
       });
     }
   }
-
+  console.log('sortedProducts', sortedProducts);
   return (
     <div className={styles.products}>
       <SearchBar onSubmit={handleSearchSubmit} />

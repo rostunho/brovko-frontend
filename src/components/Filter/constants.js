@@ -1,4 +1,4 @@
-export const categories = ['Всі категорії', 'Палянички', 'Набори'];
+export const categories = ['Всі категорії', '000001', 'Набори'];
 
 export const sortingOptions = [
   'Від дешевих до дорогих',
