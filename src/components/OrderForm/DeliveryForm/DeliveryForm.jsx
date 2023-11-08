@@ -6,11 +6,11 @@ import DeliveryWarehouse from './DeliveryWarehouse';
 import DeliveryMethod from './DeliveryMethod';
 import styles from './DeliveryForm.module.scss';
 
-export default function DeliveryForm({ novaPoshta, savedAddress, getData }) {
-  const [city, setCity] = useState(novaPoshta?.city || null);
-  const [street, setStreet] = useState(null);
-  const [building, setBuilding] = useState(null);
-  const [apartment, setApartment] = useState(null);
+export default function DeliveryForm({ savedData, getData }) {
+  const [city, setCity] = useState(savedData?.novaPoshta?.city || null);
+  const [street, setStreet] = useState(savedData?.novaPoshta?.street || null);
+  const [building, setBuilding] = useState(savedData?.building || null);
+  const [apartment, setApartment] = useState(savedData?.apartment || null);
   const [warehouse, setWarehouse] = useState(null);
   const [deliveryMethod, setDeliveryMethod] = useState(null);
 
@@ -44,15 +44,26 @@ export default function DeliveryForm({ novaPoshta, savedAddress, getData }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [warehouse]);
 
-  const handleCityData = data => {
+  const getCityData = data => {
     setCity(data);
   };
-
-  const handleStreetData = (streetData, building, apartment) => {
-    setStreet(streetData);
-    setBuilding(building);
-    setApartment(apartment);
+  const clearCityData = () => {
+    setCity(null);
   };
+
+  const getStreetData = (selectedStreet, selectedBuilding, selectedFlat) => {
+    setStreet(selectedStreet);
+    setBuilding(selectedBuilding);
+    setApartment(selectedFlat);
+  };
+
+  const clearStreetData = () => {
+    setStreet(null);
+    setBuilding(null);
+    setApartment(null);
+  };
+
+  //////////
 
   const handleWarehouseData = data => {
     setWarehouse(data);
@@ -66,22 +77,34 @@ export default function DeliveryForm({ novaPoshta, savedAddress, getData }) {
     <div className={styles.container}>
       <Heading type="h3">Доставка</Heading>
 
-      <DeliveryCity handleData={handleCityData} savedCity={novaPoshta?.city} />
+      <DeliveryCity
+        name="city"
+        withHotOptions
+        savedCity={savedData?.novaPoshta?.city}
+        handleData={{ send: getCityData, clear: clearCityData }}
+      />
       <DeliveryMethod handleDeliveryMethod={handleDeliveryMethod} />
-      {/* {deliveryMethod?.method === 'address' && (
-          <StreetSelector
-            label="Вулиця"
-            extractSearchValue={() => {}}
-            extractData={() => {}}
-          />
-        )} */}
 
       {deliveryMethod?.method === 'address' && city?.Ref && (
         <DeliveryStreet
           cityRef={city.Ref}
-          savedStreet={novaPoshta?.street}
-          savedAddress={savedAddress}
-          handleData={handleStreetData}
+          savedStreet={{
+            // street: savedData?.novaPoshta?.street,
+            street:
+              city.Ref === savedData.novaPoshta.city.Ref
+                ? savedData.novaPoshta.street
+                : null,
+
+            building:
+              city.Ref === savedData.novaPoshta.city.Ref
+                ? savedData?.building
+                : null,
+            apartment:
+              city.Ref === savedData.novaPoshta.city.Ref
+                ? savedData?.apartment
+                : null,
+          }}
+          handleData={{ send: getStreetData, clear: clearStreetData }}
         />
       )}
       {deliveryMethod?.method === 'warehouse' && city?.Ref && (
@@ -89,7 +112,7 @@ export default function DeliveryForm({ novaPoshta, savedAddress, getData }) {
           handleData={handleWarehouseData}
           cityName={city.MainDescription}
           cityRef={city.Ref}
-          savedWarehouse={novaPoshta?.warehouse}
+          savedWarehouse={savedData.novaPoshta?.warehouse}
         />
       )}
       {deliveryMethod?.method === 'postMachine' && city?.Ref && (

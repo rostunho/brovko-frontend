@@ -1,27 +1,21 @@
 import { useState, useEffect } from 'react';
 import { findCity } from 'shared/services/api/nova-poshta/nova-poshta-api';
 import { LocationSelector } from 'shared/components/LocationSelector';
+import regionCenters from './regionCenters';
 
 export default function DeliveryCity({
   savedCity,
   handleData,
-  profile,
-  initialValue,
+  withHotOptions,
   ...props
 }) {
   const [cities, setCities] = useState([]);
   const [targetCity, setTargetCity] = useState('');
+  const [initialCity, setInitialCity] = useState(() => savedCity || ''); // місто, ке ми отримуємо з бази даних
   const [selectedCityData, setSelectedCityData] = useState(null);
 
   useEffect(() => {
-    savedCity ? setSelectedCityData(savedCity) : setSelectedCityData(null);
-    setTargetCity('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    if (targetCity.length < 1) {
+    if (savedCity && targetCity === savedCity.Present) {
       return;
     }
     fetchCitiesFromAPI();
@@ -29,15 +23,11 @@ export default function DeliveryCity({
   }, [targetCity]);
 
   useEffect(() => {
-    handleData && selectedCityData && handleData(selectedCityData);
+    handleData && selectedCityData && handleData.send(selectedCityData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCityData]);
 
   async function fetchCitiesFromAPI() {
-    if (targetCity.length < 1) {
-      return;
-    }
-
     try {
       const value = targetCity.toLowerCase();
       const response = await findCity(value);
@@ -52,13 +42,17 @@ export default function DeliveryCity({
     }
   }
 
+  const clearCity = () => {
+    // console.log('CLEAR CITY DATA WORKING');
+    handleData && handleData.clear();
+    setCities([]);
+    setInitialCity(null);
+    setSelectedCityData(null);
+  };
+
   const extractTargetCity = data => {
     setTargetCity(data);
     // setCities([]);
-  };
-
-  const clearCities = () => {
-    setCities();
   };
 
   const extractCityData = data => {
@@ -67,15 +61,14 @@ export default function DeliveryCity({
   };
   return (
     <LocationSelector
-      {...props}
-      withHotOptions={!profile}
+      withHotOptions={withHotOptions}
       data={cities?.length > 0 ? cities : []}
       label="Населений пункт"
-      initialValue={savedCity?.Present || initialValue}
-      clearInitialList={clearCities}
+      initialValue={initialCity?.Present}
+      initialList={regionCenters}
       placeholder={'Вкажіть населений пункт'}
-      extractSearchValue={extractTargetCity}
-      extractData={extractCityData}
+      extract={{ searchValue: extractTargetCity, data: extractCityData }}
+      clear={clearCity}
     />
   );
 }

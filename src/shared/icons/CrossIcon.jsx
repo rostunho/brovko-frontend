@@ -9,6 +9,7 @@ export default function CrossIcon({ large, ...props }) {
       viewBox={large ? '0 0 32 32' : '0 0 16 16'}
       // fill={large ? 'inherit' : 'none'}
       stroke={large ? 'inherit' : 'none'}
+      {...props}
     >
       {large ? (
         <path

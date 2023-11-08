@@ -9,40 +9,74 @@ import styles from './DeliveryStreet.module.scss';
 export default function DeliveryStreet({
   cityRef,
   handleData,
-  savedStreet,
   profile,
-  initialValue,
-  savedAddress,
+  // initialValue,
+  savedStreet,
   ...props
 }) {
-  const [streets, setStreets] = useState([]);
+  const [streets, setStreets] = useState(['test']);
   const [targetStreet, setTargetStreet] = useState('');
+  const [initialStreet, setInitialStreet] = useState(
+    () => savedStreet?.street || ''
+  );
+
   const [selectedStreetData, setSelectedStreetData] = useState(null);
-  const [building, setBuilding] = useState('');
-  const [apartment, setApartment] = useState('');
+  const [building, setBuilding] = useState(() => savedStreet?.building || '');
+  const [apartment, setApartment] = useState(
+    () => savedStreet?.apartment || ''
+  );
+
+  // useEffect(() => {
+  //   setSavedStreetData(initialValue);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => {
-    savedStreet
-      ? setSelectedStreetData(savedStreet)
-      : setSelectedStreetData(null);
+    // щоб при першій зміні міста скинулась вулиця, яка збережена в базі даних
+    initialStreet?.SettlementStreetRef &&
+    savedStreet?.street?.SettlementStreetRef ===
+      initialStreet?.SettlementStreetRef
+      ? setInitialStreet(savedStreet.street)
+      : setInitialStreet('');
 
-    savedAddress?.buildingNumber && setBuilding(savedAddress.buildingNumber);
-    savedAddress?.flat && setApartment(savedAddress?.flat);
-
+    setStreets([]);
+    setTargetStreet('');
+    setSelectedStreetData(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [cityRef]);
+
+  // useEffect(() => {
+  //   savedStreet
+  //     ? setSelectedStreetData(savedStreet)
+  //     : setSelectedStreetData(null);
+
+  //   savedAddress?.buildingNumber && setBuilding(savedAddress.buildingNumber);
+  //   savedAddress?.flat && setApartment(savedAddress?.flat);
+
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => fetchStreetsFromAPI, [cityRef, targetStreet]);
+  useEffect(() => {
+    if (savedStreet && targetStreet === savedStreet?.street?.Present) {
+      return;
+    }
+    fetchStreetsFromAPI();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [targetStreet]);
 
   useEffect(() => {
     handleData &&
       selectedStreetData &&
-      handleData(selectedStreetData, building, apartment);
+      handleData.send(selectedStreetData, building, apartment);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apartment, building, selectedStreetData]);
 
   async function fetchStreetsFromAPI() {
+    if (targetStreet.length < 3) {
+      return;
+    }
+
     if (targetStreet.length < 1) {
       return;
     }
@@ -65,6 +99,15 @@ export default function DeliveryStreet({
     setSelectedStreetData({ ...data });
   };
 
+  const clearStreet = () => {
+    handleData && handleData.clear();
+    setStreets([]);
+    setInitialStreet(null);
+    setSelectedStreetData(null);
+    setBuilding('');
+    setApartment('');
+  };
+
   const handleBuilding = event => {
     setBuilding(event.target.value);
   };
@@ -73,22 +116,24 @@ export default function DeliveryStreet({
     setApartment(event.target.value);
   };
 
-  // nan('12345');
-  // nan('1234s');
-
   return (
     <>
       <LocationSelector
+        streetSelector
         data={streets}
         label="Оберіть вулицю"
         placeholder="Вкажіть назву вулиці"
-        extractSearchValue={extractTargetStreet}
-        extractData={extractStreetData}
-        initialValue={savedStreet?.Present || initialValue}
+        initialValue={initialStreet?.Present || ''}
+        extract={{ searchValue: extractTargetStreet, data: extractStreetData }}
+        clear={clearStreet}
       />
 
-      {!profile && selectedStreetData?.Present && (
-        <div className={styles['inner-container']}>
+      {(selectedStreetData?.Present || initialStreet?.Present) && (
+        <div
+          className={`${styles['inner-container']} ${
+            profile ? styles['in-profile'] : ''
+          }`}
+        >
           <Input
             type="text"
             labelClassName={styles.building}

@@ -11,7 +11,7 @@ export default function DeliveryWarehouse({
   savedWarehouse,
   ...props
 }) {
-  const [warehouses, setWarehouses] = useState([]);
+  const [warehouses, setWarehouses] = useState(['test']);
   const [targetWarehouse, setTargetWarehouse] = useState('');
   const [selectedWarehouseData, setSelectedWarehouseData] = useState(null);
 
@@ -78,8 +78,12 @@ export default function DeliveryWarehouse({
       data={warehouses}
       initialValue={savedWarehouse?.Description || initialValue}
       placeholder="Вкажіть номер, або адресу"
-      extractSearchValue={extractTargetWarehouse}
-      extractData={extractWarehouseData}
+      // extractSearchValue={extractTargetWarehouse}
+      // extractData={extractWarehouseData}
+      extract={{
+        searchValue: extractTargetWarehouse,
+        data: extractWarehouseData,
+      }}
     />
   );
 }
