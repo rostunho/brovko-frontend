@@ -8,6 +8,7 @@ import Heading from 'shared/components/Heading/Heading';
 import PersonalData from 'components/UserDashboard/PersonalData/PersonalData';
 import Contacts from 'components/UserDashboard/Contacts/Contacts';
 import OrdersHistory from 'components/UserDashboard/OrdersHistory/OrdersHistory';
+import Avatar from 'components/Avatar';
 
 import styles from './UserDashboardPage.module.scss';
 
@@ -27,6 +28,7 @@ export default function UserDashboardPage() {
     <>
       <Heading withGoBack>Мій профіль</Heading>
       <div>
+        <Avatar />
         <PersonalData />
         <Contacts />
         <OrdersHistory />

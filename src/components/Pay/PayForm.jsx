@@ -72,7 +72,7 @@ export default function PayForm({
   const generateSignature = async data => {
     try {
       const response = await fetch(
-        'http://localhost:5005/api/generate-signature',
+        'https://brovko-backend.onrender.com/api/generate-signature',
         {
           method: 'POST',
           headers: {
