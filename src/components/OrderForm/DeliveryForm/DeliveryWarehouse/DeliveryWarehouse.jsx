@@ -3,17 +3,21 @@ import { findWarehouse } from 'shared/services/api';
 import { LocationSelector } from 'shared/components/LocationSelector';
 
 export default function DeliveryWarehouse({
-  handleData,
-  cityName,
   cityRef,
+  handleData,
   postMachine,
-  initialValue,
   savedWarehouse,
   ...props
 }) {
-  const [warehouses, setWarehouses] = useState(['test']);
+  const [warehouses, setWarehouses] = useState([]);
   const [targetWarehouse, setTargetWarehouse] = useState('');
   const [selectedWarehouseData, setSelectedWarehouseData] = useState(null);
+
+  useEffect(() => {
+    setWarehouses([]);
+    setTargetWarehouse('');
+    setSelectedWarehouseData(null);
+  }, [cityRef]);
 
   useEffect(() => {
     savedWarehouse
@@ -22,21 +26,14 @@ export default function DeliveryWarehouse({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(
     () => fetchWarehousesFromAPI,
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [handleData, selectedWarehouseData, cityRef]
+    [selectedWarehouseData, cityRef]
   );
 
-  // // testing ... delete later
-  // useEffect(() => {
-  //   fetchWarehousesFromAPI();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [targetWarehouse]);
-
   useEffect(() => {
-    handleData && handleData(selectedWarehouseData);
+    handleData && handleData.send(selectedWarehouseData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedWarehouseData]);
 
@@ -72,18 +69,24 @@ export default function DeliveryWarehouse({
     setSelectedWarehouseData(data);
   };
 
+  const clearWarehouse = () => {
+    handleData && handleData.clear();
+    setWarehouses([]);
+    setSelectedWarehouseData(null);
+  };
+
   return (
     <LocationSelector
       label={!postMachine ? 'Відділення Нової Пошти' : 'Поштомат Нової Пошти'}
       data={warehouses}
-      initialValue={savedWarehouse?.Description || initialValue}
+      // initialValue={savedWarehouse?.Description || initialValue}
+      initialValue={savedWarehouse?.Description || ''}
       placeholder="Вкажіть номер, або адресу"
-      // extractSearchValue={extractTargetWarehouse}
-      // extractData={extractWarehouseData}
       extract={{
         searchValue: extractTargetWarehouse,
         data: extractWarehouseData,
       }}
+      clear={clearWarehouse}
     />
   );
 }

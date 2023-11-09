@@ -29,7 +29,7 @@ export default function DeliveryCity({
 
   async function fetchCitiesFromAPI() {
     try {
-      const value = targetCity.toLowerCase();
+      const value = targetCity?.toLowerCase();
       const response = await findCity(value);
       if (!response) {
         return;

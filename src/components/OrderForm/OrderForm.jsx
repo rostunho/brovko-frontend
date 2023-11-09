@@ -23,7 +23,8 @@ export default function OrderForm() {
 
   const navigate = useNavigate();
 
-  const createNewOrder = async () => {
+  const createNewOrder = async event => {
+    event.preventDefault();
     const addOrderRequestBody = generateAddOrderRequestBody(
       productsInBasket,
       customer,

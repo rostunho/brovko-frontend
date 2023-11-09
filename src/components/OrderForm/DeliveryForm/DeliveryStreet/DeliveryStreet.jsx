@@ -19,7 +19,6 @@ export default function DeliveryStreet({
   const [initialStreet, setInitialStreet] = useState(
     () => savedStreet?.street || ''
   );
-
   const [selectedStreetData, setSelectedStreetData] = useState(null);
   const [building, setBuilding] = useState(() => savedStreet?.building || '');
   const [apartment, setApartment] = useState(

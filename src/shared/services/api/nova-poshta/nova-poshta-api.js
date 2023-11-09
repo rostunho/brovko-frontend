@@ -11,7 +11,7 @@ export const findCity = async searchValue => {
       modelName: 'Address',
       calledMethod: 'searchSettlements',
       methodProperties: {
-        CityName: searchValue.toLowerCase(),
+        CityName: searchValue?.toLowerCase(),
         Limit: '50',
         Page: '1',
       },
