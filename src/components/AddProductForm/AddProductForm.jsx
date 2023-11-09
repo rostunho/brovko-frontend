@@ -250,7 +250,7 @@ export default function AddProductForm() {
           type="url"
           onChange={e => dispatchRequestBody(e, 'ADD_URL')}
           icon={<LinkIcon />}
-          link="http://localhost:3000/main" // to change later
+          link="https://654d63aabfeb0d0956835d3e--admirable-cobbler-4b3774.netlify.app//main" // to change later
         />
 
         <Input
