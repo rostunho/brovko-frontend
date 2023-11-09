@@ -7,7 +7,10 @@
   border-radius: 8px;
   border: var(--border-primary);
   margin-bottom: 16px;
-  :hover {
+  &:hover,
+  &:focus,
+  &:active,
+  &:checked {
     border: var(--border-accent);
   }
 }

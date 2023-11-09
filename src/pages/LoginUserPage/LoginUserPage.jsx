@@ -13,7 +13,7 @@ export default function LoginUserPage() {
   const isUserLogin = useSelector(selectIsLogin);
   // delete
   const { token, user } = useSelector(memoizedSelectLoginAndToken);
-  console.log('token', token);
+  // console.log('token', token);
 
   if (isUserLogin) {
     return <Navigate to="/shop/product-list-page" />;

@@ -8,47 +8,67 @@ import styles from './LocationSelector.module.scss';
 export default function LocationSelector({
   data,
   name,
-  withHotOptions,
   label,
+  withHotOptions,
   placeholder,
-  extractSearchValue,
-  extractData,
   initialValue,
-  clearInitialList,
+  initialList,
+  extract,
+  clear,
+  streetSelector,
   ...props
 }) {
   const [searchValue, setSearchValue] = useState(() => initialValue || '');
   const [selectedData, setSelectedData] = useState(null);
   const [selectorIsOpen, setSelectorIsOpen] = useState(false);
 
+  // щоб при першій зміні міста скинулась вулиця, яка збережена в базі даних
   useEffect(() => {
-    extractSearchValue && extractSearchValue(searchValue);
+    setSearchValue(initialValue);
+  }, [initialValue]);
+
+  useEffect(() => {
+    extract?.searchValue && extract.searchValue(searchValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
 
   useEffect(() => {
     selectedData &&
       setSearchValue(selectedData.Present || selectedData.Description);
-    extractData && extractData(selectedData);
+    extract.data && extract.data(selectedData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedData]);
 
   useEffect(() => {
-    if (!searchValue) {
-      return;
+    if (streetSelector) {
+      !selectedData &&
+      searchValue !== initialValue &&
+      searchValue !== '' &&
+      data.length > 0
+        ? // data.length < 1
+          setSelectorIsOpen(true)
+        : setSelectorIsOpen(false);
+    } else {
+      !selectedData && searchValue !== initialValue && searchValue !== ''
+        ? // data.length < 1
+          setSelectorIsOpen(true)
+        : setSelectorIsOpen(false);
     }
+  }, [data.length, initialValue, searchValue, selectedData, streetSelector]);
 
-    !selectedData && searchValue !== initialValue
-      ? setSelectorIsOpen(true)
-      : setSelectorIsOpen(false);
-  }, [initialValue, searchValue, selectedData]);
+  // const handleOnIconClick = event => {
+  //   initialValue && clearInitialList && clearInitialList();
+  //   toggleSelector();
 
-  const handleOnIconClick = event => {
-    initialValue && clearInitialList && clearInitialList();
-    toggleSelector();
+  //   setSearchValue('');
+  //   setSelectedData(null);
+  // };
 
+  const clearAllData = () => {
+    clear && clear();
     setSearchValue('');
     setSelectedData(null);
+    setSelectorIsOpen(false);
   };
 
   const handleOnChange = event => {
@@ -76,10 +96,19 @@ export default function LocationSelector({
           selectorIsOpen={selectorIsOpen}
           selectedData={selectedData}
           onChange={handleOnChange}
-          onClick={handleOnIconClick}
+          // onClick={handleOnIconClick}
           dataRef={selectedData && selectedData.Ref}
+          // clearData={clearAllData}
+          selector={{ toggle: toggleSelector, clear: clearAllData }}
         />
-        {selectorIsOpen && <LocationList data={data} onClick={onOptionClick} />}
+        {selectorIsOpen && (
+          <LocationList
+            data={data}
+            onClick={onOptionClick}
+            initialData={initialList}
+            streetSelector={streetSelector}
+          />
+        )}
       </div>
       {withHotOptions && <HotOptions onClick={onOptionClick} />}
     </>

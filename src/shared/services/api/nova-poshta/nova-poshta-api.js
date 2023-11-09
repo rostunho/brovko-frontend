@@ -11,7 +11,7 @@ export const findCity = async searchValue => {
       modelName: 'Address',
       calledMethod: 'searchSettlements',
       methodProperties: {
-        CityName: searchValue.toLowerCase(),
+        CityName: searchValue?.toLowerCase(),
         Limit: '50',
         Page: '1',
       },
@@ -78,7 +78,7 @@ export const findWarehouse = async (searchValue, cityRef, postMachine) => {
           ? 'f9316480-5f2d-425d-bc2c-ac7cd29decf0'
           : '',
         Page: '1',
-        Limit: '50',
+        Limit: '100',
         Language: 'UA',
         WarehouseId: valueIsNumber ? searchValue : '',
       },

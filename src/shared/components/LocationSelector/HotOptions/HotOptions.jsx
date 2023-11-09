@@ -1,4 +1,4 @@
-import largestCities from '../largestCities';
+import largestCities from './largestCities';
 import styles from './HotOptions.module.scss';
 
 export default function HotOptions({ onClick, ...props }) {

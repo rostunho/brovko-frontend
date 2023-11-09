@@ -23,7 +23,8 @@ export default function OrderForm() {
 
   const navigate = useNavigate();
 
-  const createNewOrder = async () => {
+  const createNewOrder = async event => {
+    event.preventDefault();
     const addOrderRequestBody = generateAddOrderRequestBody(
       productsInBasket,
       customer,
@@ -58,10 +59,10 @@ export default function OrderForm() {
     email: user.email || '',
   };
 
-  const savedAddress = {
-    buildingNumber: user.buildingNumber || '',
-    flat: user.flat || '',
-  };
+  // const savedAddress = {
+  //   buildingNumber: user.buildingNumber || '',
+  //   flat: user.flat || '',
+  // };
 
   return (
     <>
@@ -72,8 +73,12 @@ export default function OrderForm() {
           getData={getCustomerData}
         />
         <DeliveryForm
-          novaPoshta={user?.novaPoshta || null}
-          savedAddress={savedAddress}
+          savedData={{
+            novaPoshta: user?.novaPoshta || null,
+            building: user.buildingNumber || '',
+            apartment: user.flat || '',
+          }}
+          // savedAddress={savedAddress}
           userIsLoggedIn={userIsLoggedIn}
           getData={getDeliveryData}
         />

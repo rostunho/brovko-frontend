@@ -1,10 +1,10 @@
+import Heading from 'shared/components/Heading';
 import About from 'components/About/About';
-import SearchBar from 'shared/components/SearchBar/SearchBar';
-import Filter from 'components/Filter/Filter';
 
 export default function AboutPage() {
   return (
     <>
+      <Heading withGoBack>Про Бровка</Heading>
       <About />
     </>
   );

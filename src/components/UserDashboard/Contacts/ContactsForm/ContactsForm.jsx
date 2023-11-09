@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Input from 'shared/components/Input';
 import Button from 'shared/components/Button';
 import styles from './ContactsForm.module.scss';
@@ -29,6 +29,8 @@ export default function ContactsForm({
     id,
   }));
 
+  // useEffect(() => { }, [])
+
   const handleChange = e => {
     const { name, value } = e.target;
 
@@ -37,7 +39,7 @@ export default function ContactsForm({
     });
   };
 
-  const handleCityData = data => {
+  const getCityData = data => {
     // console.log('data :>> ', data);
     setUserInfo(prevState => {
       // console.log('prevState :>> ', prevState);
@@ -49,22 +51,54 @@ export default function ContactsForm({
     // console.log('userInfo :>> ', userInfo);
   };
 
-  const handleStreetData = data => {
+  const clearCityData = () => {
+    console.log('clearCityData working in CONTACTS-FORM on top');
     setUserInfo(prevState => {
-      // console.log('prevState :>> ', prevState);
       return {
         ...prevState,
-        novaPoshta: { ...prevState.novaPoshta, street: { ...data } },
+        // novaPoshta: { ...prevState.novaPoshta, city: { TEST: 'TEST' } },
+        novaPoshta: { ...prevState.novaPoshta, city: {} },
       };
     });
   };
 
-  const handleWarehouseData = data => {
+  const getStreetData = (streetData, buildingData, flatData) => {
     setUserInfo(prevState => {
       // console.log('prevState :>> ', prevState);
       return {
         ...prevState,
+        novaPoshta: { ...prevState.novaPoshta, street: { ...streetData } },
+        buildingNumber: buildingData,
+        flat: flatData,
+      };
+    });
+  };
+
+  const clearStreetData = () => {
+    setUserInfo(prevState => {
+      return {
+        ...prevState,
+        novaPoshta: { ...prevState.novaPoshta, street: {} },
+        buildingNumber: null,
+        flat: null,
+      };
+    });
+  };
+
+  const getWarehouseData = data => {
+    setUserInfo(prevState => {
+      return {
+        ...prevState,
         novaPoshta: { ...prevState.novaPoshta, warehouse: { ...data } },
+      };
+    });
+  };
+
+  const clearWarehouseData = () => {
+    setUserInfo(prevState => {
+      return {
+        ...prevState,
+        novaPoshta: { ...prevState.novaPoshta, warehouse: null },
       };
     });
   };
@@ -94,39 +128,30 @@ export default function ContactsForm({
 
       <DeliveryCity
         name="city"
-        profile
-        initialValue={city?.Present}
-        handleData={handleCityData}
+        savedCity={city}
+        handleData={{ send: getCityData, clear: clearCityData }}
       />
 
-      <DeliveryStreet
-        profile
-        cityRef={userInfo.novaPoshta.city.Ref}
-        initialValue={street?.Present}
-        handleData={handleStreetData}
-      />
-
-      <div className={styles.address}>
-        <Input
-          label="Будинок"
-          name="buildingNumber"
-          value={userInfo?.buildingNumber}
-          length="md"
-          onChange={handleChange}
+      {
+        <DeliveryStreet
+          profile
+          cityRef={userInfo.novaPoshta.city.Ref}
+          savedStreet={{
+            street: userInfo.novaPoshta.city.Ref === city.Ref ? street : null,
+            building:
+              userInfo.novaPoshta.city.Ref === city.Ref ? buildingNumber : null,
+            apartment: userInfo.novaPoshta.city.Ref === city.Ref ? flat : null,
+          }}
+          handleData={{ send: getStreetData, clear: clearStreetData }}
         />
-        <Input
-          label="Квартира"
-          name="flat"
-          value={userInfo?.flat}
-          length="md"
-          onChange={handleChange}
-        />
-      </div>
+      }
 
       <DeliveryWarehouse
         cityRef={userInfo.novaPoshta.city.Ref}
-        initialValue={warehouse?.Description}
-        handleData={handleWarehouseData}
+        savedWarehouse={
+          userInfo.novaPoshta.city.Ref === city.Ref ? warehouse : null
+        }
+        handleData={{ send: getWarehouseData, clear: clearWarehouseData }}
       />
       <div className={styles.buttonsContainer}>
         <Button
@@ -139,7 +164,8 @@ export default function ContactsForm({
             userInfo.flat === flat &&
             userInfo.novaPoshta.city.Ref === city.Ref &&
             userInfo.novaPoshta.street.Present === street.Present &&
-            userInfo.novaPoshta.warehouse.Description === warehouse.Description
+            userInfo.novaPoshta.warehouse?.Description ===
+              warehouse?.Description
           }
         >
           Зберегти
