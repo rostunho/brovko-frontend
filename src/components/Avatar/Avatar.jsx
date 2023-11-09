@@ -10,18 +10,14 @@ import { selectUser } from 'redux/user/userSelectors';
 
 const Avatar = () => {
   const addPhoto = () => {console.log('addPhoto')}
-  // const text='Діана'
-  const {firstName, avatarURL, middleName} = useSelector(selectUser)
+  const {firstName, email, avatarURL, middleName} = useSelector(selectUser)
   console.log(useSelector(selectUser))
   return (
     <>
     <Button className={styles.wrapper} onClick={addPhoto}>
-      {/* <div > */}
-        <Image   className={styles.avatar} src={middleName} text={firstName} />
+        <Image   className={styles.avatar} src={middleName} text={firstName || email} />
         <CameraIcon className={styles.cameraIcon} 
-        //  fill='var(--white-text-color)' 
         />
-      {/* </div> */}
       </ Button>
 
     </>
