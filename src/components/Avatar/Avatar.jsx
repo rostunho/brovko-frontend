@@ -11,7 +11,6 @@ import { selectUser } from 'redux/user/userSelectors';
 const Avatar = () => {
   const addPhoto = () => {console.log('addPhoto')}
   const {firstName, email, avatarURL, middleName} = useSelector(selectUser)
-  console.log(useSelector(selectUser))
   return (
     <>
     <Button className={styles.wrapper} onClick={addPhoto}>
