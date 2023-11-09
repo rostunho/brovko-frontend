@@ -65,9 +65,15 @@ export default function DeliveryForm({ savedData, getData }) {
 
   //////////
 
-  const handleWarehouseData = data => {
+  const getWarehouseData = data => {
     setWarehouse(data);
   };
+
+  const clearWarehouseData = () => {
+    setWarehouse(null);
+  };
+
+  //////////
 
   const handleDeliveryMethod = data => {
     setDeliveryMethod(data);
@@ -109,20 +115,23 @@ export default function DeliveryForm({ savedData, getData }) {
       )}
       {deliveryMethod?.method === 'warehouse' && city?.Ref && (
         <DeliveryWarehouse
-          handleData={handleWarehouseData}
-          cityName={city.MainDescription}
           cityRef={city.Ref}
-          savedWarehouse={savedData.novaPoshta?.warehouse}
+          savedWarehouse={
+            city.Ref === savedData.novaPoshta.city.Ref
+              ? savedData.novaPoshta?.warehouse
+              : null
+          }
+          handleData={{ send: getWarehouseData, clear: clearWarehouseData }}
         />
       )}
-      {deliveryMethod?.method === 'postMachine' && city?.Ref && (
+      {/* {deliveryMethod?.method === 'postMachine' && city?.Ref && (
         <DeliveryWarehouse
-          handleData={handleWarehouseData}
+          handleData={getWarehouseData}
           // cityName={city.MainDescription}
           cityRef={city.Ref}
           postMachine
         />
-      )}
+      )} */}
     </div>
   );
 }

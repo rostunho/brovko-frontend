@@ -19,7 +19,6 @@ export default function DeliveryStreet({
   const [initialStreet, setInitialStreet] = useState(
     () => savedStreet?.street || ''
   );
-
   const [selectedStreetData, setSelectedStreetData] = useState(null);
   const [building, setBuilding] = useState(() => savedStreet?.building || '');
   const [apartment, setApartment] = useState(
@@ -38,6 +37,20 @@ export default function DeliveryStreet({
       initialStreet?.SettlementStreetRef
       ? setInitialStreet(savedStreet.street)
       : setInitialStreet('');
+
+    // console.log(
+    //   'initialStreet?.SettlementStreetRef :>> ',
+    //   initialStreet?.SettlementStreetRef
+    // );
+    // console.log(
+    //   'savedStreet?.street?.SettlementStreetRef :>> ',
+    //   savedStreet?.street?.SettlementStreetRef
+    // );
+    // console.log(
+    //   'VS :',
+    //   initialStreet?.SettlementStreetRef ===
+    //     savedStreet?.street?.SettlementStreetRef
+    // );
 
     setStreets([]);
     setTargetStreet('');
