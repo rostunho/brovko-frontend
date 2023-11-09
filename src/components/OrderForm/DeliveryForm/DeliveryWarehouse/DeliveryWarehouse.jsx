@@ -11,23 +11,43 @@ export default function DeliveryWarehouse({
 }) {
   const [warehouses, setWarehouses] = useState([]);
   const [targetWarehouse, setTargetWarehouse] = useState('');
+  const [initialWarehouse, setInitialWarehouse] = useState(
+    () => savedWarehouse || ''
+  );
   const [selectedWarehouseData, setSelectedWarehouseData] = useState(null);
 
+  useEffect(() => console.log('REF CHANGED', cityRef), [cityRef]);
+
   useEffect(() => {
+    initialWarehouse?.Ref && initialWarehouse?.Ref === savedWarehouse?.Ref
+      ? setInitialWarehouse(savedWarehouse)
+      : setInitialWarehouse('');
+
+    // console.log('initialWarehouse.Ref :>> ', initialWarehouse.Ref);
+    // console.log('savedWarehouse.Ref :>> ', savedWarehouse.Ref);
+    // console.log('VS :', initialWarehouse.Ref === savedWarehouse.Ref);
+
     setWarehouses([]);
     setTargetWarehouse('');
     setSelectedWarehouseData(null);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cityRef]);
 
-  useEffect(() => {
-    savedWarehouse
-      ? setSelectedWarehouseData(savedWarehouse)
-      : setSelectedWarehouseData(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => fetchWarehousesFromAPI, [targetWarehouse]);
+
+  // useEffect(() => {
+  //   savedWarehouse
+  //     ? setSelectedWarehouseData(savedWarehouse)
+  //     : setSelectedWarehouseData(null);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(
-    () => fetchWarehousesFromAPI,
+    () => {
+      fetchWarehousesFromAPI();
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [selectedWarehouseData, cityRef]
   );
@@ -41,6 +61,8 @@ export default function DeliveryWarehouse({
     // if (targetWarehouse.length < 1) {
     //   return;
     // }
+
+    console.log('FETCHING FUNCTION WORKS');
 
     const value = targetWarehouse ? targetWarehouse.toLowerCase() : '';
 
@@ -72,7 +94,9 @@ export default function DeliveryWarehouse({
   const clearWarehouse = () => {
     handleData && handleData.clear();
     setWarehouses([]);
+    setInitialWarehouse(null);
     setSelectedWarehouseData(null);
+    fetchWarehousesFromAPI();
   };
 
   return (
@@ -80,7 +104,7 @@ export default function DeliveryWarehouse({
       label={!postMachine ? 'Відділення Нової Пошти' : 'Поштомат Нової Пошти'}
       data={warehouses}
       // initialValue={savedWarehouse?.Description || initialValue}
-      initialValue={savedWarehouse?.Description || ''}
+      initialValue={initialWarehouse?.Description || ''}
       placeholder="Вкажіть номер, або адресу"
       extract={{
         searchValue: extractTargetWarehouse,

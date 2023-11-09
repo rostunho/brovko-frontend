@@ -85,12 +85,20 @@ export default function ContactsForm({
     });
   };
 
-  const handleWarehouseData = data => {
+  const getWarehouseData = data => {
     setUserInfo(prevState => {
-      // console.log('prevState :>> ', prevState);
       return {
         ...prevState,
         novaPoshta: { ...prevState.novaPoshta, warehouse: { ...data } },
+      };
+    });
+  };
+
+  const clearWarehouseData = () => {
+    setUserInfo(prevState => {
+      return {
+        ...prevState,
+        novaPoshta: { ...prevState.novaPoshta, warehouse: null },
       };
     });
   };
@@ -124,7 +132,7 @@ export default function ContactsForm({
         handleData={{ send: getCityData, clear: clearCityData }}
       />
 
-      {userInfo?.novaPoshta?.city?.Ref && (
+      {
         <DeliveryStreet
           profile
           cityRef={userInfo.novaPoshta.city.Ref}
@@ -136,29 +144,14 @@ export default function ContactsForm({
           }}
           handleData={{ send: getStreetData, clear: clearStreetData }}
         />
-      )}
-
-      {/* <div className={styles.address}>
-        <Input
-          label="Будинок"
-          name="buildingNumber"
-          value={userInfo?.buildingNumber}
-          length="md"
-          onChange={handleChange}
-        />
-        <Input
-          label="Квартира"
-          name="flat"
-          value={userInfo?.flat}
-          length="md"
-          onChange={handleChange}
-        />
-      </div> */}
+      }
 
       <DeliveryWarehouse
         cityRef={userInfo.novaPoshta.city.Ref}
-        initialValue={warehouse?.Description}
-        handleData={handleWarehouseData}
+        savedWarehouse={
+          userInfo.novaPoshta.city.Ref === city.Ref ? warehouse : null
+        }
+        handleData={{ send: getWarehouseData, clear: clearWarehouseData }}
       />
       <div className={styles.buttonsContainer}>
         <Button
@@ -171,7 +164,8 @@ export default function ContactsForm({
             userInfo.flat === flat &&
             userInfo.novaPoshta.city.Ref === city.Ref &&
             userInfo.novaPoshta.street.Present === street.Present &&
-            userInfo.novaPoshta.warehouse.Description === warehouse.Description
+            userInfo.novaPoshta.warehouse?.Description ===
+              warehouse?.Description
           }
         >
           Зберегти
