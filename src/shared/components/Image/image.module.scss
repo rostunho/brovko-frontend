@@ -1,6 +1,11 @@
 .img {
   display: block;
-  max-width: 100%;
+  // max-width: 100%;
+
+  //before presentation
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .letter {
@@ -15,10 +20,9 @@
   // margin:  auto;
 
   color: var(--white-text-color);
-  background-color: #7365C3;
+  background-color: #7365c3;
   display: inline-grid;
 
   justify-content: center;
   align-content: center;
 }
-

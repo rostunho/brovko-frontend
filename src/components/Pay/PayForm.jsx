@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Button from 'shared/components/Button';
 const MERCHANT_ACCOUNT = process.env.REACT_APP_MERCHANT_ACCOUNT;
+const BROVKO_API = process.env.REACT_APP_BROVKO_API;
 
 export default function PayForm({
   customer,
@@ -71,19 +72,16 @@ export default function PayForm({
   };
   const generateSignature = async data => {
     try {
-      const response = await fetch(
-        'https://brovko-backend.onrender.com/api/generate-signature',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            ...formData,
-            orderReference: data.orderId, // Оновлюємо orderReference з orderId
-          }),
-        }
-      );
+      const response = await fetch(`${BROVKO_API}/generate-signature`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          orderReference: data.orderId, // Оновлюємо orderReference з orderId
+        }),
+      });
       if (response.ok) {
         const data = await response.json();
         const merchantSignature = data.signature;
