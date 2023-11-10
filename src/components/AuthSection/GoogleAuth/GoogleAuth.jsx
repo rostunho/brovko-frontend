@@ -25,11 +25,7 @@ export default function GoogleAuth() {
   }
 
   return (
-    <a
-      // href="https://brovko-backend.onrender.com/api/user/google"
-      href="http://localhost:5005/api/user/google"
-      className={styles['nav-link']}
-    >
+    <a href={GOOGLE_AUTH} className={styles['nav-link']}>
       <GoogleIcon />
       {label}
     </a>
