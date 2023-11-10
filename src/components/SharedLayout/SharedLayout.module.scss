@@ -5,4 +5,7 @@
   padding-left: 16px;
   overflow-x: hidden;
   //   padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
