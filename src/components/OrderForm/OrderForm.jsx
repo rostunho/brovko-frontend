@@ -32,11 +32,9 @@ export default function OrderForm() {
       paymentMethod
     );
 
-    const {
-      data: { data },
-    } = await addNewOrder(addOrderRequestBody);
+    const response = await addNewOrder(addOrderRequestBody);
     // console.log(data);
-    return data;
+    return response?.data;
   };
 
   const getCustomerData = data => {

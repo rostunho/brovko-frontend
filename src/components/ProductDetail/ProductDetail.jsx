@@ -29,6 +29,8 @@ export default function ProductDetail({
   const orders = useSelector(getAllOrders);
   const { _id, picture, name, note, price, currencyId } = product;
 
+  console.log('picture :>> ', picture);
+
   const [value, setValue] = useState(1);
 
   const dispatch = useDispatch();

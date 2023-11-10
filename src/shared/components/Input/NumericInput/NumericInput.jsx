@@ -14,7 +14,7 @@ export default function NumericInput({
   ...props
 }) {
   const phonePrefix = '+380';
-  const [phoneValue, setInputValue] = useState(phonePrefix);
+  const [phoneValue, setInputValue] = useState(value ? value : phonePrefix);
   const [metricClassName, setMetricClassName] = useState('');
   const showMetricalParams = metrical && length !== 'lg';
   const showCurrencyParams = currency && length !== 'lg';
