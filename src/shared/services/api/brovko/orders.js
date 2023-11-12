@@ -48,7 +48,8 @@ export const generateAddOrderRequestBody = (
       name: product.name,
       costPerItem: product.price.toString(),
       amount: product.value.toString(),
-      description: product.description,
+      // description: product.description,
+      description: '',
       discount: '', // TO ADD
       sku: '',
       commission: '',
