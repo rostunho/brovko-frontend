@@ -56,7 +56,7 @@ export default function PayForm({
     e.preventDefault();
 
     // Виклик функції `createNewOrder` та очікування результуючого об'єкта `data`
-    const data = await createNewOrder();
+    const data = await createNewOrder(e);
 
     if (data && data.orderId) {
       console.log(data.orderId);
