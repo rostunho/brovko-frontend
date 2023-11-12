@@ -67,7 +67,7 @@ export default function PayForm({
         orderReference: data.orderId,
       }));
 
-      setTimeout(generateSignature(data), 5000);
+      setTimeout(generateSignature(data), 500);
     }
   };
   const generateSignature = async data => {
@@ -151,6 +151,7 @@ export default function PayForm({
   return (
     <>
       <form
+        onSubmit={handleSubmit}
         method="post"
         action="https://secure.wayforpay.com/pay"
         acceptCharset="utf-8"
@@ -158,7 +159,7 @@ export default function PayForm({
       >
         {formFields}
       </form>
-      <Button type="submit" size="lg" onClick={handleSubmit}>
+      <Button type="submit" size="lg">
         Оплатити
       </Button>
     </>
