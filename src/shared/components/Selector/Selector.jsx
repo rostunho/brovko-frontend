@@ -26,8 +26,12 @@ export default function Selector({
   required,
   disabled,
   defaultOption,
+  style,
+  dropdownStyle,
   ...props
 }) {
+  console.log('style', dropdownStyle);
+
   const [currentValue, setCurrentValue] = useState(
     defaultValue || initialSelectorValue
   );
@@ -73,7 +77,8 @@ export default function Selector({
       <div className={styles.label}>
         <label htmlFor={id}>{label}</label>
         <input
-          className={styles.select}
+          // className={styles.select}
+          className={`${styles.select} ${style ? styles['custom-style'] : ''}`}
           id={id}
           name={name}
           value={value || currentValue.name}
@@ -93,7 +98,11 @@ export default function Selector({
         </button>
       </div>
       {dropdownIsOpen && (
-        <fieldset className={styles['dropdown-container']}>
+        <fieldset
+          className={`${styles['dropdown-container']} ${
+            dropdownStyle ? styles['custom-dropdown-container'] : ''
+          }`}
+        >
           {categories.map(category => {
             const isCheched = currentValue.name === category.name;
             return (

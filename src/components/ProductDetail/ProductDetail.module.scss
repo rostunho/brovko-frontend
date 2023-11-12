@@ -42,7 +42,7 @@
   background-color: var(--white-text-color);
   border-radius: var(--border-radius-secondary);
   overflow: hidden;
-  border: solid red 1px;
+  // border: solid red 1px;
 
   @media screen and (min-width: 480px) and (max-width: 767px) {
     width: 424px;
@@ -114,7 +114,7 @@
 }
 
 .contentContainer {
-  border: 1px solid var(--Accent, #f3a610);
+  // border: 1px solid var(--Accent, #f3a610);
   // color: var(--black-text-color);
   word-wrap: break-word;
   white-space: normal;
