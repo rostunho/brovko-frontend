@@ -10,6 +10,11 @@ const LazyLoginUserPage = lazy(() =>
   import('pages/LoginUserPage/LoginUserPage')
 );
 
+const LazyForgotPasswordPage = lazy(() =>
+  import('pages/ForgotPasswordPage/ForgotPasswordPage')
+);
+
+
 const TempAuthPage = lazy(() => import('pages/TempAuthPage/TempAuthPage'));
 
 export const authRoutes = [
@@ -24,6 +29,10 @@ export const authRoutes = [
   {
     path: '/temp',
     Component: TempAuthPage,
+  },
+  {
+    path: '/forgot-password',
+    Component: LazyForgotPasswordPage,
   },
 ];
 

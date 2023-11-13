@@ -54,7 +54,7 @@ const LoginForm = () => {
         validateStatus={setIsValidPassword}
         onChange={handleChange}
       />
-      <NavLink to="#">Забули пароль</NavLink>
+      <NavLink to="/auth/forgot-password">Забули пароль</NavLink>
 
       <Button
         type="submit"
