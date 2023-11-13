@@ -13,22 +13,34 @@ const OrderInformation = ({
   price,
   currencyId,
   val,
+  orderHistory,
 }) => {
-  const orders = useSelector(getAllOrders);
+  // const orders = useSelector(getAllOrders);
 
-  const orderList = Array.isArray(orders)
-    ? orders.map(({ _id, name, note, picture, quantity, price, value }) => (
-        <li key={_id} className={styles.item}>
-          <Order
-            id={_id}
-            name={name}
-            note={note}
-            picture={picture}
-            price={price}
-            val={value}
-          />
-        </li>
-      ))
+  const orderList = Array.isArray(orderHistory)
+    ? orderHistory.map(
+        ({
+          amount,
+          commission,
+          costPerItem,
+          description,
+          discount,
+          id,
+          name,
+          sku,
+        }) => (
+          <li key={id} className={styles.item}>
+            <Order
+              id={id}
+              name={name}
+              note={note}
+              picture={picture}
+              price={costPerItem}
+              val={amount}
+            />
+          </li>
+        )
+      )
     : null;
 
   return (

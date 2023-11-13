@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
@@ -33,7 +33,7 @@ const TempAuthPage = () => {
   }
 
   if (isLogin) {
-    return <Navigate to="/main" replace />;
+    return <Navigate to="/shop/product-list-page" replace />;
   }
   return null;
 };
