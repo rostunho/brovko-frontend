@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from 'shared/components/Button';
 import DownArrowIcon from 'shared/icons/DownArrowIcon';
@@ -7,14 +7,17 @@ import UpArrowIcon from 'shared/icons/UpArrowIcon';
 import OrderInformation from '../OrderInformation';
 
 import { getAllOrders } from 'redux/basket/basketSelectors';
+import { getAllOrdersAuth } from 'shared/services/api/brovko/user';
 
 import styles from './InsideOrdersHistory.module.scss';
 
 const InsideOrdersHistory = () => {
   const orders = useSelector(getAllOrders);
 
+  const [orderHistory, setOrderHistory] = useState([]);
+  console.log('orderHistory', orderHistory);
   const [showDetail, setShowdetail] = useState(false);
-
+  const [error, setError] = useState(false);
   const [showSumAllOrders, setshowSumAllOrders] = useState(0);
 
   const toggleShowDetailsOrder = () => {
@@ -27,6 +30,18 @@ const InsideOrdersHistory = () => {
   };
 
   useEffect(() => {
+    const fetch = async () => {
+      try {
+        const data = await getAllOrdersAuth();
+        setOrderHistory(data);
+      } catch (response) {
+        setError(response.message);
+      }
+    };
+    fetch();
+  }, []);
+
+  useEffect(() => {
     const totalAmount = orders.reduce((total, { price, value }) => {
       return total + price * value;
     }, 0);
@@ -36,7 +51,7 @@ const InsideOrdersHistory = () => {
 
   return (
     <>
-      {!orders.length ? (
+      {!orderHistory.length ? (
         <div>
           <p className={styles.text}>У Вас немає попередніх замовлень</p>
           <Button type="button" size="lg" onClick={goToProducts}>
@@ -68,7 +83,10 @@ const InsideOrdersHistory = () => {
               </p>
             </div>
             {!showDetail && (
-              <OrderInformation setshowSumAllOrders={setshowSumAllOrders} />
+              <OrderInformation
+                setshowSumAllOrders={setshowSumAllOrders}
+                orderHistory={orderHistory}
+              />
             )}
           </div>
         </div>
