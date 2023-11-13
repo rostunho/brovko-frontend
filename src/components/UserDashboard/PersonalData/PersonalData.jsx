@@ -1,47 +1,38 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { current } from 'redux/user/userOperations';
+import { update } from 'redux/user/userOperations';
 import { selectUser } from 'redux/user/userSelectors';
 
-import Heading from 'shared/components/Heading';
+import UserDataHeading from 'components/UserDashboard/UserDataHeading';
 import PersonalDataForm from './PersonalDataForm';
 
 import styles from './PersonalData.module.scss';
 
 const PersonalData = () => {
   const [showInfo, setShowInfo] = useState(false);
-
+  const { firstName, middleName, lastName, _id } = useSelector(selectUser);
   const dispatch = useDispatch();
-  const { name, email } = useSelector(selectUser);
-
-  useEffect(() => {
-    dispatch(current());
-  }, [dispatch]);
 
   const onSubmitForm = data => {
-    console.log(
-      'редагнули особисті дані, треба функція для відправки на бек',
-      data
-    );
+    dispatch(update(data));
   };
-
-  console.log(name, email);
 
   const toggleShowingInfo = () => {
     setShowInfo(!showInfo);
   };
   return (
     <>
-      <div onClick={toggleShowingInfo} className={styles.heading}>
-        <Heading type="h3">Персональні дані</Heading>
-      </div>
+      <UserDataHeading onClick={toggleShowingInfo} opened={showInfo}>
+        Персональні дані
+      </UserDataHeading>
       {showInfo && (
         <div className={styles.userInfo}>
           <PersonalDataForm
-            firstName={name === undefined ? '' : name}
-            lastName={email === undefined ? '' : email}
+            firstName={firstName}
+            middleName={middleName}
+            lastName={lastName}
             onSubmitForm={onSubmitForm}
+            id={_id}
           />
         </div>
       )}

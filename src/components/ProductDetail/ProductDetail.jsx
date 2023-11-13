@@ -29,22 +29,24 @@ export default function ProductDetail({
   const orders = useSelector(getAllOrders);
   const { _id, picture, name, note, price, currencyId } = product;
 
+  console.log('picture :>> ', picture);
+
   const [value, setValue] = useState(1);
 
   const dispatch = useDispatch();
 
-  const handleAddPopup = (text) => {
+  const handleAddPopup = text => {
     dispatch(addPopupOperation(text));
   };
 
   const handleAddToCart = () => {
     const result = orders.some(order => order._id === product._id);
     if (result) {
-      handleAddPopup('Товар вже знаходиться в кошику')
+      handleAddPopup('Товар вже знаходиться в кошику');
       return;
     }
     dispatch(addOrder({ ...product, value: value }));
-    dispatch(addPopupOperation('Товар додано в кошик'))
+    dispatch(addPopupOperation('Товар додано в кошик'));
     // setValue(1);
   };
 
@@ -52,7 +54,9 @@ export default function ProductDetail({
     <>
       <div className={styles.productCard}>
         <Rating product={product} />
-        <Image className={styles.image} src={picture} />
+        <div className={styles.image}>
+          <Image src={picture} />
+        </div>
         <ImageSlider picture={picture} />
         <Content note={note} />
         <div className={styles.price}>

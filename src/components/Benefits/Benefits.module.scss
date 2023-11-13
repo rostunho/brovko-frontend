@@ -1,0 +1,39 @@
+@import 'theme/abstract/mixins';
+
+.benefitsContainer {
+  background: var(--white-text-color);
+  padding-bottom: 32px;
+}
+
+.benefitsImage {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+  margin-bottom: 32px;
+}
+
+.benefitsDescription {
+  color: var(--black-text-color);
+  @include text-styles(Nunito, 16px, 700);
+  margin-bottom: 16px;
+}
+
+.benefitsText {
+  color: var(--black-text-color);
+  /* основний текст */
+  @include text-styles;
+  margin-bottom: 8px;
+}
+
+.img {
+  background: lightgray 50% / cover no-repeat;
+  width: 20px;
+  height: 20px;
+  margin-right: 16px;
+  margin-bottom: 8px;
+}
+
+.benefitItem {
+  display: flex;
+  @include text-styles;
+}

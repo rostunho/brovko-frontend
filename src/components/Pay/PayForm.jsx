@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Button from 'shared/components/Button';
 const MERCHANT_ACCOUNT = process.env.REACT_APP_MERCHANT_ACCOUNT;
+const BROVKO_API = process.env.REACT_APP_BROVKO_API;
 
 export default function PayForm({
   customer,
@@ -55,37 +56,38 @@ export default function PayForm({
     e.preventDefault();
 
     // Виклик функції `createNewOrder` та очікування результуючого об'єкта `data`
-    const data = await createNewOrder();
+    const data = await createNewOrder(e);
 
-    if (data && data.orderId) {
-      console.log(data.orderId);
-
+    if (data && data.data.orderId) {
       // Оновлення `orderReference` з orderId перед генерацією підпису
       setFormData(prevData => ({
         ...prevData,
-        orderReference: data.orderId,
+        orderReference: data.data.orderId,
       }));
 
-      setTimeout(generateSignature(data), 5000);
+      setTimeout(generateSignature(data), 500);
     }
   };
   const generateSignature = async data => {
     try {
-      const response = await fetch(
-        'http://localhost:5005/api/generate-signature',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            ...formData,
-            orderReference: data.orderId, // Оновлюємо orderReference з orderId
-          }),
-        }
-      );
+      const response = await fetch(`${BROVKO_API}/generate-signature`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          orderReference: data.data.orderId, // Оновлюємо orderReference з orderId
+        }),
+      });
+
+      console.log('response :>> ', response);
+
       if (response.ok) {
         const data = await response.json();
+
+        console.log('data in response :>> ', data in response);
+
         const merchantSignature = data.signature;
         updateFormDataWithSignature(merchantSignature);
         setTimeout(submitWayforpayForm, 1000);
@@ -153,16 +155,17 @@ export default function PayForm({
   return (
     <>
       <form
+        onSubmit={handleSubmit}
         method="post"
         action="https://secure.wayforpay.com/pay"
         acceptCharset="utf-8"
         id="wayforpay-form"
       >
         {formFields}
+        <Button type="submit" size="lg">
+          Оплатити
+        </Button>
       </form>
-      <Button type="submit" size="lg" onClick={handleSubmit}>
-        Оплатити
-      </Button>
     </>
   );
 }

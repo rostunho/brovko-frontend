@@ -14,7 +14,7 @@ export default function NumericInput({
   ...props
 }) {
   const phonePrefix = '+380';
-  const [phoneValue, setInputValue] = useState(phonePrefix);
+  const [phoneValue, setInputValue] = useState(value ? value : phonePrefix);
   const [metricClassName, setMetricClassName] = useState('');
   const showMetricalParams = metrical && length !== 'lg';
   const showCurrencyParams = currency && length !== 'lg';
@@ -124,7 +124,14 @@ export default function NumericInput({
         onFocus={setCursorStartPosition}
         onKeyDown={handleKeyDown}
         onMouseUp={handleMouseUp}
-        value={type === 'tel' ? toPhoneFormat(phoneValue) : value && value}
+        value={type === 'tel' ? toPhoneFormat(phoneValue) : value}
+        // value={
+        //   type === 'tel'
+        //     ? value
+        //       ? toPhoneFormat(value)
+        //       : toPhoneFormat(phoneValue)
+        //     : value && value
+        // }
       />
       {showMetricalParams && (
         <span className={styles[metricClassName]}>

@@ -1,3 +1,5 @@
+@import '../../../../theme/abstract/mixins';
+
 .dropdown {
   position: absolute;
   z-index: 10;
@@ -21,11 +23,8 @@
   padding: 8px 0;
   cursor: pointer;
 
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
   color: var(--black-text-color);
   // color: red;
 
@@ -54,4 +53,13 @@
   -moz-appearance: none;
   appearance: none;
   cursor: pointer;
+}
+
+.warning {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #a3a5a4;
 }

@@ -7,8 +7,13 @@ import AuthFormWrapper from 'components/AuthSection/AuthFormWrapper/AuthFormWrap
 import AuthSwitcher from 'components/AuthSection/AuthSwitcher/AuthSwitcher';
 import styles from './LoginUserPage.module.scss';
 
+import { memoizedSelectLoginAndToken } from 'redux/user/userSelectors';
+
 export default function LoginUserPage() {
   const isUserLogin = useSelector(selectIsLogin);
+  // delete
+  const { token, user } = useSelector(memoizedSelectLoginAndToken);
+  // console.log('token', token);
 
   if (isUserLogin) {
     return <Navigate to="/shop/product-list-page" />;
@@ -20,7 +25,7 @@ export default function LoginUserPage() {
       <AuthFormWrapper form={<LoginForm />} />
 
       <AuthSwitcher to="/auth/register" linkLabel="Зареєструватися">
-        Вже є акаунт ?
+        Немає акаунту?
       </AuthSwitcher>
     </section>
   );

@@ -59,7 +59,13 @@ export const logout = async () => {
   return data;
 };
 
-export const forgotPassword = async data => {
-  const { data: result } = await instance.post('/user/forgot-password', data);
+
+
+export const update = async updatedData => {
+  const { data: result } = await instance.patch(`/user/update`, updatedData);
+
+  setToken(result.accessToken);
+
+
   return result;
 };

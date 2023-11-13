@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getAllOrders } from 'redux/basket/basketSelectors';
+import { selectIsLogin } from 'redux/user/userSelectors';
 import Heading from 'shared/components/Heading';
 import CustomerSwitcher from 'components/CustomerSwitcher';
 import OrderList from 'shared/components/OrderList';
@@ -15,6 +16,7 @@ export default function OrderPage() {
   const [modalDelete, setModalDelete] = useState(false);
   const [orderId, setOrderId] = useState('');
   const orders = useSelector(getAllOrders);
+  const userIsLoggedIn = useSelector(selectIsLogin);
 
   const navigate = useNavigate();
   const hendlClickReturn = () => {
@@ -43,7 +45,7 @@ export default function OrderPage() {
         </Modal>
       )}
 
-      <CustomerSwitcher />
+      {!userIsLoggedIn && <CustomerSwitcher />}
       <Suspense>
         <Outlet />
       </Suspense>

@@ -1,3 +1,5 @@
+@import 'theme/abstract/_mixins.scss';
+
 .searchForm {
   align-items: center;
   display: flex;
@@ -5,6 +7,12 @@
   border-radius: 8px;
   border: var(--border-primary);
   margin-bottom: 16px;
+  &:hover,
+  &:focus,
+  &:active,
+  &:checked {
+    border: var(--border-accent);
+  }
 }
 
 .container {
@@ -13,17 +21,13 @@
 }
 
 .searchInput {
-  font-family: Nunito;
-  font-weight: 400;
-  line-height: normal;
-
-  outline: none;
+  @include text-styles;
   height: 42px;
+  padding: 8px 16px;
+  outline: none;
   background-color: transparent;
   border: none;
   color: black;
-  font-size: 14px;
-  padding: 8px 16px;
 }
 
 // .searchBarButton {

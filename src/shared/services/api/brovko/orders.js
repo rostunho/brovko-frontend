@@ -3,6 +3,8 @@ import instance from './instance';
 import { addOrderRequestTemplate } from 'components/OrderForm/addOrderRequestTemplate';
 import { parsePhoneNumber } from 'utils';
 
+const BROVKO_API = process.env.REACT_APP_BROVKO_API;
+
 export const addOrder = async data => {
   const { data: result } = await instance.post('/orders', data);
   return result;
@@ -16,7 +18,7 @@ export const getAllOrdersAuth = async () => {
 // додати нове замовлення на SalesDrive
 export const addNewOrder = async body => {
   try {
-    const url = 'http://localhost:5005/api/orders/add-order';
+    const url = `${BROVKO_API}/orders/add-order`;
     const data = JSON.stringify(body);
     const headers = { 'Content-Type': 'application/json' };
 
@@ -46,7 +48,8 @@ export const generateAddOrderRequestBody = (
       name: product.name,
       costPerItem: product.price.toString(),
       amount: product.value.toString(),
-      description: product.description,
+      // description: product.description,
+      description: '',
       discount: '', // TO ADD
       sku: '',
       commission: '',

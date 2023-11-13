@@ -1,9 +1,8 @@
+@import 'theme/abstract/_mixins.scss';
+
 .wrapper-allproduct {
   display: flex;
   justify-content: space-between;
-  // padding-left: 16px;
-  // padding-right: 12px;
-  // padding-bottom: 20px;
 }
 
 .wrapper-quantityblock {
@@ -12,7 +11,6 @@
   justify-content: space-between;
   height: 80px;
   margin-left: 12px;
-  // padding-bottom: 4px;
 }
 
 .wrapper-imageblock {
@@ -20,8 +18,6 @@
   height: 80px;
   border-radius: 12px;
   overflow: hidden;
-
-  /* Shadow for cards */
   box-shadow: var(--box-shadow);
 }
 
@@ -37,11 +33,7 @@
 .text-product {
   color: var(--black-text-color);
   /* Additional */
-  font-family: Nunito;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  @include text-styles(Nunito, 12px);
 }
 
 .quantityButtoms-container {
@@ -81,11 +73,8 @@
 
 .value {
   color: var(--black-text-color);
-  font-family: Nunito;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
   padding-right: 8px;
   padding-left: 8px;
 }
@@ -106,11 +95,6 @@
 .total {
   color: var(--black-text-color);
   // padding-top: 38px;
-  /* Main */
-  font-family: Nunito;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  @include text-styles;
   margin-bottom: 3px;
 }

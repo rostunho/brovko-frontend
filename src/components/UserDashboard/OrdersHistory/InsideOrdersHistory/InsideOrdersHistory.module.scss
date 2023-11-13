@@ -1,0 +1,60 @@
+.text {
+  color: var(--black-text-color);
+  /* Main */
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 24px;
+}
+
+.spam {
+  color: var(--white-text-color);
+  /* For button */
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.wrapperOrder {
+  display: flex;
+  padding: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+
+  border-radius: 16px;
+  border: 1px solid var(--stroke, #f0f0f0);
+}
+
+.numberOrder,
+.quantityOrder,
+.sumOrder {
+  color: var(--gray-color);
+  font-family: Nunito;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.wrapperText {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+}
+
+.statusOrder,
+.quantityOrderSpam,
+.sumOrderSpam {
+  color: var(--black-text-color);
+  font-family: Nunito;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
