@@ -18,6 +18,7 @@
 }
 
 .text {
+
   @include text-styles(Nunito, 12px);
   color: var(--gray-color);
 }
@@ -25,3 +26,4 @@
 .link {
   text-decoration-line: underline;
 }
+

@@ -85,3 +85,16 @@ export const logout = createAsyncThunk(
     }
   }
 );
+
+export const forgotPassword = createAsyncThunk(
+  'user/forgot-password',
+  async (data, { rejectWithValue }) => {
+    try {
+      const result = await api.forgotPassword(data);
+      return result;
+    } catch ({ response }) {
+      // console.log(response.data.message);
+      return rejectWithValue(response.data.message);
+    }
+  }
+);

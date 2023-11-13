@@ -1,0 +1,21 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .form input {
+    color: var(--black-text-color);
+  }
+  
+  .form a {
+    margin-top: -4px;
+  }
+  
+  .form .submit-button {
+    margin-top: 4px;
+    &:hover,
+    &:focus {
+      background-color: #f39610;
+    }
+  }
