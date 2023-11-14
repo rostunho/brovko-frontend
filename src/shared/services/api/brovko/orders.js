@@ -43,6 +43,7 @@ export const generateAddOrderRequestBody = (
   const requestBody = { ...addOrderRequestTemplate };
 
   requestBody.products = products.map(product => {
+    console.log(product);
     return {
       id: product.id,
       name: product.name,
@@ -53,6 +54,7 @@ export const generateAddOrderRequestBody = (
       discount: '', // TO ADD
       sku: '',
       commission: '',
+      picture: [...product.picture],
     };
   });
 

@@ -114,20 +114,19 @@ const userSlice = createSlice({
       .addCase(logout.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
+      })
+      .addCase(usersOrdersHistory.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(usersOrdersHistory.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.ordersHistory = [...payload];
+      })
+      .addCase(usersOrdersHistory.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
       });
-    // .addCase(usersOrdersHistory.pending, state => {
-    //   state.loading = true;
-    //   state.error = null;
-    // })
-    // .addCase(usersOrdersHistory.fulfilled, (state, { payload }) => {
-    //   console.log(payload);
-    //   state.loading = false;
-    //   state.ordersHistory = [...payload];
-    // })
-    // .addCase(usersOrdersHistory.rejected, (state, { payload }) => {
-    //   state.loading = false;
-    //   state.error = payload;
-    // });
   },
 });
 

@@ -99,15 +99,15 @@ export const forgotPassword = createAsyncThunk(
   }
 );
 
-// export const usersOrdersHistory = createAsyncThunk(
-//   'user/orders-history',
-//   async (_, { rejectWithValue }) => {
-//     try {
-//       const result = await api.getAllOrdersAuth();
-//       return result;
-//     } catch ({ response }) {
-//       // console.log(response.data.message);
-//       return rejectWithValue(response.data.message);
-//     }
-//   }
-// );
+export const usersOrdersHistory = createAsyncThunk(
+  'user/orders-history',
+  async (_, { rejectWithValue }) => {
+    try {
+      const result = await api.getAllOrdersAuth();
+      return result;
+    } catch ({ response }) {
+      // console.log(response.data.message);
+      return rejectWithValue(response.data.message);
+    }
+  }
+);
