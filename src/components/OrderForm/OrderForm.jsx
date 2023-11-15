@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { getAllOrders } from 'redux/basket/basketSelectors';
+import { selectIsLogin, selectUser } from 'redux/user/userSelectors';
 import CustomerForm from './CustomerForm/CustomerForm';
 import { DeliveryForm } from 'components/OrderForm/DeliveryForm';
 import PaymentMethod from 'components/OrderForm/PaymentMethod';
@@ -17,9 +18,13 @@ export default function OrderForm() {
   const [delivery, setDelivery] = useState({});
   const [paymentMethod, setPaymentMethod] = useState({});
   const productsInBasket = useSelector(getAllOrders);
+  const userIsLoggedIn = useSelector(selectIsLogin);
+  const user = useSelector(selectUser);
+
   const navigate = useNavigate();
 
-  const createNewOrder = async () => {
+  const createNewOrder = async event => {
+    event.preventDefault();
     const addOrderRequestBody = generateAddOrderRequestBody(
       productsInBasket,
       customer,
@@ -27,11 +32,9 @@ export default function OrderForm() {
       paymentMethod
     );
 
-    const {
-      data: { data },
-    } = await addNewOrder(addOrderRequestBody);
-    console.log(data);
-    return data;
+    const response = await addNewOrder(addOrderRequestBody);
+    // console.log(data);
+    return response?.data;
   };
 
   const getCustomerData = data => {
@@ -46,12 +49,42 @@ export default function OrderForm() {
     setPaymentMethod(data);
   };
 
+  const savedPersonalData = {
+    firstName: user.firstName || '',
+    middleName: user.middleName || '',
+    lastName: user.lastName || '',
+    phone: user.phone || '',
+    email: user.email || '',
+  };
+
+  // const savedAddress = {
+  //   buildingNumber: user.buildingNumber || '',
+  //   flat: user.flat || '',
+  // };
+
   return (
     <>
       <form onSubmit={createNewOrder}>
-        <CustomerForm getData={getCustomerData} />
-        <DeliveryForm getData={getDeliveryData} />
-        <PaymentMethod getData={getPaymentMethod} />
+        <CustomerForm
+          user={savedPersonalData}
+          userIsLoggedIn={userIsLoggedIn}
+          getData={getCustomerData}
+        />
+        <DeliveryForm
+          savedData={{
+            novaPoshta: user?.novaPoshta || null,
+            building: user.buildingNumber || '',
+            apartment: user.flat || '',
+          }}
+          // savedAddress={savedAddress}
+          userIsLoggedIn={userIsLoggedIn}
+          getData={getDeliveryData}
+        />
+        <PaymentMethod
+          user={user}
+          userIsLoggedIn={userIsLoggedIn}
+          getData={getPaymentMethod}
+        />
 
         <Button
           size="lg"

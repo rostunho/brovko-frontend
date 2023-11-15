@@ -5,7 +5,8 @@ export default function AvatarIcon({ width, height, fill, className }) {
       width="24"
       height="24"
       viewBox="0 0 24 24"
-      fill={fill || '#000'}
+      fill="none"
+      // fill={fill || '#000'}
       className={className}
     >
       <path

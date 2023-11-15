@@ -1,26 +1,35 @@
 import { useState, useEffect } from 'react';
 import { findCity } from 'shared/services/api/nova-poshta/nova-poshta-api';
 import { LocationSelector } from 'shared/components/LocationSelector';
+import regionCenters from './regionCenters';
 
-export default function DeliveryCity({ handleData }) {
+export default function DeliveryCity({
+  savedCity,
+  handleData,
+  withHotOptions,
+  ...props
+}) {
   const [cities, setCities] = useState([]);
   const [targetCity, setTargetCity] = useState('');
+  const [initialCity, setInitialCity] = useState(() => savedCity || ''); // місто, ке ми отримуємо з бази даних
   const [selectedCityData, setSelectedCityData] = useState(null);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => fetchCitiesFromAPI, [targetCity]);
-
   useEffect(() => {
-    handleData && handleData(selectedCityData);
-  }, [handleData, selectedCityData]);
-
-  async function fetchCitiesFromAPI() {
-    if (targetCity.length < 1) {
+    if (savedCity && targetCity === savedCity.Present) {
       return;
     }
+    fetchCitiesFromAPI();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [targetCity]);
 
+  useEffect(() => {
+    handleData && selectedCityData && handleData.send(selectedCityData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCityData]);
+
+  async function fetchCitiesFromAPI() {
     try {
-      const value = targetCity.toLowerCase();
+      const value = targetCity?.toLowerCase();
       const response = await findCity(value);
       if (!response) {
         return;
@@ -33,21 +42,33 @@ export default function DeliveryCity({ handleData }) {
     }
   }
 
+  const clearCity = () => {
+    // console.log('CLEAR CITY DATA WORKING');
+    handleData && handleData.clear();
+    setCities([]);
+    setInitialCity(null);
+    setSelectedCityData(null);
+  };
+
   const extractTargetCity = data => {
     setTargetCity(data);
+    // setCities([]);
   };
 
   const extractCityData = data => {
     setSelectedCityData(data);
+    // setCities([]);
   };
   return (
     <LocationSelector
-      withHotOptions
-      data={cities}
+      withHotOptions={withHotOptions}
+      data={cities?.length > 0 ? cities : []}
       label="Населений пункт"
+      initialValue={initialCity?.Present}
+      initialList={regionCenters}
       placeholder={'Вкажіть населений пункт'}
-      extractSearchValue={extractTargetCity}
-      extractData={extractCityData}
+      extract={{ searchValue: extractTargetCity, data: extractCityData }}
+      clear={clearCity}
     />
   );
 }

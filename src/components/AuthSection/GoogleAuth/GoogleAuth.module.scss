@@ -1,3 +1,5 @@
+@import 'theme/abstract/_mixins.scss';
+
 .nav-link {
   display: flex;
   justify-content: center;
@@ -9,11 +11,8 @@
   min-width: 120px;
   height: 40px;
 
-  font-family: 'Nunito', sans-serif;
+  @include text-styles(Nunito, 14px, bold, 19px);
   letter-spacing: 0em;
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 19px;
 
   // border: 1px solid #f3a610;
   border: var(--border-accent);

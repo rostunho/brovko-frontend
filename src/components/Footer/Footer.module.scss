@@ -1,8 +1,11 @@
+@import '../../theme/abstract/mixins';
+
 .footer {
   background: var(--footer-bg, #f4f4f4);
   // ****************
   margin-left: -16px;
   margin-right: -16px;
+  margin-top: auto;
 }
 
 .footerContainer {
@@ -26,11 +29,8 @@
 
 .label {
   color: var(--black-text-color);
-  font-family: Nunito;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
   &.opened {
     color: var(--gray-color);
   }
@@ -55,11 +55,8 @@
 .link {
   text-decoration: none;
   color: var(--black-text-color);
-  font-family: Nunito;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
 
   &:hover,
   &:focus {

@@ -1,10 +1,9 @@
+@import '../../theme/abstract/mixins';
+
 .text {
   color: var(--black-text-color);
-  font-family: Nunito;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
   text-align: center;
   padding: 60px 22px 33px 23px;
 }

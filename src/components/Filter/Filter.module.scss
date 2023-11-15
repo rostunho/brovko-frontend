@@ -1,11 +1,20 @@
+@import '../../theme/abstract/mixins';
+
 .container {
   display: flex;
   justify-content: space-between;
   margin-bottom: 24px;
+  gap: 12px;
 }
 
 .buttonContainer {
   position: relative;
+}
+
+@media (max-width: 480px) {
+  .buttonContainer {
+    width: 50%;
+  }
 }
 
 .dropdownMenu {
@@ -18,18 +27,13 @@
   height: max-content;
   flex-shrink: 0;
   border-radius: 8px;
-  // border: 1px solid var(--input, #7b7b7b);
-  border: var(--border-primery);
+  border: var(--border-primary);
   background: var(--white-bg-color);
   margin-top: 4px;
 }
 .dropdownLi {
   color: var(--black-text-color);
-  font-family: Nunito;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  @include text-styles;
   cursor: pointer;
   padding: 8px 16px 8px 16px;
 
@@ -37,4 +41,13 @@
     background-color: var(--accent-color);
     color: var(--white-text-color);
   }
+}
+
+.myCategorySelector {
+  font-weight: 400;
+  width: calc(100%);
+}
+
+.custom-dropdown-container {
+  width: calc(100%);
 }

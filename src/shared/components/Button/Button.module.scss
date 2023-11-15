@@ -1,3 +1,5 @@
+@import 'theme/abstract/_mixins.scss';
+
 .button {
   display: flex;
   align-items: center;
@@ -6,11 +8,7 @@
   height: 40px;
   padding: 0 16px;
 
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 19px;
-
-  font-family: 'Nunito', sans-serif;
+  @include text-styles(Nunito, 14px, 700, 19px);
 
   border: none;
   border-radius: 8px;

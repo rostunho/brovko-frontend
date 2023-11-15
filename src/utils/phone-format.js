@@ -14,4 +14,6 @@ export const parsePhoneNumber = value => {
   return result;
 };
 
-toPhoneFormat('+380932132134');
+console.log(toPhoneFormat('+380932132134'));
+
+console.log(parsePhoneNumber('+38 (093) 213 2134'));

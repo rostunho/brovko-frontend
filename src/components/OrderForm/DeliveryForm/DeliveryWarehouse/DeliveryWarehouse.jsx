@@ -3,32 +3,66 @@ import { findWarehouse } from 'shared/services/api';
 import { LocationSelector } from 'shared/components/LocationSelector';
 
 export default function DeliveryWarehouse({
-  handleData,
-  cityName,
   cityRef,
+  handleData,
   postMachine,
+  savedWarehouse,
+  ...props
 }) {
   const [warehouses, setWarehouses] = useState([]);
   const [targetWarehouse, setTargetWarehouse] = useState('');
+  const [initialWarehouse, setInitialWarehouse] = useState(
+    () => savedWarehouse || ''
+  );
   const [selectedWarehouseData, setSelectedWarehouseData] = useState(null);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => fetchWarehousesFromAPI, [handleData, selectedWarehouseData]);
+  useEffect(() => console.log('REF CHANGED', cityRef), [cityRef]);
 
-  // testing ... delete later
   useEffect(() => {
-    fetchWarehousesFromAPI();
+    initialWarehouse?.Ref && initialWarehouse?.Ref === savedWarehouse?.Ref
+      ? setInitialWarehouse(savedWarehouse)
+      : setInitialWarehouse('');
+
+    // console.log('initialWarehouse.Ref :>> ', initialWarehouse.Ref);
+    // console.log('savedWarehouse.Ref :>> ', savedWarehouse.Ref);
+    // console.log('VS :', initialWarehouse.Ref === savedWarehouse.Ref);
+
+    setWarehouses([]);
+    setTargetWarehouse('');
+    setSelectedWarehouseData(null);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [targetWarehouse]);
+  }, [cityRef]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => fetchWarehousesFromAPI, [targetWarehouse]);
+
+  // useEffect(() => {
+  //   savedWarehouse
+  //     ? setSelectedWarehouseData(savedWarehouse)
+  //     : setSelectedWarehouseData(null);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
+  useEffect(
+    () => {
+      fetchWarehousesFromAPI();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedWarehouseData, cityRef]
+  );
 
   useEffect(() => {
-    handleData && handleData(selectedWarehouseData);
-  }, [handleData, selectedWarehouseData]);
+    handleData && handleData.send(selectedWarehouseData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedWarehouseData]);
 
   async function fetchWarehousesFromAPI() {
     // if (targetWarehouse.length < 1) {
     //   return;
     // }
+
+    console.log('FETCHING FUNCTION WORKS');
 
     const value = targetWarehouse ? targetWarehouse.toLowerCase() : '';
 
@@ -57,13 +91,26 @@ export default function DeliveryWarehouse({
     setSelectedWarehouseData(data);
   };
 
+  const clearWarehouse = () => {
+    handleData && handleData.clear();
+    setWarehouses([]);
+    setInitialWarehouse(null);
+    setSelectedWarehouseData(null);
+    fetchWarehousesFromAPI();
+  };
+
   return (
     <LocationSelector
       label={!postMachine ? 'Відділення Нової Пошти' : 'Поштомат Нової Пошти'}
       data={warehouses}
+      // initialValue={savedWarehouse?.Description || initialValue}
+      initialValue={initialWarehouse?.Description || ''}
       placeholder="Вкажіть номер, або адресу"
-      extractSearchValue={extractTargetWarehouse}
-      extractData={extractWarehouseData}
+      extract={{
+        searchValue: extractTargetWarehouse,
+        data: extractWarehouseData,
+      }}
+      clear={clearWarehouse}
     />
   );
 }

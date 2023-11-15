@@ -14,6 +14,12 @@ const LazyContactsPage = lazy(() => import('pages/ContactsPage/ContactsPage'));
 const LazyExchangeAndReturnPage = lazy(() =>
   import('pages/ExchangeAndReturnPage/ExchangeAndReturnPage')
 );
+const LazyUserAgreementPage = lazy(() =>
+  import('pages/UserAgreementPage/UserAgreementPage')
+);
+const LazyPersonalDataProtectionPage = lazy(() =>
+  import('pages/PersonalDataProtectionPage/PersonalDataProtectionPage')
+);
 
 export const allUserRoutes = [
   {
@@ -40,6 +46,14 @@ export const allUserRoutes = [
   {
     path: '/exchange-and-return',
     Component: LazyExchangeAndReturnPage,
+  },
+  {
+    path: '/user-agreement',
+    Component: LazyUserAgreementPage,
+  },
+  {
+    path: '/personal-data-protection',
+    Component: LazyPersonalDataProtectionPage,
   },
 ];
 

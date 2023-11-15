@@ -27,6 +27,19 @@ export const login = createAsyncThunk(
   }
 );
 
+export const update = createAsyncThunk(
+  'user/update',
+  async (data, { rejectWithValue }) => {
+    try {
+      const result = await api.update(data);
+      return result;
+    } catch ({ response }) {
+      // console.log(response.data.message);
+      return rejectWithValue(response.data.message);
+    }
+  }
+);
+
 export const current = createAsyncThunk(
   'user/current',
   async (_, { rejectWithValue, getState }) => {
@@ -68,7 +81,6 @@ export const logout = createAsyncThunk(
       const data = await api.logout();
       return data;
     } catch ({ response }) {
-      // console.log(response.data.message);
       return rejectWithValue(response.data.message);
     }
   }
@@ -79,6 +91,19 @@ export const forgotPassword = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const result = await api.forgotPassword(data);
+      return result;
+    } catch ({ response }) {
+      // console.log(response.data.message);
+      return rejectWithValue(response.data.message);
+    }
+  }
+);
+
+export const usersOrdersHistory = createAsyncThunk(
+  'user/orders-history',
+  async (_, { rejectWithValue }) => {
+    try {
+      const result = await api.getAllOrdersAuth();
       return result;
     } catch ({ response }) {
       // console.log(response.data.message);

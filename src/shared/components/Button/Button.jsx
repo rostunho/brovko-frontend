@@ -26,7 +26,7 @@ export default function Button({
       className={`${styles.button} ${styles[`button_${size}`]} ${
         styles[`button_${mode}`]
       } ${className ? className : ''}`}
-      style={style}
+      style={{ ...style }}
       onClick={onClick}
       disabled={disabled}
       {...props}
@@ -47,6 +47,6 @@ Button.propTypes = {
   type: PropTypes.oneOf(['button', 'submit']),
   mode: PropTypes.string,
   // mode: PropTypes.oneOf(['adding', 'settings', 'goBack', 'outlined', 'sort', 'close', 'menu']),
-  size: PropTypes.oneOf(['sm', 'md', 'lg']),
+  size: PropTypes.oneOf(['sm', 'md', 'lg', 'settings']),
   onClick: PropTypes.func,
 };

@@ -1,18 +1,41 @@
+@import '../../theme/abstract/mixins';
+
 .about {
   background: var(--white-text-color);
-  padding-top: 32px;
+  // padding-top: 32px;
   // padding-left: 15px;
   // padding-right: 15px;
   padding-bottom: 32px;
 }
 
+.icon {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+  margin-bottom: 32px;
+}
+
+.aboutDescription {
+  color: var(--black-text-color);
+  @include text-styles(Nunito, 16px, 700);
+  margin-bottom: 16px;
+}
 .aboutText {
   color: var(--black-text-color);
   /* основний текст */
-  font-family: Nunito;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-bottom: 12px;
+  @include text-styles;
+  margin-bottom: 8px;
+}
+
+.img {
+  background: lightgray 50% / cover no-repeat;
+  width: 20px;
+  height: 20px;
+  margin-right: 16px;
+  margin-bottom: 8px;
+}
+
+.aboutItem {
+  display: flex;
+  @include text-styles;
 }

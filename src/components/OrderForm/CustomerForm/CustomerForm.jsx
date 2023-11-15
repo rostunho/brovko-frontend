@@ -1,14 +1,9 @@
 import { useReducer, useEffect } from 'react';
+// import { useSelector } from 'react-redux';
+// import { selectIsLogin } from 'redux/user/userSelectors';
+import { toPhoneFormat, parsePhoneNumber } from 'utils';
 import Input from 'shared/components/Input';
 import styles from './CustomerForm.module.scss';
-
-const initialState = {
-  firstName: '',
-  middleName: '',
-  lastName: '',
-  phone: '',
-  email: '',
-};
 
 function reducer(state, action) {
   switch (action.type) {
@@ -32,8 +27,18 @@ function reducer(state, action) {
   }
 }
 
-export default function CustomerForm({ getData }) {
+export default function CustomerForm({ user, userIsLoggedIn, getData }) {
+  const initialState = {
+    firstName: user?.firstName || '',
+    middleName: user.middleName || '',
+    lastName: user?.lastName || '',
+    phone: user?.phone || '',
+    email: user.email || '',
+  };
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  // console.log('user in CustomerForm:>> ', user);
+  // console.log('userIsLoggedIn in CustomerForm :>> ', userIsLoggedIn);
 
   useEffect(() => {
     getData({ ...state });
@@ -48,22 +53,25 @@ export default function CustomerForm({ getData }) {
   };
 
   return (
-    <div className={styles.form}>
+    <div className={`${styles.form} ${userIsLoggedIn ? styles.logged : ''}`}>
       <Input
         name="lastName"
         label="Прізвище*"
+        value={state.lastName}
         placeholder="Введіть своє прізвище"
         onChange={e => handleOnChange(e, 'ADD_LAST-NAME')}
       />
       <Input
         name="firstName"
         label={`${"Ім'я*"}`}
+        value={state.firstName}
         placeholder={`Введіть своє ${"ім'я"}`}
         onChange={e => handleOnChange(e, 'ADD_FIRST-NAME')}
       />
       <Input
         name="middleName"
         label="По-батькові"
+        value={state.middleName}
         placeholder="Введіть своє по-батькові"
         onChange={e => handleOnChange(e, 'ADD_MIDDLE-NAME')}
       />
@@ -71,12 +79,14 @@ export default function CustomerForm({ getData }) {
         name="phone"
         type="tel"
         label="Телефон*"
+        value={state.phone}
         onChange={e => handleOnChange(e, 'ADD_PHONE')}
       />
       <Input
         name="email"
         type="email"
         label="E-mail*"
+        value={state.email}
         placeholder="Введіть свій E-mail"
         onChange={e => handleOnChange(e, 'ADD_EMAIL')}
       />

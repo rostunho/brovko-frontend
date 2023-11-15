@@ -1,3 +1,5 @@
+@import '../../../theme/abstract/mixins';
+
 .checkbox_wrapper {
   display: flex;
   flex-direction: row;
@@ -16,11 +18,8 @@
   position: relative;
   width: 100%;
 
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
 
   color: var(--black-text-color);
 }
@@ -95,12 +94,8 @@
   margin: 4px 0 0;
   padding: 0 16px;
 
-  font-family: 'Nunito', sans-serif;
-
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
   color: var(--gray-color);
 
   cursor: pointer;
@@ -289,10 +284,7 @@
   right: 6px;
   bottom: 4px;
 
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
   color: var(--black-text-color);
 }

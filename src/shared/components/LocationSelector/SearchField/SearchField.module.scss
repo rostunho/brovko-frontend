@@ -1,13 +1,12 @@
+@import '../../../../theme/abstract/mixins';
+
 .label {
   position: relative;
   display: block;
   min-height: 63px;
 
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
   color: var(--black-text-color);
 }
 

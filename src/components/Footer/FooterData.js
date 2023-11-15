@@ -6,9 +6,9 @@ import VisaIcon from 'shared/icons/VisaIcon';
 import MasterCardIcon from 'shared/icons/MasterCardIcon';
 
 export const aboutUsLinks = [
-  { url: '/about', label: 'Про Бровка' },
-  { url: '/perevagy', label: 'Чому це корисно' },
-  { url: '/contacts', label: 'Контакти' },
+  { url: '/all/about', label: 'Про Бровка' },
+  { url: '/all/perevagy', label: 'Чому це корисно' },
+  { url: '/all/contacts', label: 'Контакти' },
 ];
 
 export const supportLinks = [
@@ -17,7 +17,7 @@ export const supportLinks = [
 ];
 
 export const companyLinks = [
-  { url: '/product-list-page', label: 'Крамничка' },
+  { url: '/shop/product-list-page', label: 'Крамничка' },
   { url: '/actions', label: 'Акції' },
 ];
 

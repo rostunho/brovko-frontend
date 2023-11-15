@@ -6,21 +6,90 @@ import styles from './DeliveryStreet.module.scss';
 
 // import { nan } from 'shared/services/nova-poshta-api';
 
-export default function DeliveryStreet({ cityRef, handleData }) {
-  const [streets, setStreets] = useState([]);
+export default function DeliveryStreet({
+  cityRef,
+  handleData,
+  profile,
+  // initialValue,
+  savedStreet,
+  ...props
+}) {
+  const [streets, setStreets] = useState(['test']);
   const [targetStreet, setTargetStreet] = useState('');
+  const [initialStreet, setInitialStreet] = useState(
+    () => savedStreet?.street || ''
+  );
   const [selectedStreetData, setSelectedStreetData] = useState(null);
-  const [building, setBuilding] = useState('');
-  const [apartment, setApartment] = useState('');
+  const [building, setBuilding] = useState(() => savedStreet?.building || '');
+  const [apartment, setApartment] = useState(
+    () => savedStreet?.apartment || ''
+  );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => fetchStreetsFromAPI, [cityRef, targetStreet]);
+  // useEffect(() => {
+  //   setSavedStreetData(initialValue);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => {
-    handleData && handleData(selectedStreetData, building, apartment);
-  }, [apartment, building, handleData, selectedStreetData]);
+    // щоб при першій зміні міста скинулась вулиця, яка збережена в базі даних
+    initialStreet?.SettlementStreetRef &&
+    savedStreet?.street?.SettlementStreetRef ===
+      initialStreet?.SettlementStreetRef
+      ? setInitialStreet(savedStreet.street)
+      : setInitialStreet('');
+
+    // console.log(
+    //   'initialStreet?.SettlementStreetRef :>> ',
+    //   initialStreet?.SettlementStreetRef
+    // );
+    // console.log(
+    //   'savedStreet?.street?.SettlementStreetRef :>> ',
+    //   savedStreet?.street?.SettlementStreetRef
+    // );
+    // console.log(
+    //   'VS :',
+    //   initialStreet?.SettlementStreetRef ===
+    //     savedStreet?.street?.SettlementStreetRef
+    // );
+
+    setStreets([]);
+    setTargetStreet('');
+    setSelectedStreetData(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cityRef]);
+
+  // useEffect(() => {
+  //   savedStreet
+  //     ? setSelectedStreetData(savedStreet)
+  //     : setSelectedStreetData(null);
+
+  //   savedAddress?.buildingNumber && setBuilding(savedAddress.buildingNumber);
+  //   savedAddress?.flat && setApartment(savedAddress?.flat);
+
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (savedStreet && targetStreet === savedStreet?.street?.Present) {
+      return;
+    }
+    fetchStreetsFromAPI();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [targetStreet]);
+
+  useEffect(() => {
+    handleData &&
+      selectedStreetData &&
+      handleData.send(selectedStreetData, building, apartment);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [apartment, building, selectedStreetData]);
 
   async function fetchStreetsFromAPI() {
+    if (targetStreet.length < 3) {
+      return;
+    }
+
     if (targetStreet.length < 1) {
       return;
     }
@@ -43,6 +112,15 @@ export default function DeliveryStreet({ cityRef, handleData }) {
     setSelectedStreetData({ ...data });
   };
 
+  const clearStreet = () => {
+    handleData && handleData.clear();
+    setStreets([]);
+    setInitialStreet(null);
+    setSelectedStreetData(null);
+    setBuilding('');
+    setApartment('');
+  };
+
   const handleBuilding = event => {
     setBuilding(event.target.value);
   };
@@ -51,25 +129,29 @@ export default function DeliveryStreet({ cityRef, handleData }) {
     setApartment(event.target.value);
   };
 
-  // nan('12345');
-  // nan('1234s');
-
   return (
     <>
       <LocationSelector
+        streetSelector
         data={streets}
         label="Оберіть вулицю"
         placeholder="Вкажіть назву вулиці"
-        extractSearchValue={extractTargetStreet}
-        extractData={extractStreetData}
+        initialValue={initialStreet?.Present || ''}
+        extract={{ searchValue: extractTargetStreet, data: extractStreetData }}
+        clear={clearStreet}
       />
 
-      {selectedStreetData?.Present && (
-        <div className={styles['inner-container']}>
+      {(selectedStreetData?.Present || initialStreet?.Present) && (
+        <div
+          className={`${styles['inner-container']} ${
+            profile ? styles['in-profile'] : ''
+          }`}
+        >
           <Input
             type="text"
             labelClassName={styles.building}
             label="Будинок"
+            value={building ? building : ''}
             length="md"
             onChange={handleBuilding}
           />
@@ -77,6 +159,7 @@ export default function DeliveryStreet({ cityRef, handleData }) {
             <Input
               type="text"
               label="Квартира"
+              value={apartment ? apartment : ''}
               length="md"
               onChange={handleApartment}
             />

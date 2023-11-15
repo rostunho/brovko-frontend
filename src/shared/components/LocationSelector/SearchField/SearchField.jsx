@@ -12,10 +12,21 @@ export default function SearchField({
   onClick,
   placeholder,
   dataRef,
+  // clearData,
+  selector,
   ...props
 }) {
-  const handleOnClick = event => {
-    onClick && onClick(event);
+  // const handleOnClick = event => {
+  //   onClick && onClick(event);
+  // };
+
+  const onCrossClick = () => {
+    console.log('ONCROSS CKLICKING');
+    selector?.clear && selector.clear();
+  };
+
+  const toggleSelector = () => {
+    selector?.toggle && selector.toggle();
   };
 
   return (
@@ -25,6 +36,7 @@ export default function SearchField({
         {...props}
         type="search"
         id={name}
+        name={name}
         value={value}
         className={styles.input}
         placeholder={placeholder}
@@ -32,8 +44,13 @@ export default function SearchField({
         data-ref={dataRef}
         // onClick={onClick}
       />
-      <button type="button" className={styles.button} onClick={handleOnClick}>
-        {selectorIsOpen || selectedData ? <CrossIcon /> : <ArrowDownIcon />}
+      {/* <button type="button" className={styles.button} onClick={handleOnClick}> */}
+      <button type="button" className={styles.button}>
+        {selectorIsOpen || selectedData || value ? (
+          <CrossIcon onClick={onCrossClick} />
+        ) : (
+          <ArrowDownIcon onClick={toggleSelector} />
+        )}
       </button>
     </div>
   );

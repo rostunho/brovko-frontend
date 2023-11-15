@@ -1,3 +1,5 @@
+@import 'theme/abstract/mixins';
+
 .container {
   position: relative;
 }
@@ -7,11 +9,8 @@
   width: 100%;
   position: relative;
 
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
 
   color: var(--black-text-color);
   cursor: pointer;
@@ -52,18 +51,12 @@
 
 .select {
   display: flex;
-
   width: 100%;
   height: 40px;
   margin-top: 4px;
   padding: 0 16px;
-
-  font-family: 'Nunito', sans-serif;
-
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
   color: var(--gray-color);
 
   //   cursor: pointer;
@@ -99,6 +92,12 @@
     color: var(--white-text-color);
     cursor: not-allowed;
   }
+
+  &.custom-style {
+    color: var(--black-text-color);
+    font-weight: 400;
+    width: calc(100%);
+  }
 }
 
 .dropdown-container {
@@ -115,6 +114,10 @@
   border: var(--border-primary);
   background-color: var(--white-bg-color);
   box-shadow: var(--box-shadow);
+
+  &.custom-dropdown-container {
+    width: calc(100%);
+  }
 }
 
 .option {
@@ -129,11 +132,8 @@
   margin: 0;
   opacity: 0;
 
-  font-family: Nunito, sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  /* основний текст */
+  @include text-styles;
   color: var(--black-text-color);
   // pointer-events: none;
   cursor: pointer;
@@ -261,11 +261,7 @@
 }
 
 .hot-option-text {
-  font-family: 'Nunito', sans-serif;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  @include text-styles(Nunito, 12px);
   color: var(--gray-color);
   cursor: pointer;
 
