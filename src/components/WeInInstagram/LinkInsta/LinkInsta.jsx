@@ -11,6 +11,10 @@ const LinkInsta = () => {
     <a
       className={styles.imageContainer}
       href="https://www.instagram.com/brovko.pet/"
+      target='_blank'
+      rel='noopener noreferrer nofollow'
+      aria-label='Ми в Instagram'
+      title='Ми в Instagram'
     >
       <div className={styles.iconContainer}>
         <InstagramIconWe />
