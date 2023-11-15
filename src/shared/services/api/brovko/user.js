@@ -63,3 +63,8 @@ export const forgotPassword = async data => {
   const { data: result } = await instance.post('/user/forgot-password', data);
   return result;
 };
+
+export const forgotPassword = async data => {
+  const { data: result } = await instance.post('/user/forgot-password', data);
+    return result;
+};
