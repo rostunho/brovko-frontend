@@ -20,24 +20,29 @@ const Avatar = () => {
   const closeModalEditPhoto = () => {
     setModalIsOpen(false);
   };
-  const { firstName, email, avatarURL, _id} =
-    useSelector(selectUser);
+  const { firstName, email, avatarURL, _id } = useSelector(selectUser);
   console.log(useSelector(selectUser));
   const dispatch = useDispatch();
   const [userAvatar, setUserAvatar] = useState(() => ({
-    avatarURL : 'https://shkvarka.ua/wp-content/uploads/dzherky_svyniachi_hryby-1-scaled.jpeg' ,
+    avatarURL:
+      'https://shkvarka.ua/wp-content/uploads/dzherky_svyniachi_hryby-1-scaled.jpeg',
   }));
- 
+
   const onSubmitForm = () => {
-    
-    const dataAvatar = { avatarURL: 'https://shkvarka.ua/wp-content/uploads/dzherky_svyniachi_hryby-1-scaled.jpeg', id:_id }
+    const dataAvatar = {
+      avatarURL:
+        'https://shkvarka.ua/wp-content/uploads/dzherky_svyniachi_hryby-1-scaled.jpeg',
+      id: _id,
+    };
     dispatch(update(dataAvatar));
   };
 
   const delAvatar = () => {
-    const dataAvatar = { avatarURL: '', id:_id }
+    const dataAvatar = { avatarURL: '', id: _id };
     dispatch(update(dataAvatar));
   };
+
+  const [selectedImage, setSelectedImage] = useState(null);
 
   return (
     <>
@@ -65,11 +70,16 @@ const Avatar = () => {
           >
             Змінити
           </Button>
-          <Button 
-          // type="submit" 
-          onClick={delAvatar}>
+          <Button
+            // type="submit"
+            onClick={delAvatar}
+          >
             Видалити
           </Button>
+          <input
+            type="file"
+            onChange={e => setSelectedImage(e.target.files[0])}
+          />
         </Modal>
       )}
     </>
