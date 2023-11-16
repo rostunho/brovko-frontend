@@ -20,30 +20,23 @@ const Avatar = () => {
   const closeModalEditPhoto = () => {
     setModalIsOpen(false);
   };
-  const { firstName, email, avatarURL, middleName, _id } =
+  const { firstName, email, avatarURL, _id} =
     useSelector(selectUser);
   console.log(useSelector(selectUser));
   const dispatch = useDispatch();
   const [userAvatar, setUserAvatar] = useState(() => ({
-    avatarURL,
-    _id,
+    avatarURL : 'https://shkvarka.ua/wp-content/uploads/dzherky_svyniachi_hryby-1-scaled.jpeg' ,
   }));
  
   const onSubmitForm = () => {
     
-    dispatch(
-      update(setUserAvatar(prevState => {
-        return { ...prevState,  avatarURL: 'https://shkvarka.ua/wp-content/uploads/dzherky_svyniachi_hryby-1-scaled.jpeg' };
-      }))
-      )
-    ;
+    const dataAvatar = { avatarURL: 'https://shkvarka.ua/wp-content/uploads/dzherky_svyniachi_hryby-1-scaled.jpeg', id:_id }
+    dispatch(update(dataAvatar));
   };
 
   const delAvatar = () => {
-    setUserAvatar(prevState => {
-      return { ...prevState, avatarURL: ''};
-    });
-    dispatch(update({ avatarURL: '' }));
+    const dataAvatar = { avatarURL: '', id:_id }
+    dispatch(update(dataAvatar));
   };
 
   return (
@@ -65,7 +58,7 @@ const Avatar = () => {
             text={firstName || email}
           />
           <Button
-            type="submit"
+            // type="submit"
             size="lg"
             mode="outlined"
             onClick={onSubmitForm}
@@ -73,7 +66,7 @@ const Avatar = () => {
             Змінити
           </Button>
           <Button 
-          type="submit" 
+          // type="submit" 
           onClick={delAvatar}>
             Видалити
           </Button>
