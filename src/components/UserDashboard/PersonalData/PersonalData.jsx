@@ -15,6 +15,7 @@ const PersonalData = () => {
 
   const onSubmitForm = data => {
     dispatch(update(data));
+    console.log(data)
   };
 
   const toggleShowingInfo = () => {
