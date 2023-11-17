@@ -29,12 +29,15 @@ const Avatar = () => {
   }));
 
   const onSubmitForm = () => {
-    const dataAvatar = {
-      avatarURL:
-        'https://shkvarka.ua/wp-content/uploads/dzherky_svyniachi_hryby-1-scaled.jpeg',
-      id: _id,
-    };
-    dispatch(update(dataAvatar));
+const formData = new FormData();
+formData.append('avatar', selectedImage)
+
+    // const dataAvatar = {
+    //   avatarURL:
+    //     'https://shkvarka.ua/wp-content/uploads/dzherky_svyniachi_hryby-1-scaled.jpeg',
+    //   id: _id,
+    // };
+    dispatch(update(formData));
   };
 
   const delAvatar = () => {
