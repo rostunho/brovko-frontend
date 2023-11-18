@@ -10,6 +10,7 @@ import { selectUser } from 'redux/user/userSelectors';
 import { useState } from 'react';
 import Modal from 'shared/components/Modal/Modal';
 import { update } from 'redux/user/userOperations';
+import { updateAvatar } from 'shared/services/api/brovko/user';
 
 const Avatar = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -23,29 +24,29 @@ const Avatar = () => {
   const { firstName, email, avatarURL, _id } = useSelector(selectUser);
   console.log(useSelector(selectUser));
   const dispatch = useDispatch();
-  const [userAvatar, setUserAvatar] = useState(() => ({
-    avatarURL:
-      'https://shkvarka.ua/wp-content/uploads/dzherky_svyniachi_hryby-1-scaled.jpeg',
-  }));
+  // const [userAvatar, setUserAvatar] = useState(() => ({
+  //   avatarURL:
+  //     'https://shkvarka.ua/wp-content/uploads/dzherky_svyniachi_hryby-1-scaled.jpeg',
+  // }));
+
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const onSubmitForm = () => {
-const formData = new FormData();
-formData.append('avatar', selectedImage)
+    const formData = new FormData();
+    formData.append('avatar', selectedImage);
 
     // const dataAvatar = {
     //   avatarURL:
     //     'https://shkvarka.ua/wp-content/uploads/dzherky_svyniachi_hryby-1-scaled.jpeg',
     //   id: _id,
     // };
-    dispatch(update(formData));
+    dispatch(updateAvatar(formData));
   };
 
   const delAvatar = () => {
     const dataAvatar = { avatarURL: '', id: _id };
     dispatch(update(dataAvatar));
   };
-
-  const [selectedImage, setSelectedImage] = useState(null);
 
   return (
     <>

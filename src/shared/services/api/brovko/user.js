@@ -65,6 +65,13 @@ export const update = async updatedData => {
   return result;
 };
 
+export const updateAvatar = async updatedData => {
+  const { data: result } = await instance.patch(`/user/avatars`, updatedData);
+  setToken(result.accessToken);
+  return result;
+};
+
+
 export const forgotPassword = async data => {
   const { data: result } = await instance.post('/user/forgot-password', data);
   return result;
