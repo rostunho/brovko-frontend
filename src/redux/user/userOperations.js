@@ -44,7 +44,7 @@ export const updateAvatar = createAsyncThunk(
   'user/avatars',
   async (data, { rejectWithValue }) => {
     try {
-      const result = await api.update(data);
+      const result = await api.updateAvatar(data);
       return result;
     } catch ({ response }) {
       // console.log(response.data.message);

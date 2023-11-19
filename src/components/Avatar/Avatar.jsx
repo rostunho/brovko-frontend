@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from 'redux/user/userSelectors';
 import { useState } from 'react';
 import Modal from 'shared/components/Modal/Modal';
-import { update } from 'redux/user/userOperations';
-import { updateAvatar } from 'shared/services/api/brovko/user';
+import { update, updateAvatar } from 'redux/user/userOperations';
+// import { updateAvatar } from 'shared/services/api/brovko/user';
 
 const Avatar = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
