@@ -3,8 +3,12 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { fetchAddReview } from 'redux/reviews/reviewsOperations';
 import Button from 'shared/components/Button';
+import StarEmptyBig from 'shared/icons/StarEmtyBig';
+import PaperClip from 'shared/icons/PaperClip';
+import CrossIcon from 'shared/icons/CrossIcon';
+import styles from './AddRewiewForm.module.scss';
 
-export default function AddReviewForm({ toggleReviewInput, closeModal }) {
+export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
   const [text, setText] = useState('');
   const { productId } = useParams();
   const dispatch = useDispatch();
@@ -20,16 +24,27 @@ export default function AddReviewForm({ toggleReviewInput, closeModal }) {
     dispatch(fetchAddReview(reviewData));
 
     setText('');
-    closeModal();
+    closeReviewInput();
   };
 
   return (
-    <>
-      <h4>Оцініть, будь ласка, смаколик</h4>
+    <div className={styles.containerInputRewiew}>
+      <Button mode="close" onClick={closeReviewInput} />
+      <p className={styles.titleText}>Оцініть, будь ласка, смаколик</p>
+      <div className={styles.starBlock}>
+        <StarEmptyBig />
+        <StarEmptyBig />
+        <StarEmptyBig />
+        <StarEmptyBig />
+        <StarEmptyBig />
+      </div>
+
+      <p className={styles.titleText}>Коментар</p>
       <form onSubmit={handleSubmit}>
         <div>
           <textarea
-            placeholder="Напишіть ваш відгук..."
+            className={styles.comment}
+            placeholder="..."
             id="text"
             name="text"
             value={text}
@@ -37,11 +52,21 @@ export default function AddReviewForm({ toggleReviewInput, closeModal }) {
             required
           />
         </div>
-        <Button type="submit" onClick={toggleReviewInput} mode="outlined">
+        <div className={styles.addImg}>
+          <PaperClip />
+          <p className={styles.titleText}>Додати зображення</p>
+        </div>
+
+        <Button
+          className={styles.commentButton}
+          type="submit"
+          onClick={toggleReviewInput}
+          mode="outlined"
+        >
           Опублікувати
         </Button>
       </form>
-    </>
+    </div>
   );
 }
 

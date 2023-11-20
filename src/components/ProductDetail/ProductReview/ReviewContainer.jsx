@@ -58,7 +58,7 @@ export default function ReviewContainer() {
       )}
       {isReviewInputVisible && (
         <AddReviewForm
-          closeModal={closeReviewInput}
+          onClick={closeReviewInput}
           isOpen={isReviewInputVisible}
           productId={productId}
         />

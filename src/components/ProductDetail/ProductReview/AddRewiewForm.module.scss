@@ -1,0 +1,46 @@
+@import 'theme/abstract/mixins';
+
+.containerInputRewiew {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: 404px;
+  flex-shrink: 0;
+  margin: 20px 0;
+  padding: 40px 16px;
+  border: 1px solid var(--stroke, #f0f0f0);
+  border-radius: var(--border-radius-primery);
+  @include text-styles(Nunito, 12px);
+}
+
+.starBlock {
+  margin-top: 4px;
+  margin-bottom: 20px;
+}
+
+.titleText {
+  margin-bottom: 4px;
+}
+
+.comment {
+  width: 100%;
+  height: 120px;
+  padding: 8px 12px;
+  border: var(--border-primary);
+  border-radius: var(--border-radius-primery);
+}
+
+.addImg {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 12px;
+  margin-bottom: 32px;
+  color: var(--gray-color);
+}
+
+.commentButton {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
