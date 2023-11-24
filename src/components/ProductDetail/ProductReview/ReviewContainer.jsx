@@ -7,18 +7,8 @@ import styles from '../ProductDetail.module.scss';
 
 export default function ReviewContainer() {
   const { productId } = useParams();
-
-  // const [isModalOpen, setIsModalOpen] = useState(false);
   const [isReviewInputVisible, setIsReviewInputVisible] = useState(false);
   const [isAddingPhoto, setIsAddingPhoto] = useState(false);
-
-  // const openModal = () => {
-  //   setIsModalOpen(true);
-  // };
-
-  // const closeModal = () => {
-  //   setIsModalOpen(false);
-  // };
 
   const toggleReviewInput = () => {
     setIsReviewInputVisible(!isReviewInputVisible);
@@ -58,7 +48,8 @@ export default function ReviewContainer() {
       )}
       {isReviewInputVisible && (
         <AddReviewForm
-          onClick={closeReviewInput}
+          onClick={toggleReviewInput}
+          closeReviewInput={closeReviewInput}
           isOpen={isReviewInputVisible}
           productId={productId}
         />

@@ -9,21 +9,22 @@ import { useSelector } from 'react-redux';
 import { selectUser } from 'redux/user/userSelectors';
 
 const Avatar = () => {
-  const addPhoto = () => {console.log('addPhoto')}
-  const {firstName, email, avatarURL, middleName} = useSelector(selectUser)
+  const addPhoto = () => {
+    console.log('addPhoto');
+  };
+  const { firstName, email, avatarURL, middleName } = useSelector(selectUser);
   return (
     <>
-    <Button className={styles.wrapper} onClick={addPhoto}>
-        <Image   className={styles.avatar} src={middleName} text={firstName || email} />
-        <CameraIcon className={styles.cameraIcon} 
+      <Button className={styles.wrapper} onClick={addPhoto}>
+        <Image
+          className={styles.avatar}
+          src={middleName}
+          text={firstName || email}
         />
-      </ Button>
-
+        <CameraIcon className={styles.cameraIcon} />
+      </Button>
     </>
   );
 };
 
 export default Avatar;
-
-
-

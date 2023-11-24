@@ -1,5 +1,6 @@
 import RewiewRating from './ReviewRating';
 import AvatarIcon from 'shared/icons/AvatarIcon';
+import Avatar from 'components/Avatar';
 
 import styles from '../ProductDetail.module.scss';
 
@@ -10,7 +11,8 @@ const ReviewItem = ({ review, isExpandedReview }) => {
         <ul className={styles.reviewBox}>
           <li className={styles.reviewItem}>
             <div className={styles.userInfo}>
-              <AvatarIcon fill="#FF5733" className={styles.avatar} />
+              <Avatar className={styles.avatar} />
+              {/* <AvatarIcon fill="#FF5733" className={styles.avatar} /> */}
               <div>
                 <p className={styles.userName}>
                   {' '}

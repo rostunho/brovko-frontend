@@ -5,7 +5,6 @@ import { fetchAddReview } from 'redux/reviews/reviewsOperations';
 import Button from 'shared/components/Button';
 import StarEmptyBig from 'shared/icons/StarEmtyBig';
 import PaperClip from 'shared/icons/PaperClip';
-import CrossIcon from 'shared/icons/CrossIcon';
 import styles from './AddRewiewForm.module.scss';
 
 export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
@@ -69,29 +68,3 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     </div>
   );
 }
-
-/* <div>
-          <textarea
-            placeholder="Введіть ваш відгук тут..."
-            rows="4"
-            cols="50"
-          />
-          <div style={{ marginTop: 10 }}>
-            {!isAddingPhoto && (
-              <Button type="button" onClick={toggleAddingPhoto} mode="outlined">
-                Додати фото до відгуку
-              </Button>
-            )}
-            {isAddingPhoto && (
-              <Button type="button" mode="filled">
-                Додано фото
-              </Button>
-            )}
-            <Button type="button" onClick={closeReviewInput} mode="outlined">
-              Закрити
-            </Button>
-            <Button type="button" onClick={toggleReviewInput} mode="outlined">
-              Опублікувати
-            </Button>
-          </div>
-        </div> */
