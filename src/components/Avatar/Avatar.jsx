@@ -10,13 +10,13 @@ import { selectUser } from 'redux/user/userSelectors';
 import { useState } from 'react';
 import Modal from 'shared/components/Modal/Modal';
 import { update, updateAvatar } from 'redux/user/userOperations';
-// import { updateAvatar } from 'shared/services/api/brovko/user';
+import TrashIcon from 'shared/icons/TrashIcon';
+import EditIcon from 'shared/icons/EditIcon';
 
 const Avatar = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const openModalEditPhoto = () => {
     setModalIsOpen(true);
-    console.log('addPhoto');
   };
   const closeModalEditPhoto = () => {
     setModalIsOpen(false);
@@ -24,28 +24,22 @@ const Avatar = () => {
   const { firstName, email, avatarURL, _id } = useSelector(selectUser);
   console.log(useSelector(selectUser));
   const dispatch = useDispatch();
-  // const [userAvatar, setUserAvatar] = useState(() => ({
-  //   avatarURL:
-  //     'https://shkvarka.ua/wp-content/uploads/dzherky_svyniachi_hryby-1-scaled.jpeg',
-  // }));
-
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  const onSubmitForm = () => {
-    const formData = new FormData();
-    formData.append('avatar', selectedImage);
-
-    // const dataAvatar = {
-    //   avatarURL:
-    //     'https://shkvarka.ua/wp-content/uploads/dzherky_svyniachi_hryby-1-scaled.jpeg',
-    //   id: _id,
-    // };
-    dispatch(updateAvatar(formData));
-  };
 
   const delAvatar = () => {
     const dataAvatar = { avatarURL: '', id: _id };
     dispatch(update(dataAvatar));
+  };
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImageName, setSelectedImageName] = useState('');
+
+  const add = e => {
+    e.preventDefault();
+    setSelectedImage(e.target.files[0]);
+    console.log(e.target.files[0]);
+    const formData = new FormData();
+    formData.append('avatar', e.target.files[0]);
+    dispatch(updateAvatar(formData));
   };
 
   return (
@@ -66,24 +60,18 @@ const Avatar = () => {
             src={avatarURL}
             text={firstName || email}
           />
-          <Button
-            // type="submit"
-            size="lg"
-            mode="outlined"
-            onClick={onSubmitForm}
-          >
-            Змінити
-          </Button>
-          <Button
-            // type="submit"
-            onClick={delAvatar}
-          >
-            Видалити
-          </Button>
-          <input
-            type="file"
-            onChange={e => setSelectedImage(e.target.files[0])}
-          />
+       <div className={styles.buttonsContainer}>   <label className={styles.fileInputLabel}>
+            <EditIcon /> Виберіть файл
+            <input
+              className={styles.visuallyHidden}
+              type="file"
+              accept="image/jpeg, image/png"
+              onChange={add}
+            />
+          </label>
+          <Button onClick={delAvatar} mode = 'primary'>
+            <TrashIcon /> Видалити
+          </Button></div>
         </Modal>
       )}
     </>

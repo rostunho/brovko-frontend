@@ -1,3 +1,6 @@
+@import 'theme/abstract/_mixins.scss';
+
+
 .wrapper {
   position: relative;
   min-width: 0;
@@ -27,6 +30,9 @@
   position: relative;
   width: 96px;
   height: 96px;
+  border-radius: 50%;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .cameraIcon {
@@ -55,3 +61,100 @@
 // .cameraIcon:hover * {
 //   fill: var(--accent-color);
 // }
+
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  gap: 24px;
+  margin-top: 8px;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.fileInputLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  height: 40px;
+  padding: 0 16px;
+  @include text-styles(Nunito, 14px, 700, 19px);
+  border: none;
+
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  color: var(--accent-color);
+  border: var(--border-accent);
+  background-color: transparent;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: var(--white-text-color);
+    border: none;
+    background-color: var(--accent-color);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled,
+  &:focus:disabled,
+  &:hover:disabled,
+  &:active:disabled {
+    color: rgba(254, 254, 254, 0.7);
+    background-color: transparent;
+    border: 1px solid rgba(254, 254, 254, 0.7);
+  }
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.fileInput {
+  visibility: hidden;
+}
+
+
+
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--black-text-color);
+  stroke: var(--black-text-color);
+
+  // &--reverse {
+  //   transform: rotate(180deg);
+  // }
+}
+
+.fileInputLabel:hover .icon {
+  fill: #fff;
+  fill-opacity: 1;
+}
+
+.fileInputLabel:disabled .icon,
+.fileInputLabel:focus:disabled .icon,
+.fileInputLabel:hover:disabled .icon,
+.fileInputLabel:active:disabled .icon {
+  color: rgba(254, 254, 254, 0.7);
+  background-color: transparent;
+  fill: var(--white-text-color);
+  fill-opacity: 0.4;
+}
