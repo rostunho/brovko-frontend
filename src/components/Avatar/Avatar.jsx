@@ -58,7 +58,7 @@ const Avatar = () => {
     // Your form submission logic
   };
 
-  const add = e => {
+  const addImage = e => {
     e.preventDefault();
     const file = e.target.files[0];
     if (file) {
@@ -140,7 +140,7 @@ const Avatar = () => {
                 }
                 onChange={e => {
                   e.preventDefault();
-                  add(e);
+                  addImage(e);
                 }}
               />
             </label>
