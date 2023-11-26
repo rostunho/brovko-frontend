@@ -22,7 +22,6 @@ const Avatar = () => {
     setPrompDelete(false);
   };
   const { firstName, email, avatarURL, _id } = useSelector(selectUser);
-  console.log(useSelector(selectUser));
   const dispatch = useDispatch();
 
   const delAvatar = () => {
@@ -64,10 +63,8 @@ const Avatar = () => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage(file);
-
       const formData = new FormData();
       formData.append('avatar', file);
-
       dispatch(updateAvatar(formData));
       // .then(() => {
       //   // Оновлення avatarURL після успішного завантаження
@@ -118,10 +115,7 @@ const Avatar = () => {
               використовуватиметься це
             </p>
           )}
-          <form
-            // onSubmit={onSubmitForm}
-            className={styles.buttonsContainer}
-          >
+          <form onSubmit={onSubmitForm} className={styles.buttonsContainer}>
             <label className={styles.fileInputLabel}>
               {!prompDelete && <EditIcon />}
               {prompDelete ? 'Скасувати' : 'Змінити'}
@@ -136,16 +130,28 @@ const Avatar = () => {
                 // onClick={prompDelete ? undefined : () => resetPromp()}
                 // {(prompDelete ? { onClick: () => setPrompDelete(false) } : {})}
                 // onClick={prompDelete && (() => setPrompDelete(false))}
-                onClick={prompDelete ? (e) => { e.preventDefault(); resetPromp(); } : undefined}
-                onChange={add}
+                onClick={
+                  prompDelete
+                    ? e => {
+                        e.preventDefault();
+                        resetPromp();
+                      }
+                    : undefined
+                }
+                onChange={e => {
+                  e.preventDefault();
+                  add(e);
+                }}
               />
             </label>
-            <Button
-              onClick={prompDelete ? delAvatar : () => setPrompDelete(true)}
-              mode={!prompDelete ? 'outlined' : 'primary'}
-            >
-              {!prompDelete && <TrashIcon />}Видалити
-            </Button>
+            {avatarURL && (
+              <Button
+                onClick={prompDelete ? delAvatar : () => setPrompDelete(true)}
+                mode={!prompDelete ? 'outlined' : 'primary'}
+              >
+                {!prompDelete && <TrashIcon />}Видалити
+              </Button>
+            )}
           </form>
           {/* <Button  onClick={prompDelete ? delAvatar : () => setPrompDelete(true)}  mode={!prompDelete ? "outlined" : 'primary'}>
               {!prompDelete && <TrashIcon />} Видалити
