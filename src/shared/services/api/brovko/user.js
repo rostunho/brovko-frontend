@@ -61,8 +61,24 @@ export const logout = async () => {
 
 export const update = async updatedData => {
   const { data: result } = await instance.patch(`/user/update`, updatedData);
-
   setToken(result.accessToken);
-
   return result;
+};
+
+export const updateAvatar = async updatedData => {
+  const { data: result } = await instance.patch(`/user/avatars`, updatedData);
+  setToken(result.accessToken);
+  return result;
+};
+
+
+export const forgotPassword = async data => {
+  const { data: result } = await instance.post('/user/forgot-password', data);
+  return result;
+};
+
+export const getAllOrdersAuth = async () => {
+  const { data } = await instance.get('/orders/auth');
+  console.log(data);
+  return data;
 };

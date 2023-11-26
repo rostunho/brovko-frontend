@@ -54,7 +54,9 @@ export default function ProductDetail({
     <>
       <div className={styles.productCard}>
         <Rating product={product} />
-        <Image className={styles.image} src={picture} />
+        <div className={styles.image}>
+          <Image src={picture} />
+        </div>
         <ImageSlider picture={picture} />
         <Content note={note} />
         <div className={styles.price}>

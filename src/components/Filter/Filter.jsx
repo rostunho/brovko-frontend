@@ -1,74 +1,60 @@
 import { useState } from 'react';
-import DropdownMenu from './DropdownMenu';
-import Button from 'shared/components/Button';
+// import DropdownMenu from './DropdownMenu';
+// import Button from 'shared/components/Button';
 // import ArrowDownIcon from 'shared/icons/ArrowDownIcon';
-// import Selector from 'shared/components/Selector';
+import Selector from 'shared/components/Selector';
 import { categories, sortingOptions } from './constants';
 import styles from './Filter.module.scss';
 
 export default function Filter({ onCategorySelect, onSortingSelect }) {
-  const [showCategoriesMenu, setShowCategoriesMenu] = useState(false);
-  const [showSortingMenu, setShowSortingMenu] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSortingOption, setSelectedSortingOption] = useState(null);
 
-  const handleCategoryClick = () => {
-    setShowCategoriesMenu(!showCategoriesMenu);
-    setShowSortingMenu(false);
-    setSelectedCategory(null); // Збросити вибрану категорію
-  };
-
-  const handleSortingClick = () => {
-    setShowSortingMenu(!showSortingMenu);
-    setShowCategoriesMenu(false);
-  };
-
   const handleCategorySelect = category => {
-    setShowCategoriesMenu(false);
-    setSelectedCategory(category === 'Всі категорії' ? null : category); // Збросити вибрану категорію
-    onCategorySelect(category === 'Всі категорії' ? null : category); // Виклик функції батьківського компонента
-    console.log(category);
+    setSelectedCategory(
+      category.name === 'Всі категорії' ? null : category.name
+    ); // Збросити вибрану категорію
+    onCategorySelect(category.name === 'Всі категорії' ? null : category.name); // Виклик функції батьківського компонента
+    console.log(category.name);
   };
 
   const handleSortingSelect = option => {
-    setShowSortingMenu(false);
-    setSelectedSortingOption(option);
-    onSortingSelect(option);
+    setSelectedSortingOption(option.name);
+    onSortingSelect(option.name);
     // console.log('Option:', option);
+  };
+
+  const customStyle = {
+    color: 'black',
+  };
+
+  const customDropdownContainer = {
+    width: '100%',
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.buttonContainer}>
-        <Button
-          size="sm"
-          mode="sort"
-          onClick={handleCategoryClick}
-          style={{ fontWeight: '400', width: 'calc(100%)' }}
-        >
-          Всі категорії
-        </Button>
-        {showCategoriesMenu && (
-          <DropdownMenu items={categories} onSelect={handleCategorySelect} />
-        )}
+        <Selector
+          label=""
+          style={customStyle}
+          dropdownStyle={customDropdownContainer}
+          name="category"
+          data={categories}
+          defaultValue={{ name: 'Всі категорії' }}
+          fetchSelectorValue={handleCategorySelect}
+        />
       </div>
       <div className={styles.buttonContainer}>
-        {/* <Selector
-          size="sm"
+        <Selector
+          label=""
+          style={customStyle}
+          dropdownStyle={customDropdownContainer}
+          name="option"
           data={sortingOptions}
-          onOptionPress={handleSortingSelect}
-        /> */}
-        <Button
-          size="sm"
-          mode="sort"
-          onClick={handleSortingClick}
-          style={{ fontWeight: '400', width: 'calc(100%)' }}
-        >
-          Сортування
-        </Button>
-        {showSortingMenu && (
-          <DropdownMenu items={sortingOptions} onSelect={handleSortingSelect} />
-        )}
+          defaultValue={{ name: 'Сортування' }}
+          fetchSelectorValue={handleSortingSelect}
+        />
       </div>
     </div>
   );

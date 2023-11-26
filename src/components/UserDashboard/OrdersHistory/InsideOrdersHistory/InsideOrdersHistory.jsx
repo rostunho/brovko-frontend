@@ -6,15 +6,13 @@ import DownArrowIcon from 'shared/icons/DownArrowIcon';
 import UpArrowIcon from 'shared/icons/UpArrowIcon';
 import OrderInformation from '../OrderInformation';
 
-import { getAllOrders } from 'redux/basket/basketSelectors';
+import { ordersUserHistory } from 'redux/user/userSelectors';
 
 import styles from './InsideOrdersHistory.module.scss';
 
 const InsideOrdersHistory = () => {
-  const orders = useSelector(getAllOrders);
-
+  const orders = useSelector(ordersUserHistory);
   const [showDetail, setShowdetail] = useState(false);
-
   const [showSumAllOrders, setshowSumAllOrders] = useState(0);
 
   const toggleShowDetailsOrder = () => {
@@ -27,8 +25,8 @@ const InsideOrdersHistory = () => {
   };
 
   useEffect(() => {
-    const totalAmount = orders.reduce((total, { price, value }) => {
-      return total + price * value;
+    const totalAmount = orders.reduce((total, { costPerItem, amount }) => {
+      return total + costPerItem * amount;
     }, 0);
 
     setshowSumAllOrders(totalAmount);

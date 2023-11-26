@@ -40,6 +40,18 @@ export const update = createAsyncThunk(
   }
 );
 
+export const updateAvatar = createAsyncThunk(
+  'user/avatars',
+  async (data, { rejectWithValue }) => {
+    try {
+      const result = await api.updateAvatar(data);
+      return result;
+    } catch ({ response }) {
+      return rejectWithValue(response.data.message);
+    }
+  }
+);
+
 export const current = createAsyncThunk(
   'user/current',
   async (_, { rejectWithValue, getState }) => {
@@ -81,6 +93,32 @@ export const logout = createAsyncThunk(
       const data = await api.logout();
       return data;
     } catch ({ response }) {
+      return rejectWithValue(response.data.message);
+    }
+  }
+);
+
+export const forgotPassword = createAsyncThunk(
+  'user/forgot-password',
+  async (data, { rejectWithValue }) => {
+    try {
+      const result = await api.forgotPassword(data);
+      return result;
+    } catch ({ response }) {
+      // console.log(response.data.message);
+      return rejectWithValue(response.data.message);
+    }
+  }
+);
+
+export const usersOrdersHistory = createAsyncThunk(
+  'user/orders-history',
+  async (_, { rejectWithValue }) => {
+    try {
+      const result = await api.getAllOrdersAuth();
+      return result;
+    } catch ({ response }) {
+      // console.log(response.data.message);
       return rejectWithValue(response.data.message);
     }
   }

@@ -43,15 +43,18 @@ export const generateAddOrderRequestBody = (
   const requestBody = { ...addOrderRequestTemplate };
 
   requestBody.products = products.map(product => {
+    console.log(product);
     return {
       id: product.id,
       name: product.name,
       costPerItem: product.price.toString(),
       amount: product.value.toString(),
-      description: product.description,
+      // description: product.description,
+      description: '',
       discount: '', // TO ADD
       sku: '',
       commission: '',
+      picture: [...product.picture],
     };
   });
 

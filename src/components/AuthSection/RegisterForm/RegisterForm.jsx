@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { register } from 'redux/user/userOperations';
+import { errorUser } from 'redux/user/userSelectors';
 // import PropTypes from 'prop-types';
 // import OldInput from 'shared/components/OldInput/OldInput';
 import Input from 'shared/components/Input';
 import Button from 'shared/components/Button/Button';
+import Text from 'shared/components/Text/Text';
 import useForm from 'shared/hooks/useForm';
 import initialState from './initialState';
 import UserConsent from './UserConsent';
@@ -22,6 +24,9 @@ const RegisterForm = () => {
   const [isValidPassword, setIsValidPassword] = useState(null);
   const [showSubmitButton, setShowSubmitButton] = useState(false);
   const formRef = useRef(null);
+  const error = useSelector(errorUser);
+  const [submittedEmail, setSubmittedEmail] = useState('');
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,8 +44,15 @@ const RegisterForm = () => {
   }, [isValidEmail, isValidPassword, passwordChecked]);
 
   function dispatchUser(data) {
-    dispatch(register(data));
+    try {
+      dispatch(register(data));
+      setSubmittedEmail(data.email);
+    } catch (error) {
+      setSubmittedEmail('');
+    }
   }
+
+  // const isConflictError = error && error.toLowerCase().includes('conflict');
 
   return (
     <form
@@ -51,6 +63,11 @@ const RegisterForm = () => {
       }}
       className={styles.form}
     >
+      {error && (
+        <Text className={styles.text}>
+        Така адреса єлектронної пошти вже зареєстрована!
+      </Text>
+      )}
       <Input
         label="E-mail"
         // style={{ backgroundColor: '#801f1f' }}
@@ -58,10 +75,12 @@ const RegisterForm = () => {
         name="email"
         placeholder="Введіть свій e-mail"
         required={true}
-        value={email}
+        value={submittedEmail || email}
         validateStatus={setIsValidEmail}
         onChange={handleChange}
+        inputClassName={error ? styles["input-error"] : ''}
       />
+      
       <Input
         label="Пароль"
         type="password"

@@ -5,13 +5,16 @@ import {
   login,
   current,
   update,
+  updateAvatar,
   logout,
   googleAuth,
+  usersOrdersHistory,
 } from './userOperations';
 
 const initialState = {
   user: {},
   token: '',
+  ordersHistory: [],
   isLogin: false,
   loading: false,
   error: null,
@@ -68,6 +71,22 @@ const userSlice = createSlice({
         state.token = '';
         state.error = payload;
       })
+      .addCase(updateAvatar.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateAvatar.fulfilled, (state, { payload }) => {
+        const { accessToken } = payload;
+        state.loading = false;
+        state.user = payload;
+        state.token = accessToken;
+        state.isLogin = true;
+      })
+      .addCase(updateAvatar.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.token = '';
+        state.error = payload;
+      })
       .addCase(googleAuth.pending, state => {
         state.loading = true;
         state.error = null;
@@ -110,6 +129,18 @@ const userSlice = createSlice({
         state.isLogin = false;
       })
       .addCase(logout.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(usersOrdersHistory.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(usersOrdersHistory.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.ordersHistory = [...payload];
+      })
+      .addCase(usersOrdersHistory.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       });
