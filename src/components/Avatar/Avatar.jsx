@@ -1,7 +1,6 @@
 import Image from 'shared/components/Image';
 
 import CameraIcon from 'shared/icons/CameraIcon';
-import UserLight from 'shared/icons/UserLight';
 
 import styles from './avatar.module.scss';
 import Button from 'shared/components/Button';
@@ -20,6 +19,7 @@ const Avatar = () => {
   };
   const closeModalEditPhoto = () => {
     setModalIsOpen(false);
+    setPrompDelete(false);
   };
   const { firstName, email, avatarURL, _id } = useSelector(selectUser);
   console.log(useSelector(selectUser));
@@ -28,19 +28,65 @@ const Avatar = () => {
   const delAvatar = () => {
     const dataAvatar = { avatarURL: '', id: _id };
     dispatch(update(dataAvatar));
+    setPrompDelete(false);
   };
 
   const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedImageName, setSelectedImageName] = useState('');
+  const [prompDelete, setPrompDelete] = useState(false);
+  // const add = e => {
+  //   e.preventDefault();
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     // setSelectedImage(file);
+
+  //     const formData = new FormData();
+  //     // const formElem = {}
+  //     // formElem.addEventListener('submit', (e) => {
+  //     // on form submission, prevent default
+  //     e.preventDefault();
+
+  //     // construct a FormData object, which fires the formdata event
+  //     // new FormData(formData);
+  //     // });
+  //     formData.append('avatar', file);
+  //     // updateAvatar.preventDefault()
+  //     dispatch(updateAvatar(formData));
+  //   }
+  // };
+
+  const onSubmitForm = e => {
+    e.preventDefault();
+    // Your form submission logic
+  };
 
   const add = e => {
     e.preventDefault();
-    setSelectedImage(e.target.files[0]);
-    console.log(e.target.files[0]);
-    const formData = new FormData();
-    formData.append('avatar', e.target.files[0]);
-    dispatch(updateAvatar(formData));
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+
+      const formData = new FormData();
+      formData.append('avatar', file);
+
+      dispatch(updateAvatar(formData));
+      // .then(() => {
+      //   // Оновлення avatarURL після успішного завантаження
+      //   // Це дозволяє вам відобразити новий аватар без перезавантаження сторінки
+      //   dispatch(fetchUser()); // Припустимо, що у вас є дія fetchUser для отримання оновленого користувача
+      // });
+    }
   };
+
+  // setSelectedImage(prevImage => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const formData = new FormData();
+  //     formData.append('avatar', file);
+  //     dispatch(updateAvatar(formData));
+  //   }
+  //   return file;
+  // });
+  const resetPromp = () => setPrompDelete(false);
 
   return (
     <>
@@ -54,24 +100,56 @@ const Avatar = () => {
       </Button>
       {modalIsOpen && (
         <Modal closeModal={closeModalEditPhoto}>
-          <p>Зображення профілю</p>
-          <Image
-            className={styles.avatar}
-            src={avatarURL}
-            text={firstName || email}
-          />
-       <div className={styles.buttonsContainer}>   <label className={styles.fileInputLabel}>
-            <EditIcon /> Виберіть файл
-            <input
-              className={styles.visuallyHidden}
-              type="file"
-              accept="image/jpeg, image/png"
-              onChange={add}
+          <p className={styles.mainText}>
+            {!prompDelete
+              ? 'Зображення профілю'
+              : 'Видалити зображення профілю?'}
+          </p>
+          <div className={styles.wrapper}>
+            <Image
+              className={styles.avatarEdit}
+              src={!prompDelete && avatarURL}
+              text={firstName || email}
             />
-          </label>
-          <Button onClick={delAvatar} mode = 'primary'>
-            <TrashIcon /> Видалити
-          </Button></div>
+          </div>
+          {prompDelete && (
+            <p className={styles.text}>
+              Попереднє зображення буде видалено, а замість нього
+              використовуватиметься це
+            </p>
+          )}
+          <form
+            // onSubmit={onSubmitForm}
+            className={styles.buttonsContainer}
+          >
+            <label className={styles.fileInputLabel}>
+              {!prompDelete && <EditIcon />}
+              {prompDelete ? 'Скасувати' : 'Змінити'}
+              <input
+                className={styles.visuallyHidden}
+                // id="submit"
+                type={!prompDelete ? 'file' : 'button'}
+                accept="image/jpeg, image/png"
+                //  {prompDelete && onClick={() => setPrompDelete(false)} }
+                // onClick={prompDelete ? undefined : () => resetPromp()}
+                // onClick={prompDelete ? undefined : resetPromp}
+                // onClick={prompDelete ? undefined : () => resetPromp()}
+                // {(prompDelete ? { onClick: () => setPrompDelete(false) } : {})}
+                // onClick={prompDelete && (() => setPrompDelete(false))}
+                onClick={prompDelete ? (e) => { e.preventDefault(); resetPromp(); } : undefined}
+                onChange={add}
+              />
+            </label>
+            <Button
+              onClick={prompDelete ? delAvatar : () => setPrompDelete(true)}
+              mode={!prompDelete ? 'outlined' : 'primary'}
+            >
+              {!prompDelete && <TrashIcon />}Видалити
+            </Button>
+          </form>
+          {/* <Button  onClick={prompDelete ? delAvatar : () => setPrompDelete(true)}  mode={!prompDelete ? "outlined" : 'primary'}>
+              {!prompDelete && <TrashIcon />} Видалити
+            </Button> */}
         </Modal>
       )}
     </>

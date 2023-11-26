@@ -47,7 +47,6 @@ export const updateAvatar = createAsyncThunk(
       const result = await api.updateAvatar(data);
       return result;
     } catch ({ response }) {
-      // console.log(response.data.message);
       return rejectWithValue(response.data.message);
     }
   }

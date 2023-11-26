@@ -1,6 +1,5 @@
 @import 'theme/abstract/_mixins.scss';
 
-
 .wrapper {
   position: relative;
   min-width: 0;
@@ -22,9 +21,9 @@
 }
 
 .wrapper:focus {
-    fill: #fefefe;
-    background-color: rgba(51, 51, 51, 0.6);
-  }
+  fill: #fefefe;
+  background-color: rgba(51, 51, 51, 0.6);
+}
 
 .avatar {
   position: relative;
@@ -33,6 +32,16 @@
   border-radius: 50%;
   margin-right: auto;
   margin-left: auto;
+}
+
+.avatarEdit {
+  display: block;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  overflow: hidden;
 }
 
 .cameraIcon {
@@ -50,7 +59,7 @@
   transform: translate(-50%, 0);
   fill: inherit;
   background-color: inherit;
-//   visibility: hidden;
+  //   visibility: hidden;
   //   outline: none;
   //   border: none;
   // padding: 0;
@@ -62,14 +71,37 @@
 //   fill: var(--accent-color);
 // }
 
+.mainText {
+  color: var(--black-text-color);
+  font-family: '' Nunito ', sans-serif';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  padding: 60px 22px 33px 23px;
+}
+
+.text {
+  font-family: Nunito;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #a3a5a4;
+}
+
 .buttonsContainer {
   display: flex;
   align-items: center;
   justify-content: center;
   align-self: center;
+  padding-bottom: 40px;
   gap: 24px;
   margin-top: 8px;
   width: 100%;
+  margin-top: 32px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -87,16 +119,18 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease 0s;
-  color: var(--accent-color);
+  color: var(--white-text-color);
   border: var(--border-accent);
-  background-color: transparent;
+  background-color: var(--accent-color);
 
   &:hover,
   &:focus,
   &:active {
     color: var(--white-text-color);
-    border: none;
-    background-color: var(--accent-color);
+    // border: none;
+
+    background-color: #f39610;
+    box-shadow: 0px 1px 2px 0px rgba(255, 193, 7, 0.5);
   }
 
   &:focus {
@@ -120,7 +154,7 @@
   margin: -1px;
   border: 0;
   padding: 0;
-  
+
   white-space: nowrap;
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
@@ -130,8 +164,6 @@
 .fileInput {
   visibility: hidden;
 }
-
-
 
 .icon {
   width: 24px;
