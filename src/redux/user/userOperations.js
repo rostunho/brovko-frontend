@@ -40,6 +40,18 @@ export const update = createAsyncThunk(
   }
 );
 
+export const updateAvatar = createAsyncThunk(
+  'user/avatars',
+  async (data, { rejectWithValue }) => {
+    try {
+      const result = await api.updateAvatar(data);
+      return result;
+    } catch ({ response }) {
+      return rejectWithValue(response.data.message);
+    }
+  }
+);
+
 export const current = createAsyncThunk(
   'user/current',
   async (_, { rejectWithValue, getState }) => {
