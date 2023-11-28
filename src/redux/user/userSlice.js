@@ -5,6 +5,7 @@ import {
   login,
   current,
   update,
+  updateAvatar,
   logout,
   googleAuth,
   usersOrdersHistory,
@@ -66,6 +67,22 @@ const userSlice = createSlice({
         state.isLogin = true;
       })
       .addCase(update.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.token = '';
+        state.error = payload;
+      })
+      .addCase(updateAvatar.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateAvatar.fulfilled, (state, { payload }) => {
+        const { accessToken } = payload;
+        state.loading = false;
+        state.user = payload;
+        state.token = accessToken;
+        state.isLogin = true;
+      })
+      .addCase(updateAvatar.rejected, (state, { payload }) => {
         state.loading = false;
         state.token = '';
         state.error = payload;

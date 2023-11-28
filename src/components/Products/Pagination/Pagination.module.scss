@@ -5,6 +5,7 @@
 
 .buttons {
   display: flex;
+  // gap: 18px;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -13,13 +14,14 @@
   position: static;
   background-color: transparent;
   border: none;
-  margin-right: 10px;
+  margin-right: 18px;
 }
 
 .arrowNext {
   position: static;
   background-color: transparent;
   border: none;
+  margin-left: 14px;
   // margin-top: -8px;
   transform: rotate(180deg);
 }
