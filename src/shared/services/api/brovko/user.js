@@ -82,3 +82,14 @@ export const getAllOrdersAuth = async () => {
   console.log(data);
   return data;
 };
+
+export const getAvatar = async () => {
+  try {
+    const { data } = await instance.get('/user/avatars');
+    console.log('data.avatarURL', data.avatarURL);
+    return data.avatarURL;
+  } catch (error) {
+    console.error('Error getting user avatar:', error);
+    throw error;
+  }
+};
