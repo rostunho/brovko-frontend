@@ -17,14 +17,16 @@ export const getAllOrdersAuth = async () => {
 
 // додати нове замовлення на SalesDrive
 export const addNewOrder = async body => {
+  console.log('body in addNewOrder :>> ', body);
+
   try {
     const url = `${BROVKO_API}/orders/add-order`;
     const data = JSON.stringify(body);
     const headers = { 'Content-Type': 'application/json' };
 
     const response = await axios.post(url, data, { headers });
-    console.log('Post request response:', response);
-    console.log(response.data.message);
+    // console.log('Post request response:', response);
+
     return response.data;
   } catch (error) {
     console.log(error.message);
@@ -43,7 +45,7 @@ export const generateAddOrderRequestBody = (
   const requestBody = { ...addOrderRequestTemplate };
 
   requestBody.products = products.map(product => {
-    console.log(product);
+    // console.log(product);
     return {
       id: product.id,
       name: product.name,
@@ -69,12 +71,12 @@ export const generateAddOrderRequestBody = (
   requestBody.email = customer.email;
   requestBody.novaposhta.ServiceType =
     delivery.deliveryMethod.method === 'address' ? 'Doors' : 'Warehouse';
-  requestBody.novaposhta.area =
-    delivery.city.Area + ' ' + delivery.city.ParentRegionTypes;
-  requestBody.novaposhta.region =
-    delivery.city.Region + ' ' + delivery.city.RegionTypes;
-  requestBody.novaposhta.city = delivery.city.Ref;
-  requestBody.novaposhta.WarehouseNumber = delivery.warehouse.Ref;
+  requestBody.novaposhta.area = delivery.city.Area;
+  requestBody.novaposhta.region = delivery.city.Region;
+  //   ? delivery.city.Region + ' ' + delivery.city.RegionTypes
+  //   : '';
+  requestBody.novaposhta.city = delivery.city.Present;
+  requestBody.novaposhta.WarehouseNumber = delivery.warehouse.Ref || '1';
   requestBody.novaposhta.Street = delivery.street.Present;
   requestBody.novaposhta.BuildingNumber = delivery.building?.toString();
   requestBody.novaposhta.Flat = delivery.apartment?.toString();
