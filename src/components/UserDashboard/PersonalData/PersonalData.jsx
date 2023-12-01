@@ -13,6 +13,9 @@ const PersonalData = () => {
   const { firstName, middleName, lastName, _id } = useSelector(selectUser);
   const dispatch = useDispatch();
 
+  const user = useSelector(selectUser);
+  console.log(user);
+
   const onSubmitForm = data => {
     dispatch(update(data));
   };
