@@ -14,6 +14,7 @@ import styles from './AddProductForm.module.scss';
 
 import { useSelectorValue } from 'shared/hooks/useSelectorValue';
 import { useAddProductState } from 'shared/hooks/useAddProductState';
+import AddProductImage from './AddProductImage';
 
 export default function AddProductForm() {
   const [requestBody, dispatchRequestBody] = useAddProductState();
@@ -84,7 +85,7 @@ export default function AddProductForm() {
           name="nameForDocuments"
           onChange={e => dispatchRequestBody(e, 'ADD_NAME_FOR_DOCS')}
         />
-
+        <AddProductImage />
         <div className={styles.category}>
           <Selector
             name="Category"

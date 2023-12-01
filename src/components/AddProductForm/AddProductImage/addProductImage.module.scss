@@ -1,0 +1,61 @@
+@import 'theme/abstract/_mixins.scss';
+
+.buttonsContainer {
+  width: 288px;
+  height: 240px;
+}
+
+.fileInputLabel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    height: 40px;
+    padding: 0 16px;
+    @include text-styles(Nunito, 14px, 700, 19px);
+    border: none;
+  
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    color: var(--white-text-color);
+    border: var(--border-accent);
+    background-color: var(--accent-color);
+  
+    &:hover,
+    &:focus,
+    &:active {
+      color: var(--white-text-color);
+      // border: none;
+  
+      background-color: #f39610;
+      box-shadow: 0px 1px 2px 0px rgba(255, 193, 7, 0.5);
+    }
+  
+    &:focus {
+      outline: none;
+    }
+  
+    &:disabled,
+    &:focus:disabled,
+    &:hover:disabled,
+    &:active:disabled {
+      color: rgba(254, 254, 254, 0.7);
+      background-color: transparent;
+      border: 1px solid rgba(254, 254, 254, 0.7);
+    }
+  }
+  
+  .visuallyHidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+  
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+  }
