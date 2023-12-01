@@ -25,6 +25,11 @@ export default function UserNav({ onClick }) {
             КОНТАКТИ
           </NavLink>
         </li>
+        <li className={styles.item} onClick={onClick}>
+          <NavLink className={styles.link} to="/all/superadmin">
+            Сторінка суперадміна
+          </NavLink>
+        </li>
         {/* <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/all/shipping-and-payments">
 
