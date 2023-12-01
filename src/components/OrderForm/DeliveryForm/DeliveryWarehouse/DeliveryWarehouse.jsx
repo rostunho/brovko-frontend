@@ -37,12 +37,12 @@ export default function DeliveryWarehouse({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => fetchWarehousesFromAPI, [targetWarehouse]);
 
-  // useEffect(() => {
-  //   savedWarehouse
-  //     ? setSelectedWarehouseData(savedWarehouse)
-  //     : setSelectedWarehouseData(null);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    savedWarehouse
+      ? setSelectedWarehouseData(savedWarehouse)
+      : setSelectedWarehouseData(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(
     () => {
