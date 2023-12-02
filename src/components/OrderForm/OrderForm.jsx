@@ -24,6 +24,7 @@ export default function OrderForm() {
 
   const navigate = useNavigate();
 
+  // Встановлюємо "Перше відділення" нової пошти в разі адресної доставки
   useEffect(() => {
     if (delivery?.deliveryMethod?.method !== 'address') {
       return;
