@@ -94,13 +94,15 @@ export const findWarehouse = async (searchValue, cityRef, postMachine) => {
     }
     //..
 
+    // console.log('data.data WAREHOUSE :>> ', data.data);
+
     return data.data;
   } catch (error) {
     console.log(error.message);
   }
 };
 
-export const detectMainWarehouseRef = async cityRef => {
+export const getMainWarehouse = async cityRef => {
   const bodyTemplate = {
     apiKey: API_KEY,
     modelName: 'Address',
@@ -127,11 +129,15 @@ export const detectMainWarehouseRef = async cityRef => {
   //   Ref: data.data[0].Ref,
   // });
 
-  return {
-    Description: data.data[0].Description,
-    ShortAddress: data.data[0].ShortAddress,
-    Ref: data.data[0].Ref,
-  };
+  // console.log('data.data :>> ', data.data[0]);
+
+  // return {
+  //   Description: data.data[0].Description,
+  //   ShortAddress: data.data[0].ShortAddress,
+  //   Ref: data.data[0].Ref,
+  // };
+
+  return data.data[0];
 };
 
-// detectMainWarehouseRef('e71abb60-4b33-11e4-ab6d-005056801329');
+getMainWarehouse('e71abb60-4b33-11e4-ab6d-005056801329');

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Input from 'shared/components/Input';
 import Button from 'shared/components/Button';
 import styles from './ContactsForm.module.scss';

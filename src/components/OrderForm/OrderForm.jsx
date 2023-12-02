@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { getAllOrders } from 'redux/basket/basketSelectors';
 import { selectIsLogin, selectUser } from 'redux/user/userSelectors';
+import { getMainWarehouse } from 'shared/services/api/nova-poshta/nova-poshta-api';
 import CustomerForm from './CustomerForm/CustomerForm';
 import { DeliveryForm } from 'components/OrderForm/DeliveryForm';
 import PaymentMethod from 'components/OrderForm/PaymentMethod';
@@ -22,6 +23,19 @@ export default function OrderForm() {
   const user = useSelector(selectUser);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (delivery?.deliveryMethod?.method !== 'address') {
+      return;
+    }
+    (async () => {
+      const result = await getMainWarehouse(delivery.city.Ref);
+      setDelivery(currentDelivery => ({
+        ...currentDelivery,
+        warehouse: { ...result },
+      }));
+    })();
+  }, [delivery?.city?.Ref, delivery?.deliveryMethod?.method]);
 
   const createNewOrder = async event => {
     event.preventDefault();
