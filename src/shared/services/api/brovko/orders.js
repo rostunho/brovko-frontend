@@ -30,6 +30,7 @@ export const addNewOrder = async body => {
     return response.data;
   } catch (error) {
     console.log(error.message);
+    console.log(error.response.data.message);
   }
 
   // const response = await axios.post(url, data, { headers });
@@ -77,9 +78,9 @@ export const generateAddOrderRequestBody = (
   //   : '';
   requestBody.novaposhta.city = delivery.city.Present;
   requestBody.novaposhta.WarehouseNumber = delivery.warehouse.Ref || '1';
-  requestBody.novaposhta.Street = delivery.street.Present;
-  requestBody.novaposhta.BuildingNumber = delivery.building?.toString();
-  requestBody.novaposhta.Flat = delivery.apartment?.toString();
+  requestBody.novaposhta.Street = delivery.street.Present || '';
+  requestBody.novaposhta.BuildingNumber = delivery.building?.toString() || '';
+  requestBody.novaposhta.Flat = delivery.apartment?.toString() || '';
 
   // console.log('requestBody :>> ', requestBody);
   return requestBody;

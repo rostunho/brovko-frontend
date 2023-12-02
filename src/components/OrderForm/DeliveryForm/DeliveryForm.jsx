@@ -14,7 +14,7 @@ export default function DeliveryForm({ savedData, getData }) {
   const [warehouse, setWarehouse] = useState('Test');
   const [deliveryMethod, setDeliveryMethod] = useState(null);
 
-  console.log('warehouse :>> ', warehouse);
+  // console.log('warehouse :>> ', warehouse);
 
   useEffect(() => {
     getData({ city: { ...city } });

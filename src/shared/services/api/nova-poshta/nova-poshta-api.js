@@ -99,3 +99,39 @@ export const findWarehouse = async (searchValue, cityRef, postMachine) => {
     console.log(error.message);
   }
 };
+
+export const detectMainWarehouseRef = async cityRef => {
+  const bodyTemplate = {
+    apiKey: API_KEY,
+    modelName: 'Address',
+    calledMethod: 'getWarehouses',
+    methodProperties: {
+      SettlementRef: cityRef,
+      Page: '1',
+      Limit: '50',
+      Language: 'UA',
+    },
+  };
+
+  const body = JSON.stringify(bodyTemplate);
+
+  const { data } = await axios.post(NOVA_POSHTA_API, body);
+
+  if (data.errors.length > 0) {
+    throw Error(data.errors);
+  }
+
+  // console.log('data.data :>> ', {
+  //   Description: data.data[0].Description,
+  //   ShortAddress: data.data[0].ShortAddress,
+  //   Ref: data.data[0].Ref,
+  // });
+
+  return {
+    Description: data.data[0].Description,
+    ShortAddress: data.data[0].ShortAddress,
+    Ref: data.data[0].Ref,
+  };
+};
+
+// detectMainWarehouseRef('e71abb60-4b33-11e4-ab6d-005056801329');
