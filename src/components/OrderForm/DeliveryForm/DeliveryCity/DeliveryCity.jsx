@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { findCity } from 'shared/services/api/nova-poshta/nova-poshta-api';
+
 import { LocationSelector } from 'shared/components/LocationSelector';
+import Modal from 'shared/components/Modal/Modal';
+import NoWarehouseWarning from './NoWarehouseWarning/NoWarehouseWarning';
 import regionCenters from './regionCenters';
 
 export default function DeliveryCity({
@@ -13,6 +16,10 @@ export default function DeliveryCity({
   const [targetCity, setTargetCity] = useState('');
   const [initialCity, setInitialCity] = useState(() => savedCity || ''); // місто, ке ми отримуємо з бази даних
   const [selectedCityData, setSelectedCityData] = useState(null);
+  const [showWarning, setShowWarning] = useState(false);
+  const [refreshSelector, setRefreshSelector] = useState(false);
+
+  console.log('refreshSelector :>> ', refreshSelector);
 
   useEffect(() => {
     if (savedCity && targetCity === savedCity.Present) {
@@ -27,10 +34,28 @@ export default function DeliveryCity({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCityData]);
 
+  useEffect(() => {
+    if (!selectedCityData || selectedCityData.Warehouses > 0) {
+      return;
+    }
+    openWarning();
+  }, [selectedCityData]);
+
+  useEffect(() => {
+    !showWarning && setRefreshSelector(false);
+  }, [showWarning]);
+
   async function fetchCitiesFromAPI() {
     try {
       const value = targetCity?.toLowerCase();
       const response = await findCity(value);
+
+      console.log('response in DELIVERY CITY :>> ', response);
+      console.log(
+        'count of warehouses :>> ',
+        typeof response.Addresses[0].Warehouses
+      );
+
       if (!response) {
         return;
       }
@@ -59,16 +84,37 @@ export default function DeliveryCity({
     setSelectedCityData(data);
     // setCities([]);
   };
+
+  const openWarning = () => {
+    setShowWarning(true);
+  };
+
+  const closeWarning = () => {
+    setRefreshSelector(true);
+    setTargetCity('');
+    clearCity();
+    // setRefreshSelector(false);
+    setShowWarning(false);
+  };
+
   return (
-    <LocationSelector
-      withHotOptions={withHotOptions}
-      data={cities?.length > 0 ? cities : []}
-      label="Населений пункт"
-      initialValue={initialCity?.Present}
-      initialList={regionCenters}
-      placeholder={'Вкажіть населений пункт'}
-      extract={{ searchValue: extractTargetCity, data: extractCityData }}
-      clear={clearCity}
-    />
+    <>
+      <LocationSelector
+        withHotOptions={withHotOptions}
+        data={cities?.length > 0 ? cities : []}
+        label="Населений пункт"
+        initialValue={initialCity?.Present || ''}
+        initialList={regionCenters}
+        placeholder={'Вкажіть населений пункт'}
+        extract={{ searchValue: extractTargetCity, data: extractCityData }}
+        refresh={refreshSelector}
+        clear={clearCity}
+      />
+      {showWarning && (
+        <Modal closeModal={closeWarning}>
+          <NoWarehouseWarning onClick={closeWarning} />
+        </Modal>
+      )}
+    </>
   );
 }

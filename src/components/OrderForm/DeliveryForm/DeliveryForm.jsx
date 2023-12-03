@@ -11,8 +11,10 @@ export default function DeliveryForm({ savedData, getData }) {
   const [street, setStreet] = useState(savedData?.novaPoshta?.street || null);
   const [building, setBuilding] = useState(savedData?.building || null);
   const [apartment, setApartment] = useState(savedData?.apartment || null);
-  const [warehouse, setWarehouse] = useState(null);
+  const [warehouse, setWarehouse] = useState('Test');
   const [deliveryMethod, setDeliveryMethod] = useState(null);
+
+  // console.log('warehouse :>> ', warehouse);
 
   useEffect(() => {
     getData({ city: { ...city } });
