@@ -71,7 +71,6 @@ export const updateAvatar = async updatedData => {
   return result;
 };
 
-
 export const forgotPassword = async data => {
   const { data: result } = await instance.post('/user/forgot-password', data);
   return result;
@@ -90,6 +89,37 @@ export const getAvatar = async () => {
     return data.avatarURL;
   } catch (error) {
     console.error('Error getting user avatar:', error);
+    throw error;
+  }
+};
+
+export const getUserByEmail = async (email = '') => {
+  try {
+    const { data } = await instance.get('/user/get-user', {
+      params: {
+        email,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.error('Error getting user by email: ', error);
+    throw error;
+  }
+};
+
+export const changeUserStatus = async (_id = '', status = 'customer') => {
+  try {
+    const data = await instance.patch('/user/update-status', {
+      params: {
+        _id,
+        status,
+      },
+    });
+    console.log('_id in services:', _id, 'status in services:', status);
+    console.log('change user status: ', data);
+    return data;
+  } catch (error) {
+    console.error('Error changing user status: ', error);
     throw error;
   }
 };
