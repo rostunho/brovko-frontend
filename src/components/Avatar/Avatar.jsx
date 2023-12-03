@@ -12,7 +12,13 @@ import { update, updateAvatar } from 'redux/user/userOperations';
 import TrashIcon from 'shared/icons/TrashIcon';
 import EditIcon from 'shared/icons/EditIcon';
 
-const Avatar = () => {
+const Avatar = ({
+  size = 96,
+  marginLeft = 'auto',
+  marginRight = 'auto',
+  marginBottom = 32,
+  fontSize = 36,
+}) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const openModalEditPhoto = () => {
     setModalIsOpen(true);
@@ -87,11 +93,22 @@ const Avatar = () => {
 
   return (
     <>
-      <Button className={styles.wrapper} onClick={openModalEditPhoto}>
+      <Button
+        className={styles.wrapper}
+        style={{
+          width: size,
+          height: size,
+          marginLeft,
+          marginRight,
+          marginBottom,
+        }}
+        onClick={openModalEditPhoto}
+      >
         <Image
           className={styles.avatar}
           src={avatarURL}
           text={firstName || email}
+          fontSize={fontSize}
         />
         <CameraIcon className={styles.cameraIcon} />
       </Button>

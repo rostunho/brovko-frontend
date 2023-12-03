@@ -11,8 +11,14 @@ const ReviewItem = ({ review, isExpandedReview }) => {
         <ul className={styles.reviewBox}>
           <li className={styles.reviewItem}>
             <div className={styles.userInfo}>
-              <Avatar className={styles.avatar} />
-              {/* <AvatarIcon fill="#FF5733" className={styles.avatar} /> */}
+              <Avatar
+                size={40}
+                marginLeft={16}
+                marginRight={12}
+                marginBottom={8}
+                fontSize={16}
+              />
+
               <div>
                 <p className={styles.userName}>
                   {' '}
@@ -31,7 +37,13 @@ const ReviewItem = ({ review, isExpandedReview }) => {
       ) : (
         <>
           <div className={styles.userInfo}>
-            <AvatarIcon fill="#FF5733" className={styles.avatar} />
+            <Avatar
+              size={40}
+              marginLeft={16}
+              marginRight={12}
+              marginBottom={8}
+              fontSize={16}
+            />
             <div>
               <p className={styles.userName}>
                 {' '}

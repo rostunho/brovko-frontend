@@ -21,7 +21,7 @@ export default function ProductDetailPage() {
   const product = allProducts?.find(p => p._id === productId);
   const reviews = allReviews?.find(r => r.productId === productId);
 
-  console.log('product 11 :>> ', product);
+  console.log('product 11 :>> ', product.description);
 
   // ================================================
 
