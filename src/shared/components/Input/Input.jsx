@@ -109,8 +109,7 @@ export default function Input({
 
   const handleOnFocus = event => {
     onFocus && onFocus(event);
-
-    setValidationChecking('pending');
+    // setValidationChecking('pending');
     setErrorMessage('');
   };
 
