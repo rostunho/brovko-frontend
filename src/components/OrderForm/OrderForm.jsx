@@ -38,6 +38,25 @@ export default function OrderForm() {
     })();
   }, [delivery?.city?.Ref, delivery?.deliveryMethod?.method]);
 
+  // чистимо стейт вулиці і відділення, якщо немає міста
+  useEffect(() => {
+    if (!delivery || !delivery.city) {
+      return;
+    }
+
+    if (Object.keys(delivery.city).length === 0) {
+      setDelivery(prevState => {
+        return {
+          ...prevState,
+          street: {},
+          warehouse: {},
+          building: '',
+          apartment: '',
+        };
+      });
+    }
+  }, [delivery]);
+
   const createNewOrder = async event => {
     event.preventDefault();
     const addOrderRequestBody = generateAddOrderRequestBody(
