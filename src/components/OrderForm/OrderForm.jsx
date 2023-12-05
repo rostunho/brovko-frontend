@@ -55,7 +55,8 @@ export default function OrderForm() {
         };
       });
     }
-  }, [delivery]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [delivery.city]);
 
   const createNewOrder = async event => {
     event.preventDefault();
