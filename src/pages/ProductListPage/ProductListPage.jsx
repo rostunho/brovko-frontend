@@ -39,6 +39,12 @@ export default function ProductListPage() {
 
   const products = useSelector(getAllProducts);
 
+  const categories = products.map(product => product.categoryId);
+  //видалення дублікатів
+  const uniqueСategories = new Set(categories);
+  const uniqueArray = [...uniqueСategories];
+  console.log('categories', uniqueArray);
+
   // обробкa події відправки форми
   const handleSearchSubmit = formData => {
     setSearchTerm(formData.search); // Оновити стан пошуку

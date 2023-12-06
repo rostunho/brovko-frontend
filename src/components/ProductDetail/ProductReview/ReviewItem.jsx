@@ -1,10 +1,13 @@
 import RewiewRating from './ReviewRating';
-import AvatarIcon from 'shared/icons/AvatarIcon';
 import Avatar from 'components/Avatar';
 
 import styles from '../ProductDetail.module.scss';
 
 const ReviewItem = ({ review, isExpandedReview }) => {
+  const user = review.owner.userId;
+  console.log('user', user);
+  console.log('rewiew', review);
+
   return (
     <div>
       {isExpandedReview ? (
@@ -17,6 +20,8 @@ const ReviewItem = ({ review, isExpandedReview }) => {
                 marginRight={12}
                 marginBottom={8}
                 fontSize={16}
+                user={user}
+                // avatarURL={avatarURL}
               />
 
               <div>
