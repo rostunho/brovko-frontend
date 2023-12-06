@@ -38,12 +38,19 @@ export default function ProductListPage() {
   }, [dispatch]);
 
   const products = useSelector(getAllProducts);
+  //отримання категорій
+  const allCategories = products.map(product => product.categoryId);
+  const uniqueCategories = new Set(allCategories);
+  const categoriesArray = [...uniqueCategories];
+  const categories = categoriesArray.map(categoryId => {
+    return {
+      name: categoryId,
+      id: categoryId,
+    };
+  });
+  categories.unshift({ name: 'Всі категорії', id: 'all' });
 
-  const categories = products.map(product => product.categoryId);
-  //видалення дублікатів
-  const uniqueСategories = new Set(categories);
-  const uniqueArray = [...uniqueСategories];
-  console.log('categories', uniqueArray);
+  console.log('categories', categories);
 
   // обробкa події відправки форми
   const handleSearchSubmit = formData => {
@@ -95,6 +102,7 @@ export default function ProductListPage() {
       <Heading withGoBack>Крамничка</Heading>
       <SearchBar onSubmit={handleSearchSubmit} />
       <Filter
+        categories={categories}
         onCategorySelect={category => setSelectedCategory(category)}
         onSortingSelect={option => setSelectedSortingOption(option)}
       />
