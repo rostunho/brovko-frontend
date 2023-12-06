@@ -4,11 +4,25 @@ import styles from './addProductImage.module.scss';
 import { useState } from 'react';
 
 const AddProductImage = () => {
-    const [prompEdit, setPrompEdit] = useState(false);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const onSubmitForm = e => {
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [prompEdit, setPrompEdit] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const onSubmitForm = e => {
     e.preventDefault();
+    console.log('Selected Images:', selectedImages);
   };
+
+  const handleImageChange = e => {
+    e.preventDefault();
+    const files = Array.from(e.target.files);
+
+    // Додаємо нові обрані зображення до поточного масиву
+    setSelectedImages(prevImages => [...prevImages, ...files]);
+
+    // Тут ви можете відправити обрані зображення на бекенд або виконати інші дії
+    console.log('Selected Images:', selectedImages);
+  };
+
   return (
     <>
       <p>Фото товару</p>
@@ -18,6 +32,7 @@ const AddProductImage = () => {
             className={styles.visuallyHidden}
             type={!prompEdit ? 'file' : 'button'}
             accept="image/jpeg, image/png"
+            multiple
             onClick={
               prompEdit
                 ? e => {
@@ -26,15 +41,11 @@ const AddProductImage = () => {
                   }
                 : undefined
             }
-            onChange={e => {
-              e.preventDefault();
-            //   addImage(e);
-            }}
+            onChange={handleImageChange}
           />
           <AddIconImage />
-         
         </label>
-        <p className={styles.text}>Додати фото</p>
+        <p className={styles.text}>{selectedImages.length>0 ? 'Додати ще' : 'Додати фото' }</p>
       </form>
     </>
   );
