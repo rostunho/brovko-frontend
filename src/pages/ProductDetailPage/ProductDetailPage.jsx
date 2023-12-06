@@ -16,12 +16,10 @@ export default function ProductDetailPage() {
   const allReviews = useSelector(getAllReviews);
 
   // console.log('allProducts', allProducts);
-  // console.log('allReviews', allReviews);
+  console.log('allReviews', allReviews);
 
   const product = allProducts?.find(p => p._id === productId);
   const reviews = allReviews?.find(r => r.productId === productId);
-
-  console.log('product 11 :>> ', product.description);
 
   // ================================================
 
