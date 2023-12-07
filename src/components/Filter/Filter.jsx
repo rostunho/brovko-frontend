@@ -11,20 +11,19 @@ export default function Filter({
   onCategorySelect,
   onSortingSelect,
 }) {
-  console.log('categories', categories);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSortingOption, setSelectedSortingOption] = useState(null);
 
   const handleCategorySelect = category => {
-    setSelectedCategory(category === 'Всі категорії' ? null : category.name); // Збросити вибрану категорію
-    onCategorySelect(category.name === 'Всі категорії' ? null : category.name); // Виклик функції батьківського компонента
-    console.log('обрана категорія', category.name);
+    setSelectedCategory(category === 'Всі категорії' ? null : category.id); // Збросити вибрану категорію
+    onCategorySelect(category.name === 'Всі категорії' ? null : category.id); // Виклик функції батьківського компонента
+    console.log('обрана категорія', category.id);
   };
 
   const handleSortingSelect = option => {
     setSelectedSortingOption(option.name);
     onSortingSelect(option.name);
-    // console.log('Option:', option);
+    console.log('Option:', option);
   };
 
   const customStyle = {

@@ -30,7 +30,7 @@ export default function Selector({
   dropdownStyle,
   ...props
 }) {
-  console.log('style', dropdownStyle);
+  // console.log('style', dropdownStyle);
 
   const [currentValue, setCurrentValue] = useState(
     defaultValue || initialSelectorValue

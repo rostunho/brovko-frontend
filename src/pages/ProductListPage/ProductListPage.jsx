@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchAllProducts } from 'redux/products/productsOperations';
 import { fetchReviews } from 'redux/reviews/reviewsOperations';
+import { fetchCategories } from 'redux/categories/categoriesOperations';
 import { getAllProducts } from 'redux/products/productsSelectors';
+import { getAllCategories } from 'redux/categories/categoriesSelectors';
 
 import Heading from 'shared/components/Heading/Heading';
 import Pagination from 'components/Products/Pagination';
@@ -14,7 +16,6 @@ import Filter from 'components/Filter/Filter';
 
 export default function ProductListPage() {
   const [page, setPage] = useState(1);
-  // Стан для пошуку та фільтрації
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSortingOption, setSelectedSortingOption] = useState(null);
@@ -37,20 +38,17 @@ export default function ProductListPage() {
     dispatch(fetchReviews());
   }, [dispatch]);
 
-  const products = useSelector(getAllProducts);
-  //отримання категорій
-  const allCategories = products.map(product => product.categoryId);
-  const uniqueCategories = new Set(allCategories);
-  const categoriesArray = [...uniqueCategories];
-  const categories = categoriesArray.map(categoryId => {
-    return {
-      name: categoryId,
-      id: categoryId,
-    };
-  });
-  categories.unshift({ name: 'Всі категорії', id: 'all' });
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
-  console.log('categories', categories);
+  const products = useSelector(getAllProducts);
+
+  const allCategories = useSelector(getAllCategories);
+  const categories = [
+    { name: 'Всі категорії', id: 'all' },
+    ...allCategories.items.map(({ _id, id, name }) => ({ name, id })),
+  ];
 
   // обробкa події відправки форми
   const handleSearchSubmit = formData => {
