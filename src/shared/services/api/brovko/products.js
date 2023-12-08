@@ -47,3 +47,16 @@ export const addNewProduct = async body => {
     console.log(error.message);
   }
 };
+
+export const removeProduct = async body => {
+  try {
+    const url = `${BROVKO_API}/products/remove-product`;
+    const data = JSON.stringify(body);
+    const headers = { 'Content-Type': 'application/json' };
+
+    const response = await axios.post(url, data, { headers });
+    console.log(response.data.message);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
