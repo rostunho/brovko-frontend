@@ -37,12 +37,26 @@ export const addNewProduct = async body => {
     // const url = `${BROVKO_API}/products/add-product`;
     const url = `${BROVKO_API}/products/add-product`;
     const data = JSON.stringify(body);
+
     const headers = { 'Content-Type': 'application/json' };
 
     const response = await axios.post(url, data, { headers });
     console.log('Post request response:', response);
     console.log(response.data.message);
     return response.data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const removeProduct = async body => {
+  try {
+    const url = `${BROVKO_API}/products/remove-product`;
+    const data = JSON.stringify(body);
+    const headers = { 'Content-Type': 'application/json' };
+
+    const response = await axios.post(url, data, { headers });
+    console.log(response.data.message);
   } catch (error) {
     console.log(error.message);
   }
