@@ -2,10 +2,25 @@ import { useState } from 'react';
 import ProductsItem from '../ProductsItem';
 import Button from 'shared/components/Button';
 import styles from './ProductsList.module.scss';
+import { removeProduct } from 'shared/services/api/brovko/products';
+import { removeProductRequestTemplate } from './removeProductRequestTemplate';
 
 const ProductList = ({ products, sortedProducts }) => {
   const [userStatus, setUserStatus] = useState('manager'); // Change to useSelector
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
+
+  const handleRemoveProducts = async () => {
+    const body = removeProductRequestTemplate;
+    console.log('body.product :>> ', body.product);
+
+    body.product = productIdsForRemoving.map(id => ({ id }));
+    console.log('body.product after mapping:>> ', body.product);
+    console.log('body after mapping :>>', body);
+
+    const response = await removeProduct(body);
+
+    console.log('response :>> ', response);
+  };
 
   const getItemsForRemoving = (id, checked) => {
     console.log('DATA IN PRODUCT LIST :', { id: id, checked: checked });
@@ -41,6 +56,7 @@ const ProductList = ({ products, sortedProducts }) => {
           className={styles['delete-button']}
           size="lg"
           disabled={productIdsForRemoving.length < 1}
+          onClick={handleRemoveProducts}
         >
           Видалити
         </Button>

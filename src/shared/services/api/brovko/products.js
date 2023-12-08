@@ -37,6 +37,7 @@ export const addNewProduct = async body => {
     // const url = `${BROVKO_API}/products/add-product`;
     const url = `${BROVKO_API}/products/add-product`;
     const data = JSON.stringify(body);
+
     const headers = { 'Content-Type': 'application/json' };
 
     const response = await axios.post(url, data, { headers });

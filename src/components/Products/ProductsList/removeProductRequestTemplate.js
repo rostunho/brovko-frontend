@@ -4,8 +4,8 @@ export const removeProductRequestTemplate = {
   form: FORM_KEY,
   action: 'delete',
   product: [
-    {
-      id: '',
-    },
+    // {
+    //   id: '',
+    // },
   ],
 };
