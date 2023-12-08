@@ -42,7 +42,8 @@ const Image = props => {
       )}
       {(!text.length > 0 || src) && (
         <img
-          className={className || styles.img}
+          // className={className || styles.img}
+          className={`${styles.img} ${className ? className : ''}`}
           style={imageStyles}
           src={image || defaultImage}
           alt={alt}

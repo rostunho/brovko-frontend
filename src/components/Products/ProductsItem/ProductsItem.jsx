@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addOrder } from 'redux/basket/basketSlice';
 import { Link } from 'react-router-dom';
@@ -6,11 +7,13 @@ import { getAllOrders } from 'redux/basket/basketSelectors';
 import StarEmpty from 'shared/icons/StarEmpty';
 import Button from 'shared/components/Button/Button';
 import Image from 'shared/components/Image';
+import Input from 'shared/components/Input';
 
 import styles from './ProductsItem.module.scss';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 
 const ProductsItem = ({ product }) => {
+  const [cardIsSelected, setCardIsSelected] = useState(false);
   const orders = useSelector(getAllOrders);
   const location = useLocation();
 
@@ -31,9 +34,21 @@ const ProductsItem = ({ product }) => {
   };
 
   return (
-    <div className={styles.productCard}>
+    <div
+      className={`${styles.productCard} ${
+        cardIsSelected ? styles['productCard--selected'] : ''
+      }`}
+    >
       <div className={styles.image}>
-        <Image src={product.picture} />
+        <Input
+          type="checkbox"
+          className={styles.checkbox}
+          inputClassName={styles['checkbox-input']}
+          onChange={() => {
+            setCardIsSelected(!cardIsSelected);
+          }}
+        />
+        <Image src={product.picture} className={styles.picture} />
       </div>
 
       <div className={styles.description}>

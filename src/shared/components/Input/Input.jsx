@@ -12,6 +12,7 @@ export default function Input({
   type = 'text',
   label,
   placeholder,
+  className, // додатковий клас для всього компонента
   //   додатковий клас для підпису (якщо потрібен)
   labelClassName,
   //   додатковий клас для інпуту (якщо потрібен)
@@ -163,9 +164,12 @@ export default function Input({
           styles[`input-box__length--${length}`]
         } ${isCheckbox || isRadio ? styles['input-box__controls'] : ''} ${
           checkBoxIsChecked ? styles['input-box__controls--checked'] : ''
-        } ${labelClassName ? labelClassName : ''}`}
+        } ${className ? className : ''}`}
       >
-        <label htmlFor={id} className={styles.label}>
+        <label
+          htmlFor={id}
+          className={`${styles.label} ${labelClassName ? labelClassName : ''}`}
+        >
           {label}
         </label>
         <InputElement
