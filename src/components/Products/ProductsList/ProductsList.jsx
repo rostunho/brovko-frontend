@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import ProductsItem from '../ProductsItem';
+import Button from 'shared/components/Button';
 import styles from './ProductsList.module.scss';
 
 const ProductList = ({ products, sortedProducts }) => {
+  const [userStatus, setUserStatus] = useState('manager'); // Change to useSelector
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
 
   const getItemsForRemoving = (id, checked) => {
@@ -34,11 +36,24 @@ const ProductList = ({ products, sortedProducts }) => {
 
   return (
     <div className={styles.products}>
+      {(userStatus === 'manager' || userStatus === 'superadmin') && (
+        <Button
+          className={styles['delete-button']}
+          size="lg"
+          disabled={productIdsForRemoving.length < 1}
+        >
+          Видалити
+        </Button>
+      )}
       {sortedProducts.length > 0 ? (
         <ul className={styles.list}>
           {sortedProducts.map(product => (
             <li key={product._id}>
-              <ProductsItem product={product} onChange={getItemsForRemoving} />
+              <ProductsItem
+                product={product}
+                onChange={getItemsForRemoving}
+                userStatus={userStatus}
+              />
             </li>
           ))}
         </ul>

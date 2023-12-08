@@ -12,7 +12,7 @@ import Input from 'shared/components/Input';
 import styles from './ProductsItem.module.scss';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 
-const ProductsItem = ({ product, onChange }) => {
+const ProductsItem = ({ product, onChange, userStatus }) => {
   const [cardIsSelected, setCardIsSelected] = useState(false);
   const orders = useSelector(getAllOrders);
   const location = useLocation();
@@ -48,13 +48,15 @@ const ProductsItem = ({ product, onChange }) => {
       }`}
     >
       <div className={styles.image}>
-        <Input
-          type="checkbox"
-          className={styles.checkbox}
-          inputClassName={styles['checkbox-input']}
-          value={cardIsSelected}
-          onChange={handleCardSelecting}
-        />
+        {(userStatus === 'manager' || userStatus === 'superadmin') && (
+          <Input
+            type="checkbox"
+            className={styles.checkbox}
+            inputClassName={styles['checkbox-input']}
+            value={cardIsSelected}
+            onChange={handleCardSelecting}
+          />
+        )}
         <Image src={product.picture} className={styles.picture} />
       </div>
 

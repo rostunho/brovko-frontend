@@ -27,3 +27,22 @@
   position: absolute;
   top: 10;
 }
+
+.delete-button {
+  background-color: #4d95c3;
+  margin-bottom: 24px;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #397398;
+  }
+
+  &:disabled {
+    background-color: #a0c1d7;
+  }
+
+  &:hover:disabled {
+    background-color: #a0c1d7;
+  }
+}
