@@ -4,8 +4,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllProducts } from 'redux/products/productsOperations';
 import { fetchReviews } from 'redux/reviews/reviewsOperations';
 import { fetchCategories } from 'redux/categories/categoriesOperations';
+import { setSearchTerm } from 'redux/search/searchSlice';
 import { getAllProducts } from 'redux/products/productsSelectors';
 import { getAllCategories } from 'redux/categories/categoriesSelectors';
+import { getSearchTerm } from 'redux/search/searchSelectors';
 
 import Heading from 'shared/components/Heading/Heading';
 import Pagination from 'components/Products/Pagination';
@@ -16,7 +18,6 @@ import Filter from 'components/Filter/Filter';
 
 export default function ProductListPage() {
   const [page, setPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSortingOption, setSelectedSortingOption] = useState(null);
 
@@ -50,9 +51,12 @@ export default function ProductListPage() {
     ...allCategories.items.map(({ _id, id, name }) => ({ name, id })),
   ];
 
+  const searchTerm = useSelector(getSearchTerm);
+  console.log('searchTerm', searchTerm);
+
   // обробкa події відправки форми
   const handleSearchSubmit = formData => {
-    setSearchTerm(formData.search); // Оновити стан пошуку
+    dispatch(setSearchTerm(formData.search)); // Оновити стан пошуку
   };
 
   // Фільтруємо продукти за пошуковим терміном та обраною категорією
