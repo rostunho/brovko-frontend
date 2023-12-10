@@ -34,6 +34,7 @@ import productsReducer from './products/productsSlice';
 import userReduser from './user/userSlice';
 import reviewsReduser from './reviews/reviewsSlice';
 import categoriesReduser from './categories/categoriesSlice';
+import searchReducer from './search/searchSlice';
 import { basketReducer } from './basket/basketSlice';
 import popupReducer from './popup/popupSlice';
 
@@ -56,6 +57,7 @@ const rootReducer = combineReducers({
   user: persistedUserReducer,
   reviews: reviewsReduser,
   categories: categoriesReduser,
+  search: searchReducer,
   basket: basketReducer,
   popups: popupReducer,
 });
