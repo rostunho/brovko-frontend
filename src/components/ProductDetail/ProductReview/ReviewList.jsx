@@ -5,12 +5,14 @@ function ReviewList({ reviews, isExpandedReview = true }) {
   if (!reviews || !reviews.comments) {
     return <></>;
   }
+  console.log('rewiews', reviews);
 
   // Витягуємо окремі рецензії з коментарів і розглядаємо їх окремо
   const sortedReviews = reviews.comments
     .flatMap(comment =>
       comment.text.map(review => ({
         owner: comment.owner,
+
         text: review.text,
         createdAt: review.createdAt,
       }))
@@ -31,6 +33,8 @@ function ReviewList({ reviews, isExpandedReview = true }) {
         <ReviewItem
           key={review.createdAt}
           review={review}
+          avatarURL={review.owner.avatarURL}
+          text={review.owner.email || review.owner.name}
           isExpandedReview={isExpandedReview}
         />
       ))}

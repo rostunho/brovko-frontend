@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 
 import { logout } from 'redux/user/userOperations';
 import { selectIsLogin } from 'redux/user/userSelectors';
+import { selectUser } from 'redux/user/userSelectors';
 
 import Heading from 'shared/components/Heading/Heading';
 import PersonalData from 'components/UserDashboard/PersonalData/PersonalData';
@@ -15,6 +16,7 @@ import styles from './UserDashboardPage.module.scss';
 export default function UserDashboardPage() {
   const dispatch = useDispatch();
   const isUserLogin = useSelector(selectIsLogin);
+  const { avatarURL, firstName, email } = useSelector(selectUser);
 
   const onLogout = () => {
     // console.log('click');
@@ -28,7 +30,7 @@ export default function UserDashboardPage() {
     <>
       <Heading withGoBack>Мій профіль</Heading>
       <div>
-        <Avatar />
+        <Avatar src={avatarURL} text={firstName || email} />
         <PersonalData />
         <Contacts />
         <OrdersHistory />

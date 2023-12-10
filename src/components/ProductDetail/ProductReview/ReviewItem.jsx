@@ -3,11 +3,7 @@ import Avatar from 'components/Avatar';
 
 import styles from '../ProductDetail.module.scss';
 
-const ReviewItem = ({ review, isExpandedReview }) => {
-  const user = review.owner.userId;
-  console.log('user', user);
-  console.log('rewiew', review);
-
+const ReviewItem = ({ review, avatarURL, text, isExpandedReview }) => {
   return (
     <div>
       {isExpandedReview ? (
@@ -20,8 +16,8 @@ const ReviewItem = ({ review, isExpandedReview }) => {
                 marginRight={12}
                 marginBottom={8}
                 fontSize={16}
-                user={user}
-                // avatarURL={avatarURL}
+                src={avatarURL}
+                text={text}
               />
 
               <div>
@@ -48,6 +44,8 @@ const ReviewItem = ({ review, isExpandedReview }) => {
               marginRight={12}
               marginBottom={8}
               fontSize={16}
+              src={avatarURL}
+              text={text}
             />
             <div>
               <p className={styles.userName}>

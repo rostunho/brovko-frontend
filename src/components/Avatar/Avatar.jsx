@@ -18,6 +18,8 @@ const Avatar = ({
   marginRight = 'auto',
   marginBottom = 32,
   fontSize = 36,
+  src,
+  text,
 }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const openModalEditPhoto = () => {
@@ -106,8 +108,8 @@ const Avatar = ({
       >
         <Image
           className={styles.avatar}
-          src={avatarURL}
-          text={firstName || email}
+          src={src}
+          text={text}
           fontSize={fontSize}
         />
         <CameraIcon className={styles.cameraIcon} />
