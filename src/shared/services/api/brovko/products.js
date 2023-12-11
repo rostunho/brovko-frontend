@@ -9,6 +9,9 @@ export const getAllProducts = async (page = 1) => {
       page,
     },
   });
+
+  console.log('DATA IN OPERATION :', data);
+
   return data;
 };
 
@@ -56,7 +59,9 @@ export const removeProduct = async body => {
     const headers = { 'Content-Type': 'application/json' };
 
     const response = await axios.post(url, data, { headers });
+    console.log('NEW RESPONSE IN PRODUCTS API >> :', response);
     console.log(response.data.message);
+    console.log('REMOVE PRODUCT WORKING');
   } catch (error) {
     console.log(error.message);
   }

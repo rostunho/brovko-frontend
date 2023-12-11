@@ -17,13 +17,13 @@ export default function Filter({
   const handleCategorySelect = category => {
     setSelectedCategory(category === 'Всі категорії' ? null : category.id); // Збросити вибрану категорію
     onCategorySelect(category.name === 'Всі категорії' ? null : category.id); // Виклик функції батьківського компонента
-    console.log('обрана категорія', category.id);
+    // console.log('обрана категорія', category.id);
   };
 
   const handleSortingSelect = option => {
     setSelectedSortingOption(option.name);
     onSortingSelect(option.name);
-    console.log('Option:', option);
+    // console.log('Option:', option);
   };
 
   const customStyle = {

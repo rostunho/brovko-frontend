@@ -28,9 +28,16 @@
   top: 10;
 }
 
-.delete-button {
-  background-color: #4d95c3;
+.buttons-list {
   margin-bottom: 24px;
+}
+
+.buttons-item:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.admin-button {
+  background-color: #4d95c3;
 
   &:hover,
   &:focus,

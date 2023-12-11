@@ -78,7 +78,7 @@ export const forgotPassword = async data => {
 
 export const getAllOrdersAuth = async () => {
   const { data } = await instance.get('/orders/auth');
-  console.log(data);
+  // console.log(data);
   return data;
 };
 

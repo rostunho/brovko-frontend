@@ -5,31 +5,37 @@ import styles from './ProductsList.module.scss';
 import { removeProduct } from 'shared/services/api/brovko/products';
 import { removeProductRequestTemplate } from './removeProductRequestTemplate';
 
-const ProductList = ({ products, sortedProducts }) => {
+const ProductList = ({ products, sortedProducts, refetchProducts }) => {
   const [userStatus, setUserStatus] = useState('manager'); // Change to useSelector
+  const [adminInCustomerMode, setAdminInCustomerMode] = useState(false);
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
 
   const handleRemoveProducts = async () => {
     const body = removeProductRequestTemplate;
-    console.log('body.product :>> ', body.product);
+    // console.log('body.product :>> ', body.product);
 
     body.product = productIdsForRemoving.map(id => ({ id }));
-    console.log('body.product after mapping:>> ', body.product);
-    console.log('body after mapping :>>', body);
+    // console.log('body.product after mapping:>> ', body.product);
+    // console.log('body after mapping :>>', body);
 
-    const response = await removeProduct(body);
+    await removeProduct(body);
+    await refetchProducts();
 
-    console.log('response :>> ', response);
+    // console.log('response :>> ', response);
+  };
+
+  const handleViewMode = () => {
+    setAdminInCustomerMode(!adminInCustomerMode);
   };
 
   const getItemsForRemoving = (id, checked) => {
-    console.log('DATA IN PRODUCT LIST :', { id: id, checked: checked });
+    // console.log('DATA IN PRODUCT LIST :', { id: id, checked: checked });
 
     checked
       ? addProductIdToDeletingList(id)
       : removeProductIdToDeletingList(id);
 
-    console.log('productIdsForRemoving :>> ', productIdsForRemoving);
+    // console.log('productIdsForRemoving :>> ', productIdsForRemoving);
   };
 
   const addProductIdToDeletingList = id => {
@@ -52,14 +58,29 @@ const ProductList = ({ products, sortedProducts }) => {
   return (
     <div className={styles.products}>
       {(userStatus === 'manager' || userStatus === 'superadmin') && (
-        <Button
-          className={styles['delete-button']}
-          size="lg"
-          disabled={productIdsForRemoving.length < 1}
-          onClick={handleRemoveProducts}
-        >
-          Видалити
-        </Button>
+        <ul className={styles['buttons-list']}>
+          <li className={styles['buttons-item']}>
+            <Button
+              className={styles['admin-button']}
+              size="lg"
+              disabled={productIdsForRemoving.length < 1}
+              onClick={handleRemoveProducts}
+            >
+              Видалити
+            </Button>
+          </li>
+          <li className={styles['buttons-item']}>
+            <Button
+              className={styles['admin-button']}
+              size="lg"
+              onClick={handleViewMode}
+            >
+              {adminInCustomerMode
+                ? 'Повернутись в режим Адміна'
+                : 'Переглянути в режимі покупця'}
+            </Button>
+          </li>
+        </ul>
       )}
       {sortedProducts.length > 0 ? (
         <ul className={styles.list}>
@@ -69,6 +90,7 @@ const ProductList = ({ products, sortedProducts }) => {
                 product={product}
                 onChange={getItemsForRemoving}
                 userStatus={userStatus}
+                adminInCustomerMode={adminInCustomerMode}
               />
             </li>
           ))}

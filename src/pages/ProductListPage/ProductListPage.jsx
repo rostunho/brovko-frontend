@@ -17,15 +17,28 @@ import Filter from 'components/Filter/Filter';
 // import styles from './ProductListPage.module.scss';
 
 export default function ProductListPage() {
+  console.log('RENDER PRODUCT LIST PAGE');
+
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSortingOption, setSelectedSortingOption] = useState(null);
+  const [forceRender, setForceRender] = useState(false);
+
+  const products = useSelector(getAllProducts);
+  const allCategories = useSelector(getAllCategories);
+  const searchTerm = useSelector(getSearchTerm);
+  // console.log('searchTerm', searchTerm);
+
+  const categories = [
+    { name: 'Всі категорії', id: 'all' },
+    ...allCategories.items.map(({ _id, id, name }) => ({ name, id })),
+  ];
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAllProducts(page));
-  }, [dispatch, page]);
+    !forceRender && dispatch(fetchAllProducts(page));
+  }, [dispatch, forceRender, page]);
 
   const handleChangePage = pageNumber => {
     setPage(pageNumber);
@@ -43,21 +56,22 @@ export default function ProductListPage() {
     dispatch(fetchCategories());
   }, [dispatch]);
 
-  const products = useSelector(getAllProducts);
-
-  const allCategories = useSelector(getAllCategories);
-  const categories = [
-    { name: 'Всі категорії', id: 'all' },
-    ...allCategories.items.map(({ _id, id, name }) => ({ name, id })),
-  ];
-
-  const searchTerm = useSelector(getSearchTerm);
-  console.log('searchTerm', searchTerm);
+  useEffect(() => {
+    console.log('forceRender after fetch :', forceRender);
+    setForceRender(false);
+  }, [forceRender]);
 
   // обробкa події відправки форми
   const handleSearchSubmit = formData => {
     dispatch(setSearchTerm(formData.search)); // Оновити стан пошуку
   };
+
+  function refetchProducts() {
+    console.log('forceRender before fetch :', forceRender);
+    console.log('REFETCH WORKING');
+    dispatch(fetchAllProducts());
+    setForceRender(true);
+  }
 
   // Фільтруємо продукти за пошуковим терміном та обраною категорією
   const filteredProducts = products.filter(product => {
@@ -93,11 +107,11 @@ export default function ProductListPage() {
     } else if (selectedSortingOption === 'Новинки') {
       sortedProducts.sort((a, b) => {
         // console.log('a.createdAt:', a.createdAt, 'b.createdAt:', b.createdAt);
-        return b.createdAt.localeCompare(a.createdAt);
+        return b?.createdAt?.localeCompare(a.createdAt);
       });
     }
   }
-  console.log('sortedProducts', sortedProducts);
+  // console.log('sortedProducts', sortedProducts);
 
   return (
     <>
@@ -112,6 +126,7 @@ export default function ProductListPage() {
         products={products}
         onSubmit={handleSearchSubmit}
         sortedProducts={sortedProducts}
+        refetchProducts={refetchProducts}
       />
       <Pagination page={page} onChangePage={handleChangePage} />
     </>
