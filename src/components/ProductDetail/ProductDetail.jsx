@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { addOrder } from 'redux/basket/basketSlice';
 import { getAllOrders } from 'redux/basket/basketSelectors';
 // import { addToCart } from 'redux/cart/cartActions';
@@ -14,26 +15,45 @@ import Price from 'components/ProductDetail/Price';
 import Description from 'components/ProductDetail/ProductDescription/Description';
 import Review from 'components/ProductDetail/ProductReview/Review';
 
-import styles from './ProductDetail.module.scss';
+import { getAllProducts } from 'redux/products/productsSelectors';
+import { getAllReviews } from 'redux/reviews/reviewsSelectors';
 import { addPopupOperation } from 'redux/popup/popupOperations';
+import { getProductById } from 'shared/services/api';
+
+import styles from './ProductDetail.module.scss';
 
 export default function ProductDetail({
-  product,
-  reviews,
+  // product,
+  // reviews,
   isExpandedDescription,
   isExpandedReview,
   handleReadMoreClick,
   handleReadReviewClick,
   location,
 }) {
-  const orders = useSelector(getAllOrders);
-  const { _id, picture, name, note, price, currencyId } = product;
-
-  console.log('picture :>> ', picture);
-
+  // const [product, setProduct] = useState(null);
   const [value, setValue] = useState(1);
-
   const dispatch = useDispatch();
+
+  const { productId } = useParams();
+  console.log('useParams', productId);
+
+  const allProducts = useSelector(getAllProducts);
+  const allReviews = useSelector(getAllReviews);
+
+  const product = allProducts?.find(p => p._id === productId);
+  const reviews = allReviews?.find(r => r.productId === productId);
+
+  const orders = useSelector(getAllOrders);
+
+  // useEffect(() => {
+  //   getProductById(productId).then(product => setProduct(product));
+  // }, [productId]);
+
+  if (!product) {
+    return;
+  }
+  const { _id, picture, name, note, price, currencyId } = product;
 
   const handleAddPopup = text => {
     dispatch(addPopupOperation(text));
@@ -47,7 +67,6 @@ export default function ProductDetail({
     }
     dispatch(addOrder({ ...product, value: value }));
     dispatch(addPopupOperation('Товар додано в кошик'));
-    // setValue(1);
   };
 
   return (
@@ -68,7 +87,6 @@ export default function ProductDetail({
         <Button
           onClick={handleAddToCart}
           value={value}
-          // setValue={setValue}
           type="submit"
           style={{ paddingLeft: 86, paddingRight: 86, marginTop: 33 }}
         >

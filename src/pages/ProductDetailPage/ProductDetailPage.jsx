@@ -7,19 +7,19 @@ import { getAllReviews } from 'redux/reviews/reviewsSelectors';
 import Heading from 'shared/components/Heading';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 
-export default function ProductDetailPage() {
-  const { productId } = useParams();
+export default function ProductDetailPage(product, reviews) {
+  // const { productId } = useParams();
   const location = useLocation();
   const from = location.state?.from || '/';
 
-  const allProducts = useSelector(getAllProducts);
-  const allReviews = useSelector(getAllReviews);
+  // const allProducts = useSelector(getAllProducts);
+  // const allReviews = useSelector(getAllReviews);
 
   // console.log('allProducts', allProducts);
-  console.log('allReviews', allReviews);
+  // console.log('allReviews', allReviews);
 
-  const product = allProducts?.find(p => p._id === productId);
-  const reviews = allReviews?.find(r => r.productId === productId);
+  // const product = allProducts?.find(p => p._id === productId);
+  // const reviews = allReviews?.find(r => r.productId === productId);
 
   // ================================================
 
