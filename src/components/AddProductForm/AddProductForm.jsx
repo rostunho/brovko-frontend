@@ -103,6 +103,18 @@ export default function AddProductForm({ update }) {
     setCategoryModalisOpen(!categoryModalisOpen);
   };
 
+  const detectCategoryNameById = (id, array) => {
+    const foundProduct = array.find(el => el.id === id);
+    return foundProduct?.name;
+  };
+
+  console.log('category id', requestBody.product[0].category.id);
+  console.log('categories', categories);
+  console.log(
+    'CATEGORY NAME',
+    detectCategoryNameById(requestBody.product[0].category.id, categories)
+  );
+
   return (
     <div className={styles.container}>
       <Heading withGoBack>Додати новий товар</Heading>
@@ -118,14 +130,24 @@ export default function AddProductForm({ update }) {
           label="Назва для документів :"
           name="nameForDocuments"
           onChange={e => dispatchRequestBody(e, 'ADD_NAME_FOR_DOCS')}
+          value={requestBody.product[0].nameForDocuments}
         />
 
         <div className={styles.category}>
           <Selector
             name="Category"
             data={categories}
-            defaultValue={{ name: 'Без категорії' }}
-            defaultOption="Без категорії"
+            defaultValue={
+              update
+                ? {
+                    name: detectCategoryNameById(
+                      requestBody.product[0].category.id,
+                      categories
+                    ),
+                  }
+                : { name: 'Без категорії' }
+            }
+            defaultOption={'Без категорії'}
             fetchSelectorValue={fetchSelectorValue}
           />
           <Button mode="adding" onClick={toggleCategoryModal}>
