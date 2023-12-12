@@ -1,5 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
-import { addNewProduct, getActiveCategories } from 'shared/services/api';
+import { useParams } from 'react-router-dom';
+import {
+  addNewProduct,
+  getActiveCategories,
+  getProductById,
+} from 'shared/services/api';
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
 import Selector from 'shared/components/Selector/Selector';
@@ -15,13 +20,33 @@ import styles from './AddProductForm.module.scss';
 import { useSelectorValue } from 'shared/hooks/useSelectorValue';
 import { useAddProductState } from 'shared/hooks/useAddProductState';
 
-export default function AddProductForm() {
+export default function AddProductForm({ update }) {
   const [requestBody, dispatchRequestBody] = useAddProductState();
   const [categories, setCategories] = useState([]);
   const [selectorValue, fetchSelectorValue] = useSelectorValue();
   const [productSize, setProductSize] = useState('0');
   const [categoryModalisOpen, setCategoryModalisOpen] = useState(false);
+  const [existingProduct, setExistingProduct] = useState(null);
   const formRef = useRef();
+  const { productId } = useParams();
+  console.log('productId', productId);
+
+  useEffect(() => {
+    if (!update) {
+      return;
+    }
+
+    const fetchExistingProduct = async id => {
+      const product = await getProductById(id);
+      console.log('product', product);
+      setExistingProduct(product);
+    };
+
+    fetchExistingProduct(productId);
+
+    // productId && setExistingProduct(fetchProduct(productId));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productId]);
 
   useEffect(() => {
     (async () => {

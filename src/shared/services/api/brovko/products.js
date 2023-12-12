@@ -26,14 +26,15 @@ export const getProductsByCategory = async (category = 'sets', page = 1) => {
 };
 
 export const getProductById = async id => {
-  const { data } = await axios.get(`/products/${id}`);
+  const { data } = await instance.get(`/products/product/${id}`);
+  console.log('data in PRODUCTS >> :', data);
   return data;
 };
 
-export const deleteProductById = async id => {
-  const { data } = instance.delete(`/products/${id}`);
-  return data;
-};
+// export const deleteProductById = async id => {
+//   const { data } = instance.delete(`/products/${id}`);
+//   return data;
+// };
 
 export const addNewProduct = async body => {
   try {

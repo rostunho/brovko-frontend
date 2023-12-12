@@ -36,6 +36,7 @@ function App() {
         <Route path="/auth/*" element={<AuthRoutes />} />
 
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/:productId" element={<AdminPage />} />
 
         <Route path="/order" element={<OrderPage />}>
           <Route
