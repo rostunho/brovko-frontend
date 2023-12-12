@@ -93,8 +93,33 @@ export const addProductReducer = (state, action) => {
       newState.product[0].description = payload;
       return newState;
 
+    case 'ADD_SAVED_PRODUCT':
+      // for (const key in newState.product[0]) {
+      //   if (
+      //     payload.hasOwnProperty(key) &&
+      //     newState.product[0].hasOwnProperty(key)
+      //   ) {
+      //     newState.product[0][key] = payload[key];
+      //   }
+      // }
+      newState.product[0].id = payload.id;
+      newState.product[0].costPerItem = payload.price.toString();
+      newState.product[0].currency = payload.currencyId;
+      newState.product[0].category.id = payload.categoryId;
+      newState.product[0].description = payload.description;
+      newState.product[0].name = payload.name;
+      newState.product[0].name = payload.name;
+      newState.product[0].url = payload.url;
+      newState.product[0].images = [...payload.picture];
+      newState.product[0].manufacturer = payload.vendor;
+      newState.product[0].barcode = payload.barcode;
+      newState.product[0].keywords = payload.keywords;
+      newState.product[0].note = payload.note;
+
+      return newState;
+
     case 'CLEAR_FORM':
-      return { ...addProductRequestTemplate };
+      return { ...addProductRequestTemplate() };
 
     default:
       return state;

@@ -1,5 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
-import { addNewProduct, getActiveCategories } from 'shared/services/api';
+import { useParams } from 'react-router-dom';
+import {
+  addNewProduct,
+  getActiveCategories,
+  getProductById,
+} from 'shared/services/api';
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
 import Selector from 'shared/components/Selector/Selector';
@@ -15,13 +20,42 @@ import styles from './AddProductForm.module.scss';
 import { useSelectorValue } from 'shared/hooks/useSelectorValue';
 import { useAddProductState } from 'shared/hooks/useAddProductState';
 
-export default function AddProductForm() {
+export default function AddProductForm({ update }) {
+  const [existingProduct, setExistingProduct] = useState(null);
   const [requestBody, dispatchRequestBody] = useAddProductState();
   const [categories, setCategories] = useState([]);
   const [selectorValue, fetchSelectorValue] = useSelectorValue();
   const [productSize, setProductSize] = useState('0');
   const [categoryModalisOpen, setCategoryModalisOpen] = useState(false);
   const formRef = useRef();
+  const { productId } = useParams();
+  console.log('productId', productId);
+
+  useEffect(() => {
+    if (!update) {
+      return;
+    }
+
+    const fetchExistingProduct = async id => {
+      const product = await getProductById(id);
+      console.log('product', product);
+      setExistingProduct(product);
+    };
+
+    fetchExistingProduct(productId);
+
+    // productId && setExistingProduct(fetchProduct(productId));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productId]);
+
+  useEffect(() => {
+    if (!existingProduct) {
+      return;
+    }
+
+    dispatchRequestBody(null, 'ADD_SAVED_PRODUCT', existingProduct);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [existingProduct]);
 
   useEffect(() => {
     (async () => {
@@ -69,6 +103,18 @@ export default function AddProductForm() {
     setCategoryModalisOpen(!categoryModalisOpen);
   };
 
+  const detectCategoryNameById = (id, array) => {
+    const foundProduct = array.find(el => el.id === id);
+    return foundProduct?.name;
+  };
+
+  console.log('category id', requestBody.product[0].category.id);
+  console.log('categories', categories);
+  console.log(
+    'CATEGORY NAME',
+    detectCategoryNameById(requestBody.product[0].category.id, categories)
+  );
+
   return (
     <div className={styles.container}>
       <Heading withGoBack>Додати новий товар</Heading>
@@ -76,21 +122,34 @@ export default function AddProductForm() {
         <Input
           label="Назва :"
           name="name"
-          onBlur={e => dispatchRequestBody(e, 'ADD_NAME')}
+          onChange={e => dispatchRequestBody(e, 'ADD_NAME')}
+          value={requestBody.product[0].name}
         />
 
         <Input
           label="Назва для документів :"
           name="nameForDocuments"
           onChange={e => dispatchRequestBody(e, 'ADD_NAME_FOR_DOCS')}
+          value={requestBody.product[0].nameForDocuments}
         />
 
         <div className={styles.category}>
           <Selector
             name="Category"
             data={categories}
-            defaultValue={{ name: 'Без категорії' }}
-            defaultOption="Без категорії"
+            defaultValue={
+              update
+                ? {
+                    name:
+                      detectCategoryNameById(
+                        requestBody.product[0].category.id,
+                        categories
+                      ) || '',
+                    id: requestBody.product[0].category.id,
+                  }
+                : { name: 'Без категорії' }
+            }
+            defaultOption={'Без категорії'}
             fetchSelectorValue={fetchSelectorValue}
           />
           <Button mode="adding" onClick={toggleCategoryModal}>
@@ -113,6 +172,7 @@ export default function AddProductForm() {
             length="md"
             currency="UAH"
             onChange={e => dispatchRequestBody(e, 'ADD_PRICE')}
+            value={requestBody.product[0].costPerItem}
           />
           <Input
             type="number"
@@ -240,6 +300,7 @@ export default function AddProductForm() {
             label="ID товару :"
             name="id"
             length="md"
+            value={requestBody.product[0].id}
             onChange={e => dispatchRequestBody(e, 'ADD_ID')}
           />
         </div>
@@ -292,6 +353,7 @@ export default function AddProductForm() {
           name="description"
           onChange={e => dispatchRequestBody(e, 'ADD_DESCRIPTION')}
           rows="6"
+          value={requestBody.product[0].description}
         />
 
         <Button type="submit" style={{ marginTop: '56px' }}>
