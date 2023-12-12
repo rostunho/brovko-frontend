@@ -16,6 +16,8 @@ export default function TextInput({
       onChange={handleOnChange}
       inputMode="text"
       data-type={type}
+      // value={props.value}
+      // defaultValue={props.defaultValue}
     />
   );
 }

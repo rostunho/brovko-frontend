@@ -93,8 +93,20 @@ export const addProductReducer = (state, action) => {
       newState.product[0].description = payload;
       return newState;
 
+    case 'ADD_SAVED_PRODUCT':
+      for (const key in newState.product[0]) {
+        if (
+          payload.hasOwnProperty(key) &&
+          newState.product[0].hasOwnProperty(key)
+        ) {
+          newState.product[0][key] = payload[key];
+        }
+      }
+
+      return newState;
+
     case 'CLEAR_FORM':
-      return { ...addProductRequestTemplate };
+      return { ...addProductRequestTemplate() };
 
     default:
       return state;

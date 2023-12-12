@@ -21,12 +21,12 @@ import { useSelectorValue } from 'shared/hooks/useSelectorValue';
 import { useAddProductState } from 'shared/hooks/useAddProductState';
 
 export default function AddProductForm({ update }) {
+  const [existingProduct, setExistingProduct] = useState(null);
   const [requestBody, dispatchRequestBody] = useAddProductState();
   const [categories, setCategories] = useState([]);
   const [selectorValue, fetchSelectorValue] = useSelectorValue();
   const [productSize, setProductSize] = useState('0');
   const [categoryModalisOpen, setCategoryModalisOpen] = useState(false);
-  const [existingProduct, setExistingProduct] = useState(null);
   const formRef = useRef();
   const { productId } = useParams();
   console.log('productId', productId);
@@ -47,6 +47,15 @@ export default function AddProductForm({ update }) {
     // productId && setExistingProduct(fetchProduct(productId));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId]);
+
+  useEffect(() => {
+    if (!existingProduct) {
+      return;
+    }
+
+    dispatchRequestBody(null, 'ADD_SAVED_PRODUCT', existingProduct);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [existingProduct]);
 
   useEffect(() => {
     (async () => {
@@ -101,7 +110,8 @@ export default function AddProductForm({ update }) {
         <Input
           label="Назва :"
           name="name"
-          onBlur={e => dispatchRequestBody(e, 'ADD_NAME')}
+          onChange={e => dispatchRequestBody(e, 'ADD_NAME')}
+          value={requestBody.product[0].name}
         />
 
         <Input
@@ -138,6 +148,7 @@ export default function AddProductForm({ update }) {
             length="md"
             currency="UAH"
             onChange={e => dispatchRequestBody(e, 'ADD_PRICE')}
+            value={requestBody.product[0].costPerItem}
           />
           <Input
             type="number"
@@ -265,6 +276,7 @@ export default function AddProductForm({ update }) {
             label="ID товару :"
             name="id"
             length="md"
+            value={requestBody.product[0].id}
             onChange={e => dispatchRequestBody(e, 'ADD_ID')}
           />
         </div>

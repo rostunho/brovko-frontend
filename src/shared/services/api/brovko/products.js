@@ -27,7 +27,7 @@ export const getProductsByCategory = async (category = 'sets', page = 1) => {
 
 export const getProductById = async id => {
   const { data } = await instance.get(`/products/product/${id}`);
-  console.log('data in PRODUCTS >> :', data);
+  // console.log('data in PRODUCTS >> :', data);
   return data;
 };
 
