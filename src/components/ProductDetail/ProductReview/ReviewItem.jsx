@@ -1,9 +1,10 @@
 import RewiewRating from './ReviewRating';
+import Image from 'shared/components/Image';
 import Avatar from 'components/Avatar';
 
 import styles from '../ProductDetail.module.scss';
 
-const ReviewItem = ({ review, isExpandedReview }) => {
+const ReviewItem = ({ review, avatarURL, text, isExpandedReview }) => {
   const user = review.owner.userId;
   console.log('user', user);
   console.log('rewiew', review);
@@ -14,15 +15,14 @@ const ReviewItem = ({ review, isExpandedReview }) => {
         <ul className={styles.reviewBox}>
           <li className={styles.reviewItem}>
             <div className={styles.userInfo}>
-              <Avatar
-                size={40}
-                marginLeft={16}
-                marginRight={12}
-                marginBottom={8}
-                fontSize={16}
-                user={user}
-                // avatarURL={avatarURL}
-              />
+              <div className={styles.avatarWrapper}>
+                <Image
+                  className={styles.avatar}
+                  src={avatarURL}
+                  text={text}
+                  fontSize={16}
+                />
+              </div>
 
               <div>
                 <p className={styles.userName}>
@@ -42,13 +42,14 @@ const ReviewItem = ({ review, isExpandedReview }) => {
       ) : (
         <>
           <div className={styles.userInfo}>
-            <Avatar
-              size={40}
-              marginLeft={16}
-              marginRight={12}
-              marginBottom={8}
-              fontSize={16}
-            />
+            <div className={styles.avatarWrapper}>
+              <Image
+                className={styles.avatar}
+                src={avatarURL}
+                text={text}
+                fontSize={16}
+              />
+            </div>
             <div>
               <p className={styles.userName}>
                 {' '}

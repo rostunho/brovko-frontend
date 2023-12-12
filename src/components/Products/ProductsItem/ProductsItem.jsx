@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addOrder } from 'redux/basket/basketSlice';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import { getAllOrders } from 'redux/basket/basketSelectors';
+import { getProductById } from 'shared/services/api';
+import { addPopupOperation } from 'redux/popup/popupOperations';
+
 import StarEmpty from 'shared/icons/StarEmpty';
 import Button from 'shared/components/Button/Button';
 import Image from 'shared/components/Image';
 import Input from 'shared/components/Input';
 
 import styles from './ProductsItem.module.scss';
-import { addPopupOperation } from 'redux/popup/popupOperations';
 
 const ProductsItem = ({
   product,
@@ -18,10 +21,23 @@ const ProductsItem = ({
   userStatus,
   adminInCustomerMode,
 }) => {
+  // const [product, setProduct] = useState(null);
   const [cardIsSelected, setCardIsSelected] = useState(false);
+
+  // const { productId } = useParams();
+  // console.log('useParams', productId);
+
+  // const location = useLocation();
+  // const from = location.state?.from || '/';
+  // const navigate = useNavigate();
+
   const orders = useSelector(getAllOrders);
-  const location = useLocation();
+
   const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   getProductById(productId).then(product => setProduct(product));
+  // }, [productId]);
 
   useEffect(() => {
     onChange && onChange(product.id, cardIsSelected);
