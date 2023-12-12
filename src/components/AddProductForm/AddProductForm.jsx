@@ -140,10 +140,12 @@ export default function AddProductForm({ update }) {
             defaultValue={
               update
                 ? {
-                    name: detectCategoryNameById(
-                      requestBody.product[0].category.id,
-                      categories
-                    ),
+                    name:
+                      detectCategoryNameById(
+                        requestBody.product[0].category.id,
+                        categories
+                      ) || '',
+                    id: requestBody.product[0].category.id,
                   }
                 : { name: 'Без категорії' }
             }
@@ -351,6 +353,7 @@ export default function AddProductForm({ update }) {
           name="description"
           onChange={e => dispatchRequestBody(e, 'ADD_DESCRIPTION')}
           rows="6"
+          value={requestBody.product[0].description}
         />
 
         <Button type="submit" style={{ marginTop: '56px' }}>

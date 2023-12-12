@@ -103,7 +103,7 @@ export const addProductReducer = (state, action) => {
       //   }
       // }
       newState.product[0].id = payload.id;
-      newState.product[0].costPerItem = payload.price;
+      newState.product[0].costPerItem = payload.price.toString();
       newState.product[0].currency = payload.currencyId;
       newState.product[0].category.id = payload.categoryId;
       newState.product[0].description = payload.description;

@@ -13,7 +13,7 @@ export default function Selector({
   value,
   data,
   hotOptionsData,
-  defaultValue,
+  defaultValue, // ключ name буде значенням селектора за замовчуванням
   placeholder,
   form,
   size,
@@ -25,7 +25,7 @@ export default function Selector({
   multiple,
   required,
   disabled,
-  defaultOption,
+  defaultOption, // опція, яка буде першою у списку-випадайці
   style,
   dropdownStyle,
   ...props
@@ -59,7 +59,7 @@ export default function Selector({
   }, [currentValue, defaultValue]);
 
   useEffect(() => {
-    !currentValue &&
+    defaultValue.name !== currentValue.name &&
       fetchSelectorValue &&
       fetchSelectorValue({ ...currentValue });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -78,6 +78,7 @@ export default function Selector({
 
   const onOptionPress = category => {
     setCurrentValue(prevValue => ({ ...prevValue, ...category }));
+    // fetchSelectorValue && fetchSelectorValue({ ...currentValue });
     toggleDropdown();
   };
 
