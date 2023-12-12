@@ -31,6 +31,8 @@ function ReviewList({ reviews, isExpandedReview = true }) {
         <ReviewItem
           key={review.createdAt}
           review={review}
+          avatarURL={review.owner.avatarURL}
+          text={review.owner.email || review.owner.name}
           isExpandedReview={isExpandedReview}
         />
       ))}

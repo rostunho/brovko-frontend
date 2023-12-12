@@ -14,7 +14,9 @@ export default function LocationSelector({
   initialValue,
   initialList,
   extract,
+  refresh,
   clear,
+  autoclear,
   streetSelector,
   ...props
 }) {
@@ -26,6 +28,17 @@ export default function LocationSelector({
   useEffect(() => {
     setSearchValue(initialValue);
   }, [initialValue]);
+
+  useEffect(() => {
+    refresh && clearAllData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refresh]);
+
+  // // НЕ ПЕРЕВІРЕНО ДО КІНЦЯ !!! Очищаємо селектор по кліку на ОК в модальному вікні
+  // useEffect(() => {
+  //   data.length === 0 && searchValue.length !== 0 && clearAllData();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [data]);
 
   useEffect(() => {
     extract?.searchValue && extract.searchValue(searchValue);
@@ -55,14 +68,6 @@ export default function LocationSelector({
         : setSelectorIsOpen(false);
     }
   }, [data.length, initialValue, searchValue, selectedData, streetSelector]);
-
-  // const handleOnIconClick = event => {
-  //   initialValue && clearInitialList && clearInitialList();
-  //   toggleSelector();
-
-  //   setSearchValue('');
-  //   setSelectedData(null);
-  // };
 
   const clearAllData = () => {
     clear && clear();

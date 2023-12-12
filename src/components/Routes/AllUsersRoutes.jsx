@@ -17,11 +17,18 @@ const LazyExchangeAndReturnPage = lazy(() =>
 const LazyUserAgreementPage = lazy(() =>
   import('pages/UserAgreementPage/UserAgreementPage')
 );
+const SuperadminPage = lazy(() =>
+  import('pages/SuperadminPage/SuperadminPage')
+);
 const LazyPersonalDataProtectionPage = lazy(() =>
   import('pages/PersonalDataProtectionPage/PersonalDataProtectionPage')
 );
 
 export const allUserRoutes = [
+  {
+    path: '/superadmin',
+    Component: SuperadminPage,
+  },
   {
     path: '/about',
     Component: LazyAboutPage,

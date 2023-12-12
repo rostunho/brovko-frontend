@@ -13,7 +13,7 @@ export default function Selector({
   value,
   data,
   hotOptionsData,
-  defaultValue,
+  defaultValue, // ключ name буде значенням селектора за замовчуванням
   placeholder,
   form,
   size,
@@ -25,15 +25,15 @@ export default function Selector({
   multiple,
   required,
   disabled,
-  defaultOption,
+  defaultOption, // опція, яка буде першою у списку-випадайці
   style,
   dropdownStyle,
   ...props
 }) {
-  console.log('style', dropdownStyle);
+  // console.log('style', dropdownStyle);
 
   const [currentValue, setCurrentValue] = useState(
-    defaultValue || initialSelectorValue
+    defaultValue ? defaultValue : initialSelectorValue
   );
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -51,13 +51,26 @@ export default function Selector({
   }, [defaultOption, data]);
 
   useEffect(() => {
-    setDropdownIsOpen(openedDropdown);
-  }, [openedDropdown]);
+    if (!defaultValue || currentValue) {
+      return;
+    }
+
+    setCurrentValue({ ...defaultValue });
+  }, [currentValue, defaultValue]);
 
   useEffect(() => {
-    fetchSelectorValue && fetchSelectorValue({ ...currentValue });
+    defaultValue.name !== currentValue.name &&
+      fetchSelectorValue &&
+      fetchSelectorValue({ ...currentValue });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentValue]);
+
+  useEffect(() => {
+    if (!defaultValue || !defaultValue.name) {
+      return;
+    }
+    setCurrentValue({ ...defaultValue });
+  }, [defaultValue]);
 
   const toggleDropdown = () => {
     setDropdownIsOpen(!dropdownIsOpen);
@@ -65,10 +78,11 @@ export default function Selector({
 
   const onOptionPress = category => {
     setCurrentValue(prevValue => ({ ...prevValue, ...category }));
+    // fetchSelectorValue && fetchSelectorValue({ ...currentValue });
     toggleDropdown();
   };
 
-  const onhotOptionPress = option => {
+  const onHotOptionPress = option => {
     setCurrentValue(prevValue => ({ ...prevValue, name: option }));
   };
 
@@ -81,7 +95,7 @@ export default function Selector({
           className={`${styles.select} ${style ? styles['custom-style'] : ''}`}
           id={id}
           name={name}
-          value={value || currentValue.name}
+          value={value || currentValue?.name}
           readOnly
           onClick={toggleDropdown}
           placeholder={placeholder}
@@ -136,7 +150,7 @@ export default function Selector({
             return (
               <li
                 key={hotOptions.indexOf(option)}
-                onClick={() => onhotOptionPress(option)}
+                onClick={() => onHotOptionPress(option)}
               >
                 <p className={styles['hot-option-text']}>{option}</p>
               </li>

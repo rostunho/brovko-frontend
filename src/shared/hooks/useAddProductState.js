@@ -5,7 +5,7 @@ import { addProductRequestTemplate } from 'components/AddProductForm/addProductR
 export const useAddProductState = () => {
   const [state, dispatch] = useReducer(
     addProductReducer,
-    addProductRequestTemplate
+    addProductRequestTemplate()
   );
 
   const updateState = (event, type, data) => {

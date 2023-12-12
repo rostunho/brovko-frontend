@@ -5,7 +5,8 @@ export {
   getAllProducts,
   getProductsByCategory,
   getProductById,
-  deleteProductById,
+  removeProduct,
+  // deleteProductById,
   addNewProduct,
 } from './products';
 export { getReviews } from './reviews';

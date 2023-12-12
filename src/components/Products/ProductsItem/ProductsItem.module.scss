@@ -12,6 +12,10 @@
   padding-left: 12px;
   background: var(--white-bg-color);
   box-shadow: var(--box-shadow);
+
+  &--selected {
+    border: 3px solid var(--accent-color);
+  }
 }
 
 @media screen and (min-width: 480px) and (max-width: 767px) {
@@ -29,13 +33,39 @@
 
 .image {
   // width: 78vw;
+  position: relative;
   width: 100%;
   height: 86vw;
   margin-right: 0;
   background-color: var(--white-text-color);
   border-radius: 8px;
   overflow: hidden;
-  // border: solid red 1px;
+  // border: solid red 2px;
+}
+
+.checkbox {
+  position: absolute;
+  z-index: 20;
+  top: 16px;
+  right: 16px;
+}
+
+.checkbox-input[type='checkbox'] {
+  margin: 0 0 0 0;
+  border-color: #fff;
+  background-color: rgba(255, 255, 255, 0.5);
+
+  &:checked {
+    background-color: #fff;
+  }
+}
+
+.checkbox-backdrop {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: 48px;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 @media screen and (min-width: 480px) and (max-width: 767px) {

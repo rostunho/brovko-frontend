@@ -1,18 +1,29 @@
 import RewiewRating from './ReviewRating';
-import AvatarIcon from 'shared/icons/AvatarIcon';
+import Image from 'shared/components/Image';
 import Avatar from 'components/Avatar';
 
 import styles from '../ProductDetail.module.scss';
 
-const ReviewItem = ({ review, isExpandedReview }) => {
+const ReviewItem = ({ review, avatarURL, text, isExpandedReview }) => {
+  const user = review.owner.userId;
+  console.log('user', user);
+  console.log('rewiew', review);
+
   return (
     <div>
       {isExpandedReview ? (
         <ul className={styles.reviewBox}>
           <li className={styles.reviewItem}>
             <div className={styles.userInfo}>
-              <Avatar className={styles.avatar} />
-              {/* <AvatarIcon fill="#FF5733" className={styles.avatar} /> */}
+              <div className={styles.avatarWrapper}>
+                <Image
+                  className={styles.avatar}
+                  src={avatarURL}
+                  text={text}
+                  fontSize={16}
+                />
+              </div>
+
               <div>
                 <p className={styles.userName}>
                   {' '}
@@ -31,7 +42,14 @@ const ReviewItem = ({ review, isExpandedReview }) => {
       ) : (
         <>
           <div className={styles.userInfo}>
-            <AvatarIcon fill="#FF5733" className={styles.avatar} />
+            <div className={styles.avatarWrapper}>
+              <Image
+                className={styles.avatar}
+                src={avatarURL}
+                text={text}
+                fontSize={16}
+              />
+            </div>
             <div>
               <p className={styles.userName}>
                 {' '}

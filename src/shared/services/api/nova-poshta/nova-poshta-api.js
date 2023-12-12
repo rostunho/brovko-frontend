@@ -94,8 +94,50 @@ export const findWarehouse = async (searchValue, cityRef, postMachine) => {
     }
     //..
 
+    // console.log('data.data WAREHOUSE :>> ', data.data);
+
     return data.data;
   } catch (error) {
     console.log(error.message);
   }
 };
+
+export const getMainWarehouse = async cityRef => {
+  const bodyTemplate = {
+    apiKey: API_KEY,
+    modelName: 'Address',
+    calledMethod: 'getWarehouses',
+    methodProperties: {
+      SettlementRef: cityRef,
+      Page: '1',
+      Limit: '50',
+      Language: 'UA',
+    },
+  };
+
+  const body = JSON.stringify(bodyTemplate);
+
+  const { data } = await axios.post(NOVA_POSHTA_API, body);
+
+  if (data.errors.length > 0) {
+    throw Error(data.errors);
+  }
+
+  // console.log('data.data :>> ', {
+  //   Description: data.data[0].Description,
+  //   ShortAddress: data.data[0].ShortAddress,
+  //   Ref: data.data[0].Ref,
+  // });
+
+  // console.log('data.data :>> ', data.data[0]);
+
+  // return {
+  //   Description: data.data[0].Description,
+  //   ShortAddress: data.data[0].ShortAddress,
+  //   Ref: data.data[0].Ref,
+  // };
+
+  return data.data[0];
+};
+
+getMainWarehouse('e71abb60-4b33-11e4-ab6d-005056801329');

@@ -3,19 +3,21 @@ import { useState } from 'react';
 // import Button from 'shared/components/Button';
 // import ArrowDownIcon from 'shared/icons/ArrowDownIcon';
 import Selector from 'shared/components/Selector';
-import { categories, sortingOptions } from './constants';
+import { sortingOptions } from './constants';
 import styles from './Filter.module.scss';
 
-export default function Filter({ onCategorySelect, onSortingSelect }) {
+export default function Filter({
+  categories,
+  onCategorySelect,
+  onSortingSelect,
+}) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSortingOption, setSelectedSortingOption] = useState(null);
 
   const handleCategorySelect = category => {
-    setSelectedCategory(
-      category.name === 'Всі категорії' ? null : category.name
-    ); // Збросити вибрану категорію
-    onCategorySelect(category.name === 'Всі категорії' ? null : category.name); // Виклик функції батьківського компонента
-    console.log(category.name);
+    setSelectedCategory(category === 'Всі категорії' ? null : category.id); // Збросити вибрану категорію
+    onCategorySelect(category.name === 'Всі категорії' ? null : category.id); // Виклик функції батьківського компонента
+    // console.log('обрана категорія', category.id);
   };
 
   const handleSortingSelect = option => {

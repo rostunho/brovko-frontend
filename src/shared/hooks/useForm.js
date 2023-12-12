@@ -1,7 +1,11 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 const useForm = ({ initialState, onSubmit }) => {
   const [state, setState] = useState({ ...initialState });
+
+  // useEffect(() => {
+  //   setState(prevState => ({ ...prevState, ...initialState }));
+  // }, [initialState]);
 
   const handleChange = useCallback(
     ({ target }) => {
