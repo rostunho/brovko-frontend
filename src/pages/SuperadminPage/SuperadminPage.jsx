@@ -1,12 +1,13 @@
 import { useState } from 'react';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 import {
   getUserByEmail,
   changeUserStatus,
 } from 'shared/services/api/brovko/user';
 
-// import { selectUser } from 'redux/user/userSelectors';
+import { selectUser } from 'redux/user/userSelectors';
 
 import Heading from 'shared/components/Heading/Heading';
 import Input from 'shared/components/Input/Input';
@@ -19,29 +20,33 @@ const SuperadminPage = () => {
   const [requestedEmail, setRequestedEmail] = useState('');
   const [userFound, setUserFound] = useState(null);
 
-  // карент потрібний буде в майбутньому, щоб провіряти чи він суперадмін і якщо ні, то перекидувати в інше місце
-  // const currentUser = useSelector(selectUser);
-  // console.log(currentUser, 'current');
+  const currentUser = useSelector(selectUser);
+
+  if (currentUser.status !== 'superadmin') {
+    return <Navigate to="/" />;
+  }
+
+  const setUser = async () => {
+    const { user } = await getUserByEmail(requestedEmail);
+    setUserFound(user);
+  };
 
   const handleSubmit = async event => {
     event.preventDefault();
-    const { user } = await getUserByEmail(requestedEmail);
-    setUserFound(user);
-    console.log(userFound);
+    await setUser();
   };
 
   const onChangingEmail = e => {
     setRequestedEmail(e.target.value);
   };
 
-  const onChangingStatus = () => {
-    console.log('we want to change status');
+  const onChangingStatus = async () => {
     if (userFound && userFound.status === 'manager') {
-      console.log(userFound._id);
-      changeUserStatus(userFound._id, 'customer');
+      await changeUserStatus(userFound._id, 'customer');
+      await setUser();
     } else if (userFound && userFound.status === 'customer') {
-      console.log(userFound._id);
-      changeUserStatus(userFound._id, 'manager');
+      await changeUserStatus(userFound._id, 'manager');
+      await setUser();
     }
   };
 
@@ -75,7 +80,10 @@ const SuperadminPage = () => {
           <p>По-батькові: {userFound.middleName || ''}</p>
           <p>Номер телефону: {userFound.phone || ''}</p>
           <p>Статус: {userFound.status || ''}</p>
-          <Button style={{ marginTop: '10px' }} onClick={onChangingStatus}>
+          <Button
+            style={{ marginTop: '10px', marginBottom: '20px' }}
+            onClick={onChangingStatus}
+          >
             Змінити статус користувача
           </Button>
         </>

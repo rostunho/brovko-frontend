@@ -109,13 +109,12 @@ export const getUserByEmail = async (email = '') => {
 
 export const changeUserStatus = async (_id = '', status = 'customer') => {
   try {
-    const data = await instance.patch('/user/update-status', {
+    const data = await instance.patch('/user/update-status', null, {
       params: {
         _id,
         status,
       },
     });
-    console.log('_id in services:', _id, 'status in services:', status);
     console.log('change user status: ', data);
     return data;
   } catch (error) {
