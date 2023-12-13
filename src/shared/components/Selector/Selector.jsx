@@ -175,7 +175,7 @@ Selector.propTypes = {
     })
   ),
   defaultValue: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     id: PropTypes.string,
   }),
   hotOptionsData: PropTypes.arrayOf(PropTypes.string),

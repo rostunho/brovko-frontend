@@ -45,13 +45,10 @@ export default function AddProductForm({ update }) {
 
     const fetchExistingProduct = async id => {
       const product = await getProductById(id);
-      // console.log('product', product);
       setExistingProduct(product);
     };
 
     fetchExistingProduct(productId);
-
-    // productId && setExistingProduct(fetchProduct(productId));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId]);
 
@@ -63,7 +60,7 @@ export default function AddProductForm({ update }) {
     update &&
       fetchSelectorValue({
         name: detectCategoryNameById(existingProduct.categoryId, categories),
-        id: existingProduct.id,
+        id: existingProduct.categoryId,
       });
 
     dispatchRequestBody(null, 'ADD_SAVED_PRODUCT', existingProduct);
@@ -125,13 +122,6 @@ export default function AddProductForm({ update }) {
     return foundProduct?.name;
   }
 
-  // console.log('category id', requestBody.product[0].category.id);
-  // console.log('categories', categories);
-  // console.log(
-  //   'CATEGORY NAME',
-  //   detectCategoryNameById(requestBody.product[0].category.id, categories)
-  // );
-
   return (
     <div className={styles.container}>
       <Heading withGoBack>Додати новий товар</Heading>
@@ -154,18 +144,6 @@ export default function AddProductForm({ update }) {
           <Selector
             name="Category"
             data={categories}
-            // defaultValue={
-            //   update
-            //     ? {
-            //         name:
-            //           detectCategoryNameById(
-            //             requestBody.product[0].category.id,
-            //             categories
-            //           ) || '',
-            //         id: requestBody.product[0].category.id,
-            //       }
-            //     : { name: 'Без категорії' }
-            // }
             defaultValue={{ ...selectorValue }}
             defaultOption={'Без категорії'}
             fetchSelectorValue={fetchSelectorValue}
