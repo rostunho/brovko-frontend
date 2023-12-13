@@ -24,7 +24,10 @@ export default function AddProductForm({ update }) {
   const [existingProduct, setExistingProduct] = useState(null);
   const [requestBody, dispatchRequestBody] = useAddProductState();
   const [categories, setCategories] = useState([]);
-  const [selectorValue, fetchSelectorValue] = useSelectorValue();
+  const [selectorValue, fetchSelectorValue] = useSelectorValue({
+    name: 'Без категорії',
+    id: '',
+  });
   const [productSize, setProductSize] = useState('0');
   const [categoryModalisOpen, setCategoryModalisOpen] = useState(false);
   const formRef = useRef();
@@ -53,6 +56,12 @@ export default function AddProductForm({ update }) {
       return;
     }
 
+    update &&
+      fetchSelectorValue({
+        name: detectCategoryNameById(existingProduct.categoryId, categories),
+        id: existingProduct.id,
+      });
+
     dispatchRequestBody(null, 'ADD_SAVED_PRODUCT', existingProduct);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [existingProduct]);
@@ -69,6 +78,10 @@ export default function AddProductForm({ update }) {
   }, []);
 
   useEffect(() => {
+    if (existingProduct?.categoryId === selectorValue?.id) {
+      return;
+    }
+
     const checking =
       selectorValue?.name?.toLocaleLowerCase() !== 'без категорії';
 
@@ -89,7 +102,7 @@ export default function AddProductForm({ update }) {
     const { height, width, length } = currentData.product[0];
     const size = (Number(height) * Number(width) * Number(length)) / 1000000;
 
-    setProductSize(size.toFixed(2));
+    setProductSize(size.toFixed(3));
   }, [productSize, requestBody]);
 
   const handleSubmit = async event => {
@@ -103,10 +116,10 @@ export default function AddProductForm({ update }) {
     setCategoryModalisOpen(!categoryModalisOpen);
   };
 
-  const detectCategoryNameById = (id, array) => {
+  function detectCategoryNameById(id, array) {
     const foundProduct = array.find(el => el.id === id);
     return foundProduct?.name;
-  };
+  }
 
   console.log('category id', requestBody.product[0].category.id);
   console.log('categories', categories);
@@ -137,18 +150,19 @@ export default function AddProductForm({ update }) {
           <Selector
             name="Category"
             data={categories}
-            defaultValue={
-              update
-                ? {
-                    name:
-                      detectCategoryNameById(
-                        requestBody.product[0].category.id,
-                        categories
-                      ) || '',
-                    id: requestBody.product[0].category.id,
-                  }
-                : { name: 'Без категорії' }
-            }
+            // defaultValue={
+            //   update
+            //     ? {
+            //         name:
+            //           detectCategoryNameById(
+            //             requestBody.product[0].category.id,
+            //             categories
+            //           ) || '',
+            //         id: requestBody.product[0].category.id,
+            //       }
+            //     : { name: 'Без категорії' }
+            // }
+            defaultValue={{ ...selectorValue }}
             defaultOption={'Без категорії'}
             fetchSelectorValue={fetchSelectorValue}
           />
