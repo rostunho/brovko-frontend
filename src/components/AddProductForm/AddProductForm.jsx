@@ -24,15 +24,19 @@ export default function AddProductForm({ update }) {
   const [existingProduct, setExistingProduct] = useState(null);
   const [requestBody, dispatchRequestBody] = useAddProductState();
   const [categories, setCategories] = useState([]);
-  const [selectorValue, fetchSelectorValue] = useSelectorValue({
-    name: 'Без категорії',
-    id: '',
-  });
+  const [selectorValue, fetchSelectorValue] = useSelectorValue(
+    update
+      ? null
+      : {
+          name: 'Без категорії',
+          id: '',
+        }
+  );
   const [productSize, setProductSize] = useState('0');
   const [categoryModalisOpen, setCategoryModalisOpen] = useState(false);
   const formRef = useRef();
   const { productId } = useParams();
-  console.log('productId', productId);
+  // console.log('productId', productId);
 
   useEffect(() => {
     if (!update) {
@@ -41,7 +45,7 @@ export default function AddProductForm({ update }) {
 
     const fetchExistingProduct = async id => {
       const product = await getProductById(id);
-      console.log('product', product);
+      // console.log('product', product);
       setExistingProduct(product);
     };
 
@@ -121,12 +125,12 @@ export default function AddProductForm({ update }) {
     return foundProduct?.name;
   }
 
-  console.log('category id', requestBody.product[0].category.id);
-  console.log('categories', categories);
-  console.log(
-    'CATEGORY NAME',
-    detectCategoryNameById(requestBody.product[0].category.id, categories)
-  );
+  // console.log('category id', requestBody.product[0].category.id);
+  // console.log('categories', categories);
+  // console.log(
+  //   'CATEGORY NAME',
+  //   detectCategoryNameById(requestBody.product[0].category.id, categories)
+  // );
 
   return (
     <div className={styles.container}>
