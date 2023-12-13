@@ -6,9 +6,17 @@
   background-color: #f4f4f4;
   border-radius: 8px;
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 15px;
+}
+
+.container.img {
+  width: 120px;
+  height: 120px;
+  margin-top: 60px;
+  padding: 0 16px;
 }
 
 .fileInputLabel {

@@ -115,7 +115,7 @@ export default function AddProductForm({ update }) {
     'CATEGORY NAME',
     detectCategoryNameById(requestBody.product[0].category.id, categories)
   );
-
+// console.log(existingProduct.picture)
   return (
     <div className={styles.container}>
       <Heading withGoBack>Додати новий товар</Heading>
@@ -133,7 +133,7 @@ export default function AddProductForm({ update }) {
           onChange={e => dispatchRequestBody(e, 'ADD_NAME_FOR_DOCS')}
           value={requestBody.product[0].nameForDocuments}
         />
-        <AddProductImage />
+        <AddProductImage pictures={existingProduct.picture} />
         <div className={styles.category}>
           <Selector
             name="Category"
