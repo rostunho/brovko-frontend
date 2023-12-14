@@ -17,7 +17,7 @@ import Filter from 'components/Filter/Filter';
 // import styles from './ProductListPage.module.scss';
 
 export default function ProductListPage() {
-  console.log('RENDER PRODUCT LIST PAGE');
+  // console.log('RENDER PRODUCT LIST PAGE');
 
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState(null);
