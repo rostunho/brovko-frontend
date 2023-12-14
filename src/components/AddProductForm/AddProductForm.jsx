@@ -140,7 +140,9 @@ export default function AddProductForm({ update }) {
           onChange={e => dispatchRequestBody(e, 'ADD_NAME_FOR_DOCS')}
           value={requestBody.product[0].nameForDocuments}
         />
-        <AddProductImage pictures={existingProduct.picture} />
+        <AddProductImage 
+        pictures={existingProduct.picture}
+         />
         <div className={styles.category}>
           <Selector
             name="Category"
