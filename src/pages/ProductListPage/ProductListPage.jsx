@@ -119,8 +119,8 @@ export default function ProductListPage() {
       <SearchBar onSubmit={handleSearchSubmit} />
       <Filter
         categories={categories}
-        onCategorySelect={category => setSelectedCategory(category)}
-        onSortingSelect={option => setSelectedSortingOption(option)}
+        onCategorySelect={setSelectedCategory}
+        onSortingSelect={setSelectedSortingOption}
       />
       <ProductList
         products={products}
