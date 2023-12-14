@@ -177,6 +177,7 @@ export default function AddProductForm({ update }) {
             length="md"
             currency="UAH"
             onChange={e => dispatchRequestBody(e, 'ADD_EXPENSES')}
+            // value='' //замінити на vendorprice, коли з'явиться
           />
         </div>
 

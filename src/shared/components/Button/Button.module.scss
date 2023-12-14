@@ -264,3 +264,21 @@
   fill: var(--white-text-color);
   fill-opacity: 0.4;
 }
+
+.admin-button {
+  background-color: #4d95c3;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #397398;
+  }
+
+  &:disabled {
+    background-color: #a0c1d7;
+  }
+
+  &:hover:disabled {
+    background-color: #a0c1d7;
+  }
+}

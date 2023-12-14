@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { addOrder } from 'redux/basket/basketSlice';
 import { getAllOrders } from 'redux/basket/basketSelectors';
+import { selectUserStatus } from 'redux/user/userSelectors';
 // import { addToCart } from 'redux/cart/cartActions';
 
 import Image from 'shared/components/Image';
@@ -33,9 +34,11 @@ export default function ProductDetail({
 }) {
   // const [product, setProduct] = useState(null);
   const [value, setValue] = useState(1);
-  const dispatch = useDispatch();
-
+  const userStatus = useSelector(selectUserStatus);
   const { productId } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   console.log('useParams', productId);
 
   const allProducts = useSelector(getAllProducts);
@@ -57,6 +60,10 @@ export default function ProductDetail({
 
   const handleAddPopup = text => {
     dispatch(addPopupOperation(text));
+  };
+
+  const goToEditProduct = () => {
+    navigate(`/admin/${productId}`);
   };
 
   const handleAddToCart = () => {
@@ -88,10 +95,17 @@ export default function ProductDetail({
           onClick={handleAddToCart}
           value={value}
           type="submit"
-          style={{ paddingLeft: 86, paddingRight: 86, marginTop: 33 }}
+          size="lg"
+          style={{ marginTop: 33 }}
         >
           Додати в кошик
         </Button>
+        {userStatus === 'manager' ||
+          (userStatus === 'superadmin' && (
+            <Button admin size="lg" onClick={goToEditProduct}>
+              РЕДАГУВАТИ
+            </Button>
+          ))}
         <Description
           product={product}
           isExpandedDescription={isExpandedDescription}
