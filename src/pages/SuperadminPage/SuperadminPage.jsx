@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
@@ -9,16 +9,29 @@ import {
 
 import { selectUser } from 'redux/user/userSelectors';
 
+import ModalStatusUpdate from 'components/Superadmin/ModalStatusUpdate';
+
 import Heading from 'shared/components/Heading/Heading';
 import Input from 'shared/components/Input/Input';
 import Button from 'shared/components/Button/Button';
 import Image from 'shared/components/Image';
+import Modal from 'shared/components/Modal/Modal';
 
 import styles from './SuperadminPage.module.scss';
 
 const SuperadminPage = () => {
   const [requestedEmail, setRequestedEmail] = useState('');
   const [userFound, setUserFound] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [status, setStatus] = useState('');
+
+  useEffect(() => {
+    if (userFound && userFound.status === 'manager') {
+      setStatus('customer');
+    } else if (userFound && userFound.status === 'customer') {
+      setStatus('manager');
+    }
+  }, [userFound]);
 
   const currentUser = useSelector(selectUser);
 
@@ -40,18 +53,27 @@ const SuperadminPage = () => {
     setRequestedEmail(e.target.value);
   };
 
-  const onChangingStatus = async () => {
-    if (userFound && userFound.status === 'manager') {
-      await changeUserStatus(userFound._id, 'customer');
-      await setUser();
-    } else if (userFound && userFound.status === 'customer') {
-      await changeUserStatus(userFound._id, 'manager');
-      await setUser();
-    }
+  const onChangingStatus = async data => {
+    await changeUserStatus(data);
+    await setUser();
+  };
+
+  const onCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
     <>
+      {isModalOpen && (
+        <Modal closeModal={onCloseModal}>
+          <ModalStatusUpdate
+            onSubmitForm={onChangingStatus}
+            email={currentUser.email}
+            _id={userFound._id}
+            status={status}
+          />
+        </Modal>
+      )}
       <Heading withGoBack>Superadmin's page</Heading>
       <form onSubmit={handleSubmit}>
         <Input
@@ -82,7 +104,7 @@ const SuperadminPage = () => {
           <p>Статус: {userFound.status || ''}</p>
           <Button
             style={{ marginTop: '10px', marginBottom: '20px' }}
-            onClick={onChangingStatus}
+            onClick={() => setIsModalOpen(true)}
           >
             Змінити статус користувача
           </Button>
