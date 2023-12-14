@@ -13,7 +13,7 @@ const Contacts = () => {
   const { phone, email, novaPoshta, buildingNumber, flat, _id } =
     useSelector(selectUser);
 
-  const { city, street, warehouse } = novaPoshta;
+  // const { city, street, warehouse } = novaPoshta;
   const dispatch = useDispatch();
 
   const onSubmitForm = data => {
@@ -34,9 +34,9 @@ const Contacts = () => {
           <ContactsForm
             phone={phone}
             email={email}
-            city={city}
-            street={street}
-            warehouse={warehouse}
+            city={novaPoshta?.city}
+            street={novaPoshta?.street}
+            warehouse={novaPoshta?.warehouse}
             buildingNumber={buildingNumber}
             flat={flat}
             id={_id}
