@@ -14,6 +14,7 @@ import Pagination from 'components/Products/Pagination';
 import ProductList from 'components/Products/ProductsList/ProductsList';
 import SearchBar from 'shared/components/SearchBar/SearchBar';
 import Filter from 'components/Filter/Filter';
+import { sortingFunctions } from './sortingFunctions';
 // import styles from './ProductListPage.module.scss';
 
 export default function ProductListPage() {
@@ -22,12 +23,14 @@ export default function ProductListPage() {
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSortingOption, setSelectedSortingOption] = useState(null);
+  const [sortedProducts, setSortedProducts] = useState([]);
+
   const [forceRender, setForceRender] = useState(false);
 
   const products = useSelector(getAllProducts);
   const allCategories = useSelector(getAllCategories);
   const searchTerm = useSelector(getSearchTerm);
-  // console.log('searchTerm', searchTerm);
+  console.log('allCategories', allCategories);
 
   const categories = [
     { name: 'Всі категорії', id: 'all' },
@@ -84,34 +87,19 @@ export default function ProductListPage() {
     const categoryMatch = product.categoryId.includes(selectedCategory);
     return nameMatch && categoryMatch;
   });
+  console.log('selectedCategory', selectedCategory);
+  console.log('filteredProducts', filteredProducts);
 
   // сортування
-  let sortedProducts = [...filteredProducts]; //копія масиву
+  const handleSortingSelect = option => {
+    setSelectedSortingOption(option);
+    let productsToSort =
+      filteredProducts.length > 0 ? [...filteredProducts] : [...products];
+    productsToSort.sort(sortingFunctions[option]);
+    setSortedProducts(productsToSort);
+  };
 
-  if (selectedSortingOption) {
-    if (selectedSortingOption === 'Від дешевих до дорогих') {
-      sortedProducts.sort((a, b) => {
-        // console.log('a.price:', a.price, 'b.price:', b.price);
-        return a.price - b.price;
-      });
-    } else if (selectedSortingOption === 'Від дорогих до дешевих') {
-      sortedProducts.sort((a, b) => {
-        // console.log('a.price:', a.price, 'b.price:', b.price);
-        return b.price - a.price;
-      });
-    } else if (selectedSortingOption === 'За рейтингом') {
-      sortedProducts.sort((a, b) => {
-        // console.log('a.rating:', a.rating, 'b.rating:', b.rating);
-        return b.rating - a.rating;
-      });
-    } else if (selectedSortingOption === 'Новинки') {
-      sortedProducts.sort((a, b) => {
-        // console.log('a.createdAt:', a.createdAt, 'b.createdAt:', b.createdAt);
-        return b?.createdAt?.localeCompare(a.createdAt);
-      });
-    }
-  }
-  // console.log('sortedProducts', sortedProducts);
+  console.log('sortedProducts', sortedProducts);
 
   return (
     <>
@@ -119,13 +107,13 @@ export default function ProductListPage() {
       <SearchBar onSubmit={handleSearchSubmit} />
       <Filter
         categories={categories}
-        onCategorySelect={setSelectedCategory}
-        onSortingSelect={setSelectedSortingOption}
+        onCategorySelect={category => setSelectedCategory(category)}
+        onSortingSelect={handleSortingSelect}
       />
       <ProductList
         products={products}
         onSubmit={handleSearchSubmit}
-        sortedProducts={sortedProducts}
+        sortedProducts={sortedProducts.length > 0 ? sortedProducts : products}
         refetchProducts={refetchProducts}
       />
       <Pagination page={page} onChangePage={handleChangePage} />
