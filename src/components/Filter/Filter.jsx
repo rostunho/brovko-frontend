@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // import DropdownMenu from './DropdownMenu';
 // import Button from 'shared/components/Button';
 // import ArrowDownIcon from 'shared/icons/ArrowDownIcon';
@@ -11,18 +11,35 @@ export default function Filter({
   onCategorySelect,
   onSortingSelect,
 }) {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedSortingOption, setSelectedSortingOption] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState({
+    name: 'Всі категорії',
+  });
+  const [selectedSortingOption, setSelectedSortingOption] = useState({
+    name: 'Сортування',
+  });
+
+  useEffect(() => {
+    onCategorySelect(selectedCategory);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    onSortingSelect(selectedSortingOption);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSortingOption]);
 
   const handleCategorySelect = category => {
-    setSelectedCategory(category === 'Всі категорії' ? null : category.id); // Збросити вибрану категорію
-    onCategorySelect(category.name === 'Всі категорії' ? null : category.id); // Виклик функції батьківського компонента
+    setSelectedCategory(category.name === 'Всі категорії' ? null : category.id); // Збросити вибрану категорію
+    // onCategorySelect(
+    //   category.name === 'Всі категорії' ? null : selectedCategory
+    // ); // Виклик функції батьківського компонента
+    console.log('HANDLE CATEGORY SELECT WORKING');
     // console.log('обрана категорія', category.id);
   };
 
   const handleSortingSelect = option => {
     setSelectedSortingOption(option.name);
-    onSortingSelect(option.name);
+    // onSortingSelect(option.name);
     // console.log('Option:', option);
   };
 
@@ -43,7 +60,7 @@ export default function Filter({
           dropdownStyle={customDropdownContainer}
           name="category"
           data={categories}
-          defaultValue={{ name: 'Всі категорії' }}
+          defaultValue={{ ...selectedCategory }}
           fetchSelectorValue={handleCategorySelect}
         />
       </div>
@@ -54,7 +71,7 @@ export default function Filter({
           dropdownStyle={customDropdownContainer}
           name="option"
           data={sortingOptions}
-          defaultValue={{ name: 'Сортування' }}
+          defaultValue={{ ...selectedSortingOption }}
           fetchSelectorValue={handleSortingSelect}
         />
       </div>
