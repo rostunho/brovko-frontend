@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-export function useSelectorValue() {
-  const [selectorValue, setSelectorValue] = useState('');
+export function useSelectorValue(initialState) {
+  const [selectorValue, setSelectorValue] = useState(initialState);
 
   const fetchSelectorValue = value => {
     setSelectorValue(value);

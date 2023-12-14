@@ -72,6 +72,11 @@ export default function Selector({
     setCurrentValue({ ...defaultValue });
   }, [defaultValue]);
 
+  useEffect(() => {
+    fetchSelectorValue({ ...currentValue });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const toggleDropdown = () => {
     setDropdownIsOpen(!dropdownIsOpen);
   };
@@ -165,12 +170,12 @@ export default function Selector({
 Selector.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.exact({
-      name: PropTypes.string.isRequired, // Ключами об'єкта можуть бути тільки "name"
+      name: PropTypes.string, // Ключами об'єкта можуть бути тільки "name"
       id: PropTypes.string, // і тільки "id". Жодних інших.
     })
   ),
   defaultValue: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     id: PropTypes.string,
   }),
   hotOptionsData: PropTypes.arrayOf(PropTypes.string),

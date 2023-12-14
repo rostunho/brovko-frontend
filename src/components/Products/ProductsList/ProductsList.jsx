@@ -1,14 +1,16 @@
 import { useState } from 'react';
+import { removeProduct } from 'shared/services/api/brovko/products';
+import { removeProductRequestTemplate } from './removeProductRequestTemplate';
+import { selectUserStatus } from 'redux/user/userSelectors';
 import ProductsItem from '../ProductsItem';
 import Button from 'shared/components/Button';
 import styles from './ProductsList.module.scss';
-import { removeProduct } from 'shared/services/api/brovko/products';
-import { removeProductRequestTemplate } from './removeProductRequestTemplate';
+import { useSelector } from 'react-redux';
 
 const ProductList = ({ products, sortedProducts, refetchProducts }) => {
-  const [userStatus, setUserStatus] = useState('manager'); // Change to useSelector
   const [adminInCustomerMode, setAdminInCustomerMode] = useState(false);
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
+  const userStatus = useSelector(selectUserStatus);
 
   const handleRemoveProducts = async () => {
     const body = removeProductRequestTemplate;
@@ -61,7 +63,8 @@ const ProductList = ({ products, sortedProducts, refetchProducts }) => {
         <ul className={styles['buttons-list']}>
           <li className={styles['buttons-item']}>
             <Button
-              className={styles['admin-button']}
+              // className={styles['admin-button']}
+              admin
               size="lg"
               disabled={productIdsForRemoving.length < 1}
               onClick={handleRemoveProducts}
@@ -71,7 +74,8 @@ const ProductList = ({ products, sortedProducts, refetchProducts }) => {
           </li>
           <li className={styles['buttons-item']}>
             <Button
-              className={styles['admin-button']}
+              // className={styles['admin-button']}
+              admin
               size="lg"
               onClick={handleViewMode}
             >
