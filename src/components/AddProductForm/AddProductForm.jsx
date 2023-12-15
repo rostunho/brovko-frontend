@@ -122,6 +122,7 @@ export default function AddProductForm({ update }) {
     const foundProduct = array.find(el => el.id === id);
     return foundProduct?.name;
   }
+console.log(existingProduct)
 
   return (
     <div className={styles.container}>
@@ -141,8 +142,9 @@ export default function AddProductForm({ update }) {
           value={requestBody.product[0].nameForDocuments}
         />
         <AddProductImage 
-        pictures={existingProduct.picture}
+        pictures={existingProduct !== null ? existingProduct : '[]'}
          />
+
         <div className={styles.category}>
           <Selector
             name="Category"
