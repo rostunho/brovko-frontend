@@ -92,7 +92,7 @@ const AddProductImage = ({ pictures }) => {
       <form onSubmit={onSubmitForm} className={styles.container}>
         {selectedImages.length > 0 &&
           selectedImages.map(image => (
-            <Image key={image.id} src={image.url} className={styles.img} />
+            <Image key={image.id} src={image.url} alt={`preview-${image.id}`}className={styles.img} />
           ))}
         {/* {selectedImages.length > 0 &&
          {selectedImages.map((image) => ( 
