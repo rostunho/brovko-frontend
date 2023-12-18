@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import ArrowDownIcon from 'shared/icons/ArrowDownIcon';
 import CrossIcon from 'shared/icons/CrossIcon';
 import styles from './SearchField.module.scss';
@@ -16,6 +17,12 @@ export default function SearchField({
   selector,
   ...props
 }) {
+  const [currentValue, setCurrentValue] = useState('');
+
+  useEffect(() => {
+    setCurrentValue(value);
+  }, [value]);
+
   // const handleOnClick = event => {
   //   onClick && onClick(event);
   // };
@@ -37,7 +44,7 @@ export default function SearchField({
         type="search"
         id={name}
         name={name}
-        value={value}
+        value={currentValue}
         className={styles.input}
         placeholder={placeholder}
         onChange={onChange}

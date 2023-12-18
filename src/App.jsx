@@ -18,6 +18,7 @@ const LazyNotFoundPage = lazy(() => import('pages/NotFoundPage/NotFoundPage'));
 
 const OrderPage = lazy(() => import('pages/OrderPage'));
 const AdminPage = lazy(() => import('pages/AdminPage'));
+const TestingPage = lazy(() => import('pages/Testing/TestingPage'));
 
 function App() {
   const userIsLogin = useSelector(selectIsLogin);
@@ -55,6 +56,8 @@ function App() {
           />
           <Route path="order-form" element={<OrderForm />} />
         </Route>
+
+        <Route path="/testing" element={<TestingPage />} />
 
         {/* Not Found */}
         <Route path="*" element={<LazyNotFoundPage />} />
