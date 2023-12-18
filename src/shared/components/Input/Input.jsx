@@ -5,7 +5,7 @@ import { validateInputValue } from 'utils';
 import { errorMessages } from './errorMessages';
 import InputElement from './InputElement';
 import Text from '../Text/Text';
-import WarningIcon from 'shared/icons/WarningIcon';
+// import WarningIcon from 'shared/icons/WarningIcon';
 import styles from './Input.module.scss';
 
 export default function Input({
@@ -30,6 +30,7 @@ export default function Input({
   currency,
   pattern,
   validateStatus,
+  additionalFunction,
   ...props
 }) {
   const [validationChecking, setValidationChecking] = useState('pending');
@@ -70,6 +71,7 @@ export default function Input({
     onChange && onChange(event);
 
     isCheckbox && setCheckBoxIsChecked(!checkBoxIsChecked);
+    isCheckbox && additionalFunction && additionalFunction();
 
     // КОТЕЛ ВАЛІДАЦІЇ
     if (

@@ -4,15 +4,27 @@ import Modal from 'shared/components/Modal/Modal';
 import Heading from 'shared/components/Heading';
 import Selector from 'shared/components/Selector';
 import OldInput from 'shared/components/OldInput';
+import Input from 'shared/components/Input';
 import Button from 'shared/components/Button';
 import { addCategoryRequestTemplate } from './addCategoryRequestTemplate';
 import styles from './AddCategoryPopup.module.scss';
 
-export default function AddCategoryPopup({ data, closeModal, ...prop }) {
+export default function AddCategoryPopup({
+  data,
+  closeModal,
+  updateCategories,
+  ...prop
+}) {
+  const [currentData, setCurrentData] = useState([]);
+
   const [requestBody, setRequestBody] = useState(addCategoryRequestTemplate);
   const [selectorIsShown, setSelectorIsShown] = useState(false);
   const [selectorValue, setSelectorValue] = useState('');
   const formRef = useRef();
+
+  useEffect(() => {
+    data && setCurrentData(data);
+  }, [data]);
 
   useEffect(() => {
     const newBody = { ...requestBody };
@@ -24,8 +36,9 @@ export default function AddCategoryPopup({ data, closeModal, ...prop }) {
 
   const onSave = async () => {
     await addNewCategory(requestBody);
+    updateCategories && updateCategories();
     formRef.current.reset();
-    closeModal();
+    // closeModal();
   };
 
   const onInputChange = event => {
@@ -48,19 +61,19 @@ export default function AddCategoryPopup({ data, closeModal, ...prop }) {
     <Modal centered closeModal={closeModal}>
       <Heading>Додати категорію</Heading>
       <form className={styles.wrapper} ref={formRef}>
-        <OldInput
+        <Input
           label="Назва нової категорії :"
           name="name"
           placeholder="Введіть назву нової категорії"
           onChange={onInputChange}
         />
-        <OldInput
+        <Input
           label="ID нової категорії :"
           name="id"
           length="md"
           onChange={onInputChange}
         />
-        <OldInput
+        <Input
           type="checkbox"
           label="Зробити підкатегорією :"
           placeholder="Введіть назву нової категорії"
@@ -71,8 +84,9 @@ export default function AddCategoryPopup({ data, closeModal, ...prop }) {
           <Selector
             name="parentId"
             label=""
-            data={data}
+            data={currentData}
             // data={[{ name: '1' }, { name: '2' }, { name: '3' }, { name: '4' }]}
+            value={selectorValue?.name}
             placeholder="Батьківська категорія"
             fetchSelectorValue={updateSelectorValue}
           />
@@ -85,3 +99,33 @@ export default function AddCategoryPopup({ data, closeModal, ...prop }) {
     </Modal>
   );
 }
+
+// const function10 = async () => {
+//   console.log('function10 working');
+// };
+// const function11 = async () => {
+//   console.log('function11 working');
+// };
+// const function12 = async () => {
+//   console.log('function12 working');
+// };
+// const function20 = async () => {
+//   console.log('function20 working');
+// };
+// const function21 = async () => {
+//   console.log('function21 working');
+// };
+// const function22 = async () => {
+//   console.log('function22 working');
+// };
+
+// export const functionA = async () => {
+//   await function10();
+//   await function11();
+//   await function12();
+// };
+// export const functionB = async () => {
+//   await function20();
+//   await function21();
+//   await function22();
+// };

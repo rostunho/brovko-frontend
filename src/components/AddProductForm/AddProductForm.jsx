@@ -24,6 +24,7 @@ export default function AddProductForm({ update }) {
   const [existingProduct, setExistingProduct] = useState(null);
   const [requestBody, dispatchRequestBody] = useAddProductState();
   const [categories, setCategories] = useState([]);
+  const [categoriesIsUpdated, setCategoriesIsUpdated] = useState(0);
   const [selectorValue, fetchSelectorValue] = useSelectorValue(
     update
       ? null
@@ -37,6 +38,33 @@ export default function AddProductForm({ update }) {
   const formRef = useRef();
   const { productId } = useParams();
   // console.log('productId', productId);
+
+  useEffect(() => {
+    (async () => {
+      await updateCategories();
+    })();
+
+    // updateCategories();
+    console.log('start useEffect is in working >>:', categories);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      await updateCategories();
+    })();
+
+    // updateCategories();
+    console.log(
+      'useEffect after categoryIsUpdate is in working >>:',
+      categories
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoriesIsUpdated]);
+
+  useEffect(() => {
+    console.log('categories updated >>:', categories);
+  }, [categories, categories.length]);
 
   useEffect(() => {
     if (!update) {
@@ -68,17 +96,6 @@ export default function AddProductForm({ update }) {
   }, [existingProduct]);
 
   useEffect(() => {
-    (async () => {
-      const activeCategories = await getActiveCategories();
-      const categoryNames = activeCategories.caregory.map(el => {
-        return { name: el.name, id: el.id };
-      });
-      setCategories(categoryNames);
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     if (existingProduct?.categoryId === selectorValue?.id) {
       return;
     }
@@ -106,11 +123,23 @@ export default function AddProductForm({ update }) {
     setProductSize(size.toFixed(3));
   }, [productSize, requestBody]);
 
+  useEffect(() => {}, [requestBody]);
+
   const handleSubmit = async event => {
     event.preventDefault();
 
     await addNewProduct(requestBody);
     formRef.current.reset();
+  };
+
+  const updateCategories = async () => {
+    const activeCategories = await getActiveCategories();
+    console.log('activeCategories :>> ', activeCategories);
+    const categoryNames = activeCategories.caregory.map(el => {
+      return { name: el.name, id: el.id };
+    });
+    console.log('TESTING');
+    setCategories(categoryNames);
   };
 
   const toggleCategoryModal = () => {
@@ -156,6 +185,9 @@ export default function AddProductForm({ update }) {
         {categoryModalisOpen && (
           <AddCategoryPopup
             data={categories}
+            updateCategories={() =>
+              setCategoriesIsUpdated(prevState => prevState + 1)
+            }
             closeModal={toggleCategoryModal}
           />
         )}

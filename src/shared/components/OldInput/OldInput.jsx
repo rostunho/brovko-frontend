@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import PasswordToggler from '../PasswordToggler/PasswordToggler';
 import SearchIcon from 'shared/icons/SearchIcon';
@@ -29,6 +29,7 @@ const OldInput = ({
   additionalFunction,
   ...props
 }) => {
+  const [initialValue, setInitialValue] = useState('');
   const [checkboxChecked, setCheckboxChecked] = useState(false);
   // const [selectedRedio, setSelectedRedio] = useState(value);
   const [showPassword, setShowPassword] = useState(false);
@@ -37,6 +38,10 @@ const OldInput = ({
   const withIcon = icon || type === 'password' || type === 'search';
 
   // console.log('OLD INPUT RERENDERING');
+
+  useEffect(() => {
+    setInitialValue(value);
+  }, [value]);
 
   const handleChackbox = () => {
     setCheckboxChecked(!checkboxChecked);
@@ -73,7 +78,7 @@ const OldInput = ({
         type={handleType()}
         id={id}
         name={name}
-        value={value}
+        value={initialValue}
         pattern={pattern}
         placeholder={placeholder}
         onChange={e => {
