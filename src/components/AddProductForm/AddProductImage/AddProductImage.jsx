@@ -27,7 +27,7 @@ const AddProductImage = ({ pictures }) => {
 
   if (files.length > 0) {
     setSelectedFiles(files);
-    // addImages();
+    addImages();
   }
     addImages();
 
@@ -116,7 +116,7 @@ const AddProductImage = ({ pictures }) => {
                   }
                 : undefined
             }
-            onChange={handleImageChange}
+            onChange={(e) => {handleImageChange(e)}}
           />
           <AddIconImage />
         </label>
