@@ -10,7 +10,7 @@ export const getAllProducts = async (page = 1) => {
     },
   });
 
-  console.log('DATA IN OPERATION :', data);
+  // console.log('DATA IN OPERATION :', data);
 
   return data;
 };

@@ -57,7 +57,7 @@ export default function ProductListPage() {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log('forceRender after fetch :', forceRender);
+    // console.log('forceRender after fetch :', forceRender);
     setForceRender(false);
   }, [forceRender]);
 

@@ -43,7 +43,7 @@ export default function Selector({
   const id = nanoid(6);
   let key = 0;
 
-  console.log('currentValue :>> ', currentValue.name);
+  // console.log('currentValue :>> ', currentValue.name);
 
   // useEffect(() => {
   //   value ? setInitialValue(value) : setInitialValue(currentValue?.name);
