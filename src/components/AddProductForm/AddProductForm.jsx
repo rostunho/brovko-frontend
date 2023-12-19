@@ -135,7 +135,7 @@ export default function AddProductForm({ update }) {
   const updateCategories = async () => {
     const activeCategories = await getActiveCategories();
     console.log('activeCategories :>> ', activeCategories);
-    const categoryNames = activeCategories.caregory.map(el => {
+    const categoryNames = activeCategories.categories.map(el => {
       return { name: el.name, id: el.id };
     });
     console.log('TESTING');
