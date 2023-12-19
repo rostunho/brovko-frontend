@@ -32,7 +32,7 @@ export default function Selector({
 }) {
   // console.log('style', dropdownStyle);
 
-  const [initialValue, setInitialValue] = useState(''); // значення, яке приходить з пропа value
+  // const [initialValue, setInitialValue] = useState(''); // значення, яке приходить з пропа value
   const [currentValue, setCurrentValue] = useState(
     defaultValue ? defaultValue : initialSelectorValue
   );
@@ -43,10 +43,10 @@ export default function Selector({
   const id = nanoid(6);
   let key = 0;
 
-  useEffect(() => {
-    value ? setInitialValue(value) : setInitialValue(currentValue?.name);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  // useEffect(() => {
+  //   value ? setInitialValue(value) : setInitialValue(currentValue?.name);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [value]);
 
   useEffect(() => {
     if (!defaultOption) {
@@ -106,7 +106,7 @@ export default function Selector({
           className={`${styles.select} ${style ? styles['custom-style'] : ''}`}
           id={id}
           name={name}
-          value={initialValue}
+          value={currentValue?.name}
           readOnly
           onClick={toggleDropdown}
           placeholder={placeholder}
