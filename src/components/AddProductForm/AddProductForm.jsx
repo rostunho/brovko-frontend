@@ -45,7 +45,7 @@ export default function AddProductForm({ update }) {
     })();
 
     // updateCategories();
-    console.log('start useEffect is in working >>:', categories);
+    // console.log('start useEffect is in working >>:', categories);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -55,16 +55,16 @@ export default function AddProductForm({ update }) {
     })();
 
     // updateCategories();
-    console.log(
-      'useEffect after categoryIsUpdate is in working >>:',
-      categories
-    );
+    // console.log(
+    //   'useEffect after categoryIsUpdate is in working >>:',
+    //   categories
+    // );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoriesIsUpdated]);
 
-  useEffect(() => {
-    console.log('categories updated >>:', categories);
-  }, [categories, categories.length]);
+  // useEffect(() => {
+  //   console.log('categories updated >>:', categories);
+  // }, [categories, categories.length]);
 
   useEffect(() => {
     if (!update) {
@@ -134,11 +134,11 @@ export default function AddProductForm({ update }) {
 
   const updateCategories = async () => {
     const activeCategories = await getActiveCategories();
-    console.log('activeCategories :>> ', activeCategories);
+    // console.log('activeCategories :>> ', activeCategories);
     const categoryNames = activeCategories.categories.map(el => {
       return { name: el.name, id: el.id };
     });
-    console.log('TESTING');
+    // console.log('TESTING');
     setCategories(categoryNames);
   };
 
@@ -173,7 +173,8 @@ export default function AddProductForm({ update }) {
           <Selector
             name="Category"
             data={categories}
-            defaultValue={{ ...selectorValue }}
+            // defaultValue={{ ...selectorValue }}
+            defaultValue={{ name: 'Без категорії' }}
             defaultOption={'Без категорії'}
             fetchSelectorValue={fetchSelectorValue}
           />

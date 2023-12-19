@@ -43,6 +43,8 @@ export default function Selector({
   const id = nanoid(6);
   let key = 0;
 
+  console.log('currentValue :>> ', currentValue.name);
+
   // useEffect(() => {
   //   value ? setInitialValue(value) : setInitialValue(currentValue?.name);
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,7 +64,8 @@ export default function Selector({
     }
 
     setCurrentValue({ ...defaultValue });
-  }, [currentValue, defaultValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     defaultValue?.name !== currentValue?.name &&
@@ -71,12 +74,16 @@ export default function Selector({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentValue]);
 
-  useEffect(() => {
-    if (!defaultValue || !defaultValue.name) {
-      return;
-    }
-    setCurrentValue({ ...defaultValue });
-  }, [defaultValue]);
+  // useEffect(() => {
+  //   if (
+  //     !defaultValue ||
+  //     !defaultValue.name ||
+  //     defaultValue?.name !== currentValue.name
+  //   ) {
+  //     return;
+  //   }
+  //   setCurrentValue({ ...defaultValue });
+  // }, [defaultValue]);
 
   useEffect(() => {
     fetchSelectorValue({ ...currentValue });
