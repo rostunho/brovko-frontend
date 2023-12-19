@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
+// import thunk from 'redux-thunk';
 import * as api from 'shared/services/api/brovko/categories';
 
 export const fetchCategories = createAsyncThunk(

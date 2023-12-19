@@ -1,8 +1,8 @@
 // NEED TO REFACTOR FOR CLEANING
 
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
 import { initialSelectorValue } from './initialSelectorValue';
 import styles from './Selector.module.scss';
@@ -32,6 +32,7 @@ export default function Selector({
 }) {
   // console.log('style', dropdownStyle);
 
+  // const [initialValue, setInitialValue] = useState(''); // значення, яке приходить з пропа value
   const [currentValue, setCurrentValue] = useState(
     defaultValue ? defaultValue : initialSelectorValue
   );
@@ -41,6 +42,13 @@ export default function Selector({
 
   const id = nanoid(6);
   let key = 0;
+
+  // console.log('currentValue :>> ', currentValue.name);
+
+  // useEffect(() => {
+  //   value ? setInitialValue(value) : setInitialValue(currentValue?.name);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [value]);
 
   useEffect(() => {
     if (!defaultOption) {
@@ -56,21 +64,26 @@ export default function Selector({
     }
 
     setCurrentValue({ ...defaultValue });
-  }, [currentValue, defaultValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
-    defaultValue.name !== currentValue.name &&
+    defaultValue?.name !== currentValue?.name &&
       fetchSelectorValue &&
       fetchSelectorValue({ ...currentValue });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentValue]);
 
-  useEffect(() => {
-    if (!defaultValue || !defaultValue.name) {
-      return;
-    }
-    setCurrentValue({ ...defaultValue });
-  }, [defaultValue]);
+  // useEffect(() => {
+  //   if (
+  //     !defaultValue ||
+  //     !defaultValue.name ||
+  //     defaultValue?.name !== currentValue.name
+  //   ) {
+  //     return;
+  //   }
+  //   setCurrentValue({ ...defaultValue });
+  // }, [defaultValue]);
 
   useEffect(() => {
     fetchSelectorValue({ ...currentValue });
@@ -100,7 +113,7 @@ export default function Selector({
           className={`${styles.select} ${style ? styles['custom-style'] : ''}`}
           id={id}
           name={name}
-          value={value || currentValue?.name}
+          value={currentValue?.name}
           readOnly
           onClick={toggleDropdown}
           placeholder={placeholder}

@@ -33,7 +33,7 @@ export default function Filter({
     // onCategorySelect(
     //   category.name === 'Всі категорії' ? null : selectedCategory
     // ); // Виклик функції батьківського компонента
-    console.log('HANDLE CATEGORY SELECT WORKING');
+    // console.log('HANDLE CATEGORY SELECT WORKING');
     // console.log('обрана категорія', category.id);
   };
 
