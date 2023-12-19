@@ -12,6 +12,8 @@ import { selectUser } from 'redux/user/userSelectors';
 import ModalStatusUpdate from 'components/Superadmin/ModalStatusUpdate';
 import NewStatusOptions from 'components/Superadmin/NewStatusOptions';
 import UserFound from 'components/Superadmin/UserFound';
+import Rectangle from 'components/Rectangle';
+import StatusSection from 'components/Superadmin/StatusSection';
 
 import Heading from 'shared/components/Heading/Heading';
 import Input from 'shared/components/Input/Input';
@@ -27,8 +29,6 @@ const SuperadminPage = () => {
   const setNewStatus = data => {
     setStatus(data);
   };
-
-  console.log(status);
 
   const currentUser = useSelector(selectUser);
 
@@ -80,7 +80,7 @@ const SuperadminPage = () => {
         />
         <Button
           type="submit"
-          style={{ marginTop: '10px', marginBottom: '10px' }}
+          style={{ marginTop: '16px', marginBottom: '32px' }}
         >
           Знайти
         </Button>
@@ -93,13 +93,15 @@ const SuperadminPage = () => {
             setNewStatus={setNewStatus}
           />
           <Button
-            style={{ marginTop: '10px', marginBottom: '20px' }}
+            style={{ marginTop: '10px', marginBottom: '32px' }}
             onClick={() => setIsModalOpen(true)}
           >
             Підписати
           </Button>
         </>
       )}
+      <Rectangle />
+      <StatusSection />
     </>
   );
 };
