@@ -32,7 +32,7 @@ export default function Selector({
 }) {
   // console.log('style', dropdownStyle);
 
-  const [initialValue, setInitialValue] = useState(''); // значення, яке приходить з пропа value
+  // const [initialValue, setInitialValue] = useState(''); // значення, яке приходить з пропа value
   const [currentValue, setCurrentValue] = useState(
     defaultValue ? defaultValue : initialSelectorValue
   );
@@ -43,10 +43,12 @@ export default function Selector({
   const id = nanoid(6);
   let key = 0;
 
-  useEffect(() => {
-    value ? setInitialValue(value) : setInitialValue(currentValue?.name);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  // console.log('currentValue :>> ', currentValue.name);
+
+  // useEffect(() => {
+  //   value ? setInitialValue(value) : setInitialValue(currentValue?.name);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [value]);
 
   useEffect(() => {
     if (!defaultOption) {
@@ -62,7 +64,8 @@ export default function Selector({
     }
 
     setCurrentValue({ ...defaultValue });
-  }, [currentValue, defaultValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     defaultValue?.name !== currentValue?.name &&
@@ -71,12 +74,16 @@ export default function Selector({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentValue]);
 
-  useEffect(() => {
-    if (!defaultValue || !defaultValue.name) {
-      return;
-    }
-    setCurrentValue({ ...defaultValue });
-  }, [defaultValue]);
+  // useEffect(() => {
+  //   if (
+  //     !defaultValue ||
+  //     !defaultValue.name ||
+  //     defaultValue?.name !== currentValue.name
+  //   ) {
+  //     return;
+  //   }
+  //   setCurrentValue({ ...defaultValue });
+  // }, [defaultValue]);
 
   useEffect(() => {
     fetchSelectorValue({ ...currentValue });
@@ -106,7 +113,7 @@ export default function Selector({
           className={`${styles.select} ${style ? styles['custom-style'] : ''}`}
           id={id}
           name={name}
-          value={initialValue}
+          value={currentValue?.name}
           readOnly
           onClick={toggleDropdown}
           placeholder={placeholder}

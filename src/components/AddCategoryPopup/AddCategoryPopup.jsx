@@ -3,7 +3,7 @@ import { addNewCategory } from 'shared/services/api/brovko/categories';
 import Modal from 'shared/components/Modal/Modal';
 import Heading from 'shared/components/Heading';
 import Selector from 'shared/components/Selector';
-import OldInput from 'shared/components/OldInput';
+// import OldInput from 'shared/components/OldInput';
 import Input from 'shared/components/Input';
 import Button from 'shared/components/Button';
 import { addCategoryRequestTemplate } from './addCategoryRequestTemplate';
