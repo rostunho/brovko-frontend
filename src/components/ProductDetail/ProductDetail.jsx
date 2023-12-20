@@ -6,6 +6,7 @@ import { getAllOrders } from 'redux/basket/basketSelectors';
 import { selectUserStatus } from 'redux/user/userSelectors';
 // import { addToCart } from 'redux/cart/cartActions';
 import ModalProductsInBasket from 'components/ModalProductsInBasket/ModalProductsInBasket';
+import useModal from 'shared/hooks/useModal';
 
 import Image from 'shared/components/Image';
 import Button from 'shared/components/Button';
@@ -34,7 +35,6 @@ export default function ProductDetail({
   location,
 }) {
   // const [product, setProduct] = useState(null);
-  const [basketIsOpen, setBasketIsOpen] = useState(false);
   const [value, setValue] = useState(1);
   const userStatus = useSelector(selectUserStatus);
   const { productId } = useParams();
@@ -43,6 +43,8 @@ export default function ProductDetail({
 
   const allProducts = useSelector(getAllProducts);
   const allReviews = useSelector(getAllReviews);
+
+  const { isOpen, openModal, closeModal } = useModal();
 
   const product = allProducts?.find(p => p._id === productId);
   const reviews = allReviews?.find(r => r.productId === productId);
@@ -67,14 +69,6 @@ export default function ProductDetail({
   };
 
   const orderInBasket = orders.some(order => order._id === product._id);
-
-  const openModal = () => {
-    setBasketIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setBasketIsOpen(false);
-  };
 
   const handleAddToCart = () => {
     if (orderInBasket) {
@@ -109,7 +103,7 @@ export default function ProductDetail({
         >
           {orderInBasket ? 'Видалити з кошика' : 'Додати в кошик'}
         </Button>
-        {basketIsOpen && <ModalProductsInBasket closeModal={closeModal} />}
+        {isOpen && <ModalProductsInBasket closeModal={closeModal} />}
         {userStatus === 'manager' ||
           (userStatus === 'superadmin' && (
             <Button admin size="lg" onClick={goToEditProduct}>
