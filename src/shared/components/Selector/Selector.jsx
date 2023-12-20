@@ -184,7 +184,8 @@ Selector.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.exact({
       name: PropTypes.string, // Ключами об'єкта можуть бути тільки "name"
-      id: PropTypes.string, // і тільки "id". Жодних інших.
+      id: PropTypes.string, //  тільки "id".
+      parentId: PropTypes.string, //  тільки "parentId". Жодних інших.
     })
   ),
   defaultValue: PropTypes.shape({

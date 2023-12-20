@@ -14,3 +14,12 @@ export const fetchCategories = createAsyncThunk(
     }
   }
 );
+
+export const functionB = async number => {
+  return number * 2;
+};
+
+export const functionA = async () => {
+  const result = await functionB(4);
+  return result;
+};

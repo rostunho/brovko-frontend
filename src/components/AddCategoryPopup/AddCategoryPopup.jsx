@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { addNewCategory } from 'shared/services/api/brovko/categories';
+import {
+  addNewCategory,
+  getActiveCategories,
+} from 'shared/services/api/brovko/categories';
 import Modal from 'shared/components/Modal/Modal';
 import Heading from 'shared/components/Heading';
 import Selector from 'shared/components/Selector';
@@ -8,6 +11,7 @@ import Input from 'shared/components/Input';
 import Button from 'shared/components/Button';
 import { addCategoryRequestTemplate } from './addCategoryRequestTemplate';
 import styles from './AddCategoryPopup.module.scss';
+import { update } from 'redux/user/userOperations';
 
 export default function AddCategoryPopup({
   data,
@@ -35,10 +39,12 @@ export default function AddCategoryPopup({
   }, [selectorValue]);
 
   const onSave = async () => {
-    await addNewCategory(requestBody);
-    updateCategories && updateCategories();
+    const { updatedCategories } = await addNewCategory(requestBody, update);
+    console.log('RESPONSE IN ON-SAVE', updatedCategories);
+    // await getActiveCategories();
+    updateCategories && updateCategories(updatedCategories);
     formRef.current.reset();
-    // closeModal();
+    closeModal();
   };
 
   const onInputChange = event => {
