@@ -83,6 +83,7 @@ export default function ProductListPage() {
     }
   }, [dispatch, searchTerm, page]);
 
+
   // обробкa події відправки форми
   const handleSearchSubmit = formData => {
     dispatch(setSearchTerm(formData.search));

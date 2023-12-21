@@ -5,6 +5,8 @@ import { addOrder } from 'redux/basket/basketSlice';
 import { getAllOrders } from 'redux/basket/basketSelectors';
 import { selectUserStatus } from 'redux/user/userSelectors';
 // import { addToCart } from 'redux/cart/cartActions';
+import ModalProductsInBasket from 'components/ModalProductsInBasket/ModalProductsInBasket';
+import useModal from 'shared/hooks/useModal';
 
 import Image from 'shared/components/Image';
 import Button from 'shared/components/Button';
@@ -39,10 +41,10 @@ export default function ProductDetail({
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log('useParams', productId);
-
   const allProducts = useSelector(getAllProducts);
   const allReviews = useSelector(getAllReviews);
+
+  const { isOpen, openModal, closeModal } = useModal();
 
   const product = allProducts?.find(p => p._id === productId);
   const reviews = allReviews?.find(r => r.productId === productId);
@@ -58,18 +60,19 @@ export default function ProductDetail({
   }
   const { _id, picture, name, note, price, currencyId } = product;
 
-  const handleAddPopup = text => {
-    dispatch(addPopupOperation(text));
-  };
+  // const handleAddPopup = text => {
+  //   dispatch(addPopupOperation(text));
+  // };
 
   const goToEditProduct = () => {
     navigate(`/admin/${productId}`);
   };
 
+  const orderInBasket = orders.some(order => order._id === product._id);
+
   const handleAddToCart = () => {
-    const result = orders.some(order => order._id === product._id);
-    if (result) {
-      handleAddPopup('Товар вже знаходиться в кошику');
+    if (orderInBasket) {
+      openModal();
       return;
     }
     dispatch(addOrder({ ...product, value: value }));
@@ -98,8 +101,9 @@ export default function ProductDetail({
           size="lg"
           style={{ marginTop: 33 }}
         >
-          Додати в кошик
+          {orderInBasket ? 'Видалити з кошика' : 'Додати в кошик'}
         </Button>
+        {isOpen && <ModalProductsInBasket closeModal={closeModal} />}
         {userStatus === 'manager' ||
           (userStatus === 'superadmin' && (
             <Button admin size="lg" onClick={goToEditProduct}>

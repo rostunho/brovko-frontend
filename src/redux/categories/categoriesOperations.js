@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
+// import thunk from 'redux-thunk';
 import * as api from 'shared/services/api/brovko/categories';
 
 export const fetchCategories = createAsyncThunk(
@@ -14,3 +14,12 @@ export const fetchCategories = createAsyncThunk(
     }
   }
 );
+
+export const functionB = async number => {
+  return number * 2;
+};
+
+export const functionA = async () => {
+  const result = await functionB(4);
+  return result;
+};

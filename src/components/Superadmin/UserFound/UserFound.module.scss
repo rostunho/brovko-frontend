@@ -1,0 +1,23 @@
+.wrapper {
+  margin-bottom: 24px;
+}
+
+.avatar {
+  //   position: relative;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.imgWrapper {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  padding: 0;
+  margin-bottom: 24px;
+  overflow: hidden;
+  fill: transparent;
+  background-color: transparent;
+}

@@ -118,3 +118,18 @@ export const changeUserStatus = async data => {
     throw error;
   }
 };
+
+export const getAllByStatus = async (status = '') => {
+  try {
+    const { data } = await instance.get('/user/get-by-status', {
+      params: {
+        status,
+      },
+    });
+    console.log(data, 'data in get all by status');
+    return data;
+  } catch (error) {
+    console.error('Error getting users by status: ', error);
+    throw error;
+  }
+};

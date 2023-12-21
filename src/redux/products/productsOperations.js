@@ -8,7 +8,7 @@ export const fetchAllProducts = createAsyncThunk(
     try {
       const data = await api.getAllProducts(page);
 
-      console.log('DATA IN THUNK >>> :', data);
+      // console.log('DATA IN THUNK >>> :', data);
 
       return data;
     } catch ({ response }) {

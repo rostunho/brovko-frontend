@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
@@ -10,14 +10,15 @@ import {
 import { selectUser } from 'redux/user/userSelectors';
 
 import ModalStatusUpdate from 'components/Superadmin/ModalStatusUpdate';
+import NewStatusOptions from 'components/Superadmin/NewStatusOptions';
+import UserFound from 'components/Superadmin/UserFound';
+import Rectangle from 'components/Rectangle';
+import StatusSection from 'components/Superadmin/StatusSection';
 
 import Heading from 'shared/components/Heading/Heading';
 import Input from 'shared/components/Input/Input';
 import Button from 'shared/components/Button/Button';
-import Image from 'shared/components/Image';
 import Modal from 'shared/components/Modal/Modal';
-
-import styles from './SuperadminPage.module.scss';
 
 const SuperadminPage = () => {
   const [requestedEmail, setRequestedEmail] = useState('');
@@ -25,13 +26,9 @@ const SuperadminPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [status, setStatus] = useState('');
 
-  useEffect(() => {
-    if (userFound && userFound.status === 'manager') {
-      setStatus('customer');
-    } else if (userFound && userFound.status === 'customer') {
-      setStatus('manager');
-    }
-  }, [userFound]);
+  const setNewStatus = data => {
+    setStatus(data);
+  };
 
   const currentUser = useSelector(selectUser);
 
@@ -56,6 +53,7 @@ const SuperadminPage = () => {
   const onChangingStatus = async data => {
     await changeUserStatus(data);
     await setUser();
+    setIsModalOpen(false);
   };
 
   const onCloseModal = () => {
@@ -82,34 +80,28 @@ const SuperadminPage = () => {
         />
         <Button
           type="submit"
-          style={{ marginTop: '10px', marginBottom: '10px' }}
+          style={{ marginTop: '16px', marginBottom: '32px' }}
         >
           Знайти
         </Button>
       </form>
       {userFound && (
         <>
-          <p>Користувач, якого вдалося знайти:</p>
-          <div className={styles.wrapper}>
-            <Image
-              className={styles.avatar}
-              src={userFound.avatarURL && userFound.avatarURL}
-              text={userFound.firstName || userFound.email}
-            />
-          </div>
-          <p>Прізвиище: {userFound.lastName || ''}</p>
-          <p>Ім'я: {userFound.firstName || ''}</p>
-          <p>По-батькові: {userFound.middleName || ''}</p>
-          <p>Номер телефону: {userFound.phone || ''}</p>
-          <p>Статус: {userFound.status || ''}</p>
+          <UserFound userFound={userFound} />
+          <NewStatusOptions
+            oldStatus={userFound.status}
+            setNewStatus={setNewStatus}
+          />
           <Button
-            style={{ marginTop: '10px', marginBottom: '20px' }}
+            style={{ marginTop: '10px', marginBottom: '32px' }}
             onClick={() => setIsModalOpen(true)}
           >
-            Змінити статус користувача
+            Підписати
           </Button>
         </>
       )}
+      <Rectangle />
+      <StatusSection />
     </>
   );
 };

@@ -37,9 +37,12 @@ export default function Filter({
   }, [selectedSortingOption]);
 
   const handleCategorySelect = category => {
-    setSelectedCategory(category.name === 'Всі категорії' ? null : category.id); 
-    console.log('HANDLE CATEGORY SELECT WORKING');
- 
+    setSelectedCategory(category.name === 'Всі категорії' ? null : category.id); // Збросити вибрану категорію
+    // onCategorySelect(
+    //   category.name === 'Всі категорії' ? null : selectedCategory
+    // ); // Виклик функції батьківського компонента
+    // console.log('HANDLE CATEGORY SELECT WORKING');
+    // console.log('обрана категорія', category.id);
   };
 
   const handleSortingSelect = option => {

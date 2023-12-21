@@ -36,7 +36,12 @@ export default function AddProductForm({ update }) {
   const [categoryModalisOpen, setCategoryModalisOpen] = useState(false);
   const formRef = useRef();
   const { productId } = useParams();
-  // console.log('productId', productId);
+
+  useEffect(() => {
+    (async () => {
+      await updateCategories();
+    })();
+  }, []);
 
   useEffect(() => {
     if (!update) {
@@ -68,17 +73,6 @@ export default function AddProductForm({ update }) {
   }, [existingProduct]);
 
   useEffect(() => {
-    (async () => {
-      const activeCategories = await getActiveCategories();
-      const categoryNames = activeCategories.caregory.map(el => {
-        return { name: el.name, id: el.id };
-      });
-      setCategories(categoryNames);
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     if (existingProduct?.categoryId === selectorValue?.id) {
       return;
     }
@@ -106,11 +100,24 @@ export default function AddProductForm({ update }) {
     setProductSize(size.toFixed(3));
   }, [productSize, requestBody]);
 
+  useEffect(() => {}, [requestBody]);
+
   const handleSubmit = async event => {
     event.preventDefault();
 
     await addNewProduct(requestBody);
     formRef.current.reset();
+  };
+
+  const updateCategories = async updates => {
+    if (!updates) {
+      const { categories } = await getActiveCategories();
+      setCategories([...categories]);
+    } else {
+      const { categories } = await getActiveCategories(updates);
+      // console.log('response 222 :>> ', {categories});
+      setCategories([...categories]);
+    }
   };
 
   const toggleCategoryModal = () => {
@@ -144,7 +151,8 @@ export default function AddProductForm({ update }) {
           <Selector
             name="Category"
             data={categories}
-            defaultValue={{ ...selectorValue }}
+            // defaultValue={{ ...selectorValue }}
+            defaultValue={{ name: 'Без категорії' }}
             defaultOption={'Без категорії'}
             fetchSelectorValue={fetchSelectorValue}
           />
@@ -156,6 +164,7 @@ export default function AddProductForm({ update }) {
         {categoryModalisOpen && (
           <AddCategoryPopup
             data={categories}
+            updateCategories={updateCategories}
             closeModal={toggleCategoryModal}
           />
         )}
