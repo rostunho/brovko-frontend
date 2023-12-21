@@ -24,8 +24,11 @@ export const addNewCategory = async (body, update) => {
     const headers = { 'Content-Type': 'application/json' };
 
     const response = await axios.post(url, data, { headers });
-    console.log('Post request response:', response.data);
-    return response.data.result;
+
+    console.log('Post request response:__________', response.data);
+    console.log(response.data.message);
+    return response.data;
+
   } catch (error) {
     console.log(error.message);
   }

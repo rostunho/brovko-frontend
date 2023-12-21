@@ -8,6 +8,7 @@ import styles from './Filter.module.scss';
 
 export default function Filter({
   categories,
+  searchTerm,
   onCategorySelect,
   onSortingSelect,
 }) {
@@ -22,6 +23,13 @@ export default function Filter({
     onCategorySelect(selectedCategory);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
+
+  useEffect(() => {
+    setSelectedCategory({
+      name: 'Всі категорії',
+    });
+  
+  }, [searchTerm]);
 
   useEffect(() => {
     onSortingSelect(selectedSortingOption);

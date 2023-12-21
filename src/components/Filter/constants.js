@@ -9,6 +9,7 @@ export const categories = [
 ];
 
 export const sortingOptions = [
+  { name: 'Без сортування', id: '0' },
   { name: 'Від дешевих до дорогих', id: '1' },
   { name: 'Від дорогих до дешевих', id: '2' },
   { name: 'За рейтингом', id: '3' },

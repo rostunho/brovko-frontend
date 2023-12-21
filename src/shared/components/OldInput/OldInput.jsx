@@ -11,6 +11,7 @@ const OldInput = ({
   name,
   value,
   onClick,
+  onRemove,
   onChange,
   onFocus,
   onBlur,
