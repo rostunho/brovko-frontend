@@ -18,8 +18,8 @@ const categoriesSlice = createSlice({
       })
       .addCase(fetchCategories.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.items = payload.caregory;
-        // console.log('state.items___caregory', state.items);
+        state.items = payload.categories;
+        console.log('state.items___caregory', state.items);
       })
       .addCase(fetchCategories.rejected, (store, { payload }) => {
         store.loading = false;

@@ -15,14 +15,40 @@ export const getAllProducts = async (page = 1) => {
   return data;
 };
 
-export const getProductsByCategory = async (category = 'sets', page = 1) => {
-  const { data } = await instance.get('/products/category', {
-    params: {
-      category,
-      page,
-    },
-  });
-  return data;
+// export const getProductsByCategory = async (category = 'sets', page = 1) => {
+//   const { data } = await instance.get('/products/category', {
+//     params: {
+//       category,
+//       page,
+//     },
+//   });
+//   return data;
+// };
+
+export const getProductsByCategory = async (categoryId = 'sets', page = 1) => {
+  try {
+    const { data } = await instance.get(`/products/category/${categoryId}`, {
+      params: { page },
+    });
+
+    console.log('getProductsByCategory:', data);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getProductsByKeywords = async (search = 'sets', page = 1) => {
+  try {
+    const { data } = await instance.get(`/products/search`, {
+      params: { search, page },
+    });
+
+    console.log('getProductsByKeywords:::::', data);
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const getProductById = async id => {

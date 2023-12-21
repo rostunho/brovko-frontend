@@ -4,8 +4,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllProducts } from 'redux/products/productsOperations';
 import { fetchReviews } from 'redux/reviews/reviewsOperations';
 import { fetchCategories } from 'redux/categories/categoriesOperations';
+import {
+  fetchProductsByCategory,
+  fetchProductsByKeywords,
+} from 'redux/products/productsOperations';
+
 import { setSearchTerm } from 'redux/search/searchSlice';
-import { getAllProducts } from 'redux/products/productsSelectors';
+import {
+  getAllProducts,
+  getProductsByCategory,
+  getProductsByKeywords,
+} from 'redux/products/productsSelectors';
 import { getAllCategories } from 'redux/categories/categoriesSelectors';
 import { getSearchTerm } from 'redux/search/searchSelectors';
 
@@ -25,22 +34,30 @@ export default function ProductListPage() {
   const [selectedSortingOption, setSelectedSortingOption] = useState(null);
   const [sortedProducts, setSortedProducts] = useState([]);
 
+  const [searchCleared, setSearchCleared] = useState(false);
+
+
   const [forceRender, setForceRender] = useState(false);
 
   const products = useSelector(getAllProducts);
-  const allCategories = useSelector(getAllCategories);
   const searchTerm = useSelector(getSearchTerm);
-  console.log('allCategories', allCategories);
+  const filteredProductsByKeywords = useSelector(getProductsByKeywords);
+  const allCategories = useSelector(getAllCategories);
+  const filteredProductsByCategory = useSelector(getProductsByCategory);
 
   const categories = [
     { name: 'Всі категорії', id: 'all' },
-    ...allCategories.items.map(({ _id, id, name }) => ({ name, id })),
+    ...(allCategories && allCategories.items
+      ? allCategories.items.map(({ _id, id, name }) => ({ name, id }))
+      : []),
   ];
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     !forceRender && dispatch(fetchAllProducts(page));
+    dispatch(fetchReviews());
+    dispatch(fetchCategories());
   }, [dispatch, forceRender, page]);
 
   const handleChangePage = pageNumber => {
@@ -52,49 +69,52 @@ export default function ProductListPage() {
   };
 
   useEffect(() => {
-    dispatch(fetchReviews());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchCategories());
-  }, [dispatch]);
-
-  useEffect(() => {
     console.log('forceRender after fetch :', forceRender);
     setForceRender(false);
   }, [forceRender]);
 
+  useEffect(() => {
+    dispatch(fetchProductsByCategory({ categoryId: selectedCategory }));
+  }, [dispatch, selectedCategory]);
+
+  useEffect(() => {
+    if (searchTerm) {
+      dispatch(fetchProductsByKeywords({ search: searchTerm, page }));
+    }
+  }, [dispatch, searchTerm, page]);
+
   // обробкa події відправки форми
   const handleSearchSubmit = formData => {
-    dispatch(setSearchTerm(formData.search)); // Оновити стан пошуку
+    dispatch(setSearchTerm(formData.search));
+    setSearchTerm(formData.search);
   };
 
+  const handleCategorySelect = categoryId => {
+    setSelectedCategory(categoryId);
+    setSearchCleared(true);
+  };
+
+  // const handleSortingSelect = option => {
+  //   setSelectedSortingOption(option);
+  // };
+
   function refetchProducts() {
-    console.log('forceRender before fetch :', forceRender);
-    console.log('REFETCH WORKING');
+    // console.log('forceRender before fetch :', forceRender);
+    // console.log('REFETCH WORKING');
     dispatch(fetchAllProducts());
     setForceRender(true);
   }
 
-  // Фільтруємо продукти за пошуковим терміном та обраною категорією
-  const filteredProducts = products.filter(product => {
-    const nameMatch =
-      !searchTerm ||
-      product.name.toLowerCase().includes(searchTerm.toLowerCase());
-    if (!selectedCategory) {
-      return nameMatch;
-    }
-    const categoryMatch = product.categoryId.includes(selectedCategory);
-    return nameMatch && categoryMatch;
-  });
-  console.log('selectedCategory', selectedCategory);
-  console.log('filteredProducts', filteredProducts);
+  const getFilteredProducts = () => {
+    return filteredProductsByCategory || filteredProductsByKeywords;
+  };
+  const filteredProducts = getFilteredProducts();
 
   // сортування
   const handleSortingSelect = option => {
     setSelectedSortingOption(option);
     let productsToSort =
-      filteredProducts.length > 0 ? [...filteredProducts] : [...products];
+      getFilteredProducts.length > 0 ? [...getFilteredProducts] : [...products];
     productsToSort.sort(sortingFunctions[option]);
     setSortedProducts(productsToSort);
   };
@@ -104,14 +124,15 @@ export default function ProductListPage() {
   return (
     <>
       <Heading withGoBack>Крамничка</Heading>
-      <SearchBar onSubmit={handleSearchSubmit} />
+      <SearchBar onSubmit={handleSearchSubmit} selectedCategory={selectedCategory}/>
       <Filter
         categories={categories}
-        onCategorySelect={category => setSelectedCategory(category)}
+        searchTerm={searchTerm}
+        onCategorySelect={handleCategorySelect}
         onSortingSelect={handleSortingSelect}
       />
       <ProductList
-        products={products}
+        products={filteredProducts}
         onSubmit={handleSearchSubmit}
         sortedProducts={sortedProducts.length > 0 ? sortedProducts : products}
         refetchProducts={refetchProducts}

@@ -26,6 +26,7 @@ const useForm = ({ initialState, onSubmit }) => {
   const handleSubmitSearch = e => {
     e.preventDefault();
     onSubmit({ ...state });
+    // setState({ ...initialState });
   };
 
   return { state, setState, handleChange, handleSubmit, handleSubmitSearch };

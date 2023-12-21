@@ -8,6 +8,7 @@ import styles from './Filter.module.scss';
 
 export default function Filter({
   categories,
+  searchTerm,
   onCategorySelect,
   onSortingSelect,
 }) {
@@ -24,17 +25,21 @@ export default function Filter({
   }, [selectedCategory]);
 
   useEffect(() => {
+    setSelectedCategory({
+      name: 'Всі категорії',
+    });
+  
+  }, [searchTerm]);
+
+  useEffect(() => {
     onSortingSelect(selectedSortingOption);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSortingOption]);
 
   const handleCategorySelect = category => {
-    setSelectedCategory(category.name === 'Всі категорії' ? null : category.id); // Збросити вибрану категорію
-    // onCategorySelect(
-    //   category.name === 'Всі категорії' ? null : selectedCategory
-    // ); // Виклик функції батьківського компонента
+    setSelectedCategory(category.name === 'Всі категорії' ? null : category.id); 
     console.log('HANDLE CATEGORY SELECT WORKING');
-    // console.log('обрана категорія', category.id);
+ 
   };
 
   const handleSortingSelect = option => {

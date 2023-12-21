@@ -1,20 +1,33 @@
 import PropTypes from 'prop-types';
 import useForm from 'shared/hooks/useForm';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import OldInput from '../OldInput/OldInput';
 import Input from '../Input';
 
 import style from './SearchBar.module.scss';
 
-const SearchBar = ({ onSubmit }) => {
+const SearchBar = ({ onSubmit, selectedCategory }) => {
   const formRef = useRef(null);
 
-  const { state, handleChange, handleSubmitSearch } = useForm({
+  const { state, setState, handleChange, handleSubmitSearch  } = useForm({
     initialState: { search: '' },
     onSubmit,
   });
 
   const { search } = state;
+
+  useEffect(() => {
+    setState({ search: '' });
+  
+  }, [selectedCategory]);
+
+
+  const remove = () => {
+    setState({
+      search: '',
+    });
+    formRef.current.submit();
+  };
 
   return (
     <form
@@ -30,6 +43,7 @@ const SearchBar = ({ onSubmit }) => {
           value={search}
           onChange={handleChange} //handleChange з useForm
           onClick={handleSubmitSearch} //handleSubmitSearch з useForm
+          onRemove={remove}
           autoComplete="off"
           placeholder="Пошук смаколиків"
         />
@@ -40,6 +54,7 @@ const SearchBar = ({ onSubmit }) => {
 
 SearchBar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  selectedCategory: PropTypes.string, // Додайте властивість для слідкування за категорією
 };
 
 export default SearchBar;
