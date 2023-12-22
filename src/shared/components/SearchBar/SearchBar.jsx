@@ -6,7 +6,7 @@ import Input from '../Input';
 
 import style from './SearchBar.module.scss';
 
-const SearchBar = ({ onSubmit, selectedCategory }) => {
+const SearchBar = ({ onSubmit, searchTerm, selectedCategory }) => {
   const formRef = useRef(null);
 
   const { state, setState, handleChange, handleSubmitSearch  } = useForm({
@@ -16,17 +16,16 @@ const SearchBar = ({ onSubmit, selectedCategory }) => {
 
   const { search } = state;
 
-  useEffect(() => {
-    setState({ search: '' });
-  
-  }, [selectedCategory]);
+  // useEffect(() => {
+  //  setState({ search: searchTerm });
+  // }, [selectedCategory]);
 
 
   const remove = () => {
-    setState({
-      search: '',
-    });
-    formRef.current.submit();
+      setState({
+        search: '',
+      });
+    // formRef.current.submit();
   };
 
   return (
@@ -54,7 +53,9 @@ const SearchBar = ({ onSubmit, selectedCategory }) => {
 
 SearchBar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  selectedCategory: PropTypes.string, // Додайте властивість для слідкування за категорією
+  searchTerm: PropTypes.string,
+  selectedCategory: PropTypes.string,
+  onRemove: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

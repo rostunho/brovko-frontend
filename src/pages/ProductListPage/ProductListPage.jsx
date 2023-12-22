@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -33,9 +34,6 @@ export default function ProductListPage() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSortingOption, setSelectedSortingOption] = useState(null);
   const [sortedProducts, setSortedProducts] = useState([]);
-
-  const [searchCleared, setSearchCleared] = useState(false);
-
 
   const [forceRender, setForceRender] = useState(false);
 
@@ -92,8 +90,11 @@ export default function ProductListPage() {
 
   const handleCategorySelect = categoryId => {
     setSelectedCategory(categoryId);
-    setSearchCleared(true);
+    if (categoryId !== null) {
+      dispatch(setSearchTerm(''));
+    }
   };
+
 
   // const handleSortingSelect = option => {
   //   setSelectedSortingOption(option);
@@ -125,7 +126,7 @@ export default function ProductListPage() {
   return (
     <>
       <Heading withGoBack>Крамничка</Heading>
-      <SearchBar onSubmit={handleSearchSubmit} selectedCategory={selectedCategory}/>
+      <SearchBar onSubmit={handleSearchSubmit} searchTerm={searchTerm} selectedCategory={selectedCategory}/>
       <Filter
         categories={categories}
         searchTerm={searchTerm}
