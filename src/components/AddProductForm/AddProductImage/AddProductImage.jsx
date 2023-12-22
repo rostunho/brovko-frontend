@@ -3,11 +3,10 @@ import AddIconImage from 'shared/icons/AddIconImage';
 import styles from './addProductImage.module.scss';
 import { useEffect, useState } from 'react';
 import Image from 'shared/components/Image';
-// import ImageSlider from 'components/ProductDetail/ImageSlider';
 
-const AddProductImage = ({ pictures }) => {
+const AddProductImage = ({ pictures = [] }) => {
   const [selectedImages, setSelectedImages] = useState([]);
-  const [selectedFiles, setSelectedFiles] = useState([null]);
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const [prompEdit, setPrompEdit] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   // const pictures = [
@@ -27,9 +26,9 @@ const AddProductImage = ({ pictures }) => {
 
   if (files.length > 0) {
     setSelectedFiles(files);
-    addImages();
-  }
-    addImages();
+    // addImages();
+  // }
+    // addImages();
 
     // Додаємо нові обрані зображення до поточного масиву
 
@@ -39,10 +38,10 @@ const AddProductImage = ({ pictures }) => {
     console.log('Selected Images:', selectedImages);
   };
 
-  const addImages = () => {
-  if (!selectedFiles.length) {
-    return;
-  }
+  // const addImages = () => {
+  // if (!selectedFiles.length) {
+  //   return;
+  // }}
 
   const newImages = selectedFiles.map((file, index) => {
     // Check if the file is a valid Blob or File object
@@ -64,32 +63,36 @@ const AddProductImage = ({ pictures }) => {
   // const Images = () => {
 
   // }
-  // useEffect(() => {
-  //   // When pictures prop changes, update selectedImages
-  //   setSelectedImages(pictures.map((url, index) => ({ id: index, url })));
-  // }, [pictures]);
-  // const addImages = () => {
-  //   if (!selectedFiles) {
-  //     return;
-  //   }
+  useEffect(() => {
+    // When pictures prop changes, update selectedImages
+    setSelectedImages(pictures.map((url, index) => ({ id: index, url })));
+  }, [pictures]);
+  const addImages = () => {
+    if (!selectedFiles) {
+      return;
+    }
 
-  // const newImages = {
-  //     // id: Date.now(),
-  //     // files: selectedFiles
-  //   };
+  const newImages = {
+      id: Date.now(),
+      files: selectedFiles
+    };
 
-  //   setSelectedImages([...selectedImages, newImages]);
-  // };
-  // console.log(pictures);
+    setSelectedImages([...selectedImages, newImages]);
+  };
+  console.log(pictures);  
 
-  // const images = pictures.map(picture => (
-  //   <Image src={picture} className={styles.img} key={picture} />
-  // ));
-  // console.log(images)
+  const images = (pictures) => {
+  if (!pictures.length > 0) 
+      return;
+  pictures.map(picture => (
+    <Image src={picture} className={styles.img} key={picture} />
+  ));}
+  console.log(images)
   return (
     <>
       <p>Фото товару</p>
       <form onSubmit={onSubmitForm} className={styles.container}>
+        {images}
         {selectedImages.length > 0 &&
           selectedImages.map(image => (
             <Image key={image.id} src={image.url} alt={`preview-${image.id}`}className={styles.img} />
@@ -98,10 +101,7 @@ const AddProductImage = ({ pictures }) => {
          {selectedImages.map((image) => ( 
           <Image key={image.id} src={image.url} className={styles.img} }
     ))}} */}
-        {/* // <ImageSlider picture={pictures} />  */}
-        {/* {pictures !== undefined && <ImageSlider picture={pictures} />} */}
-        {/* } */}
-
+       
         <label className={styles.fileInputLabel}>
           <input
             className={styles.visuallyHidden}
