@@ -1,122 +1,120 @@
+import React, { useState, useEffect } from 'react';
 import AddIconImage from 'shared/icons/AddIconImage';
-
 import styles from './addProductImage.module.scss';
-import { useEffect, useState } from 'react';
 import Image from 'shared/components/Image';
 
+const arraysAreEqual = (arr1, arr2) => {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i].id !== arr2[i].id || arr1[i].url !== arr2[i].url) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
 const AddProductImage = ({ pictures = [] }) => {
+
+  pictures = [
+    "https://shkvarka.ua/wp-content/uploads/img_3484-scaled.jpg",
+    "https://shkvarka.ua/wp-content/uploads/img_3483-scaled.jpg",
+    "https://shkvarka.ua/wp-content/uploads/img_3477-scaled.jpg",
+    "https://shkvarka.ua/wp-content/uploads/img_3468-scaled.jpg"
+  ]
+  const pictureArray = Array.isArray(pictures) ? pictures : [];
+
   const [selectedImages, setSelectedImages] = useState([]);
+  const [selectedPictures, setSelectedPictures] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [prompEdit, setPrompEdit] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  // const pictures = [
-  //   "https://shkvarka.ua/wp-content/uploads/img_3484-scaled.jpg",
-  //   "https://shkvarka.ua/wp-content/uploads/img_3483-scaled.jpg",
-  //   "https://shkvarka.ua/wp-content/uploads/img_3477-scaled.jpg",
-  //   "https://shkvarka.ua/wp-content/uploads/img_3468-scaled.jpg"
-  // ]
-  const onSubmitForm = e => {
-    e.preventDefault();
-    console.log('Selected Images:', selectedImages);
-  };
 
-  const handleImageChange = e => {
+ 
+
+
+  const handleImageChange = (e) => {
     e.preventDefault();
     const files = Array.from(e.target.files);
 
-  if (files.length > 0) {
-    setSelectedFiles(files);
-    // addImages();
-  // }
-    // addImages();
-
-    // Додаємо нові обрані зображення до поточного масиву
-
-    // setSelectedImages(prevImages => [...prevImages, ...files]);
-
-    // Тут ви можете відправити обрані зображення на бекенд або виконати інші дії
-    console.log('Selected Images:', selectedImages);
+    if (files.length > 0) {
+      setSelectedFiles(files);
+    }
   };
 
-  // const addImages = () => {
-  // if (!selectedFiles.length) {
-  //   return;
-  // }}
-
-  const newImages = selectedFiles.map((file, index) => {
-    // Check if the file is a valid Blob or File object
-    if (file instanceof Blob) {
-      return {
-        id: selectedImages.length + index,
-        url: URL.createObjectURL(file),
-      };
-    } else {
-      // Handle the case where the file is not a Blob or File
-      console.error("Invalid file:", file);
-      return null; // or provide a default URL or handle accordingly
-    }
-  }).filter(Boolean); // Remove any null entries
-
-  setSelectedImages([...selectedImages, ...newImages]);
-  setSelectedFiles([]);
-};
-  // const Images = () => {
-
-  // }
   useEffect(() => {
-    // When pictures prop changes, update selectedImages
-    setSelectedImages(pictures.map((url, index) => ({ id: index, url })));
-  }, [pictures]);
+    const newImages = selectedFiles.map((file, index) => {
+      if (file instanceof Blob) {
+        return {
+          id: Date.now() + index,
+          url: URL.createObjectURL(file),
+        };
+      } else {
+        console.error("Invalid file:", file);
+        return null;
+      }
+    }).filter(Boolean);
+
+    const pictureImages = pictureArray.map((url, index) => ({ id: index, url }));
+
+    if (!arraysAreEqual([...newImages, ...pictureImages], selectedImages)) {
+      setSelectedImages([...newImages, ...pictureImages]);
+    }
+
+    setSelectedFiles([]);
+  }, [selectedFiles, pictureArray, selectedImages]);
+
+  // useEffect(() => {
+  //   // When pictures prop changes, update selectedImages
+  //   const newImages = pictureArray.map((url, index) => ({ id: index, url }));
+
+  //   // Only update the state if newImages is different from selectedImages
+  //   if (!arraysAreEqual(newImages, selectedImages)) {
+  //     setSelectedImages(newImages);
+  //   }
+  // }, [pictureArray, selectedImages]);
+
+ 
+
   const addImages = () => {
-    if (!selectedFiles) {
+    if (!selectedFiles.length) {
       return;
     }
 
-  const newImages = {
-      id: Date.now(),
-      files: selectedFiles
-    };
+    const newImages = selectedFiles.map((file, index) => {
+      if (file instanceof Blob) {
+        return {
+          id: Date.now() + index,
+          url: URL.createObjectURL(file),
+        };
+      } else {
+        console.error("Invalid file:", file);
+        return null;
+      }
+    }).filter(Boolean);
 
-    setSelectedImages([...selectedImages, newImages]);
+    setSelectedImages([...selectedImages, ...newImages]);
+    setSelectedFiles([]);
   };
-  console.log(pictures);  
 
-  const images = (pictures) => {
-  if (!pictures.length > 0) 
-      return;
-  pictures.map(picture => (
-    <Image src={picture} className={styles.img} key={picture} />
-  ));}
-  console.log(images)
   return (
     <>
       <p>Фото товару</p>
-      <form onSubmit={onSubmitForm} className={styles.container}>
-        {images}
+      <div  className={styles.container}>
         {selectedImages.length > 0 &&
-          selectedImages.map(image => (
-            <Image key={image.id} src={image.url} alt={`preview-${image.id}`}className={styles.img} />
+          selectedImages.map((image) => (
+            <Image key={image.id} src={image.url} alt={`preview-${image.id}`} className={styles.img} />
           ))}
-        {/* {selectedImages.length > 0 &&
-         {selectedImages.map((image) => ( 
-          <Image key={image.id} src={image.url} className={styles.img} }
-    ))}} */}
-       
         <label className={styles.fileInputLabel}>
           <input
             className={styles.visuallyHidden}
-            type={!prompEdit ? 'file' : 'button'}
+            type="file"
             accept="image/jpeg, image/png"
             multiple
-            onClick={
-              prompEdit
-                ? e => {
-                    e.preventDefault();
-                    // resetPromp();
-                  }
-                : undefined
-            }
-            onChange={(e) => {handleImageChange(e)}}
+            onChange={(e) => handleImageChange(e)}
           />
           <AddIconImage />
         </label>
@@ -126,7 +124,7 @@ const AddProductImage = ({ pictures = [] }) => {
         <button type="button" onClick={addImages}>
           Додати
         </button>
-      </form>
+      </div>
     </>
   );
 };
