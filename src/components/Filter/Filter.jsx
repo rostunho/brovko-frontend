@@ -8,6 +8,7 @@ import styles from './Filter.module.scss';
 
 export default function Filter({
   categories,
+  searchTerm,
   onCategorySelect,
   onSortingSelect,
 }) {
@@ -24,23 +25,24 @@ export default function Filter({
   }, [selectedCategory]);
 
   useEffect(() => {
+    // setSelectedCategory({
+    //   name: 'Всі категорії',
+    // });
+    setSelectedCategory(null)
+  
+  }, [searchTerm]);
+
+  useEffect(() => {
     onSortingSelect(selectedSortingOption);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSortingOption]);
 
-  const handleCategorySelect = category => {
-    setSelectedCategory(category.name === 'Всі категорії' ? null : category.id); // Збросити вибрану категорію
-    // onCategorySelect(
-    //   category.name === 'Всі категорії' ? null : selectedCategory
-    // ); // Виклик функції батьківського компонента
-    // console.log('HANDLE CATEGORY SELECT WORKING');
-    // console.log('обрана категорія', category.id);
+  const handleCategorySelect = category => {   
+    setSelectedCategory(category.name === 'Всі категорії' ? null : category.id);
   };
 
   const handleSortingSelect = option => {
     setSelectedSortingOption(option.name);
-    // onSortingSelect(option.name);
-    // console.log('Option:', option);
   };
 
   const customStyle = {
@@ -51,6 +53,8 @@ export default function Filter({
     width: '100%',
   };
 
+  
+
   return (
     <div className={styles.container}>
       <div className={styles.buttonContainer}>
@@ -60,7 +64,9 @@ export default function Filter({
           dropdownStyle={customDropdownContainer}
           name="category"
           data={categories}
+          searchTerm={searchTerm}
           defaultValue={{ ...selectedCategory }}
+          valueChange={selectedCategory}
           fetchSelectorValue={handleCategorySelect}
         />
       </div>

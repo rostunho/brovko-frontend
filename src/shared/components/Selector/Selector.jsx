@@ -28,6 +28,8 @@ export default function Selector({
   defaultOption, // опція, яка буде першою у списку-випадайці
   style,
   dropdownStyle,
+  valueChange,
+ 
   ...props
 }) {
   // console.log('style', dropdownStyle);
@@ -103,6 +105,10 @@ export default function Selector({
   const onHotOptionPress = option => {
     setCurrentValue(prevValue => ({ ...prevValue, name: option }));
   };
+
+  // useEffect(() => {
+  //   setCurrentValue(valueChange); // Оновлюємо currentValue при зміні пропса value
+  // }, [valueChange]);
 
   return (
     <div className={styles.container}>
@@ -184,7 +190,8 @@ Selector.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.exact({
       name: PropTypes.string, // Ключами об'єкта можуть бути тільки "name"
-      id: PropTypes.string, // і тільки "id". Жодних інших.
+      id: PropTypes.string, //  тільки "id".
+      parentId: PropTypes.string, //  тільки "parentId". Жодних інших.
     })
   ),
   defaultValue: PropTypes.shape({

@@ -9,7 +9,7 @@ import BasketLight from 'shared/icons/BasketLight';
 import ModalProductsInBasket from 'components/ModalProductsInBasket/ModalProductsInBasket';
 import Ellipse from 'shared/icons/Ellipse';
 import Button from 'shared/components/Button';
-
+import useModal from 'shared/hooks/useModal';
 import styles from './Header.module.scss';
 
 export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
@@ -33,18 +33,10 @@ export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
     return () => window.removeEventListener('resize', handleResize);
   }, [isDesktop, isMobile, isTablet]);
 
-  const [basketIsOpen, setBasketIsOpen] = useState(false);
+  const { isOpen, openModal, closeModal } = useModal();
 
   const handleOnClick = () => {
     !pathname.includes('order') ? openModal() : scrollToBottom();
-  };
-
-  const openModal = () => {
-    setBasketIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setBasketIsOpen(false);
   };
 
   const scrollToBottom = () => {
@@ -83,7 +75,7 @@ export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
               </div>
             )}
           </button>
-          {basketIsOpen && <ModalProductsInBasket closeModal={closeModal} />}
+          {isOpen && <ModalProductsInBasket closeModal={closeModal} />}
         </div>
       </div>
       {/* <Button

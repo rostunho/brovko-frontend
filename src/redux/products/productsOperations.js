@@ -16,3 +16,29 @@ export const fetchAllProducts = createAsyncThunk(
     }
   }
 );
+
+export const fetchProductsByCategory = createAsyncThunk(
+  'products/fetchByCategory',
+  async ({ categoryId = 'sets', page = 1 }, { rejectWithValue }) => {
+    try {
+      const products = await api.getProductsByCategory(categoryId, page);
+      console.log('fetchProductsByCategory IN THUNK >>> ::', products);
+      return products;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchProductsByKeywords = createAsyncThunk(
+  'products/fetchByKeywords',
+  async ({ search = 'sets', page = 1 }, { rejectWithValue }) => {
+    try {
+      const products = await api.getProductsByKeywords(search, page);
+      console.log('fetchProductsByCategory IN THUNK >>> ::', products);
+      return products;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

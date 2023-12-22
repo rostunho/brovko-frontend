@@ -11,12 +11,24 @@ export default function Description({
   isExpandedDescription,
   handleReadMoreClick,
 }) {
+  const location = useLocation();
   return (
     <div className={styles.descriptionContainer}>
       {product ? (
         isExpandedDescription ? (
           <>
-            <Outlet />
+            {/* Рендерінг повного опису просто нижче */}
+            <DescriptionHeader />
+            <DescriptionText
+              product={product}
+              isExpandedDescription={isExpandedDescription}
+            />
+            <SharedLinkButton
+              to={location.pathname}  
+              state={{ isExpandedDescription: false }} 
+              label="Згорнути"
+              onClick={handleReadMoreClick}
+            />
           </>
         ) : (
           <>
@@ -27,7 +39,7 @@ export default function Description({
             />
             {!isExpandedDescription && (
               <SharedLinkButton
-                to={`description`}
+               to={location.pathname}
                 state={{ isExpandedDescription: true }}
                 // state={{
                 //   from: location.state.from,
