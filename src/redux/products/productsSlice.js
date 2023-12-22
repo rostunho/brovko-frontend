@@ -38,7 +38,7 @@ const productsSlice = createSlice({
         state.loading = false;
         state.items = payload.products;
         state.totalPages = payload.totalPage;
-        console.log('state.items', state.itemsC);
+        console.log('state.items', state.items);
       })
       .addCase(fetchProductsByCategory.rejected, (store, { payload }) => {
         store.loading = false;
