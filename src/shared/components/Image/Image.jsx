@@ -11,7 +11,7 @@ const Image = props => {
     className,
     style,
     text = '',
-    fontSize,
+    // fontSize,
   } = props;
   const imageStyles = {
     ...style,
@@ -35,8 +35,11 @@ const Image = props => {
   return (
     <>
       {text.length > 0 && !src && (
-        <p className={styles.letter} style={{ fontSize: fontSize + 'px' }}>
-          {' '}
+        <p
+          className={`${styles.letter} ${
+            height === '32px' ? styles['in-small-avatar'] : ''
+          }`}
+        >
           {text.substring(0, 1).toUpperCase()}{' '}
         </p>
       )}
