@@ -9,7 +9,7 @@ import style from './SearchBar.module.scss';
 const SearchBar = ({ onSubmit, searchTerm, selectedCategory }) => {
   const formRef = useRef(null);
 
-  const { state, setState, handleChange, handleSubmitSearch  } = useForm({
+  const { state, setState, handleChange, handleSubmitSearch } = useForm({
     initialState: { search: '' },
     onSubmit,
   });
@@ -20,11 +20,10 @@ const SearchBar = ({ onSubmit, searchTerm, selectedCategory }) => {
   //  setState({ search: searchTerm });
   // }, [selectedCategory]);
 
-
   const remove = () => {
-      setState({
-        search: '',
-      });
+    setState({
+      search: '',
+    });
     // formRef.current.submit();
   };
 
@@ -54,8 +53,8 @@ const SearchBar = ({ onSubmit, searchTerm, selectedCategory }) => {
 SearchBar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   searchTerm: PropTypes.string,
-  selectedCategory: PropTypes.string,
-  onRemove: PropTypes.func.isRequired,
+  selectedCategory: PropTypes.object,
+  onRemove: PropTypes.func,
 };
 
 export default SearchBar;
