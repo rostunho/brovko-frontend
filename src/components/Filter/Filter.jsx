@@ -19,26 +19,31 @@ export default function Filter({
     name: 'Сортування',
   });
 
+  console.log('INNER selectedCategory >> :', selectedCategory);
+
   useEffect(() => {
     onCategorySelect(selectedCategory);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
-  useEffect(() => {
-    // setSelectedCategory({
-    //   name: 'Всі категорії',
-    // });
-    setSelectedCategory(null)
-  
-  }, [searchTerm]);
+  // useEffect(() => {
+  //   // setSelectedCategory({
+  //   //   name: 'Всі категорії',
+  //   // });
+  //   setSelectedCategory(null);
+  // }, [searchTerm]);
 
   useEffect(() => {
     onSortingSelect(selectedSortingOption);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSortingOption]);
 
-  const handleCategorySelect = category => {   
-    setSelectedCategory(category.name === 'Всі категорії' ? null : category.id);
+  const handleCategorySelect = category => {
+    setSelectedCategory(
+      category.name === 'Всі категорії'
+        ? { name: 'Всі категорії' }
+        : category.id
+    );
   };
 
   const handleSortingSelect = option => {
@@ -52,8 +57,6 @@ export default function Filter({
   const customDropdownContainer = {
     width: '100%',
   };
-
-  
 
   return (
     <div className={styles.container}>

@@ -50,11 +50,11 @@ const SearchBar = ({ onSubmit, searchTerm, selectedCategory }) => {
   );
 };
 
-SearchBar.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  searchTerm: PropTypes.string,
-  selectedCategory: PropTypes.object,
-  onRemove: PropTypes.func,
-};
+// SearchBar.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+//   searchTerm: PropTypes.string,
+//   selectedCategory: PropTypes.object,
+//   onRemove: PropTypes.func,
+// };
 
 export default SearchBar;

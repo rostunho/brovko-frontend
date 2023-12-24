@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -31,8 +30,10 @@ export default function ProductListPage() {
   // console.log('RENDER PRODUCT LIST PAGE');
 
   const [page, setPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedSortingOption, setSelectedSortingOption] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(
+    () => 'test test test'
+  );
+  // const [selectedSortingOption, setSelectedSortingOption] = useState(null);
   const [sortedProducts, setSortedProducts] = useState([]);
 
   const [forceRender, setForceRender] = useState(false);
@@ -52,6 +53,8 @@ export default function ProductListPage() {
 
   const dispatch = useDispatch();
 
+  console.log('selectedCategory :>> ', selectedCategory);
+
   useEffect(() => {
     !forceRender && dispatch(fetchAllProducts(page));
     dispatch(fetchReviews());
@@ -67,7 +70,6 @@ export default function ProductListPage() {
   };
 
   useEffect(() => {
-    console.log('forceRender after fetch :', forceRender);
     setForceRender(false);
   }, [forceRender]);
 
@@ -81,7 +83,6 @@ export default function ProductListPage() {
     }
   }, [dispatch, searchTerm, page]);
 
-
   // обробкa події відправки форми
   const handleSearchSubmit = formData => {
     dispatch(setSearchTerm(formData.search));
@@ -90,11 +91,10 @@ export default function ProductListPage() {
 
   const handleCategorySelect = categoryId => {
     setSelectedCategory(categoryId);
-    if (categoryId !== null) {
+    if (categoryId !== 'test test test') {
       dispatch(setSearchTerm(''));
     }
   };
-
 
   // const handleSortingSelect = option => {
   //   setSelectedSortingOption(option);
@@ -114,19 +114,21 @@ export default function ProductListPage() {
 
   // сортування
   const handleSortingSelect = option => {
-    setSelectedSortingOption(option);
+    // setSelectedSortingOption(option);
     let productsToSort =
       getFilteredProducts.length > 0 ? [...getFilteredProducts] : [...products];
     productsToSort.sort(sortingFunctions[option]);
     setSortedProducts(productsToSort);
   };
 
-  console.log('sortedProducts', sortedProducts);
-
   return (
     <>
       <Heading withGoBack>Крамничка</Heading>
-      <SearchBar onSubmit={handleSearchSubmit} searchTerm={searchTerm} selectedCategory={selectedCategory}/>
+      <SearchBar
+        onSubmit={handleSearchSubmit}
+        searchTerm={searchTerm}
+        selectedCategory={selectedCategory}
+      />
       <Filter
         categories={categories}
         searchTerm={searchTerm}
