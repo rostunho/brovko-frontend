@@ -6,7 +6,7 @@ export const fetchCategories = createAsyncThunk(
   'categories/fetchCategories',
   async (_, thunkAPI) => {
     try {
-      const data = await api.getActiveCategories();
+      const data = await api.getAllCategories();
       return data;
     } catch ({ response }) {
       return thunkAPI.rejectWithValue(response.data);

@@ -3,38 +3,47 @@ import instance from './instance';
 
 const BROVKO_API = process.env.REACT_APP_BROVKO_API;
 
-export const getAllProducts = async (page = 1) => {
+export const getAllProducts = async (
+  page = 1,
+  perPage = 10,
+  sortBy = 'createdAt',
+  sortOrder = 'desc'
+) => {
   const { data } = await instance.get('/products', {
     params: {
       page,
+      perPage,
+      sortBy,
+      sortOrder,
     },
   });
 
-  // console.log('DATA IN OPERATION :', data);
+  // console.log('products.data in API operation :', data);
 
   return data;
 };
 
-// export const getProductsByCategory = async (category = 'sets', page = 1) => {
-//   const { data } = await instance.get('/products/category', {
-//     params: {
-//       category,
-//       page,
-//     },
-//   });
-//   return data;
-// };
-
-export const getProductsByCategory = async (categoryId = 'sets', page = 1) => {
+export const getProductsByCategory = async (
+  categoryId,
+  page = 1,
+  perPage = 10,
+  sortBy = 'createdAt',
+  sortOrder = 'desc'
+) => {
   try {
     const { data } = await instance.get(`/products/category/${categoryId}`, {
-      params: { page },
+      params: {
+        page,
+        perPage,
+        sortBy,
+        sortOrder,
+      },
     });
 
-    console.log('getProductsByCategory:', data);
+    // console.log('getProductsByCategory into API Operations:', data);
     return data;
   } catch (error) {
-    throw error;
+    throw Error(error);
   }
 };
 

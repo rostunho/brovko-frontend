@@ -9,20 +9,32 @@ import styles from './Filter.module.scss';
 export default function Filter({
   categories,
   searchTerm,
+  defaultCategory,
+  defaultOption,
   onCategorySelect,
   onSortingSelect,
 }) {
-  const [selectedCategory, setSelectedCategory] = useState({
-    name: 'Всі категорії',
-  });
+  const [currentCategories, setCurrentCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(
+    () => defaultCategory
+  );
   const [selectedSortingOption, setSelectedSortingOption] = useState({
     name: 'Сортування',
   });
 
-  console.log('INNER selectedCategory >> :', selectedCategory);
+  // console.log('categories into Filter :>> ', categories);
+  // console.log('currentCategories into Filter :>> ', currentCategories);
 
   useEffect(() => {
-    onCategorySelect(selectedCategory);
+    setCurrentCategories([...categories]);
+  }, [categories]);
+
+  useEffect(() => {
+    if (selectedCategory.id === defaultCategory.id) {
+      return;
+    }
+
+    onCategorySelect && onCategorySelect(selectedCategory);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
@@ -39,11 +51,7 @@ export default function Filter({
   }, [selectedSortingOption]);
 
   const handleCategorySelect = category => {
-    setSelectedCategory(
-      category.name === 'Всі категорії'
-        ? { name: 'Всі категорії' }
-        : category.id
-    );
+    setSelectedCategory({ ...category });
   };
 
   const handleSortingSelect = option => {
@@ -66,10 +74,9 @@ export default function Filter({
           style={customStyle}
           dropdownStyle={customDropdownContainer}
           name="category"
-          data={categories}
-          searchTerm={searchTerm}
-          defaultValue={{ ...selectedCategory }}
-          valueChange={selectedCategory}
+          data={currentCategories}
+          defaultValue={{ name: 'Усі категорії' }}
+          defaultOption={'Усі категорії'}
           fetchSelectorValue={handleCategorySelect}
         />
       </div>

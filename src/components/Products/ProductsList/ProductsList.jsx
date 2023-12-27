@@ -86,9 +86,9 @@ const ProductList = ({ products, sortedProducts, refetchProducts }) => {
           </li>
         </ul>
       )}
-      {sortedProducts.length > 0 ? (
+      {products.length > 0 ? (
         <ul className={styles.list}>
-          {sortedProducts.map(product => (
+          {products.map(product => (
             <li key={product._id}>
               <ProductsItem
                 product={product}

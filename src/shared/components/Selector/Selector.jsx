@@ -29,7 +29,7 @@ export default function Selector({
   style,
   dropdownStyle,
   valueChange,
- 
+
   ...props
 }) {
   // console.log('style', dropdownStyle);
@@ -44,6 +44,10 @@ export default function Selector({
 
   const id = nanoid(6);
   let key = 0;
+
+  useEffect(() => {
+    console.log('currrentValue into SELECTOR >>:', currentValue);
+  }, [currentValue]);
 
   // console.log('currentValue :>> ', currentValue.name);
 
