@@ -3,6 +3,7 @@ import AddIconImage from 'shared/icons/AddIconImage';
 import styles from './addProductImage.module.scss';
 import Image from 'shared/components/Image';
 import Modal from 'shared/components/Modal/Modal';
+import Button from 'shared/components/Button';
 
 const AddProductImage = ({ pictures }) => {
   //   pictures = [
@@ -31,9 +32,9 @@ const AddProductImage = ({ pictures }) => {
   const [prompDelete, setPrompDelete] = useState(false);
 
   const openModalEditPhoto = (id, url) => {
-    console.log(id, url)
-    setModalIsId(id)
-    setModalIsImage(url)
+    console.log(id, url);
+    setModalIsId(id);
+    setModalIsImage(url);
     setModalIsOpen(true);
     console.log('open modal');
   };
@@ -41,6 +42,14 @@ const AddProductImage = ({ pictures }) => {
   const closeModalEditPhoto = () => {
     setModalIsOpen(false);
     setPrompDelete(false);
+  };
+
+  const setMain = () => {
+    console.log('Set main foto');
+  };
+
+  const delPhoto = () => {
+    console.log('delete photo');
   };
 
   console.log(selectedPictures);
@@ -90,7 +99,7 @@ const AddProductImage = ({ pictures }) => {
   // const images =  selectedPictures.map((picture) => (
   //   <Image key={picture} src={picture} alt={`preview-${picture.id}`} className={styles.img} />
   // ))
-
+  const resetPromp = () => setPrompDelete(false);
   console.log(pictures);
 
   return (
@@ -99,7 +108,12 @@ const AddProductImage = ({ pictures }) => {
       <div className={styles.container}>
         {/* {images} */}
         {selectedPictures.map(({ id, url }) => (
-          <button type="button" onClick={(e) =>{openModalEditPhoto(id, url)}}>
+          <button
+            type="button"
+            onClick={e => {
+              openModalEditPhoto(id, url);
+            }}
+          >
             <Image
               key={id}
               src={url}
@@ -110,7 +124,12 @@ const AddProductImage = ({ pictures }) => {
         ))}
         {selectedImages.length > 0 &&
           selectedImages.map(({ id, url }) => (
-            <button type="button" onClick={(e) =>{openModalEditPhoto(id, url)}}>
+            <button
+              type="button"
+              onClick={e => {
+                openModalEditPhoto(id, url);
+              }}
+            >
               <Image
                 key={id}
                 src={url}
@@ -139,12 +158,23 @@ const AddProductImage = ({ pictures }) => {
       </div>
       {modalIsOpen && (
         <Modal closeModal={closeModalEditPhoto}>
+          <p className={styles.mainText}>
+            {!prompDelete
+              ? 'Редагування зображення'
+              : 'Ти дійсно бажаєш видалити це фото?'}
+          </p>
           <Image
             key={modalIsId}
             src={modalIsImage}
             alt={`preview-${modalIsId}`}
             className={styles.img}
           />
+          <Button onClick={prompDelete ? setMain : () => resetPromp()}>
+            {prompDelete ? 'Встановити головним' : 'Скасувати'}
+          </Button>
+          <Button onClick={prompDelete ? setPrompDelete(true) : () => delPhoto}>
+            {prompDelete ? 'Видалити фото' : 'Так'}
+          </Button>
         </Modal>
       )}
     </>
