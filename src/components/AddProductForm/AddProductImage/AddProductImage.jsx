@@ -29,14 +29,16 @@ const AddProductImage = ( {pictures} ) => {
  console.log(selectedPictures)
 
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (e, xFiles = 100) => {
     e.preventDefault();
-    const files = Array.from(e.target.files);
+       const files = Array.from(e.target.files);
 
-    if (files.length > 0) {
+    if (files.length > 0 && files.length <= xFiles) {
       setSelectedFiles(files);
       console.log(files)
       addImages(files)
+    } else {
+      console.log(`Можна завантажити не більше 5 файлів`);
     }
     console.log(selectedFiles)
   };
@@ -63,10 +65,10 @@ const AddProductImage = ( {pictures} ) => {
       };
 
 
-  // useEffect(() => {
-  //   setSelectedPictures(pictureArray.map((url, index) => ({ id: index, url })));
-  //   console.log('update pic');
-  // }, []);
+  useEffect(() => {
+    setSelectedPictures(pictureArray.map((url, index) => ({ id: index, url })));
+    console.log('update pic');
+  }, [pictures]);
 
 
  
