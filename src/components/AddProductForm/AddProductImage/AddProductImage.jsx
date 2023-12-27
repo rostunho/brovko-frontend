@@ -2,94 +2,123 @@ import React, { useState, useEffect } from 'react';
 import AddIconImage from 'shared/icons/AddIconImage';
 import styles from './addProductImage.module.scss';
 import Image from 'shared/components/Image';
+import Modal from 'shared/components/Modal/Modal';
 
-
-
-const AddProductImage = ( {pictures} ) => {
-
+const AddProductImage = ({ pictures }) => {
   //   pictures = [
   //   "https://shkvarka.ua/wp-content/uploads/img_3484-scaled.jpg",
   //   "https://shkvarka.ua/wp-content/uploads/img_3483-scaled.jpg",
   //   "https://shkvarka.ua/wp-content/uploads/img_3477-scaled.jpg",
   //   "https://shkvarka.ua/wp-content/uploads/img_3468-scaled.jpg"
   // ]
-  const {picture} = pictures
+  const { picture } = pictures;
   const pictureArray = Array.isArray(picture) ? picture : [];
-  console.log(picture)
+  console.log(picture);
 
- 
- console.log(pictureArray)
+  console.log(pictureArray);
 
   const [selectedImages, setSelectedImages] = useState([]);
-  const [selectedPictures, setSelectedPictures] = useState(pictureArray.length > 0 ? pictureArray.map((url, index) => ({ id: index, url })) : []);
+  const [selectedPictures, setSelectedPictures] = useState(
+    pictureArray.length > 0
+      ? pictureArray.map((url, index) => ({ id: index, url }))
+      : []
+  );
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [prompEdit, setPrompEdit] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsImage, setModalIsImage] = useState(false);
+  const [modalIsId, setModalIsId] = useState(false);
+  const [prompDelete, setPrompDelete] = useState(false);
 
- console.log(selectedPictures)
+  const openModalEditPhoto = (id, url) => {
+    console.log(id, url)
+    setModalIsId(id)
+    setModalIsImage(url)
+    setModalIsOpen(true);
+    console.log('open modal');
+  };
 
+  const closeModalEditPhoto = () => {
+    setModalIsOpen(false);
+    setPrompDelete(false);
+  };
+
+  console.log(selectedPictures);
 
   const handleImageChange = (e, xFiles = 1000) => {
     e.preventDefault();
-       const files = Array.from(e.target.files);
+    const files = Array.from(e.target.files);
 
     if (files.length > 0 && files.length <= xFiles) {
       setSelectedFiles(files);
-      console.log(files)
-      addImages(files)
+      console.log(files);
+      addImages(files);
     } else {
       console.log(`Можна завантажити не більше ${xFiles} файлів`);
     }
-    console.log(selectedFiles)
+    console.log(selectedFiles);
   };
 
   const addImages = files => {
-        if (!files.length) {
-          return;
-        }
-    
-        const newImages = files.map((file, index) => {
-          if (file instanceof Blob) {
-            return {
-              id: selectedPictures.length + selectedImages.length + index,
-              url: URL.createObjectURL(file),
-            };
-          } else {
-            console.error("Invalid file:", file);
-            return null;
-          }
-        }).filter(Boolean);
-    console.log(newImages)
-        setSelectedImages([...selectedImages, ...newImages]);
-        setSelectedFiles([]);
-      };
+    if (!files.length) {
+      return;
+    }
 
+    const newImages = files
+      .map((file, index) => {
+        if (file instanceof Blob) {
+          return {
+            id: selectedPictures.length + selectedImages.length + index,
+            url: URL.createObjectURL(file),
+          };
+        } else {
+          console.error('Invalid file:', file);
+          return null;
+        }
+      })
+      .filter(Boolean);
+    console.log(newImages);
+    setSelectedImages([...selectedImages, ...newImages]);
+    setSelectedFiles([]);
+  };
 
   useEffect(() => {
     setSelectedPictures(pictureArray.map((url, index) => ({ id: index, url })));
     console.log('update pic');
   }, [pictures]);
 
+  // const images =  selectedPictures.map((picture) => (
+  //   <Image key={picture} src={picture} alt={`preview-${picture.id}`} className={styles.img} />
+  // ))
 
- 
-    // const images =  selectedPictures.map((picture) => (
-    //   <Image key={picture} src={picture} alt={`preview-${picture.id}`} className={styles.img} />
-    // ))
-
-console.log(pictures)
-
+  console.log(pictures);
 
   return (
     <>
       <p>Фото товару</p>
-      <div  className={styles.container}>
+      <div className={styles.container}>
         {/* {images} */}
-        {selectedPictures.map(({id , url}) => (
-      <Image key={id} src={url} alt={`preview-${id + 1}`} className={styles.img} />    ))}
-      {selectedImages.length > 0 &&
-        selectedImages.map((image) => (
-          <Image key={image.id} src={image.url} alt={`preview-${image.id}`} className={styles.img} />
+        {selectedPictures.map(({ id, url }) => (
+          <button type="button" onClick={(e) =>{openModalEditPhoto(id, url)}}>
+            <Image
+              key={id}
+              src={url}
+              alt={`preview-${id + 1}`}
+              className={styles.img}
+            />
+          </button>
         ))}
+        {selectedImages.length > 0 &&
+          selectedImages.map(image => (
+            <button type="button" onClick={() => openModalEditPhoto()}>
+              <Image
+                key={image.id}
+                src={image.url}
+                alt={`preview-${image.id + 1}`}
+                className={styles.img}
+              />
+            </button>
+          ))}
 
         <label className={styles.fileInputLabel}>
           <input
@@ -97,25 +126,32 @@ console.log(pictures)
             type="file"
             accept="image/jpeg, image/png"
             multiple
-            onChange={(e) => handleImageChange(e)}
+            onChange={e => handleImageChange(e)}
           />
           <AddIconImage />
           {}
         </label>
         <p className={styles.text}>
-          {selectedFiles.length > 0 || selectedPictures.length > 0 ? 'Додати ще' : 'Додати фото'}
+          {selectedFiles.length > 0 || selectedPictures.length > 0
+            ? 'Додати ще'
+            : 'Додати фото'}
         </p>
-        {/* <button type="button"  >
-          Додати
-        </button> */}
       </div>
+      {modalIsOpen && (
+        <Modal closeModal={closeModalEditPhoto}>
+          <Image
+            key={modalIsId}
+            src={modalIsImage}
+            alt={`preview-${modalIsId}`}
+            className={styles.img}
+          />
+        </Modal>
+      )}
     </>
   );
 };
 
 export default AddProductImage;
-
-
 
 // import React, { useState, useEffect } from 'react';
 // import AddIconImage from 'shared/icons/AddIconImage';
@@ -151,9 +187,6 @@ export default AddProductImage;
 //   const [selectedFiles, setSelectedFiles] = useState([]);
 //   const [prompEdit, setPrompEdit] = useState(false);
 //   const [modalIsOpen, setModalIsOpen] = useState(false);
-
- 
-
 
 //   const handleImageChange = (e) => {
 //     e.preventDefault();
@@ -195,8 +228,6 @@ export default AddProductImage;
 //   //     setSelectedImages(newImages);
 //   //   }
 //   // }, [pictureArray, selectedImages]);
-
- 
 
 //   const addImages = () => {
 //     if (!selectedFiles.length) {
