@@ -29,7 +29,7 @@ const AddProductImage = ( {pictures} ) => {
  console.log(selectedPictures)
 
 
-  const handleImageChange = (e, xFiles = 100) => {
+  const handleImageChange = (e, xFiles = 1000) => {
     e.preventDefault();
        const files = Array.from(e.target.files);
 
@@ -38,7 +38,7 @@ const AddProductImage = ( {pictures} ) => {
       console.log(files)
       addImages(files)
     } else {
-      console.log(`Можна завантажити не більше 5 файлів`);
+      console.log(`Можна завантажити не більше ${xFiles} файлів`);
     }
     console.log(selectedFiles)
   };
@@ -51,7 +51,7 @@ const AddProductImage = ( {pictures} ) => {
         const newImages = files.map((file, index) => {
           if (file instanceof Blob) {
             return {
-              id: selectedPictures.length + index,
+              id: selectedPictures.length + selectedImages.length + index,
               url: URL.createObjectURL(file),
             };
           } else {
