@@ -109,12 +109,12 @@ const AddProductImage = ({ pictures }) => {
           </button>
         ))}
         {selectedImages.length > 0 &&
-          selectedImages.map(image => (
-            <button type="button" onClick={() => openModalEditPhoto()}>
+          selectedImages.map(({ id, url }) => (
+            <button type="button" onClick={(e) =>{openModalEditPhoto(id, url)}}>
               <Image
-                key={image.id}
-                src={image.url}
-                alt={`preview-${image.id + 1}`}
+                key={id}
+                src={url}
+                alt={`preview-${id + 1}`}
                 className={styles.img}
               />
             </button>
