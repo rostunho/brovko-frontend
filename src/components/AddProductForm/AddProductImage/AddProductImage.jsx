@@ -159,7 +159,7 @@ const AddProductImage = ({ pictures }) => {
       {modalIsOpen && (
         <Modal closeModal={closeModalEditPhoto}>
           <p className={styles.mainText}>
-            {!prompDelete
+            {prompDelete
               ? 'Редагування зображення'
               : 'Ти дійсно бажаєш видалити це фото?'}
           </p>
@@ -169,11 +169,11 @@ const AddProductImage = ({ pictures }) => {
             alt={`preview-${modalIsId}`}
             className={styles.img}
           />
-          <Button onClick={prompDelete ? setMain : () => resetPromp()}>
-            {prompDelete ? 'Встановити головним' : 'Скасувати'}
+          <Button type="button" onClick={!prompDelete ? () => setMain() : () => resetPromp()}>
+            {!prompDelete ? 'Встановити головним' : 'Скасувати'}
           </Button>
-          <Button onClick={prompDelete ? setPrompDelete(true) : () => delPhoto}>
-            {prompDelete ? 'Видалити фото' : 'Так'}
+          <Button type="button" onClick={!prompDelete ? () => setPrompDelete(true) : () => delPhoto()}>
+            {!prompDelete ? 'Видалити фото' : 'Так'}
           </Button>
         </Modal>
       )}
