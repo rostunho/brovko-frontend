@@ -6,6 +6,7 @@ import {
   getAllCategories,
   getProductsByCategory,
 } from 'shared/services/api';
+import { sortingTemplate } from './sortingTemplate';
 
 import { fetchAllProducts } from 'redux/products/productsOperations';
 import { fetchReviews } from 'redux/reviews/reviewsOperations';
@@ -26,11 +27,12 @@ import { getSearchTerm } from 'redux/search/searchSelectors';
 
 import Loader from 'components/Loader';
 import Heading from 'shared/components/Heading/Heading';
-
+import Input from 'shared/components/Input';
+import Selector from 'shared/components/Selector';
 import ProductList from 'components/Products/ProductsList/ProductsList';
 import SearchBar from 'shared/components/SearchBar/SearchBar';
 import Filter from 'components/Filter/Filter';
-import { sortingFunctions } from './sortingFunctions';
+
 // import styles from './ProductListPage.module.scss';
 
 //
@@ -42,8 +44,12 @@ export default function ProductListPage() {
   //   name: 'Всі категорії',
   //   id: 'all',
   // });
-  const [selectedCategory, setSelectedCategory] = useState({
-    name: 'Всі категорії',
+  const [searchBarValue, setSearchBarValue] = useState('');
+  const [keyWord, setKeyWord] = useState('');
+  const [currentCategories, setCurrentCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState({ name: '' });
+  const [selectedSortingOption, setSelectedSortingOption] = useState({
+    name: '',
   });
 
   // const [selectedSortingOption, setSelectedSortingOption] = useState(null);
@@ -51,6 +57,21 @@ export default function ProductListPage() {
 
   // const [forceRender, setForceRender] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  // беремо з бази даних актуальні категорії товарів
+  useEffect(() => {
+    fetchAllCategories();
+  }, []);
+
+  const handleKeyWord = async () => {
+    setKeyWord(searchBarValue);
+    setSearchBarValue('');
+  };
+
+  const fetchAllCategories = async () => {
+    const { categories } = await getAllCategories();
+    setCurrentCategories([...categories]);
+  };
 
   // const products = useSelector(getAllProducts);
   // const searchTerm = useSelector(getSearchTerm);
@@ -155,20 +176,20 @@ export default function ProductListPage() {
   //   setSearchTerm(formData.search);
   // };
 
-  const handleCategorySelect = categoryId => {
-    setSelectedCategory(categoryId);
-  };
+  // const handleCategorySelect = categoryId => {
+  //   setSelectedCategory(categoryId);
+  // };
 
-  const handleSortingSelect = option => {
-    // setSelectedSortingOption(option);
-  };
+  // const handleSortingSelect = option => {
+  //   // setSelectedSortingOption(option);
+  // };
 
-  function refetchProducts() {
-    // console.log('forceRender before fetch :', forceRender);
-    // console.log('REFETCH WORKING');
-    // dispatch(fetchAllProducts());
-    // setForceRender(true);
-  }
+  // function refetchProducts() {
+  //   // console.log('forceRender before fetch :', forceRender);
+  //   // console.log('REFETCH WORKING');
+  //   // dispatch(fetchAllProducts());
+  //   // setForceRender(true);
+  // }
 
   // const getFilteredProducts = () => {
   //   return filteredProductsByCategory || filteredProductsByKeywords;
@@ -194,12 +215,34 @@ export default function ProductListPage() {
 
   return (
     <>
-      {/* <Heading withGoBack>Крамничка</Heading> */}
-      <SearchBar
+      <Heading withGoBack>Крамничка</Heading>
+      <Input
+        name="searchbar"
+        type="search"
+        value={searchBarValue}
+        onChange={e => setSearchBarValue(e.target.value)}
+        onClick={handleKeyWord}
+      />
+      <Selector
+        name="categories"
+        label=""
+        data={currentCategories}
+        fetchSelectorValue={setSelectedCategory}
+        defaultValue={{ name: 'Всі категорії Старт', id: '' }}
+        defaultOption={'Всі категорії'}
+      />
+      <Selector
+        name="sorting"
+        label=""
+        data={sortingTemplate}
+        fetchSelectorValue={setSelectedSortingOption}
+        defaultValue={{ name: 'Сортування', id: '' }}
+      />
+      {/* <SearchBar
       // onSubmit={handleSearchSubmit}
       // searchTerm={searchTerm}
       // selectedCategory={selectedCategory}
-      />
+      /> */}
       {/* <Filter
         // categories={currentCategories}
         // searchTerm={searchTerm}
@@ -212,7 +255,8 @@ export default function ProductListPage() {
         // products={currentProducts}
         // onSubmit={handleSearchSubmit}
         // sortedProducts={sortedProducts.length > 0 ? sortedProducts : products}
-        refetchProducts={refetchProducts}
+        // refetchProducts={refetchProducts}
+        keyWord={keyWord}
       />
     </>
   );

@@ -56,8 +56,9 @@
   margin-top: 4px;
   padding: 0 16px;
   /* основний текст */
-  @include text-styles;
-  color: var(--gray-color);
+  @include text-styles();
+  font-family: 'Nunito', sans-serif;
+  background: #191c2c;
 
   //   cursor: pointer;
   pointer-events: auto;

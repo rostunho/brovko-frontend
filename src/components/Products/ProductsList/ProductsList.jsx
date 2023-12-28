@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import {
   getAllProducts,
+  getProductsByKeywords,
   removeProduct,
 } from 'shared/services/api/brovko/products';
 import { removeProductRequestTemplate } from './removeProductRequestTemplate';
@@ -11,7 +12,12 @@ import Pagination from 'components/Products/Pagination';
 import styles from './ProductsList.module.scss';
 import { useSelector } from 'react-redux';
 
-const ProductList = ({ products, sortedProducts, refetchProducts }) => {
+const ProductList = ({
+  keyWord,
+  products,
+  sortedProducts,
+  refetchProducts,
+}) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [currentProducts, setCurrentProducts] = useState([]);
@@ -25,33 +31,39 @@ const ProductList = ({ products, sortedProducts, refetchProducts }) => {
     fetchAllProducts(page);
   }, [page]);
 
+  // оновлюємо продукти (перерендерюємо список) при потребі
   useEffect(() => {
-    (async () => {
-      await fetchAllProducts();
-      setRefreshProducts(false);
-    })();
+    fetchAllProducts();
+    setRefreshProducts(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refreshProducts]);
 
+  // здійснюємо пошук за ключовим словом коли приходить новий відповідний проп
+  useEffect(() => {
+    if (keyWord === '') {
+      return;
+    }
+    fetchProductsByKeyword(keyWord);
+  }, [keyWord]);
+
   const fetchAllProducts = async (page = 1) => {
     const { products, totalPages } = await getAllProducts(page);
-    // console.log('products into fetchAllProducts >>>:', products);
     setCurrentProducts([...products]);
+    setTotalPages(totalPages);
+  };
+
+  const fetchProductsByKeyword = async keyWord => {
+    const { products, totalPages } = await getProductsByKeywords(keyWord);
+    // console.log('response :>> ', { products, totalPages });
+    setCurrentProducts(products);
     setTotalPages(totalPages);
   };
 
   const handleRemoveProducts = async () => {
     const body = removeProductRequestTemplate;
-    // console.log('body.product :>> ', body.product);
-
     body.product = productIdsForRemoving.map(id => ({ id }));
-    // console.log('body.product after mapping:>> ', body.product);
-    // console.log('body after mapping :>>', body);
-
     await removeProduct(body);
     setRefreshProducts(true);
-
-    // console.log('response :>> ', response);
   };
 
   const handleViewMode = () => {
@@ -59,13 +71,9 @@ const ProductList = ({ products, sortedProducts, refetchProducts }) => {
   };
 
   const getItemsForRemoving = (id, checked) => {
-    // console.log('DATA IN PRODUCT LIST :', { id: id, checked: checked });
-
     checked
       ? addProductIdToDeletingList(id)
       : removeProductIdToDeletingList(id);
-
-    // console.log('productIdsForRemoving :>> ', productIdsForRemoving);
   };
 
   const addProductIdToDeletingList = id => {

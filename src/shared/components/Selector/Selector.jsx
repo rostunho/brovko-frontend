@@ -15,7 +15,6 @@ export default function Selector({
   hotOptionsData,
   defaultValue, // ключ name буде значенням селектора за замовчуванням
   placeholder,
-  form,
   size,
   fetchSelectorValue, // "витягує" поточне значення селектора в батьківський компонент
   openedDropdown,
@@ -28,7 +27,6 @@ export default function Selector({
   defaultOption, // опція, яка буде першою у списку-випадайці
   style,
   dropdownStyle,
-  valueChange,
 
   ...props
 }) {
@@ -45,9 +43,9 @@ export default function Selector({
   const id = nanoid(6);
   let key = 0;
 
-  useEffect(() => {
-    console.log('currrentValue into SELECTOR >>:', currentValue);
-  }, [currentValue]);
+  // useEffect(() => {
+  //   console.log('currrentValue into SELECTOR >>:', currentValue);
+  // }, [currentValue]);
 
   // console.log('currentValue :>> ', currentValue.name);
 
@@ -109,10 +107,6 @@ export default function Selector({
   const onHotOptionPress = option => {
     setCurrentValue(prevValue => ({ ...prevValue, name: option }));
   };
-
-  // useEffect(() => {
-  //   setCurrentValue(valueChange); // Оновлюємо currentValue при зміні пропса value
-  // }, [valueChange]);
 
   return (
     <div className={styles.container}>
