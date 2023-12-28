@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import Button from 'shared/components/Button';
 
 import StatusOptions from './StatusOptions';
+import ListByStatus from '../ListByStatus';
 
 import { getAllByStatus } from 'shared/services/api/brovko/user';
 
@@ -13,8 +14,6 @@ const StatusSection = () => {
   const [list, setList] = useState([]);
   const [nobodyExist, setNobodyExist] = useState(false);
 
-  console.log(list);
-
   const toggleStatusToShow = data => {
     setNobodyExist(false);
     setShowStatus(data);
@@ -23,7 +22,6 @@ const StatusSection = () => {
   const onShowStatusList = async () => {
     try {
       const data = await getAllByStatus(showStatus);
-      console.log(data);
       setList(data.users);
     } catch (error) {
       if (error.response.status === 404) {
@@ -39,7 +37,7 @@ const StatusSection = () => {
       <Button onClick={onShowStatusList} className={styles.buttonShow}>
         Показати список
       </Button>
-      {list.length ? <p>тут буде список</p> : <div></div>}
+      {list.length > 0 && <ListByStatus list={list} />}
       {nobodyExist && <p>Ця роль ще ніким не зайнята!</p>}
     </div>
   );
