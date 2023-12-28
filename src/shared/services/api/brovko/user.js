@@ -126,7 +126,6 @@ export const getAllByStatus = async (status = '') => {
         status,
       },
     });
-    console.log(data, 'data in get all by status');
     return data;
   } catch (error) {
     console.error('Error getting users by status: ', error);
