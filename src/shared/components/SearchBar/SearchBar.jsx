@@ -28,25 +28,28 @@ const SearchBar = ({ onSubmit, searchTerm, selectedCategory }) => {
   };
 
   return (
-    <form
-      ref={formRef}
-      className={style.searchForm}
-      onSubmit={handleSubmitSearch}
-    >
-      <div className={style.container}>
-        <OldInput
-          className={style.searchInput}
-          type="search"
-          name="search"
-          value={search}
-          onChange={handleChange} //handleChange з useForm
-          onClick={handleSubmitSearch} //handleSubmitSearch з useForm
-          onRemove={remove}
-          autoComplete="off"
-          placeholder="Пошук смаколиків"
-        />
-      </div>
-    </form>
+    <>
+      <Input type="search" placeholder="Оновлений пошук смаколиків" />
+      {/* <form
+        ref={formRef}
+        className={style.searchForm}
+        onSubmit={handleSubmitSearch}
+      >
+        <div className={style.container}>
+          <OldInput
+            className={style.searchInput}
+            type="search"
+            name="search"
+            value={search}
+            onChange={handleChange} //handleChange з useForm
+            onClick={handleSubmitSearch} //handleSubmitSearch з useForm
+            onRemove={remove}
+            autoComplete="off"
+            placeholder="Пошук смаколиків"
+          />
+        </div>
+      </form> */}
+    </>
   );
 };
 

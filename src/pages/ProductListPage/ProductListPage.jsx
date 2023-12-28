@@ -26,30 +26,28 @@ import { getSearchTerm } from 'redux/search/searchSelectors';
 
 import Loader from 'components/Loader';
 import Heading from 'shared/components/Heading/Heading';
-import Pagination from 'components/Products/Pagination';
+
 import ProductList from 'components/Products/ProductsList/ProductsList';
 import SearchBar from 'shared/components/SearchBar/SearchBar';
 import Filter from 'components/Filter/Filter';
 import { sortingFunctions } from './sortingFunctions';
 // import styles from './ProductListPage.module.scss';
 
-export default function ProductListPage() {
-  // console.log('RENDER PRODUCT LIST PAGE');
+//
 
-  const [currentProducts, setCurrentProducts] = useState([]);
-  const [currentCategories, setCurrentCategories] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [defaultCategory, setDefaultCategory] = useState({
-    name: 'Всі категорії',
-    id: 'all',
-  });
+export default function ProductListPage() {
+  // const [currentCategories, setCurrentCategories] = useState([]);
+
+  // const [defaultCategory, setDefaultCategory] = useState({
+  //   name: 'Всі категорії',
+  //   id: 'all',
+  // });
   const [selectedCategory, setSelectedCategory] = useState({
     name: 'Всі категорії',
   });
 
   // const [selectedSortingOption, setSelectedSortingOption] = useState(null);
-  const [sortedProducts, setSortedProducts] = useState([]);
+  // const [sortedProducts, setSortedProducts] = useState([]);
 
   // const [forceRender, setForceRender] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -79,55 +77,55 @@ export default function ProductListPage() {
   // }, [currentProducts, currentCategories]);
 
   // при першому рендері сторінки
-  useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      // встановлюємо, як актуальні, УСІ продукти з бази даних
-      const { products, totalPages } = await getAllProducts();
-      setCurrentProducts([...products]);
-      // встановлюємо, як актуальні, УСІ категорії з бази даних
-      const { categories } = await getAllCategories();
-      setCurrentCategories([...categories]);
-      // встановлюємо дефолтну кількість продуктів на одній сторінці пагінації (поки динамічно не змінюємо)
-      setTotalPages(totalPages);
-      setIsLoading(false);
-    })();
+  // useEffect(() => {
+  //   (async () => {
+  //     setIsLoading(true);
+  //     // встановлюємо, як актуальні, УСІ продукти з бази даних
+  //     const { products, totalPages } = await getAllProducts();
+  //     setCurrentProducts([...products]);
+  //     // встановлюємо, як актуальні, УСІ категорії з бази даних
+  //     const { categories } = await getAllCategories();
+  //     setCurrentCategories([...categories]);
+  //     // встановлюємо дефолтну кількість продуктів на одній сторінці пагінації (поки динамічно не змінюємо)
+  //     setTotalPages(totalPages);
+  //     setIsLoading(false);
+  //   })();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   // при зміні сторінки пагінації беремо з бази даних потрібну "порцію" продуктів
-  useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      const { products } = await getAllProducts(page);
-      setCurrentProducts([...products]);
-      setIsLoading(false);
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  // useEffect(() => {
+  //   (async () => {
+  //     setIsLoading(true);
+  //     const { products } = await getAllProducts(page);
+  //     setCurrentProducts([...products]);
+  //     setIsLoading(false);
+  //   })();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [page]);
 
-  useEffect(() => {
-    if (!selectedCategory.id) {
-      // console.log('SELECTED CATEGORY ID >>:', selectedCategory.id);
-      return;
-    }
-    (async () => {
-      setIsLoading(true);
-      if (selectedCategory.id === 'all') {
-        const { products } = await getAllProducts(page);
-        setCurrentProducts([...products]);
-      } else {
-        const { products } = await getProductsByCategory(
-          selectedCategory.id,
-          page
-        );
-        setCurrentProducts([...products]);
-      }
-      setIsLoading(false);
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCategory]);
+  // useEffect(() => {
+  //   if (!selectedCategory.id) {
+  //     // console.log('SELECTED CATEGORY ID >>:', selectedCategory.id);
+  //     return;
+  //   }
+  //   (async () => {
+  //     setIsLoading(true);
+  //     if (selectedCategory.id === 'all') {
+  //       const { products } = await getAllProducts(page);
+  //       setCurrentProducts([...products]);
+  //     } else {
+  //       const { products } = await getProductsByCategory(
+  //         selectedCategory.id,
+  //         page
+  //       );
+  //       setCurrentProducts([...products]);
+  //     }
+  //     setIsLoading(false);
+  //   })();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [selectedCategory]);
 
   // useEffect(() => {
   //   !forceRender && dispatch(fetchAllProducts(page));
@@ -136,13 +134,6 @@ export default function ProductListPage() {
   // }, [dispatch, forceRender, page]);
 
   // обробляємо клік по кнопці пагінації
-  const handleChangePage = pageNumber => {
-    setPage(pageNumber);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
 
   // useEffect(() => {
   //   setForceRender(false);
@@ -197,50 +188,31 @@ export default function ProductListPage() {
 
   // console.log('RENDER: selectedCategory :>> ', selectedCategory);
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
 
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '20px',
-          marginTop: '20px',
-          marginBottom: '40px',
-        }}
-      >
-        <button onClick={() => getAllProducts()}>TEST GET ALL PRODUCTS</button>
-        <button onClick={() => getProductsByCategory(108)}>
-          TEST GET PRODUCTS BY CATEGORY
-        </button>
-      </div>
       {/* <Heading withGoBack>Крамничка</Heading> */}
-      {/* <SearchBar
-        onSubmit={handleSearchSubmit}
-        searchTerm={searchTerm}
-        selectedCategory={selectedCategory}
-      /> */}
-      <Filter
-        categories={currentCategories}
+      <SearchBar
+      // onSubmit={handleSearchSubmit}
+      // searchTerm={searchTerm}
+      // selectedCategory={selectedCategory}
+      />
+      {/* <Filter
+        // categories={currentCategories}
         // searchTerm={searchTerm}
-        defaultCategory={defaultCategory}
-        defaultOption={defaultCategory?.name}
+        // defaultCategory={defaultCategory}
+        // defaultOption={defaultCategory?.name}
         onCategorySelect={handleCategorySelect}
         onSortingSelect={handleSortingSelect}
-      />
+      /> */}
       <ProductList
-        products={currentProducts}
+        // products={currentProducts}
         // onSubmit={handleSearchSubmit}
         // sortedProducts={sortedProducts.length > 0 ? sortedProducts : products}
         refetchProducts={refetchProducts}
-      />
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        onChangePage={handleChangePage}
       />
     </>
   );

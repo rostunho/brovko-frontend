@@ -1,16 +1,44 @@
-import { useState } from 'react';
-import { removeProduct } from 'shared/services/api/brovko/products';
+import { useState, useEffect } from 'react';
+import {
+  getAllProducts,
+  removeProduct,
+} from 'shared/services/api/brovko/products';
 import { removeProductRequestTemplate } from './removeProductRequestTemplate';
 import { selectUserStatus } from 'redux/user/userSelectors';
 import ProductsItem from '../ProductsItem';
 import Button from 'shared/components/Button';
+import Pagination from 'components/Products/Pagination';
 import styles from './ProductsList.module.scss';
 import { useSelector } from 'react-redux';
 
 const ProductList = ({ products, sortedProducts, refetchProducts }) => {
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentProducts, setCurrentProducts] = useState([]);
   const [adminInCustomerMode, setAdminInCustomerMode] = useState(false);
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
+  const [refreshProducts, setRefreshProducts] = useState(false);
   const userStatus = useSelector(selectUserStatus);
+
+  // беремо усі продукти при першому рендері і при зміні сторінки
+  useEffect(() => {
+    fetchAllProducts(page);
+  }, [page]);
+
+  useEffect(() => {
+    (async () => {
+      await fetchAllProducts();
+      setRefreshProducts(false);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refreshProducts]);
+
+  const fetchAllProducts = async (page = 1) => {
+    const { products, totalPages } = await getAllProducts(page);
+    // console.log('products into fetchAllProducts >>>:', products);
+    setCurrentProducts([...products]);
+    setTotalPages(totalPages);
+  };
 
   const handleRemoveProducts = async () => {
     const body = removeProductRequestTemplate;
@@ -21,7 +49,7 @@ const ProductList = ({ products, sortedProducts, refetchProducts }) => {
     // console.log('body after mapping :>>', body);
 
     await removeProduct(body);
-    await refetchProducts();
+    setRefreshProducts(true);
 
     // console.log('response :>> ', response);
   };
@@ -53,56 +81,88 @@ const ProductList = ({ products, sortedProducts, refetchProducts }) => {
     });
   };
 
-  if (!products) {
-    return null;
+  const handleChangePage = pageNumber => {
+    setPage(pageNumber);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  if (currentProducts.length < 1) {
+    return <h2>Немає продуктів</h2>;
   }
 
   return (
-    <div className={styles.products}>
-      {(userStatus === 'manager' || userStatus === 'superadmin') && (
-        <ul className={styles['buttons-list']}>
-          <li className={styles['buttons-item']}>
-            <Button
-              // className={styles['admin-button']}
-              admin
-              size="lg"
-              disabled={productIdsForRemoving.length < 1}
-              onClick={handleRemoveProducts}
-            >
-              Видалити
-            </Button>
-          </li>
-          <li className={styles['buttons-item']}>
-            <Button
-              // className={styles['admin-button']}
-              admin
-              size="lg"
-              onClick={handleViewMode}
-            >
-              {adminInCustomerMode
-                ? 'Повернутись в режим Адміна'
-                : 'Переглянути в режимі покупця'}
-            </Button>
-          </li>
-        </ul>
-      )}
-      {products.length > 0 ? (
-        <ul className={styles.list}>
-          {products.map(product => (
-            <li key={product._id}>
-              <ProductsItem
-                product={product}
-                onChange={getItemsForRemoving}
-                userStatus={userStatus}
-                adminInCustomerMode={adminInCustomerMode}
-              />
+    <>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '20px',
+          marginTop: '20px',
+          marginBottom: '40px',
+        }}
+      >
+        <button onClick={() => getAllProducts()}>TEST GET ALL PRODUCTS</button>
+        {/* <button onClick={() => getProductsByCategory(108)}>
+          TEST GET PRODUCTS BY CATEGORY
+        </button> */}
+      </div>
+
+      {/* видалити те, що вище */}
+
+      <div className={styles.products}>
+        {(userStatus === 'manager' || userStatus === 'superadmin') && (
+          <ul className={styles['buttons-list']}>
+            <li className={styles['buttons-item']}>
+              <Button
+                // className={styles['admin-button']}
+                admin
+                size="lg"
+                disabled={productIdsForRemoving.length < 1}
+                onClick={handleRemoveProducts}
+              >
+                Видалити
+              </Button>
             </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Нічого не знайдено</p>
-      )}
-    </div>
+            <li className={styles['buttons-item']}>
+              <Button
+                // className={styles['admin-button']}
+                admin
+                size="lg"
+                onClick={handleViewMode}
+              >
+                {adminInCustomerMode
+                  ? 'Повернутись в режим Адміна'
+                  : 'Переглянути в режимі покупця'}
+              </Button>
+            </li>
+          </ul>
+        )}
+        {currentProducts.length > 0 ? (
+          <ul className={styles.list}>
+            {currentProducts.map(product => (
+              <li key={product._id}>
+                <ProductsItem
+                  product={product}
+                  onChange={getItemsForRemoving}
+                  userStatus={userStatus}
+                  adminInCustomerMode={adminInCustomerMode}
+                />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Нічого не знайдено</p>
+        )}
+      </div>
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        onChangePage={handleChangePage}
+      />
+    </>
   );
 };
 

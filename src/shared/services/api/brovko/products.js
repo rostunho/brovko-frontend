@@ -18,8 +18,6 @@ export const getAllProducts = async (
     },
   });
 
-  // console.log('products.data in API operation :', data);
-
   return data;
 };
 
@@ -47,7 +45,11 @@ export const getProductsByCategory = async (
   }
 };
 
-export const getProductsByKeywords = async (search = 'sets', page = 1) => {
+export const getProductsByKeywords = async (
+  search = 'sets1',
+  page = 1,
+  perPage = 10
+) => {
   try {
     const { data } = await instance.get(`/products/search`, {
       params: { search, page },
