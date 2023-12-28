@@ -18,16 +18,21 @@ const Avatar = ({
   marginRight = 'auto',
   marginBottom = 32,
   fontSize = 36,
+  border = 'none',
 }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const openModalEditPhoto = () => {
+    if (size === '32px') {
+      return;
+    }
+
     setModalIsOpen(true);
   };
   const closeModalEditPhoto = () => {
     setModalIsOpen(false);
     setPrompDelete(false);
   };
-  const { firstName, email, avatarURL, _id } = useSelector(selectUser);
+  const { firstName, email, avatarURL, _id, status } = useSelector(selectUser);
   const dispatch = useDispatch();
 
   const delAvatar = () => {
@@ -101,6 +106,8 @@ const Avatar = ({
           marginLeft,
           marginRight,
           marginBottom,
+          border:
+            status === 'customer' ? '2px solid #F3A610' : '2px solid #4d95c3',
         }}
         onClick={openModalEditPhoto}
       >
@@ -108,9 +115,11 @@ const Avatar = ({
           className={styles.avatar}
           src={avatarURL}
           text={firstName || email}
+          height={size}
+          width={size}
           fontSize={fontSize}
         />
-        <CameraIcon className={styles.cameraIcon} />
+        {size !== '32px' && <CameraIcon className={styles.cameraIcon} />}
       </Button>
       {modalIsOpen && (
         <Modal closeModal={closeModalEditPhoto}>

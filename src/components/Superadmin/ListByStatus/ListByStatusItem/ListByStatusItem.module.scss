@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: var(--border-primary);
+  border-radius: var(--border-radius-secondary);
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--border-radius-secondary);
+}
+
+.imgWrapper {
+  min-width: 96px;
+  height: 96px;
+  border-radius: var(--border-radius-secondary);
+  padding: 0;
+  overflow: hidden;
+  fill: transparent;
+  background-color: transparent;
+}
+
+.name {
+  display: flex;
+  gap: 5px;
+}
