@@ -25,6 +25,7 @@ export default function Selector({
   required,
   disabled,
   defaultOption, // опція, яка буде першою у списку-випадайці
+  refresh,
   style,
   dropdownStyle,
 
@@ -77,6 +78,11 @@ export default function Selector({
       fetchSelectorValue({ ...currentValue });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentValue]);
+
+  useEffect(() => {
+    setCurrentValue(defaultValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refresh]);
 
   // useEffect(() => {
   //   if (

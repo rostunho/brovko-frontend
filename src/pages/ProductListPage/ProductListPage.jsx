@@ -48,6 +48,7 @@ export default function ProductListPage() {
   const [keyWord, setKeyWord] = useState('');
   const [currentCategories, setCurrentCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState({ name: '' });
+  const [refreshCategory, setRefreshCategory] = useState(false);
   const [selectedSortingOption, setSelectedSortingOption] = useState({
     name: '',
   });
@@ -63,9 +64,18 @@ export default function ProductListPage() {
     fetchAllCategories();
   }, []);
 
+  // кожного разу скидаємо тумблер refreshCategory в значення за замовчуванням
+  useEffect(() => {
+    if (!refreshCategory) {
+      return;
+    }
+    setRefreshCategory(false);
+  }, [refreshCategory]);
+
   const handleKeyWord = async () => {
     setKeyWord(searchBarValue);
     setSearchBarValue('');
+    setRefreshCategory(true);
   };
 
   const fetchAllCategories = async () => {
@@ -230,6 +240,7 @@ export default function ProductListPage() {
         fetchSelectorValue={setSelectedCategory}
         defaultValue={{ name: 'Всі категорії Старт', id: '' }}
         defaultOption={'Всі категорії'}
+        refresh={refreshCategory}
       />
       <Selector
         name="sorting"
