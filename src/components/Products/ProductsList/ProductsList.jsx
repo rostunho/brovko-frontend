@@ -14,12 +14,16 @@ import { useSelector } from 'react-redux';
 
 const ProductList = ({
   keyWord,
+  category,
+  sorting,
   products,
   sortedProducts,
   refetchProducts,
 }) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  // const [category, setCategory] = useState(null);
+  // const [sorting, setSorting] = useState('asc'); // значення "asc" || "desc"
   const [currentProducts, setCurrentProducts] = useState([]);
   const [adminInCustomerMode, setAdminInCustomerMode] = useState(false);
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
@@ -40,11 +44,18 @@ const ProductList = ({
 
   // здійснюємо пошук за ключовим словом коли приходить новий відповідний проп
   useEffect(() => {
+    // якщо ключового слова немає - приносимо усі продукти
     if (keyWord === '') {
+      fetchAllProducts();
       return;
+    } else {
+      fetchProductsByKeyword(keyWord);
     }
-    fetchProductsByKeyword(keyWord);
   }, [keyWord]);
+
+  // новий запит при зміні категорії, або способу сортування
+  useEffect(() => {}, []);
+  //
 
   const fetchAllProducts = async (page = 1) => {
     const { products, totalPages } = await getAllProducts(page);

@@ -74,7 +74,7 @@ export default function ProductListPage() {
 
   const handleKeyWord = async () => {
     setKeyWord(searchBarValue);
-    setSearchBarValue('');
+    // setSearchBarValue('');
     setRefreshCategory(true);
   };
 
@@ -268,6 +268,8 @@ export default function ProductListPage() {
         // sortedProducts={sortedProducts.length > 0 ? sortedProducts : products}
         // refetchProducts={refetchProducts}
         keyWord={keyWord}
+        category={selectedCategory}
+        sorting={selectedSortingOption}
       />
     </>
   );

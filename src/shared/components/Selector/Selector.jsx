@@ -25,7 +25,7 @@ export default function Selector({
   required,
   disabled,
   defaultOption, // опція, яка буде першою у списку-випадайці
-  refresh,
+  refresh, // допомагає сикнути значення селектора до "за замовчуванням"
   style,
   dropdownStyle,
 
