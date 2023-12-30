@@ -10,19 +10,35 @@ const setToken = token => {
 instance.interceptors.response.use(
   response => response,
   async error => {
-    if (error.response.status === 401) {
-      const refreshToken = localStorage.getItem('refreshToken');
-      try {
-        const { data: result } = await instance.post('/user/refresh', {
-          refreshToken,
-        });
-        setToken(result.accessToken);
-        localStorage.setItem('refreshToken', result.refreshToken);
-        return instance(error.config);
-      } catch (error) {
-        return Promise.reject(error);
+    const originalRequest = error.config;
+
+    // If the error status is 401 and there is no originalRequest._retry flag,
+    // it means the token has expired and we need to refresh it
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      const refresh = localStorage.getItem('refreshToken');
+      if (refresh) {
+        try {
+          const { data } = await instance.post('/user/refresh', {
+            refreshToken: refresh,
+          });
+          const { accessToken, refreshToken } = data;
+          if (accessToken) {
+            localStorage.setItem('refreshToken', refreshToken);
+
+            // Retry the original request with the new token
+            originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+            return instance(originalRequest);
+          } else {
+            // Оновлення токену не вдалося
+            return Promise.reject(new Error('Token refresh failed'));
+          }
+        } catch (refreshError) {
+          return Promise.reject(refreshError);
+        }
       }
     }
+
     return Promise.reject(error);
   }
 );
