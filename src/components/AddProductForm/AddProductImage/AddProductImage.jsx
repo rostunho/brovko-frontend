@@ -58,7 +58,7 @@ const AddProductImage = ({ pictures }) => {
 
   const setMain = (idMain) => {  
     setSelectedPictures(prevPictures => {
-      const updatedPictures = prevPictures.map((picture, index) => ({ ...picture, id: index + 1 }));
+      const updatedPictures = prevPictures.map((picture, index) => ({ ...picture, id: idMain && index === idMain ? 0 : idMain > index ? index + 1 : index}));
       const mainPicture = updatedPictures.splice(idMain, 1)[0];
       updatedPictures.unshift(mainPicture);
       return updatedPictures;
