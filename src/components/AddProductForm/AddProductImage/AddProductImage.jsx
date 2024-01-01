@@ -19,11 +19,7 @@ const AddProductImage = ({ pictures }) => {
   console.log(pictureArray);
 
   const [selectedImages, setSelectedImages] = useState([]);
-  const [selectedPictures, setSelectedPictures] = useState(
-    pictureArray.length > 0
-      ? pictureArray.map((url, index) => ({ id: index, url }))
-      : []
-  );
+  const [selectedPictures, setSelectedPictures] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [prompEdit, setPrompEdit] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -49,8 +45,25 @@ const AddProductImage = ({ pictures }) => {
     setPrompDelete(false);
   };
 
-  const setMain = () => {
-    console.log('Set main foto');
+  function moveElementToIndex(array, oldIndex, newIndex) {
+    if (newIndex >= array.length) {
+      let k = newIndex - array.length + 1;
+      while (k--) {
+        array.push(undefined);
+      }
+    }
+    array.splice(newIndex, 0, array.splice(oldIndex, 1)[0]);
+    return array;
+  }
+
+  const setMain = (idMain) => {  
+    setSelectedPictures(prevPictures => {
+      const updatedPictures = prevPictures.map((picture, index) => ({ ...picture, id: index + 1 }));
+      const mainPicture = updatedPictures.splice(idMain, 1)[0];
+      updatedPictures.unshift(mainPicture);
+      return updatedPictures;
+    });
+    console.log(`Set main foto ${idMain}`);
   };
 
   const delPhoto = () => {
@@ -93,6 +106,7 @@ const AddProductImage = ({ pictures }) => {
       .filter(Boolean);
     console.log(newImages);
     setSelectedImages([...selectedImages, ...newImages]);
+    setSelectedPictures([...selectedPictures, ...newImages]);
     setSelectedFiles([]);
   };
 
@@ -107,7 +121,7 @@ const AddProductImage = ({ pictures }) => {
       <p>Фото товару</p>
       <div className={styles.container}>
         {/* {images} */}
-        {[...selectedPictures, ...selectedImages].map(({ id, url }) => (
+        {selectedPictures.map(({ id, url }) => (
           <Button
             className={styles.btn}
             type="button"
@@ -155,7 +169,7 @@ const AddProductImage = ({ pictures }) => {
           />
           <Button
             type="button"
-            onClick={!prompDelete ? () => setMain() : () => resetPromp()}
+            onClick={!prompDelete ? () => setMain(modalIsId) : () => resetPromp()}
           >
             {!prompDelete ? 'Встановити головним' : 'Скасувати'}
           </Button>
