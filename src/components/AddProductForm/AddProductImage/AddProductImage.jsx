@@ -45,20 +45,23 @@ const AddProductImage = ({ pictures }) => {
     setPrompDelete(false);
   };
 
-  function moveElementToIndex(array, oldIndex, newIndex) {
-    if (newIndex >= array.length) {
-      let k = newIndex - array.length + 1;
-      while (k--) {
-        array.push(undefined);
-      }
-    }
-    array.splice(newIndex, 0, array.splice(oldIndex, 1)[0]);
-    return array;
-  }
+  // function moveElementToIndex(array, oldIndex, newIndex) {
+  //   if (newIndex >= array.length) {
+  //     let k = newIndex - array.length + 1;
+  //     while (k--) {
+  //       array.push(undefined);
+  //     }
+  //   }
+  //   array.splice(newIndex, 0, array.splice(oldIndex, 1)[0]);
+  //   return array;
+  // }
 
-  const setMain = (idMain) => {  
+  const setMain = idMain => {
     setSelectedPictures(prevPictures => {
-      const updatedPictures = prevPictures.map((picture, index) => ({ ...picture, id: idMain && index === idMain ? 0 : idMain > index ? index + 1 : index}));
+      const updatedPictures = prevPictures.map((picture, index) => ({
+        ...picture,
+        id: idMain && index === idMain ? 0 : idMain > index ? index + 1 : index,
+      }));
       const mainPicture = updatedPictures.splice(idMain, 1)[0];
       updatedPictures.unshift(mainPicture);
       return updatedPictures;
@@ -66,8 +69,15 @@ const AddProductImage = ({ pictures }) => {
     console.log(`Set main foto ${idMain}`);
   };
 
-  const delPhoto = () => {
-    console.log('delete photo');
+  const delPhoto = id => {
+    setSelectedPictures(prevPictures => {
+      const updatedPictures = prevPictures.filter(picture => picture.id !== id);
+      console.log(updatedPictures);
+      return updatedPictures;
+    
+    });
+    closeModalEditPhoto()
+    console.log(`delete photo ${id}`);
   };
 
   console.log(selectedPictures);
@@ -169,14 +179,18 @@ const AddProductImage = ({ pictures }) => {
           />
           <Button
             type="button"
-            onClick={!prompDelete ? () => setMain(modalIsId) : () => resetPromp()}
+            onClick={
+              !prompDelete ? () => setMain(modalIsId) : () => resetPromp()
+            }
           >
             {!prompDelete ? 'Встановити головним' : 'Скасувати'}
           </Button>
           <Button
             type="button"
             onClick={
-              !prompDelete ? () => setPrompDelete(true) : () => delPhoto()
+              !prompDelete
+                ? () => setPrompDelete(true)
+                : () => delPhoto(modalIsId)
             }
           >
             {!prompDelete ? 'Видалити фото' : 'Так'}
