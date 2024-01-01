@@ -4,8 +4,11 @@ import styles from './addProductImage.module.scss';
 import Image from 'shared/components/Image';
 import Modal from 'shared/components/Modal/Modal';
 import Button from 'shared/components/Button';
+import { addPopupOperation } from 'redux/popup/popupOperations';
+import { useDispatch } from 'react-redux';
 
 const AddProductImage = ({ pictures }) => {
+  const dispatch = useDispatch();
   //   pictures = [
   //   "https://shkvarka.ua/wp-content/uploads/img_3484-scaled.jpg",
   //   "https://shkvarka.ua/wp-content/uploads/img_3483-scaled.jpg",
@@ -66,7 +69,9 @@ const AddProductImage = ({ pictures }) => {
       updatedPictures.unshift(mainPicture);
       return updatedPictures;
     });
+    closeModalEditPhoto();
     console.log(`Set main foto ${idMain}`);
+    dispatch(addPopupOperation('Фото встановлено головним'))
   };
 
   const delPhoto = id => {
@@ -74,15 +79,15 @@ const AddProductImage = ({ pictures }) => {
       const updatedPictures = prevPictures.filter(picture => picture.id !== id);
       console.log(updatedPictures);
       return updatedPictures;
-    
     });
-    closeModalEditPhoto()
+    closeModalEditPhoto();
     console.log(`delete photo ${id}`);
+   dispatch(addPopupOperation('Фото видалено'))
   };
 
   console.log(selectedPictures);
 
-  const handleImageChange = (e, xFiles = 1000) => {
+  const handleImageChange = (e, xFiles = 100) => {
     e.preventDefault();
     const files = Array.from(e.target.files);
 
@@ -92,6 +97,7 @@ const AddProductImage = ({ pictures }) => {
       addImages(files);
     } else {
       console.log(`Можна завантажити не більше ${xFiles} файлів`);
+      dispatch(addPopupOperation(`Можна завантажити не більше ${xFiles} файлів`))
     }
     console.log(selectedFiles);
   };
@@ -180,10 +186,22 @@ const AddProductImage = ({ pictures }) => {
           <Button
             type="button"
             onClick={
-              !prompDelete ? () => setMain(modalIsId) : () => resetPromp()
+              !prompDelete
+                ? modalIsId !== 0
+                  ? () => {
+                      setMain(modalIsId);
+                    }
+                  : () => {
+                      dispatch(addPopupOperation('Головне'))
+                    }
+                : () => resetPromp()
             }
           >
-            {!prompDelete ? 'Встановити головним' : 'Скасувати'}
+            {!prompDelete
+              ? modalIsId !== 0
+                ? 'Встановити головним'
+                : 'Головне'
+              : 'Скасувати'}
           </Button>
           <Button
             type="button"
