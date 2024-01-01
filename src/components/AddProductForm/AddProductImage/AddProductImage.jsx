@@ -71,7 +71,7 @@ const AddProductImage = ({ pictures }) => {
     });
     closeModalEditPhoto();
     console.log(`Set main foto ${idMain}`);
-    dispatch(addPopupOperation('Фото встановлено головним'))
+    dispatch(addPopupOperation('Фото встановлено головним'));
   };
 
   const delPhoto = id => {
@@ -82,7 +82,7 @@ const AddProductImage = ({ pictures }) => {
     });
     closeModalEditPhoto();
     console.log(`delete photo ${id}`);
-   dispatch(addPopupOperation('Фото видалено'))
+    dispatch(addPopupOperation('Фото видалено'));
   };
 
   console.log(selectedPictures);
@@ -97,7 +97,9 @@ const AddProductImage = ({ pictures }) => {
       addImages(files);
     } else {
       console.log(`Можна завантажити не більше ${xFiles} файлів`);
-      dispatch(addPopupOperation(`Можна завантажити не більше ${xFiles} файлів`))
+      dispatch(
+        addPopupOperation(`Можна завантажити не більше ${xFiles} файлів`)
+      );
     }
     console.log(selectedFiles);
   };
@@ -123,6 +125,17 @@ const AddProductImage = ({ pictures }) => {
     console.log(newImages);
     setSelectedImages([...selectedImages, ...newImages]);
     setSelectedPictures([...selectedPictures, ...newImages]);
+    dispatch(
+      addPopupOperation(
+        `Додано ${newImages.length} файл${
+          newImages.length === 1
+            ? ``
+            : newImages.length < 5
+            ? `и`
+            : `ів`
+        }`
+      )
+    );
     setSelectedFiles([]);
   };
 
@@ -192,7 +205,7 @@ const AddProductImage = ({ pictures }) => {
                       setMain(modalIsId);
                     }
                   : () => {
-                      dispatch(addPopupOperation('Головне'))
+                      dispatch(addPopupOperation('Головне'));
                     }
                 : () => resetPromp()
             }
