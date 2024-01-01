@@ -7,18 +7,26 @@
   border-radius: 8px;
   display: flex;
   justify-content: center;
-flex-wrap: wrap;
+  flex-wrap: wrap;
   // flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 15px;
 }
 
-.img {
+.btn {
   width: 120px;
   height: 120px;
   margin-top: 60px;
   border-radius: 8px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  // display: block;
   // padding: 0 16px;
 }
 

@@ -31,6 +31,11 @@ const AddProductImage = ({ pictures }) => {
   const [modalIsId, setModalIsId] = useState(false);
   const [prompDelete, setPrompDelete] = useState(false);
 
+  useEffect(() => {
+    setSelectedPictures(pictureArray.map((url, index) => ({ id: index, url })));
+    console.log('update pic');
+  }, [pictures]);
+
   const openModalEditPhoto = (id, url) => {
     console.log(id, url);
     setModalIsId(id);
@@ -91,11 +96,6 @@ const AddProductImage = ({ pictures }) => {
     setSelectedFiles([]);
   };
 
-  useEffect(() => {
-    setSelectedPictures(pictureArray.map((url, index) => ({ id: index, url })));
-    console.log('update pic');
-  }, [pictures]);
-
   // const images =  selectedPictures.map((picture) => (
   //   <Image key={picture} src={picture} alt={`preview-${picture.id}`} className={styles.img} />
   // ))
@@ -107,8 +107,9 @@ const AddProductImage = ({ pictures }) => {
       <p>Фото товару</p>
       <div className={styles.container}>
         {/* {images} */}
-        {selectedPictures.map(({ id, url }) => (
-          <button
+        {[...selectedPictures, ...selectedImages].map(({ id, url }) => (
+          <Button
+            className={styles.btn}
             type="button"
             onClick={e => {
               openModalEditPhoto(id, url);
@@ -120,25 +121,8 @@ const AddProductImage = ({ pictures }) => {
               alt={`preview-${id + 1}`}
               className={styles.img}
             />
-          </button>
+          </Button>
         ))}
-        {selectedImages.length > 0 &&
-          selectedImages.map(({ id, url }) => (
-            <button
-              type="button"
-              onClick={e => {
-                openModalEditPhoto(id, url);
-              }}
-            >
-              <Image
-                key={id}
-                src={url}
-                alt={`preview-${id + 1}`}
-                className={styles.img}
-              />
-            </button>
-          ))}
-
         <label className={styles.fileInputLabel}>
           <input
             className={styles.visuallyHidden}
@@ -169,10 +153,18 @@ const AddProductImage = ({ pictures }) => {
             alt={`preview-${modalIsId}`}
             className={styles.img}
           />
-          <Button type="button" onClick={!prompDelete ? () => setMain() : () => resetPromp()}>
+          <Button
+            type="button"
+            onClick={!prompDelete ? () => setMain() : () => resetPromp()}
+          >
             {!prompDelete ? 'Встановити головним' : 'Скасувати'}
           </Button>
-          <Button type="button" onClick={!prompDelete ? () => setPrompDelete(true) : () => delPhoto()}>
+          <Button
+            type="button"
+            onClick={
+              !prompDelete ? () => setPrompDelete(true) : () => delPhoto()
+            }
+          >
             {!prompDelete ? 'Видалити фото' : 'Так'}
           </Button>
         </Modal>
