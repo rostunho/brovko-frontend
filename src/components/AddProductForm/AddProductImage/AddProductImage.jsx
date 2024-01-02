@@ -59,24 +59,57 @@ const AddProductImage = ({ pictures }) => {
   //   return array;
   // }
 
-  const setMain = idMain => {
-    setSelectedPictures(prevPictures => {
-      const updatedPictures = prevPictures.map((picture, index) => ({
+  // const setMain = idMain => {
+  //   setSelectedPictures(prevPictures => {
+  //     // const updatedPictures = prevPictures.map((picture, index) => ({
+  //     //   ...picture,
+  //     //   id: idMain && index === idMain ? 0 : idMain > index ? index + 1 : index,
+  //     // }));
+
+  //     const updatedPictures = prevPictures.map((url, index) => ({
+  //       id: idMain && index === idMain ? 0 : idMain > index ? index + 1 : index,
+  //       url,
+  //     }));
+
+  //     const mainPicture = updatedPictures.splice(idMain, 1)[0];
+  //     updatedPictures.unshift(mainPicture);
+  //     return updatedPictures;
+  //   });
+  //   closeModalEditPhoto();
+  //   console.log(`Set main foto ${idMain}`);
+  //   dispatch(addPopupOperation('Фото встановлено головним'));
+  // };
+
+  const setMain = (idMain) => {
+    setSelectedPictures((prevPictures) => {
+      const updatedPicturesWithNewIds = prevPictures.map((picture, index) => ({
         ...picture,
         id: idMain && index === idMain ? 0 : idMain > index ? index + 1 : index,
       }));
-      const mainPicture = updatedPictures.splice(idMain, 1)[0];
-      updatedPictures.unshift(mainPicture);
-      return updatedPictures;
+  
+      const uniquePictures = updatedPicturesWithNewIds.reduce((acc, picture) => {
+        if (!acc.find((p) => p.id === picture.id)) {
+          acc.push(picture);
+        }
+        return acc;
+      }, []);
+  
+      const sortedPictures = [...uniquePictures];
+      sortedPictures.sort((a, b) => a.id - b.id);
+  
+      return sortedPictures;
     });
+  
     closeModalEditPhoto();
     console.log(`Set main foto ${idMain}`);
     dispatch(addPopupOperation('Фото встановлено головним'));
   };
+ 
 
   const delPhoto = id => {
     setSelectedPictures(prevPictures => {
-      const updatedPictures = prevPictures.filter(picture => picture.id !== id);
+      const updatedPictures = prevPictures.filter(picture => picture.id !== id)
+        .map((picture, index) => ({ ...picture, id: index }));
       console.log(updatedPictures);
       return updatedPictures;
     });
@@ -104,33 +137,80 @@ const AddProductImage = ({ pictures }) => {
     console.log(selectedFiles);
   };
 
+  // const addImages = files => {
+  //   if (!files.length) {
+  //     return;
+  //   }
+
+  //   // const newImages = files
+  //   //   .map((file, index) => {
+  //   //     if (file instanceof Blob) {
+  //   //       return {
+  //   //         id: selectedPictures.length + index,
+
+  //   //         // id: selectedPictures.length + selectedImages.length + index,
+  //   //         url: URL.createObjectURL(file),
+  //   //       };
+  //   //     } else {
+  //   //       console.error('Invalid file:', file);
+  //   //       return null;
+  //   //     }
+  //   //   })
+  //   //   .filter(Boolean);
+
+  //   const newImages = files.map(file => URL.createObjectURL(file));
+
+  //   console.log(newImages);
+  //   // setSelectedImages([...selectedImages, ...newImages]);
+  //   // setSelectedPictures([...selectedPictures, ...newImages]);
+
+  //   setSelectedImages([
+  //     ...selectedImages,
+  //     ...files.map(file => URL.createObjectURL(file)),
+  //   ]);
+  //   setSelectedPictures([
+  //     ...selectedPictures,
+  //     ...files.map(file => URL.createObjectURL(file)),
+  //   ]);
+
+  //   dispatch(
+  //     addPopupOperation(
+  //       `Додано ${newImages.length} файл${
+  //         newImages.length === 1 ? `` : newImages.length < 5 ? `и` : `ів`
+  //       }`
+  //     )
+  //   );
+  //   setSelectedFiles([]);
+  // };
+
   const addImages = files => {
     if (!files.length) {
       return;
     }
-
-    const newImages = files
-      .map((file, index) => {
-        if (file instanceof Blob) {
-          return {
-            id: selectedPictures.length + index,
-
-            // id: selectedPictures.length + selectedImages.length + index,
-            url: URL.createObjectURL(file),
-          };
-        } else {
-          console.error('Invalid file:', file);
-          return null;
-        }
-      })
-      .filter(Boolean);
-    console.log(newImages);
+  
+    const newImages = files.map((file, index) => {
+      if (file instanceof Blob) {
+        return {
+          id: selectedPictures.length + index,
+          url: URL.createObjectURL(file),
+        };
+      } else if (typeof file === 'string' && file.startsWith('blob:')) {
+        return {
+          id: selectedPictures.length + index,
+          url: file,
+        };
+      } else {
+        console.error('Invalid file:', file);
+        return null;
+      }
+    }).filter(Boolean);
+  
     setSelectedImages([...selectedImages, ...newImages]);
     setSelectedPictures([...selectedPictures, ...newImages]);
     dispatch(
       addPopupOperation(
         `Додано ${newImages.length} файл${
-          newImages.length === 1 ? `` : newImages.length < 5 ? `и` : `ів`
+          newImages.length === 1 ? '' : newImages.length < 5 ? 'и' : 'ів'
         }`
       )
     );
@@ -148,18 +228,18 @@ const AddProductImage = ({ pictures }) => {
       <p>Фото товару</p>
       <div className={styles.container}>
         {/* {images} */}
-        {selectedPictures.map(({ id, url }) => (
+        {selectedPictures.map(({ id, url }, index) => (
           <Button
             className={styles.btn}
             type="button"
             onClick={e => {
-              openModalEditPhoto(id, url);
+              openModalEditPhoto(index, url);
             }}
           >
             <Image
-              key={id}
+              key={index}
               src={url}
-              alt={`preview-${id + 1}`}
+              alt={`preview-${index + 1}`}
               className={styles.img}
             />
           </Button>
@@ -203,7 +283,7 @@ const AddProductImage = ({ pictures }) => {
                       setMain(modalIsId);
                     }
                   : () => {
-                      dispatch(addPopupOperation('Головне фото призначено'));
+                      dispatch(addPopupOperation('Все ще головне'));
                     }
                 : () => resetPromp()
             }
