@@ -54,6 +54,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
         <div className={styles.addImg}>
           <PaperClip />
           <p className={styles.titleText}>Додати зображення</p>
+          
         </div>
 
         <Button

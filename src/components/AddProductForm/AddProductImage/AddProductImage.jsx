@@ -129,6 +129,25 @@ const AddProductImage = ({ pictures }) => {
 
   const resetPromp = () => setPrompDelete(false);
   console.log(selectedPictures);
+
+const images = selectedPictures.map(({ id, url }, index) => (
+  <Button
+    key={index}
+    className={styles.btn}
+    type="button"
+    onClick={e => {
+      openModalEditPhoto(index, url);
+    }}
+  >
+    <Image
+      key={index}
+      src={url}
+      alt={`preview-${index + 1}`}
+      className={styles.img}
+    />
+  </Button>
+))
+
   return (
     <>
       <p>Фото товару</p>
@@ -136,8 +155,8 @@ const AddProductImage = ({ pictures }) => {
       <p className={styles.text}>{selectedFiles.length > 0 || selectedPictures.length > 0
             ? 'Перше фото буде головним в картці товару. Перетягни, щоб змінити порядок фото.'
             : 'У суперадміна є суперздібність! Ти можеш додавати необмежену кількість фотографій товару!'} </p>
-        {/* {images} */}
-        {selectedPictures.map(({ id, url }, index) => (
+        {images}
+        {/* {selectedPictures.map(({ id, url }, index) => (
           <Button
             key={index}
             className={styles.btn}
@@ -153,7 +172,7 @@ const AddProductImage = ({ pictures }) => {
               className={styles.img}
             />
           </Button>
-        ))}
+        ))} */}
         <label className={styles.fileInputLabel}>
           <input
             className={styles.visuallyHidden}
