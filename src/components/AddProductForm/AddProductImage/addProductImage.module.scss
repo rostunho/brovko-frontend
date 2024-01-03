@@ -88,6 +88,11 @@
 }
 
 .text {
+  @include text-styles( );
   margin-top: 12px;
   margin-bottom: 29px;
+color: var( --grey-text-color);
+line-height: 19px;
+
+
 }
