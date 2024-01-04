@@ -130,111 +130,99 @@ const AddProductImage = ({ pictures }) => {
   const resetPromp = () => setPrompDelete(false);
   console.log(selectedPictures);
 
-const images = selectedPictures.map(({ id, url }, index) => (
-  <Button
-    key={index}
-    className={styles.btn}
-    type="button"
-    onClick={e => {
-      openModalEditPhoto(index, url);
-    }}
-  >
-    <Image
+  const images = selectedPictures.map(({ id, url }, index) => (
+    <Button
       key={index}
-      src={url}
-      alt={`preview-${index + 1}`}
-      className={styles.img}
-    />
-  </Button>
-))
+      className={styles.btn}
+      type="button"
+      onClick={e => {
+        openModalEditPhoto(index, url);
+      }}
+    >
+      <Image
+        key={index}
+        src={url}
+        alt={`preview-${index + 1}`}
+        className={styles.img}
+      />
+    </Button>
+  ));
+
+  const inputPhoto = (
+    <label className={styles.fileInputLabel}>
+      <input
+        className={styles.visuallyHidden}
+        type="file"
+        accept="image/jpeg, image/jpg, image/png"
+        multiple
+        onChange={e => handleImageChange(e)}
+      />
+      <AddIconImage />
+    </label>
+  );
+
+  const modalWindow = 
+    <Modal closeModal={closeModalEditPhoto}>
+      <p className={styles.mainText}>
+        {!prompDelete
+          ? 'Редагування зображення'
+          : 'Ти дійсно бажаєш видалити це фото?'}
+      </p>
+      <Image
+        key={modalIsId}
+        src={modalIsImage}
+        alt={`preview-${modalIsId}`}
+        className={styles.img}
+      />
+      <Button
+        type="button"
+        onClick={
+          !prompDelete
+            ? modalIsId !== 0
+              ? () => {
+                  setMain(modalIsId);
+                }
+              : () => {
+                  dispatch(addPopupOperation('Все ще головне'));
+                }
+            : () => resetPromp()
+        }
+      >
+        {!prompDelete
+          ? modalIsId !== 0
+            ? 'Встановити головним'
+            : 'Головне'
+          : 'Скасувати'}
+      </Button>
+      <Button
+        type="button"
+        onClick={
+          !prompDelete ? () => setPrompDelete(true) : () => delPhoto(modalIsId)
+        }
+      >
+        {!prompDelete ? 'Видалити фото' : 'Так'}
+      </Button>
+    </Modal>
+  
 
   return (
     <>
       <p>Фото товару</p>
       <div className={styles.container}>
-      <p className={styles.text}>{selectedFiles.length > 0 || selectedPictures.length > 0
+        <p className={styles.text}>
+          {selectedFiles.length > 0 || selectedPictures.length > 0
             ? 'Перше фото буде головним в картці товару. Перетягни, щоб змінити порядок фото.'
-            : 'У суперадміна є суперздібність! Ти можеш додавати необмежену кількість фотографій товару!'} </p>
+            : 'У суперадміна є суперздібність! Ти можеш додавати необмежену кількість фотографій товару!'}{' '}
+        </p>
         {images}
-        {/* {selectedPictures.map(({ id, url }, index) => (
-          <Button
-            key={index}
-            className={styles.btn}
-            type="button"
-            onClick={e => {
-              openModalEditPhoto(index, url);
-            }}
-          >
-            <Image
-              key={index}
-              src={url}
-              alt={`preview-${index + 1}`}
-              className={styles.img}
-            />
-          </Button>
-        ))} */}
-        <label className={styles.fileInputLabel}>
-          <input
-            className={styles.visuallyHidden}
-            type="file"
-            accept="image/jpeg, image/jpg, image/png"
-            multiple
-            onChange={e => handleImageChange(e)}
-          />
-          <AddIconImage />
-          {}
-        </label>
+        {inputPhoto}
         <p className={styles.text}>
           {selectedFiles.length > 0 || selectedPictures.length > 0
             ? 'Додати ще'
             : 'Додати фото'}
         </p>
       </div>
-      {modalIsOpen && (
-        <Modal closeModal={closeModalEditPhoto}>
-          <p className={styles.mainText}>
-            {!prompDelete
-              ? 'Редагування зображення'
-              : 'Ти дійсно бажаєш видалити це фото?'}
-          </p>
-          <Image
-            key={modalIsId}
-            src={modalIsImage}
-            alt={`preview-${modalIsId}`}
-            className={styles.img}
-          />
-          <Button
-            type="button"
-            onClick={
-              !prompDelete
-                ? modalIsId !== 0
-                  ? () => {
-                      setMain(modalIsId);
-                    }
-                  : () => {
-                      dispatch(addPopupOperation('Все ще головне'));
-                    }
-                : () => resetPromp()
-            }
-          >
-            {!prompDelete
-              ? modalIsId !== 0
-                ? 'Встановити головним'
-                : 'Головне'
-              : 'Скасувати'}
-          </Button>
-          <Button
-            type="button"
-            onClick={
-              !prompDelete
-                ? () => setPrompDelete(true)
-                : () => delPhoto(modalIsId)
-            }
-          >
-            {!prompDelete ? 'Видалити фото' : 'Так'}
-          </Button>
-        </Modal>
-      )}
+      {modalIsOpen &&  modalWindow }
     </>
   );
 };
