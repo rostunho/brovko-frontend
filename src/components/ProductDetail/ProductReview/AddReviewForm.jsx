@@ -21,14 +21,13 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsImage, setModalIsImage] = useState(false);
   const [modalIsId, setModalIsId] = useState(false);
-  const [prompDelete, setPrompDelete] = useState(false);
-  const [textQuantity, setTextQuantity] = useState(`Ви можете додавати до ${5 - selectedPictures.length} фото у форматі .jpg, .jpeg, .png. Кожен файл не може перевищувати 5 Мб.`)
+  const [prompDelete, setPrompDelete] = useState(true);
+  const [errorTextQuantity, setErrorTextQuantity] = useState(false);
 
   const { productId } = useParams();
   const dispatch = useDispatch();
 
   const openModalEditPhoto = (id, url) => {
-    console.log(id, url);
     setModalIsId(id);
     setModalIsImage(url);
     setModalIsOpen(true);
@@ -57,11 +56,12 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     if (files.length > 0 && files.length <= xFiles) {
       setSelectedFiles(files);
       addImages(files);
+      setErrorTextQuantity(false);
     } else {
       dispatch(
-        addPopupOperation(`Можна завантажити не більше ${xFiles} файлів`)       
+        addPopupOperation(`Можна завантажити не більше ${xFiles} файлів`)
       );
-      setTextQuantity("Ви обрали більше ніж 5 фото")
+      setErrorTextQuantity(`Ви обрали більше ніж ${xFiles} фото`);
     }
   };
 
@@ -120,8 +120,8 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     </Button>
   ));
 
-  const inputPhoto = (
-    <label className={styles.fileInputLabel}>
+  const inputPhoto = (index) => (
+    <label className={styles.fileInputLabel} key={index}>
       <input
         className={styles.visuallyHidden}
         type="file"
@@ -136,21 +136,19 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
   const inputPhotos = () => {
     const remainingInputs = Math.max(5 - selectedPictures.length, 0);
     const inputsPhoto = [];
-  
+
     for (let index = 0; index < remainingInputs; index++) {
-      const element = inputPhoto;
+      const element = inputPhoto(index);
       inputsPhoto.push(element);
     }
- 
+
     return inputsPhoto;
   };
 
   const modalWindow = (
     <Modal closeModal={closeModalEditPhoto}>
       <p className={styles.mainText}>
-        {!prompDelete
-          ? 'Редагування зображення'
-          : 'Ти дійсно бажаєш видалити це фото?'}
+        {false ? 'Видалення зображення' : 'Ти дійсно бажаєш видалити це фото?'}
       </p>
       <Image
         key={modalIsId}
@@ -161,7 +159,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
       <Button
         type="button"
         onClick={
-          !prompDelete
+          false
             ? modalIsId !== 0
               ? () => {
                   // setMain(modalIsId);
@@ -170,11 +168,11 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
                   dispatch(addPopupOperation('Все ще головне'));
                 }
             : () => {
-                //  resetPromp()
+                closeModalEditPhoto();
               }
         }
       >
-        {!prompDelete
+        {false
           ? modalIsId !== 0
             ? 'Встановити головним'
             : 'Головне'
@@ -182,14 +180,14 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
       </Button>
       <Button
         type="button"
-        onClick={
-          !prompDelete ? () => setPrompDelete(true) : () => delPhoto(modalIsId)
-        }
+        onClick={false ? () => setPrompDelete(true) : () => delPhoto(modalIsId)}
       >
-        {!prompDelete ? 'Видалити фото' : 'Так'}
+        {false ? 'Видалити фото' : 'Так'}
       </Button>
     </Modal>
   );
+
+  const resetPromp = () => setPrompDelete(false);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -197,11 +195,13 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     const reviewData = {
       productId,
       text,
+      // selectedPictures,
     };
 
     dispatch(fetchAddReview(reviewData));
 
     setText('');
+    setSelectedPictures([])
     closeReviewInput();
   };
 
@@ -233,8 +233,21 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
         <div className={styles.addImg}>
           {images}
           {inputPhotos()}
-          {selectedPictures.length < 5 && <><PaperClip />
-          <p className={styles.titleText}>`Ви можете додавати до {5 - selectedPictures.length} фото у форматі .jpg, .jpeg, .png. Кожен файл не може перевищувати 5 Мб.`</p></>}
+          {selectedPictures.length < 5 && (
+            <>
+              <PaperClip />
+              <p
+                className={`${styles.titleText} ${
+                  errorTextQuantity ? styles.errorTextQuantity : ''
+                }`}
+              >
+                {errorTextQuantity ||
+                  `Ви можете додавати до ${
+                    5 - selectedPictures.length
+                  } фото у форматі .jpg, .jpeg, .png. Кожен файл не може перевищувати 5 Мб.`}
+              </p>
+            </>
+          )}
         </div>
 
         <Button
@@ -246,7 +259,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
           Опублікувати
         </Button>
       </form>
-      {modalIsOpen &&  modalWindow }
+      {modalIsOpen && modalWindow}
     </div>
   );
 }
