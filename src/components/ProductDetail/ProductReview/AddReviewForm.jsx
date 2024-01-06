@@ -6,11 +6,190 @@ import Button from 'shared/components/Button';
 import StarEmptyBig from 'shared/icons/StarEmtyBig';
 import PaperClip from 'shared/icons/PaperClip';
 import styles from './AddRewiewForm.module.scss';
+import { addPopupOperation } from 'redux/popup/popupOperations';
+import Image from 'shared/components/Image';
+import AddIconImage from 'shared/icons/AddIconImage';
+import Modal from 'shared/components/Modal/Modal';
 
 export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
   const [text, setText] = useState('');
+
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [selectedPictures, setSelectedPictures] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [prompEdit, setPrompEdit] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsImage, setModalIsImage] = useState(false);
+  const [modalIsId, setModalIsId] = useState(false);
+  const [prompDelete, setPrompDelete] = useState(false);
+  const [textQuantity, setTextQuantity] = useState(`Ви можете додавати до ${5 - selectedPictures.length} фото у форматі .jpg, .jpeg, .png. Кожен файл не може перевищувати 5 Мб.`)
+
   const { productId } = useParams();
   const dispatch = useDispatch();
+
+  const openModalEditPhoto = (id, url) => {
+    console.log(id, url);
+    setModalIsId(id);
+    setModalIsImage(url);
+    setModalIsOpen(true);
+  };
+
+  const closeModalEditPhoto = () => {
+    setModalIsOpen(false);
+    setPrompDelete(false);
+  };
+
+  const delPhoto = id => {
+    setSelectedPictures(prevPictures => {
+      const updatedPictures = prevPictures
+        .filter(picture => picture.id !== id)
+        .map((picture, index) => ({ ...picture, id: index }));
+      return updatedPictures;
+    });
+    closeModalEditPhoto();
+    dispatch(addPopupOperation('Фото видалено'));
+  };
+
+  const handleImageChange = (e, xFiles = 5 - selectedPictures.length) => {
+    e.preventDefault();
+    const files = Array.from(e.target.files);
+
+    if (files.length > 0 && files.length <= xFiles) {
+      setSelectedFiles(files);
+      addImages(files);
+    } else {
+      dispatch(
+        addPopupOperation(`Можна завантажити не більше ${xFiles} файлів`)       
+      );
+      setTextQuantity("Ви обрали більше ніж 5 фото")
+    }
+  };
+
+  const addImages = files => {
+    if (!files.length) {
+      return;
+    }
+
+    const newImages = files
+      .map((file, index) => {
+        if (file instanceof Blob) {
+          return {
+            id: selectedPictures.length + index,
+            url: URL.createObjectURL(file),
+          };
+        } else if (typeof file === 'string' && file.startsWith('blob:')) {
+          return {
+            id: selectedPictures.length + index,
+            url: file,
+          };
+        } else {
+          console.error('Invalid file:', file);
+          addPopupOperation(`Не правильний файл: ${file}`);
+          return null;
+        }
+      })
+      .filter(Boolean);
+
+    setSelectedImages([...selectedImages, ...newImages]);
+    setSelectedPictures([...selectedPictures, ...newImages]);
+    dispatch(
+      addPopupOperation(
+        `Додано ${newImages.length} файл${
+          newImages.length === 1 ? '' : newImages.length < 5 ? 'и' : 'ів'
+        }`
+      )
+    );
+    setSelectedFiles([]);
+  };
+
+  const images = selectedPictures.map(({ id, url }, index) => (
+    <Button
+      key={index}
+      className={styles.btn}
+      type="button"
+      onClick={e => {
+        openModalEditPhoto(index, url);
+      }}
+    >
+      <Image
+        key={index}
+        src={url}
+        alt={`preview-${index + 1}`}
+        className={styles.img}
+      />
+    </Button>
+  ));
+
+  const inputPhoto = (
+    <label className={styles.fileInputLabel}>
+      <input
+        className={styles.visuallyHidden}
+        type="file"
+        accept="image/jpeg, image/jpg, image/png"
+        multiple
+        onChange={e => handleImageChange(e)}
+      />
+      <AddIconImage />
+    </label>
+  );
+
+  const inputPhotos = () => {
+    const remainingInputs = Math.max(5 - selectedPictures.length, 0);
+    const inputsPhoto = [];
+  
+    for (let index = 0; index < remainingInputs; index++) {
+      const element = inputPhoto;
+      inputsPhoto.push(element);
+    }
+ 
+    return inputsPhoto;
+  };
+
+  const modalWindow = (
+    <Modal closeModal={closeModalEditPhoto}>
+      <p className={styles.mainText}>
+        {!prompDelete
+          ? 'Редагування зображення'
+          : 'Ти дійсно бажаєш видалити це фото?'}
+      </p>
+      <Image
+        key={modalIsId}
+        src={modalIsImage}
+        alt={`preview-${modalIsId}`}
+        className={styles.img}
+      />
+      <Button
+        type="button"
+        onClick={
+          !prompDelete
+            ? modalIsId !== 0
+              ? () => {
+                  // setMain(modalIsId);
+                }
+              : () => {
+                  dispatch(addPopupOperation('Все ще головне'));
+                }
+            : () => {
+                //  resetPromp()
+              }
+        }
+      >
+        {!prompDelete
+          ? modalIsId !== 0
+            ? 'Встановити головним'
+            : 'Головне'
+          : 'Скасувати'}
+      </Button>
+      <Button
+        type="button"
+        onClick={
+          !prompDelete ? () => setPrompDelete(true) : () => delPhoto(modalIsId)
+        }
+      >
+        {!prompDelete ? 'Видалити фото' : 'Так'}
+      </Button>
+    </Modal>
+  );
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -52,8 +231,10 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
           />
         </div>
         <div className={styles.addImg}>
-          <PaperClip />
-          <p className={styles.titleText}>Додати зображення</p>
+          {images}
+          {inputPhotos()}
+          {selectedPictures.length < 5 && <><PaperClip />
+          <p className={styles.titleText}>`Ви можете додавати до {5 - selectedPictures.length} фото у форматі .jpg, .jpeg, .png. Кожен файл не може перевищувати 5 Мб.`</p></>}
         </div>
 
         <Button
@@ -65,6 +246,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
           Опублікувати
         </Button>
       </form>
+      {modalIsOpen &&  modalWindow }
     </div>
   );
 }
