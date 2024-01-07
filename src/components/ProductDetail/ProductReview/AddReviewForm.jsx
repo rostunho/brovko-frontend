@@ -189,24 +189,30 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
 
   const resetPromp = () => setPrompDelete(false);
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const review = new FormData();
-    selectedPictures.forEach((picture, index) => {
-      review.append(`rewiew`, picture.url);
+  
+    const formData = new FormData();
+    formData.append('productId', productId);
+    formData.append('text', text);
+  
+    selectedFiles.forEach((file, index) => {
+      formData.append('review', file);
     });
-    console.log(review)
-    const reviewData = {
-      productId,
-      text,
-      review,
-    };
-
-    dispatch(fetchAddReview(reviewData));
-
-    setText('');
-    setSelectedPictures([]);
-    closeReviewInput();
+  
+    try {
+      // Використовуйте вашу функцію fetchAddReview для відправлення FormData
+      await dispatch(fetchAddReview(formData));
+  
+      // Очистка полів після успішної відправки
+      setText('');
+      setSelectedPictures([]);
+      setSelectedFiles([]);
+      closeReviewInput();
+    } catch (error) {
+      // Обробка помилок при відправленні
+      console.error('Error submitting review:', error);
+    }
   };
 
   return (
