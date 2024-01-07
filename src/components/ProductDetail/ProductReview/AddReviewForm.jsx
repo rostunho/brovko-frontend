@@ -120,7 +120,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     </Button>
   ));
 
-  const inputPhoto = (index) => (
+  const inputPhoto = index => (
     <label className={styles.fileInputLabel} key={index}>
       <input
         className={styles.visuallyHidden}
@@ -191,17 +191,21 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-
+    const review = new FormData();
+    selectedPictures.forEach((picture, index) => {
+      review.append(`rewiew`, picture.url);
+    });
+    console.log(review)
     const reviewData = {
       productId,
       text,
-      // selectedPictures,
+      review,
     };
 
     dispatch(fetchAddReview(reviewData));
 
     setText('');
-    setSelectedPictures([])
+    setSelectedPictures([]);
     closeReviewInput();
   };
 
