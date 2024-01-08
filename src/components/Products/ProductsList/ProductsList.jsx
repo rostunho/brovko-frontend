@@ -31,11 +31,13 @@ const ProductList = ({
   const [firstRender, setFirstRender] = useState(true); // допомагає уникати повторних запитів усіх продуктыв при першому рендері
   const userStatus = useSelector(selectUserStatus);
 
-  console.log('PODUCT LIST RENDERED');
-
   useEffect(() => {
+    // if (firstRender) {
+    //   fetchAllProducts();
+    // }
     fetchAllProducts();
     setFirstRender(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // беремо усі продукти при першому рендері і при зміні сторінки

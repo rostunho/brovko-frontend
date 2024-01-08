@@ -6,7 +6,7 @@ const BROVKO_API = process.env.REACT_APP_BROVKO_API;
 export const getAllCategories = async () => {
   try {
     const { data } = await instance.get('/categories');
-    // console.log('categories.data into API operations :>> ', data);
+    // console.log('categories.data into API operations :>> ', data.categories);
     return data;
   } catch (error) {
     console.log(error.message);

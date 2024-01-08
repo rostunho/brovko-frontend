@@ -39,6 +39,7 @@ export default function Selector({
   );
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [firstRender, setFirstRender] = useState(true);
   const hotOptions = hotOptionsData || [];
 
   const id = nanoid(6);
@@ -56,14 +57,15 @@ export default function Selector({
   // }, [value]);
 
   useEffect(() => {
-    if (!defaultOption) {
-      setCategories([...data]);
-      return;
-    }
-    setCategories([{ name: defaultOption, id: '' }, ...data]);
-  }, [defaultOption, data]);
+    setFirstRender(false);
+    // fetchSelectorValue({ ...currentValue });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
+    // setFirstRender(false);
+    // fetchSelectorValue({ ...currentValue });
+
     if (!defaultValue || currentValue) {
       return;
     }
@@ -73,6 +75,18 @@ export default function Selector({
   }, []);
 
   useEffect(() => {
+    if (!defaultOption) {
+      setCategories([...data]);
+      return;
+    }
+    setCategories([{ name: defaultOption, id: '' }, ...data]);
+  }, [defaultOption, data]);
+
+  useEffect(() => {
+    if (firstRender) {
+      return;
+    }
+
     defaultValue?.name !== currentValue?.name &&
       fetchSelectorValue &&
       fetchSelectorValue({ ...currentValue });
@@ -80,6 +94,9 @@ export default function Selector({
   }, [currentValue]);
 
   useEffect(() => {
+    // if (firstRender) {
+    //   return;
+    // }
     setCurrentValue(defaultValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh]);
@@ -94,11 +111,6 @@ export default function Selector({
   //   }
   //   setCurrentValue({ ...defaultValue });
   // }, [defaultValue]);
-
-  useEffect(() => {
-    fetchSelectorValue({ ...currentValue });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const toggleDropdown = () => {
     setDropdownIsOpen(!dropdownIsOpen);
