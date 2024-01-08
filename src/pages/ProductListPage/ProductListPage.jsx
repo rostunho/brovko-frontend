@@ -56,11 +56,12 @@ export default function ProductListPage() {
     name: 'Сортування',
     id: '',
   });
-  // const [firstRender, setFirstRender] = useState(true);
+  const [firstRender, setFirstRender] = useState(true);
 
-  console.log('currentCategories :>> ', currentCategories);
-  console.log('selectedCategory :>> ', selectedCategory);
-  console.log('selectedSortingOption :>> ', selectedSortingOption);
+  console.log('refreshCategory :>> ', refreshCategory);
+  // console.log('currentCategories :>> ', currentCategories);
+  // console.log('selectedCategory :>> ', selectedCategory);
+  // console.log('selectedSortingOption :>> ', selectedSortingOption);
 
   // const [selectedSortingOption, setSelectedSortingOption] = useState(null);
   // const [sortedProducts, setSortedProducts] = useState([]);
@@ -71,6 +72,7 @@ export default function ProductListPage() {
   // беремо з бази даних актуальні категорії товарів
   useEffect(() => {
     fetchAllCategories();
+    setFirstRender(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -109,7 +111,14 @@ export default function ProductListPage() {
         data={currentCategories}
         fetchSelectorValue={setSelectedCategory}
         // defaultValue={{ name: 'Всі категорії Старт', id: '' }}
-        defaultValue={selectedCategory}
+        defaultValue={
+          firstRender
+            ? selectedCategory
+            : {
+                name: 'Всі категорії старт',
+                id: '',
+              }
+        }
         defaultOption={'Всі категорії'}
         refresh={refreshCategory}
       />

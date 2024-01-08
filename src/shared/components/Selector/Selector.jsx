@@ -35,7 +35,8 @@ export default function Selector({
 
   // const [initialValue, setInitialValue] = useState(''); // значення, яке приходить з пропа value
   const [currentValue, setCurrentValue] = useState(
-    defaultValue ? defaultValue : initialSelectorValue
+    // defaultValue ? defaultValue : initialSelectorValue
+    initialSelectorValue
   );
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -44,6 +45,9 @@ export default function Selector({
 
   const id = nanoid(6);
   let key = 0;
+
+  console.log('refresh :>> ', refresh);
+  console.log('defaultValue :>> ', defaultValue);
 
   // useEffect(() => {
   //   console.log('currrentValue into SELECTOR >>:', currentValue);
@@ -57,6 +61,10 @@ export default function Selector({
   // }, [value]);
 
   useEffect(() => {
+    if (firstRender) {
+      defaultValue && setCurrentValue(defaultValue);
+    }
+
     setFirstRender(false);
     // fetchSelectorValue({ ...currentValue });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -94,9 +102,9 @@ export default function Selector({
   }, [currentValue]);
 
   useEffect(() => {
-    // if (firstRender) {
-    //   return;
-    // }
+    if (firstRender) {
+      return;
+    }
     setCurrentValue(defaultValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh]);
