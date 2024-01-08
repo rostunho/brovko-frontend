@@ -201,16 +201,13 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     });
   
     try {
-      // Використовуйте вашу функцію fetchAddReview для відправлення FormData
       await dispatch(fetchAddReview(formData));
   
-      // Очистка полів після успішної відправки
       setText('');
       setSelectedPictures([]);
       setSelectedFiles([]);
       closeReviewInput();
     } catch (error) {
-      // Обробка помилок при відправленні
       console.error('Error submitting review:', error);
     }
   };
