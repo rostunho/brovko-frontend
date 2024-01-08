@@ -47,7 +47,10 @@ export default function ProductListPage() {
   const [searchBarValue, setSearchBarValue] = useState('');
   const [keyWord, setKeyWord] = useState('');
   const [currentCategories, setCurrentCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState({ name: '' });
+  const [selectedCategory, setSelectedCategory] = useState({
+    name: 'Всі категорії старт',
+    id: '',
+  });
   const [refreshCategory, setRefreshCategory] = useState(false);
   const [selectedSortingOption, setSelectedSortingOption] = useState({
     name: '',
@@ -58,6 +61,8 @@ export default function ProductListPage() {
 
   // const [forceRender, setForceRender] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  console.log('PODUCT LIST PAGE RENDERED');
 
   // беремо з бази даних актуальні категорії товарів
   useEffect(() => {
@@ -238,7 +243,8 @@ export default function ProductListPage() {
         label=""
         data={currentCategories}
         fetchSelectorValue={setSelectedCategory}
-        defaultValue={{ name: 'Всі категорії Старт', id: '' }}
+        // defaultValue={{ name: 'Всі категорії Старт', id: '' }}
+        defaultValue={selectedCategory}
         defaultOption={'Всі категорії'}
         refresh={refreshCategory}
       />

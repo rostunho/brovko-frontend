@@ -9,6 +9,10 @@ export const getAllProducts = async (
   sortBy = 'createdAt',
   sortOrder = 'desc'
 ) => {
+  // if (!page) {
+  //   page = 1;
+  // }
+
   const { data } = await instance.get('/products', {
     params: {
       page,
@@ -46,10 +50,13 @@ export const getProductsByCategory = async (
 };
 
 export const getProductsByKeywords = async (
-  search = 'sets1',
+  search = '',
   page = 1,
-  perPage = 10
+  perPage = 10,
+  sortBy = 'createdAt',
+  sortOrder = 'desc'
 ) => {
+  console.log('GET PRODUCTS BY KEYWORD :>> ', { search, page, perPage });
   try {
     const { data } = await instance.get(`/products/search`, {
       params: { search, page, perPage },

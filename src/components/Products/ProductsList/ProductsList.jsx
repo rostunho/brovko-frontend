@@ -28,15 +28,30 @@ const ProductList = ({
   const [adminInCustomerMode, setAdminInCustomerMode] = useState(false);
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
   const [refreshProducts, setRefreshProducts] = useState(false);
+  const [firstRender, setFirstRender] = useState(true); // допомагає уникати повторних запитів усіх продуктыв при першому рендері
   const userStatus = useSelector(selectUserStatus);
+
+  console.log('PODUCT LIST RENDERED');
+
+  useEffect(() => {
+    fetchAllProducts();
+    setFirstRender(false);
+  }, []);
 
   // беремо усі продукти при першому рендері і при зміні сторінки
   useEffect(() => {
+    if (firstRender) {
+      return;
+    }
     fetchAllProducts(page);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   // оновлюємо продукти (перерендерюємо список) при потребі
   useEffect(() => {
+    if (firstRender) {
+      return;
+    }
     fetchAllProducts();
     setRefreshProducts(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,6 +59,9 @@ const ProductList = ({
 
   // здійснюємо пошук за ключовим словом коли приходить новий відповідний проп
   useEffect(() => {
+    if (firstRender) {
+      return;
+    }
     // якщо ключового слова немає - приносимо усі продукти
     if (keyWord === '') {
       fetchAllProducts();
@@ -51,11 +69,8 @@ const ProductList = ({
     } else {
       fetchProductsByKeyword(keyWord);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyWord]);
-
-  // новий запит при зміні категорії, або способу сортування
-  useEffect(() => {}, []);
-  //
 
   const fetchAllProducts = async (page = 1) => {
     const { products, totalPages } = await getAllProducts(page);
