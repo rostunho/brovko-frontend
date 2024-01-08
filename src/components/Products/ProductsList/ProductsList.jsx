@@ -66,13 +66,13 @@ const ProductList = ({
     }
     // якщо ключового слова немає - приносимо усі продукти
     if (keyWord === '') {
-      fetchAllProducts();
+      fetchAllProducts(); // ПРОДОВЖИТИ ТУТ, зробити, як в else
       return;
     } else {
-      fetchProductsByKeyword(keyWord);
+      fetchProductsByKeyword(keyWord, null, null, sorting.field, sorting.order);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keyWord]);
+  }, [keyWord, sorting]);
 
   const fetchAllProducts = async (page = 1) => {
     const { products, totalPages } = await getAllProducts(page);
@@ -80,8 +80,20 @@ const ProductList = ({
     setTotalPages(totalPages);
   };
 
-  const fetchProductsByKeyword = async keyWord => {
-    const { products, totalPages } = await getProductsByKeywords(keyWord);
+  const fetchProductsByKeyword = async (
+    keyWord,
+    page = 1,
+    perPage = 10,
+    sortBy,
+    sortOrder
+  ) => {
+    const { products, totalPages } = await getProductsByKeywords(
+      keyWord,
+      page,
+      perPage,
+      sortBy,
+      sortOrder
+    );
     // console.log('response :>> ', { products, totalPages });
     setCurrentProducts(products);
     setTotalPages(totalPages);

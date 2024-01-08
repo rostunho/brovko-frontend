@@ -59,7 +59,7 @@ export const getProductsByKeywords = async (
   console.log('GET PRODUCTS BY KEYWORD :>> ', { search, page, perPage });
   try {
     const { data } = await instance.get(`/products/search`, {
-      params: { search, page, perPage },
+      params: { search, page, perPage, sortBy, sortOrder },
     });
 
     console.log('getProductsByKeywords:::::', data);

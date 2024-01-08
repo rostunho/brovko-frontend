@@ -54,7 +54,8 @@ export default function ProductListPage() {
   const [refreshCategory, setRefreshCategory] = useState(false);
   const [selectedSortingOption, setSelectedSortingOption] = useState({
     name: 'Сортування',
-    id: '',
+    order: 'desc',
+    field: 'createdAt',
   });
   const [firstRender, setFirstRender] = useState(true);
 
