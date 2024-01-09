@@ -18,6 +18,15 @@ export const fetchAddReview = createAsyncThunk(
   'reviews/addReview',
   async (reviewData, thunkAPI) => {
     try {
+      console.log(reviewData)
+      for (const pair of reviewData.entries()) {
+        const [name, value] = pair;
+        if (value instanceof File) {
+          console.log(`Field name: ${name}, File: ${value.name}`);
+        } else {
+          console.log(`Field name: ${name}, Value: ${value}`);
+        }
+      }
       const response = await api.submitReview(reviewData); // Додати відгук на сервер
       console.log('addReview response:', response);
 
