@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import {
   getAllProducts,
   getProductsByKeywords,
+  getProductsByCategory,
   removeProduct,
 } from 'shared/services/api/brovko/products';
 import { removeProductRequestTemplate } from './removeProductRequestTemplate';
@@ -12,42 +13,22 @@ import Pagination from 'components/Products/Pagination';
 import styles from './ProductsList.module.scss';
 import { useSelector } from 'react-redux';
 
-const ProductList = ({
-  keyWord,
-  category,
-  sorting,
-  products,
-  sortedProducts,
-  refetchProducts,
-}) => {
+const ProductList = ({ keyWord, category, sorting }) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  // const [category, setCategory] = useState(null);
-  // const [sorting, setSorting] = useState('asc'); // значення "asc" || "desc"
   const [currentProducts, setCurrentProducts] = useState([]);
   const [adminInCustomerMode, setAdminInCustomerMode] = useState(false);
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
   const [refreshProducts, setRefreshProducts] = useState(false);
   const [firstRender, setFirstRender] = useState(true); // допомагає уникати повторних запитів усіх продуктыв при першому рендері
   const userStatus = useSelector(selectUserStatus);
+  const perPage = 10; // можемо зробити стейтом, якщо будемо даватиможливість обирати к-сть продуктоів на сторінці
 
   useEffect(() => {
-    // if (firstRender) {
-    //   fetchAllProducts();
-    // }
     fetchAllProducts();
     setFirstRender(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // беремо усі продукти при першому рендері і при зміні сторінки
-  useEffect(() => {
-    if (firstRender) {
-      return;
-    }
-    fetchAllProducts(page);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
 
   // оновлюємо продукти (перерендерюємо список) при потребі
   useEffect(() => {
@@ -59,23 +40,119 @@ const ProductList = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refreshProducts]);
 
-  // здійснюємо пошук за ключовим словом коли приходить новий відповідний проп
+  // // // здійснюємо пошук за ключовим словом коли приходить новий відповідний проп
   useEffect(() => {
     if (firstRender) {
       return;
     }
     // якщо ключового слова немає - приносимо усі продукти
     if (keyWord === '') {
-      fetchAllProducts(); // ПРОДОВЖИТИ ТУТ, зробити, як в else
+      setPage(1);
+      fetchAllProducts(page, perPage, sorting.field, sorting.order);
       return;
     } else {
-      fetchProductsByKeyword(keyWord, null, null, sorting.field, sorting.order);
+      setPage(1);
+      fetchProductsByKeyword(
+        keyWord,
+        page,
+        perPage,
+        sorting.field,
+        sorting.order
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keyWord, sorting]);
+  }, [keyWord]);
 
-  const fetchAllProducts = async (page = 1) => {
-    const { products, totalPages } = await getAllProducts(page);
+  useEffect(() => {
+    if (firstRender) {
+      return;
+    }
+    // якщо category.id: '',то обрані всі категорії
+    if (category.id === '') {
+      fetchAllProducts(page, perPage, sorting.field, sorting.order);
+      return;
+    }
+
+    fetchProductByCategory(
+      category.id,
+      page,
+      perPage,
+      sorting.field,
+      sorting.order
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category]);
+
+  useEffect(() => {
+    if (keyWord !== '') {
+      setPage(1);
+      fetchProductsByKeyword(
+        keyWord,
+        page,
+        perPage,
+        sorting.field,
+        sorting.order
+      );
+      return;
+    }
+    if (category.id !== '') {
+      setPage(1);
+      fetchProductByCategory(
+        category.id,
+        page,
+        perPage,
+        sorting.field,
+        sorting.order
+      );
+      return;
+    }
+    fetchAllProducts(page, perPage, sorting.field, sorting.order);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sorting]);
+
+  useEffect(() => {
+    if (firstRender) {
+      return;
+    }
+    if (keyWord !== '') {
+      fetchProductsByKeyword(
+        keyWord,
+        page,
+        perPage,
+        sorting.field,
+        sorting.order
+      );
+      return;
+    }
+
+    if (category.id !== '') {
+      fetchProductByCategory(
+        category.id,
+        page,
+        perPage,
+        sorting.field,
+        sorting.order
+      );
+    }
+
+    fetchAllProducts(page, perPage, sorting.field, sorting.order);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
+
+  /////////////  services functions  //
+
+  const fetchAllProducts = async (
+    page = 1,
+    perPage = 10,
+    sortBy,
+    sortOrder
+  ) => {
+    const { products, totalPages } = await getAllProducts(
+      page,
+      perPage,
+      sortBy,
+      sortOrder
+    );
     setCurrentProducts([...products]);
     setTotalPages(totalPages);
   };
@@ -95,6 +172,25 @@ const ProductList = ({
       sortOrder
     );
     // console.log('response :>> ', { products, totalPages });
+    setCurrentProducts(products);
+    setTotalPages(totalPages);
+  };
+
+  const fetchProductByCategory = async (
+    categoryId,
+    page = 1,
+    perPage = 10,
+    sortBy = 'createdAt',
+    sortOrder = 'desc'
+  ) => {
+    const { products, totalPages } = await getProductsByCategory(
+      categoryId,
+      page,
+      perPage,
+      sortBy,
+      sortOrder
+    );
+
     setCurrentProducts(products);
     setTotalPages(totalPages);
   };

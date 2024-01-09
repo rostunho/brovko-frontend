@@ -46,8 +46,8 @@ export default function Selector({
   const id = nanoid(6);
   let key = 0;
 
-  console.log('refresh :>> ', refresh);
-  console.log('defaultValue :>> ', defaultValue);
+  // console.log('refresh :>> ', refresh);
+  // console.log('defaultValue :>> ', defaultValue);
 
   // useEffect(() => {
   //   console.log('currrentValue into SELECTOR >>:', currentValue);
@@ -210,17 +210,17 @@ export default function Selector({
   );
 }
 
-Selector.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.exact({
-      name: PropTypes.string, // Ключами об'єкта можуть бути тільки "name"
-      id: PropTypes.string, //  тільки "id".
-      parentId: PropTypes.string, //  тільки "parentId". Жодних інших.
-    })
-  ),
-  defaultValue: PropTypes.shape({
-    name: PropTypes.string,
-    id: PropTypes.string,
-  }),
-  hotOptionsData: PropTypes.arrayOf(PropTypes.string),
-};
+// Selector.propTypes = {
+//   data: PropTypes.arrayOf(
+//     PropTypes.exact({
+//       name: PropTypes.string, // Ключами об'єкта можуть бути тільки "name"
+//       id: PropTypes.string, //  тільки "id".
+//       parentId: PropTypes.string, //  тільки "parentId". Жодних інших.
+//     })
+//   ),
+//   defaultValue: PropTypes.shape({
+//     name: PropTypes.string,
+//     id: PropTypes.string,
+//   }),
+//   hotOptionsData: PropTypes.arrayOf(PropTypes.string),
+// };

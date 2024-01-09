@@ -9,20 +9,20 @@ export const getAllProducts = async (
   sortBy = 'createdAt',
   sortOrder = 'desc'
 ) => {
-  // if (!page) {
-  //   page = 1;
-  // }
+  try {
+    const { data } = await instance.get('/products', {
+      params: {
+        page,
+        perPage,
+        sortBy,
+        sortOrder,
+      },
+    });
 
-  const { data } = await instance.get('/products', {
-    params: {
-      page,
-      perPage,
-      sortBy,
-      sortOrder,
-    },
-  });
-
-  return data;
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const getProductsByCategory = async (
@@ -32,6 +32,13 @@ export const getProductsByCategory = async (
   sortBy = 'createdAt',
   sortOrder = 'desc'
 ) => {
+  console.log('arguments into api :>> ', {
+    categoryId,
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+  });
   try {
     const { data } = await instance.get(`/products/category/${categoryId}`, {
       params: {
@@ -56,13 +63,16 @@ export const getProductsByKeywords = async (
   sortBy = 'createdAt',
   sortOrder = 'desc'
 ) => {
-  console.log('GET PRODUCTS BY KEYWORD :>> ', { search, page, perPage });
+  const headers = { 'Content-Type': 'application/json' };
+  const params = { search, page, perPage, sortBy, sortOrder };
+
   try {
     const { data } = await instance.get(`/products/search`, {
-      params: { search, page, perPage, sortBy, sortOrder },
+      headers: headers,
+      // params: JSON.stringify(params),
+      params: params,
     });
 
-    console.log('getProductsByKeywords:::::', data);
     return data;
   } catch (error) {
     throw error;
