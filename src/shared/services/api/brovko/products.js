@@ -32,13 +32,6 @@ export const getProductsByCategory = async (
   sortBy = 'createdAt',
   sortOrder = 'desc'
 ) => {
-  console.log('arguments into api :>> ', {
-    categoryId,
-    page,
-    perPage,
-    sortBy,
-    sortOrder,
-  });
   try {
     const { data } = await instance.get(`/products/category/${categoryId}`, {
       params: {
@@ -49,7 +42,6 @@ export const getProductsByCategory = async (
       },
     });
 
-    // console.log('getProductsByCategory into API Operations:', data);
     return data;
   } catch (error) {
     throw Error(error);
@@ -85,14 +77,8 @@ export const getProductById = async id => {
   return data;
 };
 
-// export const deleteProductById = async id => {
-//   const { data } = instance.delete(`/products/${id}`);
-//   return data;
-// };
-
 export const addNewProduct = async body => {
   try {
-    // const url = `${BROVKO_API}/products/add-product`;
     const url = `${BROVKO_API}/products/add-product`;
     const data = JSON.stringify(body);
 
@@ -114,9 +100,7 @@ export const removeProduct = async body => {
     const headers = { 'Content-Type': 'application/json' };
 
     const response = await axios.post(url, data, { headers });
-    console.log('NEW RESPONSE IN PRODUCTS API >> :', response);
     console.log(response.data.message);
-    console.log('REMOVE PRODUCT WORKING');
   } catch (error) {
     console.log(error.message);
   }
