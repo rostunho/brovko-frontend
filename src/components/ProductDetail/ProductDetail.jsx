@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { addOrder } from 'redux/basket/basketSlice';
@@ -34,43 +34,35 @@ export default function ProductDetail({
   handleReadReviewClick,
   location,
 }) {
-  const [product, setProduct] = useState(null);
+  // const [product, setProduct] = useState(null);
   const [value, setValue] = useState(1);
   const userStatus = useSelector(selectUserStatus);
   const { productId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const allProducts = useSelector(getAllProducts);
+  const allProducts = useSelector(getAllProducts);
   const allReviews = useSelector(getAllReviews);
+
   const { isOpen, openModal, closeModal } = useModal();
 
-  // const product = allProducts?.find(p => p._id === productId);
-
+  const product = allProducts?.find(p => p._id === productId);
   const reviews = allReviews?.find(r => r.productId === productId);
+
   const orders = useSelector(getAllOrders);
 
   // useEffect(() => {
   //   getProductById(productId).then(product => setProduct(product));
   // }, [productId]);
 
-  useEffect(() => {
-    fetchProduct(productId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productId]);
-
   if (!product) {
     return;
   }
-  // const { _id, picture, name, note, price, currencyId } = product;
+  const { _id, picture, name, note, price, currencyId } = product;
 
   // const handleAddPopup = text => {
   //   dispatch(addPopupOperation(text));
   // };
-  async function fetchProduct(productId) {
-    const product = await getProductById(productId);
-    setProduct(product);
-  }
 
   const goToEditProduct = () => {
     navigate(`/admin/${productId}`);
@@ -92,13 +84,13 @@ export default function ProductDetail({
       <div className={styles.productCard}>
         <Rating product={product} />
         <div className={styles.image}>
-          <Image src={product?.picture} />
+          <Image src={picture} />
         </div>
-        <ImageSlider picture={product?.picture} />
-        <Content note={product?.note} />
+        <ImageSlider picture={picture} />
+        <Content note={note} />
         <div className={styles.price}>
           <h3>
-            {product?.price} {product?.currencyId}
+            {price} {currencyId}
           </h3>
           <QuantityButtons value={value} setValue={setValue} />
         </div>
