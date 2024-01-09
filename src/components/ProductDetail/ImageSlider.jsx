@@ -27,7 +27,7 @@ export default function ImageSlider({ picture }) {
   });
 
   const allProducts = useSelector(getAllProducts);
-  const product = allProducts?.find(p => p._id === productId);
+  // const product = allProducts?.find(p => p._id === productId);
 
   return (
     // <div className={styles.imageSliderContainer}>
@@ -47,7 +47,7 @@ export default function ImageSlider({ picture }) {
           className={styles.visibleImages}
           style={{ transform: `translate(-${currentIdx * 100}%)` }}
         >
-          {product.picture.map((item, idx) => {
+          {picture.map((item, idx) => {
             return (
               <Image
                 key={idx}

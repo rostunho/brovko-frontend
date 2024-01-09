@@ -247,12 +247,7 @@ const ProductList = ({ keyWord, category, sorting }) => {
           marginTop: '20px',
           marginBottom: '40px',
         }}
-      >
-        <button onClick={() => getAllProducts()}>TEST GET ALL PRODUCTS</button>
-        {/* <button onClick={() => getProductsByCategory(108)}>
-          TEST GET PRODUCTS BY CATEGORY
-        </button> */}
-      </div>
+      ></div>
 
       {/* видалити те, що вище */}
 
