@@ -115,10 +115,14 @@
   border: var(--border-primary);
   background-color: var(--white-bg-color);
   box-shadow: var(--box-shadow);
+}
 
-  &.custom-dropdown-container {
-    width: calc(100%);
-  }
+.dropdown-container.without-label {
+  top: 44px;
+}
+
+.dropdown-container.custom-dropdown-container {
+  width: calc(100%);
 }
 
 .option {

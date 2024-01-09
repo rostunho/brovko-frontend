@@ -31,9 +31,8 @@ export default function Selector({
 
   ...props
 }) {
-  // console.log('style', dropdownStyle);
+  console.log('LABEL ::', label);
 
-  // const [initialValue, setInitialValue] = useState(''); // значення, яке приходить з пропа value
   const [currentValue, setCurrentValue] = useState(
     // defaultValue ? defaultValue : initialSelectorValue
     initialSelectorValue
@@ -46,34 +45,17 @@ export default function Selector({
   const id = nanoid(6);
   let key = 0;
 
-  // console.log('refresh :>> ', refresh);
-  // console.log('defaultValue :>> ', defaultValue);
-
-  // useEffect(() => {
-  //   console.log('currrentValue into SELECTOR >>:', currentValue);
-  // }, [currentValue]);
-
-  // console.log('currentValue :>> ', currentValue.name);
-
-  // useEffect(() => {
-  //   value ? setInitialValue(value) : setInitialValue(currentValue?.name);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [value]);
-
   useEffect(() => {
     if (firstRender) {
       defaultValue && setCurrentValue(defaultValue);
     }
 
     setFirstRender(false);
-    // fetchSelectorValue({ ...currentValue });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    // setFirstRender(false);
-    // fetchSelectorValue({ ...currentValue });
-
     if (!defaultValue || currentValue) {
       return;
     }
@@ -108,17 +90,6 @@ export default function Selector({
     setCurrentValue(defaultValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh]);
-
-  // useEffect(() => {
-  //   if (
-  //     !defaultValue ||
-  //     !defaultValue.name ||
-  //     defaultValue?.name !== currentValue.name
-  //   ) {
-  //     return;
-  //   }
-  //   setCurrentValue({ ...defaultValue });
-  // }, [defaultValue]);
 
   const toggleDropdown = () => {
     setDropdownIsOpen(!dropdownIsOpen);
@@ -162,8 +133,8 @@ export default function Selector({
       {dropdownIsOpen && (
         <fieldset
           className={`${styles['dropdown-container']} ${
-            dropdownStyle ? styles['custom-dropdown-container'] : ''
-          }`}
+            label === '' ? styles['without-label'] : ''
+          } ${dropdownStyle ? styles['custom-dropdown-container'] : ''}`}
         >
           {categories.map(category => {
             const isCheched = currentValue.name === category.name;
