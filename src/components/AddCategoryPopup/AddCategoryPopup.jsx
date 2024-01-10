@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import {
   addNewCategory,
-  getActiveCategories,
+  getAllCategories,
 } from 'shared/services/api/brovko/categories';
 import Modal from 'shared/components/Modal/Modal';
 import Heading from 'shared/components/Heading';
@@ -41,7 +41,7 @@ export default function AddCategoryPopup({
   const onSave = async () => {
     const { updatedCategories } = await addNewCategory(requestBody, update);
     console.log('RESPONSE IN ON-SAVE', updatedCategories);
-    // await getActiveCategories();
+    // await getAllCategories();
     updateCategories && updateCategories(updatedCategories);
     formRef.current.reset();
     closeModal();

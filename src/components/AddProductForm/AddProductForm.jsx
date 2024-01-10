@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   addNewProduct,
-  getActiveCategories,
+  getAllCategories,
   getProductById,
 } from 'shared/services/api';
 import Heading from 'shared/components/Heading';
@@ -111,10 +111,10 @@ export default function AddProductForm({ update }) {
 
   const updateCategories = async updates => {
     if (!updates) {
-      const { categories } = await getActiveCategories();
+      const { categories } = await getAllCategories();
       setCategories([...categories]);
     } else {
-      const { categories } = await getActiveCategories(updates);
+      const { categories } = await getAllCategories(updates);
       // console.log('response 222 :>> ', {categories});
       setCategories([...categories]);
     }
@@ -151,7 +151,6 @@ export default function AddProductForm({ update }) {
           <Selector
             name="Category"
             data={categories}
-            // defaultValue={{ ...selectorValue }}
             defaultValue={{ name: 'Без категорії' }}
             defaultOption={'Без категорії'}
             fetchSelectorValue={fetchSelectorValue}
