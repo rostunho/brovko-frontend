@@ -73,7 +73,7 @@ export const getProductsByKeywords = async (
 
 export const getProductById = async id => {
   const { data } = await instance.get(`/products/product/${id}`);
-  console.log('data in product-api >> :', data);
+  // console.log('data in product-api >> :', data);
   return data;
 };
 

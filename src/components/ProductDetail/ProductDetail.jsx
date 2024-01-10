@@ -26,14 +26,16 @@ import { getProductById } from 'shared/services/api';
 import styles from './ProductDetail.module.scss';
 
 export default function ProductDetail({
-  // product,
-  // reviews,
+  product,
+  reviews,
   isExpandedDescription,
   isExpandedReview,
   handleReadMoreClick,
   handleReadReviewClick,
   location,
 }) {
+  console.log('reviews into PD :>> ', reviews);
+
   // const [product, setProduct] = useState(null);
   const [value, setValue] = useState(1);
   const userStatus = useSelector(selectUserStatus);
@@ -41,13 +43,13 @@ export default function ProductDetail({
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const allProducts = useSelector(getAllProducts);
-  const allReviews = useSelector(getAllReviews);
+  // const allProducts = useSelector(getAllProducts);
+  // const allReviews = useSelector(getAllReviews);
 
   const { isOpen, openModal, closeModal } = useModal();
 
-  const product = allProducts?.find(p => p._id === productId);
-  const reviews = allReviews?.find(r => r.productId === productId);
+  // const product = allProducts?.find(p => p._id === productId);
+  // const reviews = allReviews?.find(r => r.productId === productId);
 
   const orders = useSelector(getAllOrders);
 
@@ -121,7 +123,8 @@ export default function ProductDetail({
           location={location}
           handleReadReviewClic={handleReadReviewClick}
           reviews={reviews}
-        />{' '}
+          product={product}
+        />
       </div>
     </>
   );

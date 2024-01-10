@@ -239,18 +239,6 @@ const ProductList = ({ keyWord, category, sorting }) => {
 
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '20px',
-          marginTop: '20px',
-          marginBottom: '40px',
-        }}
-      ></div>
-
-      {/* видалити те, що вище */}
-
       <div className={styles.products}>
         {(userStatus === 'manager' || userStatus === 'superadmin') && (
           <ul className={styles['buttons-list']}>

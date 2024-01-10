@@ -4,10 +4,14 @@ import ReviewContainer from './ReviewContainer';
 import ReviewList from './ReviewList';
 
 export default function Review({
+  product,
   reviews,
   isExpandedReview,
   handleReadReviewClick,
 }) {
+  // console.log('product into Review :>> ', product);
+  console.log('reviews into Review :>> ', reviews);
+
   return (
     <>
       {reviews ? (
@@ -23,7 +27,11 @@ export default function Review({
             {!isExpandedReview && (
               <SharedLinkButton
                 to={`review`}
-                state={{ isExpandedReview: true }}
+                // to={{
+                //   pathname: `review`,
+                //   state: { product: product, reviews: reviews },
+                // }}
+                state={{ isExpandedReview: true, product, reviews }}
                 label="Дивитися всі відгуки"
                 onClick={handleReadReviewClick}
               />
