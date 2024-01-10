@@ -30,7 +30,7 @@ function ReviewList({ reviews, isExpandedReview = true }) {
     );
 
     // Витягуємо окремі рецензії з коментарів і розглядаємо їх окремо
-    const sortedReviews = productReviews.comments
+    const sortedReviews = productReviews?.comments
       .flatMap(comment =>
         comment.text.map(review => ({
           owner: comment.owner,
@@ -46,7 +46,7 @@ function ReviewList({ reviews, isExpandedReview = true }) {
 
     const displayedReviews = isExpandedReview
       ? sortedReviews
-      : sortedReviews.slice(0, 1);
+      : sortedReviews?.slice(0, 1);
 
     setdisplayedReviews(displayedReviews);
     // eslint-disable-next-line react-hooks/exhaustive-deps
