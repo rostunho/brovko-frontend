@@ -101,7 +101,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
         }`
       )
     );
-    // setSelectedFiles([]);
+    setSelectedFiles([]);
   };
 
   const images = selectedPictures.map(({ id, url }, index) => (
@@ -199,18 +199,17 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     formData.append('text', text);
     console.log(selectedPictures);
     console.log(selectedFiles);
-    selectedPictures.forEach(({file}, index) => {
+    selectedPictures.forEach(({file}) => {
       console.log(file);
-      console.log(file.File);
-      formData.append(`review`, file); // Використовуємо file.file, щоб отримати оригінальний файл
+      formData.append(`review`, file);
     });
 
     try {
       await dispatch(fetchAddReview(formData));
 
       setText('');
-      // setSelectedPictures([]);
-      // setSelectedFiles([]);
+      setSelectedPictures([]);
+      setSelectedFiles([]);
       closeReviewInput();
     } catch (error) {
       console.error('Error submitting review:', error);
