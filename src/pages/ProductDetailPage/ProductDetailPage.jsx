@@ -3,14 +3,15 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { getAllProducts } from 'redux/products/productsSelectors';
+import { getProductById } from 'shared/services/api';
 import { getAllReviews } from 'redux/reviews/reviewsSelectors';
+
+import { getReviews } from 'shared/services/api';
 import Heading from 'shared/components/Heading';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 
-export default function ProductDetailPage(product, reviews) {
-  // const { productId } = useParams();
-  const location = useLocation();
-  const from = location.state?.from || '/';
+export default function ProductDetailPage() {
+  // const from = location.state?.from || '/';
 
   // const allProducts = useSelector(getAllProducts);
   // const allReviews = useSelector(getAllReviews);
@@ -22,9 +23,19 @@ export default function ProductDetailPage(product, reviews) {
   // const reviews = allReviews?.find(r => r.productId === productId);
 
   // ================================================
-
+  const [product, setProduct] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const [isExpandedDescription, setIsExpandedDescription] = useState(false);
   const [isExpandedReview, setIsExpandedReview] = useState(false);
+  const { productId } = useParams();
+  const location = useLocation();
+
+  console.log('reviews into PDP :>> ', reviews);
+
+  useEffect(() => {
+    fetchAllReviews();
+    fetchProductById(productId);
+  }, [productId]);
 
   useEffect(() => {
     // Встановлюємо isExpandedDescription з location.state
@@ -36,7 +47,17 @@ export default function ProductDetailPage(product, reviews) {
     const isExpandedReviewFromLocation =
       location.state?.isExpandedReview || false;
     setIsExpandedReview(isExpandedReviewFromLocation);
-  }, [location.state]);
+  }, [location?.state]);
+
+  const fetchProductById = async id => {
+    const product = await getProductById(id);
+    setProduct(product);
+  };
+
+  const fetchAllReviews = async () => {
+    const reviews = await getReviews();
+    setReviews(reviews);
+  };
 
   const handleReadMoreClick = () => {
     setIsExpandedDescription(true);
@@ -63,6 +84,7 @@ export default function ProductDetailPage(product, reviews) {
         isExpandedReview={isExpandedReview}
         handleReadMoreClick={handleReadMoreClick}
         handleReadReviewClick={handleReadReviewClick}
+        location={location}
       />
     </>
   );

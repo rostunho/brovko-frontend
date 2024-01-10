@@ -22,7 +22,7 @@ export const fetchProductsByCategory = createAsyncThunk(
   async ({ categoryId = 'sets', page = 1 }, { rejectWithValue }) => {
     try {
       const products = await api.getProductsByCategory(categoryId, page);
-      console.log('fetchProductsByCategory IN THUNK >>> ::', products);
+      // console.log('fetchProductsByCategory IN THUNK >>> ::', products);
       return products;
     } catch (error) {
       return rejectWithValue(error.message);

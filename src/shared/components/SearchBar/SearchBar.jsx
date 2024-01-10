@@ -9,7 +9,7 @@ import style from './SearchBar.module.scss';
 const SearchBar = ({ onSubmit, searchTerm, selectedCategory }) => {
   const formRef = useRef(null);
 
-  const { state, setState, handleChange, handleSubmitSearch  } = useForm({
+  const { state, setState, handleChange, handleSubmitSearch } = useForm({
     initialState: { search: '' },
     onSubmit,
   });
@@ -20,42 +20,44 @@ const SearchBar = ({ onSubmit, searchTerm, selectedCategory }) => {
   //  setState({ search: searchTerm });
   // }, [selectedCategory]);
 
-
   const remove = () => {
-      setState({
-        search: '',
-      });
+    setState({
+      search: '',
+    });
     // formRef.current.submit();
   };
 
   return (
-    <form
-      ref={formRef}
-      className={style.searchForm}
-      onSubmit={handleSubmitSearch}
-    >
-      <div className={style.container}>
-        <OldInput
-          className={style.searchInput}
-          type="search"
-          name="search"
-          value={search}
-          onChange={handleChange} //handleChange з useForm
-          onClick={handleSubmitSearch} //handleSubmitSearch з useForm
-          onRemove={remove}
-          autoComplete="off"
-          placeholder="Пошук смаколиків"
-        />
-      </div>
-    </form>
+    <>
+      <Input type="search" placeholder="Оновлений пошук смаколиків" />
+      {/* <form
+        ref={formRef}
+        className={style.searchForm}
+        onSubmit={handleSubmitSearch}
+      >
+        <div className={style.container}>
+          <OldInput
+            className={style.searchInput}
+            type="search"
+            name="search"
+            value={search}
+            onChange={handleChange} //handleChange з useForm
+            onClick={handleSubmitSearch} //handleSubmitSearch з useForm
+            onRemove={remove}
+            autoComplete="off"
+            placeholder="Пошук смаколиків"
+          />
+        </div>
+      </form> */}
+    </>
   );
 };
 
-SearchBar.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  searchTerm: PropTypes.string,
-  selectedCategory: PropTypes.string,
-  onRemove: PropTypes.func.isRequired,
-};
+// SearchBar.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+//   searchTerm: PropTypes.string,
+//   selectedCategory: PropTypes.object,
+//   onRemove: PropTypes.func,
+// };
 
 export default SearchBar;

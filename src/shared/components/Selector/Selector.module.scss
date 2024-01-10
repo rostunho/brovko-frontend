@@ -56,8 +56,9 @@
   margin-top: 4px;
   padding: 0 16px;
   /* основний текст */
-  @include text-styles;
-  color: var(--gray-color);
+  @include text-styles();
+  font-family: 'Nunito', sans-serif;
+  background: #191c2c;
 
   //   cursor: pointer;
   pointer-events: auto;
@@ -114,10 +115,14 @@
   border: var(--border-primary);
   background-color: var(--white-bg-color);
   box-shadow: var(--box-shadow);
+}
 
-  &.custom-dropdown-container {
-    width: calc(100%);
-  }
+.dropdown-container.without-label {
+  top: 44px;
+}
+
+.dropdown-container.custom-dropdown-container {
+  width: calc(100%);
 }
 
 .option {

@@ -4,6 +4,8 @@ import instance from './instance';
 export const getReviews = async () => {
   try {
     const { data } = await instance.get('/reviews');
+
+    // console.log('data in reviews-api :>> ', data);
     return data;
   } catch (error) {
     console.error('Помилка отримання відгуків:', error);
