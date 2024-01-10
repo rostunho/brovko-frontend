@@ -69,27 +69,29 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     if (!files.length) {
       return;
     }
-  
-    const newImages = files.map((file, index) => {
-      if (file instanceof Blob) {
-        return {
-          id: selectedPictures.length + index,
-          file,  // Додаємо оригінальний файл до об'єкта
-          url: URL.createObjectURL(file),
-        };
-      } else if (typeof file === 'string' && file.startsWith('blob:')) {
-        return {
-          id: selectedPictures.length + index,
-          file,  // Додаємо оригінальний файл до об'єкта
-          url: file,
-        };
-      } else {
-        console.error('Invalid file:', file);
-        addPopupOperation(`Не правильний файл: ${file}`);
-        return null;
-      }
-    }).filter(Boolean);
-  
+
+    const newImages = files
+      .map((file, index) => {
+        if (file instanceof Blob) {
+          return {
+            id: selectedPictures.length + index,
+            file, // Додаємо оригінальний файл до об'єкта
+            url: URL.createObjectURL(file),
+          };
+        } else if (typeof file === 'string' && file.startsWith('blob:')) {
+          return {
+            id: selectedPictures.length + index,
+            file, // Додаємо оригінальний файл до об'єкта
+            url: file,
+          };
+        } else {
+          console.error('Invalid file:', file);
+          addPopupOperation(`Не правильний файл: ${file}`);
+          return null;
+        }
+      })
+      .filter(Boolean);
+
     setSelectedImages([...selectedImages, ...newImages]);
     setSelectedPictures([...selectedPictures, ...newImages]);
     dispatch(
@@ -189,22 +191,23 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
 
   const resetPromp = () => setPrompDelete(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
-  
+
     const formData = new FormData();
     formData.append('productId', productId);
     formData.append('text', text);
-  console.log(selectedFiles)
-  selectedFiles.forEach((file, index) => {
-      console.log(file)
-      console.log(file.file)
-      formData.append(`review`, file);  // Використовуємо file.file, щоб отримати оригінальний файл
+    console.log(selectedPictures);
+    console.log(selectedFiles);
+    selectedPictures.forEach(({file}, index) => {
+      console.log(file);
+      console.log(file.File);
+      formData.append(`review`, file); // Використовуємо file.file, щоб отримати оригінальний файл
     });
-  
+
     try {
       await dispatch(fetchAddReview(formData));
-  
+
       setText('');
       // setSelectedPictures([]);
       // setSelectedFiles([]);
