@@ -100,11 +100,13 @@ const AddProductImage = ({ pictures }) => {
         if (file instanceof Blob) {
           return {
             id: selectedPictures.length + index,
+            file,
             url: URL.createObjectURL(file),
           };
         } else if (typeof file === 'string' && file.startsWith('blob:')) {
           return {
             id: selectedPictures.length + index,
+            file,
             url: file,
           };
         } else {
