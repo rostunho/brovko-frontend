@@ -1,6 +1,7 @@
 .productCard {
   max-width: 448px;
-  width: 92vw;
+  min-width: 280px;
+  // width: 92vw;
   // width: 100%;
   display: flex;
   flex-direction: column;
