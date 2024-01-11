@@ -81,10 +81,9 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(updateAvatar.fulfilled, (state, { payload }) => {
-        const { accessToken } = payload;
+        const { avatarURL } = payload;
         state.loading = false;
-        state.user = payload;
-        state.token = accessToken;
+        state.user = { ...state.user, avatarURL };
         state.isLogin = true;
       })
       .addCase(updateAvatar.rejected, (state, { payload }) => {
