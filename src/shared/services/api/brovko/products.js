@@ -1,5 +1,6 @@
 import axios from 'axios';
 import instance from './instance';
+import { addProductRequestTemplate } from 'components/AddProductForm/addProductRequestTemplate';
 
 const BROVKO_API = process.env.REACT_APP_BROVKO_API;
 
@@ -77,15 +78,23 @@ export const getProductById = async id => {
   return data;
 };
 
-export const addNewProduct = async body => {
+export const addNewProduct = async (body, files = []) => {
   try {
     const url = `${BROVKO_API}/products/add-product`;
-    const data = JSON.stringify(body);
+    const bodyToSend = JSON.stringify(body);
 
-    const headers = { 'Content-Type': 'application/json' };
+    // const headers = { 'Content-Type': 'application/json' };
+    const headers = { 'Content-Type': 'multipart/form-data' };
+
+    const data = new FormData();
+
+    data.append('requestBody', bodyToSend);
+    files.forEach(file => {
+      data.append('files[]', file);
+    });
 
     const response = await axios.post(url, data, { headers });
-    console.log('Post request response:', response);
+    console.log('Post request response:', response.data.status);
     console.log(response.data.message);
     return response.data;
   } catch (error) {
