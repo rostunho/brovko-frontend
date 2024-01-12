@@ -3,6 +3,7 @@ import Image from 'shared/components/Image';
 import Avatar from 'components/Avatar';
 
 import styles from '../ProductDetail.module.scss';
+import Button from 'shared/components/Button';
 
 const ReviewItem = ({ review, avatarURL, text, isExpandedReview }) => {
   const user = review.owner.userId;
@@ -66,7 +67,7 @@ const ReviewItem = ({ review, avatarURL, text, isExpandedReview }) => {
           <p className={styles.reviewText}>{review.text}</p>
         </>
       )}
-    </div>
+         </div>
   );
 };
 
