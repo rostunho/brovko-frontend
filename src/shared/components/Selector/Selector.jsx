@@ -15,7 +15,6 @@ export default function Selector({
   hotOptionsData,
   defaultValue, // ключ name буде значенням селектора за замовчуванням
   placeholder,
-  form,
   size,
   fetchSelectorValue, // "витягує" поточне значення селектора в батьківський компонент
   openedDropdown,
@@ -26,39 +25,33 @@ export default function Selector({
   required,
   disabled,
   defaultOption, // опція, яка буде першою у списку-випадайці
+  refresh, // допомагає сикнути значення селектора до "за замовчуванням"
   style,
   dropdownStyle,
-  valueChange,
- 
+
   ...props
 }) {
-  // console.log('style', dropdownStyle);
-
-  // const [initialValue, setInitialValue] = useState(''); // значення, яке приходить з пропа value
   const [currentValue, setCurrentValue] = useState(
-    defaultValue ? defaultValue : initialSelectorValue
+    // defaultValue ? defaultValue : initialSelectorValue
+    initialSelectorValue
   );
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [firstRender, setFirstRender] = useState(true);
   const hotOptions = hotOptionsData || [];
 
   const id = nanoid(6);
   let key = 0;
 
-  // console.log('currentValue :>> ', currentValue.name);
-
-  // useEffect(() => {
-  //   value ? setInitialValue(value) : setInitialValue(currentValue?.name);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [value]);
-
   useEffect(() => {
-    if (!defaultOption) {
-      setCategories([...data]);
-      return;
+    if (firstRender) {
+      defaultValue && setCurrentValue(defaultValue);
     }
-    setCategories([{ name: defaultOption, id: '' }, ...data]);
-  }, [defaultOption, data]);
+
+    setFirstRender(false);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (!defaultValue || currentValue) {
@@ -70,27 +63,31 @@ export default function Selector({
   }, []);
 
   useEffect(() => {
+    if (!defaultOption) {
+      setCategories([...data]);
+      return;
+    }
+    setCategories([{ name: defaultOption, id: '' }, ...data]);
+  }, [defaultOption, data]);
+
+  useEffect(() => {
+    if (firstRender) {
+      return;
+    }
+
     defaultValue?.name !== currentValue?.name &&
       fetchSelectorValue &&
       fetchSelectorValue({ ...currentValue });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentValue]);
 
-  // useEffect(() => {
-  //   if (
-  //     !defaultValue ||
-  //     !defaultValue.name ||
-  //     defaultValue?.name !== currentValue.name
-  //   ) {
-  //     return;
-  //   }
-  //   setCurrentValue({ ...defaultValue });
-  // }, [defaultValue]);
-
   useEffect(() => {
-    fetchSelectorValue({ ...currentValue });
+    if (firstRender) {
+      return;
+    }
+    setCurrentValue(defaultValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [refresh]);
 
   const toggleDropdown = () => {
     setDropdownIsOpen(!dropdownIsOpen);
@@ -105,10 +102,6 @@ export default function Selector({
   const onHotOptionPress = option => {
     setCurrentValue(prevValue => ({ ...prevValue, name: option }));
   };
-
-  // useEffect(() => {
-  //   setCurrentValue(valueChange); // Оновлюємо currentValue при зміні пропса value
-  // }, [valueChange]);
 
   return (
     <div className={styles.container}>
@@ -138,8 +131,8 @@ export default function Selector({
       {dropdownIsOpen && (
         <fieldset
           className={`${styles['dropdown-container']} ${
-            dropdownStyle ? styles['custom-dropdown-container'] : ''
-          }`}
+            label === '' ? styles['without-label'] : ''
+          } ${dropdownStyle ? styles['custom-dropdown-container'] : ''}`}
         >
           {categories.map(category => {
             const isCheched = currentValue.name === category.name;
@@ -186,17 +179,17 @@ export default function Selector({
   );
 }
 
-Selector.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.exact({
-      name: PropTypes.string, // Ключами об'єкта можуть бути тільки "name"
-      id: PropTypes.string, //  тільки "id".
-      parentId: PropTypes.string, //  тільки "parentId". Жодних інших.
-    })
-  ),
-  defaultValue: PropTypes.shape({
-    name: PropTypes.string,
-    id: PropTypes.string,
-  }),
-  hotOptionsData: PropTypes.arrayOf(PropTypes.string),
-};
+// Selector.propTypes = {
+//   data: PropTypes.arrayOf(
+//     PropTypes.exact({
+//       name: PropTypes.string, // Ключами об'єкта можуть бути тільки "name"
+//       id: PropTypes.string, //  тільки "id".
+//       parentId: PropTypes.string, //  тільки "parentId". Жодних інших.
+//     })
+//   ),
+//   defaultValue: PropTypes.shape({
+//     name: PropTypes.string,
+//     id: PropTypes.string,
+//   }),
+//   hotOptionsData: PropTypes.arrayOf(PropTypes.string),
+// };

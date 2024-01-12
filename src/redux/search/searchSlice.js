@@ -11,13 +11,10 @@ const searchSlice = createSlice({
   reducers: {
     setSearchTerm: (state, action) => {
       state.searchTerm = action.payload;
-      console.log('searchSlice_____', state.searchTerm);
     },
     // Інші reducer'и?
   },
 });
-
-
 
 export const { setSearchTerm } = searchSlice.actions;
 export default searchSlice.reducer;

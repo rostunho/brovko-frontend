@@ -1,145 +1,106 @@
-
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { fetchAllProducts } from 'redux/products/productsOperations';
-import { fetchReviews } from 'redux/reviews/reviewsOperations';
-import { fetchCategories } from 'redux/categories/categoriesOperations';
-import {
-  fetchProductsByCategory,
-  fetchProductsByKeywords,
-} from 'redux/products/productsOperations';
-
-import { setSearchTerm } from 'redux/search/searchSlice';
-import {
-  getAllProducts,
-  getProductsByCategory,
-  getProductsByKeywords,
-} from 'redux/products/productsSelectors';
-import { getAllCategories } from 'redux/categories/categoriesSelectors';
-import { getSearchTerm } from 'redux/search/searchSelectors';
-
+import { getAllCategories } from 'shared/services/api';
+import { sortingTemplate } from './sortingTemplate';
+import Loader from 'components/Loader';
 import Heading from 'shared/components/Heading/Heading';
-import Pagination from 'components/Products/Pagination';
+import Input from 'shared/components/Input';
+import Selector from 'shared/components/Selector';
 import ProductList from 'components/Products/ProductsList/ProductsList';
-import SearchBar from 'shared/components/SearchBar/SearchBar';
-import Filter from 'components/Filter/Filter';
-import { sortingFunctions } from './sortingFunctions';
-// import styles from './ProductListPage.module.scss';
+import styles from './ProductListPage.module.scss';
 
 export default function ProductListPage() {
-  // console.log('RENDER PRODUCT LIST PAGE');
+  const [searchBarValue, setSearchBarValue] = useState('');
+  const [keyWord, setKeyWord] = useState('');
+  const [currentCategories, setCurrentCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState({
+    name: 'Всі категорії старт',
+    id: '',
+  });
+  const [refreshCategory, setRefreshCategory] = useState(false);
+  const [selectedSortingOption, setSelectedSortingOption] = useState({
+    name: 'Сортування',
+    order: 'desc',
+    field: 'createdAt',
+  });
+  const [firstRender, setFirstRender] = useState(true);
 
-  const [page, setPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedSortingOption, setSelectedSortingOption] = useState(null);
-  const [sortedProducts, setSortedProducts] = useState([]);
-
-  const [forceRender, setForceRender] = useState(false);
-
-  const products = useSelector(getAllProducts);
-  const searchTerm = useSelector(getSearchTerm);
-  const filteredProductsByKeywords = useSelector(getProductsByKeywords);
-  const allCategories = useSelector(getAllCategories);
-  const filteredProductsByCategory = useSelector(getProductsByCategory);
-
-  const categories = [
-    { name: 'Всі категорії', id: 'all' },
-    ...(allCategories && allCategories.items
-      ? allCategories.items.map(({ _id, id, name }) => ({ name, id }))
-      : []),
-  ];
-
-  const dispatch = useDispatch();
-
+  // беремо з бази даних актуальні категорії товарів
   useEffect(() => {
-    !forceRender && dispatch(fetchAllProducts(page));
-    dispatch(fetchReviews());
-    dispatch(fetchCategories());
-  }, [dispatch, forceRender, page]);
+    fetchAllCategories();
+    setFirstRender(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const handleChangePage = pageNumber => {
-    setPage(pageNumber);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
+  // обнуляємо ключове слово при зміні категорії
   useEffect(() => {
-    console.log('forceRender after fetch :', forceRender);
-    setForceRender(false);
-  }, [forceRender]);
-
-  useEffect(() => {
-    dispatch(fetchProductsByCategory({ categoryId: selectedCategory }));
-  }, [dispatch, selectedCategory]);
-
-  useEffect(() => {
-    if (searchTerm) {
-      dispatch(fetchProductsByKeywords({ search: searchTerm, page }));
+    if (firstRender) {
+      return;
     }
-  }, [dispatch, searchTerm, page]);
 
+    setSearchBarValue('');
+    setKeyWord('');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory]);
 
-  // обробкa події відправки форми
-  const handleSearchSubmit = formData => {
-    dispatch(setSearchTerm(formData.search));
-    setSearchTerm(formData.search);
-  };
-
-  const handleCategorySelect = categoryId => {
-    setSelectedCategory(categoryId);
-    if (categoryId !== null) {
-      dispatch(setSearchTerm(''));
+  // кожного разу скидаємо тумблер refreshCategory в значення за замовчуванням
+  useEffect(() => {
+    if (!refreshCategory) {
+      return;
     }
+    setRefreshCategory(false);
+  }, [refreshCategory]);
+
+  const handleKeyWord = async () => {
+    setKeyWord(searchBarValue);
+    // setSearchBarValue('');
+    setRefreshCategory(true);
   };
 
-
-  // const handleSortingSelect = option => {
-  //   setSelectedSortingOption(option);
-  // };
-
-  function refetchProducts() {
-    // console.log('forceRender before fetch :', forceRender);
-    // console.log('REFETCH WORKING');
-    dispatch(fetchAllProducts());
-    setForceRender(true);
-  }
-
-  const getFilteredProducts = () => {
-    return filteredProductsByCategory || filteredProductsByKeywords;
+  const fetchAllCategories = async () => {
+    const { categories } = await getAllCategories();
+    setCurrentCategories([...categories]);
   };
-  const filteredProducts = getFilteredProducts();
-
-  // сортування
-  const handleSortingSelect = option => {
-    setSelectedSortingOption(option);
-    let productsToSort =
-      getFilteredProducts.length > 0 ? [...getFilteredProducts] : [...products];
-    productsToSort.sort(sortingFunctions[option]);
-    setSortedProducts(productsToSort);
-  };
-
-  console.log('sortedProducts', sortedProducts);
 
   return (
     <>
       <Heading withGoBack>Крамничка</Heading>
-      <SearchBar onSubmit={handleSearchSubmit} searchTerm={searchTerm} selectedCategory={selectedCategory}/>
-      <Filter
-        categories={categories}
-        searchTerm={searchTerm}
-        onCategorySelect={handleCategorySelect}
-        onSortingSelect={handleSortingSelect}
+      <Input
+        name="searchbar"
+        type="search"
+        value={searchBarValue}
+        onChange={e => setSearchBarValue(e.target.value)}
+        onClick={handleKeyWord}
       />
+      <div className={styles['selectors-container']}>
+        <Selector
+          name="categories"
+          label=""
+          data={currentCategories}
+          fetchSelectorValue={setSelectedCategory}
+          defaultValue={
+            firstRender
+              ? selectedCategory
+              : {
+                  name: 'Всі категорії старт',
+                  id: '',
+                }
+          }
+          defaultOption={'Всі категорії'}
+          refresh={refreshCategory}
+        />
+        <Selector
+          name="sorting"
+          label=""
+          data={sortingTemplate}
+          fetchSelectorValue={setSelectedSortingOption}
+          defaultValue={selectedSortingOption}
+        />
+      </div>
       <ProductList
-        products={filteredProducts}
-        onSubmit={handleSearchSubmit}
-        sortedProducts={sortedProducts.length > 0 ? sortedProducts : products}
-        refetchProducts={refetchProducts}
+        keyWord={keyWord}
+        category={selectedCategory}
+        sorting={selectedSortingOption}
       />
-      <Pagination page={page} onChangePage={handleChangePage} />
     </>
   );
 }
