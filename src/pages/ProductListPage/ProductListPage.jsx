@@ -6,6 +6,7 @@ import Heading from 'shared/components/Heading/Heading';
 import Input from 'shared/components/Input';
 import Selector from 'shared/components/Selector';
 import ProductList from 'components/Products/ProductsList/ProductsList';
+import styles from './ProductListPage.module.scss';
 
 export default function ProductListPage() {
   const [searchBarValue, setSearchBarValue] = useState('');
@@ -70,30 +71,31 @@ export default function ProductListPage() {
         onChange={e => setSearchBarValue(e.target.value)}
         onClick={handleKeyWord}
       />
-      <Selector
-        name="categories"
-        label=""
-        data={currentCategories}
-        fetchSelectorValue={setSelectedCategory}
-        defaultValue={
-          firstRender
-            ? selectedCategory
-            : {
-                name: 'Всі категорії старт',
-                id: '',
-              }
-        }
-        defaultOption={'Всі категорії'}
-        refresh={refreshCategory}
-      />
-      <Selector
-        name="sorting"
-        label=""
-        data={sortingTemplate}
-        fetchSelectorValue={setSelectedSortingOption}
-        defaultValue={selectedSortingOption}
-      />
-
+      <div className={styles['selectors-container']}>
+        <Selector
+          name="categories"
+          label=""
+          data={currentCategories}
+          fetchSelectorValue={setSelectedCategory}
+          defaultValue={
+            firstRender
+              ? selectedCategory
+              : {
+                  name: 'Всі категорії старт',
+                  id: '',
+                }
+          }
+          defaultOption={'Всі категорії'}
+          refresh={refreshCategory}
+        />
+        <Selector
+          name="sorting"
+          label=""
+          data={sortingTemplate}
+          fetchSelectorValue={setSelectedSortingOption}
+          defaultValue={selectedSortingOption}
+        />
+      </div>
       <ProductList
         keyWord={keyWord}
         category={selectedCategory}
