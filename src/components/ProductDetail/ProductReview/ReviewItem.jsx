@@ -67,24 +67,7 @@ const ReviewItem = ({ review, avatarURL, text, isExpandedReview }) => {
           <p className={styles.reviewText}>{review.text}</p>
         </>
       )}
-      {review.reviewURL.map(({ id, url }, index) => (
-        <Button
-          key={index}
-          className={styles.btn}
-          type="button"
-          onClick={e => {
-            console.log('openModalEditPhoto(index, url);');
-          }}
-        >
-          <Image
-            key={index}
-            src={url}
-            alt={`preview-${index + 1}`}
-            className={styles.img}
-          />
-        </Button>
-      ))}
-    </div>
+         </div>
   );
 };
 
