@@ -3,6 +3,7 @@ import Image from 'shared/components/Image';
 import Avatar from 'components/Avatar';
 
 import styles from '../ProductDetail.module.scss';
+import Button from 'shared/components/Button';
 
 const ReviewItem = ({ review, avatarURL, text, isExpandedReview }) => {
   const user = review.owner.userId;
@@ -66,6 +67,23 @@ const ReviewItem = ({ review, avatarURL, text, isExpandedReview }) => {
           <p className={styles.reviewText}>{review.text}</p>
         </>
       )}
+      {review.reviewURL.map(({ id, url }, index) => (
+        <Button
+          key={index}
+          className={styles.btn}
+          type="button"
+          onClick={e => {
+            console.log('openModalEditPhoto(index, url);');
+          }}
+        >
+          <Image
+            key={index}
+            src={url}
+            alt={`preview-${index + 1}`}
+            className={styles.img}
+          />
+        </Button>
+      ))}
     </div>
   );
 };
