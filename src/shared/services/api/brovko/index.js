@@ -1,4 +1,8 @@
-export { getAllCategories, addNewCategory } from './categories';
+export {
+  getAllCategories,
+  addNewCategory,
+  getCategoryById,
+} from './categories';
 export { default as instance } from './instance';
 export { addOrder, getAllOrdersAuth } from './orders';
 export {

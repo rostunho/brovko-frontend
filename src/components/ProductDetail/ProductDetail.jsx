@@ -34,7 +34,7 @@ export default function ProductDetail({
   handleReadReviewClick,
   location,
 }) {
-  console.log('reviews into PD :>> ', reviews);
+  // console.log('reviews into PD :>> ', reviews);
 
   // const [product, setProduct] = useState(null);
   const [value, setValue] = useState(1);
@@ -84,6 +84,13 @@ export default function ProductDetail({
   return (
     <>
       <div className={styles.productCard}>
+        {userStatus === 'manager' ||
+          (userStatus === 'superadmin' && (
+            <Button admin size="lg" onClick={goToEditProduct}>
+              РЕДАГУВАТИ
+            </Button>
+          ))}
+
         <Rating product={product} />
         <div className={styles.image}>
           <Image src={picture} />
@@ -106,12 +113,7 @@ export default function ProductDetail({
           {orderInBasket ? 'Видалити з кошика' : 'Додати в кошик'}
         </Button>
         {isOpen && <ModalProductsInBasket closeModal={closeModal} />}
-        {userStatus === 'manager' ||
-          (userStatus === 'superadmin' && (
-            <Button admin size="lg" onClick={goToEditProduct}>
-              РЕДАГУВАТИ
-            </Button>
-          ))}
+
         <Description
           product={product}
           isExpandedDescription={isExpandedDescription}

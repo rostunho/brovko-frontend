@@ -79,7 +79,9 @@ export default function InputWithIcon({
       <button
         tabIndex="-1"
         type="button"
-        className={styles['input-button']}
+        className={`${styles['input-button']} ${
+          !props?.label ? styles['input-without-label'] : ''
+        }`}
         onClick={handleOnClick}
         onFocus={onFocus}
       >
