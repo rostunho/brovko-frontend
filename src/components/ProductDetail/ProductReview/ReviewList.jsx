@@ -36,6 +36,7 @@ function ReviewList({ reviews, isExpandedReview = true }) {
           owner: comment.owner,
           text: review.text,
           createdAt: review.createdAt,
+          reviewURL: review.reviewURL,
         }))
       )
       .sort((a, b) => {

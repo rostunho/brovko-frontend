@@ -9,7 +9,7 @@ const ReviewItem = ({ review, avatarURL, text, isExpandedReview }) => {
   const user = review.owner.userId;
   console.log('user', user);
   console.log('rewiew', review);
-
+  console.log('reviewURL', review.reviewURL);
   return (
     <div>
       {isExpandedReview ? (
@@ -38,6 +38,14 @@ const ReviewItem = ({ review, avatarURL, text, isExpandedReview }) => {
 
             <RewiewRating />
             <p className={styles.reviewText}>{review.text}</p>
+
+            {review.reviewURL && review.reviewURL[0] !== null && review.reviewURL.length > 0 && (
+              <div className={styles.imgContainer}>
+                {review.reviewURL.map((reviewURL, index) => (
+                <Image className={styles.imgReview} key={index} src={reviewURL} />
+                ))}
+              </div>)
+            }
           </li>
         </ul>
       ) : (
@@ -67,7 +75,7 @@ const ReviewItem = ({ review, avatarURL, text, isExpandedReview }) => {
           <p className={styles.reviewText}>{review.text}</p>
         </>
       )}
-         </div>
+    </div>
   );
 };
 
