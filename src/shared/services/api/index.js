@@ -2,6 +2,7 @@ export { findCity, findStreet, findWarehouse } from './nova-poshta';
 export {
   getAllCategories,
   addNewCategory,
+  getCategoryById,
   instance,
   addOrder,
   getAllOrdersAuth,

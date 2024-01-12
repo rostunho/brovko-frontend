@@ -66,6 +66,7 @@ export default function ProductListPage() {
       <Heading withGoBack>Крамничка</Heading>
       <Input
         name="searchbar"
+        label=""
         type="search"
         value={searchBarValue}
         onChange={e => setSearchBarValue(e.target.value)}
