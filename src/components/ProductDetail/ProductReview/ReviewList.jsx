@@ -52,7 +52,7 @@ function ReviewList({ reviews, isExpandedReview = true }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allReviews]);
 
-  console.log('reviews into RL :>> ', reviews);
+  // console.log('reviews into RL :>> ', reviews);
 
   return (
     <div className={styles.reviewList}>
