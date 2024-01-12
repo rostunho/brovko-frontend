@@ -201,9 +201,9 @@
   margin-bottom: 12px;
 }
 
-.reviewBox {
+// .reviewBox {
   // margin-bottom: 12px;
-}
+// }
 
 .userInfo {
   display: flex;
@@ -323,4 +323,18 @@
 .customButton {
   width: 1.5rem;
   height: 1.5rem;
+}
+
+
+.imgContainer {
+  display: flex;
+  gap:5px;
+margin-top: 12px;
+}
+
+.imgReview {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 4px;
 }
