@@ -54,7 +54,7 @@ export default function AddProductForm({ update }) {
 
         // console.log('existingCategory :>> ', existingCategory);
         dispatchRequestBody(null, 'ADD_SAVED_PRODUCT', existingProduct);
-        dispatchRequestBody(null, 'ADD_SAVED_CATEGORY', existingProduct);
+        dispatchRequestBody(null, 'ADD_SAVED_CATEGORY', existingCategory);
         setRefreshSelector(true);
       })();
     }

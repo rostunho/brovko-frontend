@@ -110,7 +110,7 @@ export const addProductReducer = (state, action) => {
       return newState;
 
     case 'ADD_SAVED_CATEGORY':
-      newState.product[0].category.name = payload.name;
+      newState.product[0].category = payload;
 
       return newState;
 
