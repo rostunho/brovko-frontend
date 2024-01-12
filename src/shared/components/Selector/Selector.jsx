@@ -31,8 +31,6 @@ export default function Selector({
 
   ...props
 }) {
-  console.log('LABEL ::', label);
-
   const [currentValue, setCurrentValue] = useState(
     // defaultValue ? defaultValue : initialSelectorValue
     initialSelectorValue
