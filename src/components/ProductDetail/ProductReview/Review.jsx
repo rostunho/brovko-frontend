@@ -10,7 +10,7 @@ export default function Review({
   handleReadReviewClick,
 }) {
   // console.log('product into Review :>> ', product);
-  console.log('reviews into Review :>> ', reviews);
+  // console.log('reviews into Review :>> ', reviews);
 
   return (
     <>

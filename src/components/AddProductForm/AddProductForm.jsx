@@ -4,6 +4,7 @@ import {
   addNewProduct,
   getAllCategories,
   getProductById,
+  getCategoryById,
 } from 'shared/services/api';
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
@@ -24,51 +25,65 @@ export default function AddProductForm({ update }) {
   const [existingProduct, setExistingProduct] = useState(null);
   const [requestBody, dispatchRequestBody] = useAddProductState();
   const [categories, setCategories] = useState([]);
-  const [selectorValue, fetchSelectorValue] = useSelectorValue(
-    update
-      ? null
-      : {
-          name: 'Без категорії',
-          id: '',
-        }
-  );
+  const [selectorValue, fetchSelectorValue] = useSelectorValue({
+    name: 'Без категорії',
+    id: '',
+  });
   const [productSize, setProductSize] = useState('0');
   const [categoryModalisOpen, setCategoryModalisOpen] = useState(false);
+  const [refreshSelector, setRefreshSelector] = useState(false);
   const formRef = useRef();
   const { productId } = useParams();
 
-  useEffect(() => {
-    (async () => {
-      await updateCategories();
-    })();
-  }, []);
+  // console.log('EXISTING PRODUCT >>> ::', selectorValue);
 
   useEffect(() => {
-    if (!update) {
-      return;
+    if (update) {
+      (async () => {
+        const existingProduct = await fetchExistingProduct(productId);
+        // console.log('existingProduct :>> ', existingProduct);
+        const existingCategory = await fetchExistingCategory(
+          existingProduct.categoryId
+        );
+
+        setExistingProduct(prevState => {
+          const newState = { ...prevState };
+          newState.category = { ...existingCategory };
+          return newState;
+        });
+
+        // console.log('existingCategory :>> ', existingCategory);
+        dispatchRequestBody(null, 'ADD_SAVED_PRODUCT', existingProduct);
+        dispatchRequestBody(null, 'ADD_SAVED_CATEGORY', existingCategory);
+        setRefreshSelector(true);
+      })();
     }
 
-    const fetchExistingProduct = async id => {
-      const product = await getProductById(id);
-      setExistingProduct(product);
-    };
-
-    fetchExistingProduct(productId);
+    updateCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productId]);
+  }, []);
+
+  // useEffect(() => {
+  //   if (!update) {
+  //     return;
+  //   }
+
+  //   fetchExistingProduct(productId);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [productId]);
 
   useEffect(() => {
     if (!existingProduct) {
       return;
     }
 
-    update &&
-      fetchSelectorValue({
-        name: detectCategoryNameById(existingProduct.categoryId, categories),
-        id: existingProduct.categoryId,
-      });
+    // update &&
+    //   fetchSelectorValue({
+    //     name: detectCategoryNameById(existingProduct.categoryId, categories),
+    //     id: existingProduct.categoryId,
+    //   });
 
-    dispatchRequestBody(null, 'ADD_SAVED_PRODUCT', existingProduct);
+    // dispatchRequestBody(null, 'ADD_SAVED_PRODUCT', existingProduct);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [existingProduct]);
 
@@ -100,7 +115,9 @@ export default function AddProductForm({ update }) {
     setProductSize(size.toFixed(3));
   }, [productSize, requestBody]);
 
-  useEffect(() => {}, [requestBody]);
+  useEffect(() => {
+    setRefreshSelector(false);
+  }, [refreshSelector]);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -120,14 +137,26 @@ export default function AddProductForm({ update }) {
     }
   };
 
+  const fetchExistingProduct = async id => {
+    const product = await getProductById(id);
+    setExistingProduct({ ...product });
+    return product;
+  };
+
+  const fetchExistingCategory = async id => {
+    const category = await getCategoryById(id);
+    fetchSelectorValue({ ...category });
+    return category;
+  };
+
   const toggleCategoryModal = () => {
     setCategoryModalisOpen(!categoryModalisOpen);
   };
 
-  function detectCategoryNameById(id, array) {
-    const foundProduct = array.find(el => el.id === id);
-    return foundProduct?.name;
-  }
+  // function detectCategoryNameById(id, array) {
+  //   const foundProduct = array.find(el => el.id === id);
+  //   return foundProduct?.name;
+  // }
 
   return (
     <div className={styles.container}>
@@ -151,9 +180,11 @@ export default function AddProductForm({ update }) {
           <Selector
             name="Category"
             data={categories}
-            defaultValue={{ name: 'Без категорії' }}
+            defaultValue={{ name: selectorValue.name }}
+            initial
             defaultOption={'Без категорії'}
             fetchSelectorValue={fetchSelectorValue}
+            refresh={refreshSelector}
           />
           <Button mode="adding" onClick={toggleCategoryModal}>
             Додати категорію

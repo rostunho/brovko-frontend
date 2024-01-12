@@ -13,6 +13,11 @@
   color: var(--black-text-color);
 }
 
+.input-box.without-label {
+  min-height: 40px;
+  // margin-top: -23px;
+}
+
 .label {
   &:hover {
     cursor: pointer;

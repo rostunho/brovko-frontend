@@ -13,6 +13,18 @@ export const getAllCategories = async () => {
   }
 };
 
+export const getCategoryById = async categoryId => {
+  try {
+    const { data } = await instance.get(`/categories/${categoryId}`);
+    console.log('response :>> ', data);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+getCategoryById(270);
+
 // Якщо передаємо update, після додавання нової категорії оновить базу даних, якщо не передаємо - просто додасть нову категорію.
 export const addNewCategory = async (body, update) => {
   try {
@@ -33,19 +45,3 @@ export const addNewCategory = async (body, update) => {
     console.log(error.message);
   }
 };
-
-// export const addNewCategory = async (body, update) => {
-//   try {
-//     const url = `${BROVKO_API}/categories/add-category`;
-//     // const url = 'http://localhost:5000/api/categories/add-category';
-//     const data = JSON.stringify(body);
-//     const headers = { 'Content-Type': 'application/json' };
-
-//     const response = await axios.post(url, data, { headers });
-//     console.log('Post request response:', response.data);
-//     console.log(response.data.message);
-//     return response.data;
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// };

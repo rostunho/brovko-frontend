@@ -30,7 +30,7 @@ export default function ProductDetailPage() {
   const { productId } = useParams();
   const location = useLocation();
 
-  console.log('reviews into PDP :>> ', reviews);
+  // console.log('reviews into PDP :>> ', reviews);
 
   useEffect(() => {
     fetchAllReviews();

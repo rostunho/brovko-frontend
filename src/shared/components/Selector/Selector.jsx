@@ -53,14 +53,14 @@ export default function Selector({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (!defaultValue || currentValue) {
-      return;
-    }
+  // useEffect(() => {
+  //   if (!defaultValue || currentValue) {
+  //     return;
+  //   }
 
-    setCurrentValue({ ...defaultValue });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   setCurrentValue({ ...defaultValue });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => {
     if (!defaultOption) {

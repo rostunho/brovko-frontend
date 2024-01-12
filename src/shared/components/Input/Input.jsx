@@ -166,7 +166,9 @@ export default function Input({
           styles[`input-box__length--${length}`]
         } ${isCheckbox || isRadio ? styles['input-box__controls'] : ''} ${
           checkBoxIsChecked ? styles['input-box__controls--checked'] : ''
-        } ${className ? className : ''}`}
+        } ${className ? className : ''} ${
+          !label ? styles['without-label'] : ''
+        }`}
       >
         <label
           htmlFor={id}
@@ -190,6 +192,7 @@ export default function Input({
           length={length}
           metrical={metrical}
           currency={currency}
+          label={label}
           // error={error}
           {...props}
         />
