@@ -5,11 +5,14 @@ import Avatar from 'components/Avatar';
 import styles from '../ProductDetail.module.scss';
 import Button from 'shared/components/Button';
 
-const ReviewItem = ({ review, avatarURL, text, isExpandedReview }) => {
-  const user = review.owner.userId;
-  console.log('user', user);
-  console.log('rewiew', review);
-  console.log('reviewURL', review.reviewURL);
+const ReviewItem = ({ review, isExpandedReview }) => {
+  // const user = review.comments?.owner?.userId;
+  const avatarURL = review.owner.avatarURL;
+  const text = review.owner?.email || review.owner?.name;
+  const createdAt = review.text.createdAt;
+  const reviewURL = review.text.reviewURL;
+  const reviewText = review.text.text;
+  
   return (
     <div>
       {isExpandedReview ? (
@@ -28,20 +31,20 @@ const ReviewItem = ({ review, avatarURL, text, isExpandedReview }) => {
               <div>
                 <p className={styles.userName}>
                   {' '}
-                  {review.owner.email || review.owner.name}
+                  {text}
                 </p>
                 <p className={styles.reviewDate}>
-                  {new Date(review.createdAt).toLocaleString()}
+                  {new Date(createdAt).toLocaleString()}
                 </p>
               </div>
             </div>
 
             <RewiewRating />
-            <p className={styles.reviewText}>{review.text}</p>
+            <p className={styles.reviewText}>{reviewText}</p>
 
-            {review.reviewURL && review.reviewURL[0] !== null && review.reviewURL.length > 0 && (
+            {reviewURL && reviewURL[0] !== null && reviewURL.length > 0 && (
               <div className={styles.imgContainer}>
-                {review.reviewURL.map((reviewURL, index) => (
+                {reviewURL.map((reviewURL, index) => (
                 <Image className={styles.imgReview} key={index} src={reviewURL} />
                 ))}
               </div>)
@@ -62,17 +65,17 @@ const ReviewItem = ({ review, avatarURL, text, isExpandedReview }) => {
             <div>
               <p className={styles.userName}>
                 {' '}
-                {review.owner.email || review.owner.name}
+                {text}
               </p>
               <p className={styles.reviewDate}>
-                {new Date(review.createdAt).toLocaleString()}
+                {new Date(createdAt).toLocaleString()}
               </p>
             </div>
           </div>
 
           <RewiewRating />
 
-          <p className={styles.reviewText}>{review.text}</p>
+          <p className={styles.reviewText}>{reviewText}</p>
         </>
       )}
     </div>

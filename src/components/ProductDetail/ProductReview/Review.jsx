@@ -14,7 +14,7 @@ export default function Review({
 
   return (
     <>
-      {reviews ? (
+      {reviews.length > 0 ? (
         isExpandedReview ? (
           <>
             <Outlet />
