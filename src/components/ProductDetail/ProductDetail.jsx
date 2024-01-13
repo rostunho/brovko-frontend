@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { addOrder } from 'redux/basket/basketSlice';
 import { getAllOrders } from 'redux/basket/basketSelectors';
 import { selectUserStatus } from 'redux/user/userSelectors';
+import { addPopupOperation } from 'redux/popup/popupOperations';
 // import { addToCart } from 'redux/cart/cartActions';
 import ModalProductsInBasket from 'components/ModalProductsInBasket/ModalProductsInBasket';
 import useModal from 'shared/hooks/useModal';
@@ -18,11 +19,6 @@ import Price from 'components/ProductDetail/Price';
 import Description from 'components/ProductDetail/ProductDescription/Description';
 import Review from 'components/ProductDetail/ProductReview/Review';
 
-import { getAllProducts } from 'redux/products/productsSelectors';
-import { getAllReviews } from 'redux/reviews/reviewsSelectors';
-import { addPopupOperation } from 'redux/popup/popupOperations';
-import { getProductById } from 'shared/services/api';
-
 import styles from './ProductDetail.module.scss';
 
 export default function ProductDetail({
@@ -35,23 +31,14 @@ export default function ProductDetail({
   location,
 }) {
   // console.log('reviews into PD :>> ', reviews);
-
   // const [product, setProduct] = useState(null);
   const [value, setValue] = useState(1);
   const userStatus = useSelector(selectUserStatus);
   const { productId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // const allProducts = useSelector(getAllProducts);
-  // const allReviews = useSelector(getAllReviews);
-
-  const { isOpen, openModal, closeModal } = useModal();
-
-  // const product = allProducts?.find(p => p._id === productId);
-  // const reviews = allReviews?.find(r => r.productId === productId);
-
   const orders = useSelector(getAllOrders);
+  const { isOpen, openModal, closeModal } = useModal();
 
   // useEffect(() => {
   //   getProductById(productId).then(product => setProduct(product));

@@ -1,28 +1,12 @@
 import { useParams, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-
-import { getAllProducts } from 'redux/products/productsSelectors';
 import { getProductById } from 'shared/services/api';
-import { getAllReviews } from 'redux/reviews/reviewsSelectors';
-
-import { getReviews } from 'shared/services/api';
+import { getReviewsByProductId } from 'shared/services/api/brovko/reviews';
 import Heading from 'shared/components/Heading';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 
 export default function ProductDetailPage() {
-  // const from = location.state?.from || '/';
-
-  // const allProducts = useSelector(getAllProducts);
-  // const allReviews = useSelector(getAllReviews);
-
-  // console.log('allProducts', allProducts);
-  // console.log('allReviews', allReviews);
-
-  // const product = allProducts?.find(p => p._id === productId);
-  // const reviews = allReviews?.find(r => r.productId === productId);
-
-  // ================================================
+  
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [isExpandedDescription, setIsExpandedDescription] = useState(false);
@@ -30,11 +14,11 @@ export default function ProductDetailPage() {
   const { productId } = useParams();
   const location = useLocation();
 
-  // console.log('reviews into PDP :>> ', reviews);
+  // console.log('reviews into PDP :>>>>> ', reviews);
 
   useEffect(() => {
-    fetchAllReviews();
     fetchProductById(productId);
+    fetchReviewsByProductId(productId);
   }, [productId]);
 
   useEffect(() => {
@@ -54,10 +38,11 @@ export default function ProductDetailPage() {
     setProduct(product);
   };
 
-  const fetchAllReviews = async () => {
-    const reviews = await getReviews();
+  const fetchReviewsByProductId = async (id) => {
+    const reviews = await getReviewsByProductId(id);
     setReviews(reviews);
   };
+ 
 
   const handleReadMoreClick = () => {
     setIsExpandedDescription(true);
