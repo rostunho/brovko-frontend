@@ -17,11 +17,19 @@
 .btn {
   width: 120px;
   height: 120px;
-  margin-top: 60px;
+  // margin-top: 60px;
   border-radius: 8px;
   padding: 0;
   overflow: hidden;
 }
+
+.imgContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap:16px;
+margin-top: 20px;
+}
+
 
 .img {
   width: 100%;
@@ -37,8 +45,8 @@
   align-self: center;
   width: 120px;
   height: 120px;
-  margin-top: 60px;
-  padding: 0 16px;
+  // margin-top: 60px;
+  padding: 0 px;
   @include text-styles(Nunito, 14px, 700, 19px);
   border: none;
 
@@ -98,11 +106,6 @@ line-height: 19px;
 }
 
 
-.imgContainer {
-  display: flex;
-  gap:5px;
-margin-top: 12px;
-}
 
 // .imgPhoto {
 //   width: 60px;

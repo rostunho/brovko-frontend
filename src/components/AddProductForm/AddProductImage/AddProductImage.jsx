@@ -132,7 +132,7 @@ const AddProductImage = ({ pictures }) => {
   const resetPromp = () => setPrompDelete(false);
   console.log(selectedPictures);
 
-  const images = <div className={styles.imgContainer}>{selectedPictures.map(({ id, url }, index) => (
+  const images = selectedPictures.map(({ id, url }, index) => (
     <Button
       key={index}
       className={styles.btn}
@@ -148,7 +148,7 @@ const AddProductImage = ({ pictures }) => {
         className={styles.img}
       />
     </Button>
-  ))}</div>
+  ));
 
   const inputPhoto = (
     <label className={styles.fileInputLabel}>
@@ -163,7 +163,7 @@ const AddProductImage = ({ pictures }) => {
     </label>
   );
 
-  const modalWindow = 
+  const modalWindow = (
     <Modal closeModal={closeModalEditPhoto}>
       <p className={styles.mainText}>
         {!prompDelete
@@ -205,7 +205,7 @@ const AddProductImage = ({ pictures }) => {
         {!prompDelete ? 'Видалити фото' : 'Так'}
       </Button>
     </Modal>
-  
+  );
 
   return (
     <>
@@ -216,15 +216,17 @@ const AddProductImage = ({ pictures }) => {
             ? 'Перше фото буде головним в картці товару. Перетягни, щоб змінити порядок фото.'
             : 'У суперадміна є суперздібність! Ти можеш додавати необмежену кількість фотографій товару!'}{' '}
         </p>
+        <div className={styles.imgContainer}>
         {images}
         {inputPhoto}
-        <p className={styles.text}>
-          {selectedFiles.length > 0 || selectedPictures.length > 0
-            ? 'Додати ще'
-            : 'Додати фото'}
-        </p>
       </div>
-      {modalIsOpen &&  modalWindow }
+      <p className={styles.text}>
+        {selectedFiles.length > 0 || selectedPictures.length > 0
+          ? 'Додати ще'
+          : 'Додати фото'}
+      </p>
+      </div>
+      {modalIsOpen && modalWindow}
     </>
   );
 };
