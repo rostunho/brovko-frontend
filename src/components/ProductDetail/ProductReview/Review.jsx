@@ -9,8 +9,6 @@ export default function Review({
   isExpandedReview,
   handleReadReviewClick,
 }) {
-  // console.log('product into Review :>> ', product);
-  // console.log('reviews into Review :>> ', reviews);
 
   return (
     <>

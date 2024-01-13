@@ -1,18 +1,17 @@
 import RewiewRating from './ReviewRating';
 import Image from 'shared/components/Image';
-import Avatar from 'components/Avatar';
 
 import styles from '../ProductDetail.module.scss';
 import Button from 'shared/components/Button';
 
+const formatDate = (dateString) => new Date(dateString).toLocaleString();
+
 const ReviewItem = ({ review, isExpandedReview }) => {
-  // const user = review.comments?.owner?.userId;
-  const avatarURL = review.owner.avatarURL;
-  const text = review.owner?.email || review.owner?.name;
-  const createdAt = review.text.createdAt;
-  const reviewURL = review.text.reviewURL;
-  const reviewText = review.text.text;
-  
+  const {
+    owner: { avatarURL, email, name },
+    text: { createdAt, reviewURL, text: reviewText },
+  } = review;
+
   return (
     <div>
       {isExpandedReview ? (
@@ -23,7 +22,7 @@ const ReviewItem = ({ review, isExpandedReview }) => {
                 <Image
                   className={styles.avatar}
                   src={avatarURL}
-                  text={text}
+                  text={email || name}
                   fontSize={16}
                 />
               </div>
@@ -31,11 +30,9 @@ const ReviewItem = ({ review, isExpandedReview }) => {
               <div>
                 <p className={styles.userName}>
                   {' '}
-                  {text}
+                  {email || name}
                 </p>
-                <p className={styles.reviewDate}>
-                  {new Date(createdAt).toLocaleString()}
-                </p>
+                <p className={styles.reviewDate}>{formatDate(createdAt)}</p>
               </div>
             </div>
 
@@ -58,24 +55,29 @@ const ReviewItem = ({ review, isExpandedReview }) => {
               <Image
                 className={styles.avatar}
                 src={avatarURL}
-                text={text}
+                text={email || name}
                 fontSize={16}
               />
             </div>
             <div>
               <p className={styles.userName}>
                 {' '}
-                {text}
+                {email || name}
               </p>
-              <p className={styles.reviewDate}>
-                {new Date(createdAt).toLocaleString()}
-              </p>
+              <p className={styles.reviewDate}>{formatDate(createdAt)}</p>
             </div>
           </div>
 
           <RewiewRating />
 
           <p className={styles.reviewText}>{reviewText}</p>
+          {reviewURL && reviewURL[0] !== null && reviewURL.length > 0 && (
+              <div className={styles.imgContainer}>
+                {reviewURL.map((reviewURL, index) => (
+                <Image className={styles.imgReview} key={index} src={reviewURL} />
+                ))}
+              </div>)
+            }
         </>
       )}
     </div>
