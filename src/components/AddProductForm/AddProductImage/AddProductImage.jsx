@@ -132,7 +132,7 @@ const AddProductImage = ({ pictures }) => {
   const resetPromp = () => setPrompDelete(false);
   console.log(selectedPictures);
 
-  const images = selectedPictures.map(({ id, url }, index) => (
+  const images = <div className={styles.imgContainer}>{selectedPictures.map(({ id, url }, index) => (
     <Button
       key={index}
       className={styles.btn}
@@ -148,7 +148,7 @@ const AddProductImage = ({ pictures }) => {
         className={styles.img}
       />
     </Button>
-  ));
+  ))}</div>
 
   const inputPhoto = (
     <label className={styles.fileInputLabel}>
