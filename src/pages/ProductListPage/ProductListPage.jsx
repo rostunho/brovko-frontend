@@ -22,6 +22,8 @@ export default function ProductListPage() {
     order: 'desc',
     field: 'createdAt',
   });
+  const [categorySelectorIsOpen, setCategorySelectorIsOpen] = useState(false);
+  const [sortingSelectorIsOpen, setSortingSelectorIsOpen] = useState(false);
   const [firstRender, setFirstRender] = useState(true);
 
   // беремо з бази даних актуальні категорії товарів
@@ -61,6 +63,22 @@ export default function ProductListPage() {
     setCurrentCategories([...categories]);
   };
 
+  const toggleCloseCategorySelector = () => {
+    if (sortingSelectorIsOpen) {
+      setSortingSelectorIsOpen(false);
+    }
+
+    setCategorySelectorIsOpen(!categorySelectorIsOpen);
+  };
+
+  const toggleCloseSortingSelector = () => {
+    if (categorySelectorIsOpen) {
+      setCategorySelectorIsOpen(false);
+    }
+
+    setSortingSelectorIsOpen(!sortingSelectorIsOpen);
+  };
+
   return (
     <>
       <Heading withGoBack>Крамничка</Heading>
@@ -88,6 +106,8 @@ export default function ProductListPage() {
           }
           defaultOption={'Всі категорії'}
           refresh={refreshCategory}
+          onClick={toggleCloseCategorySelector}
+          forceClosing={sortingSelectorIsOpen}
         />
         <Selector
           name="sorting"
@@ -95,6 +115,8 @@ export default function ProductListPage() {
           data={sortingTemplate}
           fetchSelectorValue={setSelectedSortingOption}
           defaultValue={selectedSortingOption}
+          onClick={toggleCloseSortingSelector}
+          forceClosing={categorySelectorIsOpen}
         />
       </div>
       <ProductList

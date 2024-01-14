@@ -16,7 +16,9 @@ export default function Selector({
   defaultValue, // ключ name буде значенням селектора за замовчуванням
   placeholder,
   size,
+  onClick,
   fetchSelectorValue, // "витягує" поточне значення селектора в батьківський компонент
+  forceClosing, // допомагає "примусово" програмно закрити дропдаун з батьківскього компонента
   openedDropdown,
   enteringField,
   onSaveClick,
@@ -89,7 +91,17 @@ export default function Selector({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh]);
 
+  useEffect(() => {
+    if (!forceClosing) {
+      return;
+    }
+
+    setDropdownIsOpen(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [forceClosing]);
+
   const toggleDropdown = () => {
+    onClick && onClick();
     setDropdownIsOpen(!dropdownIsOpen);
   };
 
