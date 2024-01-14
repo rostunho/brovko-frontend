@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { login } from 'redux/user/userOperations';
 import { errorAuth } from 'redux/user/userSelectors';
-import { resetError } from 'redux/user/userSlice';
 import { useEffect, useRef, useState } from 'react';
 // import PropTypes from 'prop-types';
 import Input from 'shared/components/Input';
@@ -25,6 +24,8 @@ const LoginForm = () => {
   const [showSubmitButton, setShowSubmitButton] = useState(false);
   const errorLogin = useSelector(errorAuth);
   const [formError, setFormError] = useState(null);
+  const location = useLocation();
+  console.log(location);
 
   useEffect(() => {
     isValidEmail === 'isValid' && isValidPassword === 'isValid'
@@ -32,27 +33,18 @@ const LoginForm = () => {
       : setShowSubmitButton(false);
   }, [isValidEmail, isValidPassword]);
 
-  useEffect(() => {
-    if (errorLogin) {
-      setFormError(errorLogin);
-    }
-  }, [errorLogin]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetError());
-    };
-  }, [dispatch]);
-
   function dispatchUser(data) {
-    dispatch(login(data))
-      .then(() => {
-        setState({ ...data });
-      })
-      .catch(error => {
-        setFormError(error.message);
-      });
+    dispatch(login(data)).then(() => {
+      setState({ ...data });
+    });
   }
+  useEffect(() => {
+    if (location.pathname === '/auth/login') {
+      setFormError(errorLogin);
+    } else {
+      setFormError(null);
+    }
+  }, [errorLogin, location.pathname]);
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>

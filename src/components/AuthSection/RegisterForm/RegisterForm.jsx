@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { register } from 'redux/user/userOperations';
 import { errorAuth } from 'redux/user/userSelectors';
-import { resetError } from 'redux/user/userSlice';
 // import PropTypes from 'prop-types';
 // import OldInput from 'shared/components/OldInput/OldInput';
 import Input from 'shared/components/Input';
@@ -28,6 +28,8 @@ const RegisterForm = () => {
   const errorRegister = useSelector(errorAuth);
   const [formError, setFormError] = useState(null);
   const dispatch = useDispatch();
+  const location = useLocation();
+  console.log(location);
 
   useEffect(() => {
     password === confirmPassword
@@ -50,18 +52,10 @@ const RegisterForm = () => {
   }, [errorRegister]);
 
   function dispatchUser(data) {
-    dispatch(register(data))
-      .then(() => {
-        setState({ ...data });
-      })
-      .catch(error => {
-        setFormError(error.message);
-      });
+    dispatch(register(data)).then(() => {
+      setState({ ...data });
+    });
   }
-
-  useEffect(() => {
-    dispatch(resetError());
-  }, [dispatch]);
 
   return (
     <form
