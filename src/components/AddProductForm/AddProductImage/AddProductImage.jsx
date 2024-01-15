@@ -6,6 +6,7 @@ import Modal from 'shared/components/Modal/Modal';
 import Button from 'shared/components/Button';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import { useDispatch } from 'react-redux';
+import TrashIcon from 'shared/icons/TrashIcon';
 
 const AddProductImage = ({ pictures , setFiles}) => {
   const dispatch = useDispatch();
@@ -152,6 +153,7 @@ const AddProductImage = ({ pictures , setFiles}) => {
         alt={`preview-${index + 1}`}
         className={styles.img}
       />
+      <TrashIcon className={styles.trash} />
     </Button>
   ));
 

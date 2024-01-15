@@ -21,15 +21,24 @@
   border-radius: 8px;
   padding: 0;
   overflow: hidden;
+  position: relative;
+}
+
+.trash {
+  color: #191c2c;
+  position: absolute;
+  top:8px;
+  right:8px;
+  
+  z-index: 999;
 }
 
 .imgContainer {
   display: flex;
   flex-wrap: wrap;
-  gap:16px;
-margin-top: 20px;
+  gap: 16px;
+  margin-top: 20px;
 }
-
 
 .img {
   width: 100%;
@@ -96,16 +105,12 @@ margin-top: 20px;
 }
 
 .text {
-  @include text-styles( );
+  @include text-styles();
   margin-top: 12px;
   margin-bottom: 29px;
-color: var( --grey-text-color);
-line-height: 19px;
-
-
+  color: var(--grey-text-color);
+  line-height: 19px;
 }
-
-
 
 // .imgPhoto {
 //   width: 60px;
