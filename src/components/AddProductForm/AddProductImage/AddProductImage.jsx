@@ -7,7 +7,7 @@ import Button from 'shared/components/Button';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import { useDispatch } from 'react-redux';
 
-const AddProductImage = ({ pictures }) => {
+const AddProductImage = ({ pictures , setFiles}) => {
   const dispatch = useDispatch();
 
   const { picture } = pictures;
@@ -22,9 +22,14 @@ const AddProductImage = ({ pictures }) => {
   const [modalIsId, setModalIsId] = useState(false);
   const [prompDelete, setPrompDelete] = useState(false);
 
+
+
+
   useEffect(() => {
     setSelectedPictures(pictureArray.map((url, index) => ({ id: index, url })));
   }, [pictures]);
+
+
 
   const openModalEditPhoto = (id, url) => {
     console.log(id, url);
@@ -149,6 +154,10 @@ const AddProductImage = ({ pictures }) => {
       />
     </Button>
   ));
+
+  useEffect(() => {
+    console.log(selectedPictures)
+    setFiles(selectedPictures)}, [selectedPictures])
 
   const inputPhoto = (
     <label className={styles.fileInputLabel}>

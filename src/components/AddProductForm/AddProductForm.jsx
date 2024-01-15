@@ -33,6 +33,7 @@ export default function AddProductForm({ update }) {
   const [productSize, setProductSize] = useState('0');
   const [categoryModalisOpen, setCategoryModalisOpen] = useState(false);
   const [refreshSelector, setRefreshSelector] = useState(false);
+  const [files, setFiles] = useState([])
   const formRef = useRef();
   const { productId } = useParams();
 
@@ -122,8 +123,8 @@ export default function AddProductForm({ update }) {
 
   const handleSubmit = async event => {
     event.preventDefault();
-
-    await addNewProduct(requestBody);
+console.log(requestBody, files)
+    await addNewProduct(requestBody, files);
     formRef.current.reset();
   };
 
@@ -177,7 +178,7 @@ export default function AddProductForm({ update }) {
           value={requestBody.product[0].nameForDocuments}
         />
         <AddProductImage 
-        pictures={existingProduct !== null ? existingProduct : []} />
+        pictures={existingProduct !== null ? existingProduct : []} setFiles={setFiles} />
         <div className={styles.category}>
           <Selector
             name="Category"
