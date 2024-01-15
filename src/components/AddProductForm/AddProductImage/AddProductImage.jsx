@@ -10,7 +10,6 @@ import { useDispatch } from 'react-redux';
 const AddProductImage = ({ pictures = [], setFiles }) => {
   const dispatch = useDispatch();
   const { picture = [] } = pictures;
-  console.log(picture);
 
   const pictureArray = Array.isArray(picture) ? picture : [];
 
