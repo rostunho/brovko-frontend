@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { getAllCategories } from 'shared/services/api';
 import { sortingTemplate } from './sortingTemplate';
-import Loader from 'components/Loader';
+// import Loader from 'components/Loader';
 import Heading from 'shared/components/Heading/Heading';
 import Input from 'shared/components/Input';
 import Selector from 'shared/components/Selector';
@@ -9,6 +10,7 @@ import ProductList from 'components/Products/ProductsList/ProductsList';
 import styles from './ProductListPage.module.scss';
 
 export default function ProductListPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [searchBarValue, setSearchBarValue] = useState('');
   const [keyWord, setKeyWord] = useState('');
   const [currentCategories, setCurrentCategories] = useState([]);
@@ -28,8 +30,13 @@ export default function ProductListPage() {
 
   // беремо з бази даних актуальні категорії товарів
   useEffect(() => {
-    fetchAllCategories();
-    setFirstRender(false);
+    (async () => {
+      const savedCategories = await fetchAllCategories();
+      //..
+      searchParamsProcessing(savedCategories);
+      //..
+      setFirstRender(false);
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -38,7 +45,7 @@ export default function ProductListPage() {
     if (firstRender) {
       return;
     }
-
+    setSearchParams({ category: selectedCategory.id });
     setSearchBarValue('');
     setKeyWord('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,6 +68,7 @@ export default function ProductListPage() {
   const fetchAllCategories = async () => {
     const { categories } = await getAllCategories();
     setCurrentCategories([...categories]);
+    return categories;
   };
 
   const toggleCloseCategorySelector = () => {
@@ -77,6 +85,32 @@ export default function ProductListPage() {
     }
 
     setSortingSelectorIsOpen(!sortingSelectorIsOpen);
+  };
+  const setCategoryToSearchParams = () => {
+    setSearchParams({ category: selectedCategory.id });
+  };
+
+  const getCategoryFromSearchParams = savedCategories => {
+    const savedCategoryId = searchParams.get('category');
+
+    if (savedCategories.length < 1) {
+      console.log('Ще немає списку усіх категорій');
+      return;
+    }
+
+    const savedCategory = savedCategories.find(
+      category => category.id === savedCategoryId
+    ) || { id: '', name: 'Всі категорії відновлені' };
+
+    setSelectedCategory({ ...savedCategory });
+  };
+
+  const searchParamsProcessing = savedCategories => {
+    const category = searchParams.has('category');
+
+    category
+      ? getCategoryFromSearchParams(savedCategories)
+      : setCategoryToSearchParams();
   };
 
   return (

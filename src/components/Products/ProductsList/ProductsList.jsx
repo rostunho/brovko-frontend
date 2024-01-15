@@ -12,6 +12,7 @@ import Button from 'shared/components/Button';
 import Pagination from 'components/Products/Pagination';
 import styles from './ProductsList.module.scss';
 import { useSelector } from 'react-redux';
+import { current } from '@reduxjs/toolkit';
 
 const ProductList = ({ keyWord, category, sorting }) => {
   const [page, setPage] = useState(1);
@@ -25,10 +26,17 @@ const ProductList = ({ keyWord, category, sorting }) => {
   const perPage = 10; // можемо зробити стейтом, якщо будемо даватиможливість обирати к-сть продуктоів на сторінці
 
   useEffect(() => {
-    fetchAllProducts();
+    console.log('category.id into useEffect :>> ', category.id);
+    category?.id !== ''
+      ? fetchProductsByCategory(category.id)
+      : fetchAllProducts();
     setFirstRender(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    console.log('currentProducts :>> ', currentProducts);
+  }, [currentProducts]);
 
   // оновлюємо продукти (перерендерюємо список) при потребі
   useEffect(() => {
@@ -73,7 +81,9 @@ const ProductList = ({ keyWord, category, sorting }) => {
       return;
     }
 
-    fetchProductByCategory(
+    console.log('category.id into USE EFFECT:>> ', category.id);
+
+    fetchProductsByCategory(
       category.id,
       page,
       perPage,
@@ -97,7 +107,7 @@ const ProductList = ({ keyWord, category, sorting }) => {
     }
     if (category.id !== '') {
       setPage(1);
-      fetchProductByCategory(
+      fetchProductsByCategory(
         category.id,
         page,
         perPage,
@@ -126,7 +136,7 @@ const ProductList = ({ keyWord, category, sorting }) => {
     }
 
     if (category.id !== '') {
-      fetchProductByCategory(
+      fetchProductsByCategory(
         category.id,
         page,
         perPage,
@@ -155,6 +165,8 @@ const ProductList = ({ keyWord, category, sorting }) => {
     );
     setCurrentProducts([...products]);
     setTotalPages(totalPages);
+
+    console.log('FETCH ALL PRODUCTS WORKIKED :>> ');
   };
 
   const fetchProductsByKeyword = async (
@@ -176,7 +188,7 @@ const ProductList = ({ keyWord, category, sorting }) => {
     setTotalPages(totalPages);
   };
 
-  const fetchProductByCategory = async (
+  const fetchProductsByCategory = async (
     categoryId,
     page = 1,
     perPage = 10,
@@ -190,6 +202,7 @@ const ProductList = ({ keyWord, category, sorting }) => {
       sortBy,
       sortOrder
     );
+    console.log('FETCH PRODUCT BY CATEGORY WORKING', categoryId, products);
 
     setCurrentProducts(products);
     setTotalPages(totalPages);
