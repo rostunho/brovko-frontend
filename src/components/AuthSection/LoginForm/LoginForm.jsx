@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { login } from 'redux/user/userOperations';
 import { errorAuth } from 'redux/user/userSelectors';
-import { resetError } from 'redux/user/userSlice';
 import { useEffect, useRef, useState } from 'react';
 // import PropTypes from 'prop-types';
 import Input from 'shared/components/Input';
@@ -32,6 +31,14 @@ const LoginForm = () => {
       : setShowSubmitButton(false);
   }, [isValidEmail, isValidPassword]);
 
+  function dispatchUser(data) {
+    const lowerCaseEmail = data.email.toLowerCase();
+    const newData = { ...data, email: lowerCaseEmail };
+    dispatch(login(newData)).then(() => {
+      setState({ ...newData });
+    });
+  }
+
   useEffect(() => {
     if (errorLogin) {
       setFormError(errorLogin);
@@ -39,20 +46,8 @@ const LoginForm = () => {
   }, [errorLogin]);
 
   useEffect(() => {
-    return () => {
-      dispatch(resetError());
-    };
-  }, [dispatch]);
-
-  function dispatchUser(data) {
-    dispatch(login(data))
-      .then(() => {
-        setState({ ...data });
-      })
-      .catch(error => {
-        setFormError(error.message);
-      });
-  }
+    setFormError(null);
+  }, []);
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
