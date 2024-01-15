@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import { register } from 'redux/user/userOperations';
 import { errorAuth } from 'redux/user/userSelectors';
 // import PropTypes from 'prop-types';
@@ -28,8 +27,6 @@ const RegisterForm = () => {
   const errorRegister = useSelector(errorAuth);
   const [formError, setFormError] = useState(null);
   const dispatch = useDispatch();
-  const location = useLocation();
-  console.log(location);
 
   useEffect(() => {
     password === confirmPassword
@@ -45,17 +42,23 @@ const RegisterForm = () => {
       : setShowSubmitButton(false);
   }, [isValidEmail, isValidPassword, passwordChecked]);
 
+  function dispatchUser(data) {
+    const lowerCaseEmail = data.email.toLowerCase();
+    const newData = { ...data, email: lowerCaseEmail };
+    dispatch(register(newData)).then(() => {
+      setState({ ...newData });
+    });
+  }
+
   useEffect(() => {
     if (errorRegister) {
       setFormError(errorRegister);
     }
   }, [errorRegister]);
 
-  function dispatchUser(data) {
-    dispatch(register(data)).then(() => {
-      setState({ ...data });
-    });
-  }
+  useEffect(() => {
+    setFormError(null);
+  }, []);
 
   return (
     <form

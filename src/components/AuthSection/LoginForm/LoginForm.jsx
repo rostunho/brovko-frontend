@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { login } from 'redux/user/userOperations';
 import { errorAuth } from 'redux/user/userSelectors';
 import { useEffect, useRef, useState } from 'react';
@@ -24,8 +24,6 @@ const LoginForm = () => {
   const [showSubmitButton, setShowSubmitButton] = useState(false);
   const errorLogin = useSelector(errorAuth);
   const [formError, setFormError] = useState(null);
-  const location = useLocation();
-  console.log(location);
 
   useEffect(() => {
     isValidEmail === 'isValid' && isValidPassword === 'isValid'
@@ -34,17 +32,22 @@ const LoginForm = () => {
   }, [isValidEmail, isValidPassword]);
 
   function dispatchUser(data) {
-    dispatch(login(data)).then(() => {
-      setState({ ...data });
+    const lowerCaseEmail = data.email.toLowerCase();
+    const newData = { ...data, email: lowerCaseEmail };
+    dispatch(login(newData)).then(() => {
+      setState({ ...newData });
     });
   }
+
   useEffect(() => {
-    if (location.pathname === '/auth/login') {
+    if (errorLogin) {
       setFormError(errorLogin);
-    } else {
-      setFormError(null);
     }
-  }, [errorLogin, location.pathname]);
+  }, [errorLogin]);
+
+  useEffect(() => {
+    setFormError(null);
+  }, []);
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
