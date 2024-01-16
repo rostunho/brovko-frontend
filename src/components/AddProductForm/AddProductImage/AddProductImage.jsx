@@ -8,10 +8,10 @@ import { addPopupOperation } from 'redux/popup/popupOperations';
 import { useDispatch } from 'react-redux';
 import TrashIcon from 'shared/icons/TrashIcon';
 
-const AddProductImage = ({ pictures , setFiles}) => {
+const AddProductImage = ({ pictures = [], setFiles }) => {
   const dispatch = useDispatch();
+  const { picture = [] } = pictures;
 
-  const { picture } = pictures;
   const pictureArray = Array.isArray(picture) ? picture : [];
 
   const [selectedImages, setSelectedImages] = useState([]);
@@ -23,14 +23,13 @@ const AddProductImage = ({ pictures , setFiles}) => {
   const [modalIsId, setModalIsId] = useState(false);
   const [prompDelete, setPrompDelete] = useState(false);
 
-
-
-
   useEffect(() => {
-    setSelectedPictures(pictureArray.map((url, index) => ({ id: index, url })));
-  }, [pictures]);
-
-
+    if (picture.length > 0) {
+      setSelectedPictures(
+        pictureArray.map((url, index) => ({ id: index, url }))
+      );
+    }
+  }, [picture]);
 
   const openModalEditPhoto = (id, url) => {
     console.log(id, url);
@@ -158,8 +157,9 @@ const AddProductImage = ({ pictures , setFiles}) => {
   ));
 
   useEffect(() => {
-    console.log(selectedPictures)
-    setFiles(selectedPictures)}, [selectedPictures])
+    console.log(selectedPictures);
+    setFiles(selectedPictures);
+  }, [selectedPictures]);
 
   const inputPhoto = (
     <label className={styles.fileInputLabel}>
@@ -228,14 +228,14 @@ const AddProductImage = ({ pictures , setFiles}) => {
             : 'У суперадміна є суперздібність! Ти можеш додавати необмежену кількість фотографій товару!'}{' '}
         </p>
         <div className={styles.imgContainer}>
-        {images}
-        {inputPhoto}
-      </div>
-      <p className={styles.text}>
-        {selectedFiles.length > 0 || selectedPictures.length > 0
-          ? 'Додати ще'
-          : 'Додати фото'}
-      </p>
+          {images}
+          {inputPhoto}
+        </div>
+        <p className={styles.text}>
+          {selectedFiles.length > 0 || selectedPictures.length > 0
+            ? 'Додати ще'
+            : 'Додати фото'}
+        </p>
       </div>
       {modalIsOpen && modalWindow}
     </>
