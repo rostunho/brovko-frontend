@@ -1,6 +1,6 @@
 import StarEmpty from 'shared/icons/StarEmpty';
 import { ReviewStatistics } from './ProductReview/ReviewStatistics';
-import styles from './ProductDetail.module.scss';
+import styles from './Rating.module.scss';
 
 export default function Rating({ product }) {
   const productId = product._id;

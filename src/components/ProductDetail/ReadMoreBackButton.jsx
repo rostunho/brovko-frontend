@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
-import styles from './ProductDetail.module.scss';
+import styles from './SharedLinkButton.module.scss';
 
 export default function ReadMoreBackButton({ to, label }) {
   return (

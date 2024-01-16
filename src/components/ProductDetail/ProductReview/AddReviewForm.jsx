@@ -242,11 +242,12 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
           />
         </div>
         <div className={styles.addImg}>
+        {/* <PaperClip /> */}
           {images}
           {inputPhotos()}
           {selectedPictures.length < 5 && (
             <>
-              <PaperClip />
+            
               <p
                 className={`${styles.titleText} ${
                   errorTextQuantity ? styles.errorTextQuantity : ''
