@@ -71,53 +71,11 @@ export default function ProductList({ keyWord, category, sorting }) {
         sorting.order
       );
     } else {
-      fetchAllProducts(page, perPage, sorting.field, sorting.order);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sorting]);
-  // // // здійснюємо пошук за ключовим словом коли приходить новий відповідний проп
-  useEffect(() => {
-    if (firstRender) {
-      return;
-    }
-
-    // якщо ключового слова немає - приносимо усі продукти
-    if (keyWord) {
-      setPage(1);
-      fetchProductsByKeyword(
-        keyWord,
-        page,
-        perPage,
-        sorting.field,
-        sorting.order
-      );
-    } else {
       setPage(1);
       fetchAllProducts(page, perPage, sorting.field, sorting.order);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keyWord]);
-
-  useEffect(() => {
-    if (firstRender) {
-      return;
-    }
-
-    // якщо category.id: '',то обрані всі категорії
-    if (category.id) {
-      fetchProductsByCategory(
-        category.id,
-        page,
-        perPage,
-        sorting.field,
-        sorting.order
-      );
-    } else {
-      fetchAllProducts(page, perPage, sorting.field, sorting.order);
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category]);
+  }, [category, keyWord, sorting]);
 
   useEffect(() => {
     if (firstRender) {

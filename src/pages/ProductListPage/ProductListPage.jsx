@@ -61,6 +61,10 @@ export default function ProductListPage() {
 
   const handleKeyWord = async () => {
     setKeyWord(searchBarValue);
+    setSelectedCategory({
+      name: 'Всі категорії старт',
+      id: '',
+    });
     // setSearchBarValue('');
     setRefreshCategory(true);
   };
@@ -130,14 +134,7 @@ export default function ProductListPage() {
           label=""
           data={currentCategories}
           fetchSelectorValue={setSelectedCategory}
-          defaultValue={
-            firstRender
-              ? selectedCategory
-              : {
-                  name: 'Всі категорії старт',
-                  id: '',
-                }
-          }
+          defaultValue={selectedCategory}
           defaultOption={'Всі категорії'}
           refresh={refreshCategory}
           onClick={toggleCloseCategorySelector}

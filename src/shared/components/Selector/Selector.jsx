@@ -45,6 +45,8 @@ export default function Selector({
   const id = nanoid(6);
   let key = 0;
 
+  console.log('(defaultValue) :>> ', defaultValue);
+
   useEffect(() => {
     if (firstRender) {
       defaultValue && setCurrentValue(defaultValue);
@@ -54,6 +56,11 @@ export default function Selector({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setCurrentValue({ ...defaultValue });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultValue.id]);
 
   // useEffect(() => {
   //   if (!defaultValue || currentValue) {
