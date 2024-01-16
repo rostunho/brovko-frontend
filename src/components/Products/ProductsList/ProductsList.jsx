@@ -14,10 +14,20 @@ import styles from './ProductsList.module.scss';
 import { useSelector } from 'react-redux';
 import { current } from '@reduxjs/toolkit';
 
-export default function ProductList({ keyWord, category, sorting }) {
+export default function ProductList({ searchValue, category, sorting }) {
+  const [keyWord, setKeyWord] = useState(searchValue || '');
+  const [categoryId, setCategoryId] = useState(category?.id || '');
+  const [sort, setSort] = useState(
+    { ...sorting } || {
+      name: 'Сортування',
+      order: 'desc',
+      field: 'createdAt',
+    }
+  );
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [currentProducts, setCurrentProducts] = useState([]);
+  const [productsToRender, setProductsToRender] = useState([]);
   const [adminInCustomerMode, setAdminInCustomerMode] = useState(false);
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
   const [refreshProducts, setRefreshProducts] = useState(false);
@@ -26,15 +36,33 @@ export default function ProductList({ keyWord, category, sorting }) {
   const perPage = 10; // можемо зробити стейтом, якщо будемо даватиможливість обирати к-сть продуктоів на сторінці
 
   useEffect(() => {
-    if (category.id) {
-      fetchProductsByCategory(category.id);
+    if (categoryId) {
+      fetchProductsByCategory(
+        categoryId,
+        page,
+        perPage,
+        sort.field,
+        sort.order
+      );
     } else {
-      fetchAllProducts();
+      fetchAllProducts(page, perPage, sort.field, sort.order);
     }
 
     setFirstRender(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setKeyWord(searchValue);
+  }, [searchValue]);
+
+  useEffect(() => {
+    setCategoryId(category.id);
+  }, [category.id]);
+
+  useEffect(() => {
+    setSort({ ...sorting });
+  }, [sorting]);
 
   // оновлюємо продукти (перерендерюємо список) при потребі
   useEffect(() => {
@@ -48,61 +76,70 @@ export default function ProductList({ keyWord, category, sorting }) {
   }, [refreshProducts]);
 
   useEffect(() => {
-    if (firstRender) {
+    if (firstRender || !keyWord) {
       return;
     }
-
-    if (keyWord) {
-      setPage(1);
-      fetchProductsByKeyword(
-        keyWord,
-        page,
-        perPage,
-        sorting.field,
-        sorting.order
-      );
-    } else if (category.id) {
-      setPage(1);
+    keyWord &&
+      fetchProductsByKeyword(keyWord, page, perPage, sort.field, sort.order);
+    categoryId &&
       fetchProductsByCategory(
-        category.id,
+        categoryId,
         page,
         perPage,
-        sorting.field,
-        sorting.order
+        sort.field,
+        sort.order
       );
-    } else {
-      setPage(1);
-      fetchAllProducts(page, perPage, sorting.field, sorting.order);
-    }
+    !keyWord &&
+      categoryId === 'all' &&
+      fetchAllProducts(page, perPage, sort.field, sort.order);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, keyWord, sorting]);
+  }, [keyWord]);
 
   useEffect(() => {
-    if (firstRender) {
+    if (firstRender || !categoryId) {
       return;
     }
 
-    if (keyWord) {
-      fetchProductsByKeyword(
-        keyWord,
-        page,
-        perPage,
-        sorting.field,
-        sorting.order
-      );
-    } else if (category.id) {
+    keyWord &&
+      fetchProductsByKeyword(keyWord, page, perPage, sort.field, sort.order);
+    categoryId &&
       fetchProductsByCategory(
-        category.id,
+        categoryId,
         page,
         perPage,
-        sorting.field,
-        sorting.order
+        sort.field,
+        sort.order
       );
-    } else {
-      fetchAllProducts(page, perPage, sorting.field, sorting.order);
-    }
+    !keyWord &&
+      categoryId === 'all' &&
+      fetchAllProducts(page, perPage, sort.field, sort.order);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [categoryId]);
+
+  useEffect(() => {
+    setProductsToRender([...currentProducts]);
+  }, [currentProducts]);
+
+  // useEffect(() => {
+  //   if (firstRender) {
+  //     return;
+  //   }
+
+  //   if (keyWord) {
+  //     fetchProductsByKeyword(keyWord, page, perPage, sort.field, sort.order);
+  //   } else if (categoryId) {
+  //     fetchProductsByCategory(
+  //       categoryId,
+  //       page,
+  //       perPage,
+  //       sort.field,
+  //       sort.order
+  //     );
+  //   } else {
+  //     fetchAllProducts(page, perPage, sort.field, sort.order);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [page]);
 
   /////////////  services functions  //
 
@@ -126,8 +163,8 @@ export default function ProductList({ keyWord, category, sorting }) {
     keyWord,
     page = 1,
     perPage = 10,
-    sortBy,
-    sortOrder
+    sortBy = 'createdAt',
+    sortOrder = 'desc'
   ) => {
     const { products, totalPages } = await getProductsByKeywords(
       keyWord,
@@ -147,6 +184,10 @@ export default function ProductList({ keyWord, category, sorting }) {
     sortBy = 'createdAt',
     sortOrder = 'desc'
   ) => {
+    if (categoryId === 'all') {
+      return;
+    }
+
     const { products, totalPages } = await getProductsByCategory(
       categoryId,
       page,
@@ -231,9 +272,9 @@ export default function ProductList({ keyWord, category, sorting }) {
             </li>
           </ul>
         )}
-        {currentProducts.length > 0 ? (
+        {productsToRender.length > 0 ? (
           <ul className={styles.list}>
-            {currentProducts.map(product => (
+            {productsToRender.map(product => (
               <li key={product._id}>
                 <ProductsItem
                   product={product}

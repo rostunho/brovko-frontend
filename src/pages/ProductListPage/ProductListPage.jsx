@@ -16,7 +16,7 @@ export default function ProductListPage() {
   const [currentCategories, setCurrentCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState({
     name: 'Всі категорії старт',
-    id: '',
+    id: 'all',
   });
   const [refreshCategory, setRefreshCategory] = useState(false);
   const [selectedSortingOption, setSelectedSortingOption] = useState({
@@ -45,9 +45,9 @@ export default function ProductListPage() {
     if (firstRender) {
       return;
     }
+    // setSearchBarValue('');
+    // setKeyWord('');
     setSearchParams({ category: selectedCategory.id });
-    setSearchBarValue('');
-    setKeyWord('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
@@ -63,7 +63,7 @@ export default function ProductListPage() {
     setKeyWord(searchBarValue);
     setSelectedCategory({
       name: 'Всі категорії старт',
-      id: '',
+      id: 'all',
     });
     // setSearchBarValue('');
     setRefreshCategory(true);
@@ -90,6 +90,12 @@ export default function ProductListPage() {
 
     setSortingSelectorIsOpen(!sortingSelectorIsOpen);
   };
+
+  const clearSearchBar = () => {
+    setSearchBarValue('');
+    setKeyWord('');
+  };
+
   const setCategoryToSearchParams = () => {
     setSearchParams({ category: selectedCategory.id });
   };
@@ -104,7 +110,7 @@ export default function ProductListPage() {
 
     const savedCategory = savedCategories.find(
       category => category.id === savedCategoryId
-    ) || { id: '', name: 'Всі категорії відновлені' };
+    ) || { id: 'all', name: 'Всі категорії відновлені' };
 
     setSelectedCategory({ ...savedCategory });
   };
@@ -138,6 +144,7 @@ export default function ProductListPage() {
           defaultOption={'Всі категорії'}
           refresh={refreshCategory}
           onClick={toggleCloseCategorySelector}
+          onOptionClick={clearSearchBar}
           forceClosing={sortingSelectorIsOpen}
         />
         <Selector
@@ -151,7 +158,7 @@ export default function ProductListPage() {
         />
       </div>
       <ProductList
-        keyWord={keyWord}
+        searchValue={keyWord}
         category={selectedCategory}
         sorting={selectedSortingOption}
       />
