@@ -1,0 +1,21 @@
+@import 'shared/components/QuantityButtonModal/QuantityButtonModal.module.scss';
+@import 'theme/abstract/mixins';
+
+.contentContainer {
+    // border: 1px solid var(--Accent, #f3a610);
+    // color: var(--black-text-color);
+    word-wrap: break-word;
+    white-space: normal;
+  }
+  
+  .contentText {
+    // color: var(--black-text-color);
+    font-size: 14px;
+  }
+  
+  .contentHeader {
+    display: inline;
+    margin-right: 8px;
+    @include text-styles(Nunito, 16px);
+  }
+  

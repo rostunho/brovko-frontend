@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { getAllProducts } from 'redux/products/productsSelectors';
 
 import useNavigationLogic from '../useNavigationLogiс';
-import DescriptionHeader from './DescriptionHeader';
 import DescriptionText from './DescriptionText';
 import ReadMoreBackButton from '../ReadMoreBackButton';
 
@@ -23,7 +22,7 @@ export default function ProductDescription(isExpandedDescriptionFromLocation) {
 
   return (
     <div>
-      <DescriptionHeader />
+      <h3 style={{ marginBottom: 8 }}>Опис</h3>
       <DescriptionText
         product={product}
         isExpandedDescription={isExpandedDescriptionFromLocation}

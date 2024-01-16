@@ -1,7 +1,7 @@
 import RewiewRating from './ReviewRating';
 import Image from 'shared/components/Image';
 
-import styles from '../ProductDetail.module.scss';
+import styles from './ReviewItem.module.scss';
 import Button from 'shared/components/Button';
 
 const formatDate = (dateString) => new Date(dateString).toLocaleString();
@@ -23,7 +23,7 @@ const ReviewItem = ({ review, isExpandedReview }) => {
                   className={styles.avatar}
                   src={avatarURL}
                   text={email || name}
-                  fontSize={16}
+                  height={'32px'}
                 />
               </div>
 
@@ -56,7 +56,7 @@ const ReviewItem = ({ review, isExpandedReview }) => {
                 className={styles.avatar}
                 src={avatarURL}
                 text={email || name}
-                fontSize={16}
+                height={'32px'}
               />
             </div>
             <div>

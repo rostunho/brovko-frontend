@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Button from 'shared/components/Button';
 import AddReviewForm from './AddReviewForm';
 import { ReviewStatistics } from './ReviewStatistics';
-import styles from '../ProductDetail.module.scss';
+import styles from './ReviewContainer.module.scss';
 
 export default function ReviewContainer() {
   const { productId } = useParams();

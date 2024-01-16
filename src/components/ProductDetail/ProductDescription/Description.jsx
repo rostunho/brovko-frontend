@@ -1,10 +1,9 @@
-import { Outlet } from 'react-router-dom';
+
 import { useLocation } from 'react-router-dom';
-import DescriptionHeader from './DescriptionHeader';
 import DescriptionText from './DescriptionText';
 import SharedLinkButton from '../SharedLinkButton';
 
-import styles from '../ProductDetail.module.scss';
+import styles from './Description.module.scss';
 
 export default function Description({
   product,
@@ -18,7 +17,7 @@ export default function Description({
         isExpandedDescription ? (
           <>
             {/* Рендерінг повного опису просто нижче */}
-            <DescriptionHeader />
+            <h3 style={{ marginBottom: 8 }}>Опис</h3>
             <DescriptionText
               product={product}
               isExpandedDescription={isExpandedDescription}
@@ -32,7 +31,7 @@ export default function Description({
           </>
         ) : (
           <>
-            <DescriptionHeader />
+          <h3 style={{ marginBottom: 8 }}>Опис</h3>
             <DescriptionText
               product={product}
               isExpandedDescription={isExpandedDescription}

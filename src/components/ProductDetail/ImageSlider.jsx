@@ -6,7 +6,7 @@ import { getAllProducts } from 'redux/products/productsSelectors';
 import imgArraySlider from './imgArray';
 import Image from 'shared/components/Image';
 
-import styles from './ProductDetail.module.scss';
+import styles from './ImageSlider.module.scss';
 
 export default function ImageSlider({ picture }) {
   const { productId } = useParams();
