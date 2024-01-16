@@ -36,7 +36,8 @@ export default function ProductList({ searchValue, category, sorting }) {
   const perPage = 10; // можемо зробити стейтом, якщо будемо даватиможливість обирати к-сть продуктоів на сторінці
 
   useEffect(() => {
-    if (categoryId && categoryId !== 'all') {
+    // працює при прямому пейсті урли в нове вікно браузера
+    if (categoryId) {
       fetchProductsByCategory(
         categoryId,
         page,
@@ -44,7 +45,7 @@ export default function ProductList({ searchValue, category, sorting }) {
         sort.field,
         sort.order
       );
-    } else {
+    } else if (categoryId === 'all') {
       fetchAllProducts(page, perPage, sort.field, sort.order);
     }
 
@@ -79,6 +80,54 @@ export default function ProductList({ searchValue, category, sorting }) {
     if (firstRender || !keyWord) {
       return;
     }
+
+    if (keyWord) {
+      setPage(1);
+      fetchProductsByKeyword(keyWord, page, perPage, sort.field, sort.order);
+    } else if (categoryId) {
+      setPage(1);
+      fetchProductsByCategory(
+        categoryId,
+        page,
+        perPage,
+        sort.field,
+        sort.order
+      );
+    } else if (!keyWord && categoryId === 'all') {
+      setPage(1);
+      fetchAllProducts(page, perPage, sort.field, sort.order);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [keyWord]);
+
+  useEffect(() => {
+    if (firstRender || !categoryId) {
+      return;
+    }
+
+    if (keyWord) {
+      setPage(1);
+      fetchProductsByKeyword(keyWord, page, perPage, sort.field, sort.order);
+    } else if (categoryId) {
+      setPage(1);
+      fetchProductsByCategory(
+        categoryId,
+        page,
+        perPage,
+        sort.field,
+        sort.order
+      );
+    } else if (!keyWord && categoryId === 'all') {
+      setPage(1);
+      fetchAllProducts(page, perPage, sort.field, sort.order);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoryId]);
+
+  useEffect(() => {
+    if (firstRender || sort.name === 'Сортування') {
+      return;
+    }
     keyWord &&
       fetchProductsByKeyword(keyWord, page, perPage, sort.field, sort.order);
     categoryId &&
@@ -93,10 +142,10 @@ export default function ProductList({ searchValue, category, sorting }) {
       categoryId === 'all' &&
       fetchAllProducts(page, perPage, sort.field, sort.order);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keyWord]);
+  }, [sort]);
 
   useEffect(() => {
-    if (firstRender || !categoryId) {
+    if (firstRender) {
       return;
     }
 
@@ -114,7 +163,7 @@ export default function ProductList({ searchValue, category, sorting }) {
       categoryId === 'all' &&
       fetchAllProducts(page, perPage, sort.field, sort.order);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryId]);
+  }, [page]);
 
   useEffect(() => {
     setProductsToRender([...currentProducts]);
