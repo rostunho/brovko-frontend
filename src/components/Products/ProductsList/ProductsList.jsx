@@ -14,7 +14,7 @@ import styles from './ProductsList.module.scss';
 import { useSelector } from 'react-redux';
 import { current } from '@reduxjs/toolkit';
 
-const ProductList = ({ keyWord, category, sorting }) => {
+export default function ProductList({ keyWord, category, sorting }) {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [currentProducts, setCurrentProducts] = useState([]);
@@ -26,7 +26,7 @@ const ProductList = ({ keyWord, category, sorting }) => {
   const perPage = 10; // можемо зробити стейтом, якщо будемо даватиможливість обирати к-сть продуктоів на сторінці
 
   useEffect(() => {
-    if (category.id !== '') {
+    if (category.id) {
       fetchProductsByCategory(category.id);
     } else {
       fetchAllProducts();
@@ -47,6 +47,34 @@ const ProductList = ({ keyWord, category, sorting }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refreshProducts]);
 
+  useEffect(() => {
+    if (firstRender) {
+      return;
+    }
+
+    if (keyWord) {
+      setPage(1);
+      fetchProductsByKeyword(
+        keyWord,
+        page,
+        perPage,
+        sorting.field,
+        sorting.order
+      );
+    } else if (category.id) {
+      setPage(1);
+      fetchProductsByCategory(
+        category.id,
+        page,
+        perPage,
+        sorting.field,
+        sorting.order
+      );
+    } else {
+      fetchAllProducts(page, perPage, sorting.field, sorting.order);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sorting]);
   // // // здійснюємо пошук за ключовим словом коли приходить новий відповідний проп
   useEffect(() => {
     if (firstRender) {
@@ -90,31 +118,6 @@ const ProductList = ({ keyWord, category, sorting }) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
-
-  useEffect(() => {
-    if (keyWord) {
-      setPage(1);
-      fetchProductsByKeyword(
-        keyWord,
-        page,
-        perPage,
-        sorting.field,
-        sorting.order
-      );
-    } else if (category.id) {
-      setPage(1);
-      fetchProductsByCategory(
-        category.id,
-        page,
-        perPage,
-        sorting.field,
-        sorting.order
-      );
-    } else {
-      fetchAllProducts(page, perPage, sorting.field, sorting.order);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sorting]);
 
   useEffect(() => {
     if (firstRender) {
@@ -294,6 +297,4 @@ const ProductList = ({ keyWord, category, sorting }) => {
       />
     </>
   );
-};
-
-export default ProductList;
+}
