@@ -47,9 +47,14 @@ export default function ProductListPage() {
     }
     // setSearchBarValue('');
     // setKeyWord('');
-    setSearchParams({ category: selectedCategory.id });
+    setSearchParams({ key: keyWord, category: selectedCategory.id });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
+
+  useEffect(() => {
+    setSearchParams({ key: keyWord, category: selectedCategory.id });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [keyWord]);
 
   // кожного разу скидаємо тумблер refreshCategory в значення за замовчуванням
   useEffect(() => {
@@ -115,12 +120,25 @@ export default function ProductListPage() {
     setSelectedCategory({ ...savedCategory });
   };
 
+  const setKeyWordtoSearchParams = () => {
+    setSearchParams({ key: keyWord });
+  };
+
+  const getKeyWordFromSearchParams = () => {
+    const savedKeyWord = searchParams.get('key');
+    setSearchBarValue(savedKeyWord);
+    setKeyWord(savedKeyWord);
+  };
+
   const searchParamsProcessing = savedCategories => {
     const category = searchParams.has('category');
+    const keyWord = searchParams.get('key');
 
     category
       ? getCategoryFromSearchParams(savedCategories)
       : setCategoryToSearchParams();
+
+    keyWord ? getKeyWordFromSearchParams() : setKeyWordtoSearchParams();
   };
 
   return (
