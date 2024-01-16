@@ -27,7 +27,6 @@ export default function ProductList({ searchValue, category, sorting }) {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [currentProducts, setCurrentProducts] = useState([]);
-  const [productsToRender, setProductsToRender] = useState([]);
   const [adminInCustomerMode, setAdminInCustomerMode] = useState(false);
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
   const [refreshProducts, setRefreshProducts] = useState(false);
@@ -83,19 +82,13 @@ export default function ProductList({ searchValue, category, sorting }) {
 
     if (keyWord) {
       setPage(1);
-      fetchProductsByKeyword(keyWord, page, perPage, sort.field, sort.order);
+      fetchProductsByKeyword(keyWord, 1, perPage, sort.field, sort.order);
     } else if (categoryId) {
       setPage(1);
-      fetchProductsByCategory(
-        categoryId,
-        page,
-        perPage,
-        sort.field,
-        sort.order
-      );
+      fetchProductsByCategory(categoryId, 1, perPage, sort.field, sort.order);
     } else if (!keyWord && categoryId === 'all') {
       setPage(1);
-      fetchAllProducts(page, perPage, sort.field, sort.order);
+      fetchAllProducts(1, perPage, sort.field, sort.order);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyWord]);
@@ -110,16 +103,10 @@ export default function ProductList({ searchValue, category, sorting }) {
       fetchProductsByKeyword(keyWord, page, perPage, sort.field, sort.order);
     } else if (categoryId) {
       setPage(1);
-      fetchProductsByCategory(
-        categoryId,
-        page,
-        perPage,
-        sort.field,
-        sort.order
-      );
+      fetchProductsByCategory(categoryId, 1, perPage, sort.field, sort.order);
     } else if (!keyWord && categoryId === 'all') {
       setPage(1);
-      fetchAllProducts(page, perPage, sort.field, sort.order);
+      fetchAllProducts(1, perPage, sort.field, sort.order);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId]);
@@ -164,31 +151,6 @@ export default function ProductList({ searchValue, category, sorting }) {
       fetchAllProducts(page, perPage, sort.field, sort.order);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
-
-  useEffect(() => {
-    setProductsToRender([...currentProducts]);
-  }, [currentProducts]);
-
-  // useEffect(() => {
-  //   if (firstRender) {
-  //     return;
-  //   }
-
-  //   if (keyWord) {
-  //     fetchProductsByKeyword(keyWord, page, perPage, sort.field, sort.order);
-  //   } else if (categoryId) {
-  //     fetchProductsByCategory(
-  //       categoryId,
-  //       page,
-  //       perPage,
-  //       sort.field,
-  //       sort.order
-  //     );
-  //   } else {
-  //     fetchAllProducts(page, perPage, sort.field, sort.order);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [page]);
 
   /////////////  services functions  //
 
@@ -321,9 +283,9 @@ export default function ProductList({ searchValue, category, sorting }) {
             </li>
           </ul>
         )}
-        {productsToRender.length > 0 ? (
+        {currentProducts.length > 0 ? (
           <ul className={styles.list}>
-            {productsToRender.map(product => (
+            {currentProducts.map(product => (
               <li key={product._id}>
                 <ProductsItem
                   product={product}
