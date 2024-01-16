@@ -47,14 +47,34 @@ export default function ProductListPage() {
     }
     // setSearchBarValue('');
     // setKeyWord('');
-    setSearchParams({ key: keyWord, category: selectedCategory.id });
+    setSearchParams({
+      key: keyWord,
+      category: selectedCategory.id,
+      sort: selectedSortingOption.field,
+      order: selectedSortingOption.order,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
   useEffect(() => {
-    setSearchParams({ key: keyWord, category: selectedCategory.id });
+    setSearchParams({
+      key: keyWord,
+      category: selectedCategory.id,
+      sort: selectedSortingOption.field,
+      order: selectedSortingOption.order,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyWord]);
+
+  useEffect(() => {
+    setSearchParams({
+      key: keyWord,
+      category: selectedCategory.id,
+      sort: selectedSortingOption.field,
+      order: selectedSortingOption.order,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSortingOption]);
 
   // кожного разу скидаємо тумблер refreshCategory в значення за замовчуванням
   useEffect(() => {
@@ -130,15 +150,45 @@ export default function ProductListPage() {
     setKeyWord(savedKeyWord);
   };
 
+  const setSortingToSearchParams = () => {
+    setSearchParams({
+      sort: selectedSortingOption.field,
+      order: selectedSortingOption.order,
+    });
+  };
+
+  const getSortingFromSearchParams = template => {
+    const savedField = searchParams.get('sort');
+    const savedOrder = searchParams.get('order');
+
+    const name = template
+      .filter(el => el.field === savedField)
+      .find(el => el.order === savedOrder);
+
+    setSelectedSortingOption({
+      name: name,
+      field: savedField,
+      order: savedOrder,
+    });
+  };
+
   const searchParamsProcessing = savedCategories => {
     const category = searchParams.has('category');
     const keyWord = searchParams.get('key');
+    const sort = searchParams.get('sort');
+    const order = searchParams.get('order');
 
     category
       ? getCategoryFromSearchParams(savedCategories)
       : setCategoryToSearchParams();
 
     keyWord ? getKeyWordFromSearchParams() : setKeyWordtoSearchParams();
+
+    if (sort && order) {
+      getSortingFromSearchParams(sortingTemplate);
+    } else {
+      setSortingToSearchParams();
+    }
   };
 
   return (
