@@ -26,23 +26,22 @@ const ProductList = ({ keyWord, category, sorting }) => {
   const perPage = 10; // можемо зробити стейтом, якщо будемо даватиможливість обирати к-сть продуктоів на сторінці
 
   useEffect(() => {
-    console.log('category.id into useEffect :>> ', category.id);
-    category?.id !== ''
-      ? fetchProductsByCategory(category.id)
-      : fetchAllProducts();
+    if (category.id !== '') {
+      fetchProductsByCategory(category.id);
+    } else {
+      fetchAllProducts();
+    }
+
     setFirstRender(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    console.log('currentProducts :>> ', currentProducts);
-  }, [currentProducts]);
 
   // оновлюємо продукти (перерендерюємо список) при потребі
   useEffect(() => {
     if (firstRender) {
       return;
     }
+
     fetchAllProducts();
     setRefreshProducts(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -53,12 +52,9 @@ const ProductList = ({ keyWord, category, sorting }) => {
     if (firstRender) {
       return;
     }
+
     // якщо ключового слова немає - приносимо усі продукти
-    if (keyWord === '') {
-      setPage(1);
-      fetchAllProducts(page, perPage, sorting.field, sorting.order);
-      return;
-    } else {
+    if (keyWord) {
       setPage(1);
       fetchProductsByKeyword(
         keyWord,
@@ -67,6 +63,9 @@ const ProductList = ({ keyWord, category, sorting }) => {
         sorting.field,
         sorting.order
       );
+    } else {
+      setPage(1);
+      fetchAllProducts(page, perPage, sorting.field, sorting.order);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyWord]);
@@ -75,26 +74,25 @@ const ProductList = ({ keyWord, category, sorting }) => {
     if (firstRender) {
       return;
     }
+
     // якщо category.id: '',то обрані всі категорії
-    if (category.id === '') {
+    if (category.id) {
+      fetchProductsByCategory(
+        category.id,
+        page,
+        perPage,
+        sorting.field,
+        sorting.order
+      );
+    } else {
       fetchAllProducts(page, perPage, sorting.field, sorting.order);
-      return;
     }
 
-    console.log('category.id into USE EFFECT:>> ', category.id);
-
-    fetchProductsByCategory(
-      category.id,
-      page,
-      perPage,
-      sorting.field,
-      sorting.order
-    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
   useEffect(() => {
-    if (keyWord !== '') {
+    if (keyWord) {
       setPage(1);
       fetchProductsByKeyword(
         keyWord,
@@ -103,9 +101,7 @@ const ProductList = ({ keyWord, category, sorting }) => {
         sorting.field,
         sorting.order
       );
-      return;
-    }
-    if (category.id !== '') {
+    } else if (category.id) {
       setPage(1);
       fetchProductsByCategory(
         category.id,
@@ -114,9 +110,9 @@ const ProductList = ({ keyWord, category, sorting }) => {
         sorting.field,
         sorting.order
       );
-      return;
+    } else {
+      fetchAllProducts(page, perPage, sorting.field, sorting.order);
     }
-    fetchAllProducts(page, perPage, sorting.field, sorting.order);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sorting]);
 
@@ -124,7 +120,8 @@ const ProductList = ({ keyWord, category, sorting }) => {
     if (firstRender) {
       return;
     }
-    if (keyWord !== '') {
+
+    if (keyWord) {
       fetchProductsByKeyword(
         keyWord,
         page,
@@ -132,10 +129,7 @@ const ProductList = ({ keyWord, category, sorting }) => {
         sorting.field,
         sorting.order
       );
-      return;
-    }
-
-    if (category.id !== '') {
+    } else if (category.id) {
       fetchProductsByCategory(
         category.id,
         page,
@@ -143,9 +137,9 @@ const ProductList = ({ keyWord, category, sorting }) => {
         sorting.field,
         sorting.order
       );
+    } else {
+      fetchAllProducts(page, perPage, sorting.field, sorting.order);
     }
-
-    fetchAllProducts(page, perPage, sorting.field, sorting.order);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
@@ -154,8 +148,8 @@ const ProductList = ({ keyWord, category, sorting }) => {
   const fetchAllProducts = async (
     page = 1,
     perPage = 10,
-    sortBy,
-    sortOrder
+    sortBy = 'createdAt',
+    sortOrder = 'desc'
   ) => {
     const { products, totalPages } = await getAllProducts(
       page,
@@ -165,8 +159,6 @@ const ProductList = ({ keyWord, category, sorting }) => {
     );
     setCurrentProducts([...products]);
     setTotalPages(totalPages);
-
-    console.log('FETCH ALL PRODUCTS WORKIKED :>> ');
   };
 
   const fetchProductsByKeyword = async (
@@ -183,7 +175,6 @@ const ProductList = ({ keyWord, category, sorting }) => {
       sortBy,
       sortOrder
     );
-    // console.log('response :>> ', { products, totalPages });
     setCurrentProducts(products);
     setTotalPages(totalPages);
   };
@@ -202,7 +193,6 @@ const ProductList = ({ keyWord, category, sorting }) => {
       sortBy,
       sortOrder
     );
-    console.log('FETCH PRODUCT BY CATEGORY WORKING', categoryId, products);
 
     setCurrentProducts(products);
     setTotalPages(totalPages);
