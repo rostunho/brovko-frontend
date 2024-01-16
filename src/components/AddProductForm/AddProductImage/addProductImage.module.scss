@@ -3,6 +3,7 @@
 .container {
   width: 100%;
   min-height: 240px;
+  padding: 20px 12px;
   background-color: #f4f4f4;
   border-radius: 8px;
   display: flex;
@@ -25,19 +26,22 @@
 }
 
 .trash {
-  color: #191c2c;
+  // color: #191c2c;
   position: absolute;
-  top:8px;
-  right:8px;
-  
+  top: 8px;
+  right: 8px;
+  stroke: var(--black-text-color);
   z-index: 999;
+
+  color-interpolation-filters: sRGB;
+
+  filter: drop-shadow(0 0 0 #ffffff);
 }
 
 .imgContainer {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  margin-top: 20px;
 }
 
 .img {
@@ -106,8 +110,6 @@
 
 .text {
   @include text-styles();
-  margin-top: 12px;
-  margin-bottom: 29px;
   color: var(--grey-text-color);
   line-height: 19px;
 }
@@ -118,3 +120,20 @@
 //   overflow: hidden;
 //   border-radius: 4px;
 // }
+
+.modal {
+  padding: 60px 16px;
+}
+
+.mainText {
+  margin-bottom: 20px;
+}
+
+.modalImg {
+  margin-bottom: 20px;
+}
+
+.modalButtonContainer {
+  display: flex;  
+  gap: 16px;
+}
