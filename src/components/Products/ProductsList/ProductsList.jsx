@@ -36,7 +36,7 @@ export default function ProductList({ searchValue, category, sorting }) {
   const perPage = 10; // можемо зробити стейтом, якщо будемо даватиможливість обирати к-сть продуктоів на сторінці
 
   useEffect(() => {
-    if (categoryId) {
+    if (categoryId && categoryId !== 'all') {
       fetchProductsByCategory(
         categoryId,
         page,
