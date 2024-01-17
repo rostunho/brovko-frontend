@@ -1,7 +1,12 @@
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { selectUser } from 'redux/user/userSelectors';
+
 import styles from './Nav.module.scss';
 
 export default function UserNav({ onClick }) {
+  const currentUser = useSelector(selectUser);
   return (
     <nav>
       <ul className={styles.list}>
@@ -25,11 +30,14 @@ export default function UserNav({ onClick }) {
             КОНТАКТИ
           </NavLink>
         </li>
-        <li className={styles.item} onClick={onClick}>
-          <NavLink className={styles.link} to="/all/superadmin">
-            Сторінка суперадміна
-          </NavLink>
-        </li>
+        {currentUser.status === 'superadmin' && (
+          <li className={styles.item} onClick={onClick}>
+            <NavLink className={styles.link} to="/all/superadmin">
+              Сторінка суперадміна
+            </NavLink>
+          </li>
+        )}
+
         {/* <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/all/shipping-and-payments">
 
