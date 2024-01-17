@@ -1,17 +1,27 @@
 import { useState, useRef, useEffect } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { forgotPassword } from 'redux/user/userOperations';
+import { errorAuth } from 'redux/user/userSelectors';
 import Input from 'shared/components/Input';
 import Button from 'shared/components/Button/Button';
+import Text from 'shared/components/Text/Text';
 import useForm from 'shared/hooks/useForm';
 import initialState from './initialState';
 import styles from './ForgotPswForm.module.scss';
 
 const ForgotPswForm = () => {
-  const { state, handleChange, handleSubmit } = useForm(initialState);
+  const { state, setState, handleChange, handleSubmit } = useForm({
+    initialState,
+    onSubmit: dispatchEmail,
+  });
   const { email } = state;
   const formRef = useRef(null);
   const [isValidEmail, setIsValidEmail] = useState(null);
   const [showSubmitButton, setShowSubmitButton] = useState(false);
+  const errorSendRequest = useSelector(errorAuth);
+  const [formError, setFormError] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     isValidEmail === 'isValid'
@@ -19,7 +29,12 @@ const ForgotPswForm = () => {
       : setShowSubmitButton(false);
   }, [isValidEmail]);
 
-  console.log('email sent');
+  function dispatchEmail(data) {
+    dispatch(forgotPassword(data)).then(() => {
+      // setState({ ...data });
+      <Navigate to="/auth/reset-link-sent" />;
+    });
+  }
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
@@ -41,6 +56,7 @@ const ForgotPswForm = () => {
       >
         Скинути пароль
       </Button>
+      {errorSendRequest && <Text>{errorSendRequest}</Text>}
     </form>
   );
 };

@@ -9,6 +9,7 @@ import {
   logout,
   googleAuth,
   usersOrdersHistory,
+  forgotPassword,
 } from './userOperations';
 
 const initialState = {
@@ -18,16 +19,17 @@ const initialState = {
   isLogin: false,
   loading: false,
   error: null,
+  resetToken: '',
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    resetError: state => {
-      state.error = null;
-    },
-  },
+  // reducers: {
+  //   resetError: state => {
+  //     state.error = null;
+  //   },
+  // },
   extraReducers: builder => {
     builder
       .addCase(register.pending, state => {
@@ -147,9 +149,21 @@ const userSlice = createSlice({
       .addCase(usersOrdersHistory.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
+      })
+      .addCase(forgotPassword.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(forgotPassword.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.resetToken = payload.resetToken;
+      })
+      .addCase(forgotPassword.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
       });
   },
 });
-export const { resetError } = userSlice.actions;
+// export const { resetError } = userSlice.actions;
 
 export default userSlice.reducer;

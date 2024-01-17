@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from 'redux/user/userOperations';
 import { errorAuth } from 'redux/user/userSelectors';
-import { resetError } from 'redux/user/userSlice';
 // import PropTypes from 'prop-types';
 // import OldInput from 'shared/components/OldInput/OldInput';
 import Input from 'shared/components/Input';
@@ -43,25 +42,23 @@ const RegisterForm = () => {
       : setShowSubmitButton(false);
   }, [isValidEmail, isValidPassword, passwordChecked]);
 
+  function dispatchUser(data) {
+    const lowerCaseEmail = data.email.toLowerCase();
+    const newData = { ...data, email: lowerCaseEmail };
+    dispatch(register(newData)).then(() => {
+      setState({ ...newData });
+    });
+  }
+
   useEffect(() => {
     if (errorRegister) {
       setFormError(errorRegister);
     }
   }, [errorRegister]);
 
-  function dispatchUser(data) {
-    dispatch(register(data))
-      .then(() => {
-        setState({ ...data });
-      })
-      .catch(error => {
-        setFormError(error.message);
-      });
-  }
-
   useEffect(() => {
-    dispatch(resetError());
-  }, [dispatch]);
+    setFormError(null);
+  }, []);
 
   return (
     <form

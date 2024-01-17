@@ -32,7 +32,7 @@ export const login = createAsyncThunk(
       if (response) {
         const { status, data: responseData } = response;
 
-        if (status === 401) {
+        if (status === 403) {
           return rejectWithValue('Невірний e-mail або пароль!');
         } else if (status === 404) {
           return rejectWithValue(
@@ -127,14 +127,33 @@ export const logout = createAsyncThunk(
 );
 
 export const forgotPassword = createAsyncThunk(
-  'user/forgot-password',
+  'user/forgotPassword',
   async (data, { rejectWithValue }) => {
     try {
       const result = await api.forgotPassword(data);
       return result;
     } catch ({ response }) {
       // console.log(response.data.message);
-      return rejectWithValue(response.data.message);
+      if (response) {
+        const { status, data: responseData } = response;
+
+        if (status === 404) {
+          return rejectWithValue(
+            'Користувача не знайдено! Зареєструйтеся, будь ласка!'
+          );
+        } else if (status === 400) {
+          return rejectWithValue(
+            responseData.message ||
+              'Некорректний запит! Перевірте введену інформацію.'
+          );
+        } else {
+          return rejectWithValue('Внутрішня помилка. Спробуйте пізніше!');
+        }
+      } else {
+        return rejectWithValue(
+          'Під час входу виникла помилка. Спробуйте пізніше!'
+        );
+      }
     }
   }
 );

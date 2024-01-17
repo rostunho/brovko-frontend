@@ -1,0 +1,19 @@
+.readMoreLink {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  
+  .readMoreButton {
+    display: inline-block;
+    color: var(--accent-color);
+  }
+  
+  .readMoreIcon {
+    stroke: var(--accent-color);
+  
+    &-reverse {
+      transform: rotate(180deg);
+    }
+  }

@@ -89,10 +89,26 @@ export const addNewProduct = async (body, files = []) => {
     const data = new FormData();
 
     data.append('requestBody', bodyToSend);
-    files.forEach(file => {
-      data.append('files[]', file);
+    files.forEach(item => {
+      if ('file' in item && item.file instanceof File) {
+        console.log(item.file)
+        data.append(`picture`, item.file);
+      } else if ('url' in item) {
+        data.append(`picture`, item.url);
+      }
     });
+    // forEach(file => {
+    //   data.append('files[]', file);
+    // });
 
+    for (const pair of data.entries()) {
+      const [name, value] = pair;
+      if (value instanceof File) {
+        console.log(`Field name: ${name}, File: ${value.name}`);
+      } else {
+        console.log(`Field name: ${name}, Value: ${value}`);
+      }
+    }
     const response = await axios.post(url, data, { headers });
     console.log('Post request response:', response.data.status);
     console.log(response.data.message);
