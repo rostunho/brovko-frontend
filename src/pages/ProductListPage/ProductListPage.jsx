@@ -79,7 +79,7 @@ export default function ProductListPage() {
     });
     // setSearchBarValue('');
     setRefreshCategory(true);
-    setRefreshProducts(true);
+    searchBarValue === '' && setRefreshProducts(true);
   };
 
   const fetchAllCategories = async () => {
