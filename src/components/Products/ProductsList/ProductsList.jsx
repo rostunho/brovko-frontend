@@ -114,7 +114,7 @@ export default function ProductList({
 
     if (keyWord) {
       setPage(1);
-      fetchProductsByKeyword(keyWord, page, perPage, sort.field, sort.order);
+      fetchProductsByKeyword(keyWord, 1, perPage, sort.field, sort.order);
     } else if (categoryId) {
       setPage(1);
       fetchProductsByCategory(categoryId, 1, perPage, sort.field, sort.order);
