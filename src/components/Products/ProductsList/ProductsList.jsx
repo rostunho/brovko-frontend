@@ -14,7 +14,12 @@ import styles from './ProductsList.module.scss';
 import { useSelector } from 'react-redux';
 import { current } from '@reduxjs/toolkit';
 
-export default function ProductList({ searchValue, category, sorting }) {
+export default function ProductList({
+  searchValue,
+  category,
+  sorting,
+  refresh = false,
+}) {
   const [keyWord, setKeyWord] = useState(searchValue || '');
   const [categoryId, setCategoryId] = useState(category?.id || '');
   const [sort, setSort] = useState(
@@ -29,12 +34,15 @@ export default function ProductList({ searchValue, category, sorting }) {
   const [currentProducts, setCurrentProducts] = useState([]);
   const [adminInCustomerMode, setAdminInCustomerMode] = useState(false);
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
-  const [refreshProducts, setRefreshProducts] = useState(false);
+  const [refreshProducts, setRefreshProducts] = useState(refresh);
   const [firstRender, setFirstRender] = useState(true); // допомагає уникати повторних запитів усіх продуктыв при першому рендері
   const userStatus = useSelector(selectUserStatus);
   const perPage = 10; // можемо зробити стейтом, якщо будемо даватиможливість обирати к-сть продуктоів на сторінці
 
+  console.log('categoryId on front of Component', { categoryId });
+
   useEffect(() => {
+    console.log('categoryId into starting useEfect', { categoryId });
     // працює при прямому пейсті урли в нове вікно браузера
     if (categoryId) {
       fetchProductsByCategory(
@@ -44,10 +52,11 @@ export default function ProductList({ searchValue, category, sorting }) {
         sort.field,
         sort.order
       );
-    } else if (categoryId === 'all') {
-      fetchAllProducts(page, perPage, sort.field, sort.order);
     }
 
+    if (categoryId === 'all') {
+      fetchAllProducts(page, perPage, sort.field, sort.order);
+    }
     setFirstRender(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -63,6 +72,11 @@ export default function ProductList({ searchValue, category, sorting }) {
   useEffect(() => {
     setSort({ ...sorting });
   }, [sorting]);
+
+  // для того щоб оновити список, якщо клікнути по кнопці порожнього серчбару при вибраній категорії
+  useEffect(() => {
+    setRefreshProducts(refresh);
+  }, [refresh]);
 
   // оновлюємо продукти (перерендерюємо список) при потребі
   useEffect(() => {
@@ -160,6 +174,8 @@ export default function ProductList({ searchValue, category, sorting }) {
     sortBy = 'createdAt',
     sortOrder = 'desc'
   ) => {
+    console.log('FETCH ALL PRODUCTS STARTED');
+
     const { products, totalPages } = await getAllProducts(
       page,
       perPage,

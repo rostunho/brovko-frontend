@@ -26,6 +26,7 @@ export default function ProductListPage() {
   });
   const [categorySelectorIsOpen, setCategorySelectorIsOpen] = useState(false);
   const [sortingSelectorIsOpen, setSortingSelectorIsOpen] = useState(false);
+  const [refreshProducts, setRefreshProducts] = useState(false);
   const [firstRender, setFirstRender] = useState(true);
 
   // беремо з бази даних актуальні категорії товарів
@@ -42,9 +43,9 @@ export default function ProductListPage() {
 
   // обнуляємо ключове слово при зміні категорії
   useEffect(() => {
-    if (firstRender) {
-      return;
-    }
+    // if (firstRender) {
+    //   return;
+    // }
     // setSearchBarValue('');
     // setKeyWord('');
     setSearchParams({
@@ -57,6 +58,10 @@ export default function ProductListPage() {
   }, [selectedCategory]);
 
   useEffect(() => {
+    // if (firstRender) {
+    //   return;
+    // }
+
     setSearchParams({
       key: keyWord,
       category: selectedCategory.id,
@@ -67,6 +72,10 @@ export default function ProductListPage() {
   }, [keyWord]);
 
   useEffect(() => {
+    // if (firstRender) {
+    //   return;
+    // }
+
     setSearchParams({
       key: keyWord,
       category: selectedCategory.id,
@@ -84,6 +93,13 @@ export default function ProductListPage() {
     setRefreshCategory(false);
   }, [refreshCategory]);
 
+  useEffect(() => {
+    if (!refreshProducts) {
+      return;
+    }
+    setRefreshProducts(false);
+  }, [refreshProducts]);
+
   const handleKeyWord = async () => {
     setKeyWord(searchBarValue);
     setSelectedCategory({
@@ -92,6 +108,7 @@ export default function ProductListPage() {
     });
     // setSearchBarValue('');
     setRefreshCategory(true);
+    setRefreshProducts(true);
   };
 
   const fetchAllCategories = async () => {
@@ -122,7 +139,12 @@ export default function ProductListPage() {
   };
 
   const setCategoryToSearchParams = () => {
-    setSearchParams({ category: selectedCategory.id });
+    setSearchParams({
+      key: keyWord,
+      category: selectedCategory.id,
+      sort: selectedSortingOption.field,
+      order: selectedSortingOption.order,
+    });
   };
 
   const getCategoryFromSearchParams = savedCategories => {
@@ -141,7 +163,12 @@ export default function ProductListPage() {
   };
 
   const setKeyWordtoSearchParams = () => {
-    setSearchParams({ key: keyWord });
+    setSearchParams({
+      key: keyWord,
+      category: selectedCategory.id,
+      sort: selectedSortingOption.field,
+      order: selectedSortingOption.order,
+    });
   };
 
   const getKeyWordFromSearchParams = () => {
@@ -152,6 +179,8 @@ export default function ProductListPage() {
 
   const setSortingToSearchParams = () => {
     setSearchParams({
+      key: keyWord,
+      category: selectedCategory.id,
       sort: selectedSortingOption.field,
       order: selectedSortingOption.order,
     });
@@ -229,6 +258,7 @@ export default function ProductListPage() {
         searchValue={keyWord}
         category={selectedCategory}
         sorting={selectedSortingOption}
+        refresh={refreshProducts}
       />
     </>
   );

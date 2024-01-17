@@ -46,7 +46,7 @@ export default function Selector({
   const id = nanoid(6);
   let key = 0;
 
-  console.log('(defaultValue) :>> ', defaultValue);
+  // console.log('(defaultValue) :>> ', defaultValue);
 
   useEffect(() => {
     if (firstRender) {
