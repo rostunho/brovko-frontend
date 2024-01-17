@@ -13,9 +13,9 @@ export const getReviews = async () => {
   }
 };
 
-export const getReviewsByProductId = async (productId) => {
+export const getReviewsByProductId = async productId => {
   try {
-    const {data} = await instance.get(`/reviews/${productId}`);
+    const { data } = await instance.get(`/reviews/${productId}`);
     // console.log('data getReviewsByProductId in reviews-api <<=::::=>> ', data);
     return data;
   } catch (error) {
@@ -23,7 +23,6 @@ export const getReviewsByProductId = async (productId) => {
     throw error;
   }
 };
-
 
 export const submitReview = async reviewData => {
   try {
