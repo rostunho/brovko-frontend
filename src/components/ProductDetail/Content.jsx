@@ -1,11 +1,9 @@
-import styles from './ProductDetail.module.scss';
+import styles from './Content.module.scss';
 
 export default function Content({ note }) {
   return (
     <div className={styles.contentContainer}>
-      <p className={styles.contentText}>
-        <span className={styles.contentHeader}>СКЛАД:</span> {note}
-      </p>
+     <h3>СКЛАД:</h3> {note}
     </div>
   );
 }

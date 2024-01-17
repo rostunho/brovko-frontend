@@ -10,132 +10,159 @@ import { selectUserStatus } from 'redux/user/userSelectors';
 import ProductsItem from '../ProductsItem';
 import Button from 'shared/components/Button';
 import Pagination from 'components/Products/Pagination';
+import Loader from 'components/Loader';
 import styles from './ProductsList.module.scss';
 import { useSelector } from 'react-redux';
+// import { current } from '@reduxjs/toolkit';
 
-const ProductList = ({ keyWord, category, sorting }) => {
+export default function ProductList({
+  searchValue,
+  category,
+  sorting,
+  refresh = false,
+}) {
+  const [keyWord, setKeyWord] = useState(searchValue || '');
+  const [categoryId, setCategoryId] = useState(category?.id || '');
+  const [sort, setSort] = useState(
+    { ...sorting } || {
+      id: 0,
+      name: 'Сортування',
+      order: 'desc',
+      field: 'createdAt',
+    }
+  );
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [currentProducts, setCurrentProducts] = useState([]);
   const [adminInCustomerMode, setAdminInCustomerMode] = useState(false);
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
-  const [refreshProducts, setRefreshProducts] = useState(false);
+  const [refreshProducts, setRefreshProducts] = useState(refresh);
   const [firstRender, setFirstRender] = useState(true); // допомагає уникати повторних запитів усіх продуктыв при першому рендері
+  const [showLoader, setShowLoader] = useState(false);
   const userStatus = useSelector(selectUserStatus);
   const perPage = 10; // можемо зробити стейтом, якщо будемо даватиможливість обирати к-сть продуктоів на сторінці
 
   useEffect(() => {
-    fetchAllProducts();
+    // працює при прямому пейсті урли в нове вікно браузера
+    if (categoryId) {
+      fetchProductsByCategory(
+        categoryId,
+        page,
+        perPage,
+        sort.field,
+        sort.order
+      );
+    }
+
+    if (categoryId === 'all') {
+      fetchAllProducts(page, perPage, sort.field, sort.order);
+    }
     setFirstRender(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setKeyWord(searchValue);
+  }, [searchValue]);
+
+  useEffect(() => {
+    setCategoryId(category.id);
+  }, [category.id]);
+
+  useEffect(() => {
+    setSort({ ...sorting });
+  }, [sorting]);
+
+  // для того щоб оновити список, якщо клікнути по кнопці порожнього серчбару при вибраній категорії
+  useEffect(() => {
+    setRefreshProducts(refresh);
+  }, [refresh]);
 
   // оновлюємо продукти (перерендерюємо список) при потребі
   useEffect(() => {
     if (firstRender) {
       return;
     }
+
     fetchAllProducts();
     setRefreshProducts(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refreshProducts]);
 
-  // // // здійснюємо пошук за ключовим словом коли приходить новий відповідний проп
   useEffect(() => {
-    if (firstRender) {
+    if (firstRender || !keyWord) {
       return;
     }
-    // якщо ключового слова немає - приносимо усі продукти
-    if (keyWord === '') {
+
+    if (keyWord) {
       setPage(1);
-      fetchAllProducts(page, perPage, sorting.field, sorting.order);
-      return;
-    } else {
+      fetchProductsByKeyword(keyWord, 1, perPage, sort.field, sort.order);
+    } else if (categoryId) {
       setPage(1);
-      fetchProductsByKeyword(
-        keyWord,
-        page,
-        perPage,
-        sorting.field,
-        sorting.order
-      );
+      fetchProductsByCategory(categoryId, 1, perPage, sort.field, sort.order);
+    } else if (!keyWord && categoryId === 'all') {
+      setPage(1);
+      fetchAllProducts(1, perPage, sort.field, sort.order);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyWord]);
 
   useEffect(() => {
-    if (firstRender) {
-      return;
-    }
-    // якщо category.id: '',то обрані всі категорії
-    if (category.id === '') {
-      fetchAllProducts(page, perPage, sorting.field, sorting.order);
+    if (firstRender || !categoryId) {
       return;
     }
 
-    fetchProductByCategory(
-      category.id,
-      page,
-      perPage,
-      sorting.field,
-      sorting.order
-    );
+    if (keyWord) {
+      setPage(1);
+      fetchProductsByKeyword(keyWord, 1, perPage, sort.field, sort.order);
+    } else if (categoryId) {
+      setPage(1);
+      fetchProductsByCategory(categoryId, 1, perPage, sort.field, sort.order);
+    } else if (!keyWord && categoryId === 'all') {
+      setPage(1);
+      fetchAllProducts(1, perPage, sort.field, sort.order);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category]);
+  }, [categoryId]);
 
   useEffect(() => {
-    if (keyWord !== '') {
-      setPage(1);
-      fetchProductsByKeyword(
-        keyWord,
-        page,
-        perPage,
-        sorting.field,
-        sorting.order
-      );
+    if (firstRender || sort.name === 'Сортування') {
       return;
     }
-    if (category.id !== '') {
-      setPage(1);
-      fetchProductByCategory(
-        category.id,
+    keyWord &&
+      fetchProductsByKeyword(keyWord, page, perPage, sort.field, sort.order);
+    categoryId &&
+      fetchProductsByCategory(
+        categoryId,
         page,
         perPage,
-        sorting.field,
-        sorting.order
+        sort.field,
+        sort.order
       );
-      return;
-    }
-    fetchAllProducts(page, perPage, sorting.field, sorting.order);
+    !keyWord &&
+      categoryId === 'all' &&
+      fetchAllProducts(page, perPage, sort.field, sort.order);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sorting]);
+  }, [sort]);
 
   useEffect(() => {
     if (firstRender) {
       return;
     }
-    if (keyWord !== '') {
-      fetchProductsByKeyword(
-        keyWord,
+
+    keyWord &&
+      fetchProductsByKeyword(keyWord, page, perPage, sort.field, sort.order);
+    categoryId &&
+      fetchProductsByCategory(
+        categoryId,
         page,
         perPage,
-        sorting.field,
-        sorting.order
+        sort.field,
+        sort.order
       );
-      return;
-    }
-
-    if (category.id !== '') {
-      fetchProductByCategory(
-        category.id,
-        page,
-        perPage,
-        sorting.field,
-        sorting.order
-      );
-    }
-
-    fetchAllProducts(page, perPage, sorting.field, sorting.order);
+    !keyWord &&
+      categoryId === 'all' &&
+      fetchAllProducts(page, perPage, sort.field, sort.order);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
@@ -144,8 +171,8 @@ const ProductList = ({ keyWord, category, sorting }) => {
   const fetchAllProducts = async (
     page = 1,
     perPage = 10,
-    sortBy,
-    sortOrder
+    sortBy = 'createdAt',
+    sortOrder = 'desc'
   ) => {
     const { products, totalPages } = await getAllProducts(
       page,
@@ -161,8 +188,8 @@ const ProductList = ({ keyWord, category, sorting }) => {
     keyWord,
     page = 1,
     perPage = 10,
-    sortBy,
-    sortOrder
+    sortBy = 'createdAt',
+    sortOrder = 'desc'
   ) => {
     const { products, totalPages } = await getProductsByKeywords(
       keyWord,
@@ -171,18 +198,21 @@ const ProductList = ({ keyWord, category, sorting }) => {
       sortBy,
       sortOrder
     );
-    // console.log('response :>> ', { products, totalPages });
     setCurrentProducts(products);
     setTotalPages(totalPages);
   };
 
-  const fetchProductByCategory = async (
+  const fetchProductsByCategory = async (
     categoryId,
     page = 1,
     perPage = 10,
     sortBy = 'createdAt',
     sortOrder = 'desc'
   ) => {
+    if (categoryId === 'all') {
+      return;
+    }
+
     const { products, totalPages } = await getProductsByCategory(
       categoryId,
       page,
@@ -234,7 +264,8 @@ const ProductList = ({ keyWord, category, sorting }) => {
   };
 
   if (currentProducts.length < 1) {
-    return <h2>Немає продуктів</h2>;
+    // return <h2>Немає продуктів</h2>;
+    return <Loader />;
   }
 
   return (
@@ -291,6 +322,4 @@ const ProductList = ({ keyWord, category, sorting }) => {
       />
     </>
   );
-};
-
-export default ProductList;
+}

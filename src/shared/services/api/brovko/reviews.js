@@ -13,17 +13,16 @@ export const getReviews = async () => {
   }
 };
 
-export const getReviewsByProductId = async (productId) => {
+export const getReviewsByProductId = async productId => {
   try {
-    const {data} = await instance.get(`/reviews/${productId}`);
-    console.log('data getReviewsByProductId in reviews-api <<=::::=>> ', data);
+    const { data } = await instance.get(`/reviews/${productId}`);
+    // console.log('data getReviewsByProductId in reviews-api <<=::::=>> ', data);
     return data;
   } catch (error) {
     console.error('Помилка при отриманні відгуків за productId:', error);
     throw error;
   }
 };
-
 
 export const submitReview = async reviewData => {
   try {

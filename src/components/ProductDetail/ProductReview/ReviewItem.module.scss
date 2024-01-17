@@ -1,0 +1,78 @@
+@import 'shared/components/QuantityButtonModal/QuantityButtonModal.module.scss';
+@import 'theme/abstract/mixins';
+
+
+.reviewItem {
+    padding: 16px;
+    width: 100%;
+    // height: 146px;
+    border-radius: var(--border-radius-secondary);
+    border: 1px solid var(--Stroke, #f0f0f0);
+    margin-bottom: 12px;
+  }
+  
+  // .reviewBox {
+    // margin-bottom: 12px;
+  // }
+  
+  .userInfo {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 8px;
+  }
+  
+  .avatarWrapper {
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+    border-radius: 50%;
+    padding: 0;
+    overflow: hidden;
+    fill: transparent;
+    background-color: transparent;
+  }
+  
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  .customAvatarStyle {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .userName {
+    color: var(--black-text-color);
+    /* основний текст */
+    @include text-styles;
+  }
+  
+  .reviewDate {
+    color: var(--gray-color);
+    @include text-styles(Nunito, 12px);
+  }
+  
+  .reviewText {
+    margin-top: 12px;
+    color: var(--black-text-color);
+    /* основний текст */
+    @include text-styles;
+  }
+
+
+.imgContainer {
+    display: flex;
+    gap:5px;
+  margin-top: 12px;
+  }
+  
+  .imgReview {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 4px;
+  }

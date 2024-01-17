@@ -17,6 +17,7 @@ export default function Selector({
   placeholder,
   size,
   onClick,
+  onOptionClick,
   fetchSelectorValue, // "витягує" поточне значення селектора в батьківський компонент
   forceClosing, // допомагає "примусово" програмно закрити дропдаун з батьківскього компонента
   openedDropdown,
@@ -45,6 +46,8 @@ export default function Selector({
   const id = nanoid(6);
   let key = 0;
 
+  // console.log('(defaultValue) :>> ', defaultValue);
+
   useEffect(() => {
     if (firstRender) {
       defaultValue && setCurrentValue(defaultValue);
@@ -55,21 +58,17 @@ export default function Selector({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // useEffect(() => {
-  //   if (!defaultValue || currentValue) {
-  //     return;
-  //   }
-
-  //   setCurrentValue({ ...defaultValue });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    setCurrentValue({ ...defaultValue });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultValue.id]);
 
   useEffect(() => {
     if (!defaultOption) {
       setCategories([...data]);
       return;
     }
-    setCategories([{ name: defaultOption, id: '' }, ...data]);
+    setCategories([{ name: defaultOption, id: 'all' }, ...data]);
   }, [defaultOption, data]);
 
   useEffect(() => {
@@ -109,6 +108,7 @@ export default function Selector({
     setCurrentValue(prevValue => ({ ...prevValue, ...category }));
     // fetchSelectorValue && fetchSelectorValue({ ...currentValue });
     toggleDropdown();
+    onOptionClick && onOptionClick();
   };
 
   const onHotOptionPress = option => {

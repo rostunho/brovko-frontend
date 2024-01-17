@@ -26,7 +26,7 @@ const PageNumbersList = ({
               </li>
             ))
           : totalPagesArray.map(pageNumber => (
-              <div div key={pageNumber}>
+              <div key={pageNumber}>
                 {pageNumber === 1 &&
                   pageNumber !== page &&
                   pageNumber !== page - 1 && (

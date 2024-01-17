@@ -16,7 +16,7 @@ export const getAllCategories = async () => {
 export const getCategoryById = async categoryId => {
   try {
     const { data } = await instance.get(`/categories/${categoryId}`);
-    console.log('response :>> ', data);
+    // console.log('response :>> ', data);
     return data;
   } catch (error) {
     console.log(error);
