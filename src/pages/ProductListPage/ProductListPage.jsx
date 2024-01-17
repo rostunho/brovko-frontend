@@ -20,6 +20,7 @@ export default function ProductListPage() {
   });
   const [refreshCategory, setRefreshCategory] = useState(false);
   const [selectedSortingOption, setSelectedSortingOption] = useState({
+    id: 0,
     name: 'Сортування',
     order: 'desc',
     field: 'createdAt',
@@ -190,11 +191,12 @@ export default function ProductListPage() {
     const savedField = searchParams.get('sort');
     const savedOrder = searchParams.get('order');
 
-    const name = template
+    const { id, name } = template
       .filter(el => el.field === savedField)
       .find(el => el.order === savedOrder);
 
     setSelectedSortingOption({
+      id: id,
       name: name,
       field: savedField,
       order: savedOrder,

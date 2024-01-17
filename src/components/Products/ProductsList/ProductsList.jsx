@@ -24,6 +24,7 @@ export default function ProductList({
   const [categoryId, setCategoryId] = useState(category?.id || '');
   const [sort, setSort] = useState(
     { ...sorting } || {
+      id: 0,
       name: 'Сортування',
       order: 'desc',
       field: 'createdAt',
