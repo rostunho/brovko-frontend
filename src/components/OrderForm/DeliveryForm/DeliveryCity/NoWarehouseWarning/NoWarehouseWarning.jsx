@@ -8,7 +8,7 @@ export default function NoWarehouseWarning({ onClick }) {
     <div className={styles.container}>
       <Heading type="h2">Упс!</Heading>
       <Text className={styles.text}>
-        Оберіть населенийпункт із вдділенням Нової Пошти
+        Оберіть населений пункт із відділенням Нової Пошти
       </Text>
       <Button className={styles.button} onClick={onClick}>
         Ok

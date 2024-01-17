@@ -1,8 +1,9 @@
+import { createPortal } from 'react-dom';
 import styles from './loader.module.scss';
 // import paw from './spiner_paw.svg';
 
 const Spiner = () => {
-  return (
+  return createPortal(
     <>
       <div className={styles.wrapper}></div>
       <div className={styles.container}>
@@ -240,7 +241,8 @@ const Spiner = () => {
           />
         </svg>
       </div>
-    </>
+    </>,
+    document.querySelector('#service-root')
   );
 };
 

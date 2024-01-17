@@ -194,6 +194,7 @@ export default function ProductListPage() {
 
   return (
     <>
+      {/* <Loader /> */}
       <Heading withGoBack>Крамничка</Heading>
       <Input
         name="searchbar"

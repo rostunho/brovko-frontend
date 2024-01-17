@@ -10,7 +10,7 @@ import { selectUserStatus } from 'redux/user/userSelectors';
 import ProductsItem from '../ProductsItem';
 import Button from 'shared/components/Button';
 import Pagination from 'components/Products/Pagination';
-import Loader from 'components/Loader';
+// import Loader from 'components/Loader';
 import styles from './ProductsList.module.scss';
 import { useSelector } from 'react-redux';
 // import { current } from '@reduxjs/toolkit';
@@ -263,14 +263,14 @@ export default function ProductList({
     });
   };
 
-  if (currentProducts.length < 1) {
-    // return <h2>Немає продуктів</h2>;
-    return <Loader />;
-  }
+  // if (currentProducts.length < 1) {
+  //   // return <h2>Немає продуктів</h2>;
+  //   return <Loader />;
+  // }
 
   return (
     <>
-      <div className={styles.products}>
+      <div className={styles.products} style={{ position: 'relative' }}>
         {(userStatus === 'manager' || userStatus === 'superadmin') && (
           <ul className={styles['buttons-list']}>
             <li className={styles['buttons-item']}>
