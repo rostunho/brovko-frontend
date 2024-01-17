@@ -13,6 +13,7 @@ import Modal from 'shared/components/Modal/Modal';
 
 export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
   const [text, setText] = useState('');
+  const [errorAddReview, setErrorAddReview] = useState(null);
 
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedPictures, setSelectedPictures] = useState([]);
@@ -213,6 +214,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
       closeReviewInput();
     } catch (error) {
       console.error('Error submitting review:', error);
+      // setErrorAddReview('Не вдалося завантажити відгуки. Спробуйте знову пізніше.');
     }
   };
 
