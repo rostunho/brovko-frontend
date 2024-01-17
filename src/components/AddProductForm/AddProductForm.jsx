@@ -22,6 +22,8 @@ import { useSelectorValue } from 'shared/hooks/useSelectorValue';
 import { useAddProductState } from 'shared/hooks/useAddProductState';
 import AddProductImage from './AddProductImage';
 
+import PopUp from 'shared/components/PopUp';
+
 export default function AddProductForm({ update }) {
   const [existingProduct, setExistingProduct] = useState(null);
   const [requestBody, dispatchRequestBody] = useAddProductState();
@@ -33,7 +35,7 @@ export default function AddProductForm({ update }) {
   const [productSize, setProductSize] = useState('0');
   const [categoryModalisOpen, setCategoryModalisOpen] = useState(false);
   const [refreshSelector, setRefreshSelector] = useState(false);
-  const [files, setFiles] = useState([])
+  const [files, setFiles] = useState([]);
   const formRef = useRef();
   const { productId } = useParams();
 
@@ -123,7 +125,7 @@ export default function AddProductForm({ update }) {
 
   const handleSubmit = async event => {
     event.preventDefault();
-console.log(requestBody, files)
+    console.log(requestBody, files);
     await addNewProduct(requestBody, files);
     formRef.current.reset();
   };
@@ -163,6 +165,7 @@ console.log(requestBody, files)
   return (
     <div className={styles.container}>
       <Heading withGoBack>Додати новий товар</Heading>
+
       <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
         <Input
           label="Назва :"
@@ -177,8 +180,10 @@ console.log(requestBody, files)
           onChange={e => dispatchRequestBody(e, 'ADD_NAME_FOR_DOCS')}
           value={requestBody.product[0].nameForDocuments}
         />
-        <AddProductImage 
-        pictures={existingProduct !== null ? existingProduct : []} setFiles={setFiles} />
+        <AddProductImage
+          pictures={existingProduct !== null ? existingProduct : []}
+          setFiles={setFiles}
+        />
         <div className={styles.category}>
           <Selector
             name="Category"
