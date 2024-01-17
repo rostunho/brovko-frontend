@@ -10,9 +10,10 @@ import { selectUserStatus } from 'redux/user/userSelectors';
 import ProductsItem from '../ProductsItem';
 import Button from 'shared/components/Button';
 import Pagination from 'components/Products/Pagination';
+import Loader from 'components/Loader';
 import styles from './ProductsList.module.scss';
 import { useSelector } from 'react-redux';
-import { current } from '@reduxjs/toolkit';
+// import { current } from '@reduxjs/toolkit';
 
 export default function ProductList({
   searchValue,
@@ -37,13 +38,11 @@ export default function ProductList({
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
   const [refreshProducts, setRefreshProducts] = useState(refresh);
   const [firstRender, setFirstRender] = useState(true); // допомагає уникати повторних запитів усіх продуктыв при першому рендері
+  const [showLoader, setShowLoader] = useState(false);
   const userStatus = useSelector(selectUserStatus);
   const perPage = 10; // можемо зробити стейтом, якщо будемо даватиможливість обирати к-сть продуктоів на сторінці
 
-  console.log('categoryId on front of Component', { categoryId });
-
   useEffect(() => {
-    console.log('categoryId into starting useEfect', { categoryId });
     // працює при прямому пейсті урли в нове вікно браузера
     if (categoryId) {
       fetchProductsByCategory(
@@ -175,8 +174,6 @@ export default function ProductList({
     sortBy = 'createdAt',
     sortOrder = 'desc'
   ) => {
-    console.log('FETCH ALL PRODUCTS STARTED');
-
     const { products, totalPages } = await getAllProducts(
       page,
       perPage,
@@ -267,7 +264,8 @@ export default function ProductList({
   };
 
   if (currentProducts.length < 1) {
-    return <h2>Немає продуктів</h2>;
+    // return <h2>Немає продуктів</h2>;
+    return <Loader />;
   }
 
   return (

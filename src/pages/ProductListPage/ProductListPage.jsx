@@ -28,16 +28,14 @@ export default function ProductListPage() {
   const [categorySelectorIsOpen, setCategorySelectorIsOpen] = useState(false);
   const [sortingSelectorIsOpen, setSortingSelectorIsOpen] = useState(false);
   const [refreshProducts, setRefreshProducts] = useState(false);
-  const [firstRender, setFirstRender] = useState(true);
+  // const [firstRender, setFirstRender] = useState(true);
 
   // беремо з бази даних актуальні категорії товарів
   useEffect(() => {
     (async () => {
       const savedCategories = await fetchAllCategories();
-      //..
       searchParamsProcessing(savedCategories);
-      //..
-      setFirstRender(false);
+      // setFirstRender(false);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -56,35 +54,7 @@ export default function ProductListPage() {
       order: selectedSortingOption.order,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCategory]);
-
-  useEffect(() => {
-    // if (firstRender) {
-    //   return;
-    // }
-
-    setSearchParams({
-      key: keyWord,
-      category: selectedCategory.id,
-      sort: selectedSortingOption.field,
-      order: selectedSortingOption.order,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keyWord]);
-
-  useEffect(() => {
-    // if (firstRender) {
-    //   return;
-    // }
-
-    setSearchParams({
-      key: keyWord,
-      category: selectedCategory.id,
-      sort: selectedSortingOption.field,
-      order: selectedSortingOption.order,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSortingOption]);
+  }, [selectedCategory, keyWord, selectedSortingOption]);
 
   // кожного разу скидаємо тумблер refreshCategory в значення за замовчуванням
   useEffect(() => {
