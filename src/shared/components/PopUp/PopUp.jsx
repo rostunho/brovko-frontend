@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom';
 import { useSelector } from 'react-redux';
 import { getAllPopups } from 'redux/popup/popupSelectors';
 
@@ -7,7 +8,7 @@ import styles from './popup.module.scss';
 
 const PopUp = () => {
   const popups = useSelector(getAllPopups);
-  return (
+  return createPortal(
     <>
       {popups.length > 0 && (
         <ul className={styles.container}>
@@ -22,7 +23,8 @@ const PopUp = () => {
           ))}
         </ul>
       )}
-    </>
+    </>,
+    document.querySelector('#service-root')
   );
 };
 
