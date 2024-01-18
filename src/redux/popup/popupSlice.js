@@ -5,10 +5,11 @@ const popupSlice = createSlice({
   initialState: [],
   reducers: {
     addPopUp: (state, action) => {
+      console.log('action :>> ', action);
       state.push(action.payload);
     },
     deletePopUp: state => {
-      state.pop();
+      state.shift();
     },
   },
 });
