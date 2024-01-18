@@ -27,13 +27,14 @@ export const getReviewsByProductId = async productId => {
 export const submitReview = async reviewData => {
   try {
     // запит на сервер для відправки відгуку
-    const response = await instance.post('/reviews', reviewData);
+    const response = await instance.post('/reviewsp', reviewData);
     console.log('submit Review response:', reviewData);
+    console.log('response.status', response)
 
-    if (response.status === 200 || 201) {
+    if (response.status === 200 || response.status === 201) {
       return true;
     } else {
-      console.error('Помилка при відправці відгуку:', response.statusText);
+      console.error('Помилка при відправці відгуку:', response);
       return false;
     }
   } catch (error) {

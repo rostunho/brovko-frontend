@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { fetchAddReview } from 'redux/reviews/reviewsOperations';
+import { selectReviewError } from 'redux/reviews/reviewsSelectors';
+import { submitReview } from 'shared/services/api/brovko/reviews';
 import Button from 'shared/components/Button';
 import StarEmptyBig from 'shared/icons/StarEmtyBig';
 import PaperClip from 'shared/icons/PaperClip';
@@ -13,6 +16,7 @@ import Modal from 'shared/components/Modal/Modal';
 
 export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
   const [text, setText] = useState('');
+  const [errorAddReview, setErrorAddReview] = useState(null);
 
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedPictures, setSelectedPictures] = useState([]);
@@ -211,10 +215,12 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
       setSelectedPictures([]);
       setSelectedFiles([]);
       closeReviewInput();
-    } catch (error) {
+    } catch ({error}) {
       console.error('Error submitting review:', error);
     }
+  
   };
+
 
   return (
     <div className={styles.containerInputRewiew}>
@@ -270,7 +276,9 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
         >
           Опублікувати
         </Button>
+        
       </form>
+      
       {modalIsOpen && modalWindow}
     </div>
   );

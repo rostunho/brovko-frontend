@@ -24,6 +24,7 @@ import styles from './ProductDetail.module.scss';
 export default function ProductDetail({
   product,
   reviews,
+  reviewsError,
   isExpandedDescription,
   isExpandedReview,
   handleReadMoreClick,
@@ -71,6 +72,7 @@ export default function ProductDetail({
 
   return (
     <div className={styles.container}>
+    
       <div className={styles.productCard}>
         {userStatus === 'manager' ||
           (userStatus === 'superadmin' && (
@@ -115,6 +117,7 @@ export default function ProductDetail({
           location={location}
           handleReadReviewClic={handleReadReviewClick}
           reviews={reviews}
+          reviewsError={reviewsError}
           product={product}
         />
       </div>
