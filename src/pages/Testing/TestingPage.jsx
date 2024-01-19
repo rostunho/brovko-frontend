@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import Input from 'shared/components/Input';
