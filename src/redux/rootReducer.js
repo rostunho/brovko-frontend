@@ -37,6 +37,7 @@ import categoriesReduser from './categories/categoriesSlice';
 import searchReducer from './search/searchSlice';
 import { basketReducer } from './basket/basketSlice';
 import popupReducer from './popup/popupSlice';
+import warningReducer from './warning/warningSlice';
 
 const persistConfig = {
   key: 'root',
@@ -60,6 +61,7 @@ const rootReducer = combineReducers({
   search: searchReducer,
   basket: basketReducer,
   popups: popupReducer,
+  warning: warningReducer,
 });
 
 const persistedAuthReducer = persistReducer(persistConfig, rootReducer);
