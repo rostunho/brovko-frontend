@@ -30,9 +30,10 @@ const ForgotPswForm = () => {
   }, [isValidEmail]);
 
   function dispatchEmail(data) {
-    dispatch(forgotPassword(data)).then(() => {
-      // setState({ ...data });
-      <Navigate to="/auth/reset-link-sent" />;
+    const lowerCaseEmail = data.email.toLowerCase();
+    const newData = { ...data, email: lowerCaseEmail };
+    dispatch(forgotPassword(newData)).then(() => {
+      setState({ ...newData });
     });
   }
 

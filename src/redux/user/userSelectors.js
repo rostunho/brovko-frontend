@@ -12,6 +12,8 @@ export const errorAuth = ({ user }) => user.error;
 
 export const ordersUserHistory = ({ user }) => user.ordersHistory;
 
+export const selectRequestSuccess = ({ user }) => user.resetToken;
+
 const selectLoginAndToken = state => {
   return {
     isLogin: state.user.isLogin,
