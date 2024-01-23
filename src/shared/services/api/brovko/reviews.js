@@ -27,9 +27,9 @@ export const getReviewsByProductId = async productId => {
 export const submitReview = async reviewData => {
   try {
     // запит на сервер для відправки відгуку
-    const response = await instance.post('/reviewsp', reviewData);
+    const response = await instance.post('/reviews', reviewData);
     console.log('submit Review response:', reviewData);
-    console.log('response.status', response)
+    console.log('response.status', response);
 
     if (response.status === 200 || response.status === 201) {
       return true;
@@ -42,3 +42,34 @@ export const submitReview = async reviewData => {
     throw error;
   }
 };
+
+const controlReview = async ({ productId, commentId, textId }, approved) => {
+  try {
+    const body = {
+      productId: productId,
+      commentId: commentId,
+      textId: textId,
+      approved: approved,
+    };
+    const response = await instance.patch(`/reviews/control/`, body);
+
+    console.log('response into controlReview >>:', response);
+  } catch (error) {
+    console.log('Error into controlReview');
+  }
+};
+
+export const approveReview = async (productId, commentId, textId) => {
+  await controlReview({ productId, commentId, textId }, true);
+};
+
+export const rejectReview = async (productId, commentId, textId) => {
+  await controlReview({ productId, commentId, textId }, false);
+};
+
+// тестування
+// controlReview({
+//   productId: '65774bcfac9f4692259ceb3c',
+//   commentId: '658452733d5f62a6f9c3739f',
+//   textId: '658452733d5f62a6f9c373a0',
+// });

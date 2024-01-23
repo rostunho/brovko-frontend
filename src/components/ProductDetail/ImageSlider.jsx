@@ -51,7 +51,7 @@ export default function ImageSlider({ picture }) {
             return (
               <Image
                 key={idx}
-                src={picture || item.url}
+                src={item}
                 className={
                   idx === currentIdx
                     ? styles.currentImgContainer
