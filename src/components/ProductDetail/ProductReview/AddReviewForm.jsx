@@ -256,15 +256,24 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     });
 
     try {
-      await dispatch(fetchAddReview(formData));
-
+      await submitReview(formData)
       setText('');
       setSelectedPictures([]);
       setSelectedFiles([]);
       closeReviewInput();
     } catch ({ error }) {
-      console.error('Error submitting review:', error);
-    }
+      console.error('Error submiting review:', error);
+    } finally {}
+    // try {
+    //   await dispatch(fetchAddReview(formData));
+
+    //   setText('');
+    //   setSelectedPictures([]);
+    //   setSelectedFiles([]);
+    //   closeReviewInput();
+    // } catch ({ error }) {
+    //   console.error('Error submitting review:', error);
+    // }
   };
 
   return (
