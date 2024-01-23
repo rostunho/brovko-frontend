@@ -1,7 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import { showWarning } from 'redux/warning/warningSlice';
+import CheckIcon from 'shared/icons/CheckIcon';
 import Input from 'shared/components/Input';
+import styles from './TestingPage.module.scss';
 
 export default function TestingPage() {
   const dispatch = useDispatch();
@@ -33,6 +35,7 @@ export default function TestingPage() {
 
   return (
     <>
+      <CheckIcon check="#68BAEE" />
       <h1>It IS Testing Page</h1>
       <button type="button" onClick={go1}>
         Success

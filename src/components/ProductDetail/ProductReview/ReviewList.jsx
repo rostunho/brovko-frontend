@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ReviewItem from './ReviewItem';
-import styles from '../ProductDetail.module.scss';
+import styles from './ReviewList.module.scss';
 
 function ReviewList({ reviews, isExpandedReview = true }) {
   // if (!reviews || !reviews.comments) {
