@@ -5,12 +5,21 @@ import Image from 'shared/components/Image';
 import AdminReviewsButtons from './AdminReviewsButtons';
 
 import styles from './ReviewItem.module.scss';
+import { useState } from 'react';
+import Button from 'shared/components/Button';
+import Modal from 'shared/components/Modal/Modal';
 // import Button from 'shared/components/Button';
 
 const formatDate = dateString => new Date(dateString).toLocaleString();
 
 const ReviewItem = ({ review, isExpandedReview }) => {
   const { firstName, lastName, status } = useSelector(selectUser);
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsImage, setModalIsImage] = useState(false);
+  const [modalIsId, setModalIsId] = useState(false);
+
+  const [prompDelete, setPrompDelete] = useState(false);
 
   console.log('status :>> ', status);
 
@@ -20,8 +29,33 @@ const ReviewItem = ({ review, isExpandedReview }) => {
     // status: { approved, approvedAt, approvedBy },
   } = review;
 
+  const openModalEditPhoto = (id, url) => {
+    console.log(id, url);
+    setModalIsId(id);
+    setModalIsImage(url);
+    setModalIsOpen(true);
+  };
+
+  const closeModalEditPhoto = () => {
+    setModalIsOpen(false);
+    setPrompDelete(false);
+  };
+
+  const modalWindow = (
+    <Modal closeModal={closeModalEditPhoto}>
+      <div className={styles.modal}>
+              <Image
+          key={modalIsId}
+          src={modalIsImage}
+          alt={`preview-${modalIsId}`}
+          className={styles.modalImg}
+        />
+      </div>
+    </Modal>
+  );
+
   return (
-    <div>
+    <>
       {isExpandedReview ? (
         <ul className={styles.reviewBox}>
           <li className={styles.reviewItem}>
@@ -47,11 +81,20 @@ const ReviewItem = ({ review, isExpandedReview }) => {
             {reviewURL && reviewURL[0] !== null && reviewURL.length > 0 && (
               <div className={styles.imgContainer}>
                 {reviewURL.map((reviewURL, index) => (
-                  <Image
-                    className={styles.imgReview}
+                  <Button
                     key={index}
-                    src={reviewURL}
-                  />
+                    className={styles.btn}
+                    type="button"
+                    onClick={e => {
+                      openModalEditPhoto(index, reviewURL);
+                    }}
+                  >
+                    <Image
+                      className={styles.imgReview}
+                      key={index}
+                      src={reviewURL}
+                    />
+                  </Button>
                 ))}
               </div>
             )}
@@ -94,7 +137,8 @@ const ReviewItem = ({ review, isExpandedReview }) => {
           )}
         </>
       )}
-    </div>
+      {modalIsOpen && modalWindow}
+    </>
   );
 };
 
