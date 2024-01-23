@@ -3,6 +3,7 @@
 .container {
   width: 100%;
   min-height: 240px;
+  padding: 20px 12px;
   background-color: #f4f4f4;
   border-radius: 8px;
   display: flex;
@@ -21,15 +22,36 @@
   border-radius: 8px;
   padding: 0;
   overflow: hidden;
+  position: relative;
+}
+
+.trash {
+  // color: #191c2c;
+
+  stroke: var(--black-text-color);
+  z-index: 999;
+
+  color-interpolation-filters: sRGB;
+
+  filter: drop-shadow(0 0 0 #ffffff);
+}
+
+.deleteIcon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: transparent;
+  color: transparent;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
 }
 
 .imgContainer {
   display: flex;
   flex-wrap: wrap;
-  gap:16px;
-margin-top: 20px;
+  gap: 16px;
 }
-
 
 .img {
   width: 100%;
@@ -96,16 +118,10 @@ margin-top: 20px;
 }
 
 .text {
-  @include text-styles( );
-  margin-top: 12px;
-  margin-bottom: 29px;
-color: var( --grey-text-color);
-line-height: 19px;
-
-
+  @include text-styles();
+  color: var(--grey-text-color);
+  line-height: 19px;
 }
-
-
 
 // .imgPhoto {
 //   width: 60px;
@@ -113,3 +129,21 @@ line-height: 19px;
 //   overflow: hidden;
 //   border-radius: 4px;
 // }
+
+.modal {
+  padding: 60px 16px;
+}
+
+.mainText {
+  margin-bottom: 20px;
+}
+
+.modalImg {
+  margin-bottom: 20px;
+}
+
+.modalButtonContainer {
+  display: flex;
+  gap: 16px;
+}
+

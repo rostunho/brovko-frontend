@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getAllCategories } from 'shared/services/api';
 import { sortingTemplate } from './sortingTemplate';
-import Loader from 'components/Loader';
+// import Loader from 'components/Loader';
 import Heading from 'shared/components/Heading/Heading';
 import Input from 'shared/components/Input';
 import Selector from 'shared/components/Selector';

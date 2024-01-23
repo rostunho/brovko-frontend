@@ -6,6 +6,7 @@ import Modal from 'shared/components/Modal/Modal';
 import Button from 'shared/components/Button';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import { useDispatch } from 'react-redux';
+import TrashIcon from 'shared/icons/TrashIcon';
 
 const AddProductImage = ({ pictures = [], setFiles }) => {
   const dispatch = useDispatch();
@@ -136,11 +137,31 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
   const resetPromp = () => setPrompDelete(false);
   console.log(selectedPictures);
 
+  const handleDragStart = (e, index) => {
+    e.dataTransfer.setData('text/plain', index);
+  };
+
+  const handleDragOver = e => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e, toIndex) => {
+    e.preventDefault();
+
+    const fromIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
+    const updatedPictures = [...selectedPictures];
+    const [movedPictures] = updatedPictures.splice(fromIndex, 1);
+    updatedPictures.splice(toIndex, 0, movedPictures);
+    setSelectedPictures(updatedPictures);
+  };
+
   const images = selectedPictures.map(({ id, url }, index) => (
     <Button
       key={index}
       className={styles.btn}
       type="button"
+      draggable
+      onDragStart={e => handleDragStart(e, index)}
       onClick={e => {
         openModalEditPhoto(index, url);
       }}
@@ -151,6 +172,15 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
         alt={`preview-${index + 1}`}
         className={styles.img}
       />
+      <button
+        className={styles.deleteIcon}
+        onClick={e => {
+          setPrompDelete(true);
+          openModalEditPhoto(index, url);
+        }}
+      >
+        <TrashIcon className={styles.trash} />
+      </button>
     </Button>
   ));
 
@@ -174,45 +204,51 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
 
   const modalWindow = (
     <Modal closeModal={closeModalEditPhoto}>
-      <p className={styles.mainText}>
-        {!prompDelete
-          ? 'Редагування зображення'
-          : 'Ти дійсно бажаєш видалити це фото?'}
-      </p>
-      <Image
-        key={modalIsId}
-        src={modalIsImage}
-        alt={`preview-${modalIsId}`}
-        className={styles.img}
-      />
-      <Button
-        type="button"
-        onClick={
-          !prompDelete
-            ? modalIsId !== 0
-              ? () => {
-                  setMain(modalIsId);
-                }
-              : () => {
-                  dispatch(addPopupOperation('Все ще головне'));
-                }
-            : () => resetPromp()
-        }
-      >
-        {!prompDelete
-          ? modalIsId !== 0
-            ? 'Встановити головним'
-            : 'Головне'
-          : 'Скасувати'}
-      </Button>
-      <Button
-        type="button"
-        onClick={
-          !prompDelete ? () => setPrompDelete(true) : () => delPhoto(modalIsId)
-        }
-      >
-        {!prompDelete ? 'Видалити фото' : 'Так'}
-      </Button>
+      <div className={styles.modal}>
+        <p className={styles.mainText}>
+          {!prompDelete
+            ? 'Редагування зображення'
+            : 'Ти дійсно бажаєш видалити це фото?'}
+        </p>
+        <Image
+          key={modalIsId}
+          src={modalIsImage}
+          alt={`preview-${modalIsId}`}
+          className={styles.modalImg}
+        />
+        <div className={styles.modalButtonContainer}>
+          <Button
+            type="button"
+            onClick={
+              !prompDelete
+                ? modalIsId !== 0
+                  ? () => {
+                      setMain(modalIsId);
+                    }
+                  : () => {
+                      dispatch(addPopupOperation('Все ще головне'));
+                    }
+                : () => resetPromp()
+            }
+          >
+            {!prompDelete
+              ? modalIsId !== 0
+                ? 'Встановити головним'
+                : 'Головне'
+              : 'Скасувати'}
+          </Button>
+          <Button
+            type="button"
+            onClick={
+              !prompDelete
+                ? () => setPrompDelete(true)
+                : () => delPhoto(modalIsId)
+            }
+          >
+            {!prompDelete ? 'Видалити фото' : 'Так'}
+          </Button>
+        </div>
+      </div>
     </Modal>
   );
 
@@ -225,7 +261,11 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
             ? 'Перше фото буде головним в картці товару. Перетягни, щоб змінити порядок фото.'
             : 'У суперадміна є суперздібність! Ти можеш додавати необмежену кількість фотографій товару!'}{' '}
         </p>
-        <div className={styles.imgContainer}>
+        <div
+          className={styles.imgContainer}
+          onDragOver={handleDragOver}
+          onDrop={e => handleDrop(e, 0)}
+        >
           {images}
           {inputPhoto}
         </div>
