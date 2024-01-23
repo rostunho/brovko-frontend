@@ -172,7 +172,15 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
         alt={`preview-${index + 1}`}
         className={styles.img}
       />
-      <TrashIcon className={styles.trash} />
+      <button
+        className={styles.deleteIcon}
+        onClick={e => {
+          setPrompDelete(true);
+          openModalEditPhoto(index, url);
+        }}
+      >
+        <TrashIcon className={styles.trash} />
+      </button>
     </Button>
   ));
 
@@ -194,9 +202,9 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
     </label>
   );
 
-  const modalWindow = ( 
-      <Modal closeModal={closeModalEditPhoto}>
-           <div className={styles.modal}>
+  const modalWindow = (
+    <Modal closeModal={closeModalEditPhoto}>
+      <div className={styles.modal}>
         <p className={styles.mainText}>
           {!prompDelete
             ? 'Редагування зображення'
@@ -208,39 +216,40 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
           alt={`preview-${modalIsId}`}
           className={styles.modalImg}
         />
-      <div className={styles.modalButtonContainer}>  <Button
-          type="button"
-          onClick={
-            !prompDelete
+        <div className={styles.modalButtonContainer}>
+          <Button
+            type="button"
+            onClick={
+              !prompDelete
+                ? modalIsId !== 0
+                  ? () => {
+                      setMain(modalIsId);
+                    }
+                  : () => {
+                      dispatch(addPopupOperation('Все ще головне'));
+                    }
+                : () => resetPromp()
+            }
+          >
+            {!prompDelete
               ? modalIsId !== 0
-                ? () => {
-                    setMain(modalIsId);
-                  }
-                : () => {
-                    dispatch(addPopupOperation('Все ще головне'));
-                  }
-              : () => resetPromp()
-          }
-        >
-          {!prompDelete
-            ? modalIsId !== 0
-              ? 'Встановити головним'
-              : 'Головне'
-            : 'Скасувати'}
-        </Button>
-        <Button
-          type="button"
-          onClick={
-            !prompDelete
-              ? () => setPrompDelete(true)
-              : () => delPhoto(modalIsId)
-          }
-        >
-          {!prompDelete ? 'Видалити фото' : 'Так'}
-        </Button></div>
+                ? 'Встановити головним'
+                : 'Головне'
+              : 'Скасувати'}
+          </Button>
+          <Button
+            type="button"
+            onClick={
+              !prompDelete
+                ? () => setPrompDelete(true)
+                : () => delPhoto(modalIsId)
+            }
+          >
+            {!prompDelete ? 'Видалити фото' : 'Так'}
+          </Button>
         </div>
-      </Modal>
- 
+      </div>
+    </Modal>
   );
 
   return (

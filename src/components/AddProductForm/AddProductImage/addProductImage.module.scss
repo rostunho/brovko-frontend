@@ -27,15 +27,24 @@
 
 .trash {
   // color: #191c2c;
-  position: absolute;
-  top: 8px;
-  right: 8px;
+
   stroke: var(--black-text-color);
   z-index: 999;
 
   color-interpolation-filters: sRGB;
 
   filter: drop-shadow(0 0 0 #ffffff);
+}
+
+.deleteIcon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: transparent;
+  color: transparent;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
 }
 
 .imgContainer {
@@ -134,6 +143,7 @@
 }
 
 .modalButtonContainer {
-  display: flex;  
+  display: flex;
   gap: 16px;
 }
+
