@@ -162,9 +162,9 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
       type="button"
       draggable
       onDragStart={e => handleDragStart(e, index)}
-      // onClick={e => {
-      //   openModalEditPhoto(index, url);
-      // }}
+      onClick={e => {
+        openModalEditPhoto(index, url);
+      }}
     >
       <Image
         key={index}
