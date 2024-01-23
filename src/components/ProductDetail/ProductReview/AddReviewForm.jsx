@@ -69,6 +69,40 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     }
   };
 
+  const handleDragStart = (e, index) => {
+    e.dataTransfer.setData('text/plain', index);
+    console.log('dragstart', index);
+  };
+
+  const handleDragOver = e => {
+    e.preventDefault();
+    // console.log('handleDragOver')
+  };
+
+  const handleDrop = (e, toIndex) => {
+    e.preventDefault();
+    console.log('toIndex', toIndex);
+    const fromIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
+    console.log('fromIndex', fromIndex);
+    const draggedPicture = selectedPictures[fromIndex];
+
+    // Create a copy of the selectedPictures array
+    const updatedPictures = [...selectedPictures];
+
+    // Remove the picture from its original position
+    updatedPictures.splice(fromIndex, 1);
+
+    // Insert the picture at the new position
+    updatedPictures.splice(toIndex, 0, draggedPicture);
+
+    const reorderedPictures = updatedPictures.map((picture, index) => ({
+      ...picture,
+      id: index,
+    }));
+
+    setSelectedPictures(reorderedPictures);
+  };
+
   const addImages = files => {
     if (!files.length) {
       return;
@@ -96,8 +130,8 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
       })
       .filter(Boolean);
 
-    setSelectedImages([...selectedImages, ...newImages]);
-    setSelectedPictures([...selectedPictures, ...newImages]);
+    setSelectedImages(prevImages => [...prevImages, ...newImages]); // Змінено тут
+    setSelectedPictures(prevPictures => [...prevPictures, ...newImages]); // Змінено тут
     dispatch(
       addPopupOperation(
         `Додано ${newImages.length} файл${
@@ -108,17 +142,22 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     setSelectedFiles([]);
   };
 
+  console.log('selectedPictures', selectedPictures);
+
   const images = selectedPictures.map(({ id, url }, index) => (
     <Button
       key={index}
       className={styles.btn}
       type="button"
+      draggable
+      onDragStart={e => handleDragStart(e, index)}
+      onDrop={e => handleDrop(e, index)}
       onClick={e => {
         openModalEditPhoto(index, url);
       }}
     >
       <Image
-        key={index}
+        key={id}
         src={url}
         alt={`preview-${index + 1}`}
         className={styles.img}
@@ -153,43 +192,51 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
 
   const modalWindow = (
     <Modal closeModal={closeModalEditPhoto}>
-      <p className={styles.mainText}>
-        {false ? 'Видалення зображення' : 'Ти дійсно бажаєш видалити це фото?'}
-      </p>
-      <Image
-        key={modalIsId}
-        src={modalIsImage}
-        alt={`preview-${modalIsId}`}
-        className={styles.img}
-      />
-      <Button
-        type="button"
-        onClick={
-          false
-            ? modalIsId !== 0
-              ? () => {
-                  // setMain(modalIsId);
-                }
-              : () => {
-                  dispatch(addPopupOperation('Все ще головне'));
-                }
-            : () => {
-                closeModalEditPhoto();
-              }
-        }
-      >
-        {false
-          ? modalIsId !== 0
-            ? 'Встановити головним'
-            : 'Головне'
-          : 'Скасувати'}
-      </Button>
-      <Button
-        type="button"
-        onClick={false ? () => setPrompDelete(true) : () => delPhoto(modalIsId)}
-      >
-        {false ? 'Видалити фото' : 'Так'}
-      </Button>
+      <div className={styles.modal}>
+        <p className={styles.mainText}>
+          {false
+            ? 'Видалення зображення'
+            : 'Ти дійсно бажаєш видалити це фото?'}
+        </p>
+        <Image
+          key={modalIsId}
+          src={modalIsImage}
+          alt={`preview-${modalIsId}`}
+          className={styles.modalImg}
+        />
+        <div className={styles.modalButtonContainer}>
+          <Button
+            type="button"
+            onClick={
+              false
+                ? modalIsId !== 0
+                  ? () => {
+                      // setMain(modalIsId);
+                    }
+                  : () => {
+                      dispatch(addPopupOperation('Все ще головне'));
+                    }
+                : () => {
+                    closeModalEditPhoto();
+                  }
+            }
+          >
+            {false
+              ? modalIsId !== 0
+                ? 'Встановити головним'
+                : 'Головне'
+              : 'Скасувати'}
+          </Button>
+          <Button
+            type="button"
+            onClick={
+              false ? () => setPrompDelete(true) : () => delPhoto(modalIsId)
+            }
+          >
+            {false ? 'Видалити фото' : 'Так'}
+          </Button>
+        </div>{' '}
+      </div>
     </Modal>
   );
 
@@ -203,7 +250,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     formData.append('text', text);
     console.log(selectedPictures);
     console.log(selectedFiles);
-    selectedPictures.forEach(({file}) => {
+    selectedPictures.forEach(({ file }) => {
       console.log(file);
       formData.append(`review`, file);
     });
@@ -215,12 +262,10 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
       setSelectedPictures([]);
       setSelectedFiles([]);
       closeReviewInput();
-    } catch ({error}) {
+    } catch ({ error }) {
       console.error('Error submitting review:', error);
     }
-  
   };
-
 
   return (
     <div className={styles.containerInputRewiew}>
@@ -247,13 +292,12 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
             required
           />
         </div>
-        <div className={styles.addImg}>
-        {/* <PaperClip /> */}
+        <div className={styles.addImg} onDragOver={e => handleDragOver(e)}>
+          {/* <PaperClip /> */}
           {images}
           {inputPhotos()}
           {selectedPictures.length < 5 && (
             <>
-            
               <p
                 className={`${styles.titleText} ${
                   errorTextQuantity ? styles.errorTextQuantity : ''
@@ -276,9 +320,8 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
         >
           Опублікувати
         </Button>
-        
       </form>
-      
+
       {modalIsOpen && modalWindow}
     </div>
   );
