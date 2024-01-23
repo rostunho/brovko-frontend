@@ -256,14 +256,15 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     });
 
     try {
-      await submitReview(formData)
+      await submitReview(formData);
       setText('');
       setSelectedPictures([]);
       setSelectedFiles([]);
       closeReviewInput();
     } catch ({ error }) {
       console.error('Error submiting review:', error);
-    } finally {}
+    } finally {
+    }
     // try {
     //   await dispatch(fetchAddReview(formData));
 

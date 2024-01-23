@@ -147,14 +147,26 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
 
   const handleDrop = (e, toIndex) => {
     e.preventDefault();
-
+    console.log('toIndex', toIndex);
     const fromIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
-    const updatedPictures = [...selectedPictures];
-    const [movedPictures] = updatedPictures.splice(fromIndex, 1);
-    updatedPictures.splice(toIndex, 0, movedPictures);
-    setSelectedPictures(updatedPictures);
-  };
+    console.log('fromIndex', fromIndex);
+    const draggedPicture = selectedPictures[fromIndex];
 
+    // Create a copy of the selectedPictures array
+    const updatedPictures = [...selectedPictures];
+
+    // Remove the picture from its original position
+    updatedPictures.splice(fromIndex, 1);
+
+    // Insert the picture at the new position
+    updatedPictures.splice(toIndex, 0, draggedPicture);
+
+    const reorderedPictures = updatedPictures.map((picture, index) => ({
+      ...picture,
+      id: index,
+    }));
+    setSelectedPictures(reorderedPictures);
+  };
   const images = selectedPictures.map(({ id, url }, index) => (
     <Button
       key={index}
@@ -162,6 +174,7 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
       type="button"
       draggable
       onDragStart={e => handleDragStart(e, index)}
+      onDrop={e => handleDrop(e, index)}
       onClick={e => {
         openModalEditPhoto(index, url);
       }}
@@ -261,11 +274,7 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
             ? 'Перше фото буде головним в картці товару. Перетягни, щоб змінити порядок фото.'
             : 'У суперадміна є суперздібність! Ти можеш додавати необмежену кількість фотографій товару!'}{' '}
         </p>
-        <div
-          className={styles.imgContainer}
-          onDragOver={handleDragOver}
-          onDrop={e => handleDrop(e, 0)}
-        >
+        <div className={styles.imgContainer} onDragOver={handleDragOver}>
           {images}
           {inputPhoto}
         </div>
