@@ -5,10 +5,11 @@ import { deletePopUp } from 'redux/popup/popupSlice';
 import Heading from '../Heading';
 import styles from './popupitem.module.scss';
 
-const PopUpItem = ({ data, index }) => {
+const PopUpItem = ({ data }) => {
   const [dataType, setDataType] = useState('success');
   const [title, setTitle] = useState('УПС!');
   const [defaultMessage, setDefaultMessage] = useState('У тебе все виходить !');
+  const [fadeOutClassName, setFadeOutClassName] = useState('');
   const { text = 'Вам, повідомлення', type = 'success' } = data;
   const dispatch = useDispatch();
 
@@ -45,15 +46,26 @@ const PopUpItem = ({ data, index }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  const removePopup = () => {
-    dispatch(deletePopUp());
+  useEffect(() => {
+    setTimeout(() => {
+      setFadeOutClassName(styles['fade-out']);
+    }, 9500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const removePopup = id => {
+    setFadeOutClassName(styles['fade-out']);
+    setTimeout(() => {
+      dispatch(deletePopUp(id));
+    }, 500);
   };
 
   return (
     <li
-      key={index}
-      className={`${styles.container}  ${styles[dataType]}`}
-      onClick={removePopup}
+      className={`${styles.container}  ${styles[dataType]} ${
+        fadeOutClassName ? fadeOutClassName : ''
+      }`}
+      onClick={() => removePopup(data.id)}
     >
       <Heading type="h2" className={styles.title}>
         {title}

@@ -21,9 +21,6 @@ import styles from './AddProductForm.module.scss';
 import { useSelectorValue } from 'shared/hooks/useSelectorValue';
 import { useAddProductState } from 'shared/hooks/useAddProductState';
 import AddProductImage from './AddProductImage';
-
-import PopUp from 'shared/components/PopUp';
-
 export default function AddProductForm({ update }) {
   const [existingProduct, setExistingProduct] = useState(null);
   const [requestBody, dispatchRequestBody] = useAddProductState();
@@ -38,8 +35,6 @@ export default function AddProductForm({ update }) {
   const [files, setFiles] = useState([]);
   const formRef = useRef();
   const { productId } = useParams();
-
-  // console.log('EXISTING PRODUCT >>> ::', selectorValue);
 
   useEffect(() => {
     if (update) {

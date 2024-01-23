@@ -8,6 +8,7 @@ import App from './App';
 import { store, persistor } from 'redux/store';
 import reportWebVitals from './reportWebVitals';
 import PopUp from 'shared/components/PopUp';
+import WarningModal from 'shared/components/WarningModal/WarningModal';
 import AuthLayout from 'components/AuthLayout/AuthLayout';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -19,6 +20,7 @@ root.render(
           <BrowserRouter>
             <App />
             <PopUp />
+            <WarningModal />
           </BrowserRouter>
         </AuthLayout>
       </PersistGate>

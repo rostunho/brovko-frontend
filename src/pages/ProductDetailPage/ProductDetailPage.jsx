@@ -8,7 +8,9 @@ import ProductDetail from 'components/ProductDetail/ProductDetail';
 export default function ProductDetailPage() {
   
   const [product, setProduct] = useState(null);
+  const [productError, setProductError] = useState(null);
   const [reviews, setReviews] = useState([]);
+  const [reviewsError, setReviewsError] = useState(null);
   const [isExpandedDescription, setIsExpandedDescription] = useState(false);
   const [isExpandedReview, setIsExpandedReview] = useState(false);
   const { productId } = useParams();
@@ -34,13 +36,27 @@ export default function ProductDetailPage() {
   }, [location?.state]);
 
   const fetchProductById = async id => {
-    const product = await getProductById(id);
+    try {
+      const product = await getProductById(id);
     setProduct(product);
+      
+    } catch (error) {
+      console.error('Помилка при отриманні продукту:', error);
+        setProductError('Не вдалося завантажити продукт. Спробуйте знову пізніше.');
+    }
+    
   };
 
   const fetchReviewsByProductId = async (id) => {
-    const reviews = await getReviewsByProductId(id);
-    setReviews(reviews);
+    try {
+      const reviews = await getReviewsByProductId(id);
+      setReviews(reviews);
+      
+    } catch (error) {
+      console.error('Помилка при отриманні відгуків:', error);
+        setReviewsError('Не вдалося завантажити відгуки. Спробуйте знову пізніше.');
+    }
+   
   };
  
 
@@ -53,18 +69,20 @@ export default function ProductDetailPage() {
   };
   // ===============================================
 
-  if (!product) {
-    return <p>Товар не знайдено</p>;
-  }
+  if (!product || productError) {
+    return     (<p style={{ color: 'red', marginTop: '20px'}}>{productError}</p>);
+  } 
 
   return (
     <>
       <Heading withGoBack fromHC={'/shop/product-list-page'}>
         {product.name}
       </Heading>
+    
       <ProductDetail
         product={product}
         reviews={reviews}
+        reviewsError={reviewsError}
         isExpandedDescription={isExpandedDescription}
         isExpandedReview={isExpandedReview}
         handleReadMoreClick={handleReadMoreClick}

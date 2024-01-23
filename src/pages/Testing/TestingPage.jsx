@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addPopupOperation } from 'redux/popup/popupOperations';
+import { showWarning } from 'redux/warning/warningSlice';
 import Input from 'shared/components/Input';
 
 export default function TestingPage() {
@@ -8,15 +8,27 @@ export default function TestingPage() {
 
   const go1 = () => {
     dispatch(addPopupOperation('', 'success'));
+    // addPopupOperation('', 'success');
   };
   const go2 = () => {
     dispatch(addPopupOperation('', 'info'));
+    // addPopupOperation('', 'info');
   };
   const go3 = () => {
     dispatch(addPopupOperation('', 'warning'));
+    // addPopupOperation('', 'warning');
   };
   const go4 = () => {
     dispatch(addPopupOperation('', 'error'));
+    // addPopupOperation('', 'error');
+  };
+
+  const openModal = () => {
+    dispatch(
+      showWarning(
+        'Тут зараз я тобі покажу попередження, яке саме собою не зникне. Потрібно його прочитати і клацьнути "Ok"'
+      )
+    );
   };
 
   return (
@@ -36,6 +48,10 @@ export default function TestingPage() {
       <br />
       <button type="button" onClick={go4}>
         Error
+      </button>
+      <br />
+      <button type="button" onClick={openModal}>
+        MODAL
       </button>
       <br />
       <Input />

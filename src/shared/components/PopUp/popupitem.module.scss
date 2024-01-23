@@ -6,12 +6,14 @@
   min-width: 240px;
   padding: 12px 16px;
   border-radius: 8px;
-
-  cursor: pointer;
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
   opacity: 0;
-  transform: translateX(100%);
-  animation: onoff 10s ease-in-out;
-  visibility: hidden;
+  cursor: pointer;
+
+  animation-name: fade-in;
+  animation-timing-function: ease-in;
+  animation-duration: 500ms;
+  animation-fill-mode: forwards;
 }
 
 .title {
@@ -22,7 +24,6 @@
 }
 
 .message {
-  // width: 100%;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -47,68 +48,43 @@
   background-color: #f6371e;
 }
 
-@keyframes onoff {
+.fade-out {
+  animation-name: fade-out;
+  animation-timing-function: ease-out;
+  animation-duration: 500ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
   0% {
     opacity: 0;
-    visibility: visible;
+    transform: translateX(100%);
   }
-  5% {
-    opacity: 1;
-    transform: translateX(0);
+
+  85% {
+    opacity: 0.5;
+    transform: translateX(-10%);
   }
-  95% {
-    opacity: 1;
-    transform: translateX(0);
-  }
+
   100% {
-    opacity: 0;
-    visibility: hidden;
+    opacity: 1;
+    transform: translateX(0);
   }
 }
-// .textMessage {
-// border: 1px solid red;
 
-// display: block;
-// position: relative;
-// align-items: center;
-// justify-content: center;
-// text-align: center;
-// color: blue;
-// border: 1px solid red;
-// border-radius: 8px;
-// overflow: hidden;
-// opacity: 0;
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 
-// position: fixed;
-// z-index: 1111;
-// bottom: 20px;
-// right: 20px;
-// transform: translate(-50%, 0);
-// border-radius: 16px;
-// width: calc(100%);
-// max-width: 420px;
-// padding: 16px;
-// // border: 1px solid var(--Stroke, #f0f0f0);
-// background: var(--White, #fff);
-// box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
-// animation: onoff 10s ease-in-out;
-// visibility: hidden;
-// cursor: none;
-// }
+  15% {
+    opacity: 0.5;
+    transform: translateX(-10%);
+  }
 
-// @keyframes onoff {
-//   0% {
-//     opacity: 0;
-//     visibility: visible;
-//   }
-//   20% {
-//     opacity: 0.9;
-//   }
-//   80% {
-//     opacity: 0.9;
-//   }
-//   100% {
-//     opacity: 0;
-//     visibility: hidden;
-//   }
-// }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}

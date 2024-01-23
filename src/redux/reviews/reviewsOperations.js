@@ -30,21 +30,22 @@ export const fetchAddReview = createAsyncThunk(
       const response = await api.submitReview(reviewData); // Додати відгук на сервер
       console.log('addReview response:', response);
 
-      if (response.status === 200 || 201) {
+      
         console.log('New review added successfully');
-
+        
+        
         // Отримати оновлені відгуки з сервера
         const updatedReviews = await api.getReviews();
 
         // Повернути дані відгука, для рендера на сторінці
         return { response, updatedReviews };
-      } else {
-        console.error('Error adding review:', response.statusText);
-        return thunkAPI.rejectWithValue(response.data);
-      }
-    } catch (error) {
-      console.error('Error adding review:', error);
-      throw error;
+        
+      
+     
+    
+    }  catch (error) {
+      console.error('Error adding review:', (error.response.status));
+        return thunkAPI.rejectWithValue(error.response.status);
     }
   }
 );
