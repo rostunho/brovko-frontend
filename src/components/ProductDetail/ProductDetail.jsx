@@ -72,7 +72,6 @@ export default function ProductDetail({
 
   return (
     <div className={styles.container}>
-    
       <div className={styles.productCard}>
         {userStatus === 'manager' ||
           (userStatus === 'superadmin' && (
@@ -80,31 +79,30 @@ export default function ProductDetail({
               РЕДАГУВАТИ
             </Button>
           ))}
-<div>
-<Rating product={product} />
-        <div className={styles.image}>
-          <Image src={picture} />
+        <div>
+          <Rating product={product} />
+          <div className={styles.image}>
+            <Image src={picture} />
+          </div>
+          <ImageSlider picture={picture} />
+          <Content note={note} />
+          <div className={styles.price}>
+            <h3>
+              {price} {currencyId}
+            </h3>
+            <QuantityButtons value={value} setValue={setValue} />
+          </div>
+          <Button
+            onClick={handleAddToCart}
+            value={value}
+            type="submit"
+            size="lg"
+            style={{ marginTop: 33 }}
+          >
+            {orderInBasket ? 'Видалити з кошика' : 'Додати в кошик'}
+          </Button>
+          {isOpen && <ModalProductsInBasket closeModal={closeModal} />}
         </div>
-        <ImageSlider picture={picture} />
-        <Content note={note} />
-        <div className={styles.price}>
-          <h3>
-            {price} {currencyId}
-          </h3>
-          <QuantityButtons value={value} setValue={setValue} />
-        </div>
-        <Button
-          onClick={handleAddToCart}
-          value={value}
-          type="submit"
-          size="lg"
-          style={{ marginTop: 33 }}
-        >
-          {orderInBasket ? 'Видалити з кошика' : 'Додати в кошик'}
-        </Button>
-        {isOpen && <ModalProductsInBasket closeModal={closeModal} />}
-</div>
-       
 
         <Description
           product={product}
