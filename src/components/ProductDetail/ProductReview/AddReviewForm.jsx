@@ -75,7 +75,6 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
 
   const handleDragOver = e => {
     e.preventDefault();
-    // console.log('handleDragOver')
   };
 
   const handleDrop = (e, toIndex) => {
@@ -138,7 +137,6 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     );
     setSelectedFiles([]);
   };
-
 
   const images = selectedPictures.map(({ id, url }, index) => (
     <Button
@@ -257,22 +255,23 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
       setSelectedPictures([]);
       setSelectedFiles([]);
       closeReviewInput();
-    } catch ( error ) {
+    } catch (error) {
       console.error('Error submiting review:', error.response.status);
       if (error.response.status === 403 || error.response.status === 401) {
         dispatch(
           addPopupOperation(
-            'Ви не можете додавати відгуки, поки не авторизуєтеся', 'error'
+            'Ви не можете додавати відгуки, поки не авторизуєтеся',
+            'error'
           )
         );
       } else {
         dispatch(
           addPopupOperation(
-            'Щось з відгуками пішло не так, спробуй пізніше', 'warning'
+            'Щось з відгуками пішло не так, спробуй пізніше',
+            'warning'
           )
         );
       }
-      
     } finally {
     }
     // try {

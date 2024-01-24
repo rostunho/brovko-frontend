@@ -43,7 +43,7 @@ const ReviewItem = ({ review, isExpandedReview }) => {
   const modalWindow = (
     <Modal closeModal={closeModalEditPhoto}>
       <div className={styles.modal}>
-              <Image
+        <Image
           key={modalIsId}
           src={modalIsImage}
           alt={`preview-${modalIsId}`}
@@ -52,6 +52,23 @@ const ReviewItem = ({ review, isExpandedReview }) => {
       </div>
     </Modal>
   );
+
+  const ImageGalery = ({reviewURL}) => {
+    const images = reviewURL.map((reviewURL, index) => (
+      <Button
+        key={index}
+        className={styles.btn}
+        type="button"
+        onClick={e => {
+          openModalEditPhoto(index, reviewURL);
+        }}
+      >
+        <Image className={styles.imgReview} key={index} src={reviewURL} />
+      </Button>
+    ));
+
+    return images;
+  };
 
   return (
     <>
@@ -79,22 +96,7 @@ const ReviewItem = ({ review, isExpandedReview }) => {
 
             {reviewURL && reviewURL[0] !== null && reviewURL.length > 0 && (
               <div className={styles.imgContainer}>
-                {reviewURL.map((reviewURL, index) => (
-                  <Button
-                    key={index}
-                    className={styles.btn}
-                    type="button"
-                    onClick={e => {
-                      openModalEditPhoto(index, reviewURL);
-                    }}
-                  >
-                    <Image
-                      className={styles.imgReview}
-                      key={index}
-                      src={reviewURL}
-                    />
-                  </Button>
-                ))}
+                             <ImageGalery reviewURL={reviewURL} />
               </div>
             )}
             {status === 'manager' ||
@@ -125,14 +127,8 @@ const ReviewItem = ({ review, isExpandedReview }) => {
           <p className={styles.reviewText}>{reviewText}</p>
           {reviewURL && reviewURL[0] !== null && reviewURL.length > 0 && (
             <div className={styles.imgContainer}>
-              {reviewURL.map((reviewURL, index) => (
-                <Image
-                  className={styles.imgReview}
-                  key={index}
-                  src={reviewURL}
-                />
-              ))}
-            </div>
+              <ImageGalery reviewURL={reviewURL} />
+              </div>
           )}
         </>
       )}
