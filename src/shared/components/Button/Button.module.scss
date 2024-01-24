@@ -266,19 +266,19 @@
 }
 
 .admin-button {
-  background-color: #4d95c3;
+  background-color: #0066cc;
 
   &:hover,
   &:focus,
   &:active {
-    background-color: #397398;
+    background-color: #004e9c;
   }
 
   &:disabled {
-    background-color: #a0c1d7;
+    background-color: rgba(0, 102, 204, 0.5);
   }
 
   &:hover:disabled {
-    background-color: #a0c1d7;
+    background-color: rgba(0, 102, 204, 0.5);
   }
 }
