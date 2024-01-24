@@ -30,7 +30,6 @@ const ReviewItem = ({ review, isExpandedReview }) => {
   } = review;
 
   const openModalEditPhoto = (id, url) => {
-    console.log(id, url);
     setModalIsId(id);
     setModalIsImage(url);
     setModalIsOpen(true);

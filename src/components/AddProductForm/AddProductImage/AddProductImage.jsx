@@ -32,7 +32,6 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
   }, [picture]);
 
   const openModalEditPhoto = (id, url) => {
-    console.log(id, url);
     setModalIsId(id);
     setModalIsImage(url);
     setModalIsOpen(true);
@@ -135,7 +134,6 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
   };
 
   const resetPromp = () => setPrompDelete(false);
-  console.log(selectedPictures);
 
   const handleDragStart = (e, index) => {
     e.dataTransfer.setData('text/plain', index);
@@ -147,9 +145,7 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
 
   const handleDrop = (e, toIndex) => {
     e.preventDefault();
-    console.log('toIndex', toIndex);
     const fromIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
-    console.log('fromIndex', fromIndex);
     const draggedPicture = selectedPictures[fromIndex];
 
     // Create a copy of the selectedPictures array
@@ -198,7 +194,6 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
   ));
 
   useEffect(() => {
-    console.log(selectedPictures);
     setFiles(selectedPictures);
   }, [selectedPictures]);
 

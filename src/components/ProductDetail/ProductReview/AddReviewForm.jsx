@@ -71,7 +71,6 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
 
   const handleDragStart = (e, index) => {
     e.dataTransfer.setData('text/plain', index);
-    console.log('dragstart', index);
   };
 
   const handleDragOver = e => {
@@ -81,9 +80,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
 
   const handleDrop = (e, toIndex) => {
     e.preventDefault();
-    console.log('toIndex', toIndex);
     const fromIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
-    console.log('fromIndex', fromIndex);
     const draggedPicture = selectedPictures[fromIndex];
 
     // Create a copy of the selectedPictures array
@@ -142,7 +139,6 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     setSelectedFiles([]);
   };
 
-  console.log('selectedPictures', selectedPictures);
 
   const images = selectedPictures.map(({ id, url }, index) => (
     <Button
