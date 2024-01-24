@@ -257,8 +257,22 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
       setSelectedPictures([]);
       setSelectedFiles([]);
       closeReviewInput();
-    } catch ({ error }) {
-      console.error('Error submiting review:', error);
+    } catch ( error ) {
+      console.error('Error submiting review:', error.response.status);
+      if (error.response.status === 403 || error.response.status === 401) {
+        dispatch(
+          addPopupOperation(
+            'Ви не можете додавати відгуки, поки не авторизуєтеся', 'error'
+          )
+        );
+      } else {
+        dispatch(
+          addPopupOperation(
+            'Щось з відгуками пішло не так, спробуй пізніше', 'warning'
+          )
+        );
+      }
+      
     } finally {
     }
     // try {
