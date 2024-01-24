@@ -49,7 +49,9 @@ export default function ProductDetail({
   if (!product) {
     return;
   }
-  const { _id, picture, name, note, price, currencyId } = product;
+  const { _id, picture, name, price, currencyId } = product;
+
+  const note = 'вода з фонтану рожевих поні та пірʼя крилатих єдинорогів, ароматизоване квітами ельфійських садів'
 
   // const handleAddPopup = text => {
   //   dispatch(addPopupOperation(text));
@@ -71,7 +73,7 @@ export default function ProductDetail({
   };
 
   return (
-    <div className={styles.container}>
+   
       <div className={styles.productCard}>
         {userStatus === 'manager' ||
           (userStatus === 'superadmin' && (
@@ -79,18 +81,26 @@ export default function ProductDetail({
               РЕДАГУВАТИ
             </Button>
           ))}
-        <div>
           <Rating product={product} />
+        <div className={styles.productHalfCard}>
+        <div className={styles.productHalfCardImg}>
+       
           <div className={styles.image}>
             <Image src={picture} />
           </div>
           <ImageSlider picture={picture} />
-          <Content note={note} />
+        </div>
+          
+<div className={styles.productQuarterCard}>
+<Content note={note} />
           <div className={styles.price}>
-            <h3>
+            <h3 className={styles.priceHeading}>
               {price} {currencyId}
             </h3>
-            <QuantityButtons value={value} setValue={setValue} />
+            <h3 className={styles.priceQuantity}>
+            <QuantityButtons  value={value} setValue={setValue} />
+            </h3>
+           
           </div>
           <Button
             onClick={handleAddToCart}
@@ -103,13 +113,18 @@ export default function ProductDetail({
           </Button>
           {isOpen && <ModalProductsInBasket closeModal={closeModal} />}
         </div>
-
-        <Description
+</div>
+          <div className={styles.productHalfCard}>
+          <div className={styles.productQuarterCard}>
+          <Description
           product={product}
           isExpandedDescription={isExpandedDescription}
           location={location}
           handleReadMoreClick={handleReadMoreClick}
         />
+          </div>
+          
+          <div className={styles.productQuarterCard}>
         <Review
           isExpandedReview={isExpandedReview}
           location={location}
@@ -118,7 +133,11 @@ export default function ProductDetail({
           reviewsError={reviewsError}
           product={product}
         />
+        </div>
+          </div>
+
+        
       </div>
-    </div>
+   
   );
 }
