@@ -1,0 +1,70 @@
+.swiper {
+  min-height: 362px;
+  margin-bottom: 32px;
+}
+
+.slidesContainerMob {
+  width: 62vw;
+  height: 62vw;
+  margin: 0 auto;
+}
+
+.slidesContainerTablet {
+  width: 31vw;
+  height: 31vw;
+  margin-left: 15vw;
+  margin-right: 15vw;
+}
+
+.slidesContainerDesk {
+  width: 264px;
+  height: 264px;
+  margin-left: 334px;
+  margin-right: 334px;
+}
+
+.currentImg {
+  min-width: 100%;
+  max-height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  object-fit: cover;
+  box-shadow: var(--box-shadow);
+}
+
+.sideImg {
+  min-width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.visibleImages {
+  height: 100%;
+  transition: transform 0.5s;
+  display: flex;
+}
+
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.dot {
+  background-color: var(--accent-color);
+  opacity: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.activeDot {
+  background-color: var(--accent-color);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
