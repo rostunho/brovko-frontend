@@ -10,6 +10,7 @@ import {
   googleAuth,
   usersOrdersHistory,
   forgotPassword,
+  resetPassword,
 } from './userOperations';
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
   loading: false,
   error: null,
   resetToken: '',
+  isPasswordReset: false,
 };
 
 const userSlice = createSlice({
@@ -159,6 +161,19 @@ const userSlice = createSlice({
         state.resetToken = payload.resetToken;
       })
       .addCase(forgotPassword.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(resetPassword.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(resetPassword.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.message = payload;
+        state.isPasswordReset = true;
+      })
+      .addCase(resetPassword.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       });

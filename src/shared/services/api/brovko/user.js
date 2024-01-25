@@ -89,6 +89,16 @@ export const updateAvatar = async updatedData => {
 
 export const forgotPassword = async data => {
   const { data: result } = await instance.post('/user/forgot-password', data);
+
+  return result;
+};
+
+export const resetPassword = async (token, password) => {
+  const { data: result } = await instance.post(
+    `user/reset-password/${token}`,
+    password
+  );
+  console.log(result);
   return result;
 };
 

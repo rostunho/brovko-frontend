@@ -18,6 +18,10 @@ const LazyResetLinkSentPage = lazy(() =>
   import('pages/ResetLinkSentPage/ResetLinkSentPage')
 );
 
+const LazyResetPasswordPage = lazy(() =>
+  import('pages/ResetPasswordPage/ResetPasswordPage')
+);
+
 const TempAuthPage = lazy(() => import('pages/TempAuthPage/TempAuthPage'));
 
 export const authRoutes = [
@@ -40,6 +44,10 @@ export const authRoutes = [
   {
     path: '/reset-link-sent',
     Component: LazyResetLinkSentPage,
+  },
+  {
+    path: '/reset-password/:token',
+    Component: LazyResetPasswordPage,
   },
 ];
 

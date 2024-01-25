@@ -14,6 +14,8 @@ export const ordersUserHistory = ({ user }) => user.ordersHistory;
 
 export const selectRequestSuccess = ({ user }) => user.resetToken;
 
+export const selectIsPswReset = ({ user }) => user.isPasswordReset;
+
 const selectLoginAndToken = state => {
   return {
     isLogin: state.user.isLogin,
