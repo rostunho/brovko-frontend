@@ -1,10 +1,11 @@
-
+import {useEffect, useState} from 'react';
 import { useLocation } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
+import useLayoutType from 'shared/hooks/useLayoutType';
 import DescriptionText from './DescriptionText';
 import SharedLinkButton from '../SharedLinkButton';
 
 import styles from './Description.module.scss';
+
 
 export default function Description({
   product,
@@ -13,7 +14,13 @@ export default function Description({
 }) {
 
   const location = useLocation();
-  const isTablet = useMediaQuery({ query: '(min-width: 768px)' });
+ 
+  const layoutType = useLayoutType();
+
+  const isMobile = layoutType ==='mobile';
+  const isTablet = layoutType === 'tablet';
+  const isDesktop = layoutType === 'desktop';
+
   const updatedIsExpandedDescription = isTablet || isExpandedDescription;
   
 

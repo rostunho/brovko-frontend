@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
+import useLayoutType from 'shared/hooks/useLayoutType';
 
 import { addOrder } from 'redux/basket/basketSlice';
 import { getAllOrders } from 'redux/basket/basketSelectors';
@@ -45,7 +45,12 @@ export default function ProductDetail({
   const navigate = useNavigate();
   const orders = useSelector(getAllOrders);
   const { isOpen, openModal, closeModal } = useModal();
-  const isTablet = useMediaQuery({ query: '(min-width: 768px)' });
+  
+  const layoutType = useLayoutType();
+
+  const isMobile = layoutType ==='mobile';
+  const isTablet = layoutType === 'tablet';
+  const isDesktop = layoutType === 'desktop';
 
   // useEffect(() => {
   //   getProductById(productId).then(product => setProduct(product));
@@ -99,14 +104,14 @@ export default function ProductDetail({
         </div>
           
 <div className={styles.productQuarterCard}>
-<Content note={note} />
+          <Content note={note} />
           <div className={styles.price}>
             <h3 className={styles.priceHeading}>
             {isTablet ? 'Ціна: ' : null}
               {price} {currencyId}
             </h3>
             <h3 className={styles.priceQuantity}>
-            {isTablet ? 'Кількість:' : null}
+            {isTablet  ? 'Кількість:' : null}
             <QuantityButtons  value={value} setValue={setValue} />
             </h3>
            
@@ -124,7 +129,7 @@ export default function ProductDetail({
 
           {isOpen && <ModalProductsInBasket closeModal={closeModal} />}
 
-          {isTablet && <DeliveryAndPaymentBlock delivery={delivery} payment={payment}/>}
+          {isTablet  && <DeliveryAndPaymentBlock delivery={delivery} payment={payment}/>}
         </div>
         
 </div>
