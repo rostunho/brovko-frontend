@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
+
 import { addOrder } from 'redux/basket/basketSlice';
 import { getAllOrders } from 'redux/basket/basketSelectors';
 import { selectUserStatus } from 'redux/user/userSelectors';
@@ -16,8 +18,10 @@ import ImageSlider from 'components/ProductDetail/ImageSlider';
 import Content from 'components/ProductDetail/Content';
 import QuantityButtons from 'shared/components/QuantityButtonModal/QuantityButtons';
 import Price from 'components/ProductDetail/Price';
+import { DeliveryAndPaymentBlock } from './DeliveryAndPaymentBlock';
 import Description from 'components/ProductDetail/ProductDescription/Description';
 import Review from 'components/ProductDetail/ProductReview/Review';
+import { PRODUCT_NOTE, DELIVERY_INFO, PAYMENT_INFO } from './productsFackeData.js'
 
 import styles from './ProductDetail.module.scss';
 
@@ -41,6 +45,7 @@ export default function ProductDetail({
   const navigate = useNavigate();
   const orders = useSelector(getAllOrders);
   const { isOpen, openModal, closeModal } = useModal();
+  const isTablet = useMediaQuery({ query: '(min-width: 768px)' });
 
   // useEffect(() => {
   //   getProductById(productId).then(product => setProduct(product));
@@ -51,7 +56,9 @@ export default function ProductDetail({
   }
   const { _id, picture, name, price, currencyId } = product;
 
-  const note = 'вода з фонтану рожевих поні та пірʼя крилатих єдинорогів, ароматизоване квітами ельфійських садів'
+  const note = PRODUCT_NOTE;
+  const delivery = DELIVERY_INFO;
+  const payment = PAYMENT_INFO;
 
   // const handleAddPopup = text => {
   //   dispatch(addPopupOperation(text));
@@ -83,7 +90,7 @@ export default function ProductDetail({
           ))}
           <Rating product={product} />
         <div className={styles.productHalfCard}>
-        <div className={styles.productHalfCardImg}>
+        <div className={styles.productQuarterCard}>
        
           <div className={styles.image}>
             <Image src={picture} />
@@ -95,11 +102,14 @@ export default function ProductDetail({
 <Content note={note} />
           <div className={styles.price}>
             <h3 className={styles.priceHeading}>
+            {isTablet ? 'Ціна: ' : null}
               {price} {currencyId}
             </h3>
             <h3 className={styles.priceQuantity}>
+            {isTablet ? 'Кількість:' : null}
             <QuantityButtons  value={value} setValue={setValue} />
             </h3>
+           
            
           </div>
           <Button
@@ -111,8 +121,12 @@ export default function ProductDetail({
           >
             {orderInBasket ? 'Видалити з кошика' : 'Додати в кошик'}
           </Button>
+
           {isOpen && <ModalProductsInBasket closeModal={closeModal} />}
+
+          {isTablet && <DeliveryAndPaymentBlock delivery={delivery} payment={payment}/>}
         </div>
+        
 </div>
           <div className={styles.productHalfCard}>
           <div className={styles.productQuarterCard}>

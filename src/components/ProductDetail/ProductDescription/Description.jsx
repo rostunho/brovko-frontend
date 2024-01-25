@@ -1,5 +1,6 @@
 
 import { useLocation } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 import DescriptionText from './DescriptionText';
 import SharedLinkButton from '../SharedLinkButton';
 
@@ -10,24 +11,32 @@ export default function Description({
   isExpandedDescription,
   handleReadMoreClick,
 }) {
+
   const location = useLocation();
+  const isTablet = useMediaQuery({ query: '(min-width: 768px)' });
+  const updatedIsExpandedDescription = isTablet || isExpandedDescription;
+  
+
   return (
     <div className={styles.descriptionContainer}>
       {product ? (
-        isExpandedDescription ? (
+           
+        updatedIsExpandedDescription ? (
           <>
             {/* Рендерінг повного опису просто нижче */}
             <h3 style={{ marginBottom: 8 }}>Опис</h3>
             <DescriptionText
               product={product}
-              isExpandedDescription={isExpandedDescription}
+              isExpandedDescription={updatedIsExpandedDescription}
             />
+            {isTablet ? null : (
             <SharedLinkButton
               to={location.pathname}  
               state={{ isExpandedDescription: false }} 
               label="Згорнути"
               onClick={handleReadMoreClick}
-            />
+           
+            />)}
           </>
         ) : (
           <>
@@ -46,6 +55,7 @@ export default function Description({
                 // }}
                 label="Читати повністю"
                 onClick={handleReadMoreClick}
+              
               />
             )}
           </>

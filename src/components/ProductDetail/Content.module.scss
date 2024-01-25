@@ -7,16 +7,6 @@
     word-wrap: break-word;
     white-space: normal;
     margin-top: 12px;
+    @include text-styles('Nunito', 14px, 400);
   }
-  
-  .contentText {
-    // color: var(--black-text-color);
-    font-size: 14px;
-  }
-  
-  .contentHeader {
-    display: inline;
-    margin-right: 8px;
-    @include text-styles(Nunito, 16px);
-  }
-  
+ 

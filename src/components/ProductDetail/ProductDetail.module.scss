@@ -27,7 +27,6 @@
 
   @media screen and (min-width: 768px) and (max-width: 1200px) {
     display: flex;
-   
     gap: 32px;
     border: solid yellowgreen 1px;
   }
@@ -38,13 +37,13 @@
   @media screen and (min-width: 780px) and (max-width: 1200px) {
   display: flex;
   flex-wrap: wrap;
-  gap: 32px;
+  justify-content: center;
   width: 352px;
   border: solid green 1px;
   }
   @media screen and (min-width: 1200px) {
     display: flex;
-    border: solid yellowgreen 1px;
+    // border: solid yellowgreen 1px;
   }
 }
 
@@ -70,7 +69,7 @@ height: 292px;
 }
 
 .price {
-  border: 1px solid var(--Accent, #f3a610);
+ 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -79,27 +78,27 @@ height: 292px;
 
   @media screen and (min-width: 768px) {
     flex-direction: column;
+    margin-top: 20px;
   }
 }
 
 .priceHeading {
   @media screen and (min-width: 768px) {
-     
-    &:before {
-      content: 'Ціна: ';
-    }
+    // background-color: rgb(171, 171, 250);
   }
 }
 
 .priceQuantity{
-  border: 1px solid var(--Accent, #f3a610);
+ 
   @media screen and (min-width: 768px) {
-     
-    &:before {
-      content: 'Кількість: ';
-    }
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+     margin-top: 17px;
+     margin-bottom: -5px;
   }
 }
+
 //==============
 .title {
   color: var(--black-text-color);
