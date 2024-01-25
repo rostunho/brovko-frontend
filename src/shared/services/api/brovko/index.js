@@ -13,5 +13,11 @@ export {
   // deleteProductById,
   addNewProduct,
 } from './products';
-export { getReviews } from './reviews';
+export {
+  getReviews,
+  approveReview,
+  rejectReview,
+  getReviewsByStatus,
+  getReviewsByProductId,
+} from './reviews';
 export { register, login, current, logout } from './user';

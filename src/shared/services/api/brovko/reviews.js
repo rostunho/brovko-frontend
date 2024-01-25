@@ -52,19 +52,37 @@ const controlReview = async ({ productId, commentId, textId }, approved) => {
       approved: approved,
     };
     const response = await instance.patch(`/reviews/control/`, body);
-
     console.log('response into controlReview >>:', response);
+
+    return response;
   } catch (error) {
     console.log('Error into controlReview');
   }
 };
 
 export const approveReview = async (productId, commentId, textId) => {
-  await controlReview({ productId, commentId, textId }, true);
+  const response = await controlReview({ productId, commentId, textId }, true);
+  console.log('response into approvedReview', response);
+  return response;
 };
 
 export const rejectReview = async (productId, commentId, textId) => {
-  await controlReview({ productId, commentId, textId }, false);
+  const response = await controlReview({ productId, commentId, textId }, false);
+  console.log('response into rejectReview', response);
+  return response;
+};
+
+export const getReviewsByStatus = async (status = 'new') => {
+  // приймає лише значення "new", "approved", "rejected"
+
+  console.log('status into API-function :>> ', status);
+
+  const body = { status: status };
+
+  const response = await instance.patch('/reviews/by-status', body);
+  console.log('response into getReviewsByStatus', response);
+
+  return response;
 };
 
 // тестування
