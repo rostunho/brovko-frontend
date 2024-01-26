@@ -20,6 +20,8 @@
   animation-name: burgerDropDown;
   animation-duration: 500ms;
 
+  overflow-y: auto;
+
   @media screen and (min-width: 768px) {
     // padding: 24px 32px;
   }

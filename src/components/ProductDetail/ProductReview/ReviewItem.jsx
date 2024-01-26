@@ -21,7 +21,7 @@ const ReviewItem = ({ review, isExpandedReview }) => {
 
   const [prompDelete, setPrompDelete] = useState(false);
 
-  console.log('status :>> ', status);
+  // console.log('status :>> ', status);
 
   const {
     owner: { avatarURL, email, name },
@@ -86,7 +86,7 @@ const ReviewItem = ({ review, isExpandedReview }) => {
               </div>
 
               <div>
-                <p className={styles.userName}>{email || name}</p>
+                <p className={styles.userName}>{name || email}</p>
                 <p className={styles.reviewDate}>{formatDate(createdAt)}</p>
               </div>
             </div>

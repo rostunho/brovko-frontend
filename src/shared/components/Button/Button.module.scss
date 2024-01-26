@@ -267,6 +267,7 @@
 
 .admin-button {
   background-color: #0066cc;
+  filter: saturate(75%);
 
   &:hover,
   &:focus,

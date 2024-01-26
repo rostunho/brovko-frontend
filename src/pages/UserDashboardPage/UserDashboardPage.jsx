@@ -27,15 +27,16 @@ export default function UserDashboardPage() {
   return (
     <>
       <Heading withGoBack>Мій профіль</Heading>
-      <div>
-        <Avatar />
+
+      <Avatar />
+      <div className={styles.dataContainer}>
         <PersonalData />
         <Contacts />
         <OrdersHistory />
+        <p className={styles.logoutBtn} onClick={onLogout}>
+          Вийти
+        </p>
       </div>
-      <p className={styles.logoutBtn} onClick={onLogout}>
-        Вийти
-      </p>
     </>
   );
 }

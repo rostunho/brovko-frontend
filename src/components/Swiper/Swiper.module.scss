@@ -3,34 +3,6 @@
   margin-bottom: 32px;
 }
 
-.slidesContainer {
-  width: 62vw;
-  margin: 0 auto;
-}
-
-.currentImgContainer {
-  min-width: 62vw;
-  margin-left: 16px;
-  margin-right: 16px;
-  border-radius: 12px;
-  overflow: hidden;
-  object-fit: cover;
-  box-shadow: var(--box-shadow);
-}
-
-.visibleImages {
-  height: 62vw;
-  transition: transform 0.5s;
-  display: flex;
-}
-
-.sideImgContainer {
-  min-width: 62vw;
-  border-radius: 12px;
-  overflow: hidden;
-  object-fit: cover;
-}
-
 .dotsContainer {
   display: flex;
   justify-content: center;
