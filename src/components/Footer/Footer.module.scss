@@ -1,11 +1,18 @@
 @import '../../theme/abstract/mixins';
 
 .footer {
+  position: relative; 
   background: var(--footer-bg, #f4f4f4);
   // ****************
   margin-left: -16px;
   margin-right: -16px;
   margin-top: auto;
+  @media screen and (min-width: 768px)  {
+    padding-top: 32px;
+    padding-bottom: 12px;
+    
+  }
+  
 }
 
 .footerContainer {
@@ -18,6 +25,9 @@
   flex-direction: column;
   align-items: center;
   border-bottom: var(--border-gray);
+  @media screen and (min-width: 768px)  {
+    border-bottom: inherit;
+  }
 }
 .footerTitle {
   display: flex;
@@ -34,12 +44,27 @@
   &.opened {
     color: var(--gray-color);
   }
+  @media screen and (min-width: 768px)  {
+    color: var(--gray-color);
+    
+  }
+}
+
+.labelTablet {
+    color: var(--gray-color);
+    margin-bottom: 8px;
+  
 }
 
 .footerLinks {
   display: flex;
   flex-direction: column;
   gap: 13px;
+  @media screen and (min-width: 768px)  {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
 }
 
 .linksList {
@@ -116,4 +141,13 @@
   color: var(--black-text-color);
   font-size: 12px;
   text-align: center;
+}
+
+.footerBottom {
+  @media screen and (min-width: 768px)  {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  
 }

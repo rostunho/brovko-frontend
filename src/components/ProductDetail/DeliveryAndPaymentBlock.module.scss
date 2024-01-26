@@ -1,0 +1,19 @@
+@import 'shared/components/QuantityButtonModal/QuantityButtonModal.module.scss';
+@import 'theme/abstract/mixins';
+.deliveryBlock{
+    @media screen and (min-width: 768px) {
+     display: flex;
+     flex-direction: column;
+    }
+  }
+  
+  .deliveryHeading {
+    @media screen and (min-width: 768px) { 
+      margin-top: 20px;
+    }
+  }
+  
+  .deliveryText{
+    margin-top: 8px;
+    @include text-styles('Nunito', 14px, 400);
+  }

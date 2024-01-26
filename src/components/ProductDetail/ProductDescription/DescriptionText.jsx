@@ -1,4 +1,4 @@
-import styles from '../ProductDetail.module.scss';
+import styles from './Description.module.scss';
 
 export default function DescriptionText({ product, isExpandedDescription }) {
   return (
