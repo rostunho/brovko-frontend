@@ -53,7 +53,7 @@ const ReviewItem = ({ review, isExpandedReview }) => {
     </Modal>
   );
 
-  const ImageGalery = ({reviewURL}) => {
+  const ImageGalery = ({ reviewURL }) => {
     const images = reviewURL.map((reviewURL, index) => (
       <Button
         key={index}
@@ -96,7 +96,7 @@ const ReviewItem = ({ review, isExpandedReview }) => {
 
             {reviewURL && reviewURL[0] !== null && reviewURL.length > 0 && (
               <div className={styles.imgContainer}>
-                             <ImageGalery reviewURL={reviewURL} />
+                <ImageGalery reviewURL={reviewURL} />
               </div>
             )}
             {status === 'manager' ||
@@ -128,7 +128,7 @@ const ReviewItem = ({ review, isExpandedReview }) => {
           {reviewURL && reviewURL[0] !== null && reviewURL.length > 0 && (
             <div className={styles.imgContainer}>
               <ImageGalery reviewURL={reviewURL} />
-              </div>
+            </div>
           )}
         </>
       )}
