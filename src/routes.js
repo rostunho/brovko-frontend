@@ -38,6 +38,10 @@ const LazyExchangeAndReturnPage = lazy(() =>
   import('pages/ExchangeAndReturnPage/ExchangeAndReturnPage')
 );
 
+export const LazyPrivacyPolicyPage = lazy(() => import('pages/PrivacyPolicyPage/PrivacyPolicyPage.jsx'))
+
+export const LazyPublicOfferPage = lazy(() => import('pages/PublicOfferPage/PublicOfferPage'))
+
 export const LazyNotFoundPage = lazy(() =>
   import('pages/NotFoundPage/NotFoundPage')
 );
@@ -70,6 +74,16 @@ export const userRoutes = [
   {
     path: '*',
     Component: LazyNotFoundPage,
+  },
+
+  {
+    path: '/privacy-policy',
+    Component: LazyPrivacyPolicyPage,
+  },
+
+  {
+    path: '/privacy-policy',
+    Component: LazyPublicOfferPage,
   },
 
   {

@@ -28,7 +28,7 @@
   @media screen and (min-width: 768px) and (max-width: 1200px) {
     display: flex;
     gap: 32px;
-    border: solid yellowgreen 1px;
+    // border: solid yellowgreen 1px;
   }
 }
 
@@ -39,7 +39,7 @@
   flex-wrap: wrap;
   justify-content: center;
   width: 352px;
-  border: solid green 1px;
+  // border: solid green 1px;
   }
   @media screen and (min-width: 1200px) {
     display: flex;

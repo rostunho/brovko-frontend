@@ -39,6 +39,9 @@
   margin-top: 12px;
   margin-bottom: 32px;
   color: var(--gray-color);
+  @media screen and (min-width: 768px) and (max-width: 1200px) {
+    gap: 0.25rem;
+  }
 }
 
 .commentButton {
