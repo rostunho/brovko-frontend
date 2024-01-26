@@ -1,6 +1,7 @@
 @import '../../theme/abstract/mixins';
 
 .footer {
+  position: relative; 
   background: var(--footer-bg, #f4f4f4);
   // ****************
   margin-left: -16px;
@@ -143,7 +144,10 @@
 }
 
 .footerBottom {
-  position: fixed; 
-  bottom: 0; 
-  right: 0;
+  @media screen and (min-width: 768px)  {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  
 }

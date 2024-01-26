@@ -70,129 +70,98 @@ export default function Footer({ onClick }) {
     });
   };
 
+
+const renderFooterItem = (links, icon, label, sectionLabel, isMobile) => (
+  <FooterItem
+    links={links}
+    icon={<ArrowDownIcon />}
+    label={label}
+    isOpen={footerState.openedSection === sectionLabel}
+    onToggle={toggleSection}
+  />
+);
+
+const renderContactInfo = () => (
+  <>
+    {!isMobile ? <p className={styles.labelTablet}>Зв’язатися з нами</p> : ''}
+    <a href="tel:+380685072222" className={styles.link}>
+      +38 (068) 507 22 22
+    </a>
+  </>
+);
+
+const renderSocialIcons = () => (
+  <div>
+     {!isMobile ? <p className={styles.labelTablet}>Приєднатися до нас</p> : ''}
+    <div className={styles.socialIcons} style={{ marginBottom: '12px' }}>
+      {socialIconsData.map(({ label, href, icon }) => (
+        <FooterIcon
+          key={label}
+          href={href}
+          icon={icon}
+          label={label}
+          isActive={footerState.socialIconStates[label]}
+          onClick={() => handleIconClick(label, true)}
+        />
+      ))}
+    </div>
+  </div>
+);
+
+const renderBankIcons = () => (
+  <div>
+    {!isMobile ? <p className={styles.labelTablet}>Приймаємо до сплати</p> : ''}
+    <div className={styles.bankIcons}>
+      {bankIconsData.map(({ label, href, icon }) => (
+        <FooterIcon
+          key={label}
+          href={href}
+          icon={icon}
+          label={label}
+          isActive={footerState.bankIconStates[label]}
+          onClick={() => handleIconClick(label, false)}
+        />
+      ))}
+    </div>
+  </div>
+);
+
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContainer}>
         <div className={styles.footerLinks}>
         {/* 1 */}
         {!isMobile ?  
-        <div><FooterItem
-            links={companyLinks}
-            icon={<ArrowDownIcon />}
-            label="Для вас"
-            isOpen={footerState.openedSection === 'Для вас'}
-            onToggle={toggleSection}
-          /> 
-          <p className={styles.labelTablet}>Зв’язатися з нами</p>
-          <a href="tel:+380685072222" className={styles.link}>
-            +38 (068) 507 22 22
-          </a>
+        <div>
+        {renderFooterItem(companyLinks, <ArrowDownIcon />, 'Для вас', 'Для вас', isMobile)}
+        {renderContactInfo()}
           </div> :  
-          <FooterItem
-            links={aboutUsLinks}
-            icon={<ArrowDownIcon />}
-            label="Про нас"
-            isOpen={footerState.openedSection === 'Про нас'}
-            onToggle={toggleSection}
-          />}
+          (renderFooterItem(aboutUsLinks, <ArrowDownIcon />, 'Про нас', 'Про нас', isMobile))}
 
           {/* 2 */}
-         {!isMobile ? <FooterItem
-            links={aboutUsLinks}
-            icon={<ArrowDownIcon />}
-            label="Про нас"
-            isOpen={footerState.openedSection === 'Про нас'}
-            onToggle={toggleSection}
-          /> :  <FooterItem
-            links={supportLinks}
-            icon={<ArrowDownIcon />}
-            label="Допомога"
-            isOpen={footerState.openedSection === 'Допомога'}
-            onToggle={toggleSection}
-          />}
-         
+         {!isMobile ? (
+            renderFooterItem(aboutUsLinks, <ArrowDownIcon />, 'Про нас', 'Про нас', isMobile)
+          ) :   (renderFooterItem(supportLinks, <ArrowDownIcon />, 'Допомога', 'Допомога', isMobile))}     
 
           {/* 3 */}
-          {!isMobile ? <FooterItem
-            links={supportFullLinks}
-            icon={<ArrowDownIcon />}
-            label="Допомога"
-            isOpen={footerState.openedSection === 'Допомога'}
-            onToggle={toggleSection}
-          /> :
-          <FooterItem
-            links={companyLinks}
-            icon={<ArrowDownIcon />}
-            label="Для вас"
-            isOpen={footerState.openedSection === 'Для вас'}
-            onToggle={toggleSection}
-          />}
+          {!isMobile ? (renderFooterItem(supportFullLinks, <ArrowDownIcon />, 'Допомога', 'Допомога', isMobile)) :
+          (renderFooterItem(companyLinks, <ArrowDownIcon />, 'Для вас', 'Для вас', isMobile))}
 
           {/* 4 */}
-          {!isMobile ? 
           <div>
-          <p className={styles.labelTablet}>Приєднатися до нас</p>
-          <div className={styles.socialIcons} style={{marginBottom: '12px' }}>
+          {!isMobile ? renderSocialIcons() : ''}
+          {!isMobile ? renderBankIcons() : ''}
+          </div>
           
-              {socialIconsData.map(({ label, href, icon }) => (
-                <FooterIcon
-                  key={label}
-                  href={href}
-                  icon={icon}
-                  label={label}
-                  isActive={footerState.socialIconStates[label]}
-                  onClick={() => handleIconClick(label, true)}
-                />
-              ))}
-          </div> 
-          <p className={styles.labelTablet}>Приймаємо до сплати</p>
-          <div className={styles.bankIcons}>
-              {bankIconsData.map(({ label, href, icon }) => (
-                <FooterIcon
-                  key={label}
-                  href={href}
-                  icon={icon}
-                  label={label}
-                  isActive={footerState.bankIconStates[label]}
-                  onClick={() => handleIconClick(label, false)}
-                />
-              ))}
-            </div>  
-            </div>: ''}
         </div>
 
         <div className={styles.footerBox}>
         {!isMobile ? '' : <>
-        <a href="tel:+380685072222" className={styles.link}>
-            +38 (068) 507 22 22
-          </a>
-          
+        {renderContactInfo()}
           <div className={styles.footerIconsContainers}>
-            <div className={styles.socialIcons}>
-              {socialIconsData.map(({ label, href, icon }) => (
-                <FooterIcon
-                  key={label}
-                  href={href}
-                  icon={icon}
-                  label={label}
-                  isActive={footerState.socialIconStates[label]}
-                  onClick={() => handleIconClick(label, true)}
-                />
-              ))}
+              {renderSocialIcons()}
+              {renderBankIcons()}
             </div>
-            <div className={styles.bankIcons}>
-              {bankIconsData.map(({ label, href, icon }) => (
-                <FooterIcon
-                  key={label}
-                  href={href}
-                  icon={icon}
-                  label={label}
-                  isActive={footerState.bankIconStates[label]}
-                  onClick={() => handleIconClick(label, false)}
-                />
-              ))}
-            </div>
-          </div>
         </>}
         
           
@@ -202,7 +171,7 @@ export default function Footer({ onClick }) {
 
 <p className={styles.copy}>Copyright 2023 &copy; Бровко</p>
 <div className={styles.footerBottom}>
-      <BrovkoFooterIcon/>
+{!isMobile ? <BrovkoFooterIcon/> : ''}
 </div>
       
     </footer>
