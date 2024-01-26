@@ -3,6 +3,7 @@ import { addPopupOperation } from 'redux/popup/popupOperations';
 import { showWarning } from 'redux/warning/warningSlice';
 import CheckIcon from 'shared/icons/CheckIcon';
 import Input from 'shared/components/Input';
+import HeartIcon from 'shared/icons/HeartIcon';
 import styles from './TestingPage.module.scss';
 
 export default function TestingPage() {
@@ -35,7 +36,9 @@ export default function TestingPage() {
 
   return (
     <>
-      <CheckIcon check="#68BAEE" />
+      <HeartIcon className={styles.heart} />
+      <HeartIcon checked className={styles.heart2} />
+      {/* <CheckIcon check="#68BAEE" />
       <h1>It IS Testing Page</h1>
       <button type="button" onClick={go1}>
         Success
@@ -57,7 +60,7 @@ export default function TestingPage() {
         MODAL
       </button>
       <br />
-      <Input />
+      <Input /> */}
     </>
   );
 }
