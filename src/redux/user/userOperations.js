@@ -158,6 +158,29 @@ export const forgotPassword = createAsyncThunk(
   }
 );
 
+export const resetPassword = createAsyncThunk(
+  'user/resetPassword',
+  async ({ token, password }, { rejectWithValue }) => {
+    try {
+      const result = await api.resetPassword(token, password);
+      return result;
+    } catch ({ response }) {
+      // console.log(response.data.message);
+      if (response) {
+        const { status } = response;
+
+        if (status === 401) {
+          return rejectWithValue(
+            'Посилання на зміну паролю недійсне або прострочено!'
+          );
+        }
+      } else {
+        return rejectWithValue('Щось пішло не так... Спробуйте пізніше!');
+      }
+    }
+  }
+);
+
 export const usersOrdersHistory = createAsyncThunk(
   'user/orders-history',
   async (_, { rejectWithValue }) => {
