@@ -181,7 +181,9 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
         alt={`preview-${index + 1}`}
         className={styles.img}
       />
-      <button
+      <div
+        type="button"
+        key={index + 'trash'}
         className={styles.deleteIcon}
         onClick={e => {
           setPrompDelete(true);
@@ -189,7 +191,7 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
         }}
       >
         <TrashIcon className={styles.trash} />
-      </button>
+      </div>
     </Button>
   ));
 

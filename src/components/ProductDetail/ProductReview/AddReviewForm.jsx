@@ -325,7 +325,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
                 {errorTextQuantity ||
                   `Ви можете додавати до ${
                     5 - selectedPicturesReview.length
-                  } фото у форматі .jpg, .jpeg, .png. Кожен файл не може перевищувати 5 Мб.`}
+                  } фото у форматі .jpg, .jpeg, .png. Кожен файл не може перевищувати 10 Мб.`}
               </p>
             </>
           )}
