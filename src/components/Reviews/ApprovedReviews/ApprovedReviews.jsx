@@ -16,9 +16,9 @@ export default function ApprovedReviews({ ...props }) {
   return (
     <ul>
       {reviews.length > 0 &&
-        reviews.map(review => {
+        reviews.map((review, index) => {
           return (
-            <li>
+            <li key={index}>
               <ReviewItem review={review} />
             </li>
           );

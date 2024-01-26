@@ -40,7 +40,7 @@ export default function ModerateReviewsSwitcher({ ...props }) {
                 : ''
             }`}
           >
-            Сумнівні
+            Відхилені
           </NavLink>
         </li>
       </ul>
