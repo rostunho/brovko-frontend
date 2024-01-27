@@ -1,19 +1,22 @@
 @import 'theme/abstract/mixins';
 
+
 .list {
+  
   list-style: none;
-  // text-align: center;
   margin: 0;
-  margin-top: 32px;
   padding-left: 15px;
 
   @media screen and (min-width: 768px) {
-    margin-top: 92px;
+    display: flex;
+  flex-direction: row;
+  gap: 20px;
   }
 
   @media screen and (min-width: 1280px) {
     display: flex;
     margin: 0;
+    gap: 32px;
   }
 }
 
@@ -22,7 +25,8 @@
   margin-bottom: 20px;
 
   @media screen and (min-width: 768px) {
-    margin-bottom: 60px;
+    margin-top: 0px;
+    margin-bottom: 0px;
   }
 
   @media screen and (min-width: 1280px) {
@@ -53,12 +57,18 @@
   }
 
   @media screen and (min-width: 768px) {
-    font-size: 48px;
+   
+font-size: 22px;
+line-height: 32px; /* 145.455% */
+letter-spacing: 0.66px;
   }
 
   @media screen and (min-width: 1280px) {
-    font-size: 20px;
-    line-height: 1.35;
+   /* Menu Desktop */
+
+font-size: 24px;
+line-height: 36px; /* 150% */
+letter-spacing: 0.72px;
   }
 }
 
