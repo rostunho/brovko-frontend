@@ -25,7 +25,7 @@ export const supportFullLinks = [
 
 export const companyLinks = [
   { url: '/shop/product-list-page', label: 'Крамничка' },
-  { url: '/actions', label: 'Акції' },
+  { url: '/shop/actions', label: 'Акції' },
 ];
 
 export const socialIconsData = [
