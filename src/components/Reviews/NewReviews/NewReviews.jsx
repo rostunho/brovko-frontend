@@ -5,6 +5,8 @@ import ReviewItem from 'components/ProductDetail/ProductReview/ReviewItem';
 export default function NewReviews({ ...props }) {
   const [reviews, setReviews] = useState([]);
 
+  console.log('reviews[0] :>> ', reviews[0]);
+
   useEffect(() => {
     (async () => {
       const { data } = await getReviewsByStatus('new');

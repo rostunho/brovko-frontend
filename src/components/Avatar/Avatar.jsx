@@ -19,6 +19,8 @@ const Avatar = ({
   marginBottom = 32,
   fontSize = 36,
   border = 'none',
+  locked = false,
+  src,
 }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const openModalEditPhoto = () => {
@@ -96,6 +98,34 @@ const Avatar = ({
   // });
   const resetPromp = () => setPrompDelete(false);
 
+  if (locked) {
+    return (
+      <div
+        className={styles.wrapper}
+        style={{
+          width: size,
+          height: size,
+          marginLeft,
+          marginRight,
+          marginBottom,
+          border:
+            status === 'customer' ? '2px solid #F3A610' : '2px solid #4d95c3',
+        }}
+        // onClick={openModalEditPhoto}
+      >
+        <Image
+          className={styles.avatar}
+          src={src || avatarURL}
+          text={firstName || email}
+          height={size}
+          width={size}
+          fontSize={fontSize}
+        />
+        {size > '40px' && <CameraIcon className={styles.cameraIcon} />}
+      </div>
+    );
+  }
+
   return (
     <>
       <Button
@@ -119,7 +149,7 @@ const Avatar = ({
           width={size}
           fontSize={fontSize}
         />
-        {size !== '32px' && <CameraIcon className={styles.cameraIcon} />}
+        {size > '40px' && <CameraIcon className={styles.cameraIcon} />}
       </Button>
       {modalIsOpen && (
         <Modal closeModal={closeModalEditPhoto}>
