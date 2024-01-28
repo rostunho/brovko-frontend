@@ -1,3 +1,5 @@
+@import 'theme/abstract/_mixins.scss';
+
 .inner-container {
   display: flex;
   justify-content: start;
@@ -35,6 +37,7 @@
 }
 
 .button {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,4 +79,22 @@
   rotate: 45deg;
   //   stroke: #fff;
   fill: red;
+}
+
+.prompt {
+  position: absolute;
+  z-index: 100;
+
+  right: 0;
+  top: -40px;
+  display: block;
+
+  padding: 8px 16px;
+
+  @include text-styles(Nunito, 12px);
+  color: var(--gray-color);
+
+  border: var(--border-gray);
+  border-radius: 8px;
+  background-color: var(--white-bg-color);
 }

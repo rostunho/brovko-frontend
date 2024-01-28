@@ -71,7 +71,7 @@ export default function NewReviewItem() {
 
       {isAdmin && (
         <ReviewItemAdminBar
-          mode="approved"
+          mode="new"
           name={
             review?.status?.approvedBy?.userName ||
             review?.status?.approvedBy?.userEmail
