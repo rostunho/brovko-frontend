@@ -1,7 +1,6 @@
 @import 'shared/components/QuantityButtonModal/QuantityButtonModal.module.scss';
 @import 'theme/abstract/mixins';
 
-
 .productCard {
   // max-width: 448px;
   width: 92vw;
@@ -19,12 +18,9 @@
   @media screen and (min-width: 768px) and (max-width: 1200px) {
     width: 736px;
   }
-
-  
 }
 
 .productHalfCard {
-
   @media screen and (min-width: 768px) and (max-width: 1200px) {
     display: flex;
     gap: 32px;
@@ -32,21 +28,19 @@
   }
 }
 
-.productQuarterCard{
- 
+.productQuarterCard {
   @media screen and (min-width: 768px) and (max-width: 1200px) {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 352px;
-  // border: solid green 1px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 352px;
+    // border: solid green 1px;
   }
   @media screen and (min-width: 1200px) {
     display: flex;
     // border: solid yellowgreen 1px;
   }
 }
-
 
 .image {
   width: 100%;
@@ -64,12 +58,11 @@
 
   @media screen and (min-width: 768px) {
     width: 352px;
-height: 292px;
+    height: 292px;
   }
 }
 
 .price {
- 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -88,14 +81,13 @@ height: 292px;
   }
 }
 
-.priceQuantity{
- 
+.priceQuantity {
   @media screen and (min-width: 768px) {
-     display: flex;
-     flex-direction: row;
-     justify-content: space-between;
-     margin-top: 17px;
-     margin-bottom: -5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 17px;
+    margin-bottom: -5px;
   }
 }
 
@@ -113,7 +105,6 @@ height: 292px;
   width: 100%;
   padding: 32px 0 24px 0;
 }
-
 
 .amount {
   display: flex;
@@ -140,4 +131,3 @@ height: 292px;
   width: 1.5rem;
   height: 1.5rem;
 }
-
