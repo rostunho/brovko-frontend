@@ -9,7 +9,7 @@
   text-align: center;
 }
 
-.link {
+.button {
   font-family: 'Nunito', sans-serif;
   font-size: 14px;
   font-style: normal;
@@ -18,12 +18,12 @@
   // /* основний текст */
   // @include text-styles;
   color: var(--black-text-color);
+  background: none;
+  border: none;
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:active {
     color: var(--accent-color);
   }
-}
-.link--active {
-  color: var(--accent-color);
 }

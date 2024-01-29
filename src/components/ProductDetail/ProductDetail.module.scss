@@ -2,7 +2,7 @@
 @import 'theme/abstract/mixins';
 
 .productCard {
-  max-width: 448px;
+  // max-width: 448px;
   width: 92vw;
   display: flex;
   flex-direction: column;
@@ -16,11 +16,31 @@
   }
 
   @media screen and (min-width: 768px) and (max-width: 1200px) {
-    width: 288px;
-    height: 100%;
+    width: 736px;
   }
 }
 
+.productHalfCard {
+  @media screen and (min-width: 768px) and (max-width: 1200px) {
+    display: flex;
+    gap: 32px;
+    // border: solid yellowgreen 1px;
+  }
+}
+
+.productQuarterCard {
+  @media screen and (min-width: 768px) and (max-width: 1200px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 352px;
+    // border: solid green 1px;
+  }
+  @media screen and (min-width: 1200px) {
+    display: flex;
+    // border: solid yellowgreen 1px;
+  }
+}
 
 .image {
   width: 100%;
@@ -37,18 +57,40 @@
   }
 
   @media screen and (min-width: 768px) {
-    width: 264px;
-    height: 264px;
+    width: 352px;
+    height: 292px;
   }
 }
 
 .price {
-  // border: 1px solid var(--Accent, #f3a610);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 1px;
+  width: 352px;
+  margin-top: 12px;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: column;
+    margin-top: 20px;
+  }
 }
+
+.priceHeading {
+  @media screen and (min-width: 768px) {
+    // background-color: rgb(171, 171, 250);
+  }
+}
+
+.priceQuantity {
+  @media screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 17px;
+    margin-bottom: -5px;
+  }
+}
+
 //==============
 .title {
   color: var(--black-text-color);
@@ -63,7 +105,6 @@
   width: 100%;
   padding: 32px 0 24px 0;
 }
-
 
 .amount {
   display: flex;
@@ -90,4 +131,3 @@
   width: 1.5rem;
   height: 1.5rem;
 }
-

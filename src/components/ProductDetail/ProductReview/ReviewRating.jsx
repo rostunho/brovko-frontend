@@ -1,5 +1,5 @@
 import StarEmpty from 'shared/icons/StarEmpty';
-import styles from '../ProductDetail.module.scss';
+import styles from './ReviewRating.module.scss';
 
 export default function ReviewRating() {
   return (

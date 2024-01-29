@@ -10,9 +10,14 @@ import SharedLayout from 'components/SharedLayout/SharedLayout';
 import AllUsersRoutes from 'components/Routes/AllUsersRoutes';
 import ProductsRoutes from 'components/Routes/ProductsRoutes';
 import AuthRoutes from 'components/Routes/AuthRoutes';
-import AuthFormWrapper from 'components/AuthSection/AuthFormWrapper/AuthFormWrapper';
-import LoginForm from 'components/AuthSection/LoginForm/LoginForm';
-import OrderForm from 'components/OrderForm/OrderForm';
+
+const AuthFormWrapper = lazy(() =>
+  import('components/AuthSection/AuthFormWrapper/AuthFormWrapper')
+);
+const LoginForm = lazy(() =>
+  import('components/AuthSection/LoginForm/LoginForm')
+);
+const OrderForm = lazy(() => import('components/OrderForm/OrderForm'));
 const LazyMainPage = lazy(() => import('pages/MainPage/MainPage'));
 const LazyNotFoundPage = lazy(() => import('pages/NotFoundPage/NotFoundPage'));
 
@@ -52,12 +57,7 @@ function App() {
         <Route path="/admin" element={<AdminPage />}>
           <Route path=":productId" element={<AdminPage />} />
         </Route>
-        <Route path="moderate-reviews" element={<ModerateReviewPage />}>
-          <Route index element={<Navigate to="/moderate-reviews/new" />} />
-          <Route path="new" element={<NewReviews />} />
-          <Route path="approved" element={<ApprovedReviews />} />
-          <Route path="rejected" element={<RejectedReviews />} />
-        </Route>
+        <Route path="moderate-reviews" element={<ModerateReviewPage />} />
 
         <Route path="/order" element={<OrderPage />}>
           <Route

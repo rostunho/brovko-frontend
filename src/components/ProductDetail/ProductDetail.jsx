@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
+import useLayoutType from 'shared/hooks/useLayoutType';
+
 import { addOrder } from 'redux/basket/basketSlice';
 import { getAllOrders } from 'redux/basket/basketSelectors';
 import { selectUserStatus } from 'redux/user/userSelectors';
@@ -16,8 +18,10 @@ import ImageSlider from 'components/ProductDetail/ImageSlider';
 import Content from 'components/ProductDetail/Content';
 import QuantityButtons from 'shared/components/QuantityButtonModal/QuantityButtons';
 import Price from 'components/ProductDetail/Price';
+import { DeliveryAndPaymentBlock } from './DeliveryAndPaymentBlock';
 import Description from 'components/ProductDetail/ProductDescription/Description';
 import Review from 'components/ProductDetail/ProductReview/Review';
+import { PRODUCT_NOTE, DELIVERY_INFO, PAYMENT_INFO } from './productsFackeData.js'
 
 import styles from './ProductDetail.module.scss';
 
@@ -41,6 +45,12 @@ export default function ProductDetail({
   const navigate = useNavigate();
   const orders = useSelector(getAllOrders);
   const { isOpen, openModal, closeModal } = useModal();
+  
+  const layoutType = useLayoutType();
+
+  const isMobile = layoutType ==='mobile';
+  const isTablet = layoutType === 'tablet';
+  const isDesktop = layoutType === 'desktop';
 
   // useEffect(() => {
   //   getProductById(productId).then(product => setProduct(product));
@@ -49,7 +59,11 @@ export default function ProductDetail({
   if (!product) {
     return;
   }
-  const { _id, picture, name, note, price, currencyId } = product;
+  const { _id, picture, name, price, currencyId } = product;
+
+  const note = PRODUCT_NOTE;
+  const delivery = DELIVERY_INFO;
+  const payment = PAYMENT_INFO;
 
   // const handleAddPopup = text => {
   //   dispatch(addPopupOperation(text));
@@ -71,7 +85,7 @@ export default function ProductDetail({
   };
 
   return (
-    <div className={styles.container}>
+   
       <div className={styles.productCard}>
         {userStatus === 'manager' ||
           (userStatus === 'superadmin' && (
@@ -79,18 +93,29 @@ export default function ProductDetail({
               РЕДАГУВАТИ
             </Button>
           ))}
-        <div>
           <Rating product={product} />
+        <div className={styles.productHalfCard}>
+        <div className={styles.productQuarterCard}>
+       
           <div className={styles.image}>
             <Image src={picture} />
           </div>
           <ImageSlider picture={picture} />
+        </div>
+          
+<div className={styles.productQuarterCard}>
           <Content note={note} />
           <div className={styles.price}>
-            <h3>
+            <h3 className={styles.priceHeading}>
+            {isTablet ? 'Ціна: ' : null}
               {price} {currencyId}
             </h3>
-            <QuantityButtons value={value} setValue={setValue} />
+            <h3 className={styles.priceQuantity}>
+            {isTablet  ? 'Кількість:' : null}
+            <QuantityButtons  value={value} setValue={setValue} />
+            </h3>
+           
+           
           </div>
           <Button
             onClick={handleAddToCart}
@@ -101,15 +126,24 @@ export default function ProductDetail({
           >
             {orderInBasket ? 'Видалити з кошика' : 'Додати в кошик'}
           </Button>
-          {isOpen && <ModalProductsInBasket closeModal={closeModal} />}
-        </div>
 
-        <Description
+          {isOpen && <ModalProductsInBasket closeModal={closeModal} />}
+
+          {isTablet  && <DeliveryAndPaymentBlock delivery={delivery} payment={payment}/>}
+        </div>
+        
+</div>
+          <div className={styles.productHalfCard}>
+          <div className={styles.productQuarterCard}>
+          <Description
           product={product}
           isExpandedDescription={isExpandedDescription}
           location={location}
           handleReadMoreClick={handleReadMoreClick}
         />
+          </div>
+          
+          <div className={styles.productQuarterCard}>
         <Review
           isExpandedReview={isExpandedReview}
           location={location}
@@ -118,7 +152,11 @@ export default function ProductDetail({
           reviewsError={reviewsError}
           product={product}
         />
+        </div>
+          </div>
+
+        
       </div>
-    </div>
+   
   );
 }
