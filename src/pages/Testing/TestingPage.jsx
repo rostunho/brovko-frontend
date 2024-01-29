@@ -39,9 +39,9 @@ export default function TestingPage() {
     <>
       <HeartIcon className={styles.heart} />
       <HeartIcon checked className={styles.heart2} />
+      {/* <NewReviewItem />
       <NewReviewItem />
-      <NewReviewItem />
-      <NewReviewItem />
+      <NewReviewItem /> */}
       {/* <CheckIcon check="#68BAEE" />
       <h1>It IS Testing Page</h1>
       <button type="button" onClick={go1}>
