@@ -14,6 +14,11 @@ export default function ProductsNav({ onClick }) {
             Крамничка
           </NavLink>
         </li>
+        <li className={styles.item} onClick={onClick}>
+          <NavLink className={styles.link} to="/shop/favourites">
+            Обрані
+          </NavLink>
+        </li>
       </ul>
     </nav>
     //

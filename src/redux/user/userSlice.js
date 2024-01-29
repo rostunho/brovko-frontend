@@ -20,16 +20,29 @@ const initialState = {
   loading: false,
   error: null,
   resetToken: '',
+  favouriteProducts: [],
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  // reducers: {
-  //   resetError: state => {
-  //     state.error = null;
-  //   },
-  // },
+  reducers: {
+    // resetError: state => {
+    //   state.error = null;
+    // },
+    addItemToFavourite: (state, { payload }) => {
+      if (!state.favouriteProducts.some(({ id }) => id === payload.id)) {
+        // Товар не знайдено у списку, додаємо його
+        state.favouriteProducts = [...state.favouriteProducts, { ...payload }];
+      }
+    },
+    removeItemFromFavourite: (state, { payload }) => {
+      console.log(payload);
+      state.favouriteProducts = state.favouriteProducts.filter(
+        ({ id }) => id !== payload
+      );
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(register.pending, state => {
@@ -164,6 +177,7 @@ const userSlice = createSlice({
       });
   },
 });
-// export const { resetError } = userSlice.actions;
+export const { addItemToFavourite, removeItemFromFavourite } =
+  userSlice.actions;
 
 export default userSlice.reducer;
