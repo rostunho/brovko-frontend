@@ -26,7 +26,7 @@ export default function NewReviewItem() {
         userName: 'Testing Name',
         userEmail: 'testing@email.com',
       },
-      approvedAt: null,
+      approvedAt: '2024-01-23T17:34:46.244+00:00',
     },
     owner: {
       userId: '655405b5f665faef65fc89fb',
@@ -71,7 +71,7 @@ export default function NewReviewItem() {
 
       {isAdmin && (
         <ReviewItemAdminBar
-          mode="new"
+          mode="rejected"
           name={
             review?.status?.approvedBy?.userName ||
             review?.status?.approvedBy?.userEmail
