@@ -1,19 +1,21 @@
 import { useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUserStatus } from 'redux/user/userSelectors';
+import { getProductById } from 'shared/services/api';
 
 import ReviewItemAdminBar from './ReviewItemAdminBar/ReviewItemAdminBar';
 import ReviewItemImageBox from './ReviewItemImageBox/ReviewItemImageBox';
 import Avatar from 'components/Avatar';
 import ReviewRating from 'components/ProductDetail/ProductReview/ReviewRating';
-import Button from '../Button';
-import Image from '../Image';
+// import Button from '../Button';
+// import Image from '../Image';
 import styles from './NewReviewItem.module.scss';
 
 export default function NewReviewItem({ review }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const userStatus = useSelector(selectUserStatus);
   const isAdmin = userStatus === 'manager' || userStatus === 'superadmin';
+  //   const product = getProductById(review.productId);
 
   //   console.log(
   //     'search params into NewReviewItem >>:',
@@ -50,6 +52,7 @@ export default function NewReviewItem({ review }) {
 
   return (
     <li className={styles.container}>
+      <p className={styles.product}>{review.productName}</p>
       <div className={styles.author}>
         <Avatar
           src={review.owner.avatarURL}
@@ -81,6 +84,11 @@ export default function NewReviewItem({ review }) {
             review?.status?.approvedBy?.userEmail
           }
           date={new Date(review.status.approvedAt).toLocaleString()}
+          ids={{
+            productId: review.productId,
+            commentId: review.commentId,
+            textId: review.textId,
+          }}
         />
       )}
     </li>

@@ -74,7 +74,7 @@ export const getProductsByKeywords = async (
 
 export const getProductById = async id => {
   const { data } = await instance.get(`/products/product/${id}`);
-  // console.log('data in product-api >> :', data);
+  console.log('data in product-api >> :', data);
   return data;
 };
 
@@ -91,7 +91,7 @@ export const addNewProduct = async (body, files = []) => {
     data.append('requestBody', bodyToSend);
     files.forEach(item => {
       if ('file' in item && item.file instanceof File) {
-        console.log(item.file)
+        console.log(item.file);
         data.append(`picture`, item.file);
       } else if ('url' in item) {
         data.append(`picture`, item.url);

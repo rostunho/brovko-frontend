@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom';
 import Rectangle from 'components/Rectangle';
 import styles from './ModerateReviewsSwitcher.module.scss';
 
@@ -7,12 +8,21 @@ export default function ModerateReviewsSwitcher({
   onRejectedClick,
   ...props
 }) {
+  const [, setSearchParams] = useSearchParams();
+
+  const changeCommentsCategory = category => {
+    setSearchParams({ comments: category });
+  };
   return (
     <>
       <Rectangle />
       <ul className={styles.list}>
         <li>
-          <button type="button" className={styles.button} onClick={onNewClick}>
+          <button
+            type="button"
+            className={styles.button}
+            onClick={() => changeCommentsCategory('new')}
+          >
             Нові
           </button>
         </li>
@@ -20,7 +30,7 @@ export default function ModerateReviewsSwitcher({
           <button
             type="button"
             className={styles.button}
-            onClick={onApprovedClick}
+            onClick={() => changeCommentsCategory('approved')}
           >
             Затверджені
           </button>
@@ -29,7 +39,7 @@ export default function ModerateReviewsSwitcher({
           <button
             type="button"
             className={styles.button}
-            onClick={onRejectedClick}
+            onClick={() => changeCommentsCategory('rejected')}
           >
             Відхилені
           </button>
