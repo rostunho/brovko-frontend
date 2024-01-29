@@ -1,47 +1,48 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import Rectangle from 'components/Rectangle';
 import styles from './ModerateReviewsSwitcher.module.scss';
 
-export default function ModerateReviewsSwitcher({ ...props }) {
-  const { pathname } = useLocation();
+export default function ModerateReviewsSwitcher({
+  onNewClick,
+  onApprovedClick,
+  onRejectedClick,
+  ...props
+}) {
+  const [, setSearchParams] = useSearchParams();
 
+  const changeCommentsCategory = category => {
+    setSearchParams({ comments: category });
+  };
   return (
     <>
       <Rectangle />
       <ul className={styles.list}>
         <li>
-          <NavLink
-            to="/moderate-reviews/new"
-            className={`${styles.link} ${
-              pathname === '/moderate-reviews/new' ? styles['link--active'] : ''
-            }`}
+          <button
+            type="button"
+            className={styles.button}
+            onClick={() => changeCommentsCategory('new')}
           >
             Нові
-          </NavLink>
+          </button>
         </li>
         <li>
-          <NavLink
-            to="/moderate-reviews/approved"
-            className={`${styles.link} ${
-              pathname === '/moderate-reviews/approved'
-                ? styles['link--active']
-                : ''
-            }`}
+          <button
+            type="button"
+            className={styles.button}
+            onClick={() => changeCommentsCategory('approved')}
           >
             Затверджені
-          </NavLink>
+          </button>
         </li>
         <li>
-          <NavLink
-            to="/moderate-reviews/rejected"
-            className={`${styles.link} ${
-              pathname === '/moderate-reviews/rejected'
-                ? styles['link--active']
-                : ''
-            }`}
+          <button
+            type="button"
+            className={styles.button}
+            onClick={() => changeCommentsCategory('rejected')}
           >
             Відхилені
-          </NavLink>
+          </button>
         </li>
       </ul>
       <Rectangle />
