@@ -115,7 +115,7 @@ export default function ProductList({
     if (keyWord) {
       setPage(1);
       fetchProductsByKeyword(keyWord, 1, perPage, sort.field, sort.order);
-    } else if (categoryId) {
+    } else if (categoryId && categoryId !== 'all') {
       setPage(1);
       fetchProductsByCategory(categoryId, 1, perPage, sort.field, sort.order);
     } else if (!keyWord && categoryId === 'all') {
