@@ -135,7 +135,18 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
 
   const resetPromp = () => setPrompDelete(false);
 
-  const handleDragStart = (e, index) => {
+  useEffect(() => {
+    const element = document.querySelector(`.${styles.imgContainer}`);
+    if (element) {
+      element.addEventListener('touchmove', handleTouchMove, { passive: false });
+  
+      return () => {
+        element.removeEventListener('touchmove', handleTouchMove);
+      };
+    }
+  }, []);
+
+  const handleDragStart = (e) => {
     e.dataTransfer.setData('text/plain', index);
   };
 
@@ -163,17 +174,52 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
     }));
     setSelectedPictures(reorderedPictures);
   };
+
+  let startX, startY;
+
+  const handleTouchStart = (e) => {
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  };
+
+  const handleTouchMove = (e) => {
+    e.preventDefault();
+    console.log("Touch move detected");
+    if (!startX || !startY) {
+      return;
+    }
+    const touchX = e.touches[0].clientX;
+    const touchY = e.touches[0].clientY;
+
+    const deltaX = touchX - startX;
+    const deltaY = touchY - startY;
+
+    const container = e.target.closest(`.${styles.imgContainer}`);
+    if (container) {
+      container.style.tranform = `translate(${deltaX}px, ${deltaY}px)`;
+    }
+  };
+
+  const handleTouchEnd = (e, toIndex) => {
+    startX = null;
+    startY = null;
+  };
+
   const images = selectedPictures.map(({ id, url }, index) => (
     <Button
       key={index}
       className={styles.btn}
       type="button"
-      draggable
-      onDragStart={e => handleDragStart(e, index)}
-      onDrop={e => handleDrop(e, index)}
+      // draggable
+      // onDragStart={e => handleDragStart(e, index)}
+      // onDrop={e => handleDrop(e, index)}
+      onTouchStart={e => handleTouchStart(e )}
+      onTouchMove={e => handleTouchMove(e)}
+      // onTouchEnd={handleTouchEnd}
       onClick={e => {
         openModalEditPhoto(index, url);
       }}
+
     >
       <Image
         key={index}
@@ -271,7 +317,15 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
             ? 'Перше фото буде головним в картці товару. Перетягни, щоб змінити порядок фото.'
             : 'У суперадміна є суперздібність! Ти можеш додавати необмежену кількість фотографій товару!'}{' '}
         </p>
-        <div className={styles.imgContainer} onDragOver={handleDragOver}>
+        <div
+          className={styles.imgContainer}
+          // onDragOver={handleDragOver}
+          // onTouchStart={handleTouchStart}
+          // onTouchMove={handleTouchMove}
+          onTouchStart={e => handleTouchStart(e, index)}
+          onTouchMove={e => handleTouchMove(e, index)}
+          onTouchEnd={handleTouchEnd}
+                >
           {images}
           {inputPhoto}
         </div>
