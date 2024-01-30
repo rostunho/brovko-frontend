@@ -6,7 +6,7 @@ import { selectReviewError } from 'redux/reviews/reviewsSelectors';
 import Button from 'shared/components/Button';
 import AddReviewForm from './AddReviewForm';
 import { ReviewStatistics } from './ReviewStatistics';
-import ErrorNotification from './ErrorNotification';
+import ErrorNotification from '../ProductData/ErrorNotification';
 import styles from './ReviewContainer.module.scss';
 
 export default function ReviewContainer() {

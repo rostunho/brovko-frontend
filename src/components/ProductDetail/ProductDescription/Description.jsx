@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import useLayoutType from 'shared/hooks/useLayoutType';
 import DescriptionText from './DescriptionText';
-import SharedLinkButton from '../SharedLinkButton';
+import SharedLinkButton from '../ProductDetailButtons/SharedLinkButton';
 
 import styles from './Description.module.scss';
 

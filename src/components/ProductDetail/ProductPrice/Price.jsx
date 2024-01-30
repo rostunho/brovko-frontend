@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import QuantityButtons from 'shared/components/QuantityButtonModal/QuantityButtons';
 
-import styles from './ProductDetail.module.scss';
+import styles from '../ProductDetail.module.scss';
 
 export default function Price({ price, currencyId }) {
   const [value, setValue] = useState(1);

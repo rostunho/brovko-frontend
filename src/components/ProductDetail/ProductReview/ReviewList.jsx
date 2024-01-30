@@ -38,7 +38,7 @@ function ReviewList({ reviews, isExpandedReview = true }) {
   
 
   return (
-    <div className={styles.reviewList}>
+    <ul className={styles.reviewList}>
       {displayedReviews &&
         displayedReviews.map(review => (
           <ReviewItem
@@ -47,7 +47,7 @@ function ReviewList({ reviews, isExpandedReview = true }) {
             isExpandedReview={isExpandedReview}
           />
         ))}
-    </div>
+    </ul>
   );
 }
 

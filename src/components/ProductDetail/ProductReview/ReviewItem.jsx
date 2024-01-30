@@ -59,7 +59,7 @@ const ReviewItem = ({ review, isExpandedReview }) => {
   return (
     <>
       {isExpandedReview ? (
-        <ul className={styles.reviewBox}>
+        <>
           <li className={styles.reviewItem}>
             <div className={styles.userInfo}>
               <div className={styles.avatarWrapper}>
@@ -108,7 +108,7 @@ const ReviewItem = ({ review, isExpandedReview }) => {
                 />
               ))}
           </li>
-        </ul>
+        </>
       ) : (
         <>
           <div className={styles.userInfo}>

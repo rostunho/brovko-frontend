@@ -31,7 +31,7 @@ const Navigation = () => {
   console.log('showMobileMenu', showMobileMenu)
 
   return (
-    <div className={styles.navigation}>
+    <nav className={styles.navigation}>
     {isMobile && (
       <>
         <Button mode={showMobileMenu ? "close" : "menu"} size="lg" onClick={toggleMobileMenu} />
@@ -46,7 +46,7 @@ const Navigation = () => {
     )}
     {isTablet && (<><ProductrNav/> <AllUserNav/></>)}
     {isDesktop &&  (<><ProductrNav/> <AllUserNav/><HeartIcon/></>)}
-  </div>
+  </nav>
   );
 };
 

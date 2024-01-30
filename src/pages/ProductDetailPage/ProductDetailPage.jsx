@@ -64,6 +64,15 @@ export default function ProductDetailPage() {
     }
    
   };
+
+
+  console.log('reviews', reviews);
+  const approvedReviews = reviews.map(review => ({
+    ...review,
+    comments: review.comments.filter(comment => comment.text.status.approved),
+  }));
+  console.log('approvedReviews', approvedReviews);
+
  
 
   const handleReadMoreClick = () => {
@@ -87,7 +96,7 @@ export default function ProductDetailPage() {
     
       <ProductDetail
         product={product}
-        reviews={reviews}
+        reviews={approvedReviews}
         reviewsError={reviewsError}
         isExpandedDescription={isExpandedDescription}
         isExpandedReview={isExpandedReview}
