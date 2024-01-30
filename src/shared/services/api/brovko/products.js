@@ -122,16 +122,16 @@ export const addNewProduct = async (body, files = []) => {
     // forEach(file => {
     //   data.append('files[]', file);
     // });
-    console.log(data);
-    for (const pair of data.entries()) {
-      const [name, value] = pair;
-      console.log(pair);
-      if (value instanceof File) {
-        console.log(`Field name: ${name}, File: ${value.name}`);
-      } else {
-        console.log(`Field name: ${name}, Value: ${value}`);
-      }
-    }
+    // console.log(data);
+    // for (const pair of data.entries()) {
+    //   const [name, value] = pair;
+    //   console.log(pair);
+    //   if (value instanceof File) {
+    //     console.log(`Field name: ${name}, File: ${value.name}`);
+    //   } else {
+    //     console.log(`Field name: ${name}, Value: ${value}`);
+    //   }
+    // }
     const response = await axios.post(url, data, { headers });
     console.log('Post request response:', response.data.status);
     console.log(response.data.message);
