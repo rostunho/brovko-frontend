@@ -39,7 +39,7 @@ const Navigation = () => {
           />
           {showMobileMenu && (
             <MobileMenu onClick={toggleMobileMenu} isMobile={isMobile}>
-              <ProductrNav onClick={toggleMobileMenu} />
+              <ProductrNav isMobile={isMobile} onClick={toggleMobileMenu} />
               <AllUserNav onClick={toggleMobileMenu} />
               <AuthNav onClick={toggleMobileMenu} />
             </MobileMenu>
@@ -58,35 +58,6 @@ const Navigation = () => {
         </>
       )}
     </nav>
-    // <div className={styles.navigation}>
-    //   {isMobile && (
-    //     <>
-    //       <Button
-    //         mode={showMobileMenu ? 'close' : 'menu'}
-    //         size="lg"
-    //         onClick={toggleMobileMenu}
-    //       />
-    //       {showMobileMenu && (
-    //         <MobileMenu onClick={toggleMobileMenu} isMobile={isMobile}>
-    //           <ProductrNav onClick={toggleMobileMenu} />
-    //           <AllUserNav onClick={toggleMobileMenu} />
-    //           <AuthNav onClick={toggleMobileMenu} />
-    //         </MobileMenu>
-    //       )}
-    //     </>
-    //   )}
-    //   {isTablet && (
-    //     <>
-    //       <ProductrNav /> <AllUserNav />
-    //     </>
-    //   )}
-    //   {isDesktop && (
-    //     <>
-    //       <ProductrNav /> <AllUserNav />
-    //       <HeartIcon />
-    //     </>
-    //   )}
-    // </div>
   );
 };
 
