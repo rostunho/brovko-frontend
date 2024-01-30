@@ -14,7 +14,7 @@ import styles from './Navigation.module.scss';
 
 const Navigation = () => {
   const layoutType = useLayoutType();
-  const isMobile = layoutType ==='mobile';
+  const isMobile = layoutType === 'mobile';
   const isTablet = layoutType === 'tablet';
   const isDesktop = layoutType === 'desktop';
   // const userLoggedIn = true;
@@ -28,25 +28,65 @@ const Navigation = () => {
     setShowMobileMenu(showMobileMenu => !showMobileMenu);
   };
 
-  console.log('showMobileMenu', showMobileMenu)
-
   return (
     <nav className={styles.navigation}>
-    {isMobile && (
-      <>
-        <Button mode={showMobileMenu ? "close" : "menu"} size="lg" onClick={toggleMobileMenu} />
-        {showMobileMenu && (
-          <MobileMenu onClick={toggleMobileMenu} isMobile={isMobile}>
-            <ProductrNav onClick={toggleMobileMenu} />
-            <AllUserNav onClick={toggleMobileMenu} />
-            <AuthNav onClick={toggleMobileMenu} />
-          </MobileMenu>
-        )}
-      </>
-    )}
-    {isTablet && (<><ProductrNav/> <AllUserNav/></>)}
-    {isDesktop &&  (<><ProductrNav/> <AllUserNav/><HeartIcon/></>)}
-  </nav>
+      {isMobile && (
+        <>
+          <Button
+            mode={showMobileMenu ? 'close' : 'menu'}
+            size="lg"
+            onClick={toggleMobileMenu}
+          />
+          {showMobileMenu && (
+            <MobileMenu onClick={toggleMobileMenu} isMobile={isMobile}>
+              <ProductrNav onClick={toggleMobileMenu} />
+              <AllUserNav onClick={toggleMobileMenu} />
+              <AuthNav onClick={toggleMobileMenu} />
+            </MobileMenu>
+          )}
+        </>
+      )}
+      {isTablet && (
+        <>
+          <ProductrNav /> <AllUserNav />
+        </>
+      )}
+      {isDesktop && (
+        <>
+          <ProductrNav /> <AllUserNav />
+          <HeartIcon />
+        </>
+      )}
+    </nav>
+    // <div className={styles.navigation}>
+    //   {isMobile && (
+    //     <>
+    //       <Button
+    //         mode={showMobileMenu ? 'close' : 'menu'}
+    //         size="lg"
+    //         onClick={toggleMobileMenu}
+    //       />
+    //       {showMobileMenu && (
+    //         <MobileMenu onClick={toggleMobileMenu} isMobile={isMobile}>
+    //           <ProductrNav onClick={toggleMobileMenu} />
+    //           <AllUserNav onClick={toggleMobileMenu} />
+    //           <AuthNav onClick={toggleMobileMenu} />
+    //         </MobileMenu>
+    //       )}
+    //     </>
+    //   )}
+    //   {isTablet && (
+    //     <>
+    //       <ProductrNav /> <AllUserNav />
+    //     </>
+    //   )}
+    //   {isDesktop && (
+    //     <>
+    //       <ProductrNav /> <AllUserNav />
+    //       <HeartIcon />
+    //     </>
+    //   )}
+    // </div>
   );
 };
 

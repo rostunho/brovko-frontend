@@ -130,3 +130,31 @@
   justify-content: space-between;
   gap: 24px;
 }
+
+.heart_icon {
+  position: absolute;
+  top: 7px;
+  right: 16px;
+  z-index: 20;
+
+  stroke: rgba(243, 166, 16, 1);
+  fill: transparent;
+
+  cursor: pointer;
+
+  transition: stroke 0.3s ease 0s, fill 0.3s ease 0s;
+}
+
+.heart_icon:hover {
+  fill: rgba(243, 166, 16, 1); /* Змініть фон при наведенні */
+}
+
+.heart_icon_checked {
+  fill: rgba(243, 166, 16, 1);
+  stroke: rgba(243, 166, 16, 1);
+}
+
+.heart_icon_checked:hover {
+  stroke: rgba(243, 166, 16, 1);
+  fill: transparent;
+}

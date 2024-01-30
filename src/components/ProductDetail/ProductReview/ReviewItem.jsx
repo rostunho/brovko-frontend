@@ -56,6 +56,23 @@ const ReviewItem = ({ review, isExpandedReview }) => {
     </Modal>
   );
 
+  const ImageGalery = ({ reviewURL }) => {
+    const images = reviewURL.map((reviewURL, index) => (
+      <Button
+        key={index}
+        className={styles.btn}
+        type="button"
+        onClick={e => {
+          openModalEditPhoto(index, reviewURL);
+        }}
+      >
+        <Image className={styles.imgReview} key={index} src={reviewURL} />
+      </Button>
+    ));
+
+    return images;
+  };
+
   return (
     <>
       {isExpandedReview ? (
@@ -82,22 +99,7 @@ const ReviewItem = ({ review, isExpandedReview }) => {
 
             {reviewURL && reviewURL[0] !== null && reviewURL.length > 0 && (
               <div className={styles.imgContainer}>
-                {reviewURL.map((reviewURL, index) => (
-                  <Button
-                    key={index}
-                    className={styles.btn}
-                    type="button"
-                    onClick={e => {
-                      openModalEditPhoto(index, reviewURL);
-                    }}
-                  >
-                    <Image
-                      className={styles.imgReview}
-                      key={index}
-                      src={reviewURL}
-                    />
-                  </Button>
-                ))}
+                <ImageGalery reviewURL={reviewURL} />
               </div>
             )}
             {status === 'manager' ||
@@ -132,13 +134,7 @@ const ReviewItem = ({ review, isExpandedReview }) => {
 
           {reviewURL && reviewURL[0] !== null && reviewURL.length > 0 && (
             <div className={styles.imgContainer}>
-              {reviewURL.map((reviewURL, index) => (
-                <Image
-                  className={styles.imgReview}
-                  key={index}
-                  src={reviewURL}
-                />
-              ))}
+              <ImageGalery reviewURL={reviewURL} />
             </div>
           )}
         </>

@@ -38,8 +38,8 @@ export const addNewCategory = async (body, update) => {
 
     const response = await axios.post(url, data, { headers });
 
-    console.log('Post request response:__________', response.data);
-    console.log(response.data.message);
+    // console.log('Post request response >>:', response.data);
+    console.log(response.data.result.message);
     return response.data;
   } catch (error) {
     console.log(error.message);

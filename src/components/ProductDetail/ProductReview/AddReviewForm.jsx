@@ -18,9 +18,9 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
   const [text, setText] = useState('');
   const [errorAddReview, setErrorAddReview] = useState(null);
 
-  const [selectedImages, setSelectedImages] = useState([]);
-  const [selectedPictures, setSelectedPictures] = useState([]);
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [selectedImagesReview, setSelectedImagesReview] = useState([]);
+  const [selectedPicturesReview, setSelectedPicturesReview] = useState([]);
+  const [selectedFilesReview, setSelectedFilesReview] = useState([]);
   const [prompEdit, setPrompEdit] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsImage, setModalIsImage] = useState(false);
@@ -43,7 +43,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
   };
 
   const delPhoto = id => {
-    setSelectedPictures(prevPictures => {
+    setSelectedPicturesReview(prevPictures => {
       const updatedPictures = prevPictures
         .filter(picture => picture.id !== id)
         .map((picture, index) => ({ ...picture, id: index }));
@@ -53,12 +53,12 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     dispatch(addPopupOperation('Фото видалено'));
   };
 
-  const handleImageChange = (e, xFiles = 5 - selectedPictures.length) => {
+  const handleImageChange = (e, xFiles = 5 - selectedPicturesReview.length) => {
     e.preventDefault();
     const files = Array.from(e.target.files);
 
     if (files.length > 0 && files.length <= xFiles) {
-      setSelectedFiles(files);
+      setSelectedFilesReview(files);
       addImages(files);
       setErrorTextQuantity(false);
     } else {
@@ -75,16 +75,15 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
 
   const handleDragOver = e => {
     e.preventDefault();
-    // console.log('handleDragOver')
   };
 
   const handleDrop = (e, toIndex) => {
     e.preventDefault();
     const fromIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
-    const draggedPicture = selectedPictures[fromIndex];
+    const draggedPicture = selectedPicturesReview[fromIndex];
 
-    // Create a copy of the selectedPictures array
-    const updatedPictures = [...selectedPictures];
+    // Create a copy of the selectedPicturesReview array
+    const updatedPictures = [...selectedPicturesReview];
 
     // Remove the picture from its original position
     updatedPictures.splice(fromIndex, 1);
@@ -97,7 +96,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
       id: index,
     }));
 
-    setSelectedPictures(reorderedPictures);
+    setSelectedPicturesReview(reorderedPictures);
   };
 
   const addImages = files => {
@@ -109,13 +108,13 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
       .map((file, index) => {
         if (file instanceof Blob) {
           return {
-            id: selectedPictures.length + index,
+            id: selectedPicturesReview.length + index,
             file, // Додаємо оригінальний файл до об'єкта
             url: URL.createObjectURL(file),
           };
         } else if (typeof file === 'string' && file.startsWith('blob:')) {
           return {
-            id: selectedPictures.length + index,
+            id: selectedPicturesReview.length + index,
             file, // Додаємо оригінальний файл до об'єкта
             url: file,
           };
@@ -127,8 +126,8 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
       })
       .filter(Boolean);
 
-    setSelectedImages(prevImages => [...prevImages, ...newImages]); // Змінено тут
-    setSelectedPictures(prevPictures => [...prevPictures, ...newImages]); // Змінено тут
+    setSelectedImagesReview(prevImages => [...prevImages, ...newImages]); // Змінено тут
+    setSelectedPicturesReview(prevPictures => [...prevPictures, ...newImages]); // Змінено тут
     dispatch(
       addPopupOperation(
         `Додано ${newImages.length} файл${
@@ -136,11 +135,10 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
         }`
       )
     );
-    setSelectedFiles([]);
+    setSelectedFilesReview([]);
   };
 
-
-  const images = selectedPictures.map(({ id, url }, index) => (
+  const images = selectedPicturesReview.map(({ id, url }, index) => (
     <Button
       key={index}
       className={styles.btn}
@@ -175,7 +173,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
   );
 
   const inputPhotos = () => {
-    const remainingInputs = Math.max(5 - selectedPictures.length, 0);
+    const remainingInputs = Math.max(5 - selectedPicturesReview.length, 0);
     const inputsPhoto = [];
 
     for (let index = 0; index < remainingInputs; index++) {
@@ -244,9 +242,9 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     const formData = new FormData();
     formData.append('productId', productId);
     formData.append('text', text);
-    console.log(selectedPictures);
-    console.log(selectedFiles);
-    selectedPictures.forEach(({ file }) => {
+    console.log(selectedPicturesReview);
+    console.log(selectedFilesReview);
+    selectedPicturesReview.forEach(({ file }) => {
       console.log(file);
       formData.append(`review`, file);
     });
@@ -254,33 +252,34 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     try {
       await submitReview(formData);
       setText('');
-      setSelectedPictures([]);
-      setSelectedFiles([]);
+      setSelectedPicturesReview([]);
+      setSelectedFilesReview([]);
       closeReviewInput();
-    } catch ( error ) {
+    } catch (error) {
       console.error('Error submiting review:', error.response.status);
       if (error.response.status === 403 || error.response.status === 401) {
         dispatch(
           addPopupOperation(
-            'Ви не можете додавати відгуки, поки не авторизуєтеся', 'error'
+            'Ви не можете додавати відгуки, поки не авторизуєтеся',
+            'error'
           )
         );
       } else {
         dispatch(
           addPopupOperation(
-            'Щось з відгуками пішло не так, спробуй пізніше', 'warning'
+            'Щось з відгуками пішло не так, спробуй пізніше',
+            'warning'
           )
         );
       }
-      
     } finally {
     }
     // try {
     //   await dispatch(fetchAddReview(formData));
 
     //   setText('');
-    //   setSelectedPictures([]);
-    //   setSelectedFiles([]);
+    //   setSelectedPicturesReview([]);
+    //   setSelectedFilesReview([]);
     //   closeReviewInput();
     // } catch ({ error }) {
     //   console.error('Error submitting review:', error);
@@ -316,7 +315,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
           {/* <PaperClip /> */}
           {images}
           {inputPhotos()}
-          {selectedPictures.length < 5 && (
+          {selectedPicturesReview.length < 5 && (
             <>
               <p
                 className={`${styles.titleText} ${
@@ -325,8 +324,8 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
               >
                 {errorTextQuantity ||
                   `Ви можете додавати до ${
-                    5 - selectedPictures.length
-                  } фото у форматі .jpg, .jpeg, .png. Кожен файл не може перевищувати 5 Мб.`}
+                    5 - selectedPicturesReview.length
+                  } фото у форматі .jpg, .jpeg, .png. Кожен файл не може перевищувати 10 Мб.`}
               </p>
             </>
           )}
