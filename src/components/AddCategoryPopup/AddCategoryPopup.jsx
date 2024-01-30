@@ -39,11 +39,11 @@ export default function AddCategoryPopup({
   }, [selectorValue]);
 
   const onSave = async () => {
-    const { updatedCategories } = await addNewCategory(requestBody, update);
-    console.log('RESPONSE IN ON-SAVE', updatedCategories);
+    const { result } = await addNewCategory(requestBody, update);
+    // console.log('RESPONSE IN ON-SAVE', result);
     // await getAllCategories();
-    updateCategories && updateCategories(updatedCategories);
-    formRef.current.reset();
+    updateCategories && updateCategories(result.updatedCategories);
+    // formRef.current.reset();
     closeModal();
   };
 
