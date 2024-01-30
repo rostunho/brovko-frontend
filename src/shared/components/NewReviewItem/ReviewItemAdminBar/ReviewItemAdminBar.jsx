@@ -69,7 +69,7 @@ export default function ReviewItemAdminBar({ mode, name, date, ids }) {
             </button>
           )}
 
-          {mode === 'rejected' && (
+          {/* {mode === 'rejected' && (
             <button
               type="button"
               className={`${styles.button} ${styles.delete}`}
@@ -82,7 +82,7 @@ export default function ReviewItemAdminBar({ mode, name, date, ids }) {
                 <p className={styles.prompt}>Видалити</p>
               )}
             </button>
-          )}
+          )} */}
         </div>
       </div>
     </div>

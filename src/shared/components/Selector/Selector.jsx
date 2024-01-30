@@ -61,7 +61,7 @@ export default function Selector({
   useEffect(() => {
     setCurrentValue({ ...defaultValue });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultValue.id]);
+  }, [defaultValue?.id]);
 
   useEffect(() => {
     if (!defaultOption) {
