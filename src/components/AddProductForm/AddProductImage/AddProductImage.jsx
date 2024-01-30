@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import AddIconImage from 'shared/icons/AddIconImage';
 import styles from './addProductImage.module.scss';
 import Image from 'shared/components/Image';
@@ -22,6 +22,8 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
   const [modalIsImage, setModalIsImage] = useState(false);
   const [modalIsId, setModalIsId] = useState(false);
   const [prompDelete, setPrompDelete] = useState(false);
+
+  const touchStartRef = useRef(null);
 
   useEffect(() => {
     if (picture.length > 0) {
@@ -138,15 +140,17 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
   useEffect(() => {
     const element = document.querySelector(`.${styles.imgContainer}`);
     if (element) {
-      element.addEventListener('touchmove', handleTouchMove, { passive: false });
-  
+      element.addEventListener(`${styles.btn}`, handleTouchMove, {
+        passive: false,
+      });
+
       return () => {
-        element.removeEventListener('touchmove', handleTouchMove);
+        element.removeEventListener(`'${styles.btn}'`, handleTouchMove);
       };
     }
   }, []);
 
-  const handleDragStart = (e) => {
+  const handleDragStart = (e, index) => {
     e.dataTransfer.setData('text/plain', index);
   };
 
@@ -177,14 +181,14 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
 
   let startX, startY;
 
-  const handleTouchStart = (e) => {
+  const handleTouchStart = (e, index) => {
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
   };
 
-  const handleTouchMove = (e) => {
+  const handleTouchMove = e => {
     e.preventDefault();
-    console.log("Touch move detected");
+    console.log('Touch move detected');
     if (!startX || !startY) {
       return;
     }
@@ -200,9 +204,36 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
     }
   };
 
-  const handleTouchEnd = (e, toIndex) => {
+  const onTouchMove = event => {
+    // Call the handleTouchMove function
+    handleTouchMove(event);
+  };
+
+  const handleTouchEnd = (e, index) => {
     startX = null;
     startY = null;
+
+    // Find the container and calculate the new position
+    const container = document.querySelector(`.${styles.imgContainer}`);
+    const rect = container.getBoundingClientRect();
+    const containerX = rect.left;
+    const containerY = rect.top;
+    const containerWidth = rect.width;
+    const containerHeight = rect.height;
+
+    const touch = e.changedTouches[0];
+    const touchX = touch.clientX - containerX;
+    const touchY = touch.clientY - containerY;
+
+    // Determine if the touch was inside the container
+    const isTouchInside =
+      touchX >= 0 &&
+      touchX <= containerWidth &&
+      touchY >= 0 &&
+      touchY <= containerHeight;
+
+    // If the touch was inside the container, update
+    e.target.releasePointerCapture(e.touches[0].identifier);
   };
 
   const images = selectedPictures.map(({ id, url }, index) => (
@@ -210,16 +241,15 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
       key={index}
       className={styles.btn}
       type="button"
-      // draggable
-      // onDragStart={e => handleDragStart(e, index)}
-      // onDrop={e => handleDrop(e, index)}
-      onTouchStart={e => handleTouchStart(e )}
-      onTouchMove={e => handleTouchMove(e)}
-      // onTouchEnd={handleTouchEnd}
+      draggable
+      onDragStart={e => handleDragStart(e, index)}
+      onDrop={e => handleDrop(e, index)}
+      onTouchStart={e => handleTouchStart(e, index)}
+      onTouchMove={e => handleTouchMove(e, index)}
+      onTouchEnd={e => handleTouchEnd(e, index)}
       onClick={e => {
         openModalEditPhoto(index, url);
       }}
-
     >
       <Image
         key={index}
@@ -319,13 +349,15 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
         </p>
         <div
           className={styles.imgContainer}
-          // onDragOver={handleDragOver}
+          onDragOver={handleDragOver}
           // onTouchStart={handleTouchStart}
           // onTouchMove={handleTouchMove}
-          onTouchStart={e => handleTouchStart(e, index)}
-          onTouchMove={e => handleTouchMove(e, index)}
-          onTouchEnd={handleTouchEnd}
-                >
+          onTouchStart={event => {
+            touchStartRef.current = event.touches[0].clientX;
+          }}
+          onTouchMove={onTouchMove}
+          // onTouchEnd={e => handleTouchEnd(e)}
+        >
           {images}
           {inputPhoto}
         </div>
