@@ -48,7 +48,7 @@ const persistConfig = {
 const userPersistConfig = {
   key: 'user',
   storage,
-  whitelist: ['token'],
+  whitelist: ['token', 'favouriteProducts'],
 };
 
 const persistedUserReducer = persistReducer(userPersistConfig, userReduser);

@@ -1,0 +1,59 @@
+.container {
+  min-width: 288px;
+  min-height: 127px;
+  padding: 16px;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.15);
+}
+
+.product {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  color: #a3a5a4;
+  margin-bottom: 8px;
+}
+
+.author {
+  display: flex;
+  justify-content: start;
+  gap: 12px;
+
+  height: 40px;
+  margin-bottom: 8px;
+}
+
+.user {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #191c2c;
+}
+
+.post-date {
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #a3a5a4;
+}
+
+.message {
+  width: 100%;
+  margin-top: 12px;
+
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #191c2c;
+
+  overflow-wrap: break-word; // переносимо слово, якщо його довжина більша за width контейнера
+}

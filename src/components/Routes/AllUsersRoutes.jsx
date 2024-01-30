@@ -1,6 +1,7 @@
 import Loader from 'components/Loader';
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { LazyPrivacyPolicyPage } from 'routes';
 
 const LazyAboutPage = lazy(() => import('pages/AboutPage/AboutPage'));
 const LazyStartPage = lazy(() => import('pages/StartPage/StartPage'));
@@ -11,8 +12,13 @@ const LazyWereToBuyPage = lazy(() =>
   import('pages/WereToBuyPage/WereToBuyPage')
 );
 const LazyContactsPage = lazy(() => import('pages/ContactsPage/ContactsPage'));
+
 const LazyExchangeAndReturnPage = lazy(() =>
   import('pages/ExchangeAndReturnPage/ExchangeAndReturnPage')
+);
+const LazyPaymentAndDeliveryPage = lazy(()=> import('pages/PaymentAndDelivery/PaymentAndDeliveryPage'));
+const LazyPublicOfferPagePage = lazy(() =>
+  import('pages/PublicOfferPage/PublicOfferPage')
 );
 const LazyUserAgreementPage = lazy(() =>
   import('pages/UserAgreementPage/UserAgreementPage')
@@ -30,6 +36,10 @@ export const allUserRoutes = [
     Component: SuperadminPage,
   },
   {
+    path: '/start',
+    Component: LazyStartPage,
+  },
+  {
     path: '/about',
     Component: LazyAboutPage,
   },
@@ -37,11 +47,6 @@ export const allUserRoutes = [
     path: '/perevagy',
     Component: LazyAdvantagesPage,
   },
-  {
-    path: '/start',
-    Component: LazyStartPage,
-  },
-
   {
     path: '/where-to-buy',
     Component: LazyWereToBuyPage,
@@ -53,6 +58,18 @@ export const allUserRoutes = [
   {
     path: '/exchange-and-return',
     Component: LazyExchangeAndReturnPage,
+  },
+  {
+    path: '/payment-and-delivery',
+    Component: LazyPaymentAndDeliveryPage,
+  },
+  {
+    path: '/privacy-policy',
+    Component: LazyPrivacyPolicyPage,
+  },
+  {
+    path: '/public-offer',
+    Component: LazyPublicOfferPagePage,
   },
   {
     path: '/user-agreement',

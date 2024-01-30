@@ -2,12 +2,12 @@ import { useSelector } from 'react-redux';
 import { selectUser } from 'redux/user/userSelectors';
 import RewiewRating from './ReviewRating';
 import Image from 'shared/components/Image';
-import AdminReviewsButtons from './AdminReviewsButtons';
 
 import styles from './ReviewItem.module.scss';
 import { useState } from 'react';
 import Button from 'shared/components/Button';
 import Modal from 'shared/components/Modal/Modal';
+import ReviewItemAdminBar from 'shared/components/NewReviewItem/ReviewItemAdminBar/ReviewItemAdminBar';
 // import Button from 'shared/components/Button';
 
 const formatDate = dateString => new Date(dateString).toLocaleString();
@@ -18,6 +18,9 @@ const ReviewItem = ({ review, isExpandedReview }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsImage, setModalIsImage] = useState(false);
   const [modalIsId, setModalIsId] = useState(false);
+
+  console.log('modalIsImage :>> ', modalIsImage);
+  console.log('modalIsId :>> ', modalIsId);
 
   const [prompDelete, setPrompDelete] = useState(false);
 
@@ -101,7 +104,10 @@ const ReviewItem = ({ review, isExpandedReview }) => {
             )}
             {status === 'manager' ||
               (status === 'superadmin' && (
-                <AdminReviewsButtons name={firstName + ' ' + lastName} />
+                <ReviewItemAdminBar
+                  mode="approved"
+                  name={firstName + ' ' + lastName}
+                />
               ))}
           </li>
         </ul>
@@ -125,6 +131,7 @@ const ReviewItem = ({ review, isExpandedReview }) => {
           <RewiewRating />
 
           <p className={styles.reviewText}>{reviewText}</p>
+
           {reviewURL && reviewURL[0] !== null && reviewURL.length > 0 && (
             <div className={styles.imgContainer}>
               <ImageGalery reviewURL={reviewURL} />

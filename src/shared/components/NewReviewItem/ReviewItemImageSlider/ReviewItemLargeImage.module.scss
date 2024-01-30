@@ -1,0 +1,52 @@
+.modal {
+  position: relative;
+  padding: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: none;
+}
+
+.modal button.close-button {
+  width: 24px;
+  height: 24px;
+
+  fill: #fff;
+
+  background-color: #f3a610;
+  //   border: 1px solid #f3a610;
+  border-radius: 50%;
+}
+
+.change-image {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #f3a610;
+  border-radius: 50%;
+  border: none;
+  transform: translateY(-50%);
+
+  &:disabled {
+    opacity: 0.25;
+  }
+
+  &:not(:last-child) {
+    left: 8px;
+  }
+
+  &:last-child {
+    right: 8px;
+  }
+}
+
+.chevron-icon {
+  stroke: #fff;
+}
+
+.change-image:not(:last-child) .chevron-icon {
+  rotate: 180deg;
+}

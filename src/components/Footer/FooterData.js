@@ -12,13 +12,20 @@ export const aboutUsLinks = [
 ];
 
 export const supportLinks = [
-  { url: '/shipping-and-payments', label: 'Оплата та доставка' },
-  { url: '/exchange-and-return', label: 'Обмін і повернення' },
+  { url: '/all/payment-and-delivery', label: 'Оплата та доставка' },
+  { url: '/all/exchange-and-return', label: 'Обмін і повернення' },
+];
+
+export const supportFullLinks = [
+  { url: '/all/payment-and-delivery', label: 'Оплата та доставка' },
+  { url: '/all/exchange-and-return', label: 'Обмін і повернення' },
+  { url: '/all/privacy-policy', label: 'Політика конфіденційності' },
+  { url: '/all/public-offer', label: 'Договір публічної оферти' },
 ];
 
 export const companyLinks = [
   { url: '/shop/product-list-page', label: 'Крамничка' },
-  { url: '/actions', label: 'Акції' },
+  { url: '/shop/actions', label: 'Акції' },
 ];
 
 export const socialIconsData = [
