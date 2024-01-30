@@ -39,7 +39,7 @@ const Navigation = () => {
           />
           {showMobileMenu && (
             <MobileMenu onClick={toggleMobileMenu} isMobile={isMobile}>
-              <ProductrNav onClick={toggleMobileMenu} />
+              <ProductrNav isMobile={isMobile} onClick={toggleMobileMenu} />
               <AllUserNav onClick={toggleMobileMenu} />
               <AuthNav onClick={toggleMobileMenu} />
             </MobileMenu>
