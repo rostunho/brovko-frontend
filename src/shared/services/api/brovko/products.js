@@ -89,20 +89,43 @@ export const addNewProduct = async (body, files = []) => {
     const data = new FormData();
 
     data.append('requestBody', bodyToSend);
-    files.forEach(item => {
-      if ('file' in item && item.file instanceof File) {
-        console.log(item.file)
+    // files.forEach(({ type, value }) => {
+    // //   data.append(type === 'file' ? 'file' : 'url', value);
+    // });
+
+    files.forEach((item, index) => {
+      if (item.file instanceof File) {
         data.append(`picture`, item.file);
-      } else if ('url' in item) {
-        data.append(`picture`, item.url);
+        const url = '';
+        const obj = { sequenceNumber: index, url };
+        data.append(`picture`, JSON.stringify(obj));
+      } else if (typeof item.url === 'string') {
+        const productURL = { sequenceNumber: index };
+        productURL.sequenceNumber = index;
+        const url = item.url;
+        const obj = { sequenceNumber: index, url: item.url };
+        data.append(`picture`, JSON.stringify(obj));
       }
     });
+    // files.forEach(({ file, url }, index) => {
+    //   if (file instanceof File) {
+    //     const obj = { id: index, file };
+    //     console.log(obj.id);
+    //     // const id = {index:item.file}
+    //     data.append(`picture`, obj);
+    //   } else if (typeof url === 'string') {
+    //     const obj = { id: index, url };
+    //     console.log(obj.id);
+    //     data.append(`picture`, obj);
+    //   }
+    // });
     // forEach(file => {
     //   data.append('files[]', file);
     // });
-
+    console.log(data);
     for (const pair of data.entries()) {
       const [name, value] = pair;
+      console.log(pair);
       if (value instanceof File) {
         console.log(`Field name: ${name}, File: ${value.name}`);
       } else {
