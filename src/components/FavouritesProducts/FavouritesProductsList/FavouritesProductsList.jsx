@@ -26,13 +26,16 @@ const FavouritesProductsList = () => {
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  console.log(filteredProducts);
 
   useEffect(() => {
-    // Логіка для розрахунку загальної кількості сторінок та інших необхідних змін
     const newTotalPages = Math.ceil(filteredProducts.length / perPage);
     setTotalPages(newTotalPages);
-    setCurrentPage(1); // При зміні продуктів або слова пошуку переходимо на першу сторінку
-  }, [filteredProducts, perPage]);
+
+    if (searchTerm && totalPages < 2) {
+      setCurrentPage(1);
+    }
+  }, [filteredProducts, perPage, searchTerm, totalPages]);
 
   const getItemsForRemoving = (id, checked) => {
     checked
