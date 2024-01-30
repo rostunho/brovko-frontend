@@ -8,7 +8,7 @@ import styles from './Nav.module.scss';
 export default function UserNav({ onClick }) {
   const currentUser = useSelector(selectUser);
   return (
-    <nav className={styles.nav}>
+    <>
       <ul className={styles.list}>
         <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/all/actions">
@@ -58,7 +58,7 @@ export default function UserNav({ onClick }) {
           </NavLink>
         </li> */}
       </ul>
-    </nav>
+    </>
     //
   );
 }

@@ -7,7 +7,7 @@ import styles from './Nav.module.scss';
 export default function ProductsNav({ onClick }) {
   const { email } = useSelector(selectUser);
   return (
-    <nav>
+    <>
       <ul className={styles.list}>
         <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/shop/product-list-page">
@@ -20,7 +20,7 @@ export default function ProductsNav({ onClick }) {
           </NavLink>
         </li>
       </ul>
-    </nav>
+    </>
     //
   );
 }

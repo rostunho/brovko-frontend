@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import SharedLinkButton from '../SharedLinkButton';
+import SharedLinkButton from '../ProductDetailButtons/SharedLinkButton';
 import ReviewContainer from './ReviewContainer';
 import ReviewList from './ReviewList';
 

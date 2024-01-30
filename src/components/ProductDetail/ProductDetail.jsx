@@ -13,15 +13,15 @@ import useModal from 'shared/hooks/useModal';
 
 import Image from 'shared/components/Image';
 import Button from 'shared/components/Button';
-import Rating from 'components/ProductDetail/Rating';
-import ImageSlider from 'components/ProductDetail/ImageSlider';
-import Content from 'components/ProductDetail/Content';
+import Rating from 'components/ProductDetail/ProductRating/Rating';
+import ImageSlider from 'components/ProductDetail/ProductImgSlider/ImageSlider';
+import Content from 'components/ProductDetail/ProductContent/Content';
 import QuantityButtons from 'shared/components/QuantityButtonModal/QuantityButtons';
-import Price from 'components/ProductDetail/Price';
-import { DeliveryAndPaymentBlock } from './DeliveryAndPaymentBlock';
+import Price from 'components/ProductDetail/ProductPrice/Price';
+import { DeliveryAndPaymentBlock } from './DeliveryAndPaymentBlock/DeliveryAndPaymentBlock';
 import Description from 'components/ProductDetail/ProductDescription/Description';
 import Review from 'components/ProductDetail/ProductReview/Review';
-import { PRODUCT_NOTE, DELIVERY_INFO, PAYMENT_INFO } from './productsFackeData.js'
+import { PRODUCT_NOTE, DELIVERY_INFO, PAYMENT_INFO } from './ProductData/productsFackeData.js'
 
 import styles from './ProductDetail.module.scss';
 
@@ -84,26 +84,29 @@ export default function ProductDetail({
     dispatch(addPopupOperation('Товар додано в кошик'));
   };
 
+  const EditButton = ({ userStatus, goToEditProduct }) => {
+    if (userStatus === 'manager' || userStatus === 'superadmin') {
+      return (
+        <Button admin size="lg" onClick={goToEditProduct}>
+          РЕДАГУВАТИ
+        </Button>
+      );
+    }
+    return null;
+  };
+
   return (
-   
-      <div className={styles.productCard}>
-        {userStatus === 'manager' ||
-          (userStatus === 'superadmin' && (
-            <Button admin size="lg" onClick={goToEditProduct}>
-              РЕДАГУВАТИ
-            </Button>
-          ))}
-          <Rating product={product} />
+      <section className={styles.productCard}>
+        <EditButton userStatus={userStatus} goToEditProduct={goToEditProduct} />
+        <Rating product={product} />
         <div className={styles.productHalfCard}>
-        <div className={styles.productQuarterCard}>
        
-          <div className={styles.image}>
-            <Image src={picture} />
-          </div>
-          <ImageSlider picture={picture} />
+        <div className={styles.productQuarterCard}>
+            <Image className={styles.image} src={picture} />
+            <ImageSlider picture={picture} />
         </div>
           
-<div className={styles.productQuarterCard}>
+        <div className={styles.productQuarterCard}>
           <Content note={note} />
           <div className={styles.price}>
             <h3 className={styles.priceHeading}>
@@ -114,8 +117,6 @@ export default function ProductDetail({
             {isTablet  ? 'Кількість:' : null}
             <QuantityButtons  value={value} setValue={setValue} />
             </h3>
-           
-           
           </div>
           <Button
             onClick={handleAddToCart}
@@ -126,14 +127,13 @@ export default function ProductDetail({
           >
             {orderInBasket ? 'Видалити з кошика' : 'Додати в кошик'}
           </Button>
-
           {isOpen && <ModalProductsInBasket closeModal={closeModal} />}
-
           {isTablet  && <DeliveryAndPaymentBlock delivery={delivery} payment={payment}/>}
         </div>
-        
-</div>
+        </div>
+
           <div className={styles.productHalfCard}>
+
           <div className={styles.productQuarterCard}>
           <Description
           product={product}
@@ -144,7 +144,7 @@ export default function ProductDetail({
           </div>
           
           <div className={styles.productQuarterCard}>
-        <Review
+          <Review
           isExpandedReview={isExpandedReview}
           location={location}
           handleReadReviewClic={handleReadReviewClick}
@@ -152,11 +152,10 @@ export default function ProductDetail({
           reviewsError={reviewsError}
           product={product}
         />
-        </div>
+          </div>
           </div>
 
         
-      </div>
-   
+      </section>
   );
 }

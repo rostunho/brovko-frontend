@@ -3,7 +3,7 @@ import ProductDescription from 'components/ProductDetail/ProductDescription/Prod
 
 export default function ProductDescriptionPage() {
   return (
-    <ProductDescription />
-    //
+  
+  <ProductDescription/>
   );
 }

@@ -2,9 +2,9 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getAllProducts } from 'redux/products/productsSelectors';
 
-import useNavigationLogic from '../useNavigationLogiс';
+import useNavigationLogic from 'shared/hooks/useNavigationLogiс';
 import DescriptionText from './DescriptionText';
-import ReadMoreBackButton from '../ReadMoreBackButton';
+import ReadMoreBackButton from '../ProductDetailButtons/ReadMoreBackButton';
 
 export default function ProductDescription(isExpandedDescriptionFromLocation) {
   const initialState = 'isExpandedDescription';
