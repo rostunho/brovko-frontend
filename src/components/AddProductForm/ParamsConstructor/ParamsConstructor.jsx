@@ -19,7 +19,10 @@ export default function ParamsConstructor() {
           <DropdownArrowIcon
             size={24}
             className={styles['dropdown-icon']}
-            style={{ rotate: showParams ? '180deg' : '0deg' }}
+            style={{
+              rotate: showParams ? '-180deg' : '0deg',
+              transition: 'all 0.25s ease 0s',
+            }}
           />
           Характеристики
         </button>
