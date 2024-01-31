@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addPopupOperation } from 'redux/popup/popupOperations';
 import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
 import Prompt from 'shared/components/Prompt';
 import AddingPlusIcon from 'shared/icons/AddingPlusIcon';
@@ -7,6 +9,69 @@ import styles from './ParamsConstructor.module.scss';
 
 export default function ParamsConstructor() {
   const [showParams, setShowParams] = useState(false);
+  const [titleRow, setTitleRow] = useState({ field: 'Заголовок :', value: '' });
+  const [rows, setRows] = useState([titleRow, { field: '', value: '' }]);
+  const dispatch = useDispatch();
+
+  const handleShowParams = () => {
+    if (rows.length > 2) {
+      dispatch(
+        addPopupOperation(
+          'Спочатку видали непотрібні характеристики.',
+          'warning'
+        )
+      );
+      return;
+    }
+
+    if (!showParams) {
+      setShowParams(true);
+    } else {
+      setTitleRow({ field: 'Заголовок', value: '' });
+      setRows([titleRow, { field: '', value: '' }]);
+      setShowParams(false);
+    }
+  };
+
+  const handleOnChange = event => {
+    const {
+      dataset: { idx },
+      name,
+      value,
+    } = event.target;
+
+    setRows(prevRows => {
+      const newRows = [...prevRows];
+      newRows[idx][name] = value;
+
+      return newRows;
+    });
+  };
+
+  const addRow = () => {
+    setRows(prevRows => {
+      const newRows = [...prevRows];
+      newRows.push({ field: '', value: '' });
+      return newRows;
+    });
+  };
+
+  const removeRow = () => {
+    if (rows.length < 2) {
+      dispatch(
+        addPopupOperation(
+          'Більше немає характеристик для видалення. Спочатку додай яку-небудь.',
+          'warning'
+        )
+      );
+      return;
+    }
+    setRows(prevRows => {
+      const newRows = [...prevRows];
+      newRows.pop();
+      return newRows;
+    });
+  };
 
   return (
     <>
@@ -14,7 +79,7 @@ export default function ParamsConstructor() {
         <button
           type="button"
           className={styles['dropdown-button']}
-          onClick={() => setShowParams(!showParams)}
+          onClick={handleShowParams}
         >
           <DropdownArrowIcon
             size={24}
@@ -33,40 +98,51 @@ export default function ParamsConstructor() {
         )}
       </div>
       {showParams && (
-        <div>
-          <ul className={styles['fields-list']}>
-            <li className={styles.item}>
-              <input className={styles.input} />
-              <input className={styles.input} />
-            </li>
-            <li className={styles.item}>
-              <input className={styles.input} />
-              <input className={styles.input} />
-            </li>
-            <li className={styles.item}>
-              <input className={styles.input} />
-              <input className={styles.input} />
-            </li>
-            <li className={styles.item}>
-              <input className={styles.input} />
-              <input className={styles.input} />
-            </li>
-            <li className={styles.item}>
-              <input className={styles.input} />
-              <input className={styles.input} />
-            </li>
+        <>
+          <ul
+            className={styles['fields-list']}
+            onBlur={() => console.log('PARAMS CONTAINER ON BLUR')}
+          >
+            {rows.map((row, idx) => {
+              return (
+                <li key={idx} className={styles.item}>
+                  <input
+                    className={styles.input}
+                    name="field"
+                    data-idx={idx}
+                    value={rows[idx].field}
+                    onChange={handleOnChange}
+                  />
+                  <input
+                    className={styles.input}
+                    name="value"
+                    data-idx={idx}
+                    value={rows[idx].value}
+                    onChange={handleOnChange}
+                  />
+                </li>
+              );
+            })}
           </ul>
           <ul className={styles['buttons-list']}>
-            <button type="button" className={styles['quantity-button']}>
+            <button
+              type="button"
+              className={styles['quantity-button']}
+              onClick={removeRow}
+            >
               <AddingMinusIcon />
               Забрати позицію
             </button>
-            <button type="button" className={styles['quantity-button']}>
+            <button
+              type="button"
+              className={styles['quantity-button']}
+              onClick={addRow}
+            >
               Додати позицію
               <AddingPlusIcon />
             </button>
           </ul>
-        </div>
+        </>
       )}
     </>
   );
