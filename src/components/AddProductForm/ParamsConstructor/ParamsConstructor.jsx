@@ -103,7 +103,7 @@ export default function ParamsConstructor({ extractData }) {
         )}
       </div>
       {showParams && (
-        <>
+        <div>
           <ul
             className={styles['fields-list']}
             onBlur={() => console.log('PARAMS CONTAINER ON BLUR')}
@@ -147,7 +147,7 @@ export default function ParamsConstructor({ extractData }) {
               <AddingPlusIcon />
             </button>
           </ul>
-        </>
+        </div>
       )}
     </>
   );
