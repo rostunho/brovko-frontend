@@ -24,7 +24,7 @@ export default function ParamsConstructor() {
           Характеристики
         </button>
         {showParams && (
-          <Prompt className={styles.prompt}>
+          <Prompt className={styles.prompt} messageStyle={{ bottom: '100%' }}>
             Порожній заголовок на cторінці товару не відображатиметься
           </Prompt>
         )}
