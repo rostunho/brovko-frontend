@@ -21,10 +21,14 @@ export default function ImageSlider({ picture }) {
       autoplay &&
       setTimeout(() => {
         setCurrentIdx(
-          currentIdx === imgArraySlider.length - 1 ? 0 : currentIdx + 1
+          currentIdx === picture.length - 1 || currentIdx === picture.length
+            ? 0
+            : currentIdx + 1
         );
       }, 2000);
   });
+
+  console.log(currentIdx);
 
   const allProducts = useSelector(getAllProducts);
   // const product = allProducts?.find(p => p._id === productId);
@@ -45,7 +49,11 @@ export default function ImageSlider({ picture }) {
       <div className={styles.slidesContainer}>
         <div
           className={styles.visibleImages}
-          style={{ transform: `translate(-${currentIdx * 100}%)` }}
+          style={{
+            transform: `translate(calc(-${currentIdx * 100}% - ${
+              currentIdx * 16
+            }px))`,
+          }}
         >
           {picture.map((item, idx) => {
             return (
@@ -63,17 +71,18 @@ export default function ImageSlider({ picture }) {
         </div>
       </div>
       <div className={styles.dotsContainer}>
-        {imgArraySlider.map((_, idx) => {
-          return (
-            <div
-              key={idx}
-              className={idx === currentIdx ? styles.activeDot : styles.dot}
-              onClick={() => {
-                setCurrentIdx(idx);
-              }}
-            ></div>
-          );
-        })}
+        {picture.length > 1 &&
+          picture.map((_, idx) => {
+            return (
+              <div
+                key={idx}
+                className={idx === currentIdx ? styles.activeDot : styles.dot}
+                onClick={() => {
+                  setCurrentIdx(idx);
+                }}
+              ></div>
+            );
+          })}
       </div>
     </div>
     // </div>
