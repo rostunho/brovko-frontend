@@ -3,6 +3,8 @@
 .container {
   // margin-top: 32px;
   margin-bottom: 32px;
+ 
+ 
 }
 .title {
   text-align: center;
@@ -42,6 +44,7 @@
 }
 
 .text {
+  display: flex;
   color: var(--black-text-color);
   padding: 16px 12px 0 12px;
   @include text-styles;
