@@ -5,14 +5,14 @@ import { selectUser } from 'redux/user/userSelectors';
 
 import styles from './Nav.module.scss';
 
-export default function UserNav({ onClick }) {
+export default function AllUserNav({ onClick }) {
   const currentUser = useSelector(selectUser);
   return (
     <>
       <ul className={styles.list}>
         <li className={styles.item} onClick={onClick}>
-          <NavLink className={styles.link} to="/all/actions">
-            Акції
+          <NavLink className={styles.link} to="/all/where-to-buy">
+            Локації
           </NavLink>
         </li>
         <li className={styles.item} onClick={onClick}>

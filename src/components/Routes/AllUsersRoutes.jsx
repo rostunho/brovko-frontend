@@ -1,7 +1,7 @@
 import Loader from 'components/Loader';
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { LazyPrivacyPolicyPage } from 'routes';
+// import { LazyPrivacyPolicyPage } from 'routes';
 
 const LazyAboutPage = lazy(() => import('pages/AboutPage/AboutPage'));
 const LazyStartPage = lazy(() => import('pages/StartPage/StartPage'));
@@ -9,7 +9,7 @@ const LazyAdvantagesPage = lazy(() =>
   import('pages/AdvantagesPage/AdvantagesPage')
 );
 const LazyWereToBuyPage = lazy(() =>
-  import('pages/WereToBuyPage/WereToBuyPage')
+  import('pages/WereToBuyPage/WereToBuyPage.jsx')
 );
 const LazyContactsPage = lazy(() => import('pages/ContactsPage/ContactsPage'));
 
@@ -20,14 +20,19 @@ const LazyPaymentAndDeliveryPage = lazy(()=> import('pages/PaymentAndDelivery/Pa
 const LazyPublicOfferPagePage = lazy(() =>
   import('pages/PublicOfferPage/PublicOfferPage')
 );
-const LazyUserAgreementPage = lazy(() =>
-  import('pages/UserAgreementPage/UserAgreementPage')
-);
+// const LazyUserAgreementPage = lazy(() =>
+//   import('pages/UserAgreementPage/UserAgreementPage')
+// );
 const SuperadminPage = lazy(() =>
   import('pages/SuperadminPage/SuperadminPage')
 );
 const LazyPersonalDataProtectionPage = lazy(() =>
   import('pages/PersonalDataProtectionPage/PersonalDataProtectionPage')
+);
+const LazyPrivacyPolicyPage = lazy(() => import('pages/PrivacyPolicyPage/PrivacyPolicyPage.jsx'));
+
+const LazyNotFoundPage = lazy(() =>
+  import('pages/NotFoundPage/NotFoundPage')
 );
 
 export const allUserRoutes = [
@@ -71,13 +76,21 @@ export const allUserRoutes = [
     path: '/public-offer',
     Component: LazyPublicOfferPagePage,
   },
-  {
-    path: '/user-agreement',
-    Component: LazyUserAgreementPage,
-  },
+  // {
+  //   path: '/user-agreement',
+  //   Component: LazyUserAgreementPage,
+  // },
   {
     path: '/personal-data-protection',
     Component: LazyPersonalDataProtectionPage,
+  },
+  {
+    path: '/privacy-policy',
+    Component: LazyPrivacyPolicyPage,
+  },
+  {
+    path: '*',
+    Component: LazyNotFoundPage,
   },
 ];
 
