@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
@@ -7,11 +7,16 @@ import AddingPlusIcon from 'shared/icons/AddingPlusIcon';
 import AddingMinusIcon from 'shared/icons/AddingMinusIcon';
 import styles from './ParamsConstructor.module.scss';
 
-export default function ParamsConstructor() {
+export default function ParamsConstructor({ extractData }) {
   const [showParams, setShowParams] = useState(false);
   const [titleRow, setTitleRow] = useState({ field: 'Заголовок :', value: '' });
   const [rows, setRows] = useState([titleRow, { field: '', value: '' }]);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    extractData && rows.length >= 2 && extractData(rows);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rows]);
 
   const handleShowParams = () => {
     if (rows.length > 2) {
