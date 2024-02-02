@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { getAllProducts } from 'redux/products/productsSelectors';
+// import { useParams } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+// import { getAllProducts } from 'redux/products/productsSelectors';
 
-import imgArraySlider from './imgArray';
 import Image from 'shared/components/Image';
 
 import styles from './ImageSlider.module.scss';
 
 export default function ImageSlider({ picture }) {
-  const { productId } = useParams();
+  // const { productId } = useParams();
   const [currentIdx, setCurrentIdx] = useState(1);
   const [autoplay, setAutoplay] = useState(true);
 
@@ -28,13 +27,10 @@ export default function ImageSlider({ picture }) {
       }, 2000);
   });
 
-  console.log(currentIdx);
-
-  const allProducts = useSelector(getAllProducts);
-  // const product = allProducts?.find(p => p._id === productId);
+  // const allProducts = useSelector(getAllProducts);
+  // // const product = allProducts?.find(p => p._id === productId);
 
   return (
-    // <div className={styles.imageSliderContainer}>
     <div
       className={styles.swiper}
       onMouseEnter={() => {
@@ -45,7 +41,6 @@ export default function ImageSlider({ picture }) {
         setAutoplay(true);
       }}
     >
-      {/* <Heading>Шість крутих смаків!</Heading> */}
       <div className={styles.slidesContainer}>
         <div
           className={styles.visibleImages}
@@ -85,6 +80,5 @@ export default function ImageSlider({ picture }) {
           })}
       </div>
     </div>
-    // </div>
   );
 }

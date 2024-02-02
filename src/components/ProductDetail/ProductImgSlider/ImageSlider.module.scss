@@ -1,11 +1,22 @@
 .swiper {
-  // border: 1px solid var(--Accent, #f3a610);
+  width: 100%;
   margin-top: 12px;
+  background-color: var(--white-text-color);
+  border-radius: var(--border-radius-secondary);
+  overflow: hidden;
+
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    width: 424px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 352px;
+  }
 }
 
 .slidesContainer {
   width: 80px;
-  // margin: 0 auto;
+  margin: 0 auto;
 }
 
 .currentImgContainer {
