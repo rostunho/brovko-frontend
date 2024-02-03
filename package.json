@@ -29,7 +29,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "predeploy": "npm run build",
-    "deploy": "netlify deploy -p"
+    "deploy": "netlify deploy -p",
+    "clear-local-branches": "git branch | grep -v 'main' | xargs git branch -d"
   },
   "eslintConfig": {
     "extends": [
