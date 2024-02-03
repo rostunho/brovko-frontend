@@ -7,10 +7,12 @@ import AddingPlusIcon from 'shared/icons/AddingPlusIcon';
 import AddingMinusIcon from 'shared/icons/AddingMinusIcon';
 import styles from './ParamsConstructor.module.scss';
 
-export default function ParamsConstructor({ extractData }) {
+export default function ParamsConstructor({ initialParams, extractData }) {
   const [showParams, setShowParams] = useState(false);
   const [titleRow, setTitleRow] = useState({ field: 'Заголовок :', value: '' });
-  const [rows, setRows] = useState([titleRow, { field: '', value: '' }]);
+  const [rows, setRows] = useState(
+    initialParams || [titleRow, { field: '', value: '' }]
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -106,7 +108,7 @@ export default function ParamsConstructor({ extractData }) {
         <div>
           <ul
             className={styles['fields-list']}
-            onBlur={() => console.log('PARAMS CONTAINER ON BLUR')}
+            // onBlur={() => console.log('PARAMS CONTAINER ON BLUR')}
           >
             {rows.map((row, idx) => {
               return (

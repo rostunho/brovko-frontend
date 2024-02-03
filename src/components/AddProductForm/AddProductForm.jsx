@@ -125,6 +125,8 @@ export default function AddProductForm({ update }) {
       return;
     }
 
+    // console.log('params Into USe EFFECT :>> ', params);
+
     dispatchRequestBody(null, 'ADD_PARAMS', params);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params]);

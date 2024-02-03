@@ -45,6 +45,7 @@ const Avatar = ({
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [prompDelete, setPrompDelete] = useState(false);
+
   // const add = e => {
   //   e.preventDefault();
   //   const file = e.target.files[0];
@@ -121,7 +122,7 @@ const Avatar = ({
           width={size}
           fontSize={fontSize}
         />
-        {size > '40px' && <CameraIcon className={styles.cameraIcon} />}
+        {size > 40 && <CameraIcon className={styles.cameraIcon} />}
       </div>
     );
   }
@@ -149,7 +150,7 @@ const Avatar = ({
           width={size}
           fontSize={fontSize}
         />
-        {size > '40px' && <CameraIcon className={styles.cameraIcon} />}
+        {size > 40 && <CameraIcon className={styles.cameraIcon} />}
       </Button>
       {modalIsOpen && (
         <Modal closeModal={closeModalEditPhoto}>

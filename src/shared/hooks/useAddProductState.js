@@ -9,10 +9,17 @@ export const useAddProductState = () => {
   );
 
   const updateState = (event, type, data) => {
-    dispatch({
-      type: type,
-      payload: data ? { ...data } : event?.target.value,
-    });
+    if (Array.isArray(data)) {
+      dispatch({
+        type: type,
+        payload: data ? [...data] : event?.target.value,
+      });
+    } else {
+      dispatch({
+        type: type,
+        payload: data ? { ...data } : event?.target.value,
+      });
+    }
   };
 
   return [state, updateState];
