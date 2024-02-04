@@ -1,0 +1,59 @@
+.table {
+  display: block;
+  width: 100%;
+  margin-top: 32px;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+}
+
+.t-head {
+  display: block;
+  width: 100%;
+
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  line-height: normal;
+  font-weight: 700;
+  color: #7b7b7b;
+}
+
+th {
+  padding: 0;
+}
+
+.t-body {
+  display: block;
+
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: normal;
+
+  border: 1px solid rgba(165, 164, 163, 0.25);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.t-row {
+  display: flex;
+  align-items: center;
+  height: 32px;
+
+  margin: 0 8px;
+  padding: 0 8px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid rgba(165, 164, 163, 0.25);
+  }
+}
+
+.t-row td:first-child {
+  width: 100%;
+}
+
+.t-row td:last-child {
+  min-width: 72px;
+  font-weight: 700;
+  text-align: end;
+  //   border-left: 1px solid rgba(165, 164, 163, 0.5);
+}

@@ -41,7 +41,7 @@ export default function ProductDetail({
   location,
 }) {
   // const [product, setProduct] = useState(null);
-  console.log('product into PD :>> ', product);
+  // console.log('product into PD :>> ', product);
   // console.log('reviews into PD :>> ', reviews);
   const [value, setValue] = useState(1);
   const userStatus = useSelector(selectUserStatus);
@@ -112,7 +112,7 @@ export default function ProductDetail({
 
         <div className={styles.productQuarterCard}>
           {/* <Content note={note} /> */}
-          <ProductParams />
+
           <div className={styles.price}>
             <h3 className={styles.priceHeading}>
               {isTablet ? 'Ціна: ' : null}
@@ -128,10 +128,15 @@ export default function ProductDetail({
             value={value}
             type="submit"
             size="lg"
-            style={{ marginTop: 33 }}
+            style={{ marginTop: 32 }}
           >
             {orderInBasket ? 'Видалити з кошика' : 'Додати в кошик'}
           </Button>
+
+          {product?.params.length > 0 && (
+            <ProductParams params={product?.params} />
+          )}
+
           {isOpen && <ModalProductsInBasket closeModal={closeModal} />}
           {isTablet && (
             <DeliveryAndPaymentBlock delivery={delivery} payment={payment} />
