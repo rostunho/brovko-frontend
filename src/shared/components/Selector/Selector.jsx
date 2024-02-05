@@ -124,7 +124,7 @@ export default function Selector({
           className={`${styles.select} ${style ? styles['custom-style'] : ''}`}
           id={id}
           name={name}
-          value={currentValue?.name}
+          value={currentValue?.name || ''}
           readOnly
           onClick={toggleDropdown}
           placeholder={placeholder}
