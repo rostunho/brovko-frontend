@@ -20,12 +20,18 @@
   // width: 87.5%;
   width: calc(100% - 32px);
   max-width: 420px;
-  padding: 0 16px 32px; // якщо вставиш компонент Heading (заголовок), там вже буде верхній паддінг 32px.
+  // padding: 0 16px 32px; // якщо вставиш компонент Heading (заголовок), там вже буде верхній паддінг 32px.
   border: 1px solid var(--Stroke, #f0f0f0);
   background: var(--White, #fff);
 
   /* Shadow for cards */
   box-shadow: var(--box-shadow);
+  @media screen and (min-width: 768px) {
+    max-width: 480px;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 606px;
+  }
 
   @media screen and (min-height: 800px) {
     top: 50%;
