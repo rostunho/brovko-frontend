@@ -13,7 +13,6 @@ export default function AuthSwitcher({
     <p className={`${styles.text} ${styles[`text--${type}`]}`} {...props}>
       {children}{' '}
       <NavLink to={to} className={styles.link}>
-        {' '}
         {linkLabel}
       </NavLink>
     </p>
