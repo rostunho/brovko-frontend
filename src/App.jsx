@@ -10,14 +10,33 @@ import SharedLayout from 'components/SharedLayout/SharedLayout';
 import AllUsersRoutes from 'components/Routes/AllUsersRoutes';
 import ProductsRoutes from 'components/Routes/ProductsRoutes';
 import AuthRoutes from 'components/Routes/AuthRoutes';
-import AuthFormWrapper from 'components/AuthSection/AuthFormWrapper/AuthFormWrapper';
-import LoginForm from 'components/AuthSection/LoginForm/LoginForm';
-import OrderForm from 'components/OrderForm/OrderForm';
+
+const AuthFormWrapper = lazy(() =>
+  import('components/AuthSection/AuthFormWrapper/AuthFormWrapper')
+);
+const LoginForm = lazy(() =>
+  import('components/AuthSection/LoginForm/LoginForm')
+);
+const OrderForm = lazy(() => import('components/OrderForm/OrderForm'));
 const LazyMainPage = lazy(() => import('pages/MainPage/MainPage'));
 const LazyNotFoundPage = lazy(() => import('pages/NotFoundPage/NotFoundPage'));
 
 const OrderPage = lazy(() => import('pages/OrderPage'));
 const AdminPage = lazy(() => import('pages/AdminPage'));
+const TestingPage = lazy(() => import('pages/Testing/TestingPage'));
+const ModerateReviewPage = lazy(() =>
+  import('pages/ModerateReviewPage/ModerateReviewPage')
+);
+const NewReviews = lazy(() =>
+  import('components/Reviews/NewReviews/NewReviews')
+);
+
+const ApprovedReviews = lazy(() =>
+  import('components/Reviews/ApprovedReviews/ApprovedReviews')
+);
+const RejectedReviews = lazy(() =>
+  import('components/Reviews/RejectedReviews/RejectedReviews')
+);
 
 function App() {
   const userIsLogin = useSelector(selectIsLogin);
@@ -35,7 +54,10 @@ function App() {
 
         <Route path="/auth/*" element={<AuthRoutes />} />
 
-        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin" element={<AdminPage />}>
+          <Route path=":productId" element={<AdminPage />} />
+        </Route>
+        <Route path="moderate-reviews" element={<ModerateReviewPage />} />
 
         <Route path="/order" element={<OrderPage />}>
           <Route
@@ -53,6 +75,8 @@ function App() {
           />
           <Route path="order-form" element={<OrderForm />} />
         </Route>
+
+        <Route path="/testing" element={<TestingPage />} />
 
         {/* Not Found */}
         <Route path="*" element={<LazyNotFoundPage />} />

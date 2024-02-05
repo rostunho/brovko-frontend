@@ -1,12 +1,23 @@
-export { getActiveCategories, addNewCategory } from './categories';
+export {
+  getAllCategories,
+  addNewCategory,
+  getCategoryById,
+} from './categories';
 export { default as instance } from './instance';
 export { addOrder, getAllOrdersAuth } from './orders';
 export {
   getAllProducts,
   getProductsByCategory,
   getProductById,
-  deleteProductById,
+  removeProduct,
+  // deleteProductById,
   addNewProduct,
 } from './products';
-export { getReviews } from './reviews';
+export {
+  getReviews,
+  approveReview,
+  rejectReview,
+  getReviewsByStatus,
+  getReviewsByProductId,
+} from './reviews';
 export { register, login, current, logout } from './user';

@@ -1,4 +1,5 @@
 @import 'theme/abstract/_mixins.scss';
+@import 'theme/abstract/_mixins.scss';
 
 .text {
   @include text-styles;
@@ -14,11 +15,15 @@
   margin: 12px 0;
 }
 
-.text--divider {
+.text.text--divider {
   position: relative;
-  color: var(--gray-color);
+  display: inline-block;
+  // width: 100%;
   margin: 12px auto;
   padding: 0 16px;
+  text-align: center;
+
+  color: var(--gray-color);
   background-color: var(--white-bg-color);
 
   &::before {
@@ -31,6 +36,13 @@
     width: calc(100vw / 2 - 16px);
     height: 1px;
     background-color: var(--gray-color);
+
+    @media screen and (min-width: 480px) {
+      width: calc(480px / 2 - 16px);
+    }
+    @media screen and (min-width: 1280px) {
+      width: calc(606px / 2 - 16px);
+    }
   }
   &::after {
     content: '';
@@ -42,6 +54,13 @@
     width: calc(100vw / 2 - 16px);
     height: 1px;
     background-color: var(--gray-color);
+
+    @media screen and (min-width: 480px) {
+      width: calc(480px / 2 - 16px);
+    }
+    @media screen and (min-width: 1280px) {
+      width: calc(606px / 2 - 16px);
+    }
   }
 }
 

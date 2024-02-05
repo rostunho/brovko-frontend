@@ -7,8 +7,8 @@ import { selectTotalPages } from 'redux/products/productsSelectors';
 
 import style from './Pagination.module.scss';
 
-const Pagination = ({ page, onChangePage }) => {
-  const totalPages = useSelector(selectTotalPages);
+const Pagination = ({ page, totalPages, onChangePage }) => {
+  // const totalPages = useSelector(selectTotalPages);
   // const totalPages = 90;
 
   const totalPagesArray = Array.from({ length: totalPages }, (_, i) => i + 1);

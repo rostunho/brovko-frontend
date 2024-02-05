@@ -1,0 +1,14 @@
+@import 'shared/components/QuantityButtonModal/QuantityButtonModal.module.scss';
+@import 'theme/abstract/mixins';
+
+.rating {
+    margin-top: 5px;
+    display: flex;
+    gap: 5px;
+  }
+  
+  .ratingText {
+    padding-left: 3px;
+    color: var(--gray-color);
+    @include text-styles(Nunito, 12px);
+  }

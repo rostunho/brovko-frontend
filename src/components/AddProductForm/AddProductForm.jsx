@@ -1,9 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
-import { addNewProduct, getActiveCategories } from 'shared/services/api';
+import { useParams } from 'react-router-dom';
+import {
+  addNewProduct,
+  getAllCategories,
+  getProductById,
+  getCategoryById,
+} from 'shared/services/api';
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
 import Selector from 'shared/components/Selector/Selector';
-import AddCategoryPopup from 'components/AddCategoryPopup/AddCategoryPopup';
+import AddCategoryPopup from 'components/AddProductForm/AddCategoryPopup/AddCategoryPopup';
+import ParamsConstructor from './ParamsConstructor/ParamsConstructor';
 import Button from 'shared/components/Button/Button';
 import Textarea from 'shared/components/Textarea/Textarea';
 import Prompt from 'shared/components/Prompt/Prompt';
@@ -14,27 +21,78 @@ import styles from './AddProductForm.module.scss';
 
 import { useSelectorValue } from 'shared/hooks/useSelectorValue';
 import { useAddProductState } from 'shared/hooks/useAddProductState';
-
-export default function AddProductForm() {
+import AddProductImage from './AddProductImage';
+export default function AddProductForm({ update }) {
+  const [existingProduct, setExistingProduct] = useState(null);
   const [requestBody, dispatchRequestBody] = useAddProductState();
   const [categories, setCategories] = useState([]);
-  const [selectorValue, fetchSelectorValue] = useSelectorValue();
+  const [selectorValue, fetchSelectorValue] = useSelectorValue({
+    name: 'Без категорії',
+    id: '',
+  });
   const [productSize, setProductSize] = useState('0');
   const [categoryModalisOpen, setCategoryModalisOpen] = useState(false);
+  const [refreshSelector, setRefreshSelector] = useState(false);
+  const [params, setParams] = useState([]);
+  const [files, setFiles] = useState([]);
   const formRef = useRef();
+  const { productId } = useParams();
 
   useEffect(() => {
-    (async () => {
-      const activeCategories = await getActiveCategories();
-      const categoryNames = activeCategories.caregory.map(el => {
-        return { name: el.name, id: el.id };
-      });
-      setCategories(categoryNames);
-    })();
+    if (update) {
+      (async () => {
+        const existingProduct = await fetchExistingProduct(productId);
+        // console.log('existingProduct :>> ', existingProduct);
+        const existingCategory = await fetchExistingCategory(
+          existingProduct.categoryId
+        );
+
+        setExistingProduct(prevState => {
+          const newState = { ...prevState };
+          newState.category = { ...existingCategory };
+          return newState;
+        });
+
+        // console.log('existingCategory :>> ', existingCategory);
+        dispatchRequestBody(null, 'ADD_SAVED_PRODUCT', existingProduct);
+        dispatchRequestBody(null, 'ADD_SAVED_CATEGORY', existingCategory);
+        setRefreshSelector(true);
+      })();
+    }
+
+    updateCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // useEffect(() => {
+  //   if (!update) {
+  //     return;
+  //   }
+
+  //   fetchExistingProduct(productId);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [productId]);
+
   useEffect(() => {
+    if (!existingProduct) {
+      return;
+    }
+
+    // update &&
+    //   fetchSelectorValue({
+    //     name: detectCategoryNameById(existingProduct.categoryId, categories),
+    //     id: existingProduct.categoryId,
+    //   });
+
+    // dispatchRequestBody(null, 'ADD_SAVED_PRODUCT', existingProduct);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [existingProduct]);
+
+  useEffect(() => {
+    if (existingProduct?.categoryId === selectorValue?.id) {
+      return;
+    }
+
     const checking =
       selectorValue?.name?.toLocaleLowerCase() !== 'без категорії';
 
@@ -55,43 +113,108 @@ export default function AddProductForm() {
     const { height, width, length } = currentData.product[0];
     const size = (Number(height) * Number(width) * Number(length)) / 1000000;
 
-    setProductSize(size.toFixed(2));
+    setProductSize(size.toFixed(3));
   }, [productSize, requestBody]);
+
+  useEffect(() => {
+    setRefreshSelector(false);
+  }, [refreshSelector]);
+
+  useEffect(() => {
+    if (params.length < 2) {
+      return;
+    }
+
+    // console.log('params Into USe EFFECT :>> ', params);
+
+    dispatchRequestBody(null, 'ADD_PARAMS', params);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params]);
 
   const handleSubmit = async event => {
     event.preventDefault();
-
-    await addNewProduct(requestBody);
+    console.log(requestBody, files);
+    await addNewProduct(requestBody, files);
     formRef.current.reset();
+  };
+
+  const updateCategories = async updates => {
+    if (!updates) {
+      const { categories } = await getAllCategories();
+      setCategories([...categories]);
+    } else {
+      const { categories } = await getAllCategories(updates);
+      // console.log('response 222 :>> ', {categories});
+      setCategories([...categories]);
+    }
+  };
+
+  const fetchExistingProduct = async id => {
+    const product = await getProductById(id);
+    setExistingProduct({ ...product });
+    return product;
+  };
+
+  const fetchExistingCategory = async id => {
+    const category = await getCategoryById(id);
+    fetchSelectorValue({ ...category });
+    return category;
   };
 
   const toggleCategoryModal = () => {
     setCategoryModalisOpen(!categoryModalisOpen);
   };
 
+  const extractParams = data => {
+    const updatedData = data.map(el => {
+      const param = {
+        name: el.field,
+        type: 'text',
+        value: el.value,
+      };
+
+      return param;
+    });
+    // console.log('updatedData into extractParams :>> ', updatedData);
+    setParams([...updatedData]);
+  };
+
+  // function detectCategoryNameById(id, array) {
+  //   const foundProduct = array.find(el => el.id === id);
+  //   return foundProduct?.name;
+  // }
+
   return (
     <div className={styles.container}>
       <Heading withGoBack>Додати новий товар</Heading>
+
       <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
         <Input
           label="Назва :"
           name="name"
-          onBlur={e => dispatchRequestBody(e, 'ADD_NAME')}
+          onChange={e => dispatchRequestBody(e, 'ADD_NAME')}
+          value={requestBody.product[0].name}
         />
 
         <Input
           label="Назва для документів :"
           name="nameForDocuments"
           onChange={e => dispatchRequestBody(e, 'ADD_NAME_FOR_DOCS')}
+          value={requestBody.product[0].nameForDocuments}
         />
-
+        <AddProductImage
+          pictures={existingProduct !== null ? existingProduct : []}
+          setFiles={setFiles}
+        />
         <div className={styles.category}>
           <Selector
             name="Category"
             data={categories}
-            defaultValue={{ name: 'Без категорії' }}
-            defaultOption="Без категорії"
+            defaultValue={{ name: selectorValue.name }}
+            initial
+            defaultOption={'Без категорії'}
             fetchSelectorValue={fetchSelectorValue}
+            refresh={refreshSelector}
           />
           <Button mode="adding" onClick={toggleCategoryModal}>
             Додати категорію
@@ -101,6 +224,7 @@ export default function AddProductForm() {
         {categoryModalisOpen && (
           <AddCategoryPopup
             data={categories}
+            updateCategories={updateCategories}
             closeModal={toggleCategoryModal}
           />
         )}
@@ -113,6 +237,7 @@ export default function AddProductForm() {
             length="md"
             currency="UAH"
             onChange={e => dispatchRequestBody(e, 'ADD_PRICE')}
+            value={requestBody.product[0].costPerItem}
           />
           <Input
             type="number"
@@ -121,6 +246,7 @@ export default function AddProductForm() {
             length="md"
             currency="UAH"
             onChange={e => dispatchRequestBody(e, 'ADD_EXPENSES')}
+            // value='' //замінити на vendorprice, коли з'явиться
           />
         </div>
 
@@ -240,6 +366,7 @@ export default function AddProductForm() {
             label="ID товару :"
             name="id"
             length="md"
+            value={requestBody.product[0].id}
             onChange={e => dispatchRequestBody(e, 'ADD_ID')}
           />
         </div>
@@ -279,9 +406,20 @@ export default function AddProductForm() {
           Додаткові ціни
         </Button>
 
-        <Button mode="settings" size="sm">
+        {/* <Button
+          mode="adding"
+          size="sm"
+          onClick={() => setShowParams(!showParams)}
+        >
           Характеристики
-        </Button>
+        </Button> */}
+
+        <ParamsConstructor
+          initialParams={
+            existingProduct?.params.length > 0 && existingProduct.params
+          }
+          extractData={extractParams}
+        />
 
         <Button mode="adding" size="sm">
           Різновиди товарів
@@ -292,6 +430,7 @@ export default function AddProductForm() {
           name="description"
           onChange={e => dispatchRequestBody(e, 'ADD_DESCRIPTION')}
           rows="6"
+          value={requestBody.product[0].description}
         />
 
         <Button type="submit" style={{ marginTop: '56px' }}>

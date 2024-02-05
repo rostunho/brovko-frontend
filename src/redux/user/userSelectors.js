@@ -1,9 +1,20 @@
 import { createSelector } from '@reduxjs/toolkit';
+
 export const selectIsLogin = ({ user }) => user.isLogin;
+
 export const selectIsLoadingUser = ({ user }) => user.loading;
+
 export const selectUser = ({ user }) => user.user;
-export const errorUser = ({ user }) => user.error;
+
+export const selectUserStatus = ({ user }) => user.user.status;
+
+export const errorAuth = ({ user }) => user.error;
+
 export const ordersUserHistory = ({ user }) => user.ordersHistory;
+
+export const selectRequestSuccess = ({ user }) => user.resetToken;
+
+export const selectIsPswReset = ({ user }) => user.isPasswordReset;
 
 const selectLoginAndToken = state => {
   return {

@@ -1,8 +1,8 @@
 // NEED TO REFACTOR FOR CLEANING
 
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
 import { initialSelectorValue } from './initialSelectorValue';
 import styles from './Selector.module.scss';
@@ -13,11 +13,13 @@ export default function Selector({
   value,
   data,
   hotOptionsData,
-  defaultValue,
+  defaultValue, // ключ name буде значенням селектора за замовчуванням
   placeholder,
-  form,
   size,
+  onClick,
+  onOptionClick,
   fetchSelectorValue, // "витягує" поточне значення селектора в батьківський компонент
+  forceClosing, // допомагає "примусово" програмно закрити дропдаун з батьківскього компонента
   openedDropdown,
   enteringField,
   onSaveClick,
@@ -25,50 +27,91 @@ export default function Selector({
   multiple,
   required,
   disabled,
-  defaultOption,
+  defaultOption, // опція, яка буде першою у списку-випадайці
+  refresh, // допомагає сикнути значення селектора до "за замовчуванням"
   style,
   dropdownStyle,
+
   ...props
 }) {
-  console.log('style', dropdownStyle);
-
   const [currentValue, setCurrentValue] = useState(
-    defaultValue || initialSelectorValue
+    // defaultValue ? defaultValue : initialSelectorValue
+    initialSelectorValue
   );
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [firstRender, setFirstRender] = useState(true);
   const hotOptions = hotOptionsData || [];
 
   const id = nanoid(6);
   let key = 0;
+
+  // console.log('(defaultValue) :>> ', defaultValue);
+
+  useEffect(() => {
+    if (firstRender) {
+      defaultValue && setCurrentValue(defaultValue);
+    }
+
+    setFirstRender(false);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setCurrentValue({ ...defaultValue });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultValue?.id]);
 
   useEffect(() => {
     if (!defaultOption) {
       setCategories([...data]);
       return;
     }
-    setCategories([{ name: defaultOption, id: '' }, ...data]);
+    setCategories([{ name: defaultOption, id: 'all' }, ...data]);
   }, [defaultOption, data]);
 
   useEffect(() => {
-    setDropdownIsOpen(openedDropdown);
-  }, [openedDropdown]);
+    if (firstRender) {
+      return;
+    }
 
-  useEffect(() => {
-    fetchSelectorValue && fetchSelectorValue({ ...currentValue });
+    defaultValue?.name !== currentValue?.name &&
+      fetchSelectorValue &&
+      fetchSelectorValue({ ...currentValue });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentValue]);
 
+  useEffect(() => {
+    if (firstRender) {
+      return;
+    }
+    setCurrentValue(defaultValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refresh]);
+
+  useEffect(() => {
+    if (!forceClosing) {
+      return;
+    }
+
+    setDropdownIsOpen(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [forceClosing]);
+
   const toggleDropdown = () => {
+    onClick && onClick();
     setDropdownIsOpen(!dropdownIsOpen);
   };
 
   const onOptionPress = category => {
     setCurrentValue(prevValue => ({ ...prevValue, ...category }));
+    // fetchSelectorValue && fetchSelectorValue({ ...currentValue });
     toggleDropdown();
+    onOptionClick && onOptionClick();
   };
 
-  const onhotOptionPress = option => {
+  const onHotOptionPress = option => {
     setCurrentValue(prevValue => ({ ...prevValue, name: option }));
   };
 
@@ -81,7 +124,7 @@ export default function Selector({
           className={`${styles.select} ${style ? styles['custom-style'] : ''}`}
           id={id}
           name={name}
-          value={value || currentValue.name}
+          value={currentValue?.name || ''}
           readOnly
           onClick={toggleDropdown}
           placeholder={placeholder}
@@ -100,8 +143,8 @@ export default function Selector({
       {dropdownIsOpen && (
         <fieldset
           className={`${styles['dropdown-container']} ${
-            dropdownStyle ? styles['custom-dropdown-container'] : ''
-          }`}
+            label === '' ? styles['without-label'] : ''
+          } ${dropdownStyle ? styles['custom-dropdown-container'] : ''}`}
         >
           {categories.map(category => {
             const isCheched = currentValue.name === category.name;
@@ -136,7 +179,7 @@ export default function Selector({
             return (
               <li
                 key={hotOptions.indexOf(option)}
-                onClick={() => onhotOptionPress(option)}
+                onClick={() => onHotOptionPress(option)}
               >
                 <p className={styles['hot-option-text']}>{option}</p>
               </li>
@@ -148,16 +191,17 @@ export default function Selector({
   );
 }
 
-Selector.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.exact({
-      name: PropTypes.string.isRequired, // Ключами об'єкта можуть бути тільки "name"
-      id: PropTypes.string, // і тільки "id". Жодних інших.
-    })
-  ),
-  defaultValue: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    id: PropTypes.string,
-  }),
-  hotOptionsData: PropTypes.arrayOf(PropTypes.string),
-};
+// Selector.propTypes = {
+//   data: PropTypes.arrayOf(
+//     PropTypes.exact({
+//       name: PropTypes.string, // Ключами об'єкта можуть бути тільки "name"
+//       id: PropTypes.string, //  тільки "id".
+//       parentId: PropTypes.string, //  тільки "parentId". Жодних інших.
+//     })
+//   ),
+//   defaultValue: PropTypes.shape({
+//     name: PropTypes.string,
+//     id: PropTypes.string,
+//   }),
+//   hotOptionsData: PropTypes.arrayOf(PropTypes.string),
+// };

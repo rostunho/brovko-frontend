@@ -33,8 +33,11 @@ import storage from 'redux-persist/lib/storage';
 import productsReducer from './products/productsSlice';
 import userReduser from './user/userSlice';
 import reviewsReduser from './reviews/reviewsSlice';
+import categoriesReduser from './categories/categoriesSlice';
+import searchReducer from './search/searchSlice';
 import { basketReducer } from './basket/basketSlice';
 import popupReducer from './popup/popupSlice';
+import warningReducer from './warning/warningSlice';
 
 const persistConfig = {
   key: 'root',
@@ -45,7 +48,7 @@ const persistConfig = {
 const userPersistConfig = {
   key: 'user',
   storage,
-  whitelist: ['token'],
+  whitelist: ['token', 'favouriteProducts'],
 };
 
 const persistedUserReducer = persistReducer(userPersistConfig, userReduser);
@@ -54,8 +57,11 @@ const rootReducer = combineReducers({
   products: productsReducer,
   user: persistedUserReducer,
   reviews: reviewsReduser,
+  categories: categoriesReduser,
+  search: searchReducer,
   basket: basketReducer,
   popups: popupReducer,
+  warning: warningReducer,
 });
 
 const persistedAuthReducer = persistReducer(persistConfig, rootReducer);

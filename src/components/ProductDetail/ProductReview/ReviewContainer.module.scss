@@ -1,0 +1,14 @@
+.rewieContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rewieTitle {
+    color: var(--black-text-color);
+    margin-bottom: 8px;
+  }
+  
+
+.rewieCount {
+    color: var(--gray-color);
+  }

@@ -5,8 +5,7 @@
   // max-width: 100%;
   margin-left: -16px;
   margin-right: -16px;
-  padding-left: 16px;
-  padding-right: 16px;
+
   padding-top: 10px;
   padding-bottom: 10px;
   background: rgba(255, 255, 255);
@@ -15,34 +14,58 @@
 
 .container {
   display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 16px;
+  padding-right: 16px;
   align-items: center;
   justify-content: space-between;
-
   @media screen and (min-width: 768px) {
-    max-width: 100%;
+    width: 768px;
+    align-items: center;
   }
-
   @media screen and (min-width: 1280px) {
-    max-width: 100%;
+    width: 1280px;
+    padding-left: 80px;
+    padding-right: 80px;
+    align-items: center;
   }
 }
 
 .logo {
   padding-left: 75px;
   padding-right: 35px;
+  @media screen and (min-width: 768px) {
+    padding: 16px;
+  }
 }
 
 .boxBasket {
   display: flex;
   gap: 12px;
+  @media screen and (min-width: 768px) {
+    gap: 16px;
+  }
+  @media screen and (min-width: 1280px) {
+    gap: 32px;
+    padding-top: 0;
+  }
 }
 
 .userIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   outline: none;
   border: none;
   padding: 0;
   margin: 0;
   background-color: transparent;
+
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
+    // padding-top: 32px;
+  }
 }
 
 .userIcon:hover * {
@@ -70,4 +93,15 @@
   width: 7px;
   color: var(--white-text-color);
   @include text-styles(Nunito, 12px);
+}
+
+.heart_icon {
+  fill: transparent;
+  stroke: rgba(243, 166, 16, 1);
+  transition: fill 0.3s ease 0s;
+}
+
+.heart_icon:hover {
+  fill: rgba(243, 166, 16, 1);
+  stroke: rgba(243, 166, 16, 1);
 }

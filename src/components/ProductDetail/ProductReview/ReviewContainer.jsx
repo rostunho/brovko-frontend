@@ -1,21 +1,33 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { selectReviewError } from 'redux/reviews/reviewsSelectors';
 import Button from 'shared/components/Button';
-import AddReviewFormModal from './AddReviewFormModal';
+import AddReviewForm from './AddReviewForm';
 import { ReviewStatistics } from './ReviewStatistics';
-import styles from '../ProductDetail.module.scss';
+import ErrorNotification from '../ProductData/ErrorNotification';
+import styles from './ReviewContainer.module.scss';
 
 export default function ReviewContainer() {
   const { productId } = useParams();
+  const [isReviewInputVisible, setIsReviewInputVisible] = useState(false);
+  const [isAddingPhoto, setIsAddingPhoto] = useState(false);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const reviewsError = useSelector(selectReviewError);
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const toggleReviewInput = () => {
+    setIsReviewInputVisible(!isReviewInputVisible);
+    setIsAddingPhoto(false); // При відкритті поля для відгуку скидаємо стан додавання фото
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const toggleAddingPhoto = () => {
+    setIsAddingPhoto(!isAddingPhoto);
+  };
+
+  const closeReviewInput = () => {
+    setIsReviewInputVisible(false);
+    setIsAddingPhoto(false);
   };
 
   const numberOfReviews = ReviewStatistics({ productId });
@@ -30,18 +42,24 @@ export default function ReviewContainer() {
       <p className={styles.descriptionText}>
         Ваші відгуки допоможуть іншим у виборі смаколика для свого улюбленця!
       </p>
-      <Button
-        type="button"
-        onClick={openModal}
-        mode="outlined"
-        style={{ paddingLeft: 86, paddingRight: 86, marginTop: 20 }}
-      >
-        Залишити відгук
-      </Button>
-      {isModalOpen && (
-        <AddReviewFormModal
-          closeModal={closeModal}
-          isOpen={isModalOpen}
+
+      {reviewsError && <ErrorNotification errorCode={reviewsError} />}
+
+      {!isReviewInputVisible && (
+        <Button
+          type="button"
+          onClick={toggleReviewInput}
+          mode="outlined"
+          style={{ paddingLeft: 86, paddingRight: 86, marginTop: 20 }}
+        >
+          Залишити відгук
+        </Button>
+      )}
+      {isReviewInputVisible && (
+        <AddReviewForm
+          onClick={toggleReviewInput}
+          closeReviewInput={closeReviewInput}
+          isOpen={isReviewInputVisible}
           productId={productId}
         />
       )}

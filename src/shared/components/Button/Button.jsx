@@ -18,6 +18,7 @@ export default function Button({
   style,
   disabled,
   icon,
+  admin,
   ...props
 }) {
   return (
@@ -25,7 +26,7 @@ export default function Button({
       type={type || 'button'}
       className={`${styles.button} ${styles[`button_${size}`]} ${
         styles[`button_${mode}`]
-      } ${className ? className : ''}`}
+      } ${admin ? styles['admin-button'] : ''} ${className ? className : ''}`}
       style={{ ...style }}
       onClick={onClick}
       disabled={disabled}

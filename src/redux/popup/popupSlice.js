@@ -4,11 +4,12 @@ const popupSlice = createSlice({
   name: 'popups',
   initialState: [],
   reducers: {
-    addPopUp: (state, action) => {
-      state.push(action.payload);
+    addPopUp: (state, { payload }) => {
+      state.push(payload);
     },
-    deletePopUp: state => {
-      state.pop();
+
+    deletePopUp: (state, { payload }) => {
+      return state.filter(el => el.id !== payload);
     },
   },
 });

@@ -24,6 +24,10 @@
   }
 }
 
+.input-button.input-without-label {
+  top: 12px;
+}
+
 .input[type='date'] {
   &::-webkit-calendar-picker-indicator {
     font-variant-caps: titling-caps;

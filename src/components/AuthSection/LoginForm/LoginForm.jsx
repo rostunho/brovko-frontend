@@ -1,17 +1,18 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { login } from 'redux/user/userOperations';
-
+import { errorAuth } from 'redux/user/userSelectors';
 import { useEffect, useRef, useState } from 'react';
 // import PropTypes from 'prop-types';
 import Input from 'shared/components/Input';
+import Text from 'shared/components/Text/Text';
 import Button from 'shared/components/Button/Button';
 import useForm from 'shared/hooks/useForm';
 import initialState from './initialState';
 import styles from './LoginForm.module.scss';
 
 const LoginForm = () => {
-  const { state, handleChange, handleSubmit } = useForm({
+  const { state, setState, handleChange, handleSubmit } = useForm({
     initialState,
     onSubmit: dispatchUser,
   });
@@ -21,6 +22,8 @@ const LoginForm = () => {
   const [isValidEmail, setIsValidEmail] = useState(null);
   const [isValidPassword, setIsValidPassword] = useState(null);
   const [showSubmitButton, setShowSubmitButton] = useState(false);
+  const errorLogin = useSelector(errorAuth);
+  const [formError, setFormError] = useState(null);
 
   useEffect(() => {
     isValidEmail === 'isValid' && isValidPassword === 'isValid'
@@ -29,11 +32,26 @@ const LoginForm = () => {
   }, [isValidEmail, isValidPassword]);
 
   function dispatchUser(data) {
-    dispatch(login(data));
+    const lowerCaseEmail = data.email.toLowerCase();
+    const newData = { ...data, email: lowerCaseEmail };
+    dispatch(login(newData)).then(() => {
+      setState({ ...newData });
+    });
   }
+
+  useEffect(() => {
+    if (errorLogin) {
+      setFormError(errorLogin);
+    }
+  }, [errorLogin]);
+
+  useEffect(() => {
+    setFormError(null);
+  }, []);
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
+      {formError && <Text className={styles.textError}>{formError}</Text>}
       <Input
         label="E-mail"
         type="email"
@@ -50,7 +68,7 @@ const LoginForm = () => {
         name="password"
         placeholder="Введіть пароль"
         required={true}
-        value={password}
+        // value={password}
         validateStatus={setIsValidPassword}
         onChange={handleChange}
       />

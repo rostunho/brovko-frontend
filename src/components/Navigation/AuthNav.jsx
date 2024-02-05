@@ -9,7 +9,7 @@ export default function AuthNav({ onClick }) {
   const isUserLogin = useSelector(selectIsLogin);
   // const { email } = useSelector(selectUser);
   return (
-    <nav>
+    <>
       <ul className={styles.list}>
         {!isUserLogin && (
           <>
@@ -42,6 +42,6 @@ export default function AuthNav({ onClick }) {
           </>
         )}
       </ul>
-    </nav>
+    </>
   );
 }

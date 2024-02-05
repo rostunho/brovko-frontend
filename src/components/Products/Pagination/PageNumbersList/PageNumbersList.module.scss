@@ -6,7 +6,7 @@
 }
 
 .pageNumber {
-  margin-right: 10px;
+  margin-right: 4px;
   width: 40px;
   height: 40px;
   display: flex;
@@ -15,6 +15,7 @@
   color: var(--black-text-color);
   border-radius: 50%;
   border: var(--border-accent);
+  cursor: pointer;
 }
 
 .active {

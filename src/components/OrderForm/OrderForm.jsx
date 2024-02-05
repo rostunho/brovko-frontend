@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { getAllOrders } from 'redux/basket/basketSelectors';
 import { selectIsLogin, selectUser } from 'redux/user/userSelectors';
+import { getMainWarehouse } from 'shared/services/api/nova-poshta/nova-poshta-api';
 import CustomerForm from './CustomerForm/CustomerForm';
 import { DeliveryForm } from 'components/OrderForm/DeliveryForm';
 import PaymentMethod from 'components/OrderForm/PaymentMethod';
@@ -22,6 +23,40 @@ export default function OrderForm() {
   const user = useSelector(selectUser);
 
   const navigate = useNavigate();
+
+  // Встановлюємо "Перше відділення" нової пошти в разі адресної доставки
+  useEffect(() => {
+    if (delivery?.deliveryMethod?.method !== 'address') {
+      return;
+    }
+    (async () => {
+      const result = await getMainWarehouse(delivery.city.Ref);
+      setDelivery(currentDelivery => ({
+        ...currentDelivery,
+        warehouse: { ...result },
+      }));
+    })();
+  }, [delivery?.city?.Ref, delivery?.deliveryMethod?.method]);
+
+  // чистимо стейт вулиці і відділення, якщо немає міста
+  useEffect(() => {
+    if (!delivery || !delivery.city) {
+      return;
+    }
+
+    if (Object.keys(delivery.city).length === 0) {
+      setDelivery(prevState => {
+        return {
+          ...prevState,
+          street: {},
+          warehouse: {},
+          building: '',
+          apartment: '',
+        };
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [delivery.city]);
 
   const createNewOrder = async event => {
     event.preventDefault();

@@ -16,7 +16,7 @@ export default function DeliveryWarehouse({
   );
   const [selectedWarehouseData, setSelectedWarehouseData] = useState(null);
 
-  useEffect(() => console.log('REF CHANGED', cityRef), [cityRef]);
+  // useEffect(() => console.log('REF CHANGED', cityRef), [cityRef]);
 
   useEffect(() => {
     initialWarehouse?.Ref && initialWarehouse?.Ref === savedWarehouse?.Ref
@@ -37,12 +37,12 @@ export default function DeliveryWarehouse({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => fetchWarehousesFromAPI, [targetWarehouse]);
 
-  // useEffect(() => {
-  //   savedWarehouse
-  //     ? setSelectedWarehouseData(savedWarehouse)
-  //     : setSelectedWarehouseData(null);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    savedWarehouse
+      ? setSelectedWarehouseData(savedWarehouse)
+      : setSelectedWarehouseData(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(
     () => {
@@ -62,7 +62,7 @@ export default function DeliveryWarehouse({
     //   return;
     // }
 
-    console.log('FETCHING FUNCTION WORKS');
+    // console.log('FETCHING FUNCTION WORKS');
 
     const value = targetWarehouse ? targetWarehouse.toLowerCase() : '';
 

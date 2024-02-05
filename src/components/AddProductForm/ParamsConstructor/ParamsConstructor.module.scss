@@ -1,0 +1,152 @@
+.heading {
+  display: flex;
+  gap: 12px;
+  //   justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-button {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  align-self: flex-start;
+
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-left: -3px;
+
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #a3a5a4;
+
+  stroke: #191c2c;
+  fill: inherit;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #f3a610;
+    stroke: #f3a610;
+
+    // & .dropdown-icon {
+    //   rotate: 180deg;
+    // }
+  }
+}
+
+.prompt {
+  height: 24px;
+}
+
+.fields-list {
+  margin-bottom: 8px;
+}
+
+.item {
+  display: flex;
+  gap: 4px;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 4px;
+}
+
+.input {
+  min-height: 40px;
+  max-height: 40px;
+  padding: 8px 12px;
+
+  border: 1px solid #7b7b7b;
+  outline: none;
+
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #191c2c;
+
+  &:hover,
+  &:focus,
+  &:active {
+    border: 1px solid #f3a610;
+  }
+}
+
+.input:first-child {
+  width: calc(100% / 3 * 2);
+  //   border-radius: 8px 0 0 8px;
+}
+
+// .input:not(:last-child) {
+//   margin-bottom: 4px;
+// }
+
+.input:last-child {
+  width: calc(100% / 3);
+  //   border-radius: 0 8px 8px 0;
+  font-weight: 700;
+  color: #7b7b7b;
+  text-align: end;
+  padding-right: 24px;
+
+  &:hover,
+  &:focus,
+  &:active {
+    border: 1px solid #f3a610;
+  }
+}
+
+.item:first-child .input:first-child {
+  width: calc(100% / 12 * 5);
+  font-weight: 700;
+  color: #7b7b7b;
+  border-top-left-radius: 8px;
+}
+.item:first-child .input:last-child {
+  width: calc(100% / 10 * 7);
+  font-weight: 400;
+  color: #191c2c;
+  border-top-right-radius: 8px;
+  text-align: center;
+}
+.item:last-child .input:first-child {
+  border-bottom-left-radius: 8px;
+}
+.item:last-child .input:last-child {
+  border-bottom-right-radius: 8px;
+}
+
+.buttons-list {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.quantity-button {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  background-color: transparent;
+  border: none;
+  padding: 0;
+
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #a3a5a4;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #f3a610;
+  }
+}

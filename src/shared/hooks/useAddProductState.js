@@ -5,14 +5,21 @@ import { addProductRequestTemplate } from 'components/AddProductForm/addProductR
 export const useAddProductState = () => {
   const [state, dispatch] = useReducer(
     addProductReducer,
-    addProductRequestTemplate
+    addProductRequestTemplate()
   );
 
   const updateState = (event, type, data) => {
-    dispatch({
-      type: type,
-      payload: data ? { ...data } : event?.target.value,
-    });
+    if (Array.isArray(data)) {
+      dispatch({
+        type: type,
+        payload: data ? [...data] : event?.target.value,
+      });
+    } else {
+      dispatch({
+        type: type,
+        payload: data ? { ...data } : event?.target.value,
+      });
+    }
   };
 
   return [state, updateState];

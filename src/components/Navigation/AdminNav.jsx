@@ -7,7 +7,7 @@ import styles from './Nav.module.scss';
 export default function AdminNav({ onClick }) {
   const { email } = useSelector(selectUser);
   return (
-    <nav>
+    <>
       <ul>
         <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/admin">
@@ -15,7 +15,7 @@ export default function AdminNav({ onClick }) {
           </NavLink>
         </li>
       </ul>
-    </nav>
+    </>
     //
   );
 }

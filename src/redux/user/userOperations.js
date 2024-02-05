@@ -8,8 +8,15 @@ export const register = createAsyncThunk(
       const result = await api.register(data);
       return result;
     } catch ({ response }) {
-      // console.log(response.data.message);
-      return rejectWithValue(response.data.message);
+      if (response.status === 409) {
+        return rejectWithValue(
+          'Користувач з такими даними вже зареєстрований!'
+        );
+      } else {
+        return rejectWithValue(
+          'Під час реєстрації виникла помилка. Спробуйте ще!'
+        );
+      }
     }
   }
 );
@@ -22,7 +29,28 @@ export const login = createAsyncThunk(
       return result;
     } catch ({ response }) {
       // console.log(response.data.message);
-      return rejectWithValue(response.data.message);
+      if (response) {
+        const { status, data: responseData } = response;
+
+        if (status === 403) {
+          return rejectWithValue('Невірний e-mail або пароль!');
+        } else if (status === 404) {
+          return rejectWithValue(
+            'Користувача не знайдено! Зареєструйтеся, будь ласка!'
+          );
+        } else if (status === 400) {
+          return rejectWithValue(
+            responseData.message ||
+              'Некорректний запит! Перевірте введену інформацію.'
+          );
+        } else {
+          return rejectWithValue('Внутрішня помилка. Спробуйте пізніше!');
+        }
+      } else {
+        return rejectWithValue(
+          'Під час входу виникла помилка. Спробуйте пізніше!'
+        );
+      }
     }
   }
 );
@@ -99,14 +127,56 @@ export const logout = createAsyncThunk(
 );
 
 export const forgotPassword = createAsyncThunk(
-  'user/forgot-password',
+  'user/forgotPassword',
   async (data, { rejectWithValue }) => {
     try {
       const result = await api.forgotPassword(data);
       return result;
     } catch ({ response }) {
       // console.log(response.data.message);
-      return rejectWithValue(response.data.message);
+      if (response) {
+        const { status, data: responseData } = response;
+
+        if (status === 404) {
+          return rejectWithValue(
+            'Користувача не знайдено! Зареєструйтеся, будь ласка!'
+          );
+        } else if (status === 400) {
+          return rejectWithValue(
+            responseData.message ||
+              'Некорректний запит! Перевірте введену інформацію.'
+          );
+        } else {
+          return rejectWithValue('Внутрішня помилка. Спробуйте пізніше!');
+        }
+      } else {
+        return rejectWithValue(
+          'Під час входу виникла помилка. Спробуйте пізніше!'
+        );
+      }
+    }
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  'user/resetPassword',
+  async ({ token, password }, { rejectWithValue }) => {
+    try {
+      const result = await api.resetPassword(token, password);
+      return result;
+    } catch ({ response }) {
+      // console.log(response.data.message);
+      if (response) {
+        const { status } = response;
+
+        if (status === 401) {
+          return rejectWithValue(
+            'Посилання на зміну паролю недійсне або прострочено!'
+          );
+        }
+      } else {
+        return rejectWithValue('Щось пішло не так... Спробуйте пізніше!');
+      }
     }
   }
 );

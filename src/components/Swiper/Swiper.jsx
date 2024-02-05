@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
 import imgArray from './imgArray';
-import Image from 'shared/components/Image';
 import Heading from 'shared/components/Heading';
+import ImgBox from './ImgBox';
 
 import styles from './Swiper.module.scss';
 
@@ -57,26 +57,7 @@ const Swiper = () => {
       }}
     >
       <Heading>Шість крутих смаків!</Heading>
-      <div className={styles.slidesContainer}>
-        <div
-          className={styles.visibleImages}
-          style={{ transform: `translate(-${currentIdx * 100}%)` }}
-        >
-          {imgArray.map((item, idx) => {
-            return (
-              <Image
-                key={idx}
-                src={item.url}
-                className={
-                  idx === currentIdx
-                    ? styles.currentImgContainer
-                    : styles.sideImgContainer
-                }
-              />
-            );
-          })}
-        </div>
-      </div>
+      <ImgBox imgArray={imgArray} currentIdx={currentIdx} />
       <div className={styles.dotsContainer}>
         {imgArray.map((_, idx) => {
           return (
@@ -95,17 +76,3 @@ const Swiper = () => {
 };
 
 export default Swiper;
-
-/* <div className={styles.prewImgContainer}>
-          {currentIdx - 1 >= 0 && (
-            <Image src={`${imgArray[currentIdx - 1].url}`} />
-          )}
-        </div>
-        <div className={styles.currentImgContainer}>
-          <Image src={`${imgArray[currentIdx].url}`} />
-        </div>
-        <div className={styles.nextImgContainer}>
-          {currentIdx + 1 <= imgArray.length - 1 && (
-            <Image src={`${imgArray[currentIdx + 1].url}`} />
-          )}
-        </div> */

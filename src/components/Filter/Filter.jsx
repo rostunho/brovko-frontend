@@ -1,27 +1,61 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // import DropdownMenu from './DropdownMenu';
 // import Button from 'shared/components/Button';
 // import ArrowDownIcon from 'shared/icons/ArrowDownIcon';
 import Selector from 'shared/components/Selector';
-import { categories, sortingOptions } from './constants';
+import { sortingOptions } from './constants';
 import styles from './Filter.module.scss';
 
-export default function Filter({ onCategorySelect, onSortingSelect }) {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedSortingOption, setSelectedSortingOption] = useState(null);
+export default function Filter({
+  categories,
+  searchTerm,
+  defaultCategory,
+  defaultOption,
+  onCategorySelect,
+  onSortingSelect,
+}) {
+  const [currentCategories, setCurrentCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(
+    () => defaultCategory
+  );
+  const [selectedSortingOption, setSelectedSortingOption] = useState({
+    name: 'Сортування',
+  });
+
+  // console.log('categories into Filter :>> ', categories);
+  // console.log('currentCategories into Filter :>> ', currentCategories);
+
+  useEffect(() => {
+    setCurrentCategories([...categories]);
+  }, [categories]);
+
+  useEffect(() => {
+    if (selectedCategory.id === defaultCategory.id) {
+      return;
+    }
+
+    onCategorySelect && onCategorySelect(selectedCategory);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory]);
+
+  // useEffect(() => {
+  //   // setSelectedCategory({
+  //   //   name: 'Всі категорії',
+  //   // });
+  //   setSelectedCategory(null);
+  // }, [searchTerm]);
+
+  useEffect(() => {
+    onSortingSelect(selectedSortingOption);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSortingOption]);
 
   const handleCategorySelect = category => {
-    setSelectedCategory(
-      category.name === 'Всі категорії' ? null : category.name
-    ); // Збросити вибрану категорію
-    onCategorySelect(category.name === 'Всі категорії' ? null : category.name); // Виклик функції батьківського компонента
-    console.log(category.name);
+    setSelectedCategory({ ...category });
   };
 
   const handleSortingSelect = option => {
     setSelectedSortingOption(option.name);
-    onSortingSelect(option.name);
-    // console.log('Option:', option);
   };
 
   const customStyle = {
@@ -40,8 +74,9 @@ export default function Filter({ onCategorySelect, onSortingSelect }) {
           style={customStyle}
           dropdownStyle={customDropdownContainer}
           name="category"
-          data={categories}
-          defaultValue={{ name: 'Всі категорії' }}
+          data={currentCategories}
+          defaultValue={{ name: 'Усі категорії' }}
+          defaultOption={'Усі категорії'}
           fetchSelectorValue={handleCategorySelect}
         />
       </div>
@@ -52,7 +87,7 @@ export default function Filter({ onCategorySelect, onSortingSelect }) {
           dropdownStyle={customDropdownContainer}
           name="option"
           data={sortingOptions}
-          defaultValue={{ name: 'Сортування' }}
+          defaultValue={{ ...selectedSortingOption }}
           fetchSelectorValue={handleSortingSelect}
         />
       </div>

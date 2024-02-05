@@ -8,6 +8,7 @@ export default function Heading({
   style,
   children,
   fromHC,
+  className,
 }) {
   const location = useLocation();
 
@@ -31,7 +32,7 @@ export default function Heading({
         <h1
           className={`${styles.heading} ${styles.h1} ${
             withGoBack && styles['with-goback']
-          }`}
+          } ${className ? className : ''}`}
           style={style}
         >
           {children}
@@ -41,7 +42,7 @@ export default function Heading({
         <h2
           className={`${styles.heading} ${styles.h2} ${
             withGoBack && styles['with-goback']
-          }`}
+          } ${className ? className : ''}`}
           style={style}
         >
           {children}

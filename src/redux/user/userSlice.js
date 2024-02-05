@@ -9,6 +9,8 @@ import {
   logout,
   googleAuth,
   usersOrdersHistory,
+  forgotPassword,
+  resetPassword,
 } from './userOperations';
 
 const initialState = {
@@ -18,11 +20,31 @@ const initialState = {
   isLogin: false,
   loading: false,
   error: null,
+  resetToken: '',
+  favouriteProducts: [],
+  isPasswordReset: false,
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
+  reducers: {
+    // resetError: state => {
+    //   state.error = null;
+    // },
+    addItemToFavourite: (state, { payload }) => {
+      if (!state.favouriteProducts.some(({ id }) => id === payload.id)) {
+        // Товар не знайдено у списку, додаємо його
+        state.favouriteProducts = [...state.favouriteProducts, { ...payload }];
+      }
+    },
+    removeItemFromFavourite: (state, { payload }) => {
+      console.log(payload);
+      state.favouriteProducts = state.favouriteProducts.filter(
+        ({ id }) => id !== payload
+      );
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(register.pending, state => {
@@ -76,10 +98,9 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(updateAvatar.fulfilled, (state, { payload }) => {
-        const { accessToken } = payload;
+        const { avatarURL } = payload;
         state.loading = false;
-        state.user = payload;
-        state.token = accessToken;
+        state.user = { ...state.user, avatarURL };
         state.isLogin = true;
       })
       .addCase(updateAvatar.rejected, (state, { payload }) => {
@@ -143,8 +164,35 @@ const userSlice = createSlice({
       .addCase(usersOrdersHistory.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
+      })
+      .addCase(forgotPassword.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(forgotPassword.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.resetToken = payload.resetToken;
+      })
+      .addCase(forgotPassword.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(resetPassword.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(resetPassword.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.message = payload;
+        state.isPasswordReset = true;
+      })
+      .addCase(resetPassword.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
       });
   },
 });
+export const { addItemToFavourite, removeItemFromFavourite } =
+  userSlice.actions;
 
 export default userSlice.reducer;

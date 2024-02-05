@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from 'redux/user/userOperations';
-import { errorUser } from 'redux/user/userSelectors';
+import { errorAuth } from 'redux/user/userSelectors';
 // import PropTypes from 'prop-types';
 // import OldInput from 'shared/components/OldInput/OldInput';
 import Input from 'shared/components/Input';
@@ -13,7 +13,7 @@ import UserConsent from './UserConsent';
 import styles from './RegisterForm.module.scss';
 
 const RegisterForm = () => {
-  const { state, handleChange, handleSubmit } = useForm({
+  const { state, setState, handleChange, handleSubmit } = useForm({
     initialState,
     onSubmit: dispatchUser,
   });
@@ -24,9 +24,8 @@ const RegisterForm = () => {
   const [isValidPassword, setIsValidPassword] = useState(null);
   const [showSubmitButton, setShowSubmitButton] = useState(false);
   const formRef = useRef(null);
-  const error = useSelector(errorUser);
-  const [submittedEmail, setSubmittedEmail] = useState('');
-
+  const errorRegister = useSelector(errorAuth);
+  const [formError, setFormError] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -44,15 +43,22 @@ const RegisterForm = () => {
   }, [isValidEmail, isValidPassword, passwordChecked]);
 
   function dispatchUser(data) {
-    try {
-      dispatch(register(data));
-      setSubmittedEmail(data.email);
-    } catch (error) {
-      setSubmittedEmail('');
-    }
+    const lowerCaseEmail = data.email.toLowerCase();
+    const newData = { ...data, email: lowerCaseEmail };
+    dispatch(register(newData)).then(() => {
+      setState({ ...newData });
+    });
   }
 
-  // const isConflictError = error && error.toLowerCase().includes('conflict');
+  useEffect(() => {
+    if (errorRegister) {
+      setFormError(errorRegister);
+    }
+  }, [errorRegister]);
+
+  useEffect(() => {
+    setFormError(null);
+  }, []);
 
   return (
     <form
@@ -63,11 +69,7 @@ const RegisterForm = () => {
       }}
       className={styles.form}
     >
-      {error && (
-        <Text className={styles.text}>
-        Така адреса єлектронної пошти вже зареєстрована!
-      </Text>
-      )}
+      {formError && <Text className={styles.textError}>{formError}</Text>}
       <Input
         label="E-mail"
         // style={{ backgroundColor: '#801f1f' }}
@@ -75,19 +77,19 @@ const RegisterForm = () => {
         name="email"
         placeholder="Введіть свій e-mail"
         required={true}
-        value={submittedEmail || email}
+        value={email}
         validateStatus={setIsValidEmail}
         onChange={handleChange}
-        inputClassName={error ? styles["input-error"] : ''}
+        inputClassName={formError ? styles['input--reg-error'] : ''}
       />
-      
+
       <Input
         label="Пароль"
         type="password"
         name="password"
         placeholder="Введіть пароль"
         required={true}
-        value={password}
+        // value={password}
         validateStatus={setIsValidPassword}
         onChange={handleChange}
       />
@@ -97,7 +99,7 @@ const RegisterForm = () => {
         name="confirmPassword"
         placeholder="Підтвердіть пароль"
         required={true}
-        value={confirmPassword}
+        // value={confirmPassword}
         onChange={e => setConfirmPassword(e.target.value)}
       />
       <UserConsent />

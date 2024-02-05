@@ -14,11 +14,14 @@ const LazyUserDashboardPage = lazy(() =>
 const LazyProductListPage = lazy(() =>
   import('pages/ProductListPage/ProductListPage')
 );
+const LazyProductFavouritePage = lazy(() =>
+  import('pages/ProductsFavouritePage/ProductsFavouritePage')
+);
 const LazyProductDetailPage = lazy(() =>
   import('pages/ProductDetailPage/ProductDetailPage.jsx')
 );
-const LazyProductDescription = lazy(() =>
-  import('pages/ProductDetailPage/ProductDescription')
+const LazyProductDescriptionPage = lazy(() =>
+  import('pages/ProductDetailPage/ProductDescriptionPage')
 );
 const LazyProductReviewPage = lazy(() =>
   import('pages/ProductDetailPage/ProductReviewPage')
@@ -31,9 +34,10 @@ export default function ProductsRoutes() {
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="product-list-page" element={<LazyProductListPage />} />
+        <Route path="favourites" element={<LazyProductFavouritePage />} />
         <Route path="user" element={<LazyUserDashboardPage />} />
         <Route path="product/:productId" element={<LazyProductDetailPage />}>
-          <Route path="description" element={<LazyProductDescription />} />
+          <Route path="description" element={<LazyProductDescriptionPage />} />
           <Route path="review" element={<LazyProductReviewPage />} />
         </Route>
       </Routes>

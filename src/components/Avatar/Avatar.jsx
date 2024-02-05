@@ -12,16 +12,29 @@ import { update, updateAvatar } from 'redux/user/userOperations';
 import TrashIcon from 'shared/icons/TrashIcon';
 import EditIcon from 'shared/icons/EditIcon';
 
-const Avatar = () => {
+const Avatar = ({
+  size = 96,
+  marginLeft = 'auto',
+  marginRight = 'auto',
+  marginBottom = 32,
+  fontSize = 36,
+  border = 'none',
+  locked = false,
+  src,
+}) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const openModalEditPhoto = () => {
+    if (size === '32px') {
+      return;
+    }
+
     setModalIsOpen(true);
   };
   const closeModalEditPhoto = () => {
     setModalIsOpen(false);
     setPrompDelete(false);
   };
-  const { firstName, email, avatarURL, _id } = useSelector(selectUser);
+  const { firstName, email, avatarURL, _id, status } = useSelector(selectUser);
   const dispatch = useDispatch();
 
   const delAvatar = () => {
@@ -32,6 +45,7 @@ const Avatar = () => {
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [prompDelete, setPrompDelete] = useState(false);
+
   // const add = e => {
   //   e.preventDefault();
   //   const file = e.target.files[0];
@@ -85,15 +99,58 @@ const Avatar = () => {
   // });
   const resetPromp = () => setPrompDelete(false);
 
+  if (locked) {
+    return (
+      <div
+        className={styles.wrapper}
+        style={{
+          width: size,
+          height: size,
+          marginLeft,
+          marginRight,
+          marginBottom,
+          border:
+            status === 'customer' ? '2px solid #F3A610' : '2px solid #4d95c3',
+        }}
+        // onClick={openModalEditPhoto}
+      >
+        <Image
+          className={styles.avatar}
+          src={src || avatarURL}
+          text={firstName || email}
+          height={size}
+          width={size}
+          fontSize={fontSize}
+        />
+        {size > 40 && <CameraIcon className={styles.cameraIcon} />}
+      </div>
+    );
+  }
+
   return (
     <>
-      <Button className={styles.wrapper} onClick={openModalEditPhoto}>
+      <Button
+        className={styles.wrapper}
+        style={{
+          width: size,
+          height: size,
+          marginLeft,
+          marginRight,
+          marginBottom,
+          border:
+            status === 'customer' ? '2px solid #F3A610' : '2px solid #4d95c3',
+        }}
+        onClick={openModalEditPhoto}
+      >
         <Image
           className={styles.avatar}
           src={avatarURL}
           text={firstName || email}
+          height={size}
+          width={size}
+          fontSize={fontSize}
         />
-        <CameraIcon className={styles.cameraIcon} />
+        {size > 40 && <CameraIcon className={styles.cameraIcon} />}
       </Button>
       {modalIsOpen && (
         <Modal closeModal={closeModalEditPhoto}>

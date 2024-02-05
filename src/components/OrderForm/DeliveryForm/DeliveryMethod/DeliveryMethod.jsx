@@ -10,7 +10,8 @@ export default function DeliveryMethod({ handleDeliveryMethod, ...props }) {
 
   useEffect(() => {
     handleDeliveryMethod(selectedMethod);
-  }, [handleDeliveryMethod, selectedMethod]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedMethod]);
 
   const selectMethod = event => {
     const { value, dataset } = event.target;

@@ -1,29 +1,37 @@
 // import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import useLayoutType from 'shared/hooks/useLayoutType';
+
 import styles from './Footer.module.scss';
 
 const FooterItem = ({ icon, links, label, isOpen, onToggle }) => {
+  
   const toggleOpen = () => {
     onToggle(label);
   };
 
+  const layoutType = useLayoutType();
+
+  const isMobile = layoutType ==='mobile';
+  const isTablet = layoutType === 'tablet';
+  const isDesktop = layoutType === 'desktop';
+
+
   return (
     <div className={styles.footerItem}>
       <div className={styles.footerTitle} onClick={toggleOpen}>
-        <span className={`${styles.label} ${isOpen ? styles.opened : ''}`}>
+        <span className={`${styles.label} ${isOpen || !isMobile ? styles.opened : ''}`}>
           {label}
         </span>
-        <div
-          className={`${styles.footerIconsContainers} ${
-            isOpen ? styles.opened : ''
-          }`}
-        >
-          {icon}
-        </div>
+        {isMobile && (
+          <div className={`${styles.footerIconsContainers} ${isOpen || !isMobile ? styles.opened : ''}`}>
+            {icon}
+          </div>
+        )}
       </div>
 
-      {isOpen && (
+      {(isOpen || !isMobile) && (
         <ul className={styles.linksList}>
           {links.map((link, index) => (
             <li key={index}>

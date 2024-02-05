@@ -1,0 +1,150 @@
+@import 'theme/abstract/_mixins.scss';
+
+.container {
+  width: 100%;
+  min-height: 240px;
+  padding: 20px 12px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.btn {
+  min-width: 120px;
+
+  width: 120px;
+  height: 120px;
+  // margin-top: 60px;
+  border-radius: 8px;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.trash {
+  // color: #191c2c;
+
+  stroke: var(--black-text-color);
+  z-index: 999;
+
+  color-interpolation-filters: sRGB;
+
+  filter: drop-shadow(0 0 0 #ffffff);
+}
+
+.deleteIcon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: transparent;
+  color: transparent;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+}
+
+.imgContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  // display: block;
+  // padding: 0 16px;
+}
+
+.fileInputLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  width: 120px;
+  height: 120px;
+  // margin-top: 60px;
+  padding: 0 px;
+  @include text-styles(Nunito, 14px, 700, 19px);
+  border: none;
+
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  color: var(--white-text-color);
+  // border: var(--border-accent);
+  background-color: #d9d9d9;
+
+  // &:hover,
+  // &:focus,
+  // &:active {
+  //   color: var(--white-text-color);
+  //   // border: none;
+
+  //   background-color: #f39610;
+  //   box-shadow: 0px 1px 2px 0px rgba(255, 193, 7, 0.5);
+  // }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled,
+  &:focus:disabled,
+  &:hover:disabled,
+  &:active:disabled {
+    color: rgba(254, 254, 254, 0.7);
+    background-color: transparent;
+    border: 1px solid rgba(254, 254, 254, 0.7);
+  }
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.text {
+  @include text-styles();
+  color: var(--grey-text-color);
+  line-height: 19px;
+}
+
+// .imgPhoto {
+//   width: 60px;
+//   height: 60px;
+//   overflow: hidden;
+//   border-radius: 4px;
+// }
+
+.modal {
+  padding: 60px 16px;
+}
+
+.mainText {
+  margin-bottom: 20px;
+}
+
+.modalImg {
+  margin-bottom: 20px;
+}
+
+.modalButtonContainer {
+  display: flex;
+  gap: 16px;
+}

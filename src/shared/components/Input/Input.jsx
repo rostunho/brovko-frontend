@@ -5,13 +5,14 @@ import { validateInputValue } from 'utils';
 import { errorMessages } from './errorMessages';
 import InputElement from './InputElement';
 import Text from '../Text/Text';
-import WarningIcon from 'shared/icons/WarningIcon';
+// import WarningIcon from 'shared/icons/WarningIcon';
 import styles from './Input.module.scss';
 
 export default function Input({
   type = 'text',
   label,
   placeholder,
+  className, // додатковий клас для всього компонента
   //   додатковий клас для підпису (якщо потрібен)
   labelClassName,
   //   додатковий клас для інпуту (якщо потрібен)
@@ -29,6 +30,7 @@ export default function Input({
   currency,
   pattern,
   validateStatus,
+  additionalFunction,
   ...props
 }) {
   const [validationChecking, setValidationChecking] = useState('pending');
@@ -69,6 +71,7 @@ export default function Input({
     onChange && onChange(event);
 
     isCheckbox && setCheckBoxIsChecked(!checkBoxIsChecked);
+    isCheckbox && additionalFunction && additionalFunction();
 
     // КОТЕЛ ВАЛІДАЦІЇ
     if (
@@ -109,8 +112,7 @@ export default function Input({
 
   const handleOnFocus = event => {
     onFocus && onFocus(event);
-
-    setValidationChecking('pending');
+    // setValidationChecking('pending');
     setErrorMessage('');
   };
 
@@ -164,9 +166,14 @@ export default function Input({
           styles[`input-box__length--${length}`]
         } ${isCheckbox || isRadio ? styles['input-box__controls'] : ''} ${
           checkBoxIsChecked ? styles['input-box__controls--checked'] : ''
-        } ${labelClassName ? labelClassName : ''}`}
+        } ${className ? className : ''} ${
+          !label ? styles['without-label'] : ''
+        }`}
       >
-        <label htmlFor={id} className={styles.label}>
+        <label
+          htmlFor={id}
+          className={`${styles.label} ${labelClassName ? labelClassName : ''}`}
+        >
           {label}
         </label>
         <InputElement
@@ -185,6 +192,7 @@ export default function Input({
           length={length}
           metrical={metrical}
           currency={currency}
+          label={label}
           // error={error}
           {...props}
         />

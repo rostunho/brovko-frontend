@@ -1,0 +1,68 @@
+.swiper {
+  width: 100%;
+  margin-top: 12px;
+  background-color: var(--white-text-color);
+  border-radius: var(--border-radius-secondary);
+  overflow: hidden;
+
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    width: 424px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 352px;
+  }
+}
+
+.slidesContainer {
+  width: 80px;
+  margin: 0 auto;
+}
+
+.currentImgContainer {
+  min-width: 80px;
+  margin-right: 16px;
+  border-radius: 12px;
+  border: 2px solid var(--Accent, #f3a610);
+  overflow: hidden;
+  object-fit: cover;
+  box-shadow: var(--box-shadow);
+}
+
+.visibleImages {
+  height: 80px;
+  transition: transform 0.5s;
+  display: flex;
+}
+
+.sideImgContainer {
+  min-width: 80px;
+  margin-right: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.dot {
+  background-color: var(--accent-color);
+  opacity: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.activeDot {
+  background-color: var(--accent-color);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}

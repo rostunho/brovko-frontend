@@ -1,28 +1,26 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllProducts } from 'redux/products/productsSelectors';
-import { getAllReviews } from 'redux/reviews/reviewsSelectors';
-import { submitReview } from 'redux/reviews/reviewsOperations';
+import { useParams, useLocation } from 'react-router-dom';
 
-import useNavigationLogic from 'components/ProductDetail/useNavigationLogiс';
+import useNavigationLogic from 'shared/hooks/useNavigationLogiс';
 import ReviewContainer from 'components/ProductDetail/ProductReview/ReviewContainer';
 import ReviewList from 'components/ProductDetail/ProductReview/ReviewList';
-import ReadMoreBackButton from 'components/ProductDetail/ReadMoreBackButton';
+import ReadMoreBackButton from 'components/ProductDetail/ProductDetailButtons/ReadMoreBackButton';
 
-export default function ReviewPage() {
+export default function ProductReviewPage() {
   const initialState = 'isExpandedReview';
   const navigateTo = `../`;
-
   const backLinkHref = useNavigationLogic(initialState, navigateTo);
+  // const { productId } = useParams();
+  const location = useLocation();
+  const { product, reviews } = location.state;
 
-  const { productId } = useParams();
-  const allProducts = useSelector(getAllProducts);
-  const allReviews = useSelector(getAllReviews);
 
-  const product = allProducts?.find(p => p._id === productId);
+  const approvedReviews = reviews.map(review => ({
+    ...review,
+    comments: review.comments.filter(comment => comment.text.status.approved),
+  }));
 
-  const reviews = allReviews?.find(r => r.productId === productId);
+
 
   if (!product) {
     return <p>Товар не знайдено</p>;
@@ -31,7 +29,7 @@ export default function ReviewPage() {
   return (
     <div>
       <ReviewContainer />
-      <ReviewList reviews={reviews} />
+      <ReviewList reviews={approvedReviews} />
 
       <ReadMoreBackButton to={backLinkHref} label="Назад" />
     </div>

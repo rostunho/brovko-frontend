@@ -1,103 +1,238 @@
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { fetchAllProducts } from 'redux/products/productsOperations';
-import { fetchReviews } from 'redux/reviews/reviewsOperations';
-import { getAllProducts } from 'redux/products/productsSelectors';
-
+import { useSearchParams } from 'react-router-dom';
+import { getAllCategories } from 'shared/services/api';
+import { sortingTemplate } from './sortingTemplate';
+// import Loader from 'components/Loader';
 import Heading from 'shared/components/Heading/Heading';
-import Pagination from 'components/Products/Pagination';
+import Input from 'shared/components/Input';
+import Selector from 'shared/components/Selector';
 import ProductList from 'components/Products/ProductsList/ProductsList';
-import SearchBar from 'shared/components/SearchBar/SearchBar';
-import Filter from 'components/Filter/Filter';
-// import styles from './ProductListPage.module.scss';
+import styles from './ProductListPage.module.scss';
 
 export default function ProductListPage() {
-  const [page, setPage] = useState(1);
-  // Стан для пошуку та фільтрації
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedSortingOption, setSelectedSortingOption] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchBarValue, setSearchBarValue] = useState('');
+  const [keyWord, setKeyWord] = useState('');
+  const [currentCategories, setCurrentCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState({
+    name: 'Всі категорії старт',
+    id: 'all',
+  });
+  const [refreshCategory, setRefreshCategory] = useState(false);
+  const [selectedSortingOption, setSelectedSortingOption] = useState({
+    id: 0,
+    name: 'Сортування',
+    order: 'desc',
+    field: 'createdAt',
+  });
+  const [categorySelectorIsOpen, setCategorySelectorIsOpen] = useState(false);
+  const [sortingSelectorIsOpen, setSortingSelectorIsOpen] = useState(false);
+  const [refreshProducts, setRefreshProducts] = useState(false);
+  // const [firstRender, setFirstRender] = useState(true);
 
-  const dispatch = useDispatch();
+  // беремо з бази даних актуальні категорії товарів
+  useEffect(() => {
+    (async () => {
+      const savedCategories = await fetchAllCategories();
+      searchParamsProcessing(savedCategories);
+      // setFirstRender(false);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // обнуляємо ключове слово при зміні категорії
+  useEffect(() => {
+    // if (firstRender) {
+    //   return;
+    // }
+    // setSearchBarValue('');
+    // setKeyWord('');
+    setSearchParams({
+      key: keyWord,
+      category: selectedCategory.id,
+      sort: selectedSortingOption.field,
+      order: selectedSortingOption.order,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory, keyWord, selectedSortingOption]);
+
+  // кожного разу скидаємо тумблер refreshCategory в значення за замовчуванням
+  useEffect(() => {
+    if (!refreshCategory) {
+      return;
+    }
+    setRefreshCategory(false);
+  }, [refreshCategory]);
 
   useEffect(() => {
-    dispatch(fetchAllProducts(page));
-  }, [dispatch, page]);
+    if (!refreshProducts) {
+      return;
+    }
+    setRefreshProducts(false);
+  }, [refreshProducts]);
 
-  const handleChangePage = pageNumber => {
-    setPage(pageNumber);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
+  const handleKeyWord = async () => {
+    setKeyWord(searchBarValue);
+    setSelectedCategory({
+      name: 'Всі категорії старт',
+      id: 'all',
+    });
+    // setSearchBarValue('');
+    setRefreshCategory(true);
+    searchBarValue === '' && setRefreshProducts(true);
+  };
+
+  const fetchAllCategories = async () => {
+    const { categories } = await getAllCategories();
+    setCurrentCategories([...categories]);
+    return categories;
+  };
+
+  const toggleCloseCategorySelector = () => {
+    if (sortingSelectorIsOpen) {
+      setSortingSelectorIsOpen(false);
+    }
+
+    setCategorySelectorIsOpen(!categorySelectorIsOpen);
+  };
+
+  const toggleCloseSortingSelector = () => {
+    if (categorySelectorIsOpen) {
+      setCategorySelectorIsOpen(false);
+    }
+
+    setSortingSelectorIsOpen(!sortingSelectorIsOpen);
+  };
+
+  const clearSearchBar = () => {
+    setSearchBarValue('');
+    setKeyWord('');
+  };
+
+  const setCategoryToSearchParams = () => {
+    setSearchParams({
+      key: keyWord,
+      category: selectedCategory.id,
+      sort: selectedSortingOption.field,
+      order: selectedSortingOption.order,
     });
   };
 
-  useEffect(() => {
-    dispatch(fetchReviews());
-  }, [dispatch]);
+  const getCategoryFromSearchParams = savedCategories => {
+    const savedCategoryId = searchParams.get('category');
 
-  const products = useSelector(getAllProducts);
+    if (savedCategories.length < 1) {
+      console.log('Ще немає списку усіх категорій');
+      return;
+    }
 
-  // обробкa події відправки форми
-  const handleSearchSubmit = formData => {
-    setSearchTerm(formData.search); // Оновити стан пошуку
+    const savedCategory = savedCategories.find(
+      category => category.id === savedCategoryId
+    ) || { id: 'all', name: 'Всі категорії відновлені' };
+
+    setSelectedCategory({ ...savedCategory });
   };
 
-  // Фільтруємо продукти за пошуковим терміном та обраною категорією
-  const filteredProducts = products.filter(product => {
-    const nameMatch =
-      !searchTerm ||
-      product.name.toLowerCase().includes(searchTerm.toLowerCase());
-    if (!selectedCategory) {
-      return nameMatch;
-    }
-    const categoryMatch = product.categoryId.includes(selectedCategory);
-    return nameMatch && categoryMatch;
-  });
+  const setKeyWordtoSearchParams = () => {
+    setSearchParams({
+      key: keyWord,
+      category: selectedCategory.id,
+      sort: selectedSortingOption.field,
+      order: selectedSortingOption.order,
+    });
+  };
 
-  // сортування
-  let sortedProducts = [...filteredProducts]; //копія масиву
+  const getKeyWordFromSearchParams = () => {
+    const savedKeyWord = searchParams.get('key');
+    setSearchBarValue(savedKeyWord);
+    setKeyWord(savedKeyWord);
+  };
 
-  if (selectedSortingOption) {
-    if (selectedSortingOption === 'Від дешевих до дорогих') {
-      sortedProducts.sort((a, b) => {
-        // console.log('a.price:', a.price, 'b.price:', b.price);
-        return a.price - b.price;
-      });
-    } else if (selectedSortingOption === 'Від дорогих до дешевих') {
-      sortedProducts.sort((a, b) => {
-        // console.log('a.price:', a.price, 'b.price:', b.price);
-        return b.price - a.price;
-      });
-    } else if (selectedSortingOption === 'За рейтингом') {
-      sortedProducts.sort((a, b) => {
-        // console.log('a.rating:', a.rating, 'b.rating:', b.rating);
-        return b.rating - a.rating;
-      });
-    } else if (selectedSortingOption === 'Новинки') {
-      sortedProducts.sort((a, b) => {
-        // console.log('a.createdAt:', a.createdAt, 'b.createdAt:', b.createdAt);
-        return b.createdAt.localeCompare(a.createdAt);
-      });
+  const setSortingToSearchParams = () => {
+    setSearchParams({
+      key: keyWord,
+      category: selectedCategory.id,
+      sort: selectedSortingOption.field,
+      order: selectedSortingOption.order,
+    });
+  };
+
+  const getSortingFromSearchParams = template => {
+    const savedField = searchParams.get('sort');
+    const savedOrder = searchParams.get('order');
+
+    const { id, name } = template
+      .filter(el => el.field === savedField)
+      .find(el => el.order === savedOrder);
+
+    setSelectedSortingOption({
+      id: id,
+      name: name,
+      field: savedField,
+      order: savedOrder,
+    });
+  };
+
+  const searchParamsProcessing = savedCategories => {
+    const category = searchParams.has('category');
+    const keyWord = searchParams.get('key');
+    const sort = searchParams.get('sort');
+    const order = searchParams.get('order');
+
+    category
+      ? getCategoryFromSearchParams(savedCategories)
+      : setCategoryToSearchParams();
+
+    keyWord ? getKeyWordFromSearchParams() : setKeyWordtoSearchParams();
+
+    if (sort && order) {
+      getSortingFromSearchParams(sortingTemplate);
+    } else {
+      setSortingToSearchParams();
     }
-  }
-  console.log('sortedProducts', sortedProducts);
+  };
 
   return (
     <>
+      {/* <Loader /> */}
       <Heading withGoBack>Крамничка</Heading>
-      <SearchBar onSubmit={handleSearchSubmit} />
-      <Filter
-        onCategorySelect={category => setSelectedCategory(category)}
-        onSortingSelect={option => setSelectedSortingOption(option)}
+      <Input
+        name="searchbar"
+        label=""
+        type="search"
+        value={searchBarValue}
+        onChange={e => setSearchBarValue(e.target.value)}
+        onClick={handleKeyWord}
       />
+      <div className={styles['selectors-container']}>
+        <Selector
+          name="categories"
+          label=""
+          data={currentCategories}
+          fetchSelectorValue={setSelectedCategory}
+          defaultValue={selectedCategory}
+          defaultOption={'Всі категорії'}
+          refresh={refreshCategory}
+          onClick={toggleCloseCategorySelector}
+          onOptionClick={clearSearchBar}
+          forceClosing={sortingSelectorIsOpen}
+        />
+        <Selector
+          name="sorting"
+          label=""
+          data={sortingTemplate}
+          fetchSelectorValue={setSelectedSortingOption}
+          defaultValue={selectedSortingOption}
+          onClick={toggleCloseSortingSelector}
+          forceClosing={categorySelectorIsOpen}
+        />
+      </div>
       <ProductList
-        products={products}
-        onSubmit={handleSearchSubmit}
-        sortedProducts={sortedProducts}
+        searchValue={keyWord}
+        category={selectedCategory}
+        sorting={selectedSortingOption}
+        refresh={refreshProducts}
       />
-      <Pagination page={page} onChangePage={handleChangePage} />
     </>
   );
 }

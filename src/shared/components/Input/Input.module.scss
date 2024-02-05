@@ -13,6 +13,11 @@
   color: var(--black-text-color);
 }
 
+.input-box.without-label {
+  min-height: 40px;
+  // margin-top: -23px;
+}
+
 .label {
   &:hover {
     cursor: pointer;
@@ -21,6 +26,13 @@
 
 .input-box__length--lg {
   width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+
+  @media screen and (min-width: 1280px) {
+    max-width: 566px;
+    border-radius: 12px;
+  }
 }
 
 .input-box__length--md {
