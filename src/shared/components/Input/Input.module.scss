@@ -26,6 +26,12 @@
 
 .input-box__length--lg {
   width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+
+  @media screen and (min-width: 1280px) {
+    max-width: 566px;
+  }
 }
 
 .input-box__length--md {

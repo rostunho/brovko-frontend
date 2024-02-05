@@ -50,7 +50,10 @@
   flex-direction: column;
   justify-content: center;
   row-gap: 16px;
-  margin-top: 8px;
+
+  max-width: 480px;
+  // margin-top: 8px;
+  margin: 8px auto 0;
   box-sizing: border-box;
 
   & .category {
