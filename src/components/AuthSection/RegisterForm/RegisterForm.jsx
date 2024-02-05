@@ -89,7 +89,7 @@ const RegisterForm = () => {
         name="password"
         placeholder="Введіть пароль"
         required={true}
-        value={password}
+        // value={password}
         validateStatus={setIsValidPassword}
         onChange={handleChange}
       />
@@ -99,7 +99,7 @@ const RegisterForm = () => {
         name="confirmPassword"
         placeholder="Підтвердіть пароль"
         required={true}
-        value={confirmPassword}
+        // value={confirmPassword}
         onChange={e => setConfirmPassword(e.target.value)}
       />
       <UserConsent />

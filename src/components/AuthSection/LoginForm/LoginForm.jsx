@@ -68,7 +68,7 @@ const LoginForm = () => {
         name="password"
         placeholder="Введіть пароль"
         required={true}
-        value={password}
+        // value={password}
         validateStatus={setIsValidPassword}
         onChange={handleChange}
       />
