@@ -414,7 +414,12 @@ export default function AddProductForm({ update }) {
           Характеристики
         </Button> */}
 
-        <ParamsConstructor extractData={extractParams} />
+        <ParamsConstructor
+          initialParams={
+            existingProduct?.params.length > 0 && existingProduct.params
+          }
+          extractData={extractParams}
+        />
 
         <Button mode="adding" size="sm">
           Різновиди товарів

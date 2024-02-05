@@ -74,7 +74,7 @@ export const getProductsByKeywords = async (
 
 export const getProductById = async id => {
   const { data } = await instance.get(`/products/product/${id}`);
-  console.log('data in product-api >> :', data);
+  // console.log('data in product-api >> :', data);
   return data;
 };
 
@@ -89,18 +89,18 @@ export const addNewProduct = async (body, files = []) => {
     const data = new FormData();
 
     data.append('requestBody', bodyToSend);
-// <<<<<<< fix_submit_backup
+    // <<<<<<< fix_submit_backup
     // files.forEach(({ type, value }) => {
     // //   data.append(type === 'file' ? 'file' : 'url', value);
     // });
 
     files.forEach((item, index) => {
       if (item.file instanceof File) {
-// =======
-//     files.forEach(item => {
-//       if ('file' in item && item.file instanceof File) {
-//         console.log(item.file);
-// >>>>>>> main
+        // =======
+        //     files.forEach(item => {
+        //       if ('file' in item && item.file instanceof File) {
+        //         console.log(item.file);
+        // >>>>>>> main
         data.append(`picture`, item.file);
         const url = '';
         const obj = { sequenceNumber: index, url };

@@ -9,11 +9,18 @@ import styles from './ParamsConstructor.module.scss';
 
 export default function ParamsConstructor({ initialParams, extractData }) {
   const [showParams, setShowParams] = useState(false);
-  const [titleRow, setTitleRow] = useState({ field: 'Заголовок :', value: '' });
+  const [titleRow, setTitleRow] = useState({ key: 'Заголовок :', value: '' });
   const [rows, setRows] = useState(
-    initialParams || [titleRow, { field: '', value: '' }]
+    initialParams || [titleRow, { key: '', value: '' }]
   );
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (initialParams && initialParams.length > 0) {
+      setRows([...initialParams]);
+      setShowParams(true);
+    }
+  }, [initialParams]);
 
   useEffect(() => {
     extractData && rows.length >= 2 && extractData(rows);
@@ -34,8 +41,8 @@ export default function ParamsConstructor({ initialParams, extractData }) {
     if (!showParams) {
       setShowParams(true);
     } else {
-      setTitleRow({ field: 'Заголовок', value: '' });
-      setRows([titleRow, { field: '', value: '' }]);
+      setTitleRow({ key: 'Заголовок', value: '' });
+      setRows([titleRow, { key: '', value: '' }]);
       setShowParams(false);
     }
   };
@@ -58,7 +65,7 @@ export default function ParamsConstructor({ initialParams, extractData }) {
   const addRow = () => {
     setRows(prevRows => {
       const newRows = [...prevRows];
-      newRows.push({ field: '', value: '' });
+      newRows.push({ key: '', value: '' });
       return newRows;
     });
   };
@@ -115,9 +122,9 @@ export default function ParamsConstructor({ initialParams, extractData }) {
                 <li key={idx} className={styles.item}>
                   <input
                     className={styles.input}
-                    name="field"
+                    name="key"
                     data-idx={idx}
-                    value={rows[idx].field}
+                    value={rows[idx].key}
                     onChange={handleOnChange}
                   />
                   <input
