@@ -89,6 +89,10 @@ export const addProductReducer = (state, action) => {
       newState.product[0].keywords = payload;
       return newState;
 
+    case 'ADD_PARAMS':
+      newState.product[0].params = payload;
+      return newState;
+
     case 'ADD_DESCRIPTION':
       newState.product[0].description = payload;
       return newState;

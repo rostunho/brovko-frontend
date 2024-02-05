@@ -33,6 +33,7 @@ export default function AddProductForm({ update }) {
   const [productSize, setProductSize] = useState('0');
   const [categoryModalisOpen, setCategoryModalisOpen] = useState(false);
   const [refreshSelector, setRefreshSelector] = useState(false);
+  const [params, setParams] = useState([]);
   const [files, setFiles] = useState([]);
   const formRef = useRef();
   const { productId } = useParams();
@@ -119,6 +120,17 @@ export default function AddProductForm({ update }) {
     setRefreshSelector(false);
   }, [refreshSelector]);
 
+  useEffect(() => {
+    if (params.length < 2) {
+      return;
+    }
+
+    // console.log('params Into USe EFFECT :>> ', params);
+
+    dispatchRequestBody(null, 'ADD_PARAMS', params);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params]);
+
   const handleSubmit = async event => {
     event.preventDefault();
     console.log(requestBody, files);
@@ -151,6 +163,20 @@ export default function AddProductForm({ update }) {
 
   const toggleCategoryModal = () => {
     setCategoryModalisOpen(!categoryModalisOpen);
+  };
+
+  const extractParams = data => {
+    const updatedData = data.map(el => {
+      const param = {
+        name: el.field,
+        type: 'text',
+        value: el.value,
+      };
+
+      return param;
+    });
+    // console.log('updatedData into extractParams :>> ', updatedData);
+    setParams([...updatedData]);
   };
 
   // function detectCategoryNameById(id, array) {
@@ -388,7 +414,12 @@ export default function AddProductForm({ update }) {
           Характеристики
         </Button> */}
 
-        <ParamsConstructor />
+        <ParamsConstructor
+          initialParams={
+            existingProduct?.params.length > 0 && existingProduct.params
+          }
+          extractData={extractParams}
+        />
 
         <Button mode="adding" size="sm">
           Різновиди товарів

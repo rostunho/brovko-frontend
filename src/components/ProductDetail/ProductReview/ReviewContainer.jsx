@@ -15,7 +15,6 @@ export default function ReviewContainer() {
   const [isAddingPhoto, setIsAddingPhoto] = useState(false);
 
   const reviewsError = useSelector(selectReviewError);
-console.log('reviewsError', reviewsError)
 
   const toggleReviewInput = () => {
     setIsReviewInputVisible(!isReviewInputVisible);

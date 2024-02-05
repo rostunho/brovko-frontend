@@ -2,7 +2,12 @@ import { useState } from 'react';
 import PromptIcon from 'shared/icons/PromptIcon';
 import styles from './Prompt.module.scss';
 
-export default function Prompt({ children, className, ...props }) {
+export default function Prompt({
+  children,
+  className,
+  messageStyle,
+  ...props
+}) {
   const [promptIsOpen, setPromptIsOpen] = useState(false);
 
   const togglePrompt = () => {
@@ -16,7 +21,11 @@ export default function Prompt({ children, className, ...props }) {
         onMouseEnter={togglePrompt}
         onMouseLeave={togglePrompt}
       />
-      {promptIsOpen && <p className={styles.prompt}>{children}</p>}
+      {promptIsOpen && (
+        <p className={styles.prompt} style={messageStyle && messageStyle}>
+          {children}
+        </p>
+      )}
     </div>
   );
 }

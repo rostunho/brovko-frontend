@@ -8,7 +8,6 @@ import Heading from 'shared/components/Heading';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 
 export default function ProductDetailPage() {
-  
   const [product, setProduct] = useState(null);
   const [productError, setProductError] = useState(null);
   const [reviews, setReviews] = useState([]);
@@ -41,39 +40,33 @@ export default function ProductDetailPage() {
   const fetchProductById = async id => {
     try {
       const product = await getProductById(id);
-    setProduct(product);
-      
+      setProduct(product);
     } catch (error) {
       console.error('Помилка при отриманні продукту:', error);
-        setProductError('Не вдалося завантажити продукт. Спробуйте знову пізніше.');
-        // dispatch(addPopupOperation('Не вдалося завантажити продукт. Спробуйте знову пізніше.', 'error'))
-        
+      setProductError(
+        'Не вдалося завантажити продукт. Спробуйте знову пізніше.'
+      );
+      // dispatch(addPopupOperation('Не вдалося завантажити продукт. Спробуйте знову пізніше.', 'error'))
     }
-    
   };
 
-  const fetchReviewsByProductId = async (id) => {
+  const fetchReviewsByProductId = async id => {
     try {
       const reviews = await getReviewsByProductId(id);
       setReviews(reviews);
-      
     } catch (error) {
       console.error('Помилка при отриманні відгуків:', error);
-        setReviewsError('Не вдалося завантажити відгуки. Спробуйте знову пізніше.');
-        // dispatch(addPopupOperation('Не вдалося завантажити відгуки. Спробуйте знову пізніше.', 'error'))
+      setReviewsError(
+        'Не вдалося завантажити відгуки. Спробуйте знову пізніше.'
+      );
+      // dispatch(addPopupOperation('Не вдалося завантажити відгуки. Спробуйте знову пізніше.', 'error'))
     }
-   
   };
 
-
-  console.log('reviews', reviews);
   const approvedReviews = reviews.map(review => ({
     ...review,
     comments: review.comments.filter(comment => comment.text.status.approved),
   }));
-  console.log('approvedReviews', approvedReviews);
-
- 
 
   const handleReadMoreClick = () => {
     setIsExpandedDescription(true);
@@ -85,15 +78,15 @@ export default function ProductDetailPage() {
   // ===============================================
 
   if (!product || productError) {
-    return     (<p style={{ color: 'red', marginTop: '20px'}}>{productError}</p>);
-  } 
+    return <p style={{ color: 'red', marginTop: '20px' }}>{productError}</p>;
+  }
 
   return (
     <>
       <Heading withGoBack fromHC={'/shop/product-list-page'}>
         {product.name}
       </Heading>
-    
+
       <ProductDetail
         product={product}
         reviews={approvedReviews}

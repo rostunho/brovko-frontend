@@ -15,13 +15,18 @@ import Image from 'shared/components/Image';
 import Button from 'shared/components/Button';
 import Rating from 'components/ProductDetail/ProductRating/Rating';
 import ImageSlider from 'components/ProductDetail/ProductImgSlider/ImageSlider';
-import Content from 'components/ProductDetail/ProductContent/Content';
+// import Content from 'components/ProductDetail/ProductContent/Content';
+import ProductParams from './ProductParams/ProductParams';
 import QuantityButtons from 'shared/components/QuantityButtonModal/QuantityButtons';
 import Price from 'components/ProductDetail/ProductPrice/Price';
 import { DeliveryAndPaymentBlock } from './DeliveryAndPaymentBlock/DeliveryAndPaymentBlock';
 import Description from 'components/ProductDetail/ProductDescription/Description';
 import Review from 'components/ProductDetail/ProductReview/Review';
-import { PRODUCT_NOTE, DELIVERY_INFO, PAYMENT_INFO } from './ProductData/productsFackeData.js'
+import {
+  PRODUCT_NOTE,
+  DELIVERY_INFO,
+  PAYMENT_INFO,
+} from './ProductData/productsFackeData.js';
 
 import styles from './ProductDetail.module.scss';
 
@@ -36,7 +41,7 @@ export default function ProductDetail({
   location,
 }) {
   // const [product, setProduct] = useState(null);
-  console.log('product into PD :>> ', product);
+  // console.log('product into PD :>> ', product);
   // console.log('reviews into PD :>> ', reviews);
   const [value, setValue] = useState(1);
   const userStatus = useSelector(selectUserStatus);
@@ -45,10 +50,10 @@ export default function ProductDetail({
   const navigate = useNavigate();
   const orders = useSelector(getAllOrders);
   const { isOpen, openModal, closeModal } = useModal();
-  
+
   const layoutType = useLayoutType();
 
-  const isMobile = layoutType ==='mobile';
+  const isMobile = layoutType === 'mobile';
   const isTablet = layoutType === 'tablet';
   const isDesktop = layoutType === 'desktop';
 
@@ -96,26 +101,26 @@ export default function ProductDetail({
   };
 
   return (
-      <section className={styles.productCard}>
-        <EditButton userStatus={userStatus} goToEditProduct={goToEditProduct} />
-        <Rating product={product} />
-        <div className={styles.productHalfCard}>
-       
+    <section className={styles.productCard}>
+      <EditButton userStatus={userStatus} goToEditProduct={goToEditProduct} />
+      <Rating product={product} />
+      <div className={styles.productHalfCard}>
         <div className={styles.productQuarterCard}>
-            <Image className={styles.image} src={picture} />
-            <ImageSlider picture={picture} />
+          <Image className={styles.image} src={picture} />
+          <ImageSlider picture={picture} />
         </div>
-          
+
         <div className={styles.productQuarterCard}>
-          <Content note={note} />
+          {/* <Content note={note} /> */}
+
           <div className={styles.price}>
             <h3 className={styles.priceHeading}>
-            {isTablet ? 'Ціна: ' : null}
+              {isTablet ? 'Ціна: ' : null}
               {price} {currencyId}
             </h3>
             <h3 className={styles.priceQuantity}>
-            {isTablet  ? 'Кількість:' : null}
-            <QuantityButtons  value={value} setValue={setValue} />
+              {isTablet ? 'Кількість:' : null}
+              <QuantityButtons value={value} setValue={setValue} />
             </h3>
           </div>
           <Button
@@ -123,39 +128,43 @@ export default function ProductDetail({
             value={value}
             type="submit"
             size="lg"
-            style={{ marginTop: 33 }}
+            style={{ marginTop: 32 }}
           >
             {orderInBasket ? 'Видалити з кошика' : 'Додати в кошик'}
           </Button>
+
+          {product?.params.length > 0 && (
+            <ProductParams params={product?.params} />
+          )}
+
           {isOpen && <ModalProductsInBasket closeModal={closeModal} />}
-          {isTablet  && <DeliveryAndPaymentBlock delivery={delivery} payment={payment}/>}
+          {isTablet && (
+            <DeliveryAndPaymentBlock delivery={delivery} payment={payment} />
+          )}
         </div>
-        </div>
+      </div>
 
-          <div className={styles.productHalfCard}>
-
-          <div className={styles.productQuarterCard}>
+      <div className={styles.productHalfCard}>
+        <div className={styles.productQuarterCard}>
           <Description
-          product={product}
-          isExpandedDescription={isExpandedDescription}
-          location={location}
-          handleReadMoreClick={handleReadMoreClick}
-        />
-          </div>
-          
-          <div className={styles.productQuarterCard}>
-          <Review
-          isExpandedReview={isExpandedReview}
-          location={location}
-          handleReadReviewClic={handleReadReviewClick}
-          reviews={reviews}
-          reviewsError={reviewsError}
-          product={product}
-        />
-          </div>
-          </div>
+            product={product}
+            isExpandedDescription={isExpandedDescription}
+            location={location}
+            handleReadMoreClick={handleReadMoreClick}
+          />
+        </div>
 
-        
-      </section>
+        <div className={styles.productQuarterCard}>
+          <Review
+            isExpandedReview={isExpandedReview}
+            location={location}
+            handleReadReviewClic={handleReadReviewClick}
+            reviews={reviews}
+            reviewsError={reviewsError}
+            product={product}
+          />
+        </div>
+      </div>
+    </section>
   );
 }

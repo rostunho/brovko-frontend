@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { getAllProducts } from 'redux/products/productsSelectors';
+// import { useParams } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+// import { getAllProducts } from 'redux/products/productsSelectors';
 
-import imgArraySlider from './imgArray';
 import Image from 'shared/components/Image';
 
 import styles from './ImageSlider.module.scss';
 
 export default function ImageSlider({ picture }) {
-  const { productId } = useParams();
+  // const { productId } = useParams();
   const [currentIdx, setCurrentIdx] = useState(1);
   const [autoplay, setAutoplay] = useState(true);
 
@@ -21,16 +20,17 @@ export default function ImageSlider({ picture }) {
       autoplay &&
       setTimeout(() => {
         setCurrentIdx(
-          currentIdx === imgArraySlider.length - 1 ? 0 : currentIdx + 1
+          currentIdx === picture.length - 1 || currentIdx === picture.length
+            ? 0
+            : currentIdx + 1
         );
       }, 2000);
   });
 
-  const allProducts = useSelector(getAllProducts);
-  // const product = allProducts?.find(p => p._id === productId);
+  // const allProducts = useSelector(getAllProducts);
+  // // const product = allProducts?.find(p => p._id === productId);
 
   return (
-    // <div className={styles.imageSliderContainer}>
     <div
       className={styles.swiper}
       onMouseEnter={() => {
@@ -41,11 +41,14 @@ export default function ImageSlider({ picture }) {
         setAutoplay(true);
       }}
     >
-      {/* <Heading>Шість крутих смаків!</Heading> */}
       <div className={styles.slidesContainer}>
         <div
           className={styles.visibleImages}
-          style={{ transform: `translate(-${currentIdx * 100}%)` }}
+          style={{
+            transform: `translate(calc(-${currentIdx * 100}% - ${
+              currentIdx * 16
+            }px))`,
+          }}
         >
           {picture.map((item, idx) => {
             return (
@@ -63,19 +66,19 @@ export default function ImageSlider({ picture }) {
         </div>
       </div>
       <div className={styles.dotsContainer}>
-        {imgArraySlider.map((_, idx) => {
-          return (
-            <div
-              key={idx}
-              className={idx === currentIdx ? styles.activeDot : styles.dot}
-              onClick={() => {
-                setCurrentIdx(idx);
-              }}
-            ></div>
-          );
-        })}
+        {picture.length > 1 &&
+          picture.map((_, idx) => {
+            return (
+              <div
+                key={idx}
+                className={idx === currentIdx ? styles.activeDot : styles.dot}
+                onClick={() => {
+                  setCurrentIdx(idx);
+                }}
+              ></div>
+            );
+          })}
       </div>
     </div>
-    // </div>
   );
 }
