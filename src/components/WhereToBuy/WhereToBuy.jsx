@@ -10,7 +10,7 @@ export default function WhereToBuy() {
   return (
     <div className={styles.container}>
       <ul className={styles.box}>
-        {locationPoints.map(({ name, foolName, city, address, mapLink, phoneNumber, alternatePhoneNumber, workingHours }, index) => (
+        {locationPoints.map(({ name, foolName, city, address, mapLink, phoneNumber, alternatePhoneNumber, workingHours, iframeSrc }, index) => (
           <li className={styles.link} key={index}>
             <div className={styles.card}>
               <div className={styles.icon}>
@@ -19,14 +19,19 @@ export default function WhereToBuy() {
               </div>
               <div className={styles.content}>
               <div className={styles.text}>{foolName}</div>
-              <div className={styles.text}>
+              {/* <div className={styles.map}>
+       
+              <iframe src={iframeSrc} style={{ border: "0", borderRadius: "6px", width: '100%' }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+       </div> */}
+              <div className={styles.text} style={{color: 'var(--link-color'}}>
               <LocationIcon/>  
               {city} {''}
-              <a href={mapLink} target="_blank" rel="noreferrer" style={{ fontWeight: '700px', fontSize: '14px' }}>
-              {address}
-              </a>
                </div>
+               <div className={styles.text}><a href={mapLink} target="_blank" rel="noreferrer" style={{ fontWeight: '700px', fontSize: '14px', paddingLeft: "30px" }}>
+              {address}
+              </a></div>
                <div className={styles.text}>
+               
                 <PhoneIcon/>
                   <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
                 </div>
@@ -38,12 +43,13 @@ export default function WhereToBuy() {
                 <CalendarIcon style={{fill: "#F3A610"}}/>
                 <ul className={styles.textWorkingHours}>
                   {Object.entries(workingHours).map(([day, hours]) => (
-                    <li  key={day}>
+                    <li  className={styles.textWorkingHoursList}key={day}>
                       {day.charAt(0).toUpperCase() + day.slice(1)}: {hours}
                     </li>
                   ))}
                 </ul>
               </div>
+             
               </div>
               
             </div>

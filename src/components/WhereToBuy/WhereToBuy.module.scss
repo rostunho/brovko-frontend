@@ -13,9 +13,9 @@
   }
   
   .card {
-    width: 288px;
+    width: 300px;
     // width: 100%;
-    height: 260px;
+    height: 280px;
     flex-shrink: 0;
     border-radius: 12px;
     background: var(--unnamed, #fff);
@@ -41,7 +41,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 6px;
     color: var(--black-text-color);
     padding: 16px 12px 16px 12px;
     @include text-styles('Nunito', 14px, 700);
@@ -51,7 +51,9 @@
   .text {
       display: flex;
       gap: 8px;
+    //   height: 40px;
     //   cursor: pointer;
+    // color: var(--link-color);
   }
 
   .textWorkingHours {
@@ -59,9 +61,13 @@
     // color: var(--link-color);
   }
   
+  .textWorkingHoursList {
+      padding-bottom: 6px;
+  }
+
   @media screen and (min-width: 481px) {
     .card {
-      width: 288px;
+      width: 320px;
     }
   }
   
