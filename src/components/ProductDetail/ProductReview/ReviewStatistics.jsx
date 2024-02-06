@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { getAllReviews } from 'redux/reviews/reviewsSelectors';
 
+// UNUSABLE
 export function ReviewStatistics({ productId }) {
   const allReviews = useSelector(getAllReviews);
 

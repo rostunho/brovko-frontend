@@ -5,6 +5,9 @@ import { getProductById } from 'shared/services/api';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 
 import Heading from 'shared/components/Heading';
+import Rating from 'components/ProductDetail/ProductRating/Rating';
+import ImageBox from 'shared/components/ImageBox/ImageBox';
+import styles from './NewProductDetail.module.scss';
 
 export default function NewProductDetailPage() {
   const { productId } = useParams();
@@ -12,7 +15,6 @@ export default function NewProductDetailPage() {
   const dispatch = useDispatch();
 
   async function getCurrentProduct(id) {
-    console.log('getCurrentProduct WORKING');
     try {
       const currentProduct = await getProductById(id);
       setProduct(currentProduct);
@@ -25,6 +27,8 @@ export default function NewProductDetailPage() {
   return (
     <>
       <Heading withGoBack>{product?.name}</Heading>
+      <Rating className={styles.rating} />
+      <ImageBox className={styles['image-box']} images={product?.picture} />
     </>
   );
 }
