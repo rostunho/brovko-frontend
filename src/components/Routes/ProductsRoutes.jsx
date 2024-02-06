@@ -20,6 +20,11 @@ const LazyProductFavouritePage = lazy(() =>
 const LazyProductDetailPage = lazy(() =>
   import('pages/ProductDetailPage/ProductDetailPage.jsx')
 );
+
+const NewProductDetailPage = lazy(() =>
+  import('pages/NewProductDetailPage/NewProductDetailPage')
+);
+
 const LazyProductDescriptionPage = lazy(() =>
   import('pages/ProductDetailPage/ProductDescriptionPage')
 );
@@ -36,10 +41,11 @@ export default function ProductsRoutes() {
         <Route path="product-list-page" element={<LazyProductListPage />} />
         <Route path="favourites" element={<LazyProductFavouritePage />} />
         <Route path="user" element={<LazyUserDashboardPage />} />
-        <Route path="product/:productId" element={<LazyProductDetailPage />}>
+        <Route path="product/:productId" element={<NewProductDetailPage />} />
+        {/* <Route path="product/:productId" element={<LazyProductDetailPage />}>
           <Route path="description" element={<LazyProductDescriptionPage />} />
           <Route path="review" element={<LazyProductReviewPage />} />
-        </Route>
+        </Route> */}
       </Routes>
     </Suspense>
   );

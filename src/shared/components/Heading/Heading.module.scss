@@ -4,6 +4,8 @@
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 8px;
   // height: 96px;
 }
 
@@ -29,7 +31,8 @@
 }
 
 .h2.with-goback {
-  margin-left: 12px;
+  margin-left: 48px;
+  margin-right: 48px;
 }
 
 .h3 {
