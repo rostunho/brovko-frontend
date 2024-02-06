@@ -8,31 +8,23 @@ import Heading from 'shared/components/Heading';
 
 export default function NewProductDetailPage() {
   const { productId } = useParams();
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState(() => getCurrentProduct(productId));
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!productId) {
-      return;
-    }
-
-    getCurrentProduct(productId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productId]);
-
-  const getCurrentProduct = async id => {
+  async function getCurrentProduct(id) {
+    console.log('getCurrentProduct WORKING');
     try {
       const currentProduct = await getProductById(id);
       setProduct(currentProduct);
     } catch (error) {
       console.error(error);
-      dispatch(addPopupOperation('Не вдалося завантажити продукт', error));
+      dispatch(addPopupOperation('Не вдалося завантажити продукт', 'error'));
     }
-  };
+  }
 
   return (
     <>
-      <Heading withGoBack>{product.name}</Heading>
+      <Heading withGoBack>{product?.name}</Heading>
     </>
   );
 }
