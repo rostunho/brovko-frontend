@@ -4,7 +4,7 @@ import styles from './ModalBasketIsEmpty.module.scss';
 
 const ModalBasketIsEmpty = ({ hendlClickReturn }) => {
   return (
-    <div>
+    <div className={styles.wrapper}>
       <p className={styles.text}>Ваш кошик порожній</p>
       <div className={styles.wrapperButton}>
         <Button
