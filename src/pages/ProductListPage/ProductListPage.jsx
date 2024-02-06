@@ -8,6 +8,7 @@ import Input from 'shared/components/Input';
 import Selector from 'shared/components/Selector';
 import ProductList from 'components/Products/ProductsList/ProductsList';
 import styles from './ProductListPage.module.scss';
+import DoubleRangeSlider from 'shared/components/Input/InputRange/DoubleRangeSlider';
 
 export default function ProductListPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,6 +29,8 @@ export default function ProductListPage() {
   const [categorySelectorIsOpen, setCategorySelectorIsOpen] = useState(false);
   const [sortingSelectorIsOpen, setSortingSelectorIsOpen] = useState(false);
   const [refreshProducts, setRefreshProducts] = useState(false);
+
+  const [prices, setPrices] = useState(null);
   // const [firstRender, setFirstRender] = useState(true);
 
   // беремо з бази даних актуальні категорії товарів
@@ -192,6 +195,14 @@ export default function ProductListPage() {
     }
   };
 
+  const handleSliderSubmit = (minPrice, maxPrice) => {
+    // Обробка значень minPrice та maxPrice
+    console.log('minPrice:', minPrice);
+    console.log('maxPrice:', maxPrice);
+
+    // Додайте інші необхідні дії тут
+  };
+
   return (
     <>
       {/* <Loader /> */}
@@ -227,11 +238,17 @@ export default function ProductListPage() {
           forceClosing={categorySelectorIsOpen}
         />
       </div>
+      <DoubleRangeSlider
+        onSubmit={handleSliderSubmit}
+        min={prices?.minPrice}
+        max={prices?.maxPrice}
+      />
       <ProductList
         searchValue={keyWord}
         category={selectedCategory}
         sorting={selectedSortingOption}
         refresh={refreshProducts}
+        onProductsChange={setPrices}
       />
     </>
   );
