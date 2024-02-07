@@ -27,7 +27,7 @@
   /* Shadow for cards */
   box-shadow: var(--box-shadow);
   @media screen and (min-width: 768px) {
-    max-width: 480px;
+    width: 480px;
   }
   @media screen and (min-width: 1280px) {
     width: 606px;
