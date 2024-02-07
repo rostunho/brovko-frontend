@@ -31,6 +31,10 @@ export default function ProductListPage() {
   const [refreshProducts, setRefreshProducts] = useState(false);
 
   const [prices, setPrices] = useState(null);
+  const [selectedPrices, setSelectedPrices] = useState({
+    maxPrice: '',
+    minPrice: '',
+  });
   // const [firstRender, setFirstRender] = useState(true);
 
   // беремо з бази даних актуальні категорії товарів
@@ -199,6 +203,7 @@ export default function ProductListPage() {
     // Обробка значень minPrice та maxPrice
     console.log('minPrice:', minPrice);
     console.log('maxPrice:', maxPrice);
+    setSelectedPrices({ minPrice, maxPrice });
 
     // Додайте інші необхідні дії тут
   };
