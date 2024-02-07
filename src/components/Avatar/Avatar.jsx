@@ -28,8 +28,6 @@ const Avatar = ({
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  console.log(loading);
-
   const openModalEditPhoto = () => {
     if (size === '32px') {
       return;
@@ -44,12 +42,11 @@ const Avatar = ({
   const { firstName, email, avatarURL, _id, status } = useSelector(selectUser);
   const dispatch = useDispatch();
 
-  const delAvatar = () => {
+  const delAvatar = async () => {
     setLoading(true);
-    console.log(loading);
     const dataAvatar = { avatarURL: '', id: _id };
 
-    dispatch(update(dataAvatar));
+    await dispatch(update(dataAvatar));
     setPrompDelete(false);
     setLoading(false);
   };
@@ -83,16 +80,15 @@ const Avatar = ({
     // Your form submission logic
   };
 
-  const addImage = e => {
+  const addImage = async e => {
     e.preventDefault();
     const file = e.target.files[0];
     if (file) {
       setLoading(true);
-      console.log(loading);
       // setSelectedImage(file);
       const formData = new FormData();
       formData.append('avatar', file);
-      dispatch(updateAvatar(formData));
+      await dispatch(updateAvatar(formData));
       // .then(() => {
       //   // Оновлення avatarURL після успішного завантаження
       //   // Це дозволяє вам відобразити новий аватар без перезавантаження сторінки
