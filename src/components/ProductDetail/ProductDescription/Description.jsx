@@ -21,7 +21,7 @@ export default function Description({
   const isTablet = layoutType === 'tablet';
   const isDesktop = layoutType === 'desktop';
 
-  const updatedIsExpandedDescription = isTablet || isExpandedDescription;
+  const updatedIsExpandedDescription = !isMobile || isExpandedDescription;
   
 
   return (
@@ -36,7 +36,7 @@ export default function Description({
               product={product}
               isExpandedDescription={updatedIsExpandedDescription}
             />
-            {isTablet ? null : (
+            {!isMobile ? null : (
             <SharedLinkButton
               to={location.pathname}  
               state={{ isExpandedDescription: false }} 

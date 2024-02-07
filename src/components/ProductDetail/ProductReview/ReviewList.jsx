@@ -24,17 +24,21 @@ function ReviewList({ reviews, isExpandedReview = true }) {
   
     let displayedReviews;
   
-    if (isTablet) {
-      displayedReviews = allReviews?.slice(0, 3); // Покажіть 3 відгуки на планшетах
+    if (!isMobile) {
+      displayedReviews = isExpandedReview
+        ? allReviews
+        : allReviews?.slice(0, 3);  // Покажіть 3 відгуки на планшетах
     } else {
       displayedReviews = isExpandedReview
         ? allReviews
-        : allReviews?.slice(0, 1); // Покажіть 1 або всі відгуки в залежності від isExpandedReview
+        : allReviews?.slice(0, 2); // Покажіть 2 або всі відгуки в залежності від isExpandedReview
     }
   
     setdisplayedReviews(displayedReviews);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reviews, isTablet, isExpandedReview]);
+  }, [reviews, !isMobile, isExpandedReview]);
+
+  console.log('displayedReviews', displayedReviews);
   
 
   return (

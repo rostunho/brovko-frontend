@@ -1,49 +1,59 @@
-import { locationPoints } from './locationPoints';
+// import { locationPoints } from './locationPoints';
+import { useEffect, useState } from 'react';
 import BabayDog from 'shared/icons/BabyDog';
 import Steak from 'shared/icons/Steak';
 import LocationIcon from 'shared/icons/LocationIcon';
 import PhoneIcon from 'shared/icons/PhoneIcon';
-import CalendarIcon from 'shared/icons/CalendarIcon';
+import CalendarIcon from 'shared/icons/Calendar2Icon';
 import styles from './WhereToBuy.module.scss';
 
-export default function WhereToBuy() {
+export default function WhereToBuy({locationPoints}) {
+  console.log('locationPoints', locationPoints);
+  const [locations, setlocations] = useState([]);
+  
+
   return (
     <div className={styles.container}>
       <ul className={styles.box}>
-        {locationPoints.map(({ name, foolName, city, address, mapLink, phoneNumber, alternatePhoneNumber, workingHours }, index) => (
+        {locationPoints.map((location, index) => (
           <li className={styles.link} key={index}>
             <div className={styles.card}>
               <div className={styles.icon}>
-              <Steak/>
-                <h3 style={{color: '#fefefe'}}>{name}</h3>
+              {/* <Steak/> */}
+                <h3 style={{color: '#fefefe'}}>{location.name}</h3>
               </div>
               <div className={styles.content}>
-              <div className={styles.text}>{foolName}</div>
-              <div className={styles.text}>
+              <p style={{height: '38px'}}>{location.fullName}</p>
+             
+              <div className={styles.text} style={{color: 'var(--link-color'}}>
               <LocationIcon/>  
-              {city} {''}
-              <a href={mapLink} target="_blank" rel="noreferrer" style={{ fontWeight: '700px', fontSize: '14px' }}>
-              {address}
+              <a href={location.mapUrl} target="_blank" rel="noreferrer" style={{ fontWeight: '700px', fontSize: '14px' }}>
+              {location.address}
               </a>
-               </div>
+              </div>
                <div className={styles.text}>
                 <PhoneIcon/>
-                  <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
+                <ul className={styles.textWorkingHours}>
+                {location.phone.map((phoneNumber, index) => (
+                  <li key={index}>
+                    <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
+                   </li>))
+                }
+                </ul>
+                 
                 </div>
-                {alternatePhoneNumber ? <div className={styles.text}>
-                <PhoneIcon fill={"rgba(0, 0, 0, 0)"}/>
-                  <a href={`tel:${alternatePhoneNumber}`}>{alternatePhoneNumber}</a>
-                </div> : ''}
+          
                 <div className={styles.text}>
                 <CalendarIcon style={{fill: "#F3A610"}}/>
                 <ul className={styles.textWorkingHours}>
-                  {Object.entries(workingHours).map(([day, hours]) => (
-                    <li  key={day}>
+                  {Object.entries(location.workingHours).map(([day, hours]) => (
+                    <li  className={styles.textWorkingHoursList}key={day}>
                       {day.charAt(0).toUpperCase() + day.slice(1)}: {hours}
                     </li>
                   ))}
                 </ul>
               </div>
+             
               </div>
               
             </div>

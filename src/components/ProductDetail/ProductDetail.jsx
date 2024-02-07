@@ -112,14 +112,18 @@ export default function ProductDetail({
 
         <div className={styles.productQuarterCard}>
           {/* <Content note={note} /> */}
+          
+          {product?.params.length > 0 && (
+            <ProductParams params={product?.params} />
+          )}
 
           <div className={styles.price}>
             <h3 className={styles.priceHeading}>
-              {isTablet ? 'Ціна: ' : null}
+              {!isMobile ? <span style={{marginRight: '8px'}}>Ціна: </span> : null}
               {price} {currencyId}
             </h3>
             <h3 className={styles.priceQuantity}>
-              {isTablet ? 'Кількість:' : null}
+              {!isMobile ? <span>Кількість:</span> : null}
               <QuantityButtons value={value} setValue={setValue} />
             </h3>
           </div>
@@ -133,13 +137,19 @@ export default function ProductDetail({
             {orderInBasket ? 'Видалити з кошика' : 'Додати в кошик'}
           </Button>
 
-          {product?.params.length > 0 && (
-            <ProductParams params={product?.params} />
-          )}
-
           {isOpen && <ModalProductsInBasket closeModal={closeModal} />}
-          {isTablet && (
+          {!isMobile && (
             <DeliveryAndPaymentBlock delivery={delivery} payment={payment} />
+          )}
+          {isDesktop && (
+            <Review
+            isExpandedReview={isExpandedReview}
+            location={location}
+            handleReadReviewClic={handleReadReviewClick}
+            reviews={reviews}
+            reviewsError={reviewsError}
+            product={product}
+          />
           )}
         </div>
       </div>
@@ -154,7 +164,7 @@ export default function ProductDetail({
           />
         </div>
 
-        <div className={styles.productQuarterCard}>
+       { !isDesktop && (<div className={styles.productQuarterCard}>
           <Review
             isExpandedReview={isExpandedReview}
             location={location}
@@ -163,7 +173,7 @@ export default function ProductDetail({
             reviewsError={reviewsError}
             product={product}
           />
-        </div>
+        </div>)}
       </div>
     </section>
   );
