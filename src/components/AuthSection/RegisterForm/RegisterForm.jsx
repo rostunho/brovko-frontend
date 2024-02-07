@@ -69,10 +69,13 @@ const RegisterForm = () => {
       }}
       className={styles.form}
     >
-      {formError && <Text className={styles.textError}>{formError}</Text>}
+      <Text style={{ marginBottom: '8px' }}>
+        Створення облікового запису допоможе купувати швидше, а також
+        переглядати замовлення зроблені раніше.
+      </Text>
+
       <Input
         label="E-mail"
-        // style={{ backgroundColor: '#801f1f' }}
         type="email"
         name="email"
         placeholder="Введіть свій e-mail"
@@ -82,6 +85,7 @@ const RegisterForm = () => {
         onChange={handleChange}
         inputClassName={formError ? styles['input--reg-error'] : ''}
       />
+      {formError && <Text className={styles.textError}>{formError}</Text>}
 
       <Input
         label="Пароль"
