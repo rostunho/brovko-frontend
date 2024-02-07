@@ -1,3 +1,4 @@
+import Button from 'shared/components/Button'
 import PhoneIcon from 'shared/icons/PhoneIcon'
 import MailIcon from 'shared/icons/MailIcon'
 import Insta2Icon from 'shared/icons/Insta2Icon'
@@ -21,9 +22,11 @@ export default function Contacts() {
     <a href="mailto: brovkopet@mailinator.com" >brovkopet@mailinator.com</a>
     </div>
     </div>
-    <div className={styles.contactsDataItem}></div>
-    <Insta2Icon/>
+    {/* <div className={styles.contactsDataItem}></div> */}
+    <Insta2Icon style={{marginRight: "28"}}/>
     <FaceBookIcon />
+    <Button  mode="outlined" size='lg'>Знайти магазин поблизу</Button>
+
     </section>
     
   )

@@ -2,7 +2,8 @@
 
 .container{
     margin: 0px 16px 0px 16px;
-    border: var(--border-primary);
+    // border: var(--border-primary);
+    // display: flex;
 }
 
 .contactsData {
@@ -12,7 +13,9 @@
     gap: 12px;
     margin-top: 24px;
     @include text-styles('Nunito', 14px, 700);
-    border: var(--border-primary);
+    // border: var(--border-primary);
+    margin-bottom: 24px;
+    // margin-top: 24px;
    
 }
 
@@ -20,5 +23,5 @@
     display: flex;
     gap: 8px;
     align-items: center;
-    border: var(--border-primary);
+    // border: var(--border-primary);
 }
