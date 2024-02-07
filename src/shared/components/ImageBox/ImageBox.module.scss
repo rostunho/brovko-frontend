@@ -38,3 +38,24 @@
 .small-image.active {
   border: 2px solid #f3a610;
 }
+
+.marker-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.circle-marker {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #f3a610;
+  opacity: 0.5;
+}
+
+.circle-marker.active {
+  opacity: 1;
+}

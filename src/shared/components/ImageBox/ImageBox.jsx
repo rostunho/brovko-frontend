@@ -6,14 +6,11 @@ import styles from './ImageBox.module.scss';
 export default function ImageBox({ images = [], className }) {
   const [currentImgIdx, setCurrentImgIdx] = useState(0);
   const [startX, setStartX] = useState(null);
-  const [deltaX, setDeltaX] = useState(0);
   const [offsetX, setOffsetX] = useState(0);
   const [miniGalleryWidth, setMiniGalleryWidth] = useState(0);
   const screenWidth = useScreenWidth();
   const [containerWidth, setContainerWidth] = useState(() => screenWidth - 32);
   const [maxOffset, setMaxOffset] = useState(0);
-
-  console.log('-maxOffset :>> ', -maxOffset);
 
   useEffect(() => {
     if (images.length <= 0) {
@@ -39,12 +36,9 @@ export default function ImageBox({ images = [], className }) {
     const endX = event.changedTouches[0].clientX;
     const deltaX = endX - startX;
 
-    setDeltaX(deltaX);
-
     // (deltaX > 50 || deltaX < -50) && setOffsetX(deltaX);
 
     if (deltaX > 0) {
-      console.log('Свайп вправо');
       // не реагуємо, якщо галерея в стартовому положені
       if (offsetX >= 0) {
         return;
@@ -54,8 +48,18 @@ export default function ImageBox({ images = [], className }) {
         ? setOffsetX(0)
         : setOffsetX(prevOffset => prevOffset + deltaX);
       //   setCurrentImgIdx(prevIdx => prevIdx + 1);
+      console.log({
+        move: 'Свайп вправо',
+        startX,
+        endX,
+        deltaX,
+        offsetX,
+        miniGalleryWidth,
+        screenWidth,
+        containerWidth,
+        maxOffset,
+      });
     } else if (deltaX < 0) {
-      console.log('Свайп вліво');
       // не реагуємо, якщо загальне відхилення вліво вже не менше максимально допустимого відхилення
       if (offsetX <= -maxOffset) {
         return;
@@ -65,6 +69,18 @@ export default function ImageBox({ images = [], className }) {
         ? setOffsetX(-maxOffset)
         : setOffsetX(prevOffset => prevOffset - -deltaX);
       //   setCurrentImgIdx(prevIdx => prevIdx - 1);
+
+      console.log({
+        move: 'Свайп вліво',
+        startX,
+        endX,
+        deltaX,
+        miniGalleryWidth,
+        offsetX,
+        screenWidth,
+        containerWidth,
+        maxOffset,
+      });
     }
   };
 
@@ -79,7 +95,10 @@ export default function ImageBox({ images = [], className }) {
         className={styles['mini-gallery']}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
-        style={{ transform: `translateX(${offsetX}px)` }}
+        style={{
+          transform: `translateX(${offsetX}px)`,
+          width: `${miniGalleryWidth}`,
+        }}
       >
         {images.map((image, idx) => {
           return (
@@ -91,6 +110,18 @@ export default function ImageBox({ images = [], className }) {
               src={image}
               alt="Смаколик"
               onClick={() => setCurrentImgIdx(idx)}
+            />
+          );
+        })}
+      </div>
+      <div className={styles['marker-container']}>
+        {images.map((_, idx) => {
+          return (
+            <div
+              key={idx}
+              className={`${styles['circle-marker']}  ${
+                idx === currentImgIdx ? styles.active : ''
+              }`}
             />
           );
         })}
