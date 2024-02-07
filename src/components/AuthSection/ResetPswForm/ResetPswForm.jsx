@@ -11,7 +11,7 @@ import initialState from './initialState';
 import styles from './ResetPswForm.module.scss';
 
 const ResetPswForm = () => {
-  const { state, setState, handleChange, handleSubmit } = useForm({
+  const { state, handleChange, handleSubmit } = useForm({
     initialState,
     onSubmit: dispatchPassword,
   });
@@ -57,10 +57,12 @@ const ResetPswForm = () => {
 
   if (resetPswSuccess) {
     return (
-      <p>
+      <Text>
         Пароль успішно змінено!!! Тепер ви можете{' '}
-        <NavLink to="/auth/login">Увійти</NavLink>
-      </p>
+        <NavLink className={styles.lnkLogin} to="/auth/login">
+          Увійти
+        </NavLink>
+      </Text>
     );
   }
 
