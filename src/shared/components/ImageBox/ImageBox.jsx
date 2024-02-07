@@ -6,11 +6,11 @@ import styles from './ImageBox.module.scss';
 export default function ImageBox({ images = [], className }) {
   const [currentImgIdx, setCurrentImgIdx] = useState(0);
   const [startX, setStartX] = useState(null);
-  const [offsetX, setOffsetX] = useState(0);
-  const [miniGalleryWidth, setMiniGalleryWidth] = useState(0);
-  const screenWidth = useScreenWidth();
-  const [containerWidth, setContainerWidth] = useState(() => screenWidth - 32);
-  const [maxOffset, setMaxOffset] = useState(0);
+  const [offsetX, setOffsetX] = useState(0); // сумарне зміщення за усі свайпи
+  const [miniGalleryWidth, setMiniGalleryWidth] = useState(0); // ширина усієї міні-галереї
+  const screenWidth = useScreenWidth(); // актуальна ширина екрану
+  const [containerWidth, setContainerWidth] = useState(() => screenWidth - 32); // штрина видимої частини міні-галереї;
+  const [maxOffset, setMaxOffset] = useState(0); // максимально домустиме зміщення
 
   useEffect(() => {
     if (images.length <= 0) {
@@ -36,7 +36,7 @@ export default function ImageBox({ images = [], className }) {
     const endX = event.changedTouches[0].clientX;
     const deltaX = endX - startX;
 
-    // (deltaX > 50 || deltaX < -50) && setOffsetX(deltaX);
+    console.log('deltaX :>> ', deltaX);
 
     if (deltaX > 0) {
       // не реагуємо, якщо галерея в стартовому положені
@@ -44,20 +44,14 @@ export default function ImageBox({ images = [], className }) {
         return;
       }
 
-      deltaX > maxOffset
-        ? setOffsetX(0)
-        : setOffsetX(prevOffset => prevOffset + deltaX);
-      //   setCurrentImgIdx(prevIdx => prevIdx + 1);
-      console.log({
-        move: 'Свайп вправо',
-        startX,
-        endX,
-        deltaX,
-        offsetX,
-        miniGalleryWidth,
-        screenWidth,
-        containerWidth,
-        maxOffset,
+      setOffsetX(prevOffset => {
+        console.log('prevOffset :>> ', prevOffset);
+        console.log('prevOffset - deltaX  :>> ', prevOffset - deltaX);
+        if (prevOffset - deltaX < -maxOffset) {
+          return 0;
+        } else {
+          return prevOffset + deltaX;
+        }
       });
     } else if (deltaX < 0) {
       // не реагуємо, якщо загальне відхилення вліво вже не менше максимально допустимого відхилення
@@ -65,21 +59,12 @@ export default function ImageBox({ images = [], className }) {
         return;
       }
 
-      deltaX < -maxOffset
-        ? setOffsetX(-maxOffset)
-        : setOffsetX(prevOffset => prevOffset - -deltaX);
-      //   setCurrentImgIdx(prevIdx => prevIdx - 1);
-
-      console.log({
-        move: 'Свайп вліво',
-        startX,
-        endX,
-        deltaX,
-        miniGalleryWidth,
-        offsetX,
-        screenWidth,
-        containerWidth,
-        maxOffset,
+      setOffsetX(prevOffset => {
+        if (prevOffset + deltaX < -maxOffset) {
+          return -maxOffset;
+        } else {
+          return prevOffset - -deltaX;
+        }
       });
     }
   };
