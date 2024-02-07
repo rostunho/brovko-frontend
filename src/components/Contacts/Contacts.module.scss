@@ -1,3 +1,24 @@
-// .contactsInfo {
-//   margin-bottom: 32px;
-// }
+@import '../../theme/abstract/mixins';
+
+.container{
+    margin: 0px 16px 0px 16px;
+    border: var(--border-primary);
+}
+
+.contactsData {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 24px;
+    @include text-styles('Nunito', 14px, 700);
+    border: var(--border-primary);
+   
+}
+
+.contactsDataItem{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    border: var(--border-primary);
+}

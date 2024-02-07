@@ -18,9 +18,7 @@ function ReviewList({ reviews, isExpandedReview = true }) {
   const [displayedReviews, setdisplayedReviews] = useState([]);
 
   useEffect(() => {
-    if (reviews.length === 0) {
-      return;
-    }
+    if (!reviews) return;
   
     let displayedReviews;
   
@@ -43,8 +41,7 @@ function ReviewList({ reviews, isExpandedReview = true }) {
 
   return (
     <ul className={styles.reviewList}>
-      {displayedReviews &&
-        displayedReviews.map(review => (
+      {displayedReviews?.map(review => (
           <ReviewItem
             key={review.text.createdAt}
             review={review}
