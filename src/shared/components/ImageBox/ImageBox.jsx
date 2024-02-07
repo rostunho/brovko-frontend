@@ -22,6 +22,7 @@ export default function ImageBox({ images = [], className }) {
 
   useEffect(() => {
     setContainerWidth(screenWidth - 32);
+    setOffsetX(0);
   }, [screenWidth]);
 
   useEffect(() => {
