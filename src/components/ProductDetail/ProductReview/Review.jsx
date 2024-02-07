@@ -1,4 +1,5 @@
-import { Outlet } from 'react-router-dom';
+import { useState } from 'react';
+import useLayoutType from 'shared/hooks/useLayoutType';
 import SharedLinkButton from '../ProductDetailButtons/SharedLinkButton';
 import ReviewContainer from './ReviewContainer';
 import ReviewList from './ReviewList';
@@ -8,42 +9,30 @@ export default function Review({
   reviews,
   reviewsError,
   isExpandedReview,
-  handleReadReviewClick,
 }) {
+  const layoutType = useLayoutType();
+  const isMobile = layoutType === 'mobile';
+
+  const [expandedReviews, setExpandedReviews] = useState(isExpandedReview);
 
   return (
     <>
-  {reviewsError ? (
-    <p style={{ color: 'red' }}>{reviewsError}</p>
-  ) : (
-    reviews.length > 0 ? (
-      isExpandedReview ? (
-        <>
-          <Outlet />
-        </>
+      {reviewsError ? (
+        <p style={{ color: 'red' }}>{reviewsError}</p>
       ) : (
         <>
           <ReviewContainer />
-          <ReviewList reviews={reviews} isExpandedReview={isExpandedReview} />
-
-          {!isExpandedReview && (
-            <SharedLinkButton
-              to={`review`}
-              state={{ isExpandedReview: true, product, reviews }}
-              label="Дивитися всі відгуки"
-              onClick={handleReadReviewClick}
-            />
+          {expandedReviews ? (
+            <ReviewList reviews={reviews} isExpandedReview={true} />
+          ) : (
+            <ReviewList reviews={reviews} isExpandedReview={false} />
           )}
+          <SharedLinkButton
+            label={expandedReviews ? "Приховати відгуки" : "Дивитися всі відгуки"}
+            onClick={() => setExpandedReviews(!expandedReviews)}
+          />
         </>
-      )
-    ) : (
-      <>
-        <ReviewContainer />
-        <p>Для цього смаколика ще не написано жодного відгука....</p>
-      </>
-    )
-  )}
-</>
-
+      )}
+    </>
   );
 }
