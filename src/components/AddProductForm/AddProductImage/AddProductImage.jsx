@@ -22,7 +22,7 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
   const [modalIsImage, setModalIsImage] = useState(false);
   const [modalIsId, setModalIsId] = useState(false);
   const [prompDelete, setPrompDelete] = useState(false);
-  const [draggedImageIndex, setDraggedImageIndex] = useState(null)
+  const [draggedImageIndex, setDraggedImageIndex] = useState(null);
 
   const touchStartRef = useRef(null);
 
@@ -185,12 +185,13 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
   const handleTouchStart = (e, index) => {
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
+    setDraggedImageIndex(index);
   };
 
-  const handleTouchMove = e => {
+  const handleTouchMove = (e, index) => {
     e.preventDefault();
     console.log('Touch move detected');
-    if (!startX || !startY) {
+    if (!startX || !startY || draggedImageIndex === null) {
       return;
     }
     const touchX = e.touches[0].clientX;
@@ -199,9 +200,24 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
     const deltaX = touchX - startX;
     const deltaY = touchY - startY;
 
-    const container = e.target.closest(`.${styles.imgContainer}`);
+    const container = document.querySelector(`.${styles.imgContainer}`);
     if (container) {
-      container.style.tranform = `translate(${deltaX}px, ${deltaY}px)`;
+      const image = container.children[draggedImageIndex];
+      if (image) {
+        image.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+      }
+
+      if (draggedImageIndex !== null && index !== null) {
+        const updatedPictures = [...selectedPictures];
+        const draggedPicture = updatedPictures[draggedImageIndex];
+        updatedPictures.splice(draggedImageIndex, 1);
+        updatedPictures.splice(index, 0, draggedImageIndex);
+        setSelectedPictures(updatedPictures);
+      }
+      // const container = e.target.closest(`.${styles.imgContainer}`);
+      // if (container) {
+      //   container.style.tranform = `translate(${deltaX}px, ${deltaY}px)`;
+      // }
     }
   };
 
@@ -210,12 +226,23 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
     handleTouchMove(event);
   };
 
-  const handleTouchEnd = (e, index) => {
+  const handleTouchEnd = e => {
     startX = null;
     startY = null;
-
+    setDraggedImageIndex(null);
+    if (draggedImageIndex === null) {
+      return;
+    }
     // Find the container and calculate the new position
     const container = document.querySelector(`.${styles.imgContainer}`);
+    if (!container) {
+      return;
+    }
+    const movedImage = container.children[draggedImageIndex];
+    if (!movedImage) {
+      return;
+    }
+
     const rect = container.getBoundingClientRect();
     const containerX = rect.left;
     const containerY = rect.top;
@@ -233,8 +260,27 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
       touchY >= 0 &&
       touchY <= containerHeight;
 
+    if (!isTouchInside) {
+      return;
+    }
+
+    const targetIndex = Array.from(container.children).findIndex(
+      el => el === movedImage
+    );
+    if (targetIndex === draggedImageIndex) {
+      return;
+    }
+    const updatedPictures = [...selectedPictures];
+    const [movedPictures] = updatedPictures.splice(draggedImageIndex, 1);
+    updatedPictures.splice(targetIndex, 0, movedPictures);
+    const reorderedPictures = updatedPictures.map((picture, index) => ({
+      ...picture,
+      id: index,
+    }));
+
+    selectedImages(reorderedPictures);
     // If the touch was inside the container, update
-    e.target.releasePointerCapture(e.touches[0].identifier);
+    // e.target.releasePointerCapture(e.touches[0].identifier);
   };
 
   const images = selectedPictures.map(({ id, url }, index) => (
