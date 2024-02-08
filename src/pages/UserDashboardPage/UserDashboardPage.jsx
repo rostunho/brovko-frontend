@@ -24,6 +24,7 @@ export default function UserDashboardPage() {
   if (!isUserLogin) {
     return <Navigate to="/auth/login" />;
   }
+
   return (
     <>
       <Heading withGoBack>Мій профіль</Heading>

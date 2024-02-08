@@ -7,6 +7,7 @@ import { addPopupOperation } from 'redux/popup/popupOperations';
 import Heading from 'shared/components/Heading';
 import Rating from 'components/ProductDetail/ProductRating/Rating';
 import ImageBox from 'shared/components/ImageBox/ImageBox';
+import OrderPrice from './OrderPrice/OrderPrice';
 import styles from './NewProductDetail.module.scss';
 
 export default function NewProductDetailPage() {
@@ -29,6 +30,7 @@ export default function NewProductDetailPage() {
       <Heading withGoBack>{product?.name}</Heading>
       <Rating className={styles.rating} />
       <ImageBox className={styles['image-box']} images={product?.picture} />
+      <OrderPrice product={product} />
     </>
   );
 }

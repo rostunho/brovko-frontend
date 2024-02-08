@@ -8,6 +8,7 @@ export default function QuntityButtons({
   buttonStyles,
   valueStyles,
   hadleQuantityClick,
+  className,
 }) {
   const addOne = () => {
     setValue(prevValue => prevValue + 1);
@@ -17,7 +18,11 @@ export default function QuntityButtons({
     setValue(prevValue => prevValue - 1);
   };
   return (
-    <div className={styles['quantity-container']}>
+    <div
+      className={`${styles['quantity-container']} ${
+        className ? className : ''
+      }`}
+    >
       <button
         className={styles['minus-button']}
         type="button"
