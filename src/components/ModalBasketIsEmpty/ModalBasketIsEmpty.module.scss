@@ -1,16 +1,24 @@
 @import '../../theme/abstract/mixins';
 
+.wrapper {
+  padding: 60px 16px 60px;
+  @media screen and (min-width: 768px) {
+    padding: 60px;
+  }
+}
+
 .text {
   color: var(--black-text-colorc);
   /* основний текст */
-  @include text-styles;
+  @include text-styles(Nunito, 14px, 400);
   text-align: center;
-  padding-top: 60px;
   padding-bottom: 33px;
+  @media screen and (min-width: 768px) {
+    @include text-styles(Nunito, 16px, 700);
+  }
 }
 
 .wrapperButton {
   padding-left: 16px;
   padding-right: 16px;
-  padding-bottom: 40px;
 }

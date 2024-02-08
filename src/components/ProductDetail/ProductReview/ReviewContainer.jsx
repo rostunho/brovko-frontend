@@ -48,9 +48,11 @@ export default function ReviewContainer() {
       {!isReviewInputVisible && (
         <Button
           type="button"
+          // type="submit"
           onClick={toggleReviewInput}
           mode="outlined"
-          style={{ paddingLeft: 86, paddingRight: 86, marginTop: 20 }}
+          size="lg"
+          style={{ margin: 20 }}
         >
           Залишити відгук
         </Button>

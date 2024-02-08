@@ -14,10 +14,6 @@ const LazyForgotPasswordPage = lazy(() =>
   import('pages/ForgotPasswordPage/ForgotPasswordPage')
 );
 
-const LazyResetLinkSentPage = lazy(() =>
-  import('pages/ResetLinkSentPage/ResetLinkSentPage')
-);
-
 const LazyResetPasswordPage = lazy(() =>
   import('pages/ResetPasswordPage/ResetPasswordPage')
 );
@@ -41,10 +37,7 @@ export const authRoutes = [
     path: '/forgot-password',
     Component: LazyForgotPasswordPage,
   },
-  {
-    path: '/reset-link-sent',
-    Component: LazyResetLinkSentPage,
-  },
+
   {
     path: '/reset-password/:token',
     Component: LazyResetPasswordPage,

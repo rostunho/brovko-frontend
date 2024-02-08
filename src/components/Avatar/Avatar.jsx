@@ -1,16 +1,19 @@
-import Image from 'shared/components/Image';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { selectUser } from 'redux/user/userSelectors';
+import { update, updateAvatar } from 'redux/user/userOperations';
+
+import Loader from 'components/Loader';
+
+import Modal from 'shared/components/Modal/Modal';
+import Image from 'shared/components/Image';
+import Button from 'shared/components/Button';
+import TrashIcon from 'shared/icons/TrashIcon';
+import EditIcon from 'shared/icons/EditIcon';
 import CameraIcon from 'shared/icons/CameraIcon';
 
 import styles from './avatar.module.scss';
-import Button from 'shared/components/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectUser } from 'redux/user/userSelectors';
-import { useState } from 'react';
-import Modal from 'shared/components/Modal/Modal';
-import { update, updateAvatar } from 'redux/user/userOperations';
-import TrashIcon from 'shared/icons/TrashIcon';
-import EditIcon from 'shared/icons/EditIcon';
 
 const Avatar = ({
   size = 96,
@@ -23,6 +26,8 @@ const Avatar = ({
   src,
 }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const openModalEditPhoto = () => {
     if (size === '32px') {
       return;
@@ -37,13 +42,16 @@ const Avatar = ({
   const { firstName, email, avatarURL, _id, status } = useSelector(selectUser);
   const dispatch = useDispatch();
 
-  const delAvatar = () => {
+  const delAvatar = async () => {
+    setLoading(true);
     const dataAvatar = { avatarURL: '', id: _id };
-    dispatch(update(dataAvatar));
+
+    await dispatch(update(dataAvatar));
     setPrompDelete(false);
+    setLoading(false);
   };
 
-  const [selectedImage, setSelectedImage] = useState(null);
+  // const [selectedImage, setSelectedImage] = useState(null);
   const [prompDelete, setPrompDelete] = useState(false);
 
   // const add = e => {
@@ -72,19 +80,21 @@ const Avatar = ({
     // Your form submission logic
   };
 
-  const addImage = e => {
+  const addImage = async e => {
     e.preventDefault();
     const file = e.target.files[0];
     if (file) {
-      setSelectedImage(file);
+      setLoading(true);
+      // setSelectedImage(file);
       const formData = new FormData();
       formData.append('avatar', file);
-      dispatch(updateAvatar(formData));
+      await dispatch(updateAvatar(formData));
       // .then(() => {
       //   // Оновлення avatarURL після успішного завантаження
       //   // Це дозволяє вам відобразити новий аватар без перезавантаження сторінки
       //   dispatch(fetchUser()); // Припустимо, що у вас є дія fetchUser для отримання оновленого користувача
       // });
+      setLoading(false);
     }
   };
 
@@ -129,6 +139,7 @@ const Avatar = ({
 
   return (
     <>
+      {loading && <Loader />}
       <Button
         className={styles.wrapper}
         style={{

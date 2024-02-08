@@ -19,6 +19,7 @@ export default function ProductReviewPage() {
     ...review,
     comments: review.comments.filter(comment => comment.text.status.approved),
   }));
+  console.log('approvedReviews', approvedReviews);
 
 
 

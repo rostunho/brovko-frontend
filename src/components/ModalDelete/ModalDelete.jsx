@@ -17,7 +17,7 @@ const ModalDelete = ({ setModalDelete, orderId }) => {
   };
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <p className={styles.text}>Видалити цей товар з кошику?</p>
       <div className={styles.wrapperButton}>
         <Button mode="outlined" onClick={hahdleBasketClose}>

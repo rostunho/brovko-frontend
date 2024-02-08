@@ -8,7 +8,7 @@ export default function ProductsNav({ onClick, isMobile }) {
   const { email } = useSelector(selectUser);
   return (
     <>
-      <ul className={styles.list}>
+      <ul className={styles.list_first}>
         <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/shop/product-list-page">
             Крамничка

@@ -58,7 +58,7 @@ export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
         )}
         <Link to="shop/user" className={styles.userIcon}>
           {userIsLoggedIn ? (
-            <Avatar size={avatarSize} marginBottom="0" />
+            <Avatar size={avatarSize} marginBottom="0" locked />
           ) : (
             <UserLight width={iconSize} height={iconSize} />
           )}

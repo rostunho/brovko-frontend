@@ -52,13 +52,26 @@
   row-gap: 16px;
 
   max-width: 480px;
-  // margin-top: 8px;
   margin: 8px auto 0;
   box-sizing: border-box;
 
-  & .category {
-    display: flex;
-    flex-direction: column;
-    row-gap: 16px;
+  @media screen and (min-width: 480px) {
+    width: 480px;
+    margin: 8px auto 0;
+    padding: 28px 20px 0;
+    box-shadow: 0 1px 12px -4px rgba(0, 0, 0, 0.2);
   }
+
+  @media screen and (min-width: 1280px) {
+    min-width: 606px;
+    margin: 8px auto 0;
+    padding: 28px 40px 0;
+    box-shadow: 0 1px 12px -4px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.form .category {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
 }

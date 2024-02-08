@@ -19,8 +19,8 @@ const ReviewItem = ({ review, isExpandedReview }) => {
   const [modalIsImage, setModalIsImage] = useState(false);
   const [modalIsId, setModalIsId] = useState(false);
 
-  console.log('modalIsImage :>> ', modalIsImage);
-  console.log('modalIsId :>> ', modalIsId);
+  // console.log('modalIsImage :>> ', modalIsImage);
+  // console.log('modalIsId :>> ', modalIsId);
 
   const [prompDelete, setPrompDelete] = useState(false);
 
@@ -113,7 +113,8 @@ const ReviewItem = ({ review, isExpandedReview }) => {
         </>
       ) : (
         <>
-          <div className={styles.userInfo}>
+        <li className={styles.reviewItem}>
+        <div className={styles.userInfo}>
             <div className={styles.avatarWrapper}>
               <Image
                 className={styles.avatar}
@@ -137,6 +138,8 @@ const ReviewItem = ({ review, isExpandedReview }) => {
               <ImageGalery reviewURL={reviewURL} />
             </div>
           )}
+        </li>
+    
         </>
       )}
       {modalIsOpen && modalWindow}
