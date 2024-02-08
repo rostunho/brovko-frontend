@@ -19,10 +19,12 @@ export default function Button({
   disabled,
   icon,
   admin,
+  ariaLabel,
   ...props
 }) {
   return (
     <button
+     aria-label={ariaLabel}
       type={type || 'button'}
       className={`${styles.button} ${styles[`button_${size}`]} ${
         styles[`button_${mode}`]

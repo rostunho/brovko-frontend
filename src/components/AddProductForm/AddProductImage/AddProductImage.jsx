@@ -22,6 +22,7 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
   const [modalIsImage, setModalIsImage] = useState(false);
   const [modalIsId, setModalIsId] = useState(false);
   const [prompDelete, setPrompDelete] = useState(false);
+  const [draggedImageIndex, setDraggedImageIndex] = useState(null)
 
   const touchStartRef = useRef(null);
 
@@ -150,34 +151,34 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
     }
   }, []);
 
-  const handleDragStart = (e, index) => {
-    e.dataTransfer.setData('text/plain', index);
-  };
+  // const handleDragStart = (e, index) => {
+  //   e.dataTransfer.setData('text/plain', index);
+  // };
 
-  const handleDragOver = e => {
-    e.preventDefault();
-  };
+  // const handleDragOver = e => {
+  //   e.preventDefault();
+  // };
 
-  const handleDrop = (e, toIndex) => {
-    e.preventDefault();
-    const fromIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
-    const draggedPicture = selectedPictures[fromIndex];
+  // const handleDrop = (e, toIndex) => {
+  //   e.preventDefault();
+  //   const fromIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
+  //   const draggedPicture = selectedPictures[fromIndex];
 
-    // Create a copy of the selectedPictures array
-    const updatedPictures = [...selectedPictures];
+  //   // Create a copy of the selectedPictures array
+  //   const updatedPictures = [...selectedPictures];
 
-    // Remove the picture from its original position
-    updatedPictures.splice(fromIndex, 1);
+  //   // Remove the picture from its original position
+  //   updatedPictures.splice(fromIndex, 1);
 
-    // Insert the picture at the new position
-    updatedPictures.splice(toIndex, 0, draggedPicture);
+  //   // Insert the picture at the new position
+  //   updatedPictures.splice(toIndex, 0, draggedPicture);
 
-    const reorderedPictures = updatedPictures.map((picture, index) => ({
-      ...picture,
-      id: index,
-    }));
-    setSelectedPictures(reorderedPictures);
-  };
+  //   const reorderedPictures = updatedPictures.map((picture, index) => ({
+  //     ...picture,
+  //     id: index,
+  //   }));
+  //   setSelectedPictures(reorderedPictures);
+  // };
 
   let startX, startY;
 
@@ -241,9 +242,10 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
       key={index}
       className={styles.btn}
       type="button"
+      ariaLabel="Відкрити зображення для перегляду"
       draggable
-      onDragStart={e => handleDragStart(e, index)}
-      onDrop={e => handleDrop(e, index)}
+      // onDragStart={e => handleDragStart(e, index)}
+      // onDrop={e => handleDrop(e, index)}
       onTouchStart={e => handleTouchStart(e, index)}
       onTouchMove={e => handleTouchMove(e, index)}
       onTouchEnd={e => handleTouchEnd(e, index)}
@@ -257,17 +259,19 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
         alt={`preview-${index + 1}`}
         className={styles.img}
       />
-      <div
-        type="button"
+      <a
+        // type="button"
+        aria-label="Видалити фото"
         key={index + 'trash'}
         className={styles.deleteIcon}
         onClick={e => {
+          e.stopPropagation();
           setPrompDelete(true);
           openModalEditPhoto(index, url);
         }}
       >
         <TrashIcon className={styles.trash} />
-      </div>
+      </a>
     </Button>
   ));
 
@@ -279,6 +283,7 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
     <label className={styles.fileInputLabel}>
       <input
         className={styles.visuallyHidden}
+        aria-label="Завантажте картинки сюди"
         type="file"
         accept="image/jpeg, image/jpg, image/png"
         multiple
@@ -290,7 +295,14 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
 
   const modalWindow = (
     <Modal closeModal={closeModalEditPhoto}>
-      <div className={styles.modal}>
+      <div
+        className={styles.modal}
+        aria-label={
+          !prompDelete
+            ? 'Редагування зображення'
+            : 'Ти дійсно бажаєш видалити це фото?'
+        }
+      >
         <p className={styles.mainText}>
           {!prompDelete
             ? 'Редагування зображення'
@@ -325,6 +337,7 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
           </Button>
           <Button
             type="button"
+            ariaLabel={!prompDelete ? 'Видалити фото' : 'Так'}
             onClick={
               !prompDelete
                 ? () => setPrompDelete(true)
@@ -349,7 +362,7 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
         </p>
         <div
           className={styles.imgContainer}
-          onDragOver={handleDragOver}
+          // onDragOver={handleDragOver}
           // onTouchStart={handleTouchStart}
           // onTouchMove={handleTouchMove}
           onTouchStart={event => {
