@@ -145,8 +145,9 @@
   transition: stroke 0.3s ease 0s, fill 0.3s ease 0s;
 }
 
-.heart_icon:hover {
-  fill: rgba(243, 166, 16, 1); /* Змініть фон при наведенні */
+.heart_icon:hover,
+.heart_icon:focus {
+  fill: rgba(243, 166, 16, 1);
 }
 
 .heart_icon_checked {
@@ -154,7 +155,8 @@
   stroke: rgba(243, 166, 16, 1);
 }
 
-.heart_icon_checked:hover {
+.heart_icon_checked:hover,
+.heart_icon_checked:focus {
   stroke: rgba(243, 166, 16, 1);
   fill: transparent;
 }

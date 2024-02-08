@@ -44,20 +44,22 @@ const DoubleRangeSlider = ({ onSubmit, min, max }) => {
   const fillSlider = useCallback(() => {
     if (!toSlider.current || !controlSlider.current) return;
 
-    const rangeDistance = toSlider.current.max - toSlider.current.min;
-    const fromPosition = sliderMinPrice - toSlider.current.min;
-    const toPosition = sliderMaxPrice - toSlider.current.min;
+    const sliderWidth = toSlider.current.offsetWidth;
+    const rangeDistance = max - min;
+    const fromPosition =
+      ((sliderMinPrice - min) / rangeDistance) * (sliderWidth - 15);
+    const toPosition = ((sliderMaxPrice - min) / rangeDistance) * sliderWidth;
 
     controlSlider.current.style.background = `linear-gradient(
     to right,
     #C6C6C6 0%,
-    #C6C6C6 ${(fromPosition / rangeDistance) * 100}%,
-    #f3a610 ${(fromPosition / rangeDistance) * 100}%,
-    #f3a610 ${(toPosition / rangeDistance) * 100}%,
-    #C6C6C6 ${(toPosition / rangeDistance) * 100}%,
+    #C6C6C6 ${(fromPosition / sliderWidth) * 100}%,
+    #f3a610 ${(fromPosition / sliderWidth) * 100}%,
+    #f3a610 ${(toPosition / sliderWidth) * 100}%,
+    #C6C6C6 ${(toPosition / sliderWidth) * 100}%,
     #C6C6C6 100%
   )`;
-  }, [sliderMinPrice, sliderMaxPrice, controlSlider, toSlider]);
+  }, [sliderMinPrice, sliderMaxPrice, min, max, controlSlider, toSlider]);
 
   const setToggleAccessible = useCallback(() => {
     if (!toSlider.current) return;
