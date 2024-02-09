@@ -16,7 +16,7 @@ export default function OrderPrice({ product, className, ...props }) {
   const { isMobile, screenWidth } = useScreen();
   const dispatch = useDispatch();
 
-  console.log('isMobile :>> ', isMobile);
+  // console.log('isMobile :>> ', isMobile);
 
   useEffect(() => {
     currentOrders.length ? setQuantity(currentOrders.length) : setQuantity(1);

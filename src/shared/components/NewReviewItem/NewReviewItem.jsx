@@ -11,7 +11,7 @@ import ReviewRating from 'components/ProductDetail/ProductReview/ReviewRating';
 // import Image from '../Image';
 import styles from './NewReviewItem.module.scss';
 
-export default function NewReviewItem({ review }) {
+export default function NewReviewItem({ review, mode }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const userStatus = useSelector(selectUserStatus);
   const isAdmin = userStatus === 'manager' || userStatus === 'superadmin';
@@ -78,7 +78,7 @@ export default function NewReviewItem({ review }) {
 
       {isAdmin && (
         <ReviewItemAdminBar
-          mode={searchParams.get('comments')}
+          mode={mode || searchParams.get('comments')}
           name={
             review?.status?.approvedBy?.userName ||
             review?.status?.approvedBy?.userEmail

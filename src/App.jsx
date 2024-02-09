@@ -57,7 +57,10 @@ function App() {
         <Route path="/admin" element={<AdminPage />}>
           <Route path=":productId" element={<AdminPage />} />
         </Route>
-        <Route path="moderate-reviews" element={<ModerateReviewPage />} />
+        <Route
+          path="/admin/moderate-reviews"
+          element={<ModerateReviewPage />}
+        />
 
         <Route path="/order" element={<OrderPage />}>
           <Route

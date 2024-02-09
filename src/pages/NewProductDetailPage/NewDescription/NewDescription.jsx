@@ -3,12 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import ReadMoreButton from '../ReadMoreButton/ReadMoreButton';
 import styles from './NewDescription.module.scss';
 
-export default function NewDescription({
-  children,
-  handler,
-  className,
-  ...props
-}) {
+export default function NewDescription({ children, className, ...props }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [firstSentence, setFirstSentence] = useState('');
   const [showFullDescription, setShowFullDescription] = useState(false);
