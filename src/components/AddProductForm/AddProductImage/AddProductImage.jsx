@@ -189,8 +189,8 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
   };
 
   const handleTouchMove = (e, index) => {
-    e.preventDefault();
-    console.log('Touch move detected');
+    // e.preventDefault();
+    console.log('Touch move detected',index);
     if (!startX || !startY || draggedImageIndex === null) {
       return;
     }
@@ -211,7 +211,7 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
         const updatedPictures = [...selectedPictures];
         const draggedPicture = updatedPictures[draggedImageIndex];
         updatedPictures.splice(draggedImageIndex, 1);
-        updatedPictures.splice(index, 0, draggedImageIndex);
+        updatedPictures.splice(index, 0, draggedPicture);
         setSelectedPictures(updatedPictures);
       }
       // const container = e.target.closest(`.${styles.imgContainer}`);
@@ -226,7 +226,8 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
     handleTouchMove(event);
   };
 
-  const handleTouchEnd = e => {
+  const handleTouchEnd = (e, index) => {
+    console.log('handleTouchEnd',e)
     startX = null;
     startY = null;
     setDraggedImageIndex(null);
