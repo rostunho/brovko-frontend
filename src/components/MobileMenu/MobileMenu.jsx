@@ -12,18 +12,6 @@ export default function MobileMenu({ children, onClick, isMobile }) {
 
   return createPortal(
     <div className={styles.mobileMenu}>
-      {/* <div className={styles.head}>
-        <Button mode="close" size="lg" onClick={onClick} />
-
-        <div className={styles.logo}>
-          <Logo onClick={onClick} />
-        </div>
-
-        <div className={styles.boxBasket}>
-          <UserLight className={styles.closeButton} onClick={onClick} />
-          <BasketLight className={styles.closeButton} onClick={onClick} />
-        </div>
-      </div> */}
       {children}
     </div>,
     document.querySelector('#modal-root')

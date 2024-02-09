@@ -3,10 +3,8 @@
 .navigation {
   display: flex;
   align-items: center;
-  // align-items: stretch;
   justify-content: center;
   box-sizing: border-box;
-  // height: 28px;
   margin-left: auto;
   //  border: solid red 1px;
 
@@ -14,7 +12,7 @@
     width: 100%;
     justify-content: space-between;
     margin-left: 16px;
-    gap: 32px;
+    gap: 14px;
   }
 }
 

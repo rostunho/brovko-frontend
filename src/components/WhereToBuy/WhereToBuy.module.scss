@@ -1,7 +1,6 @@
 @import '../../theme/abstract/mixins';
 
 .container {
-//   margin-top: 32px;
   margin-bottom: 32px;
 }
 
@@ -10,6 +9,12 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 24px;
+    @media screen and (min-width: 768px) and (max-width: 1279px) {
+      gap: 32px;
+    }
+    @media screen and (min-width: 1280px) {
+      gap: 36px;
+    }
   }
   
   .card {
@@ -21,6 +26,13 @@
     background: var(--unnamed, #fff);
     /* тінь для карток */
     box-shadow: var(--box-shadow);
+
+    @media screen and (min-width: 768px) and (max-width: 1279px) {
+      width: 352px;
+    }
+    @media screen and (min-width: 1280px) {
+      width: 392px;
+    }
   }
 
   .icon {
@@ -63,9 +75,6 @@
     // color: var(--link-color);
   }
   
-  .textWorkingHoursList {
-      // padding-bottom: 6px;
-  }
 
   @media screen and (min-width: 481px) {
     .card {

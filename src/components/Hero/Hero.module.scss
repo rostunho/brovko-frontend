@@ -120,4 +120,9 @@
   letter-spacing: 0.48px;
   text-transform: uppercase;
   color: var(--white-text-color);
+  
+  @media screen and (min-width: 1200px) {
+    margin-left: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
 }
