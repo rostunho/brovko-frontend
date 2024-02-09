@@ -12,9 +12,14 @@
   column-gap: 8px;
 }
 
+.quantity {
+  justify-content: end;
+}
+
 .title {
-  flex-basis: 50%;
-  flex-grow: 1;
+  display: block;
+  //   flex-basis: 50%;
+  //   flex-grow: 1;
 
   font-family: 'Nunito', sans-serif;
   font-weight: 700;

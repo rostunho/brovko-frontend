@@ -8,6 +8,7 @@ import Heading from 'shared/components/Heading';
 import Rating from 'components/ProductDetail/ProductRating/Rating';
 import ImageBox from 'shared/components/ImageBox/ImageBox';
 import OrderPrice from './OrderPrice/OrderPrice';
+import ProductParams from 'components/ProductDetail/ProductParams/ProductParams';
 import styles from './NewProductDetail.module.scss';
 
 export default function NewProductDetailPage() {
@@ -31,6 +32,7 @@ export default function NewProductDetailPage() {
       <Rating className={styles.rating} />
       <ImageBox className={styles['image-box']} images={product?.picture} />
       <OrderPrice product={product} />
+      {product?.params?.length > 0 && <ProductParams params={product.params} />}
     </>
   );
 }

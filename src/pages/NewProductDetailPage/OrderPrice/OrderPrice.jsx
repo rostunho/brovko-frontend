@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllOrders } from 'redux/basket/basketSelectors';
 import { addOrder, changeQuantity } from 'redux/basket/basketSlice';
+import { useScreen } from 'shared/hooks/useScreen';
 import QuantityButtons from 'shared/components/QuantityButtonModal/QuantityButtons';
 import Button from 'shared/components/Button';
 import ModalProductsInBasket from 'components/ModalProductsInBasket/ModalProductsInBasket';
@@ -12,9 +13,10 @@ export default function OrderPrice({ product, className, ...props }) {
   const [quantity, setQuantity] = useState(currentOrders.length || 1);
   const [showBasket, setShowBasket] = useState(false);
   const productInBasket = currentOrders.find(el => el._id === product._id);
+  const { isMobile, screenWidth } = useScreen();
   const dispatch = useDispatch();
 
-  const isMobile = true;
+  console.log('isMobile :>> ', isMobile);
 
   useEffect(() => {
     currentOrders.length ? setQuantity(currentOrders.length) : setQuantity(1);
@@ -53,8 +55,10 @@ export default function OrderPrice({ product, className, ...props }) {
     >
       <div className={styles.price}>
         <h3
-          className={`${styles.title} ${isMobile ? styles.mobile : ''}`}
-          // aria-hidden="false"
+          className={`${styles.title} ${
+            screenWidth < 400 ? styles.mobile : ''
+          }`}
+          aria-hidden="false"
         >
           Ціна:
         </h3>
@@ -62,8 +66,10 @@ export default function OrderPrice({ product, className, ...props }) {
       </div>
       <div className={styles.quantity}>
         <h3
-          className={`${styles.title} ${isMobile ? styles.mobile : ''}`}
-          // aria-hidden="false"
+          className={`${styles.title} ${
+            screenWidth < 400 ? styles.mobile : ''
+          }`}
+          aria-hidden="false"
         >
           Кількість:
         </h3>
