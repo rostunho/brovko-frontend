@@ -108,6 +108,12 @@ export default function ProductDetail({
         <div className={styles.productQuarterCard}>
           <Image className={styles.image} src={picture} />
           <ImageSlider picture={picture} />
+          {isDesktop && <Description
+            product={product}
+            isExpandedDescription={isExpandedDescription}
+            location={location}
+            handleReadMoreClick={handleReadMoreClick}
+          />}
         </div>
 
         <div className={styles.productQuarterCard}>
@@ -155,14 +161,14 @@ export default function ProductDetail({
       </div>
 
       <div className={styles.productHalfCard}>
-        <div className={styles.productQuarterCard}>
+        {!isDesktop && (<div className={styles.productQuarterCard}>
           <Description
             product={product}
             isExpandedDescription={isExpandedDescription}
             location={location}
             handleReadMoreClick={handleReadMoreClick}
           />
-        </div>
+        </div>)}
 
        { !isDesktop && (<div className={styles.productQuarterCard}>
           <Review

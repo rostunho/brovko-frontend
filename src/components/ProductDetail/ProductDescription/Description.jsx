@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import useLayoutType from 'shared/hooks/useLayoutType';
 import DescriptionText from './DescriptionText';
-import SharedLinkButton from '../ProductDetailButtons/SharedLinkButton';
+import ReadMoreButton from '../ProductDetailButtons/ReadMoreBackButton';
 
 import styles from './Description.module.scss';
 
@@ -37,7 +37,7 @@ export default function Description({
               isExpandedDescription={updatedIsExpandedDescription}
             />
             {!isMobile ? null : (
-            <SharedLinkButton
+            <ReadMoreButton
               to={location.pathname}  
               state={{ isExpandedDescription: false }} 
               label="Згорнути"
@@ -53,7 +53,7 @@ export default function Description({
               isExpandedDescription={isExpandedDescription}
             />
             {!isExpandedDescription && (
-              <SharedLinkButton
+              <ReadMoreButton
                to={location.pathname}
                 state={{ isExpandedDescription: true }}
                 // state={{

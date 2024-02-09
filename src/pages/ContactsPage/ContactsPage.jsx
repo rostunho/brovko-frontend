@@ -1,4 +1,12 @@
+import Heading from 'shared/components/Heading';
 import Contacts from 'components/Contacts/Contacts';
 export default function ContactsPage() {
-  return <Contacts />;
+
+  return (
+    <>
+       <Heading withGoBack>Контакти</Heading>
+  <Contacts />
+    </>
+  )
+ 
 }
