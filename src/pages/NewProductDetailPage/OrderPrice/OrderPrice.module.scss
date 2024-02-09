@@ -1,18 +1,21 @@
-.container {
+.price-container {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-
+  row-gap: 32px;
   width: 100%;
 }
 
-.price {
+.price,
+.quantity {
   display: flex;
-  width: 100%;
   column-gap: 8px;
 }
 
 .title {
+  flex-basis: 50%;
+  flex-grow: 1;
+
   font-family: 'Nunito', sans-serif;
   font-weight: 700;
   font-size: 16px;
