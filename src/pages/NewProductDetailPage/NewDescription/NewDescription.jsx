@@ -5,40 +5,24 @@ import styles from './NewDescription.module.scss';
 
 export default function NewDescription({ children, className, ...props }) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const descParam = searchParams.get('desc');
   const [firstSentence, setFirstSentence] = useState('');
-  const [showFullDescription, setShowFullDescription] = useState(false);
 
   useEffect(() => {
-    const checkResult = checkSearchParams();
-
-    checkResult
-      ? setSearchParams({ desc: checkResult })
-      : setSearchParams({ desc: 'collapse' });
+    setInitialDescSearchParam('part');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    const mode = searchParams.get('desc');
-    mode === 'full'
-      ? setShowFullDescription(true)
-      : setShowFullDescription(false);
   }, [searchParams]);
 
   useEffect(() => {
     children && extractFirstSentence(children);
   }, [children]);
 
-  const checkSearchParams = () => {
-    const desc = searchParams.get('desc');
-    return desc;
-  };
-
   const handleFullDescription = () => {
     setSearchParams(prevSearchParams => {
       const prevMode = prevSearchParams.get('desc');
 
       prevMode === 'full'
-        ? prevSearchParams.set('desc', 'collapse')
+        ? prevSearchParams.set('desc', 'part')
         : prevSearchParams.set('desc', 'full');
 
       return prevSearchParams;
@@ -55,20 +39,30 @@ export default function NewDescription({ children, className, ...props }) {
     }
   };
 
+  const setInitialDescSearchParam = value => {
+    const existingDesc = searchParams.get('desc');
+    console.log('existingDesc :>> ', existingDesc);
+    const existingSearchParams = Object.fromEntries(searchParams.entries());
+    console.log('existingSearchParams :>> ', existingSearchParams);
+
+    existingDesc
+      ? setSearchParams({ ...existingSearchParams, desc: existingDesc })
+      : setSearchParams({ ...existingSearchParams, desc: value });
+  };
+
   return (
     <div className={`${styles.container} ${className ? className : ''}`}>
       <h3 className={styles.title}>Опис:</h3>
-      {showFullDescription ? (
+      {descParam === 'full' ? (
         <p className={styles.text}>{children}</p>
       ) : (
         <p>{firstSentence}</p>
       )}
-      {/* <button onClick={handleFullDescription}> +++ | --- </button> */}
       <ReadMoreButton
         className={styles['read-more']}
         onClick={handleFullDescription}
       >
-        {showFullDescription ? 'Згорнути' : 'Читати повністю'}
+        {descParam === 'full' ? 'Згорнути' : 'Читати повністю'}
       </ReadMoreButton>
     </div>
   );

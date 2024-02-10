@@ -14,7 +14,7 @@ export default function ProductReviewsList() {
     const checkStatus = searchParams.get('reviews');
 
     if (!checkStatus) {
-      console.log('prevSearchParams :>> ', prevSearchParams);
+      // console.log('prevSearchParams :>> ', prevSearchParams);
       setSearchParams({ ...prevSearchParams, reviews: 'collapse' });
     } else {
       setSearchParams({ ...prevSearchParams, reviews: checkStatus });
@@ -23,13 +23,8 @@ export default function ProductReviewsList() {
     (async () => {
       const originalReviews = await getReviewsByProductId(productId);
       const { comments } = originalReviews[0];
-      // console.log('originalReviews :>> ', originalReviews);
-      // console.log('comments :>> ', comments);
       const adaptedReviews = oridinalReviewsProccessing(comments);
-      // console.log('adaptedReviews :>> ', adaptedReviews);
       setCurrentReviews([...adaptedReviews]);
-
-      // setCurrentReviews([...originalReviews]);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -38,7 +33,7 @@ export default function ProductReviewsList() {
     return reviews
       .filter(review => review.text.status.approved === true)
       .map(review => {
-        console.log('review :>> ', review);
+        // console.log('review :>> ', review);
         const adaptedReview = {};
         adaptedReview.owner = review.owner;
         adaptedReview.createdAt = review.text.createdAt;
