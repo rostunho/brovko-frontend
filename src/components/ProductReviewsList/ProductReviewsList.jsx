@@ -12,11 +12,6 @@ export default function ProductReviewsList() {
   const [currentReviews, setCurrentReviews] = useState([]);
 
   useEffect(() => {
-    // setInitialCommentsParam('last');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [commentsParam]);
-
-  useEffect(() => {
     setInitialCommentsParam('last');
 
     (async () => {
@@ -76,13 +71,18 @@ export default function ProductReviewsList() {
 
   return (
     <>
-      {currentReviews &&
-        currentReviews.length > 0 &&
-        currentReviews.map((review, idx) => {
-          return <NewReviewItem key={idx} review={review} mode="approved" />;
-        })}
+      {commentsParam === 'all'
+        ? currentReviews &&
+          currentReviews.length > 0 &&
+          currentReviews.map((review, idx) => {
+            return <NewReviewItem key={idx} review={review} mode="approved" />;
+          })
+        : currentReviews &&
+          currentReviews.length > 0 && (
+            <NewReviewItem review={currentReviews[0]} mode="approved" />
+          )}
       <ReadMoreButton className={styles['read-more']} onClick={handleViewMode}>
-        Дивитися всі відгуки
+        {commentsParam === 'all' ? 'Згорнути відгуки' : 'Дивитися всі відгуки'}
       </ReadMoreButton>
     </>
   );
