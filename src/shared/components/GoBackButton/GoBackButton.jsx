@@ -1,18 +1,14 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import ArrowIcon from 'shared/icons/ArrowIcon';
 import EllipseIcon from 'shared/icons/EllipseIcon';
 import styles from './GoBackButton.module.scss';
 
-function GoBackButton({ from }) {
-  const navigate = useNavigate();
-
-  const onGoBackClick = () => {
-    navigate(from);
-  };
+function GoBackButton({ onClick, type }) {
 
   return (
-    <button className={styles.button} onClick={onGoBackClick} from={from}>
+    <button className={styles.button} type='button' onClick={onClick}>
       <div className={styles.ellipse}>
         <EllipseIcon />
       </div>

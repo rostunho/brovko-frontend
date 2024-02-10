@@ -36,7 +36,7 @@ function ReviewList({ reviews, isExpandedReview = true }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reviews, !isMobile, isExpandedReview]);
 
-  console.log('displayedReviews', displayedReviews);
+  // console.log('displayedReviews', displayedReviews);
   
 
   return (

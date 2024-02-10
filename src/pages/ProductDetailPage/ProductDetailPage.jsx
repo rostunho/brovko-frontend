@@ -1,10 +1,11 @@
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getProductById } from 'shared/services/api';
 import { getReviewsByProductId } from 'shared/services/api/brovko/reviews';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import Heading from 'shared/components/Heading';
+import GoBackButton from 'shared/components/GoBackButton/GoBackButton';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 
 export default function ProductDetailPage() {
@@ -15,7 +16,14 @@ export default function ProductDetailPage() {
   const [isExpandedDescription, setIsExpandedDescription] = useState(false);
   const [isExpandedReview, setIsExpandedReview] = useState(false);
   const { productId } = useParams();
+
+  const navigate = useNavigate();
   const location = useLocation();
+  const locationGoBack = useLocation();
+  const backLinkHref = locationGoBack.state?.from ?? "/";
+  console.log('locationGoBack)', locationGoBack);
+  console.log('location)', location);
+
   const dispatch = useDispatch();
 
   // console.log('reviews into PDP :>>>>> ', reviews);
@@ -83,9 +91,10 @@ export default function ProductDetailPage() {
 
   return (
     <>
-      <Heading withGoBack fromHC={'/shop/product-list-page'}>
+      <Heading withGoBack fromHC={backLinkHref}>
         {product.name}
       </Heading>
+      <GoBackButton onClick={() => navigate(backLinkHref)}/>
 
       <ProductDetail
         product={product}
