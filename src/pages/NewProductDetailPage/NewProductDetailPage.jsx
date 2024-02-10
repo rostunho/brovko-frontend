@@ -31,13 +31,19 @@ export default function NewProductDetailPage() {
   return (
     <>
       <Heading withGoBack>{product?.name}</Heading>
+
       <Rating className={styles.rating} />
+
       <ImageBox className={styles['image-box']} images={product?.picture} />
+
       <OrderPrice product={product} />
+
       {product?.params?.length > 0 && <ProductParams params={product.params} />}
+
       <NewDescription className={styles.desc}>
         {product.description}
       </NewDescription>
+
       <ProductReviewsList />
     </>
   );

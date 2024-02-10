@@ -44,6 +44,7 @@ export default function NewReviewItem({ review, mode }) {
 
       {isAdmin && (
         <ReviewItemAdminBar
+          className={styles['admin-bar']}
           mode={mode || searchParams.get('comments')}
           name={
             review?.status?.approvedBy?.userName ||
