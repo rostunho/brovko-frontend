@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { getReviewsByProductId } from 'shared/services/api/brovko';
-import NewReviewItem from 'shared/components/NewReviewItem/NewReviewItem';
+import CommentsList from './CommentsList/CommentsList';
 import ReadMoreButton from 'pages/NewProductDetailPage/ReadMoreButton/ReadMoreButton';
 import styles from './Comments.module.scss';
 
@@ -72,20 +72,9 @@ export default function Comments() {
       <h3 className={styles.title}>
         Відгуки покупців<span>{` (${currentReviews.length})`}</span>
       </h3>
-      <ul className={styles.list}>
-        {commentsParam === 'all'
-          ? currentReviews &&
-            currentReviews.length > 0 &&
-            currentReviews.map((review, idx) => {
-              return (
-                <NewReviewItem key={idx} review={review} mode="approved" />
-              );
-            })
-          : currentReviews &&
-            currentReviews.length > 0 && (
-              <NewReviewItem review={currentReviews[0]} mode="approved" />
-            )}
-      </ul>
+
+      <CommentsList param={commentsParam} reviews={currentReviews} />
+
       <ReadMoreButton className={styles['read-more']} onClick={handleViewMode}>
         {commentsParam === 'all' ? 'Згорнути відгуки' : 'Дивитися всі відгуки'}
       </ReadMoreButton>
