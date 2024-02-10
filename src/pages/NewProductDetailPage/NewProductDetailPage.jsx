@@ -10,7 +10,7 @@ import ImageBox from 'shared/components/ImageBox/ImageBox';
 import OrderPrice from './OrderPrice/OrderPrice';
 import ProductParams from 'components/ProductDetail/ProductParams/ProductParams';
 import NewDescription from './NewDescription/NewDescription';
-import ProductReviewsList from 'components/ProductReviewsList/ProductReviewsList';
+import Comments from 'components/Comments/Comments';
 import styles from './NewProductDetail.module.scss';
 
 export default function NewProductDetailPage() {
@@ -44,7 +44,7 @@ export default function NewProductDetailPage() {
         {product.description}
       </NewDescription>
 
-      <ProductReviewsList />
+      <Comments />
     </>
   );
 }

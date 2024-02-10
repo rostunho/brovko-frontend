@@ -3,9 +3,9 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { getReviewsByProductId } from 'shared/services/api/brovko';
 import NewReviewItem from 'shared/components/NewReviewItem/NewReviewItem';
 import ReadMoreButton from 'pages/NewProductDetailPage/ReadMoreButton/ReadMoreButton';
-import styles from './ProductReviewsList.module.scss';
+import styles from './Comments.module.scss';
 
-export default function ProductReviewsList() {
+export default function Comments() {
   const { productId } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const commentsParam = searchParams.get('comments');
