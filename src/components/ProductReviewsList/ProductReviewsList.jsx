@@ -61,6 +61,19 @@ export default function ProductReviewsList() {
     }
   };
 
+  const handleViewMode = () => {
+    setSearchParams(prevSearchParams => {
+      const prevMode = prevSearchParams.get('comments');
+      console.log('prevMode :>> ', prevMode);
+
+      prevMode === 'all'
+        ? prevSearchParams.set('comments', 'last')
+        : prevSearchParams.set('comments', 'all');
+
+      return prevSearchParams;
+    });
+  };
+
   return (
     <>
       {currentReviews &&
@@ -68,7 +81,7 @@ export default function ProductReviewsList() {
         currentReviews.map((review, idx) => {
           return <NewReviewItem key={idx} review={review} mode="approved" />;
         })}
-      <ReadMoreButton className={styles['read-more']}>
+      <ReadMoreButton className={styles['read-more']} onClick={handleViewMode}>
         Дивитися всі відгуки
       </ReadMoreButton>
     </>

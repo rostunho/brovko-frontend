@@ -17,18 +17,6 @@ export default function NewDescription({ children, className, ...props }) {
     children && extractFirstSentence(children);
   }, [children]);
 
-  const handleFullDescription = () => {
-    setSearchParams(prevSearchParams => {
-      const prevMode = prevSearchParams.get('desc');
-
-      prevMode === 'full'
-        ? prevSearchParams.set('desc', 'part')
-        : prevSearchParams.set('desc', 'full');
-
-      return prevSearchParams;
-    });
-  };
-
   const extractFirstSentence = text => {
     const targetText = text.match(/[^.]*\./);
 
@@ -48,6 +36,18 @@ export default function NewDescription({ children, className, ...props }) {
       : setSearchParams({ ...existingSearchParams, desc: value });
   };
 
+  const handleViewMode = () => {
+    setSearchParams(prevSearchParams => {
+      const prevMode = prevSearchParams.get('desc');
+
+      prevMode === 'full'
+        ? prevSearchParams.set('desc', 'part')
+        : prevSearchParams.set('desc', 'full');
+
+      return prevSearchParams;
+    });
+  };
+
   return (
     <div className={`${styles.container} ${className ? className : ''}`}>
       <h3 className={styles.title}>Опис:</h3>
@@ -56,10 +56,7 @@ export default function NewDescription({ children, className, ...props }) {
       ) : (
         <p>{firstSentence}</p>
       )}
-      <ReadMoreButton
-        className={styles['read-more']}
-        onClick={handleFullDescription}
-      >
+      <ReadMoreButton className={styles['read-more']} onClick={handleViewMode}>
         {descParam === 'full' ? 'Згорнути' : 'Читати повністю'}
       </ReadMoreButton>
     </div>
