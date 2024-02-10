@@ -4,6 +4,7 @@ import { selectUserStatus } from 'redux/user/userSelectors';
 import ReviewItemAdminBar from './ReviewItemAdminBar/ReviewItemAdminBar';
 import ReviewItemImageBox from './ReviewItemImageBox/ReviewItemImageBox';
 import Avatar from 'components/Avatar';
+import Image from '../Image';
 import ReviewRating from 'components/ProductDetail/ProductReview/ReviewRating';
 import styles from './NewReviewItem.module.scss';
 
@@ -16,11 +17,14 @@ export default function NewReviewItem({ review, mode }) {
     <li className={styles.container}>
       <p className={styles.product}>{review.productName}</p>
       <div className={styles.author}>
-        <Avatar
+        <Image
           src={review.owner.avatarURL}
-          size="40px"
+          className={styles.avatar}
+          width="40px"
+          height="40px"
           marginLeft="0"
           marginRight="0"
+          text={review.owner.name || review.owner.email}
           locked
         />
         <div>

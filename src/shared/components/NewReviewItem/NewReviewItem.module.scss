@@ -57,3 +57,11 @@
 
   overflow-wrap: break-word; // переносимо слово, якщо його довжина більша за width контейнера
 }
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 28px;
+  line-height: 1;
+}

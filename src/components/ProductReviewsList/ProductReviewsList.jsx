@@ -43,8 +43,6 @@ export default function ProductReviewsList() {
     const existingCommentsParam = commentsParam;
     const existingSearchParams = Object.fromEntries(searchParams.entries());
 
-    console.log('existingSearchParams :>> ', existingSearchParams);
-
     if (existingCommentsParam) {
       // console.log('existingSearchParams :>> ', existingSearchParams);
       setSearchParams({
