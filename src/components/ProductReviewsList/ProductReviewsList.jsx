@@ -10,13 +10,23 @@ export default function ProductReviewsList() {
   const [currentReviews, setCurrentReviews] = useState([]);
 
   useEffect(() => {
+    const prevSearchParams = Object.fromEntries(searchParams.entries());
+    const checkStatus = searchParams.get('reviews');
+
+    if (!checkStatus) {
+      console.log('prevSearchParams :>> ', prevSearchParams);
+      setSearchParams({ ...prevSearchParams, reviews: 'collapse' });
+    } else {
+      setSearchParams({ ...prevSearchParams, reviews: checkStatus });
+    }
+
     (async () => {
       const originalReviews = await getReviewsByProductId(productId);
       const { comments } = originalReviews[0];
       // console.log('originalReviews :>> ', originalReviews);
-      console.log('comments :>> ', comments);
+      // console.log('comments :>> ', comments);
       const adaptedReviews = oridinalReviewsProccessing(comments);
-      console.log('adaptedReviews :>> ', adaptedReviews);
+      // console.log('adaptedReviews :>> ', adaptedReviews);
       setCurrentReviews([...adaptedReviews]);
 
       // setCurrentReviews([...originalReviews]);
