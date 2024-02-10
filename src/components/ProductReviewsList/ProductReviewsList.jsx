@@ -72,16 +72,20 @@ export default function ProductReviewsList() {
       <h3 className={styles.title}>
         Відгуки покупців<span>{` (${currentReviews.length})`}</span>
       </h3>
-      {commentsParam === 'all'
-        ? currentReviews &&
-          currentReviews.length > 0 &&
-          currentReviews.map((review, idx) => {
-            return <NewReviewItem key={idx} review={review} mode="approved" />;
-          })
-        : currentReviews &&
-          currentReviews.length > 0 && (
-            <NewReviewItem review={currentReviews[0]} mode="approved" />
-          )}
+      <ul className={styles.list}>
+        {commentsParam === 'all'
+          ? currentReviews &&
+            currentReviews.length > 0 &&
+            currentReviews.map((review, idx) => {
+              return (
+                <NewReviewItem key={idx} review={review} mode="approved" />
+              );
+            })
+          : currentReviews &&
+            currentReviews.length > 0 && (
+              <NewReviewItem review={currentReviews[0]} mode="approved" />
+            )}
+      </ul>
       <ReadMoreButton className={styles['read-more']} onClick={handleViewMode}>
         {commentsParam === 'all' ? 'Згорнути відгуки' : 'Дивитися всі відгуки'}
       </ReadMoreButton>
