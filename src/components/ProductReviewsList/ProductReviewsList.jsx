@@ -2,35 +2,34 @@ import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { getReviewsByProductId } from 'shared/services/api/brovko';
 import NewReviewItem from 'shared/components/NewReviewItem/NewReviewItem';
+import ReadMoreButton from 'pages/NewProductDetailPage/ReadMoreButton/ReadMoreButton';
 import styles from './ProductReviewsList.module.scss';
 
 export default function ProductReviewsList() {
   const { productId } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
+  const commentsParam = searchParams.get('comments');
   const [currentReviews, setCurrentReviews] = useState([]);
 
   useEffect(() => {
-    const prevSearchParams = Object.fromEntries(searchParams.entries());
-    const checkStatus = searchParams.get('reviews');
+    // setInitialCommentsParam('last');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [commentsParam]);
 
-    if (!checkStatus) {
-      // console.log('prevSearchParams :>> ', prevSearchParams);
-      setSearchParams({ ...prevSearchParams, reviews: 'collapse' });
-    } else {
-      setSearchParams({ ...prevSearchParams, reviews: checkStatus });
-    }
+  useEffect(() => {
+    setInitialCommentsParam('last');
 
     (async () => {
       const originalReviews = await getReviewsByProductId(productId);
       const { comments } = originalReviews[0];
-      const adaptedReviews = oridinalReviewsProccessing(comments);
+      const adaptedReviews = processOriginalReviews(comments);
       setCurrentReviews([...adaptedReviews]);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const oridinalReviewsProccessing = reviews => {
-    return reviews
+  const processOriginalReviews = comments => {
+    return comments
       .filter(review => review.text.status.approved === true)
       .map(review => {
         // console.log('review :>> ', review);
@@ -45,6 +44,23 @@ export default function ProductReviewsList() {
       });
   };
 
+  const setInitialCommentsParam = value => {
+    const existingCommentsParam = commentsParam;
+    const existingSearchParams = Object.fromEntries(searchParams.entries());
+
+    console.log('existingSearchParams :>> ', existingSearchParams);
+
+    if (existingCommentsParam) {
+      // console.log('existingSearchParams :>> ', existingSearchParams);
+      setSearchParams({
+        ...existingSearchParams,
+        comments: existingCommentsParam,
+      });
+    } else {
+      setSearchParams({ ...existingSearchParams, comments: value });
+    }
+  };
+
   return (
     <>
       {currentReviews &&
@@ -52,6 +68,9 @@ export default function ProductReviewsList() {
         currentReviews.map((review, idx) => {
           return <NewReviewItem key={idx} review={review} mode="approved" />;
         })}
+      <ReadMoreButton className={styles['read-more']}>
+        Дивитися всі відгуки
+      </ReadMoreButton>
     </>
   );
 }

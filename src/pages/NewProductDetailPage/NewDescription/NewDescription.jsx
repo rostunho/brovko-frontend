@@ -40,10 +40,8 @@ export default function NewDescription({ children, className, ...props }) {
   };
 
   const setInitialDescSearchParam = value => {
-    const existingDesc = searchParams.get('desc');
-    console.log('existingDesc :>> ', existingDesc);
+    const existingDesc = descParam;
     const existingSearchParams = Object.fromEntries(searchParams.entries());
-    console.log('existingSearchParams :>> ', existingSearchParams);
 
     existingDesc
       ? setSearchParams({ ...existingSearchParams, desc: existingDesc })
