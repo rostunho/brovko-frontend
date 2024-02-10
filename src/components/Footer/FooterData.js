@@ -55,12 +55,10 @@ export const socialIconsData = [
 export const bankIconsData = [
   {
     label: 'Visa',
-    href: 'https://brovko-visa-link.com',
     icon: <VisaIcon className={styles.icon} />,
   },
   {
     label: 'MasterCard',
-    href: 'https://brovko-mastercard-link.com',
     icon: <MasterCardIcon className={styles.icon} />,
   },
 ];

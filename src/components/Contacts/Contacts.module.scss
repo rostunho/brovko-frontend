@@ -72,9 +72,9 @@
     }
 }
 
-.socialIconItem {
-// border: var(--border-primary);
-}
+// .socialIconItem {
+// // border: var(--border-primary);
+// }
 
 .iconLink {
     cursor: pointer;
@@ -100,13 +100,8 @@
     &:hover,
     &:focus,
     &:active {
-    //   color: var(--link-accent-color);
-    //   fill: transparent;
-      stroke: var(--accent-color);
-    //   stroke-width: 1.5;
-    //   background-color: transparent;
-      transform: translateY(-10px);
-      transition: transform 0.2s ease-in-out;
+      transform: translateY(-5px);
+      transition: transform 0.3s ease;
     }
   }
 

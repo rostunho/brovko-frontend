@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Button from 'shared/components/Button';
 import Image from 'shared/components/Image';
 import useLayoutType from 'shared/hooks/useLayoutType';
-import FotoIcon from 'shared/icons/Foto';
+// import FotoIcon from 'shared/icons/Foto';
 import PhoneIcon from 'shared/icons/PhoneIcon';
 import MailIcon from 'shared/icons/MailIcon';
 import Insta2Icon from 'shared/icons/Insta2Icon';
@@ -37,8 +37,8 @@ const Contacts = () => {
   const layoutType = useLayoutType();
 
   const isMobile = layoutType === 'mobile';
-  const isTablet = layoutType === 'tablet';
-  const isDesktop = layoutType === 'desktop';
+  // const isTablet = layoutType === 'tablet';
+  // const isDesktop = layoutType === 'desktop';
 
   return (
     <>
@@ -59,10 +59,10 @@ const Contacts = () => {
       
       <ul className={styles.contactList}>
           <li className={styles.contactsDataItem}>
-            <Link className={styles.icon} to={`tel:${phoneNumber}`}>
+            <a className={styles.icon} href={`tel:${phoneNumber}`}>
               <PhoneIcon  style={{ marginLeft: '-3px' }} />
-            </Link>
-            <Link className={styles.iconLink} to={`tel:${phoneNumber}`}>{phoneNumber}</Link>
+            </a>
+            <a className={styles.iconLink} href={`tel:${phoneNumber}`}>{phoneNumber}</a>
           </li>
           <li className={styles.contactsDataItem}>
             <Link className={styles.icon} to={`mailto:${emailAddress}`}>
