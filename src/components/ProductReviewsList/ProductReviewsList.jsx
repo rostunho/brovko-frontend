@@ -68,7 +68,10 @@ export default function ProductReviewsList() {
   };
 
   return (
-    <>
+    <div className={styles.container}>
+      <h3 className={styles.title}>
+        Відгуки покупців<span>{` (${currentReviews.length})`}</span>
+      </h3>
       {commentsParam === 'all'
         ? currentReviews &&
           currentReviews.length > 0 &&
@@ -82,6 +85,6 @@ export default function ProductReviewsList() {
       <ReadMoreButton className={styles['read-more']} onClick={handleViewMode}>
         {commentsParam === 'all' ? 'Згорнути відгуки' : 'Дивитися всі відгуки'}
       </ReadMoreButton>
-    </>
+    </div>
   );
 }
