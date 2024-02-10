@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { getReviewsByProductId } from 'shared/services/api/brovko';
+import CommentMaker from './CommentMaker/CommentMaker';
 import CommentsList from './CommentsList/CommentsList';
 import ReadMoreButton from 'pages/NewProductDetailPage/ReadMoreButton/ReadMoreButton';
 import styles from './Comments.module.scss';
@@ -72,6 +73,8 @@ export default function Comments() {
       <h3 className={styles.title}>
         Відгуки покупців<span>{` (${currentReviews.length})`}</span>
       </h3>
+
+      <CommentMaker productId={productId} />
 
       <CommentsList param={commentsParam} reviews={currentReviews} />
 
