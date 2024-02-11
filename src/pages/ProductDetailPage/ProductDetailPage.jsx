@@ -5,7 +5,6 @@ import { getProductById } from 'shared/services/api';
 import { getReviewsByProductId } from 'shared/services/api/brovko/reviews';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import Heading from 'shared/components/Heading';
-import GoBackButton from 'shared/components/GoBackButton/GoBackButton';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 
 export default function ProductDetailPage() {
@@ -13,16 +12,11 @@ export default function ProductDetailPage() {
   const [productError, setProductError] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [reviewsError, setReviewsError] = useState(null);
-  const [isExpandedDescription, setIsExpandedDescription] = useState(false);
-  const [isExpandedReview, setIsExpandedReview] = useState(false);
   const { productId } = useParams();
 
-  const navigate = useNavigate();
   const location = useLocation();
   const locationGoBack = useLocation();
   const backLinkHref = locationGoBack.state?.from ?? "/";
-  console.log('locationGoBack)', locationGoBack);
-  console.log('location)', location);
 
   const dispatch = useDispatch();
 
@@ -32,18 +26,6 @@ export default function ProductDetailPage() {
     fetchProductById(productId);
     fetchReviewsByProductId(productId);
   }, [productId]);
-
-  useEffect(() => {
-    // Встановлюємо isExpandedDescription з location.state
-    const isExpandedDescriptionFromLocation =
-      location.state?.isExpandedDescription || false;
-    setIsExpandedDescription(isExpandedDescriptionFromLocation);
-
-    // Встановлюємо isExpandedReview з location.state
-    const isExpandedReviewFromLocation =
-      location.state?.isExpandedReview || false;
-    setIsExpandedReview(isExpandedReviewFromLocation);
-  }, [location?.state]);
 
   const fetchProductById = async id => {
     try {
@@ -76,13 +58,6 @@ export default function ProductDetailPage() {
     comments: review.comments.filter(comment => comment.text.status.approved),
   }));
 
-  const handleReadMoreClick = () => {
-    setIsExpandedDescription(true);
-  };
-
-  const handleReadReviewClick = () => {
-    setIsExpandedReview(true);
-  };
   // ===============================================
 
   if (!product || productError) {
@@ -94,16 +69,11 @@ export default function ProductDetailPage() {
       <Heading withGoBack fromHC={backLinkHref}>
         {product.name}
       </Heading>
-      <GoBackButton onClick={() => navigate(backLinkHref)}/>
 
       <ProductDetail
         product={product}
         reviews={approvedReviews}
         reviewsError={reviewsError}
-        isExpandedDescription={isExpandedDescription}
-        isExpandedReview={isExpandedReview}
-        handleReadMoreClick={handleReadMoreClick}
-        handleReadReviewClick={handleReadReviewClick}
         location={location}
       />
     </>

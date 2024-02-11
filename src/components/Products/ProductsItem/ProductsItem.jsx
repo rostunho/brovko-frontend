@@ -38,9 +38,6 @@ const ProductsItem = ({
   // console.log('useParams', productId);
 
   const location = useLocation();
-  // console.log('location', location);
-  // const from = location.state?.from || '/';
-  // const navigate = useNavigate();
 
   const orders = useSelector(getAllOrders);
   const dispatch = useDispatch();
@@ -180,8 +177,6 @@ const ProductsItem = ({
           <Link
             to={`/shop/product/${product._id}`}
             state={{ from: location }}
-            // state={{ from: location.state?.from } ?? '/'}
-            // state={{ from: '/shop/product-list-page' }}
           >
             <Button mode="outlined">Подробиці</Button>
           </Link>

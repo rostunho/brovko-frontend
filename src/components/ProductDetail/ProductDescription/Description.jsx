@@ -1,5 +1,4 @@
-import {useEffect, useState} from 'react';
-import { useLocation } from 'react-router-dom';
+import { useState} from 'react';
 import useLayoutType from 'shared/hooks/useLayoutType';
 import DescriptionText from './DescriptionText';
 import ReadMoreButton from '../ProductDetailButtons/ReadMoreBackButton';
@@ -8,61 +7,51 @@ import styles from './Description.module.scss';
 
 
 export default function Description({
-  product,
-  isExpandedDescription,
-  handleReadMoreClick,
+  product
 }) {
+  const [expanded, setExpanded] = useState(false);
 
-  const location = useLocation();
+  const toggleDescription = () => {
+    setExpanded(prevExpanded => !prevExpanded);
+  };
  
   const layoutType = useLayoutType();
-
   const isMobile = layoutType ==='mobile';
-  const isTablet = layoutType === 'tablet';
-  const isDesktop = layoutType === 'desktop';
 
-  const updatedIsExpandedDescription = !isMobile || isExpandedDescription;
+  const updatedIsExpandedDescription = !isMobile || expanded;
   
-
   return (
     <div className={styles.descriptionContainer}>
       {product ? (
            
-        updatedIsExpandedDescription ? (
+       expanded ? (
           <>
-            {/* Рендерінг повного опису просто нижче */}
+            {/* Рендерінг повного опису*/}
             <h3 style={{ marginBottom: 8 }}>Опис</h3>
             <DescriptionText
               product={product}
-              isExpandedDescription={updatedIsExpandedDescription}
+              expanded={updatedIsExpandedDescription}
             />
-            {!isMobile ? null : (
+            {isMobile ? (
             <ReadMoreButton
-              to={location.pathname}  
-              state={{ isExpandedDescription: false }} 
               label="Згорнути"
-              onClick={handleReadMoreClick}
+              onClick={toggleDescription}
+              expanded={updatedIsExpandedDescription}
            
-            />)}
+            />) : null }
           </>
         ) : (
           <>
           <h3 style={{ marginBottom: 8 }}>Опис</h3>
             <DescriptionText
               product={product}
-              isExpandedDescription={isExpandedDescription}
+              expanded={updatedIsExpandedDescription}
             />
-            {!isExpandedDescription && (
+            {isMobile && (
               <ReadMoreButton
-               to={location.pathname}
-                state={{ isExpandedDescription: true }}
-                // state={{
-                //   from: location.state.from,
-                //   isExpandedDescription: true,
-                // }}
                 label="Читати повністю"
-                onClick={handleReadMoreClick}
-              
+                onClick={toggleDescription}
+                expanded={updatedIsExpandedDescription}
               />
             )}
           </>
