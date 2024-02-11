@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import Button from 'shared/components/Button';
 import StarEmptyBig from 'shared/icons/StarEmtyBig';
 import styles from './NewAddReviewForm.module.scss';
 
 export default function NewAddReviewForm({ onClose, ...props }) {
+  const [message, setMessage] = useState('');
+
   return (
     <div className={styles.container}>
       <Button mode="close" onClick={onClose} />
@@ -22,7 +25,8 @@ export default function NewAddReviewForm({ onClose, ...props }) {
           <textarea
             className={styles.textarea}
             rows="6"
-            onChange={e => console.log(e.target.value)}
+            onChange={e => setMessage(e.target.value)}
+            required
           />
         </label>
 

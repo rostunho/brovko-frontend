@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Button from 'shared/components/Button';
 import NewAddReviewForm from './NewAddReviewForm/NewAddReviewForm';
 import styles from './CommentMaker.module.scss';
