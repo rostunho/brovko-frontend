@@ -51,3 +51,76 @@
 .submit-button {
   margin-top: 32px;
 }
+
+.add-image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 4px;
+  margin-top: 12px;
+  margin-bottom: 32px;
+  color: var(--gray-color);
+  @media screen and (min-width: 768px) and (max-width: 1200px) {
+    gap: 0.25rem;
+  }
+}
+
+.add-image-button {
+  width: 60px;
+  min-width: 60px;
+  height: 60px;
+  margin-top: 4px;
+  border-radius: 4px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.add-image-img {
+  width: 100%;
+  height: 100%;
+}
+
+.file-input-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  width: 60px;
+  height: 60px;
+  padding: 0 16px;
+  @include text-styles(Nunito, 14px, 700, 19px);
+  border: none;
+
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  color: var(--white-text-color);
+  background-color: #d9d9d9;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled,
+  &:focus:disabled,
+  &:hover:disabled,
+  &:active:disabled {
+    color: rgba(254, 254, 254, 0.7);
+    background-color: transparent;
+    border: 1px solid rgba(254, 254, 254, 0.7);
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
