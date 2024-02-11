@@ -54,7 +54,7 @@ export default function NewDescription({ children, className, ...props }) {
       {descParam === 'full' ? (
         <p className={styles.text}>{children}</p>
       ) : (
-        <p>{firstSentence}</p>
+        <p className={styles.text}>{firstSentence}</p>
       )}
       <ReadMoreButton className={styles['read-more']} onClick={handleViewMode}>
         {descParam === 'full' ? 'Згорнути' : 'Читати повністю'}
