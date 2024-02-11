@@ -124,3 +124,30 @@
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
+
+.modal {
+  padding: 36px 16px 16px;
+}
+
+.modal-container {
+  border-radius: 8px;
+}
+
+.main-text {
+  font-size: 14px;
+  color: #a3a5a4;
+  margin-bottom: 16px;
+}
+
+.modal-img {
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.modal-button-container {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  // padding-left: auto;
+  // padding-right: auto;
+}

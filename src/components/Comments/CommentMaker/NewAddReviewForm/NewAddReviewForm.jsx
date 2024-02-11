@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { submitReview } from 'shared/services/api/brovko/reviews';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import Modal from 'shared/components/Modal/Modal';
 import Button from 'shared/components/Button';
@@ -20,6 +22,7 @@ export default function NewAddReviewForm({ onClose, ...props }) {
   const [prompDelete, setPrompDelete] = useState(true);
   const [errorTextQuantity, setErrorTextQuantity] = useState(false);
 
+  const { productId } = useParams();
   const dispatch = useDispatch();
 
   const openModalEditPhoto = (id, url) => {
@@ -172,9 +175,12 @@ export default function NewAddReviewForm({ onClose, ...props }) {
   };
 
   const modalWindow = (
-    <Modal closeModal={closeModalEditPhoto}>
+    <Modal
+      closeModal={closeModalEditPhoto}
+      className={styles['modal-container']}
+    >
       <div className={styles.modal}>
-        <p className={styles.mainText}>
+        <p className={styles['main-text']}>
           {false
             ? 'Видалення зображення'
             : 'Ти дійсно бажаєш видалити це фото?'}
@@ -183,9 +189,9 @@ export default function NewAddReviewForm({ onClose, ...props }) {
           key={modalIsId}
           src={modalIsImage}
           alt={`preview-${modalIsId}`}
-          className={styles.modalImg}
+          className={styles['modal-img']}
         />
-        <div className={styles.modalButtonContainer}>
+        <div className={styles['modal-button-container']}>
           <Button
             type="button"
             onClick={
@@ -221,6 +227,58 @@ export default function NewAddReviewForm({ onClose, ...props }) {
     </Modal>
   );
 
+  const resetPromp = () => setPrompDelete(false);
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('productId', productId);
+    formData.append('text', message);
+    console.log(selectedPicturesReview);
+    console.log(selectedFilesReview);
+    selectedPicturesReview.forEach(({ file }) => {
+      console.log(file);
+      formData.append(`review`, file);
+    });
+
+    try {
+      await submitReview(formData);
+      setMessage('');
+      setSelectedPicturesReview([]);
+      setSelectedFilesReview([]);
+      onClose();
+    } catch (error) {
+      console.error('Error submiting review:', error.response.status);
+      if (error.response.status === 403 || error.response.status === 401) {
+        dispatch(
+          addPopupOperation(
+            'Ви не можете додавати відгуки, поки не авторизуєтеся',
+            'error'
+          )
+        );
+      } else {
+        dispatch(
+          addPopupOperation(
+            'Щось з відгуками пішло не так, спробуй пізніше',
+            'warning'
+          )
+        );
+      }
+    } finally {
+    }
+    // try {
+    //   await dispatch(fetchAddReview(formData));
+
+    //   setText('');
+    //   setSelectedPicturesReview([]);
+    //   setSelectedFilesReview([]);
+    //   closeReviewInput();
+    // } catch ({ error }) {
+    //   console.error('Error submitting review:', error);
+    // }
+  };
+
   return (
     <div className={styles.container}>
       <Button mode="close" onClick={onClose} />
@@ -234,7 +292,7 @@ export default function NewAddReviewForm({ onClose, ...props }) {
         <StarEmptyBig />
       </div>
       {/* */}
-      <form>
+      <form onSubmit={handleSubmit}>
         <label className={styles.label}>
           Коментар:
           <textarea
