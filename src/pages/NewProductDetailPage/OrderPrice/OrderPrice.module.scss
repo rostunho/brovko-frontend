@@ -4,6 +4,10 @@
   flex-wrap: wrap;
   row-gap: 32px;
   width: 100%;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 32px;
+  }
 }
 
 .price,

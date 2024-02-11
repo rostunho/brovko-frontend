@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useScreen } from 'shared/hooks/useScreen';
 import { getProductById } from 'shared/services/api';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 
@@ -17,6 +18,7 @@ export default function NewProductDetailPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState(() => getCurrentProduct(productId));
   const dispatch = useDispatch();
+  const { isMobile } = useScreen();
 
   async function getCurrentProduct(id) {
     try {
@@ -30,21 +32,35 @@ export default function NewProductDetailPage() {
 
   return (
     <>
-      <Heading withGoBack>{product?.name}</Heading>
+      <section className={styles['page-screen']}>
+        <Heading withGoBack containerClassName={styles.title}>
+          {product?.name}
+        </Heading>
+        <div className={styles['main-screen']}>
+          <Rating className={styles.rating} />
 
-      <Rating className={styles.rating} />
+          <ImageBox className={styles['image-box']} images={product?.picture} />
 
-      <ImageBox className={styles['image-box']} images={product?.picture} />
+          {isMobile && <OrderPrice product={product} />}
 
-      <OrderPrice product={product} />
+          {product?.params?.length > 0 && (
+            <ProductParams params={product.params} />
+          )}
 
-      {product?.params?.length > 0 && <ProductParams params={product.params} />}
+          <NewDescription className={styles.desc}>
+            {product.description}
+          </NewDescription>
 
-      <NewDescription className={styles.desc}>
-        {product.description}
-      </NewDescription>
+          {isMobile && <Comments />}
+        </div>
 
-      <Comments />
+        {!isMobile && (
+          <aside className={styles.sidebar}>
+            {!isMobile && <OrderPrice product={product} />}
+            <Comments />
+          </aside>
+        )}
+      </section>
     </>
   );
 }
