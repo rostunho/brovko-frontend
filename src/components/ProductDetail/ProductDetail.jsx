@@ -34,11 +34,6 @@ export default function ProductDetail({
   product,
   reviews,
   reviewsError,
-  isExpandedDescription,
-  isExpandedReview,
-  handleReadMoreClick,
-  handleReadReviewClick,
-  location,
 }) {
   // const [product, setProduct] = useState(null);
   // console.log('product into PD :>> ', product);
@@ -110,15 +105,11 @@ export default function ProductDetail({
           <ImageSlider picture={picture} />
           {isDesktop && <Description
             product={product}
-            isExpandedDescription={isExpandedDescription}
-            location={location}
-            handleReadMoreClick={handleReadMoreClick}
           />}
         </div>
 
         <div className={styles.productQuarterCard}>
           {/* <Content note={note} /> */}
-          
           {product?.params.length > 0 && (
             <ProductParams params={product?.params} />
           )}
@@ -149,9 +140,6 @@ export default function ProductDetail({
           )}
           {isDesktop && (
             <Review
-            isExpandedReview={isExpandedReview}
-            location={location}
-            handleReadReviewClic={handleReadReviewClick}
             reviews={reviews}
             reviewsError={reviewsError}
             product={product}
@@ -164,17 +152,11 @@ export default function ProductDetail({
         {!isDesktop && (<div className={styles.productQuarterCard}>
           <Description
             product={product}
-            isExpandedDescription={isExpandedDescription}
-            location={location}
-            handleReadMoreClick={handleReadMoreClick}
           />
         </div>)}
 
        { !isDesktop && (<div className={styles.productQuarterCard}>
           <Review
-            isExpandedReview={isExpandedReview}
-            location={location}
-            handleReadReviewClic={handleReadReviewClick}
             reviews={reviews}
             reviewsError={reviewsError}
             product={product}

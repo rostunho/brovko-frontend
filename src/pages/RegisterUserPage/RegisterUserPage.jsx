@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import { selectIsLogin } from 'redux/user/userSelectors';
 import RegisterForm from 'components/AuthSection/RegisterForm/RegisterForm';
 import Heading from 'shared/components/Heading/Heading';
@@ -9,6 +10,9 @@ import AuthSwitcher from 'components/AuthSection/AuthSwitcher/AuthSwitcher';
 import styles from './RegisterUserPage.module.scss';
 
 export default function RegisterUserPage() {
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? "/";
+
   const isUserLogin = useSelector(selectIsLogin);
 
   if (isUserLogin) {
@@ -16,7 +20,7 @@ export default function RegisterUserPage() {
   }
   return (
     <section className={styles.container}>
-      <Heading withGoBack>Реєстрація</Heading>
+      <Heading withGoBack fromHC={backLinkHref}>Реєстрація</Heading>
 
       {/* <Text style={{ marginBottom: '24px' }}>
         Створення облікового запису допоможе купувати швидше, а також

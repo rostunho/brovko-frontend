@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import { getAllCategories } from 'shared/services/api';
 import { sortingTemplate } from './sortingTemplate';
 // import Loader from 'components/Loader';
@@ -11,6 +12,9 @@ import styles from './ProductListPage.module.scss';
 import DoubleRangeSlider from 'shared/components/Input/InputRange/DoubleRangeSlider';
 
 export default function ProductListPage() {
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? "/";
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchBarValue, setSearchBarValue] = useState('');
   const [keyWord, setKeyWord] = useState('');
@@ -211,7 +215,7 @@ export default function ProductListPage() {
   return (
     <>
       {/* <Loader /> */}
-      <Heading withGoBack>Крамничка</Heading>
+      <Heading withGoBack fromHC={backLinkHref}>Крамничка</Heading>
       <Input
         name="searchbar"
         label=""
