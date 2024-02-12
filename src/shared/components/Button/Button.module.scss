@@ -5,8 +5,10 @@
   align-items: center;
   justify-content: center;
   align-self: center;
+  max-width: 288px;
   height: 40px;
   padding: 0 16px;
+  margin: 0 auto;
 
   @include text-styles(Nunito, 14px, 700, 19px);
 

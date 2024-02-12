@@ -17,7 +17,7 @@ export default function Comments() {
 
     (async () => {
       const originalReviews = await getReviewsByProductId(productId);
-      const { comments } = originalReviews[0];
+      const { comments } = originalReviews[0] || { comments: [] };
       const adaptedReviews = processOriginalReviews(comments);
       setCurrentReviews([...adaptedReviews]);
     })();

@@ -76,12 +76,17 @@ export default function OrderPrice({ product, className, ...props }) {
         <div className={styles.quantity}>
           <QuantityButtons
             className={`${styles.counter} `}
+            valueClassName={styles['counter-value']}
             value={quantity}
             setValue={setQuantity}
           />
         </div>
       </div>
-      <Button size="lg" onClick={addProductToBasket}>
+      <Button
+        size="lg"
+        onClick={addProductToBasket}
+        className={styles['add-button']}
+      >
         {productInBasket ? 'Видалити з кошика' : 'Додати в кошик'}
       </Button>
       {showBasket && (

@@ -6,19 +6,20 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  // height: 96px;
+  width: 100%;
 }
 
 .heading {
   width: 100%;
   padding: 32px 0 24px 0;
-  @media screen and (min-width: 768px) {
-    padding: 32px 0 32px 0;
-  }
 
   @include text-styles(Amatic SC, 32px, 700);
   letter-spacing: 0.96px;
   text-align: center;
+
+  @media screen and (min-width: 768px) {
+    padding: 32px 0 32px 0;
+  }
 }
 
 .h1 {

@@ -39,7 +39,11 @@ export default function NewProductDetailPage() {
         <div className={styles['main-screen']}>
           <Rating className={styles.rating} />
 
-          <ImageBox className={styles['image-box']} images={product?.picture} />
+          <ImageBox
+            className={styles['image-box']}
+            images={product?.picture}
+            isMobile={isMobile}
+          />
 
           {isMobile && <OrderPrice product={product} />}
 

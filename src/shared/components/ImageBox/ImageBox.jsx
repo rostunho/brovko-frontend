@@ -3,7 +3,7 @@ import useScreenWidth from 'shared/hooks/useScreenWidth';
 
 import styles from './ImageBox.module.scss';
 
-export default function ImageBox({ images = [], className }) {
+export default function ImageBox({ images = [], isMobile, className }) {
   const [currentImgIdx, setCurrentImgIdx] = useState(0);
   const [startX, setStartX] = useState(null);
   const [offsetX, setOffsetX] = useState(0); // сумарне зміщення за усі свайпи
@@ -17,11 +17,22 @@ export default function ImageBox({ images = [], className }) {
       return;
     }
 
-    setMiniGalleryWidth(images.length * (80 + 12) - 12);
-  }, [images]);
+    isMobile
+      ? setMiniGalleryWidth(images.length * (80 + 12) - 12)
+      : setMiniGalleryWidth(images.length * (96 + 12) - 12);
+  }, [images, isMobile]);
 
   useEffect(() => {
-    setContainerWidth(screenWidth - 32);
+    // setContainerWidth(screenWidth - 32);
+    if (screenWidth >= 480 && screenWidth < 768) {
+      setContainerWidth(448);
+    } else if (screenWidth >= 768 && screenWidth < 1280) {
+      setContainerWidth(352);
+    } else if (screenWidth >= 1280) {
+      setContainerWidth(713);
+    } else {
+      setContainerWidth(screenWidth - 32);
+    }
     setOffsetX(0);
   }, [screenWidth]);
 
@@ -83,7 +94,7 @@ export default function ImageBox({ images = [], className }) {
         onTouchEnd={handleTouchEnd}
         style={{
           transform: `translateX(${offsetX}px)`,
-          width: `${miniGalleryWidth}`,
+          width: `${miniGalleryWidth}px`,
         }}
       >
         {images.map((image, idx) => {
@@ -92,7 +103,7 @@ export default function ImageBox({ images = [], className }) {
               key={idx}
               className={`${styles['small-image']} ${
                 currentImgIdx === idx ? styles.active : 's'
-              }`}
+              } ${!isMobile ? styles['wide-screen'] : ''}`}
               src={image}
               alt="Смаколик"
               onClick={() => setCurrentImgIdx(idx)}
@@ -101,16 +112,17 @@ export default function ImageBox({ images = [], className }) {
         })}
       </div>
       <div className={styles['marker-container']}>
-        {images.map((_, idx) => {
-          return (
-            <div
-              key={idx}
-              className={`${styles['circle-marker']}  ${
-                idx === currentImgIdx ? styles.active : ''
-              }`}
-            />
-          );
-        })}
+        {images.length > 1 &&
+          images.map((_, idx) => {
+            return (
+              <div
+                key={idx}
+                className={`${styles['circle-marker']}  ${
+                  idx === currentImgIdx ? styles.active : ''
+                }`}
+              />
+            );
+          })}
       </div>
     </div>
   );

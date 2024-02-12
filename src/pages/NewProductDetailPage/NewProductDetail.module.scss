@@ -6,11 +6,27 @@
     column-gap: 32px;
     margin: 0 auto;
   }
+  @media screen and (min-width: 768px) {
+    width: 736px;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 1248px;
+    column-gap: 36px;
+  }
 }
 
 .main-screen {
+  max-width: calc(480px - (16px * 2));
+  margin: 0 auto;
+  // padding: 0 16px;
+
   @media screen and (min-width: 768px) {
     width: 352px;
+    margin: 0;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 713px;
+    max-width: 713px;
   }
 }
 
@@ -18,12 +34,17 @@
   @media screen and (min-width: 768px) {
     width: 352px;
   }
+  @media screen and (min-width: 1280px) {
+    width: 499px;
+  }
 }
 
 .title {
   @media screen and (min-width: 768px) {
-    min-width: 736px;
-    width: 100%;
+    width: 736px;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 1248px;
   }
 }
 
@@ -33,6 +54,9 @@
 
 .image-box {
   margin-top: 20px;
+  @media screen and (min-width: 768px) {
+    margin-top: 12px;
+  }
 }
 
 .desc {
