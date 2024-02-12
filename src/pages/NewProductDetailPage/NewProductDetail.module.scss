@@ -17,7 +17,9 @@
 
 .main-screen {
   max-width: calc(480px - (16px * 2));
+  height: auto;
   margin: 0 auto;
+  align-self: stretch;
   // padding: 0 16px;
 
   @media screen and (min-width: 768px) {
@@ -31,6 +33,7 @@
 }
 
 .sidebar {
+  align-self: stretch;
   @media screen and (min-width: 768px) {
     width: 352px;
   }

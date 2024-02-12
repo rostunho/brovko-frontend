@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useScreen } from 'shared/hooks/useScreen';
@@ -12,13 +12,22 @@ import OrderPrice from './OrderPrice/OrderPrice';
 import ProductParams from 'components/ProductDetail/ProductParams/ProductParams';
 import NewDescription from './NewDescription/NewDescription';
 import Comments from 'components/Comments/Comments';
+import LogisticInfo from 'components/ProductDetail/LogisticInfo/LogisticInfo';
 import styles from './NewProductDetail.module.scss';
 
 export default function NewProductDetailPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState(() => getCurrentProduct(productId));
+  const [mainScreenHeight, setMainScreenHeight] = useState(null);
   const dispatch = useDispatch();
   const { isMobile } = useScreen();
+  const mainScreenRef = useRef();
+
+  useEffect(() => {
+    // після того, як прийшов продукт вимірюємо висоту контейнера, шоб дати таку саму сайдбару
+    const targetHeight = mainScreenRef.current.clientHeight;
+    setMainScreenHeight(targetHeight);
+  }, [product]);
 
   async function getCurrentProduct(id) {
     try {
@@ -36,7 +45,7 @@ export default function NewProductDetailPage() {
         <Heading withGoBack containerClassName={styles.title}>
           {product?.name}
         </Heading>
-        <div className={styles['main-screen']}>
+        <div ref={mainScreenRef} className={styles['main-screen']}>
           <Rating className={styles.rating} />
 
           <ImageBox
@@ -59,8 +68,12 @@ export default function NewProductDetailPage() {
         </div>
 
         {!isMobile && (
-          <aside className={styles.sidebar}>
+          <aside
+            className={styles.sidebar}
+            style={{ height: mainScreenHeight }}
+          >
             {!isMobile && <OrderPrice product={product} />}
+            <LogisticInfo />
             <Comments />
           </aside>
         )}

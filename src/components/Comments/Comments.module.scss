@@ -9,6 +9,10 @@
   line-height: 1.3625;
   color: #191c2c;
   margin-bottom: 8px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+  }
 }
 
 .title span {
