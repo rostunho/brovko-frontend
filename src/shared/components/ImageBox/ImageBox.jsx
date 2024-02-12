@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import useScreenWidth from 'shared/hooks/useScreenWidth';
-
+import defaultImage from '../../../shared/components/Image/defaultImage.png';
 import styles from './ImageBox.module.scss';
 
 export default function ImageBox({ images = [], isMobile, className }) {
@@ -84,36 +84,38 @@ export default function ImageBox({ images = [], isMobile, className }) {
   return (
     <div className={`${styles['box-container']} ${className ? className : ''}`}>
       <img
-        src={images[currentImgIdx]}
+        src={images[currentImgIdx] || defaultImage}
         className={styles['large-image']}
         alt="Смаколик"
       />
-      <div
-        className={styles['mini-gallery']}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        style={{
-          transform: `translateX(${offsetX}px)`,
-          width: `${miniGalleryWidth}px`,
-        }}
-      >
-        {images.map((image, idx) => {
-          return (
-            <img
-              key={idx}
-              className={`${styles['small-image']} ${
-                currentImgIdx === idx ? styles.active : 's'
-              } ${!isMobile ? styles['wide-screen'] : ''}`}
-              src={image}
-              alt="Смаколик"
-              onClick={() => setCurrentImgIdx(idx)}
-            />
-          );
-        })}
-      </div>
-      <div className={styles['marker-container']}>
-        {images.length > 1 &&
-          images.map((_, idx) => {
+      {images.length > 0 && images[0] && (
+        <div
+          className={styles['mini-gallery']}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          style={{
+            transform: `translateX(${offsetX}px)`,
+            width: `${miniGalleryWidth}px`,
+          }}
+        >
+          {images.map((image, idx) => {
+            return (
+              <img
+                key={idx}
+                className={`${styles['small-image']} ${
+                  currentImgIdx === idx ? styles.active : 's'
+                } ${!isMobile ? styles['wide-screen'] : ''}`}
+                src={image}
+                alt="Смаколик"
+                onClick={() => setCurrentImgIdx(idx)}
+              />
+            );
+          })}
+        </div>
+      )}
+      {images.length > 0 && images[0] && (
+        <div className={styles['marker-container']}>
+          {images.map((_, idx) => {
             return (
               <div
                 key={idx}
@@ -123,7 +125,8 @@ export default function ImageBox({ images = [], isMobile, className }) {
               />
             );
           })}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
