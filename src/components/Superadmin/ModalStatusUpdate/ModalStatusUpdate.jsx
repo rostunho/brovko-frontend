@@ -37,7 +37,7 @@ const ModalStatusUpdate = ({ onSubmitForm, email, _id, status }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <Heading style={{ marginTop: '20px' }}>
         Для такої важливої операції потрібен пароль :){' '}
       </Heading>

@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.itemContainer {
+  width: 100%;
+  @media screen and (min-width: 900px) {
+    width: 448px;
+  }
+}
