@@ -36,6 +36,11 @@ th {
   border: 1px solid rgba(165, 164, 163, 0.25);
   border-radius: 12px;
   overflow: hidden;
+
+  @media screen and (min-width: 1280px) {
+    width: 440px;
+    margin: 0 auto 0 16px;
+  }
 }
 
 .t-row {
@@ -49,6 +54,10 @@ th {
   &:not(:last-child) {
     border-bottom: 1px solid rgba(165, 164, 163, 0.25);
   }
+
+  // @media screen and (min-width: 1280px) {
+  //   padding: 0 132px;
+  // }
 }
 
 .t-row td:first-child {
