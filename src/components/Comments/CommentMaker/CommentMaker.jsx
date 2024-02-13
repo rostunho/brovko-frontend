@@ -1,4 +1,4 @@
-import { useState, useEffect, forwardRef } from 'react';
+import { useEffect, forwardRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Button from 'shared/components/Button';
 import NewAddReviewForm from './NewAddReviewForm/NewAddReviewForm';
