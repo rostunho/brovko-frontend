@@ -6,12 +6,16 @@ import DownArrowIcon from 'shared/icons/DownArrowIcon';
 import UpArrowIcon from 'shared/icons/UpArrowIcon';
 import OrderInformation from '../OrderInformation';
 
+//
+import { getAllOrders } from 'redux/basket/basketSelectors';
+//
+
 import { ordersUserHistory } from 'redux/user/userSelectors';
 
 import styles from './InsideOrdersHistory.module.scss';
 
 const InsideOrdersHistory = () => {
-  const orders = useSelector(ordersUserHistory);
+  const orders = useSelector(getAllOrders);
   const [showDetail, setShowdetail] = useState(false);
   const [showSumAllOrders, setshowSumAllOrders] = useState(0);
 

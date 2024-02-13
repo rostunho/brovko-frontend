@@ -20,6 +20,7 @@ export default function ProductList({
   category,
   sorting,
   refresh = false,
+  onProductsChange,
 }) {
   const [keyWord, setKeyWord] = useState(searchValue || '');
   const [categoryId, setCategoryId] = useState(category?.id || '');
@@ -41,6 +42,14 @@ export default function ProductList({
   const [showLoader, setShowLoader] = useState(false);
   const userStatus = useSelector(selectUserStatus);
   const perPage = 10; // можемо зробити стейтом, якщо будемо даватиможливість обирати к-сть продуктоів на сторінці
+
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(100);
+
+  useEffect(() => {
+    // При зміні даних про продукти викликати onProductsChange
+    onProductsChange({ minPrice, maxPrice });
+  }, [minPrice, maxPrice, onProductsChange]);
 
   useEffect(() => {
     // працює при прямому пейсті урли в нове вікно браузера
@@ -174,7 +183,7 @@ export default function ProductList({
     sortBy = 'createdAt',
     sortOrder = 'desc'
   ) => {
-    const { products, totalPages } = await getAllProducts(
+    const { products, totalPages, minPrice, maxPrice } = await getAllProducts(
       page,
       perPage,
       sortBy,
@@ -182,6 +191,8 @@ export default function ProductList({
     );
     setCurrentProducts([...products]);
     setTotalPages(totalPages);
+    setMinPrice(minPrice);
+    setMaxPrice(maxPrice);
   };
 
   const fetchProductsByKeyword = async (
@@ -191,15 +202,12 @@ export default function ProductList({
     sortBy = 'createdAt',
     sortOrder = 'desc'
   ) => {
-    const { products, totalPages } = await getProductsByKeywords(
-      keyWord,
-      page,
-      perPage,
-      sortBy,
-      sortOrder
-    );
+    const { products, totalPages, minPrice, maxPrice } =
+      await getProductsByKeywords(keyWord, page, perPage, sortBy, sortOrder);
     setCurrentProducts(products);
     setTotalPages(totalPages);
+    setMinPrice(minPrice);
+    setMaxPrice(maxPrice);
   };
 
   const fetchProductsByCategory = async (
@@ -213,16 +221,13 @@ export default function ProductList({
       return;
     }
 
-    const { products, totalPages } = await getProductsByCategory(
-      categoryId,
-      page,
-      perPage,
-      sortBy,
-      sortOrder
-    );
+    const { products, totalPages, minPrice, maxPrice } =
+      await getProductsByCategory(categoryId, page, perPage, sortBy, sortOrder);
 
     setCurrentProducts(products);
     setTotalPages(totalPages);
+    setMinPrice(minPrice);
+    setMaxPrice(maxPrice);
   };
 
   const handleRemoveProducts = async () => {

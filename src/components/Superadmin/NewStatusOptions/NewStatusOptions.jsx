@@ -88,6 +88,7 @@ const NewStatusOptions = ({ oldStatus, setNewStatus }) => {
           <ul className={styles.list}>
             <li className={styles.item}>
               <Input
+                className={styles.input}
                 type="radio"
                 name="status"
                 label={options[0].description}
@@ -97,6 +98,7 @@ const NewStatusOptions = ({ oldStatus, setNewStatus }) => {
             </li>
             <li className={styles.item}>
               <Input
+                className={styles.input}
                 type="radio"
                 name="status"
                 label={options[1].description}

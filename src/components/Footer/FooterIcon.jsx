@@ -10,7 +10,7 @@ const FooterIcon = ({ href, icon, label }) => {
     window.open(href, '_blank');
   };
 
-  return (
+  return href ? (
     <a
       href={href}
       className={`${styles.icon} ${isActive ? styles.active : ''}`}
@@ -20,11 +20,11 @@ const FooterIcon = ({ href, icon, label }) => {
     >
       {icon}
     </a>
-  );
+  ) : (icon);
 };
 
 FooterIcon.propTypes = {
-  href: PropTypes.string.isRequired,
+  href: PropTypes.string,
   icon: PropTypes.node.isRequired,
   label: PropTypes.string.isRequired,
 };

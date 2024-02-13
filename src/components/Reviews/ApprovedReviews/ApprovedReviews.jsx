@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getReviewsByStatus } from 'shared/services/api/brovko';
 import ReviewItem from 'components/ProductDetail/ProductReview/ReviewItem';
+import NewReviewItem from 'shared/components/NewReviewItem/NewReviewItem';
 
 export default function ApprovedReviews({ ...props }) {
   const [reviews, setReviews] = useState([]);
@@ -19,7 +20,7 @@ export default function ApprovedReviews({ ...props }) {
         reviews.map((review, index) => {
           return (
             <li key={index}>
-              <ReviewItem review={review} />
+              <NewReviewItem review={review} />
             </li>
           );
         })}

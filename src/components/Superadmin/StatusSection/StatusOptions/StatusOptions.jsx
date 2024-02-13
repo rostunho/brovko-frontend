@@ -15,6 +15,7 @@ const StatusOptions = ({ toggleStatusToShow }) => {
       <ul className={styles.list}>
         <li className={styles.item}>
           <Input
+            className={styles.input}
             type="radio"
             name="status"
             label="покупці"
@@ -24,6 +25,7 @@ const StatusOptions = ({ toggleStatusToShow }) => {
         </li>
         <li className={styles.item}>
           <Input
+            className={styles.input}
             type="radio"
             name="status"
             label="менеджери"
@@ -33,6 +35,7 @@ const StatusOptions = ({ toggleStatusToShow }) => {
         </li>
         <li className={styles.item}>
           <Input
+            className={styles.input}
             type="radio"
             name="status"
             label="суперадміни"

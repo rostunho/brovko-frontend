@@ -1,3 +1,5 @@
+@import 'theme/abstract/_mixins.scss';
+
 .container {
   display: flex;
   align-items: center;
@@ -17,9 +19,9 @@
 }
 
 .title {
-  padding: 0;
-  margin: 0;
-  font-size: 28px;
+  @include text-styles(Amatic SC, 32px, 700);
+  letter-spacing: 0.96px;
+  text-align: center;
   color: #fff;
 }
 

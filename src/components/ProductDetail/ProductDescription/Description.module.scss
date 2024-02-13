@@ -1,11 +1,14 @@
 
 .descriptionContainer {
     // border: 1px solid var(--Accent, #f3a610);
-    margin-top: 20px;
+    // margin-top: 20px;
     // max-height: 57px;
     // color: var(--black-text-color);
     word-wrap: break-word;
     white-space: normal;
+    @media screen and (min-width: 1280px) {
+      width: 713px;
+    }
   }
   
   .descriptionText {

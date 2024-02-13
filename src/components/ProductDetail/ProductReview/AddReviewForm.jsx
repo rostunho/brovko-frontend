@@ -229,7 +229,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
           >
             {false ? 'Видалити фото' : 'Так'}
           </Button>
-        </div>{' '}
+        </div>
       </div>
     </Modal>
   );

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import { getAllCategories } from 'shared/services/api';
 import { sortingTemplate } from './sortingTemplate';
 // import Loader from 'components/Loader';
@@ -8,8 +9,12 @@ import Input from 'shared/components/Input';
 import Selector from 'shared/components/Selector';
 import ProductList from 'components/Products/ProductsList/ProductsList';
 import styles from './ProductListPage.module.scss';
+import DoubleRangeSlider from 'shared/components/Input/InputRange/DoubleRangeSlider';
 
 export default function ProductListPage() {
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? "/";
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchBarValue, setSearchBarValue] = useState('');
   const [keyWord, setKeyWord] = useState('');
@@ -28,6 +33,12 @@ export default function ProductListPage() {
   const [categorySelectorIsOpen, setCategorySelectorIsOpen] = useState(false);
   const [sortingSelectorIsOpen, setSortingSelectorIsOpen] = useState(false);
   const [refreshProducts, setRefreshProducts] = useState(false);
+
+  const [prices, setPrices] = useState(null);
+  const [selectedPrices, setSelectedPrices] = useState({
+    maxPrice: '',
+    minPrice: '',
+  });
   // const [firstRender, setFirstRender] = useState(true);
 
   // беремо з бази даних актуальні категорії товарів
@@ -192,10 +203,19 @@ export default function ProductListPage() {
     }
   };
 
+  const handleSliderSubmit = (minPrice, maxPrice) => {
+    // Обробка значень minPrice та maxPrice
+    console.log('minPrice:', minPrice);
+    console.log('maxPrice:', maxPrice);
+    setSelectedPrices({ minPrice, maxPrice });
+
+    // Додайте інші необхідні дії тут
+  };
+
   return (
     <>
       {/* <Loader /> */}
-      <Heading withGoBack>Крамничка</Heading>
+      <Heading withGoBack fromHC={backLinkHref}>Крамничка</Heading>
       <Input
         name="searchbar"
         label=""
@@ -227,11 +247,17 @@ export default function ProductListPage() {
           forceClosing={categorySelectorIsOpen}
         />
       </div>
+      <DoubleRangeSlider
+        onSubmit={handleSliderSubmit}
+        min={prices?.minPrice}
+        max={prices?.maxPrice}
+      />
       <ProductList
         searchValue={keyWord}
         category={selectedCategory}
         sorting={selectedSortingOption}
         refresh={refreshProducts}
+        onProductsChange={setPrices}
       />
     </>
   );

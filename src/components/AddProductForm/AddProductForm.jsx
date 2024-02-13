@@ -168,7 +168,7 @@ export default function AddProductForm({ update }) {
   const extractParams = data => {
     const updatedData = data.map(el => {
       const param = {
-        name: el.field,
+        name: el.key,
         type: 'text',
         value: el.value,
       };

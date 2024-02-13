@@ -1,0 +1,20 @@
+.container {
+  padding-top: 20px;
+}
+
+.title {
+  font-size: 20px;
+  line-height: normal;
+  margin-bottom: 8px;
+
+  &:nth-child(3n) {
+    margin-top: 20px;
+  }
+}
+
+.info {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: normal;
+}

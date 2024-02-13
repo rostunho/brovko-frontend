@@ -1,0 +1,23 @@
+.button {
+  display: flex;
+  align-items: center;
+  height: 19px;
+  margin: 0;
+  padding: 0;
+
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #f3a610;
+
+  border: none;
+  background-color: transparent;
+}
+
+.icon {
+  stroke: #f3a610;
+}
+
+.icon.reverse {
+  transform: rotate(180deg);
+}

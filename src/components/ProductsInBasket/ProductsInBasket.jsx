@@ -11,7 +11,7 @@ const ProductInBasket = ({
   hendlClickOrder,
 }) => {
   return (
-    <>
+    <div className={styles.wrapper}>
       <Heading>Товари у кошику</Heading>
       <OrderList
         totalLabel="Загальна сума:"
@@ -31,7 +31,7 @@ const ProductInBasket = ({
           Оформити замовлення
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 

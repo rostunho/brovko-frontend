@@ -1,3 +1,139 @@
-// .contactsInfo {
-//   margin-bottom: 32px;
+@import '../../theme/abstract/mixins';
+
+.container{
+    display: flex;
+    flex-direction: column;
+    margin-left: 16px;
+    margin-right: 16px;
+    @include text-styles('Nunito', 14px, 400);
+
+    @media screen and (min-width: 480px) and (max-width: 767px) {
+        width: 448px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    
+      @media screen and (min-width: 768px) and (max-width: 1279px) {
+        width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    
+      @media screen and (min-width: 1280px) {
+        flex-direction: row;
+        gap: 36px;
+        width: 1280px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+}
+
+.contactsFrame {
+    margin-bottom: 32px;
+
+    @media screen and (min-width: 1280px) {
+        width: 606px;
+      }
+}
+
+.contactsData {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    padding-bottom: 24px;
+    @include text-styles('Nunito', 14px, 700);
+}
+
+.contactDataBox{
+    display: flex;
+    gap: 12px;
+}
+
+.contactList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.contactsDataItem{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    
+}
+
+.socialIconList {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    @media screen and (min-width: 768px)  {
+        margin: auto;
+    }
+}
+
+// .socialIconItem {
+// // border: var(--border-primary);
 // }
+
+.iconLink {
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    &:hover,
+    &:focus,
+    &:active {
+      color: var(--link-accent-color);
+      font-weight: 700;
+     
+    }
+  }
+
+.icon {
+    cursor: pointer;
+    background: none;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s ease 0s;
+    fill: var(--accent-color);
+  
+    &:hover,
+    &:focus,
+    &:active {
+      transform: translateY(-5px);
+      transition: transform 0.3s ease;
+    }
+  }
+
+  .text {
+    @include text-styles('Nunito', 16px, 400);
+    padding-bottom: 24px;
+    text-align: center;
+    @media screen and (min-width: 1280px) {
+       text-align: center;
+      }
+  }
+
+  .foto {
+      height: 60px;
+      width: 60px;
+  }
+
+  .feedbackForm {
+    border: var(--border-gray);
+    border-radius: 8px;
+    padding: 20px 16px;
+    width: 100%;   
+  }
+
+  .feedbackInput {
+      padding-bottom: 16px;
+  }
+
+  .feedbackTextarea {
+    border: var(--border-primary);
+    border-radius: 8px;
+    padding: 8px 12px;
+    width: 100%;
+    height: 120px;
+  }

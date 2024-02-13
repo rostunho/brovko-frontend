@@ -8,6 +8,8 @@ export default function QuntityButtons({
   buttonStyles,
   valueStyles,
   hadleQuantityClick,
+  className,
+  valueClassName,
 }) {
   const addOne = () => {
     setValue(prevValue => prevValue + 1);
@@ -17,7 +19,11 @@ export default function QuntityButtons({
     setValue(prevValue => prevValue - 1);
   };
   return (
-    <div className={styles['quantity-container']}>
+    <div
+      className={`${styles['quantity-container']} ${
+        className ? className : ''
+      }`}
+    >
       <button
         className={styles['minus-button']}
         type="button"
@@ -26,7 +32,13 @@ export default function QuntityButtons({
       >
         <AddingMinusIcon />
       </button>
-      <p className={`${styles['value']} ${styles['custom-value']}`}>{value}</p>
+      <p
+        className={`${styles['value']} ${styles['custom-value']} ${
+          valueClassName ? valueClassName : ''
+        }`}
+      >
+        {value}
+      </p>
 
       <button
         className={styles['plus-button']}

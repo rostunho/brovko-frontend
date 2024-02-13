@@ -1,11 +1,15 @@
 .readMoreLink {
-    display: flex;
-    flex-direction: row;
-    cursor: pointer;
-    margin-top: 8px;
+  border: none;
+  outline: none;
+  background-color: inherit;
+
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  margin-top: 8px;
   }
   
-  .readMoreButton {
+  .readMoreLabel {
     display: inline-block;
     color: var(--accent-color);
   }

@@ -1,10 +1,10 @@
 import styles from './Description.module.scss';
 
-export default function DescriptionText({ product, isExpandedDescription }) {
+export default function DescriptionText({ product, expanded }) {
   return (
     <>
-      {isExpandedDescription ? (
-        // Отримання опису з продукту, коли розгорнуто
+      {expanded ? (
+        // Опис продукту, коли розгорнуто
         <p className={styles.descriptionText}>{product.description}</p>
       ) : (
         // Відображення скороченого опису, коли згорнуто

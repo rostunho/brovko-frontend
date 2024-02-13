@@ -18,29 +18,28 @@ function ReviewList({ reviews, isExpandedReview = true }) {
   const [displayedReviews, setdisplayedReviews] = useState([]);
 
   useEffect(() => {
-    if (reviews.length === 0) {
-      return;
-    }
+    if (!reviews) return;
   
     let displayedReviews;
   
-    if (isTablet) {
-      displayedReviews = allReviews?.slice(0, 3); // Покажіть 3 відгуки на планшетах
+    if (!isMobile) {
+      displayedReviews = isExpandedReview
+        ? allReviews
+        : allReviews?.slice(0, 3);  //3 відгуки на планшетах
     } else {
       displayedReviews = isExpandedReview
         ? allReviews
-        : allReviews?.slice(0, 1); // Покажіть 1 або всі відгуки в залежності від isExpandedReview
+        : allReviews?.slice(0, 2); //2 або всі відгуки в залежності від isExpandedReview
     }
   
     setdisplayedReviews(displayedReviews);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reviews, isTablet, isExpandedReview]);
+  }, [reviews, !isMobile, isExpandedReview]);
   
 
   return (
     <ul className={styles.reviewList}>
-      {displayedReviews &&
-        displayedReviews.map(review => (
+      {displayedReviews?.map(review => (
           <ReviewItem
             key={review.text.createdAt}
             review={review}

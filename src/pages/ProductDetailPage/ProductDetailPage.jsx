@@ -1,4 +1,4 @@
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getProductById } from 'shared/services/api';
@@ -12,10 +12,12 @@ export default function ProductDetailPage() {
   const [productError, setProductError] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [reviewsError, setReviewsError] = useState(null);
-  const [isExpandedDescription, setIsExpandedDescription] = useState(false);
-  const [isExpandedReview, setIsExpandedReview] = useState(false);
   const { productId } = useParams();
+
   const location = useLocation();
+  const locationGoBack = useLocation();
+  const backLinkHref = locationGoBack.state?.from ?? "/";
+
   const dispatch = useDispatch();
 
   // console.log('reviews into PDP :>>>>> ', reviews);
@@ -24,18 +26,6 @@ export default function ProductDetailPage() {
     fetchProductById(productId);
     fetchReviewsByProductId(productId);
   }, [productId]);
-
-  useEffect(() => {
-    // Встановлюємо isExpandedDescription з location.state
-    const isExpandedDescriptionFromLocation =
-      location.state?.isExpandedDescription || false;
-    setIsExpandedDescription(isExpandedDescriptionFromLocation);
-
-    // Встановлюємо isExpandedReview з location.state
-    const isExpandedReviewFromLocation =
-      location.state?.isExpandedReview || false;
-    setIsExpandedReview(isExpandedReviewFromLocation);
-  }, [location?.state]);
 
   const fetchProductById = async id => {
     try {
@@ -68,13 +58,6 @@ export default function ProductDetailPage() {
     comments: review.comments.filter(comment => comment.text.status.approved),
   }));
 
-  const handleReadMoreClick = () => {
-    setIsExpandedDescription(true);
-  };
-
-  const handleReadReviewClick = () => {
-    setIsExpandedReview(true);
-  };
   // ===============================================
 
   if (!product || productError) {
@@ -83,7 +66,7 @@ export default function ProductDetailPage() {
 
   return (
     <>
-      <Heading withGoBack fromHC={'/shop/product-list-page'}>
+      <Heading withGoBack fromHC={backLinkHref}>
         {product.name}
       </Heading>
 
@@ -91,10 +74,6 @@ export default function ProductDetailPage() {
         product={product}
         reviews={approvedReviews}
         reviewsError={reviewsError}
-        isExpandedDescription={isExpandedDescription}
-        isExpandedReview={isExpandedReview}
-        handleReadMoreClick={handleReadMoreClick}
-        handleReadReviewClick={handleReadReviewClick}
         location={location}
       />
     </>

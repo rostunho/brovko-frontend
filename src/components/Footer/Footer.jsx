@@ -84,8 +84,8 @@ const renderFooterItem = (links, icon, label, sectionLabel, isMobile) => (
 const renderContactInfo = () => (
   <>
     {!isMobile ? <p className={styles.labelTablet}>Зв’язатися з нами</p> : ''}
-    <a href="tel:+380685072222" className={styles.link}>
-      +38 (068) 507 22 22
+    <a href="tel:+380681355595" className={styles.link}>
+    +38 068 135 55 95
     </a>
   </>
 );

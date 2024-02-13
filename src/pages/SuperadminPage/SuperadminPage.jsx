@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 import {
   getUserByEmail,
@@ -22,12 +23,17 @@ import Button from 'shared/components/Button/Button';
 import Modal from 'shared/components/Modal/Modal';
 import Loader from 'components/Loader';
 
+import styles from './SuperadminPage.module.scss';
+
 const SuperadminPage = () => {
   const [requestedEmail, setRequestedEmail] = useState('');
   const [userFound, setUserFound] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? "/";
 
   const dispatch = useDispatch();
 
@@ -100,32 +106,33 @@ const SuperadminPage = () => {
           />
         </Modal>
       )}
-      <Heading withGoBack>Superadmin's page</Heading>
+      <Heading withGoBack fromHC={backLinkHref}>Superadmin's page</Heading>
       <form onSubmit={handleSubmit}>
         <Input
           label="Пошук користувача по емейлу :"
           onChange={onChangingEmail}
         />
-        <Button
-          type="submit"
-          style={{ marginTop: '16px', marginBottom: '32px' }}
-        >
+        <Button type="submit" className={styles.findBtn}>
           Знайти
         </Button>
       </form>
       {userFound && (
         <>
-          <UserFound userFound={userFound} />
-          <NewStatusOptions
-            oldStatus={userFound.status}
-            setNewStatus={setNewStatus}
-          />
-          <Button
-            style={{ marginTop: '10px', marginBottom: '32px' }}
-            onClick={() => setIsModalOpen(true)}
-          >
-            Підписати
-          </Button>
+          <div className={styles.userStatusBox}>
+            <UserFound userFound={userFound} />
+            <div className={styles.newStatusBox}>
+              <NewStatusOptions
+                oldStatus={userFound.status}
+                setNewStatus={setNewStatus}
+              />
+              <Button
+                className={styles.confirmBtn}
+                onClick={() => setIsModalOpen(true)}
+              >
+                Підписати
+              </Button>
+            </div>
+          </div>
         </>
       )}
       <Rectangle />

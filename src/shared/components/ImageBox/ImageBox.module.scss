@@ -1,0 +1,72 @@
+.box-container {
+  overflow: hidden;
+
+  //   @media screen and (min-width: 480px) {
+  //     display: flex;
+  //   }
+}
+
+.large-image {
+  display: block;
+  box-sizing: border-box;
+  min-width: 288px;
+  width: 100%;
+  min-height: 288px;
+  // max-width: 448px;
+
+  border-radius: 16px;
+  object-fit: cover;
+
+  @media screen and (min-width: 768px) {
+    max-width: 100%;
+  }
+}
+
+.mini-gallery {
+  display: flex;
+  width: 222px;
+  gap: 12px;
+  // margin-top: 12px;
+  margin: 12px auto 0;
+  transition: transform 0.5s;
+}
+
+.small-image {
+  display: block;
+  box-sizing: border-box;
+  width: 80px;
+  height: 80px;
+
+  border-radius: 12px;
+  object-fit: cover;
+
+  @media screen and (min-width: 768px) {
+    width: 96px;
+    height: 96px;
+  }
+}
+
+.small-image.active {
+  border: 2px solid #f3a610;
+}
+
+.marker-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.circle-marker {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #f3a610;
+  opacity: 0.5;
+}
+
+.circle-marker.active {
+  opacity: 1;
+}

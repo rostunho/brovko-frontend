@@ -51,7 +51,6 @@ const LoginForm = () => {
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
-      {formError && <Text className={styles.textError}>{formError}</Text>}
       <Input
         label="E-mail"
         type="email"
@@ -62,6 +61,7 @@ const LoginForm = () => {
         validateStatus={setIsValidEmail}
         onChange={handleChange}
       />
+      {formError && <Text className={styles.textError}>{formError}</Text>}
       <Input
         label="Пароль"
         type="password"

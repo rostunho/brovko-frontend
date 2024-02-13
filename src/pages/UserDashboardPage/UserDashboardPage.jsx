@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 import { logout } from 'redux/user/userOperations';
 import { selectIsLogin } from 'redux/user/userSelectors';
@@ -13,6 +13,9 @@ import Avatar from 'components/Avatar';
 import styles from './UserDashboardPage.module.scss';
 
 export default function UserDashboardPage() {
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? "/";
+
   const dispatch = useDispatch();
   const isUserLogin = useSelector(selectIsLogin);
 
@@ -24,9 +27,10 @@ export default function UserDashboardPage() {
   if (!isUserLogin) {
     return <Navigate to="/auth/login" />;
   }
+
   return (
     <>
-      <Heading withGoBack>Мій профіль</Heading>
+      <Heading withGoBack fromHC={backLinkHref}>Мій профіль</Heading>
 
       <Avatar />
       <div className={styles.dataContainer}>
