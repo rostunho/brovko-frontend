@@ -46,6 +46,7 @@ export default function ProductsRoutes() {
           path="product/:productId/old"
           element={<LazyProductDetailPage />}
         />
+
         {/* <Route path="product/:productId" element={<LazyProductDetailPage />}>
           <Route path="description" element={<LazyProductDescriptionPage />} />
           <Route path="review" element={<LazyProductReviewPage />} />
