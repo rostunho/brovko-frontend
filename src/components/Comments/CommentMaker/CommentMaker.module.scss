@@ -1,5 +1,10 @@
 .container {
   padding-top: 8px;
+  padding-bottom: 32px;
+}
+
+.container.full-view {
+  padding-top: 20px;
 }
 
 .prompt {
@@ -7,8 +12,4 @@
   line-height: normal;
   color: #a3a5a4;
   margin-bottom: 20px;
-}
-
-.expand-button {
-  margin-bottom: 32px;
 }

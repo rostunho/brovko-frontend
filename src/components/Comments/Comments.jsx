@@ -43,7 +43,7 @@ export default function Comments({ containerHeight, isMobile }) {
     console.log('titleHeight :>> ', titleHeight);
     console.log('makerHeight :>> ', makerHeight);
 
-    setListHeight(containerHeight - titleHeight - makerHeight);
+    setListHeight(containerHeight - titleHeight - makerHeight - 20); // "-20" - вирівнювання на верхній паддінг контейнера списку
   }, [containerHeight, makerView]);
 
   const processOriginalReviews = comments => {

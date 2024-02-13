@@ -8,7 +8,6 @@ import styles from './CommentMaker.module.scss';
 
 const CommentMaker = forwardRef(({ productId, ...props }, ref) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  // const [isFullView, setIsFullView] = useState(false);
   const isFullView = searchParams.get('add-comment');
 
   useEffect(() => {
@@ -34,7 +33,10 @@ const CommentMaker = forwardRef(({ productId, ...props }, ref) => {
   };
 
   return (
-    <div ref={ref} className={styles.container}>
+    <div
+      ref={ref}
+      className={`${styles.container} ${isFullView ? styles['full-view'] : ''}`}
+    >
       {isFullView !== 'true' && (
         <>
           <p className={styles.prompt}>
@@ -44,7 +46,6 @@ const CommentMaker = forwardRef(({ productId, ...props }, ref) => {
           <Button
             size="lg"
             mode="outlined"
-            className={styles['expand-button']}
             onClick={() => hanldeAddCommentParam(true)}
           >
             Залишити відгук
