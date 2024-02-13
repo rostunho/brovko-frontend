@@ -3,13 +3,20 @@ import { useSearchParams } from 'react-router-dom';
 import ReadMoreButton from '../ReadMoreButton/ReadMoreButton';
 import styles from './NewDescription.module.scss';
 
-export default function NewDescription({ children, className, ...props }) {
+export default function NewDescription({
+  children,
+  className,
+  isMobile,
+  ...props
+}) {
   const [searchParams, setSearchParams] = useSearchParams();
   const descParam = searchParams.get('desc');
   const [firstSentence, setFirstSentence] = useState('');
 
   useEffect(() => {
-    setInitialDescSearchParam('part');
+    isMobile
+      ? setInitialDescSearchParam('part')
+      : setInitialDescSearchParam('full');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
@@ -56,9 +63,14 @@ export default function NewDescription({ children, className, ...props }) {
       ) : (
         <p className={styles.text}>{firstSentence}</p>
       )}
-      <ReadMoreButton className={styles['read-more']} onClick={handleViewMode}>
-        {descParam === 'full' ? 'Згорнути' : 'Читати повністю'}
-      </ReadMoreButton>
+      {isMobile && (
+        <ReadMoreButton
+          className={styles['read-more']}
+          onClick={handleViewMode}
+        >
+          {descParam === 'full' ? 'Згорнути' : 'Читати повністю'}
+        </ReadMoreButton>
+      )}
     </div>
   );
 }

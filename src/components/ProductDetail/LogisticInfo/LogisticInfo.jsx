@@ -1,8 +1,11 @@
+import { forwardRef } from 'react';
 import styles from './LogisticInfo.module.scss';
 
-export default function LogisticInfo() {
+// export default function LogisticInfo()
+
+const LogisticInfo = forwardRef((props, ref) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={ref}>
       <h3 className={styles.title}>Доставка</h3>
       <p className={styles.info}>
         По Львову: Новою Поштою (за рахунок покупця). Можливий самовивіз із
@@ -15,4 +18,6 @@ export default function LogisticInfo() {
       </p>
     </div>
   );
-}
+});
+
+export default LogisticInfo;

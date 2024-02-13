@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { getReviewsByProductId } from 'shared/services/api/brovko';
 import CommentMaker from './CommentMaker/CommentMaker';
@@ -6,14 +6,21 @@ import CommentsList from './CommentsList/CommentsList';
 import ReadMoreButton from 'pages/NewProductDetailPage/ReadMoreButton/ReadMoreButton';
 import styles from './Comments.module.scss';
 
-export default function Comments() {
+export default function Comments({ containerHeight, isMobile }) {
   const { productId } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const commentsParam = searchParams.get('comments');
   const [currentReviews, setCurrentReviews] = useState([]);
+  const [listHeight, setListHeight] = useState(null);
+  const makerView = searchParams.get('add-comment');
+
+  // console.log('makerView :>> ', makerView);
+
+  const titleRef = useRef();
+  const makerRef = useRef();
 
   useEffect(() => {
-    setInitialCommentsParam('last');
+    isMobile ? setInitialCommentsParam('last') : setInitialCommentsParam('all');
 
     (async () => {
       const originalReviews = await getReviewsByProductId(productId);
@@ -23,6 +30,21 @@ export default function Comments() {
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (!containerHeight) {
+      return;
+    }
+
+    const titleHeight = titleRef.current.clientHeight;
+    const makerHeight = makerRef.current.clientHeight;
+
+    console.log('containerHeight :>> ', containerHeight);
+    console.log('titleHeight :>> ', titleHeight);
+    console.log('makerHeight :>> ', makerHeight);
+
+    setListHeight(containerHeight - titleHeight - makerHeight);
+  }, [containerHeight, makerView]);
 
   const processOriginalReviews = comments => {
     return comments
@@ -70,17 +92,28 @@ export default function Comments() {
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>
+      <h3 ref={titleRef} className={styles.title}>
         Відгуки покупців<span>{` (${currentReviews.length})`}</span>
       </h3>
 
-      <CommentMaker productId={productId} />
+      <CommentMaker ref={makerRef} productId={productId} />
 
-      <CommentsList param={commentsParam} reviews={currentReviews} />
+      <CommentsList
+        param={commentsParam}
+        reviews={currentReviews}
+        listHeight={listHeight}
+      />
 
-      <ReadMoreButton className={styles['read-more']} onClick={handleViewMode}>
-        {commentsParam === 'all' ? 'Згорнути відгуки' : 'Дивитися всі відгуки'}
-      </ReadMoreButton>
+      {isMobile && (
+        <ReadMoreButton
+          className={styles['read-more']}
+          onClick={handleViewMode}
+        >
+          {commentsParam === 'all'
+            ? 'Згорнути відгуки'
+            : 'Дивитися всі відгуки'}
+        </ReadMoreButton>
+      )}
     </div>
   );
 }

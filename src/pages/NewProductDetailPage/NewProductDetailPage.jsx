@@ -19,14 +19,27 @@ export default function NewProductDetailPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState(() => getCurrentProduct(productId));
   const [mainScreenHeight, setMainScreenHeight] = useState(null);
+  const [priceHeight, setPriceHeight] = useState(null);
+  const [logisticHeight, setLogisticHeght] = useState(null);
   const dispatch = useDispatch();
   const { isMobile } = useScreen();
   const mainScreenRef = useRef();
+  const priceRef = useRef();
+  const logisticRef = useRef();
 
   useEffect(() => {
     // після того, як прийшов продукт вимірюємо висоту контейнера, шоб дати таку саму сайдбару
-    const targetHeight = mainScreenRef.current.clientHeight;
-    setMainScreenHeight(targetHeight);
+    if (isMobile) {
+      return;
+    }
+
+    const screenHeight = mainScreenRef.current.clientHeight;
+    const priceHeight = priceRef.current.clientHeight;
+    const logisticHeight = logisticRef.current.clientHeight;
+    setMainScreenHeight(screenHeight);
+    setPriceHeight(priceHeight);
+    setLogisticHeght(logisticHeight);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
   async function getCurrentProduct(id) {
@@ -60,7 +73,7 @@ export default function NewProductDetailPage() {
             <ProductParams params={product.params} />
           )}
 
-          <NewDescription className={styles.desc}>
+          <NewDescription className={styles.desc} isMobile={isMobile}>
             {product.description}
           </NewDescription>
 
@@ -72,9 +85,12 @@ export default function NewProductDetailPage() {
             className={styles.sidebar}
             style={{ height: mainScreenHeight }}
           >
-            {!isMobile && <OrderPrice product={product} />}
-            <LogisticInfo />
-            <Comments />
+            <OrderPrice ref={priceRef} product={product} />
+            <LogisticInfo ref={logisticRef} />
+            <Comments
+              containerHeight={mainScreenHeight - priceHeight - logisticHeight}
+              isMobile={isMobile}
+            />
           </aside>
         )}
       </section>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllOrders } from 'redux/basket/basketSelectors';
 import { addOrder, changeQuantity } from 'redux/basket/basketSlice';
@@ -8,15 +8,15 @@ import Button from 'shared/components/Button';
 import ModalProductsInBasket from 'components/ModalProductsInBasket/ModalProductsInBasket';
 import styles from './OrderPrice.module.scss';
 
-export default function OrderPrice({ product, className, ...props }) {
+// export default function OrderPrice({ product, className, ...props })
+
+const OrderPrice = forwardRef(({ product, className, ...props }, ref) => {
   const currentOrders = useSelector(getAllOrders);
   const [quantity, setQuantity] = useState(currentOrders.length || 1);
   const [showBasket, setShowBasket] = useState(false);
   const productInBasket = currentOrders.find(el => el._id === product._id);
-  const { isMobile, screenWidth } = useScreen();
+  const { screenWidth } = useScreen();
   const dispatch = useDispatch();
-
-  // console.log('isMobile :>> ', isMobile);
 
   useEffect(() => {
     currentOrders.length ? setQuantity(currentOrders.length) : setQuantity(1);
@@ -51,6 +51,7 @@ export default function OrderPrice({ product, className, ...props }) {
 
   return (
     <div
+      ref={ref}
       className={`${styles['price-container']} ${className ? className : ''}`}
     >
       <div className={styles.price}>
@@ -94,4 +95,6 @@ export default function OrderPrice({ product, className, ...props }) {
       )}
     </div>
   );
-}
+});
+
+export default OrderPrice;
