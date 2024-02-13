@@ -1,27 +1,21 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { fetchAddReview } from 'redux/reviews/reviewsOperations';
-import { selectReviewError } from 'redux/reviews/reviewsSelectors';
 import { submitReview } from 'shared/services/api/brovko/reviews';
-import Button from 'shared/components/Button';
-import StarEmptyBig from 'shared/icons/StarEmtyBig';
-import PaperClip from 'shared/icons/PaperClip';
-import styles from './AddRewiewForm.module.scss';
 import { addPopupOperation } from 'redux/popup/popupOperations';
-import Image from 'shared/components/Image';
-import AddIconImage from 'shared/icons/AddIconImage';
 import Modal from 'shared/components/Modal/Modal';
+import Button from 'shared/components/Button';
+import Image from 'shared/components/Image';
+import StarEmptyBig from 'shared/icons/StarEmtyBig';
+import AddIconImage from 'shared/icons/AddIconImage';
+import styles from './NewAddReviewForm.module.scss';
 
-export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
-  const [text, setText] = useState('');
-  const [errorAddReview, setErrorAddReview] = useState(null);
+export default function NewAddReviewForm({ onClose, ...props }) {
+  const [message, setMessage] = useState('');
 
   const [selectedImagesReview, setSelectedImagesReview] = useState([]);
   const [selectedPicturesReview, setSelectedPicturesReview] = useState([]);
   const [selectedFilesReview, setSelectedFilesReview] = useState([]);
-  const [prompEdit, setPrompEdit] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsImage, setModalIsImage] = useState(false);
   const [modalIsId, setModalIsId] = useState(false);
@@ -71,10 +65,6 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
 
   const handleDragStart = (e, index) => {
     e.dataTransfer.setData('text/plain', index);
-  };
-
-  const handleDragOver = e => {
-    e.preventDefault();
   };
 
   const handleDrop = (e, toIndex) => {
@@ -141,7 +131,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
   const images = selectedPicturesReview.map(({ id, url }, index) => (
     <Button
       key={index}
-      className={styles.btn}
+      className={styles['add-image-button']}
       type="button"
       draggable
       onDragStart={e => handleDragStart(e, index)}
@@ -154,15 +144,15 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
         key={id}
         src={url}
         alt={`preview-${index + 1}`}
-        className={styles.img}
+        className={styles['add-image-img']}
       />
     </Button>
   ));
 
   const inputPhoto = index => (
-    <label className={styles.fileInputLabel} key={index}>
+    <label className={styles['file-input-label']} key={index}>
       <input
-        className={styles.visuallyHidden}
+        className={styles['visually-hidden']}
         type="file"
         accept="image/jpeg, image/jpg, image/png"
         multiple
@@ -185,9 +175,12 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
   };
 
   const modalWindow = (
-    <Modal closeModal={closeModalEditPhoto}>
+    <Modal
+      closeModal={closeModalEditPhoto}
+      className={styles['modal-container']}
+    >
       <div className={styles.modal}>
-        <p className={styles.mainText}>
+        <p className={styles['main-text']}>
           {false
             ? 'Видалення зображення'
             : 'Ти дійсно бажаєш видалити це фото?'}
@@ -196,9 +189,9 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
           key={modalIsId}
           src={modalIsImage}
           alt={`preview-${modalIsId}`}
-          className={styles.modalImg}
+          className={styles['modal-img']}
         />
-        <div className={styles.modalButtonContainer}>
+        <div className={styles['modal-button-container']}>
           <Button
             type="button"
             onClick={
@@ -241,7 +234,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
 
     const formData = new FormData();
     formData.append('productId', productId);
-    formData.append('text', text);
+    formData.append('text', message);
     console.log(selectedPicturesReview);
     console.log(selectedFilesReview);
     selectedPicturesReview.forEach(({ file }) => {
@@ -251,10 +244,10 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
 
     try {
       await submitReview(formData);
-      setText('');
+      setMessage('');
       setSelectedPicturesReview([]);
       setSelectedFilesReview([]);
-      closeReviewInput();
+      onClose();
     } catch (error) {
       console.error('Error submiting review:', error.response.status);
       if (error.response.status === 403 || error.response.status === 401) {
@@ -287,56 +280,34 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
   };
 
   return (
-    <div className={styles.containerInputRewiew}>
-      <Button mode="close" onClick={closeReviewInput} />
-      <p className={styles.titleText}>Оцініть, будь ласка, смаколик</p>
-      <div className={styles.starBlock}>
+    <div className={styles.container}>
+      <Button mode="close" onClick={onClose} />
+      <p className={styles.prompt}>Оцініть, будь ласка, смаколик</p>
+      {/* замінити на окремий компонент з логікою заповнення шкали рейтингу */}
+      <div className={styles['star-block']}>
         <StarEmptyBig />
         <StarEmptyBig />
         <StarEmptyBig />
         <StarEmptyBig />
         <StarEmptyBig />
       </div>
-
-      <p className={styles.titleText}>Коментар</p>
+      {/* */}
       <form onSubmit={handleSubmit}>
-        <div>
+        <label className={styles.label}>
+          Коментар:
           <textarea
-            className={styles.comment}
-            placeholder="..."
-            id="text"
-            name="text"
-            value={text}
-            onChange={e => setText(e.target.value)}
+            className={styles.textarea}
+            rows="6"
+            onChange={e => setMessage(e.target.value)}
             required
           />
-        </div>
-        <div className={styles.addImg} onDragOver={e => handleDragOver(e)}>
-          {/* <PaperClip /> */}
+        </label>
+        <div className={styles['add-image-container']}>
           {images}
           {inputPhotos()}
-          {selectedPicturesReview.length < 5 && (
-            <>
-              <p
-                className={`${styles.titleText} ${
-                  errorTextQuantity ? styles.errorTextQuantity : ''
-                }`}
-              >
-                {errorTextQuantity ||
-                  `Ви можете додавати до ${
-                    5 - selectedPicturesReview.length
-                  } фото у форматі .jpg, .jpeg, .png. Кожен файл не може перевищувати 10 Мб.`}
-              </p>
-            </>
-          )}
         </div>
 
-        <Button
-          className={styles.commentButton}
-          type="submit"
-          onClick={toggleReviewInput}
-          mode="outlined"
-        >
+        <Button type="submit" size="lg" className={styles['submit-button']}>
           Опублікувати
         </Button>
       </form>

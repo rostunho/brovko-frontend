@@ -6,13 +6,20 @@ import CheckIcon from 'shared/icons/CheckIcon';
 import BasketSmall from 'shared/icons/BasketSmall';
 import styles from './ReviewItemAdminBar.module.scss';
 
-export default function ReviewItemAdminBar({ mode, name, date, ids }) {
+export default function ReviewItemAdminBar({
+  mode,
+  name,
+  date,
+  ids,
+  className,
+  ...props
+}) {
   const [showApprovePrompt, setShowApprovePrompt] = useState(false);
   const [showRejectPrompt, setShowRejectPrompt] = useState(false);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${className ? className : ''}`}>
       <Rectangle admin />
 
       <div

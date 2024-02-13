@@ -2,13 +2,18 @@
 @import 'theme/abstract/mixins';
 
 .rating {
-    margin-top: 5px;
-    display: flex;
-    gap: 5px;
+  // height: 50px;
+  display: flex;
+}
+
+.star {
+  &:not(:first-child) {
+    margin-left: 4px;
   }
-  
-  .ratingText {
-    padding-left: 3px;
-    color: var(--gray-color);
-    @include text-styles(Nunito, 12px);
-  }
+}
+
+.ratingText {
+  margin-left: 8px;
+  color: var(--gray-color);
+  @include text-styles(Nunito, 12px);
+}

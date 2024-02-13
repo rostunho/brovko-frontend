@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { getAllOrders } from 'redux/basket/basketSelectors';
-import { selectIsLogin, selectUser } from 'redux/user/userSelectors';
+import { selectIsLogin } from 'redux/user/userSelectors';
 import useLayoutType from 'shared/hooks/useLayoutType';
 import Logo from 'shared/icons/Logo';
 import Navigation from 'components/Navigation/Navigation';
@@ -20,7 +19,7 @@ export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
   const layoutType = useLayoutType();
   const isMobile = layoutType === 'mobile';
   const isTablet = layoutType === 'tablet';
-  const isDesktop = layoutType === 'desktop';
+  // const isDesktop = layoutType === 'desktop';
 
   const orders = useSelector(getAllOrders);
   const userIsLoggedIn = useSelector(selectIsLogin);

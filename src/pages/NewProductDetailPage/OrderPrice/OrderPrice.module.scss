@@ -1,0 +1,65 @@
+.price-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 32px;
+  width: 100%;
+
+  @media screen and (min-width: 768px) {
+    padding-top: 28px;
+    row-gap: 12px;
+  }
+}
+
+.price,
+.quantity {
+  display: flex;
+  column-gap: 8px;
+
+  @media screen and (min-width: 768px) {
+    width: 100%;
+  }
+}
+
+.quantity {
+  justify-content: end;
+}
+
+.title {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #191c2c;
+
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+  }
+}
+
+.title.mobile {
+  display: none;
+}
+
+p.title {
+  @media screen and (min-width: 768px) {
+    font-size: 24px;
+  }
+}
+
+.counter {
+  display: inline-flex;
+}
+
+.counter-value {
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+  }
+}
+
+.add-button {
+  @media screen and (min-width: 768px) {
+    margin-top: 16px;
+  }
+}

@@ -9,6 +9,7 @@ export default function Heading({
   children,
   fromHC,
   className,
+  containerClassName,
 }) {
   const location = useLocation();
 
@@ -26,7 +27,11 @@ export default function Heading({
   };
 
   return (
-    <div className={styles.container}>
+    <div
+      className={`${styles.container} ${
+        containerClassName ? containerClassName : ''
+      }`}
+    >
       {withGoBack && <Button mode="goBack" onClick={onGoBackClick} />}
       {type === 'h1' && (
         <h1

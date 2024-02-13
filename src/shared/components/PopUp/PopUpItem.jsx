@@ -67,9 +67,9 @@ const PopUpItem = ({ data }) => {
       }`}
       onClick={() => removePopup(data.id)}
     >
-      <Heading type="h2" className={styles.title}>
+      <h3 type="h2" className={styles.title}>
         {title}
-      </Heading>
+      </h3>
       <p className={`${styles.message}`}>{text || defaultMessage}</p>
     </li>
   );
