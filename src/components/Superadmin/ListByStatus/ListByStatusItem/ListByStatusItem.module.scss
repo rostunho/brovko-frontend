@@ -1,11 +1,18 @@
-.container {
+.userContainer {
   display: flex;
-  justify-content: flex-start;
-  gap: 10px;
-  padding: 10px;
+  gap: 12px;
+  width: 100%;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-right: 12px;
+  padding-left: 12px;
   margin-bottom: 10px;
-  border: var(--border-primary);
+  box-shadow: var(--box-shadow);
   border-radius: var(--border-radius-secondary);
+
+  @media screen and (min-width: 480px) {
+    width: 448px;
+  }
 }
 
 .avatar {

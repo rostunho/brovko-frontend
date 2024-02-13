@@ -6,6 +6,8 @@ import { update, updateAvatar } from 'redux/user/userOperations';
 
 import Loader from 'components/Loader';
 
+import { addPopupOperation } from 'redux/popup/popupOperations';
+
 import Modal from 'shared/components/Modal/Modal';
 import Image from 'shared/components/Image';
 import Button from 'shared/components/Button';
@@ -43,12 +45,21 @@ const Avatar = ({
   const dispatch = useDispatch();
 
   const delAvatar = async () => {
-    setLoading(true);
-    const dataAvatar = { avatarURL: '', id: _id };
+    try {
+      setLoading(true);
+      const dataAvatar = { avatarURL: '', id: _id };
 
-    await dispatch(update(dataAvatar));
-    setPrompDelete(false);
-    setLoading(false);
+      await dispatch(update(dataAvatar));
+      dispatch(addPopupOperation('Аватарку успішно видалено'));
+      setPrompDelete(false);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error.response);
+      dispatch(
+        addPopupOperation('Не вдалося видалити, спробуйте ще разок', 'error')
+      );
+    }
   };
 
   // const [selectedImage, setSelectedImage] = useState(null);
@@ -84,17 +95,26 @@ const Avatar = ({
     e.preventDefault();
     const file = e.target.files[0];
     if (file) {
-      setLoading(true);
-      // setSelectedImage(file);
-      const formData = new FormData();
-      formData.append('avatar', file);
-      await dispatch(updateAvatar(formData));
-      // .then(() => {
-      //   // Оновлення avatarURL після успішного завантаження
-      //   // Це дозволяє вам відобразити новий аватар без перезавантаження сторінки
-      //   dispatch(fetchUser()); // Припустимо, що у вас є дія fetchUser для отримання оновленого користувача
-      // });
-      setLoading(false);
+      try {
+        setLoading(true);
+        // setSelectedImage(file);
+        const formData = new FormData();
+        formData.append('avatar', file);
+        await dispatch(updateAvatar(formData));
+        dispatch(addPopupOperation('Круте фото!'));
+        // .then(() => {
+        //   // Оновлення avatarURL після успішного завантаження
+        //   // Це дозволяє вам відобразити новий аватар без перезавантаження сторінки
+        //   dispatch(fetchUser()); // Припустимо, що у вас є дія fetchUser для отримання оновленого користувача
+        // });
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.log(error.response);
+        dispatch(
+          addPopupOperation('Щось пішло не так, завантажте ще разок', 'error')
+        );
+      }
     }
   };
 

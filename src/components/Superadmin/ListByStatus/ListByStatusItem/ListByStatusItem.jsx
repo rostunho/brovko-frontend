@@ -4,7 +4,7 @@ import styles from './ListByStatusItem.module.scss';
 
 const ListByStatusItem = ({ user }) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.userContainer}>
       <div className={styles.imgWrapper}>
         <Image
           className={styles.avatar}
