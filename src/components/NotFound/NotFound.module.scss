@@ -1,0 +1,45 @@
+.wrapper {
+  display: flex;
+  width: 300px;
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+}
+
+.spinWrapper {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 100px;
+  width: 100px;
+  height: 100px;
+  animation: spinning 5s linear infinite;
+}
+
+@keyframes spinning {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.textTop,
+.textBottom {
+  font-size: 100px;
+  //   animation: spinning 2s linear infinite;
+}
+
+.message {
+  font-size: 24px;
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.randomLink {
+  cursor: pointer;
+}
