@@ -8,7 +8,9 @@ export const getAllProducts = async (
   page = 1,
   perPage = 10,
   sortBy = 'createdAt',
-  sortOrder = 'desc'
+  sortOrder = 'desc',
+  priceMin,
+  priceMax
 ) => {
   try {
     const { data } = await instance.get('/products', {
@@ -17,9 +19,11 @@ export const getAllProducts = async (
         perPage,
         sortBy,
         sortOrder,
+        priceMin,
+        priceMax,
       },
     });
-
+    console.log('data :>> ', data);
     return data;
   } catch (error) {
     throw error;

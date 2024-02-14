@@ -20,6 +20,7 @@ export default function ProductList({
   category,
   sorting,
   refresh = false,
+  prices,
   onProductsChange,
 }) {
   const [keyWord, setKeyWord] = useState(searchValue || '');
@@ -49,7 +50,8 @@ export default function ProductList({
   useEffect(() => {
     // При зміні даних про продукти викликати onProductsChange
     onProductsChange({ minPrice, maxPrice });
-  }, [minPrice, maxPrice, onProductsChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [minPrice, maxPrice]);
 
   useEffect(() => {
     // працює при прямому пейсті урли в нове вікно браузера
@@ -175,19 +177,62 @@ export default function ProductList({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
+  useEffect(() => {
+    // // if (firstRender || !keyWord) {
+    // //   return;
+    // // }
+    // console.log('PRICES CHANGED');
+
+    // if (keyWord) {
+    //   setPage(1);
+    //   fetchProductsByKeyword(keyWord, 1, perPage, sort.field, sort.order);
+    // } else if (categoryId) {
+    //   setPage(1);
+    //   fetchProductsByCategory(categoryId, 1, perPage, sort.field, sort.order);
+    // } else if (!keyWord && categoryId === 'all') {
+    //   console.log('Код дійшов до потрібної умови1');
+    //   setPage(1);
+    //   fetchAllProducts(
+    //     1,
+    //     perPage,
+    //     sort.field,
+    //     sort.order,
+    //     prices.minPrice,
+    //     prices.maxPrice
+    //   );
+    // }
+    // console.log('Код дійшов до потрібної умови2');
+    // console.log('keyword :>> ', keyWord);
+    // console.log('categoryId :>> ', categoryId);
+    setPage(1);
+    fetchAllProducts(
+      1,
+      perPage,
+      sort.field,
+      sort.order,
+      prices.minPrice,
+      prices.maxPrice
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prices.maxPrice, prices.minPrice]);
+
   /////////////  services functions  //
 
   const fetchAllProducts = async (
     page = 1,
     perPage = 10,
     sortBy = 'createdAt',
-    sortOrder = 'desc'
+    sortOrder = 'desc',
+    priceMin,
+    priceMax
   ) => {
     const { products, totalPages, minPrice, maxPrice } = await getAllProducts(
       page,
       perPage,
       sortBy,
-      sortOrder
+      sortOrder,
+      priceMin,
+      priceMax
     );
     setCurrentProducts([...products]);
     setTotalPages(totalPages);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 import { getAllCategories } from 'shared/services/api';
 import { sortingTemplate } from './sortingTemplate';
 // import Loader from 'components/Loader';
@@ -13,7 +13,7 @@ import DoubleRangeSlider from 'shared/components/Input/InputRange/DoubleRangeSli
 
 export default function ProductListPage() {
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? "/";
+  const backLinkHref = location.state?.from ?? '/';
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchBarValue, setSearchBarValue] = useState('');
@@ -34,7 +34,7 @@ export default function ProductListPage() {
   const [sortingSelectorIsOpen, setSortingSelectorIsOpen] = useState(false);
   const [refreshProducts, setRefreshProducts] = useState(false);
 
-  const [prices, setPrices] = useState(null);
+  const [initialPrices, setInitialPrices] = useState(null);
   const [selectedPrices, setSelectedPrices] = useState({
     maxPrice: '',
     minPrice: '',
@@ -63,9 +63,11 @@ export default function ProductListPage() {
       category: selectedCategory.id,
       sort: selectedSortingOption.field,
       order: selectedSortingOption.order,
+      max: selectedPrices.maxPrice,
+      min: selectedPrices.minPrice,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCategory, keyWord, selectedSortingOption]);
+  }, [selectedCategory, keyWord, selectedSortingOption, selectedPrices]);
 
   // кожного разу скидаємо тумблер refreshCategory в значення за замовчуванням
   useEffect(() => {
@@ -126,6 +128,8 @@ export default function ProductListPage() {
       category: selectedCategory.id,
       sort: selectedSortingOption.field,
       order: selectedSortingOption.order,
+      max: selectedPrices.maxPrice,
+      min: selectedPrices.minPrice,
     });
   };
 
@@ -150,6 +154,8 @@ export default function ProductListPage() {
       category: selectedCategory.id,
       sort: selectedSortingOption.field,
       order: selectedSortingOption.order,
+      max: selectedPrices.maxPrice,
+      min: selectedPrices.minPrice,
     });
   };
 
@@ -165,6 +171,8 @@ export default function ProductListPage() {
       category: selectedCategory.id,
       sort: selectedSortingOption.field,
       order: selectedSortingOption.order,
+      max: selectedPrices.maxPrice,
+      min: selectedPrices.minPrice,
     });
   };
 
@@ -184,11 +192,24 @@ export default function ProductListPage() {
     });
   };
 
+  const setPricesToSearchParams = () => {
+    setSearchParams({
+      key: keyWord,
+      category: selectedCategory.id,
+      sort: selectedSortingOption.field,
+      order: selectedSortingOption.order,
+      max: selectedPrices.maxPrice,
+      min: selectedPrices.minPrice,
+    });
+  };
+
   const searchParamsProcessing = savedCategories => {
     const category = searchParams.has('category');
     const keyWord = searchParams.get('key');
     const sort = searchParams.get('sort');
     const order = searchParams.get('order');
+    const min = searchParams.get('min');
+    const max = searchParams.get('max');
 
     category
       ? getCategoryFromSearchParams(savedCategories)
@@ -200,6 +221,12 @@ export default function ProductListPage() {
       getSortingFromSearchParams(sortingTemplate);
     } else {
       setSortingToSearchParams();
+    }
+
+    if (max && min) {
+      console.log('Поки немає');
+    } else {
+      setPricesToSearchParams();
     }
   };
 
@@ -215,7 +242,9 @@ export default function ProductListPage() {
   return (
     <>
       {/* <Loader /> */}
-      <Heading withGoBack fromHC={backLinkHref}>Крамничка</Heading>
+      <Heading withGoBack fromHC={backLinkHref}>
+        Крамничка
+      </Heading>
       <Input
         name="searchbar"
         label=""
@@ -249,15 +278,16 @@ export default function ProductListPage() {
       </div>
       <DoubleRangeSlider
         onSubmit={handleSliderSubmit}
-        min={prices?.minPrice}
-        max={prices?.maxPrice}
+        min={initialPrices?.minPrice}
+        max={initialPrices?.maxPrice}
       />
       <ProductList
         searchValue={keyWord}
         category={selectedCategory}
         sorting={selectedSortingOption}
         refresh={refreshProducts}
-        onProductsChange={setPrices}
+        prices={selectedPrices}
+        onProductsChange={setInitialPrices}
       />
     </>
   );
