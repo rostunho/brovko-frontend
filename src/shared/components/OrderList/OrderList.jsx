@@ -50,10 +50,7 @@ export default function OrderList({
       )}
       <div className={styles['text-total']}>
         {<Heading type="h3">{totalLabel}</Heading>}
-        <p className={styles.total}>
-          {totalAmount.toFixed(2)}
-          <span> ₴</span>
-        </p>
+        <p className={styles.total}>{totalAmount.toFixed(2)}₴</p>
       </div>
       {lastCheck && (
         <>
