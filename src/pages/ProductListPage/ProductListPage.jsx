@@ -252,7 +252,9 @@ export default function ProductListPage() {
   return (
     <>
       {/* <Loader /> */}
-      <Heading withGoBack>Крамничка</Heading>
+      <Heading withGoBack fromHC={backLinkHref}>
+        Крамничка
+      </Heading>
       <Input
         name="searchbar"
         label=""
