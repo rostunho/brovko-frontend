@@ -141,18 +141,35 @@ export default function ProductList({
       return;
     }
     keyWord &&
-      fetchProductsByKeyword(keyWord, page, perPage, sort.field, sort.order);
+      fetchProductsByKeyword(
+        keyWord,
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
     categoryId &&
       fetchProductsByCategory(
         categoryId,
         page,
         perPage,
         sort.field,
-        sort.order
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
       );
     !keyWord &&
       categoryId === 'all' &&
-      fetchAllProducts(page, perPage, sort.field, sort.order);
+      fetchAllProducts(
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort]);
 
@@ -162,18 +179,35 @@ export default function ProductList({
     }
 
     keyWord &&
-      fetchProductsByKeyword(keyWord, page, perPage, sort.field, sort.order);
+      fetchProductsByKeyword(
+        keyWord,
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
     categoryId &&
       fetchProductsByCategory(
         categoryId,
         page,
         perPage,
         sort.field,
-        sort.order
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
       );
     !keyWord &&
       categoryId === 'all' &&
-      fetchAllProducts(page, perPage, sort.field, sort.order);
+      fetchAllProducts(
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 

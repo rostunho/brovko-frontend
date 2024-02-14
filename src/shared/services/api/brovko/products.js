@@ -12,7 +12,6 @@ export const getAllProducts = async (
   priceMin,
   priceMax
 ) => {
-  console.log('GET ALL PRODUCTS WORKING');
   try {
     const { data } = await instance.get('/products', {
       params: {
@@ -24,7 +23,7 @@ export const getAllProducts = async (
         priceMax,
       },
     });
-    console.log('data :>> ', data);
+    // console.log('data :>> ', data);
     return data;
   } catch (error) {
     throw error;

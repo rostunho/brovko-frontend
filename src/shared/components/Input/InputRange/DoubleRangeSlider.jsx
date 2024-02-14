@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styles from './DoubleRangeSlider.module.scss';
 
-const DoubleRangeSlider = ({ onSubmit, min, max }) => {
+const DoubleRangeSlider = ({ onSubmit, min, max, keyword }) => {
   const [minPriceLimit, setMinPriceLimit] = useState(min || 0);
   const [maxPriceLimit, setMaxPriceLimit] = useState(max || 100);
 
@@ -58,6 +58,7 @@ const DoubleRangeSlider = ({ onSubmit, min, max }) => {
   }, [maxSelectedValue]);
 
   const getParsed = useCallback((currentFrom, currentTo) => {
+    console.log('getParsed works');
     const minPrice =
       currentFrom.current.value.trim() === ''
         ? null
@@ -76,11 +77,22 @@ const DoubleRangeSlider = ({ onSubmit, min, max }) => {
   const fillSlider = useCallback(() => {
     if (!toSlider.current || !controlSlider.current) return;
 
-    const sliderWidth = toSlider.current.offsetWidth;
     const rangeDistance = max - min;
+
+    if (!rangeDistance) {
+      controlSlider.current.style.background = '#C6C6C6';
+      return;
+    }
+
+    const sliderWidth = toSlider.current.offsetWidth;
     const fromPosition =
       ((minSelectedValue - min) / rangeDistance) * (sliderWidth - 15);
     const toPosition = ((maxSelectedValue - min) / rangeDistance) * sliderWidth;
+
+    // console.log('sliderWidth :>> ', sliderWidth);
+    // console.log('rangeDistance :>> ', rangeDistance);
+    // console.log('fromPosition :>> ', fromPosition);
+    // console.log('toPosition :>> ', toPosition);
 
     controlSlider.current.style.background = `linear-gradient(
     to right,
@@ -187,6 +199,10 @@ const DoubleRangeSlider = ({ onSubmit, min, max }) => {
     setMaxSelectedValue(maxDigitValue);
   };
 
+  // if (max === min) {
+  //   return `За пошуком "${keyword}" усі продукти лише по ${min} гривень`;
+  // }
+
   return (
     <div className={styles.range_container}>
       <form
@@ -200,7 +216,7 @@ const DoubleRangeSlider = ({ onSubmit, min, max }) => {
             type="number"
             id={styles.fromInput}
             // value={fromInputValue}
-            value={minDigitValue}
+            value={minDigitValue || 0}
             // min={min}
             min={minPriceLimit}
             // max={max}
@@ -231,7 +247,7 @@ const DoubleRangeSlider = ({ onSubmit, min, max }) => {
             id={styles.toInput}
             // value={toInputValue}
             // defaultValue={minPriceLimit}
-            value={maxDigitValue}
+            value={maxDigitValue || 100}
             min={minPriceLimit}
             max={maxPriceLimit}
             ref={toInput}
@@ -262,26 +278,34 @@ const DoubleRangeSlider = ({ onSubmit, min, max }) => {
         <input
           id={styles.fromSlider}
           type="range"
-          value={minRangeValue}
+          value={minRangeValue || 0}
           min={minPriceLimit}
           max={maxPriceLimit}
           ref={fromSlider}
           // onChange={controlFromSlider}
           onChange={e => {
+            if (e.target.value > maxRangeValue) {
+              return;
+            }
             setMinSelectedValue(Number(e.target.value));
+            // setMinRangeValue(Number(e.target.value));
             controlFromSlider();
           }}
         />
         <input
           id={styles.toSlider}
           type="range"
-          value={maxRangeValue}
+          value={maxRangeValue || 100}
           min={minPriceLimit}
           max={maxPriceLimit}
           ref={toSlider}
           // onChange={controlToSlider}
           onChange={e => {
+            if (e.target.value < minRangeValue) {
+              return;
+            }
             setMaxSelectedValue(Number(e.target.value));
+            // setMaxRangeValue(Number(e.target.value));
             controlToSlider();
           }}
         />

@@ -224,7 +224,7 @@ export default function ProductListPage() {
     }
 
     if (max && min) {
-      console.log('Поки немає');
+      console.log('Поки немає'); // можливо!, додати функціонал автоматичного вставлення значень в searchParams
     } else {
       setPricesToSearchParams();
     }
@@ -280,6 +280,7 @@ export default function ProductListPage() {
         onSubmit={handleSliderSubmit}
         min={initialPrices?.minPrice}
         max={initialPrices?.maxPrice}
+        keyword={keyWord}
       />
       <ProductList
         searchValue={keyWord}
