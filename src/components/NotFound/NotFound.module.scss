@@ -29,14 +29,17 @@
 .textTop,
 .textBottom {
   font-size: 100px;
-//   animation: spinning 2s linear infinite;
+  //   animation: spinning 2s linear infinite;
 }
 
 .message {
-    font-size: 24px;
-    align-items: center;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  font-size: 24px;
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+.randomLink {
+  cursor: pointer;
+}
