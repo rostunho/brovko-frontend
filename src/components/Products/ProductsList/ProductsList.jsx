@@ -178,41 +178,58 @@ export default function ProductList({
   }, [page]);
 
   useEffect(() => {
-    // // if (firstRender || !keyWord) {
-    // //   return;
-    // // }
-    // console.log('PRICES CHANGED');
+    if (firstRender) {
+      return;
+    }
+    console.log('0 keyWord :>> ', keyWord);
+    console.log('0 categoryId :>> ', categoryId);
 
-    // if (keyWord) {
-    //   setPage(1);
-    //   fetchProductsByKeyword(keyWord, 1, perPage, sort.field, sort.order);
-    // } else if (categoryId) {
-    //   setPage(1);
-    //   fetchProductsByCategory(categoryId, 1, perPage, sort.field, sort.order);
-    // } else if (!keyWord && categoryId === 'all') {
-    //   console.log('Код дійшов до потрібної умови1');
-    //   setPage(1);
-    //   fetchAllProducts(
-    //     1,
-    //     perPage,
-    //     sort.field,
-    //     sort.order,
-    //     prices.minPrice,
-    //     prices.maxPrice
-    //   );
-    // }
-    // console.log('Код дійшов до потрібної умови2');
-    // console.log('keyword :>> ', keyWord);
-    // console.log('categoryId :>> ', categoryId);
-    setPage(1);
-    fetchAllProducts(
-      1,
-      perPage,
-      sort.field,
-      sort.order,
-      prices.minPrice,
-      prices.maxPrice
-    );
+    if (keyWord) {
+      setPage(1);
+      fetchProductsByKeyword(
+        keyWord,
+        1,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    } else if (categoryId !== 'all') {
+      setPage(1);
+      fetchProductsByCategory(
+        categoryId,
+        1,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    } else if (keyWord === '' && categoryId === 'all') {
+      console.log('Код дійшов до потрібної умови1');
+      setPage(1);
+      fetchAllProducts(
+        1,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    }
+    console.log('Код дійшов до потрібної умови2');
+    console.log('keyWord :>> ', keyWord);
+    console.log('categoryId :>> ', categoryId);
+    // setPage(1);
+    // fetchAllProducts(
+    //   1,
+    //   perPage,
+    //   sort.field,
+    //   sort.order,
+    //   prices.minPrice,
+    //   prices.maxPrice
+    // );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prices.maxPrice, prices.minPrice]);
 
@@ -245,10 +262,20 @@ export default function ProductList({
     page = 1,
     perPage = 10,
     sortBy = 'createdAt',
-    sortOrder = 'desc'
+    sortOrder = 'desc',
+    priceMin,
+    priceMax
   ) => {
     const { products, totalPages, minPrice, maxPrice } =
-      await getProductsByKeywords(keyWord, page, perPage, sortBy, sortOrder);
+      await getProductsByKeywords(
+        keyWord,
+        page,
+        perPage,
+        sortBy,
+        sortOrder,
+        priceMin,
+        priceMax
+      );
     setCurrentProducts(products);
     setTotalPages(totalPages);
     setMinPrice(minPrice);
@@ -260,14 +287,24 @@ export default function ProductList({
     page = 1,
     perPage = 10,
     sortBy = 'createdAt',
-    sortOrder = 'desc'
+    sortOrder = 'desc',
+    priceMin,
+    priceMax
   ) => {
     if (categoryId === 'all') {
       return;
     }
 
     const { products, totalPages, minPrice, maxPrice } =
-      await getProductsByCategory(categoryId, page, perPage, sortBy, sortOrder);
+      await getProductsByCategory(
+        categoryId,
+        page,
+        perPage,
+        sortBy,
+        sortOrder,
+        priceMin,
+        priceMax
+      );
 
     setCurrentProducts(products);
     setTotalPages(totalPages);

@@ -12,6 +12,7 @@ export const getAllProducts = async (
   priceMin,
   priceMax
 ) => {
+  console.log('GET ALL PRODUCTS WORKING');
   try {
     const { data } = await instance.get('/products', {
       params: {
@@ -35,7 +36,9 @@ export const getProductsByCategory = async (
   page = 1,
   perPage = 10,
   sortBy = 'createdAt',
-  sortOrder = 'desc'
+  sortOrder = 'desc',
+  priceMin,
+  priceMax
 ) => {
   try {
     const { data } = await instance.get(`/products/category/${categoryId}`, {
@@ -44,6 +47,8 @@ export const getProductsByCategory = async (
         perPage,
         sortBy,
         sortOrder,
+        priceMin,
+        priceMax,
       },
     });
 
@@ -58,10 +63,20 @@ export const getProductsByKeywords = async (
   page = 1,
   perPage = 10,
   sortBy = 'createdAt',
-  sortOrder = 'desc'
+  sortOrder = 'desc',
+  priceMin,
+  priceMax
 ) => {
   const headers = { 'Content-Type': 'application/json' };
-  const params = { search, page, perPage, sortBy, sortOrder };
+  const params = {
+    search,
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+    priceMin,
+    priceMax,
+  };
 
   try {
     const { data } = await instance.get(`/products/search`, {
