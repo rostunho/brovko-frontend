@@ -203,6 +203,16 @@ export default function ProductListPage() {
     });
   };
 
+  const getPricesFromSearchParams = () => {
+    const minPrice = searchParams.get('min');
+    const maxPrice = searchParams.get('max');
+
+    console.log('maxPrice :>> ', maxPrice);
+    console.log('minPrice :>> ', minPrice);
+
+    setSelectedPrices({ minPrice, maxPrice });
+  };
+
   const searchParamsProcessing = savedCategories => {
     const category = searchParams.has('category');
     const keyWord = searchParams.get('key');
@@ -224,7 +234,7 @@ export default function ProductListPage() {
     }
 
     if (max && min) {
-      console.log('Поки немає'); // можливо!, додати функціонал автоматичного вставлення значень в searchParams
+      getPricesFromSearchParams();
     } else {
       setPricesToSearchParams();
     }
@@ -242,9 +252,7 @@ export default function ProductListPage() {
   return (
     <>
       {/* <Loader /> */}
-      <Heading withGoBack fromHC={backLinkHref}>
-        Крамничка
-      </Heading>
+      <Heading withGoBack>Крамничка</Heading>
       <Input
         name="searchbar"
         label=""

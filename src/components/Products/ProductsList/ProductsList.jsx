@@ -55,18 +55,25 @@ export default function ProductList({
 
   useEffect(() => {
     // працює при прямому пейсті урли в нове вікно браузера
-    if (categoryId) {
+    if (categoryId !== 'all') {
       fetchProductsByCategory(
         categoryId,
         page,
         perPage,
         sort.field,
-        sort.order
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
       );
-    }
-
-    if (categoryId === 'all') {
-      fetchAllProducts(page, perPage, sort.field, sort.order);
+    } else if (categoryId === 'all') {
+      fetchAllProducts(
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
     }
     setFirstRender(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
