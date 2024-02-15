@@ -20,6 +20,7 @@ export default function ProductList({
   category,
   sorting,
   refresh = false,
+  prices,
   onProductsChange,
 }) {
   const [keyWord, setKeyWord] = useState(searchValue || '');
@@ -49,22 +50,30 @@ export default function ProductList({
   useEffect(() => {
     // При зміні даних про продукти викликати onProductsChange
     onProductsChange({ minPrice, maxPrice });
-  }, [minPrice, maxPrice, onProductsChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [minPrice, maxPrice]);
 
   useEffect(() => {
     // працює при прямому пейсті урли в нове вікно браузера
-    if (categoryId) {
+    if (categoryId !== 'all') {
       fetchProductsByCategory(
         categoryId,
         page,
         perPage,
         sort.field,
-        sort.order
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
       );
-    }
-
-    if (categoryId === 'all') {
-      fetchAllProducts(page, perPage, sort.field, sort.order);
+    } else if (categoryId === 'all') {
+      fetchAllProducts(
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
     }
     setFirstRender(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -139,18 +148,35 @@ export default function ProductList({
       return;
     }
     keyWord &&
-      fetchProductsByKeyword(keyWord, page, perPage, sort.field, sort.order);
+      fetchProductsByKeyword(
+        keyWord,
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
     categoryId &&
       fetchProductsByCategory(
         categoryId,
         page,
         perPage,
         sort.field,
-        sort.order
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
       );
     !keyWord &&
       categoryId === 'all' &&
-      fetchAllProducts(page, perPage, sort.field, sort.order);
+      fetchAllProducts(
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort]);
 
@@ -160,20 +186,93 @@ export default function ProductList({
     }
 
     keyWord &&
-      fetchProductsByKeyword(keyWord, page, perPage, sort.field, sort.order);
+      fetchProductsByKeyword(
+        keyWord,
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
     categoryId &&
       fetchProductsByCategory(
         categoryId,
         page,
         perPage,
         sort.field,
-        sort.order
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
       );
     !keyWord &&
       categoryId === 'all' &&
-      fetchAllProducts(page, perPage, sort.field, sort.order);
+      fetchAllProducts(
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
+
+  useEffect(() => {
+    if (firstRender) {
+      return;
+    }
+    console.log('0 keyWord :>> ', keyWord);
+    console.log('0 categoryId :>> ', categoryId);
+
+    if (keyWord) {
+      setPage(1);
+      fetchProductsByKeyword(
+        keyWord,
+        1,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    } else if (categoryId !== 'all') {
+      setPage(1);
+      fetchProductsByCategory(
+        categoryId,
+        1,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    } else if (keyWord === '' && categoryId === 'all') {
+      console.log('Код дійшов до потрібної умови1');
+      setPage(1);
+      fetchAllProducts(
+        1,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    }
+    console.log('Код дійшов до потрібної умови2');
+    console.log('keyWord :>> ', keyWord);
+    console.log('categoryId :>> ', categoryId);
+    // setPage(1);
+    // fetchAllProducts(
+    //   1,
+    //   perPage,
+    //   sort.field,
+    //   sort.order,
+    //   prices.minPrice,
+    //   prices.maxPrice
+    // );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prices.maxPrice, prices.minPrice]);
 
   /////////////  services functions  //
 
@@ -181,13 +280,17 @@ export default function ProductList({
     page = 1,
     perPage = 10,
     sortBy = 'createdAt',
-    sortOrder = 'desc'
+    sortOrder = 'desc',
+    priceMin,
+    priceMax
   ) => {
     const { products, totalPages, minPrice, maxPrice } = await getAllProducts(
       page,
       perPage,
       sortBy,
-      sortOrder
+      sortOrder,
+      priceMin,
+      priceMax
     );
     setCurrentProducts([...products]);
     setTotalPages(totalPages);
@@ -200,10 +303,20 @@ export default function ProductList({
     page = 1,
     perPage = 10,
     sortBy = 'createdAt',
-    sortOrder = 'desc'
+    sortOrder = 'desc',
+    priceMin,
+    priceMax
   ) => {
     const { products, totalPages, minPrice, maxPrice } =
-      await getProductsByKeywords(keyWord, page, perPage, sortBy, sortOrder);
+      await getProductsByKeywords(
+        keyWord,
+        page,
+        perPage,
+        sortBy,
+        sortOrder,
+        priceMin,
+        priceMax
+      );
     setCurrentProducts(products);
     setTotalPages(totalPages);
     setMinPrice(minPrice);
@@ -215,14 +328,24 @@ export default function ProductList({
     page = 1,
     perPage = 10,
     sortBy = 'createdAt',
-    sortOrder = 'desc'
+    sortOrder = 'desc',
+    priceMin,
+    priceMax
   ) => {
     if (categoryId === 'all') {
       return;
     }
 
     const { products, totalPages, minPrice, maxPrice } =
-      await getProductsByCategory(categoryId, page, perPage, sortBy, sortOrder);
+      await getProductsByCategory(
+        categoryId,
+        page,
+        perPage,
+        sortBy,
+        sortOrder,
+        priceMin,
+        priceMax
+      );
 
     setCurrentProducts(products);
     setTotalPages(totalPages);

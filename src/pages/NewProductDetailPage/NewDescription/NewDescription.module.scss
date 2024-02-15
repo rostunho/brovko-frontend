@@ -1,5 +1,12 @@
 .container {
-  height: auto;
+  // height: auto;
+
+  @media screen and (min-width: 768px) {
+    min-height: 500px;
+  }
+  @media screen and (min-width: 1280px) {
+    min-height: 100px;
+  }
 }
 
 .title {

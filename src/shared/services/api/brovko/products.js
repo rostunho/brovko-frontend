@@ -8,7 +8,9 @@ export const getAllProducts = async (
   page = 1,
   perPage = 10,
   sortBy = 'createdAt',
-  sortOrder = 'desc'
+  sortOrder = 'desc',
+  priceMin,
+  priceMax
 ) => {
   try {
     const { data } = await instance.get('/products', {
@@ -17,9 +19,11 @@ export const getAllProducts = async (
         perPage,
         sortBy,
         sortOrder,
+        priceMin,
+        priceMax,
       },
     });
-
+    // console.log('data :>> ', data);
     return data;
   } catch (error) {
     throw error;
@@ -31,7 +35,9 @@ export const getProductsByCategory = async (
   page = 1,
   perPage = 10,
   sortBy = 'createdAt',
-  sortOrder = 'desc'
+  sortOrder = 'desc',
+  priceMin,
+  priceMax
 ) => {
   try {
     const { data } = await instance.get(`/products/category/${categoryId}`, {
@@ -40,6 +46,8 @@ export const getProductsByCategory = async (
         perPage,
         sortBy,
         sortOrder,
+        priceMin,
+        priceMax,
       },
     });
 
@@ -54,10 +62,20 @@ export const getProductsByKeywords = async (
   page = 1,
   perPage = 10,
   sortBy = 'createdAt',
-  sortOrder = 'desc'
+  sortOrder = 'desc',
+  priceMin,
+  priceMax
 ) => {
   const headers = { 'Content-Type': 'application/json' };
-  const params = { search, page, perPage, sortBy, sortOrder };
+  const params = {
+    search,
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+    priceMin,
+    priceMax,
+  };
 
   try {
     const { data } = await instance.get(`/products/search`, {
