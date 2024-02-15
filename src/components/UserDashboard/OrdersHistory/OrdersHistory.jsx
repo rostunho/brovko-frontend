@@ -8,11 +8,12 @@ import { ordersUserHistory } from 'redux/user/userSelectors';
 import { usersOrdersHistory } from 'redux/user/userOperations';
 //
 import { getAllOrders } from 'redux/basket/basketSelectors';
+import { getAllHistoryOrders } from 'redux/orders/ordersSelectors';
 //
 import styles from './OrdersHistory.module.scss';
 
 const OrdersHistory = () => {
-  const orders = useSelector(getAllOrders);
+  const orders = useSelector(getAllHistoryOrders);
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -8,6 +8,7 @@ import OrderInformation from '../OrderInformation';
 
 //
 import { getAllOrders } from 'redux/basket/basketSelectors';
+import { getAllHistoryOrders } from 'redux/orders/ordersSelectors';
 //
 
 import { ordersUserHistory } from 'redux/user/userSelectors';
@@ -15,7 +16,8 @@ import { ordersUserHistory } from 'redux/user/userSelectors';
 import styles from './InsideOrdersHistory.module.scss';
 
 const InsideOrdersHistory = () => {
-  const orders = useSelector(getAllOrders);
+  const orders = useSelector(getAllHistoryOrders);
+  console.log('orders', orders);
   const [showDetail, setShowdetail] = useState(false);
   const [showSumAllOrders, setshowSumAllOrders] = useState(0);
 
