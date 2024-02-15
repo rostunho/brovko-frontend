@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 import {
   getUserByEmail,
@@ -33,7 +33,7 @@ const SuperadminPage = () => {
   const [loading, setLoading] = useState(false);
 
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? "/";
+  const backLinkHref = location.state?.from ?? '/';
 
   const dispatch = useDispatch();
 
@@ -101,12 +101,14 @@ const SuperadminPage = () => {
           <ModalStatusUpdate
             onSubmitForm={onChangingStatus}
             email={currentUser.email}
-            _id={userFound._id}
+            _id={userFound?._id}
             status={status}
           />
         </Modal>
       )}
-      <Heading withGoBack fromHC={backLinkHref}>Superadmin's page</Heading>
+      <Heading withGoBack fromHC={backLinkHref}>
+        Superadmin's page
+      </Heading>
       <form onSubmit={handleSubmit}>
         <Input
           label="Пошук користувача по емейлу :"
