@@ -1,30 +1,42 @@
+import React from 'react';
+import Rectangle from 'components/Rectangle';
+import Image from 'shared/components/Image';
+import exchangeAndReturnContent from './exchangeAndReturnContent';
+import photo_2 from 'shared/images/photo_2.jpeg'
+import photo_1 from 'shared/images/photo_1.jpeg'
 import styles from './ExchangeAndReturn.module.scss';
 
-export default function ExchangeAndReturn() {
+function Section({ title, content }) {
   return (
-    <>
-      <p>
-        Компанія “Шкварка” (ФОП Гузаревич М.В.) здійснює повернення та обмін
-        цього товару відповідно до вимог законодавства. Покупець має право
-        замінити товар на аналогічний або зажадати повернути кошти за товар
-        неналежної якості (якщо на упаковці товару виявлені недоліки, пошкоджена
-        оригінальна упаковка або не задовольняє термін придатності) за умови, що
-        товар було отримано зі складу Нової пошти в термін до двох діб з моменту
-        прибуття товару на відділення і отримання відповідного сповіщення.
-      </p>
-      <p>
-        Термін прийому скарг – 48 годин з моменту отримання товару. Для
-        підтвердження неналежної якості товару покупець повинен надати фото або
-        відео докази менеджерам компанії “Шкварка” за тел. + 38 068 507 22 22
-        (viber, telegram) або на kuma.shkvarka@gmail.com номер замовлення, і
-        причину повернення.
-      </p>
-      <p>
-        У разі повернення або обміну товару у відділенні Нової Пошти –
-        транспортні послуги компанія “Шкварка” оплачує за свій рахунок за умови,
-        що товар оглянули і повернули в відділенні Нової Пошти або в присутності
-        кур’єра Нової Пошти (тобто послуга попереднього огляду товару).
-      </p>
-    </>
+    <section className={styles.section}>
+      <h3 className={styles.title}>{title}</h3>
+      <div>
+        {content.map((paragraph, index) => (
+          <p key={index}>{paragraph}</p>
+        ))}
+      </div>
+    </section>
   );
 }
+
+function ExchangeAndReturn() {
+  return (
+  
+      <div className={styles.wrapper} >
+      <Image src={photo_1} className={styles.image}/>
+      
+    
+    <section className={styles.container}>
+      {exchangeAndReturnContent.sections.map((section, index) => (
+        <React.Fragment key={index}>
+          <Section title={section.title} content={section.content} />
+          {index < exchangeAndReturnContent.sections.length - 1 && <Rectangle />}
+        </React.Fragment>
+      ))}
+    </section>
+    </div>
+    
+  );
+}
+
+export default ExchangeAndReturn;
