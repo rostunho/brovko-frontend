@@ -1,6 +1,7 @@
 // import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import useLayoutType from 'shared/hooks/useLayoutType';
 
 import styles from './Footer.module.scss';
@@ -10,6 +11,8 @@ const FooterItem = ({ icon, links, label, isOpen, onToggle }) => {
   const toggleOpen = () => {
     onToggle(label);
   };
+
+  const location = useLocation();
 
   const layoutType = useLayoutType();
 
@@ -35,7 +38,7 @@ const FooterItem = ({ icon, links, label, isOpen, onToggle }) => {
         <ul className={styles.linksList}>
           {links.map((link, index) => (
             <li key={index}>
-              <Link to={link.url} className={styles.link}>
+              <Link to={link.url} state={{ from: location }} className={styles.link}>
                 {link.label}
               </Link>
             </li>
