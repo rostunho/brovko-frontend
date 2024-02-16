@@ -15,9 +15,15 @@ export default function ProductListPage() {
   const keyWord = searchParams.get('key');
   const categoryId = searchParams.get('id');
   const categoryName = searchParams.get('name'); // потрібна лише для дефолтного виявлення категорії при вставленні урли в нове вікно без повторних рендерів
+  const sortingBy = searchParams.get('by');
+  const sortingOrder = searchParams.get('order');
 
   const [products, setProducts] = useState([]);
   const [searchBarValue, setSearchBarValue] = useState('');
+  const [sortingToShow, setSortingToShow] = useState({
+    id: 0,
+    name: 'Сортування',
+  });
   // const [keyWord, setKeyWord] = useState('');
   const [currentCategories, setCurrentCategories] = useState([]);
   // const [selectedCategory, setSelectedCategory] = useState({
@@ -44,6 +50,10 @@ export default function ProductListPage() {
   });
   const [page, setPage] = useState(1);
   const [firstRender, setFirstRender] = useState(true);
+
+  useEffect(() => {
+    console.log('sortingToShow :>> ', sortingToShow);
+  }, [sortingToShow]);
 
   useEffect(() => {
     if (!firstRender) {
@@ -76,12 +86,59 @@ export default function ProductListPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyWord]);
 
+  useEffect(() => {
+    if (firstRender || sortingToShow?.id === 0) {
+      // sortingToShow.id === 0 лише при першому рендері
+      return;
+    }
+
+    fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortingBy, sortingOrder]);
+
   const handleCategory = data => {
     setSearchParams(
-      prevSearchParams => {
-        prevSearchParams.set('id', data.id);
-        prevSearchParams.set('name', data.name);
-        return prevSearchParams;
+      existingSearchParams => {
+        existingSearchParams.set('id', data.id);
+        existingSearchParams.set('name', data.name);
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
+  };
+
+  const handleKeyWord = async () => {
+    // setKeyWord(searchBarValue);
+    setSearchParams(
+      existingSearchParams => {
+        existingSearchParams.set('key', searchBarValue);
+        existingSearchParams.set('id', 'all');
+        existingSearchParams.set(
+          'name',
+          'Всі категорії (після зміни ключового слова)'
+        );
+
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
+
+    // setSelectedCategory({
+    //   name: 'Всі категорії (після скидання ключового слова)',
+    //   id: 'all',
+    // });
+    // setSearchBarValue('');
+    // setRefreshCategory(true);
+    // searchBarValue === '' && setRefreshProducts(true);
+  };
+
+  const handleSortingOptions = data => {
+    setSortingToShow({ id: data.id, name: data.name });
+    setSearchParams(
+      existingSearchParams => {
+        existingSearchParams.set('by', data.field);
+        existingSearchParams.set('order', data.order);
+        return existingSearchParams;
       },
       { replace: true }
     );
@@ -103,6 +160,8 @@ export default function ProductListPage() {
         const response = await getAllProducts({
           search: keyWord,
           categoryId: categoryId,
+          sortBy: sortingBy,
+          sortOrder: sortingOrder,
         });
         setProducts(response);
       } catch (error) {
@@ -114,13 +173,13 @@ export default function ProductListPage() {
   const getKeyWordFromSearchParams = keyWord => {
     setSearchBarValue(keyWord);
     // setKeyWord(keyWord);
-  };
+  }; // Поки, ДУБЛЬ ФУНКЦІОНАЛУ
 
   const setKeyWordToSearchParams = keyWord => {
     setSearchParams(
-      prevSearchParams => {
-        prevSearchParams.set('key', keyWord);
-        return prevSearchParams;
+      existingSearchParams => {
+        existingSearchParams.set('key', keyWord);
+        return existingSearchParams;
       },
       { replace: true }
     );
@@ -132,10 +191,45 @@ export default function ProductListPage() {
 
   const setCategoryToSearchParams = (id, name) => {
     setSearchParams(
-      prevSearchParams => {
-        prevSearchParams.set('id', id);
-        prevSearchParams.set('name', name);
-        return prevSearchParams;
+      existingSearchParams => {
+        existingSearchParams.set('id', id);
+        existingSearchParams.set('name', name);
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
+  };
+
+  const getSortingOptionsFromSearchParams = (
+    by,
+    order,
+    template = sortingTemplate
+  ) => {
+    // console.log('by :>> ', by);
+    // console.log('order :>> ', order);
+
+    console.log('WORKING');
+
+    if (order === 'createdAt' && order === 'desc') {
+      setSortingToShow({ ...template[2] });
+    } else if (by === 'createdAt' && order === 'asc') {
+      setSortingToShow({ ...template[3] });
+    } else if (by === 'price' && order === 'desc') {
+      setSortingToShow({ ...template[0] });
+    } else if (by === 'price' && order === 'asc') {
+      setSortingToShow({ ...template[1] });
+    }
+  };
+
+  const setSortingOptionsToSearchParams = (by, order) => {
+    // console.log('by :>> ', by);
+    // console.log('order :>> ', order);
+
+    setSearchParams(
+      existingSearchParams => {
+        existingSearchParams.set('by', by);
+        existingSearchParams.set('order', order);
+        return existingSearchParams;
       },
       { replace: true }
     );
@@ -146,7 +240,12 @@ export default function ProductListPage() {
       Object.fromEntries(params);
 
     key ? getKeyWordFromSearchParams(key) : setKeyWordToSearchParams('');
-    !id && !name && setCategoryToSearchParams('', 'Всі категорії (дефолт 2)');
+
+    !id && !name && setCategoryToSearchParams('', 'Всі категорії (дефолт 2)'); // не використовуємо get-функції, бо усі потрібні опції вже є в searchParams.get();
+
+    by && order
+      ? getSortingOptionsFromSearchParams(by, order)
+      : setSortingOptionsToSearchParams('createdAt', 'desc');
 
     // catId ?
   };
@@ -194,31 +293,6 @@ export default function ProductListPage() {
   //   setRefreshProducts(false);
   // }, [refreshProducts]);
 
-  const handleKeyWord = async () => {
-    // setKeyWord(searchBarValue);
-    setSearchParams(
-      prevSearchParams => {
-        prevSearchParams.set('key', searchBarValue);
-        prevSearchParams.set('id', 'all');
-        prevSearchParams.set(
-          'name',
-          'Всі категорії (після зміни ключового слова)'
-        );
-
-        return prevSearchParams;
-      },
-      { replace: true }
-    );
-
-    // setSelectedCategory({
-    //   name: 'Всі категорії (після скидання ключового слова)',
-    //   id: 'all',
-    // });
-    // setSearchBarValue('');
-    // setRefreshCategory(true);
-    // searchBarValue === '' && setRefreshProducts(true);
-  };
-
   // const fetchAllCategories = async () => {
   //   const { categories } = await getAllCategories();
   //   setCurrentCategories([...categories]);
@@ -245,10 +319,10 @@ export default function ProductListPage() {
     setSearchBarValue('');
     // setKeyWord('');
     setSearchParams(
-      prevSearchParams => {
-        console.log('prevSearchParams :>> ', prevSearchParams);
-        prevSearchParams.set('key', '');
-        return prevSearchParams;
+      existingSearchParams => {
+        console.log('existingSearchParams :>> ', existingSearchParams);
+        existingSearchParams.set('key', '');
+        return existingSearchParams;
       },
       { replace: true }
     );
@@ -299,8 +373,9 @@ export default function ProductListPage() {
           name="sorting"
           label=""
           data={sortingTemplate}
-          fetchSelectorValue={setSelectedSortingOption}
-          defaultValue={selectedSortingOption}
+          fetchSelectorValue={handleSortingOptions}
+          // defaultValue={selectedSortingOption}
+          defaultValue={sortingToShow}
           onClick={toggleCloseSortingSelector}
           forceClosing={categorySelectorIsOpen}
         />

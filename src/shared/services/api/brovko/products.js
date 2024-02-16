@@ -1,6 +1,6 @@
 import axios from 'axios';
 import instance from './instance';
-import { addProductRequestTemplate } from 'components/AddProductForm/addProductRequestTemplate';
+// import { addProductRequestTemplate } from 'components/AddProductForm/addProductRequestTemplate';
 
 const BROVKO_API = process.env.REACT_APP_BROVKO_API;
 
