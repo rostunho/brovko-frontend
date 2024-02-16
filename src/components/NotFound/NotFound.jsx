@@ -38,7 +38,7 @@ export default function NotFound() {
     e.preventDefault();
     generateRamdomImage();
   };
-  console.log(image);
+  
   return (
     <>
       <div className={styles.wrapper}>
