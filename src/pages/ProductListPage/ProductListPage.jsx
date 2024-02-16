@@ -16,6 +16,8 @@ export default function ProductListPage() {
   const categoryId = searchParams.get('id');
   const categoryName = searchParams.get('name');
 
+  console.log('categoryId :>> ', categoryId);
+
   const [products, setProducts] = useState([]);
   const [searchBarValue, setSearchBarValue] = useState('');
   // const [keyWord, setKeyWord] = useState('');
@@ -43,17 +45,30 @@ export default function ProductListPage() {
     minPrice: '',
   });
   const [page, setPage] = useState(1);
-  // const [firstRender, setFirstRender] = useState(true);
+  const [firstRender, setFirstRender] = useState(true);
 
   useEffect(() => {
+    if (!firstRender) {
+      return;
+    }
+
     (async () => {
       await fetchCategories();
       await fetchProducts();
       initialProcessing(searchParams);
     })();
-
+    setFirstRender(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    // якщо це перший рендер - уникаємо дублювання запиту, якщо id категорії "all" - значить ми повернулись на "всі категорії" з іншої категорії
+    if (firstRender || !categoryId) {
+      return;
+    }
+    fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoryId]);
 
   const handleCategory = data => {
     setSearchParams(
@@ -79,7 +94,7 @@ export default function ProductListPage() {
   const fetchProducts = async () => {
     (async () => {
       try {
-        const response = await getAllProducts();
+        const response = await getAllProducts({ categoryId: categoryId });
         setProducts(response);
       } catch (error) {
         console.log('Не отримано продуктів', error);
@@ -122,9 +137,7 @@ export default function ProductListPage() {
       Object.fromEntries(params);
 
     key ? getKeyWordFromSearchParams(key) : setKeyWordToSearchParams('');
-    !id &&
-      !name &&
-      setCategoryToSearchParams('all', 'Всі категорії (дефолт 2)');
+    !id && !name && setCategoryToSearchParams('', 'Всі категорії (дефолт 2)');
 
     // catId ?
   };

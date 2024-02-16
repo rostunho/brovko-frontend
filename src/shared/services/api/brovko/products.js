@@ -4,17 +4,21 @@ import { addProductRequestTemplate } from 'components/AddProductForm/addProductR
 
 const BROVKO_API = process.env.REACT_APP_BROVKO_API;
 
-export const getAllProducts = async (
+export const getAllProducts = async ({
+  categoryId = 'all',
+  search = '',
   page = 1,
   perPage = 10,
   sortBy = 'createdAt',
   sortOrder = 'desc',
   priceMin,
-  priceMax
-) => {
+  priceMax,
+}) => {
   try {
     const { data } = await instance.get('/products', {
       params: {
+        categoryId,
+        search,
         page,
         perPage,
         sortBy,
