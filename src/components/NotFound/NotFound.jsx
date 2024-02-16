@@ -19,10 +19,12 @@ export default function NotFound() {
     smakolyk6,
   ];
   const [image, setImage] = useState();
+  const [clickCount, setClickCount] = useState(0);
 
   const generateRamdomImage = () => {
     const ramdomIndex = Math.floor(Math.random() * images.length);
     const ramdomImage = images[ramdomIndex];
+
     if (image !== ramdomImage) {
       setImage(ramdomImage);
     } else {
@@ -36,9 +38,17 @@ export default function NotFound() {
 
   const handleClick = e => {
     e.preventDefault();
-    generateRamdomImage();
+    setClickCount(prevCount => {
+           setTimeout(() => {
+        if (prevCount === 1) { generateRamdomImage();
+          console.log('Single click!');
+         
+        }
+      }, 300);
+      return  prevCount + 1;
+    });
   };
-  
+
   return (
     <>
       <div className={styles.wrapper}>
@@ -48,6 +58,10 @@ export default function NotFound() {
             href=""
             className={styles.randomLink}
             onClick={e => handleClick(e)}
+            onDoubleClick={e => {
+              e.preventDefault();
+              alert('Гарний вибір');
+            }}
           >
             <Image src={image} className={styles.spinning} />
           </a>
