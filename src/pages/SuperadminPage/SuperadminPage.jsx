@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 import {
   getUserByEmail,
   changeUserStatus,
 } from 'shared/services/api/brovko/user';
 import { addPopupOperation } from 'redux/popup/popupOperations';
+// import { setEmail } from 'redux/status/statusSlice';
 
 import { selectUser } from 'redux/user/userSelectors';
+// import { selectEmail } from 'redux/status/statusSelectors';
 
 import ModalStatusUpdate from 'components/Superadmin/ModalStatusUpdate';
 import NewStatusOptions from 'components/Superadmin/NewStatusOptions';
@@ -32,8 +34,30 @@ const SuperadminPage = () => {
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // const requestedEmail = useSelector(selectEmail);
+
+  // useEffect(() => {
+  //   setRequestedEmail(getEmail);
+  // }, [getEmail]);
+
+  const setUser = async data => {
+    setUserFound(null);
+    setLoading(true);
+    try {
+      const { user } = await getUserByEmail(data);
+      setUserFound(user);
+      dispatch(addPopupOperation('Знайшли такого'));
+    } catch (e) {
+      setUserFound(null);
+      dispatch(
+        addPopupOperation('Не знайшли... Пошта вірно прописана?', 'error')
+      );
+    }
+    setLoading(false);
+  };
+
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? "/";
+  const backLinkHref = location.state?.from ?? '/';
 
   const dispatch = useDispatch();
 
@@ -47,29 +71,14 @@ const SuperadminPage = () => {
     return <Navigate to="/" />;
   }
 
-  const setUser = async () => {
-    setUserFound(null);
-    setLoading(true);
-    try {
-      const { user } = await getUserByEmail(requestedEmail);
-      setUserFound(user);
-      dispatch(addPopupOperation('Знайшли такого'));
-    } catch (e) {
-      setUserFound(null);
-      dispatch(
-        addPopupOperation('Не знайшли... Пошта вірно прописана?', 'error')
-      );
-    }
-    setLoading(false);
-  };
-
   const handleSubmit = async event => {
     event.preventDefault();
-    await setUser();
+    await setUser(requestedEmail);
   };
 
   const onChangingEmail = e => {
     setRequestedEmail(e.target.value);
+    // dispatch(setEmail(e.target.value));
   };
 
   const onChangingStatus = async data => {
@@ -106,7 +115,9 @@ const SuperadminPage = () => {
           />
         </Modal>
       )}
-      <Heading withGoBack fromHC={backLinkHref}>Superadmin's page</Heading>
+      <Heading withGoBack fromHC={backLinkHref}>
+        Superadmin's page
+      </Heading>
       <form onSubmit={handleSubmit}>
         <Input
           label="Пошук користувача по емейлу :"
