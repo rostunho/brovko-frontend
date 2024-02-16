@@ -1,4 +1,5 @@
 .userContainer {
+  position: relative;
   display: flex;
   gap: 12px;
   width: 100%;
@@ -34,4 +35,30 @@
 .name {
   display: flex;
   gap: 5px;
+}
+
+.toggleSelect {
+  margin-top: 5px;
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+.newStatusBox {
+  position: absolute;
+  z-index: 9999;
+  background-color: var(--white-bg-color);
+  right: -10px;
+  top: 90%;
+  padding-top: 10px;
+  padding-bottom: 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+  border-radius: var(--border-radius-secondary);
+  box-shadow: var(--box-shadow);
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.newStatusBox.disable {
+  opacity: 0;
 }
