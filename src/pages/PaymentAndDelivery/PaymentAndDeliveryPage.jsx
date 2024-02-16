@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import Heading from "shared/components/Heading"
-import PaymentAndDelivery from "components/PaymentAndDelivery/PaymentAndDelivery"
+import PaymentAndDelivery from "components/OptionalPages/PaymentAndDelivery/PaymentAndDelivery";
 
 export default function PaymentAndDeliveryPage () {
 
