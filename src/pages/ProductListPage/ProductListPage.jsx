@@ -13,14 +13,17 @@ import Pagination from 'components/Products/Pagination';
 export default function ProductListPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const keyWord = searchParams.get('key');
+  const categoryId = searchParams.get('id');
+  const categoryName = searchParams.get('name');
+
   const [products, setProducts] = useState([]);
   const [searchBarValue, setSearchBarValue] = useState('');
   // const [keyWord, setKeyWord] = useState('');
   const [currentCategories, setCurrentCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState({
-    name: searchParams.get('name') || 'Всі категорії (дефолт)',
-    id: searchParams.get('id') || 'all',
-  });
+  // const [selectedCategory, setSelectedCategory] = useState({
+  //   name: searchParams.get('name') || 'Всі категорії (дефолт)',
+  //   id: searchParams.get('id') || 'all',
+  // });
   const [refreshCategory, setRefreshCategory] = useState(false);
   const [selectedSortingOption, setSelectedSortingOption] = useState({
     id: 0,
@@ -44,28 +47,23 @@ export default function ProductListPage() {
 
   useEffect(() => {
     (async () => {
-      const categories = await fetchCategories();
+      await fetchCategories();
       await fetchProducts();
       initialProcessing(searchParams);
-      detectCategoryName(searchParams.get('id'), categories);
     })();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const detectCategoryName = (id, categories) => {
-    console.log('id :>> ', id);
-    console.log('categories :>> ', categories);
-
-    if (id === 'all') {
-      const category = 'Всі категорії (з функції-детектора)';
-      console.log('category :>> ', category);
-      return category;
-    } else {
-      const category = categories.find(category => category.id === id);
-      console.log('category :>> ', category);
-      return category;
-    }
+  const handleCategory = data => {
+    setSearchParams(
+      prevSearchParams => {
+        prevSearchParams.set('id', data.id);
+        prevSearchParams.set('name', data.name);
+        return prevSearchParams;
+      },
+      { replace: true }
+    );
   };
 
   const fetchCategories = async () => {
@@ -104,9 +102,9 @@ export default function ProductListPage() {
     );
   };
 
-  const getCategoryFromSearchParams = (id, name) => {
-    setSelectedCategory({ id: id, name: name });
-  };
+  // const getCategoryFromSearchParams = (id, name) => {
+  //   setSelectedCategory({ id: id, name: name });
+  // };
 
   const setCategoryToSearchParams = (id, name) => {
     setSearchParams(
@@ -124,9 +122,9 @@ export default function ProductListPage() {
       Object.fromEntries(params);
 
     key ? getKeyWordFromSearchParams(key) : setKeyWordToSearchParams('');
-    id && name
-      ? getCategoryFromSearchParams(id, name)
-      : setCategoryToSearchParams(selectedCategory.id, selectedCategory.name);
+    !id &&
+      !name &&
+      setCategoryToSearchParams('all', 'Всі категорії (дефолт 2)');
 
     // catId ?
   };
@@ -179,15 +177,18 @@ export default function ProductListPage() {
     setSearchParams(
       prevSearchParams => {
         prevSearchParams.set('key', searchBarValue);
+        prevSearchParams.set('id', 'all');
+        prevSearchParams.set('name', '');
+
         return prevSearchParams;
       },
       { replace: true }
     );
 
-    setSelectedCategory({
-      name: 'Всі категорії (після скидання ключового слова)',
-      id: 'all',
-    });
+    // setSelectedCategory({
+    //   name: 'Всі категорії (після скидання ключового слова)',
+    //   id: 'all',
+    // });
     // setSearchBarValue('');
     // setRefreshCategory(true);
     // searchBarValue === '' && setRefreshProducts(true);
@@ -257,8 +258,12 @@ export default function ProductListPage() {
           name="categories"
           label=""
           data={currentCategories}
-          fetchSelectorValue={setSelectedCategory}
-          defaultValue={selectedCategory}
+          // fetchSelectorValue={setSelectedCategory}
+          fetchSelectorValue={handleCategory}
+          defaultValue={{
+            id: categoryId,
+            name: categoryName,
+          }}
           defaultOption={'Всі категорії'}
           refresh={refreshCategory}
           onClick={toggleCloseCategorySelector}
@@ -289,7 +294,7 @@ export default function ProductListPage() {
             // page={products.page}
             totalPages={products.totalPages}
             searchValue={keyWord}
-            category={selectedCategory}
+            // category={selectedCategory}
             sorting={selectedSortingOption}
             refresh={refreshProducts}
             prices={selectedPrices}
