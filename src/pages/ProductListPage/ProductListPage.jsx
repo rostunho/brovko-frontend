@@ -33,7 +33,7 @@ export default function ProductListPage() {
   });
   const [categorySelectorIsOpen, setCategorySelectorIsOpen] = useState(false);
   const [sortingSelectorIsOpen, setSortingSelectorIsOpen] = useState(false);
-  const [refreshProducts, setRefreshProducts] = useState(false);
+  // const [refreshProducts, setRefreshProducts] = useState(false);
   const [initialPrices, setInitialPrices] = useState({
     maxPrice: 100,
     minPrice: 0,
@@ -296,7 +296,7 @@ export default function ProductListPage() {
             searchValue={keyWord}
             // category={selectedCategory}
             sorting={selectedSortingOption}
-            refresh={refreshProducts}
+            // refresh={refreshProducts}
             prices={selectedPrices}
             onProductsChange={setInitialPrices}
           />
