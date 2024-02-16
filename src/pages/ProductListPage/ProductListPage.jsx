@@ -14,9 +14,7 @@ export default function ProductListPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const keyWord = searchParams.get('key');
   const categoryId = searchParams.get('id');
-  const categoryName = searchParams.get('name');
-
-  console.log('categoryId :>> ', categoryId);
+  const categoryName = searchParams.get('name'); // потрібна лише для дефолтного виявлення категорії при вставленні урли в нове вікно без повторних рендерів
 
   const [products, setProducts] = useState([]);
   const [searchBarValue, setSearchBarValue] = useState('');
@@ -70,6 +68,14 @@ export default function ProductListPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId]);
 
+  useEffect(() => {
+    if (firstRender || keyWord === '') {
+      return;
+    }
+    fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [keyWord]);
+
   const handleCategory = data => {
     setSearchParams(
       prevSearchParams => {
@@ -94,7 +100,10 @@ export default function ProductListPage() {
   const fetchProducts = async () => {
     (async () => {
       try {
-        const response = await getAllProducts({ categoryId: categoryId });
+        const response = await getAllProducts({
+          search: keyWord,
+          categoryId: categoryId,
+        });
         setProducts(response);
       } catch (error) {
         console.log('Не отримано продуктів', error);
@@ -191,7 +200,10 @@ export default function ProductListPage() {
       prevSearchParams => {
         prevSearchParams.set('key', searchBarValue);
         prevSearchParams.set('id', 'all');
-        prevSearchParams.set('name', '');
+        prevSearchParams.set(
+          'name',
+          'Всі категорії (після зміни ключового слова)'
+        );
 
         return prevSearchParams;
       },
