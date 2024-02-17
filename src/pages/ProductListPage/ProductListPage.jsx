@@ -37,6 +37,10 @@ export default function ProductListPage() {
   // const [page, setPage] = useState(1);
   const [firstRender, setFirstRender] = useState(true);
 
+  console.log('page :>> ', page);
+  console.log('limit :>> ', limit);
+  console.log('firstRender :>> ', firstRender);
+
   useEffect(() => {
     if (!firstRender) {
       return;
@@ -44,10 +48,8 @@ export default function ProductListPage() {
 
     (async () => {
       await fetchCategories();
-      await fetchProducts();
+      await fetchProducts(Number(page), Number(limit)); // при першому рендері page=null i limit=null, тому функція викличеться без них. Зате при прямому вставленні урли - спрацюють;
       initialProcessing(searchParams);
-      console.log('page :>> ', page);
-      console.log('limit :>> ', limit);
     })();
     setFirstRender(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,10 +90,12 @@ export default function ProductListPage() {
   }, [priceMin, priceMax]);
 
   useEffect(() => {
-    if (firstRender) {
+    if (firstRender || page === '0') {
+      // (page === '0') - тільки під час ініціації
       return;
     }
-    fetchProducts();
+
+    fetchProducts(page, limit);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, limit]);
 
@@ -144,7 +148,7 @@ export default function ProductListPage() {
     }
   };
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (page, limit) => {
     (async () => {
       try {
         const response = await getAllProducts({
@@ -154,8 +158,8 @@ export default function ProductListPage() {
           sortOrder: sortingOrder,
           priceMin: priceMin,
           priceMax: priceMax,
-          page: page,
-          perPage: limit,
+          page: page ? Number(page) : 1,
+          perPage: limit ? Number(limit) : 12,
         });
         setProducts(response);
       } catch (error) {
@@ -252,7 +256,7 @@ export default function ProductListPage() {
 
     !min && !max && setPricesToSearchParams('', '');
 
-    !page && !limit && setPagesToSearchParams(1, 12);
+    !page && !limit && setPagesToSearchParams(0, 12); // По нулю будемо ідентифыкувати значення ініціації
   };
 
   const toggleCloseCategorySelector = () => {
@@ -294,14 +298,18 @@ export default function ProductListPage() {
     );
   };
 
-  const handleChangePage = pageNumber => {
+  const setPageNumber = number => {
     setSearchParams(
       existingSearchParams => {
-        existingSearchParams.set('page', pageNumber);
+        existingSearchParams.set('page', number);
         return existingSearchParams;
       },
       { replace: true }
     );
+  };
+
+  const handleChangePage = pageNumber => {
+    setPageNumber(pageNumber);
 
     window.scrollTo({
       top: 0,
@@ -363,7 +371,7 @@ export default function ProductListPage() {
             searchValue={keyWord}
           />
           <Pagination
-            page={Number(page)}
+            page={page === '0' ? 1 : Number(page)}
             totalPages={products.totalPages}
             onChangePage={handleChangePage}
           />

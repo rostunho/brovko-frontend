@@ -14,9 +14,6 @@ const DoubleRangeSlider = ({ onSubmit, minLimit, maxLimit, min, max }) => {
   const [minRangeValue, setMinRangeValue] = useState(min);
   const [maxRangeValue, setMaxRangeValue] = useState(max);
 
-  console.log('minLimit :>> ', minLimit);
-  console.log('maxLimit :>> ', maxLimit);
-
   const fromSlider = useRef(null);
   const toSlider = useRef(null);
   const fromInput = useRef(null);
