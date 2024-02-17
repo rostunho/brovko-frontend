@@ -330,13 +330,13 @@ export default function ProductListPage() {
           forceClosing={categorySelectorIsOpen}
         />
       </div>
+
       <DoubleRangeSlider
-        // onSubmit={handleSliderSubmit}
         onSubmit={handlePrices}
-        min={products?.minPrice}
-        max={products?.maxPrice}
-        // min={priceMin}
-        // max={priceMax}
+        minLimit={products?.minPrice}
+        maxLimit={products?.maxPrice}
+        min={Number(priceMin)}
+        max={Number(priceMax)}
         keyword={keyWord}
       />
 
@@ -344,12 +344,8 @@ export default function ProductListPage() {
         <>
           <ProductList
             products={products.products}
-            // page={products.page}
             totalPages={products.totalPages}
             searchValue={keyWord}
-            // category={selectedCategory}
-            // sorting={selectedSortingOption}
-            // refresh={refreshProducts}
             prices={selectedPrices}
             onProductsChange={setInitialPrices}
           />
