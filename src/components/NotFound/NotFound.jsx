@@ -9,7 +9,7 @@ import smakolyk6 from './img/6.png';
 import Text from 'shared/components/Text/Text';
 import { useEffect, useState } from 'react';
 import ProductList from 'components/Products/ProductsList/ProductsList';
-import { getAllProducts } from 'shared/services/api';
+import { getAllCategories, getAllProducts } from 'shared/services/api';
 import { fetchAllProducts } from 'redux/products/productsOperations';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
@@ -32,10 +32,17 @@ export default function NotFound() {
   const sortingOrder = searchParams.get('order');
   const priceMin = searchParams.get('min');
   const priceMax = searchParams.get('max');
-  const page = searchParams.get('page');
+  const limit = searchParams.get('limit');
+  const [currentCategories, setCurrentCategories] = useState([]);
 
-  const [products, setProducts] = useState();
-console.log('products', products);
+  const [countPage, setCountPage] = useState(0)
+  console.log(countPage)
+  const [firstRender, setFirstRender] = useState(true);
+  const page = searchParams.get(countPage);
+  // const [page, setPage] = useState(0);
+
+  const [products, setProducts] = useState([]);
+  console.log('products', products);
   const fetchProducts = async (page, limit) => {
     (async () => {
       try {
@@ -46,8 +53,8 @@ console.log('products', products);
           sortOrder: sortingOrder,
           priceMin: priceMin,
           priceMax: priceMax,
-          page: page ? Number(page) : 1,
-          perPage: limit ? Number(limit) : 12,
+          page: countPage ? Number(countPage) : 1,
+          perPage: limit ? Number(limit) : 500,
         });
         setProducts(response);
       } catch (error) {
@@ -56,8 +63,33 @@ console.log('products', products);
     })();
   };
 
+
   const [image, setImage] = useState();
   console.log();
+
+  const fetchCategories = async () => {
+    try {
+      const { categories } = await getAllCategories();
+      setCurrentCategories([...categories]);
+      return categories;
+    } catch (error) {
+      console.log('Не отримано категорій', error);
+    }
+  };
+
+  useEffect(() => {
+    if (!firstRender) {
+      return;
+    }
+
+    (async () => {
+      await fetchCategories();
+      await fetchProducts(Number(page), Number(limit)); // при першому рендері page=null i limit=null, тому функція викличеться без них. Зате при прямому вставленні урли - спрацюють;
+      // initialProcessing(searchParams);
+    })();
+    setFirstRender(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const generateRamdomImage = () => {
     const ramdomIndex = Math.floor(Math.random() * images.length);
@@ -76,7 +108,9 @@ console.log('products', products);
   const handleClick = e => {
     e.preventDefault();
     generateRamdomImage();
-    fetchProducts()
+    fetchProducts();
+    setCountPage(countPage + 1)
+    console.log(page)
   };
   console.log(image);
   return (
@@ -98,7 +132,7 @@ console.log('products', products);
       <Text className={styles.message}>
         Клікни на обертаючийся смаколик, щоб отримати інший
       </Text>
-      <ProductList />
+      <ProductList products={products.products} />
     </>
   );
 }

@@ -8,6 +8,7 @@ import styles from './ProductsList.module.scss';
 import { useSelector } from 'react-redux';
 
 export default function ProductList({ products }) {
+  console.log(products)
   const [adminInCustomerMode, setAdminInCustomerMode] = useState(false);
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
 
