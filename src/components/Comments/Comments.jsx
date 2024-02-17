@@ -68,26 +68,35 @@ export default function Comments({ containerHeight, isMobile }) {
 
     if (existingCommentsParam) {
       // console.log('existingSearchParams :>> ', existingSearchParams);
-      setSearchParams({
-        ...existingSearchParams,
-        comments: existingCommentsParam,
-      });
+      setSearchParams(
+        {
+          ...existingSearchParams,
+          comments: existingCommentsParam,
+        },
+        { replace: true }
+      );
     } else {
-      setSearchParams({ ...existingSearchParams, comments: value });
+      setSearchParams(
+        { ...existingSearchParams, comments: value },
+        { replace: true }
+      );
     }
   };
 
   const handleViewMode = () => {
-    setSearchParams(prevSearchParams => {
-      const prevMode = prevSearchParams.get('comments');
-      console.log('prevMode :>> ', prevMode);
+    setSearchParams(
+      prevSearchParams => {
+        const prevMode = prevSearchParams.get('comments');
+        console.log('prevMode :>> ', prevMode);
 
-      prevMode === 'all'
-        ? prevSearchParams.set('comments', 'last')
-        : prevSearchParams.set('comments', 'all');
+        prevMode === 'all'
+          ? prevSearchParams.set('comments', 'last')
+          : prevSearchParams.set('comments', 'all');
 
-      return prevSearchParams;
-    });
+        return prevSearchParams;
+      },
+      { replace: true }
+    );
   };
 
   return (

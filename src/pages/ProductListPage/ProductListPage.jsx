@@ -37,10 +37,6 @@ export default function ProductListPage() {
   // const [page, setPage] = useState(1);
   const [firstRender, setFirstRender] = useState(true);
 
-  console.log('page :>> ', page);
-  console.log('limit :>> ', limit);
-  console.log('firstRender :>> ', firstRender);
-
   useEffect(() => {
     if (!firstRender) {
       return;

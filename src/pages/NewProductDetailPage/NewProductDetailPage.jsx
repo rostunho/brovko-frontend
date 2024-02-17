@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useScreen } from 'shared/hooks/useScreen';
 import { getProductById } from 'shared/services/api';
@@ -21,11 +21,15 @@ export default function NewProductDetailPage() {
   const [mainScreenHeight, setMainScreenHeight] = useState(null);
   const [priceHeight, setPriceHeight] = useState(null);
   const [logisticHeight, setLogisticHeght] = useState(null);
-  const dispatch = useDispatch();
   const { isMobile } = useScreen();
+
   const mainScreenRef = useRef();
+  const dispatch = useDispatch();
   const priceRef = useRef();
   const logisticRef = useRef();
+
+  const location = useLocation();
+  console.log('location into New Product List Page :>> ', location);
 
   useEffect(() => {
     // після того, як прийшов продукт вимірюємо висоту контейнера, шоб дати таку саму сайдбару

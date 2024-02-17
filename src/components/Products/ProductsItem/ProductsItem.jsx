@@ -38,6 +38,7 @@ const ProductsItem = ({
   // console.log('useParams', productId);
 
   const location = useLocation();
+  console.log('location into ProductItem :>> ', location);
 
   const orders = useSelector(getAllOrders);
   const dispatch = useDispatch();
@@ -176,7 +177,7 @@ const ProductsItem = ({
         <div className={styles.buttons}>
           <Link
             to={`/shop/product/${product._id}`}
-            state={{ from: location }}
+            state={{ from: location.pathname }}
           >
             <Button mode="outlined">Подробиці</Button>
           </Link>
