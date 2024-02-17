@@ -147,6 +147,15 @@ export default function ProductListPage() {
   const fetchProducts = async (page, limit) => {
     (async () => {
       try {
+        console.log('BODY >>>::', {
+          keyWord,
+          categoryId,
+          sortingBy,
+          sortingOrder,
+          priceMin,
+          priceMax,
+        });
+
         const response = await getAllProducts({
           search: keyWord,
           categoryId: categoryId,
@@ -248,7 +257,7 @@ export default function ProductListPage() {
 
     by && order
       ? getSortingOptionsFromSearchParams(by, order)
-      : setSortingOptionsToSearchParams('createdAt', 'desc');
+      : setSortingOptionsToSearchParams('createdAt', 'asc');
 
     !min && !max && setPricesToSearchParams('', '');
 

@@ -22,6 +22,7 @@ export default function NewProductDetailPage() {
   const [priceHeight, setPriceHeight] = useState(null);
   const [logisticHeight, setLogisticHeght] = useState(null);
   const { isMobile } = useScreen();
+  const [fromPage, setFromPage] = useState(null);
 
   const mainScreenRef = useRef();
   const dispatch = useDispatch();
@@ -46,6 +47,10 @@ export default function NewProductDetailPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
+  useEffect(() => {
+    location.state !== null && setFromPage(location.state.from);
+  }, [location.state]);
+
   async function getCurrentProduct(id) {
     try {
       const currentProduct = await getProductById(id);
@@ -59,7 +64,7 @@ export default function NewProductDetailPage() {
   return (
     <>
       <section className={styles['page-screen']}>
-        <Heading withGoBack containerClassName={styles.title}>
+        <Heading withGoBack fromHC={fromPage} containerClassName={styles.title}>
           {product?.name}
         </Heading>
         <div ref={mainScreenRef} className={styles['main-screen']}>

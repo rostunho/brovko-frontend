@@ -9,12 +9,10 @@ import styles from './Comments.module.scss';
 export default function Comments({ containerHeight, isMobile }) {
   const { productId } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  const commentsParam = searchParams.get('comments');
   const [currentReviews, setCurrentReviews] = useState([]);
   const [listHeight, setListHeight] = useState(null);
+  const commentsParam = searchParams.get('comments');
   const makerView = searchParams.get('add-comment');
-
-  // console.log('makerView :>> ', makerView);
 
   const titleRef = useRef();
   const makerRef = useRef();
@@ -23,6 +21,9 @@ export default function Comments({ containerHeight, isMobile }) {
     isMobile ? setInitialCommentsParam('last') : setInitialCommentsParam('all');
 
     (async () => {
+      if (!commentsParam) {
+        return;
+      }
       const originalReviews = await getReviewsByProductId(productId);
       const { comments } = originalReviews[0] || { comments: [] };
       const adaptedReviews = processOriginalReviews(comments);
@@ -38,10 +39,6 @@ export default function Comments({ containerHeight, isMobile }) {
 
     const titleHeight = titleRef.current.clientHeight;
     const makerHeight = makerRef.current.clientHeight;
-
-    console.log('containerHeight :>> ', containerHeight);
-    console.log('titleHeight :>> ', titleHeight);
-    console.log('makerHeight :>> ', makerHeight);
 
     setListHeight(containerHeight - titleHeight - makerHeight - 20); // "-20" - вирівнювання на верхній паддінг контейнера списку
   }, [containerHeight, makerView]);
