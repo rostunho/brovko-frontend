@@ -12,6 +12,7 @@ import ProductList from 'components/Products/ProductsList/ProductsList';
 import { getAllProducts } from 'shared/services/api';
 import { fetchAllProducts } from 'redux/products/productsOperations';
 import { useDispatch } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 // import { getAllProducts } from 'redux/products/productsSelectors';
 
 export default function NotFound() {
@@ -23,11 +24,40 @@ export default function NotFound() {
     smakolyk5,
     smakolyk6,
   ];
-  const dispatch = useDispatch;
-  const allProdukts = async () => {await getAllProducts()};
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const keyWord = searchParams.get('key');
+  const categoryId = searchParams.get('id');
+  const sortingBy = searchParams.get('by');
+  const sortingOrder = searchParams.get('order');
+  const priceMin = searchParams.get('min');
+  const priceMax = searchParams.get('max');
+  const page = searchParams.get('page');
+
+  const [products, setProducts] = useState();
+
+  const fetchProducts = async (page, limit) => {
+    (async () => {
+      try {
+        const response = await getAllProducts({
+          search: keyWord,
+          categoryId: categoryId,
+          sortBy: sortingBy,
+          sortOrder: sortingOrder,
+          priceMin: priceMin,
+          priceMax: priceMax,
+          page: page ? Number(page) : 1,
+          perPage: limit ? Number(limit) : 12,
+        });
+        setProducts(response);
+      } catch (error) {
+        console.log('Не отримано продуктів', error);
+      }
+    })();
+  };
+
   const [image, setImage] = useState();
-  const [products, setProducts] = useState(allProdukts);
-  console.log(allProdukts);
+  console.log();
 
   const generateRamdomImage = () => {
     const ramdomIndex = Math.floor(Math.random() * images.length);
