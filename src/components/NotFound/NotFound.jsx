@@ -8,6 +8,11 @@ import smakolyk5 from './img/5.png';
 import smakolyk6 from './img/6.png';
 import Text from 'shared/components/Text/Text';
 import { useEffect, useState } from 'react';
+import ProductList from 'components/Products/ProductsList/ProductsList';
+import { getAllProducts } from 'shared/services/api';
+import { fetchAllProducts } from 'redux/products/productsOperations';
+import { useDispatch } from 'react-redux';
+// import { getAllProducts } from 'redux/products/productsSelectors';
 
 export default function NotFound() {
   const images = [
@@ -18,7 +23,11 @@ export default function NotFound() {
     smakolyk5,
     smakolyk6,
   ];
+  const dispatch = useDispatch;
+  const allProdukts = async () => {await getAllProducts()};
   const [image, setImage] = useState();
+  const [products, setProducts] = useState(allProdukts);
+  console.log(allProdukts);
 
   const generateRamdomImage = () => {
     const ramdomIndex = Math.floor(Math.random() * images.length);
@@ -58,6 +67,7 @@ export default function NotFound() {
       <Text className={styles.message}>
         Клікни на обертаючийся смаколик, щоб отримати інший
       </Text>
+      <ProductList />
     </>
   );
 }
