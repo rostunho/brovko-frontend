@@ -145,7 +145,12 @@ export default function NewDescription({
           ))}
         </div>
       ) : (
-        <p className={styles.text}>{firstSentence}</p>
+        <p className={styles.text}>
+          <span className={styles.indent}>
+            {firstSentence ? firstSentence[0].charAt(0) : ''}
+          </span>
+          {firstSentence ? firstSentence[0].substring(1) : ''}
+        </p>
       )}
       {isMobile && (
         <ReadMoreButton
