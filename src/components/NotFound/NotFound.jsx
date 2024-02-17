@@ -35,7 +35,7 @@ export default function NotFound() {
   const page = searchParams.get('page');
 
   const [products, setProducts] = useState();
-
+console.log('products', products);
   const fetchProducts = async (page, limit) => {
     (async () => {
       try {
@@ -76,6 +76,7 @@ export default function NotFound() {
   const handleClick = e => {
     e.preventDefault();
     generateRamdomImage();
+    fetchProducts()
   };
   console.log(image);
   return (
