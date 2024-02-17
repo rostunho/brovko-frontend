@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useScreen } from 'shared/hooks/useScreen';
 import { getProductById } from 'shared/services/api';
@@ -21,11 +21,16 @@ export default function NewProductDetailPage() {
   const [mainScreenHeight, setMainScreenHeight] = useState(null);
   const [priceHeight, setPriceHeight] = useState(null);
   const [logisticHeight, setLogisticHeght] = useState(null);
-  const dispatch = useDispatch();
   const { isMobile } = useScreen();
+  const [fromPage, setFromPage] = useState(null);
+
   const mainScreenRef = useRef();
+  const dispatch = useDispatch();
   const priceRef = useRef();
   const logisticRef = useRef();
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // після того, як прийшов продукт вимірюємо висоту контейнера, шоб дати таку саму сайдбару
@@ -42,20 +47,25 @@ export default function NewProductDetailPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
+  useEffect(() => {
+    location.state !== null && setFromPage(location.state.from);
+  }, [location.state]);
+
   async function getCurrentProduct(id) {
     try {
       const currentProduct = await getProductById(id);
       setProduct(currentProduct);
     } catch (error) {
       console.error(error);
-      dispatch(addPopupOperation('Не вдалося завантажити продукт', 'error'));
+      // dispatch(addPopupOperation('Не вдалося завантажити продукт', 'error'));
+      navigate('/not-found');
     }
   }
 
   return (
     <>
       <section className={styles['page-screen']}>
-        <Heading withGoBack containerClassName={styles.title}>
+        <Heading withGoBack fromHC={fromPage} containerClassName={styles.title}>
           {product?.name}
         </Heading>
         <div ref={mainScreenRef} className={styles['main-screen']}>
@@ -77,7 +87,7 @@ export default function NewProductDetailPage() {
             {product.description}
           </NewDescription>
 
-          {isMobile && <Comments />}
+          {isMobile && <Comments isMobile={isMobile} />}
         </div>
 
         {!isMobile && (

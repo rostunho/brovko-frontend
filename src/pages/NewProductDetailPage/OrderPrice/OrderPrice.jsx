@@ -12,15 +12,15 @@ import styles from './OrderPrice.module.scss';
 
 const OrderPrice = forwardRef(({ product, className, ...props }, ref) => {
   const currentOrders = useSelector(getAllOrders);
-  const [quantity, setQuantity] = useState(currentOrders.length || 1);
+  const [quantity, setQuantity] = useState(1);
   const [showBasket, setShowBasket] = useState(false);
   const productInBasket = currentOrders.find(el => el._id === product._id);
   const { screenWidth } = useScreen();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    currentOrders.length ? setQuantity(currentOrders.length) : setQuantity(1);
-  }, [currentOrders]);
+  // useEffect(() => {
+  //   currentOrders.length ? setQuantity(currentOrders.length) : setQuantity(1);
+  // }, [currentOrders]);
 
   useEffect(() => {
     if (!productInBasket) {

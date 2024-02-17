@@ -1,10 +1,16 @@
 import NewReviewItem from 'shared/components/NewReviewItem/NewReviewItem';
 import styles from './CommentsList.module.scss';
 
-export default function CommentsList({ param, reviews, listHeight, ...props }) {
+export default function CommentsList({
+  reviews,
+  param,
+  isMobile,
+  listHeight,
+  ...props
+}) {
   return (
     <ul className={styles.list} style={{ height: listHeight }}>
-      {param === 'all'
+      {param === 'all' || !isMobile
         ? reviews &&
           reviews.length > 0 &&
           reviews.map((review, idx) => {

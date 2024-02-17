@@ -12,10 +12,9 @@ export default function Heading({
   containerClassName,
 }) {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const from = location.state?.from || '/main';
-
-  const navigate = useNavigate();
 
   const onGoBackClick = () => {
     if (fromHC) {
