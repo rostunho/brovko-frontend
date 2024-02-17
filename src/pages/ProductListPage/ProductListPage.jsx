@@ -19,6 +19,8 @@ export default function ProductListPage() {
   const sortingOrder = searchParams.get('order');
   const priceMin = searchParams.get('min');
   const priceMax = searchParams.get('max');
+  const page = searchParams.get('page');
+  const limit = searchParams.get('limit');
 
   const [products, setProducts] = useState([]);
   const [searchBarValue, setSearchBarValue] = useState('');
@@ -26,22 +28,13 @@ export default function ProductListPage() {
     id: 0,
     name: 'Сортування',
   });
-  // const [keyWord, setKeyWord] = useState('');
+
   const [currentCategories, setCurrentCategories] = useState([]);
 
-  // const [refreshCategory, setRefreshCategory] = useState(false);
   const [categorySelectorIsOpen, setCategorySelectorIsOpen] = useState(false);
   const [sortingSelectorIsOpen, setSortingSelectorIsOpen] = useState(false);
-  // const [refreshProducts, setRefreshProducts] = useState(false);
-  const [initialPrices, setInitialPrices] = useState({
-    maxPrice: 100,
-    minPrice: 0,
-  });
-  const [selectedPrices, setSelectedPrices] = useState({
-    maxPrice: '',
-    minPrice: '',
-  });
-  const [page, setPage] = useState(1);
+
+  // const [page, setPage] = useState(1);
   const [firstRender, setFirstRender] = useState(true);
 
   useEffect(() => {
@@ -53,6 +46,8 @@ export default function ProductListPage() {
       await fetchCategories();
       await fetchProducts();
       initialProcessing(searchParams);
+      console.log('page :>> ', page);
+      console.log('limit :>> ', limit);
     })();
     setFirstRender(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,7 +75,6 @@ export default function ProductListPage() {
       // sortingToShow.id === 0 лише при першому рендері
       return;
     }
-
     fetchProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortingBy, sortingOrder]);
@@ -92,6 +86,14 @@ export default function ProductListPage() {
     fetchProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [priceMin, priceMax]);
+
+  useEffect(() => {
+    if (firstRender) {
+      return;
+    }
+    fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, limit]);
 
   const handleCategory = data => {
     setSearchParams(
@@ -105,7 +107,6 @@ export default function ProductListPage() {
   };
 
   const handleKeyWord = async () => {
-    // setKeyWord(searchBarValue);
     setSearchParams(
       existingSearchParams => {
         existingSearchParams.set('key', searchBarValue);
@@ -153,6 +154,8 @@ export default function ProductListPage() {
           sortOrder: sortingOrder,
           priceMin: priceMin,
           priceMax: priceMax,
+          page: page,
+          perPage: limit,
         });
         setProducts(response);
       } catch (error) {
@@ -163,7 +166,6 @@ export default function ProductListPage() {
 
   const getKeyWordFromSearchParams = keyWord => {
     setSearchBarValue(keyWord);
-    // setKeyWord(keyWord);
   }; // Поки, ДУБЛЬ ФУНКЦІОНАЛУ
 
   const setKeyWordToSearchParams = keyWord => {
@@ -225,6 +227,17 @@ export default function ProductListPage() {
     );
   };
 
+  const setPagesToSearchParams = (page, limit) => {
+    setSearchParams(
+      existingSearchParams => {
+        existingSearchParams.set('page', page);
+        existingSearchParams.set('limit', limit);
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
+  };
+
   const initialProcessing = params => {
     const { key, id, name, by, order, min, max, page, limit } =
       Object.fromEntries(params);
@@ -238,6 +251,8 @@ export default function ProductListPage() {
       : setSortingOptionsToSearchParams('createdAt', 'desc');
 
     !min && !max && setPricesToSearchParams('', '');
+
+    !page && !limit && setPagesToSearchParams(1, 12);
   };
 
   const toggleCloseCategorySelector = () => {
@@ -268,10 +283,6 @@ export default function ProductListPage() {
     );
   };
 
-  const handleSliderSubmit = (minPrice, maxPrice) => {
-    setSelectedPrices({ minPrice, maxPrice });
-  };
-
   const handlePrices = (min, max) => {
     setSearchParams(
       existingSearchParams => {
@@ -284,7 +295,14 @@ export default function ProductListPage() {
   };
 
   const handleChangePage = pageNumber => {
-    setPage(pageNumber);
+    setSearchParams(
+      existingSearchParams => {
+        existingSearchParams.set('page', pageNumber);
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
+
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -307,14 +325,12 @@ export default function ProductListPage() {
           name="categories"
           label=""
           data={currentCategories}
-          // fetchSelectorValue={setSelectedCategory}
           fetchSelectorValue={handleCategory}
           defaultValue={{
             id: categoryId,
             name: categoryName,
           }}
           defaultOption={'Всі категорії'}
-          // refresh={refreshCategory}
           onClick={toggleCloseCategorySelector}
           onOptionClick={clearSearchBar}
           forceClosing={sortingSelectorIsOpen}
@@ -324,7 +340,6 @@ export default function ProductListPage() {
           label=""
           data={sortingTemplate}
           fetchSelectorValue={handleSortingOptions}
-          // defaultValue={selectedSortingOption}
           defaultValue={sortingToShow}
           onClick={toggleCloseSortingSelector}
           forceClosing={categorySelectorIsOpen}
@@ -346,11 +361,9 @@ export default function ProductListPage() {
             products={products.products}
             totalPages={products.totalPages}
             searchValue={keyWord}
-            prices={selectedPrices}
-            onProductsChange={setInitialPrices}
           />
           <Pagination
-            page={page}
+            page={Number(page)}
             totalPages={products.totalPages}
             onChangePage={handleChangePage}
           />
