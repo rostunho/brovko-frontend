@@ -176,7 +176,7 @@ const ProductsItem = ({
         <div className={styles.buttons}>
           <Link
             to={`/shop/product/${product._id}`}
-            state={{ from: location }}
+            state={{ from: location.pathname }}
           >
             <Button mode="outlined">Подробиці</Button>
           </Link>

@@ -130,7 +130,7 @@ export const addNewProduct = async (body, files = []) => {
       } else if (typeof item.url === 'string') {
         const productURL = { sequenceNumber: index };
         productURL.sequenceNumber = index;
-        const url = item.url;
+        // const url = item.url;
         const obj = { sequenceNumber: index, url: item.url };
         data.append(`picture`, JSON.stringify(obj));
       }
