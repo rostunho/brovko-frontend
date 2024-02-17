@@ -14,7 +14,6 @@ export default function Heading({
   const location = useLocation();
 
   const from = location.state?.from || '/main';
-  // const from = location;
 
   const navigate = useNavigate();
 

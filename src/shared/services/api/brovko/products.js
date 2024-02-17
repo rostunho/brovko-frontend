@@ -1,20 +1,24 @@
 import axios from 'axios';
 import instance from './instance';
-import { addProductRequestTemplate } from 'components/AddProductForm/addProductRequestTemplate';
+// import { addProductRequestTemplate } from 'components/AddProductForm/addProductRequestTemplate';
 
 const BROVKO_API = process.env.REACT_APP_BROVKO_API;
 
-export const getAllProducts = async (
+export const getAllProducts = async ({
+  categoryId = 'all',
+  search = '',
   page = 1,
   perPage = 10,
   sortBy = 'createdAt',
   sortOrder = 'desc',
   priceMin,
-  priceMax
-) => {
+  priceMax,
+}) => {
   try {
     const { data } = await instance.get('/products', {
       params: {
+        categoryId,
+        search,
         page,
         perPage,
         sortBy,
