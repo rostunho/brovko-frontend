@@ -67,7 +67,7 @@ export default function NewDescription({
   return (
     <div className={`${styles.container} ${className ? className : ''}`}>
       <h3 className={styles.title}>Опис:</h3>
-      {descParam === 'full' ? (
+      {descParam === 'full' || !isMobile ? (
         <div>
           {children?.split('\n').map((paragraph, index) => (
             <p key={index} className={styles.paragraph}>

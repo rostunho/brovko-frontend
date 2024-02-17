@@ -38,7 +38,6 @@ const ProductsItem = ({
   // console.log('useParams', productId);
 
   const location = useLocation();
-  console.log('location into ProductItem :>> ', location);
 
   const orders = useSelector(getAllOrders);
   const dispatch = useDispatch();

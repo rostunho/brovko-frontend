@@ -12,6 +12,8 @@ export default function ImageBox({ images = [], isMobile, className }) {
   const [containerWidth, setContainerWidth] = useState(() => screenWidth - 32); // штрина видимої частини міні-галереї;
   const [maxOffset, setMaxOffset] = useState(0); // максимально домустиме зміщення
 
+  console.log('containerWidth :>> ', containerWidth);
+
   useEffect(() => {
     if (images.length <= 0) {
       return;
@@ -84,9 +86,10 @@ export default function ImageBox({ images = [], isMobile, className }) {
   return (
     <div className={`${styles['box-container']} ${className ? className : ''}`}>
       <img
-        src={images[currentImgIdx] || defaultImage}
+        src={images[currentImgIdx]}
         className={styles['large-image']}
         alt="Смаколик"
+        style={{ width: containerWidth, height: containerWidth }}
       />
       {images.length > 0 && images[0] && (
         <div
@@ -103,7 +106,7 @@ export default function ImageBox({ images = [], isMobile, className }) {
               <img
                 key={idx}
                 className={`${styles['small-image']} ${
-                  currentImgIdx === idx ? styles.active : 's'
+                  currentImgIdx === idx ? styles.active : ''
                 } ${!isMobile ? styles['wide-screen'] : ''}`}
                 src={image}
                 alt="Смаколик"

@@ -147,15 +147,6 @@ export default function ProductListPage() {
   const fetchProducts = async (page, limit) => {
     (async () => {
       try {
-        console.log('BODY >>>::', {
-          keyWord,
-          categoryId,
-          sortingBy,
-          sortingOrder,
-          priceMin,
-          priceMax,
-        });
-
         const response = await getAllProducts({
           search: keyWord,
           categoryId: categoryId,

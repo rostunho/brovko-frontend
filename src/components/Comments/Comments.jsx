@@ -18,7 +18,7 @@ export default function Comments({ containerHeight, isMobile }) {
   const makerRef = useRef();
 
   useEffect(() => {
-    isMobile ? setInitialCommentsParam('last') : setInitialCommentsParam('all');
+    setInitialCommentsParam('last');
 
     (async () => {
       if (!commentsParam) {
@@ -105,8 +105,9 @@ export default function Comments({ containerHeight, isMobile }) {
       <CommentMaker ref={makerRef} productId={productId} />
 
       <CommentsList
-        param={commentsParam}
         reviews={currentReviews}
+        param={commentsParam}
+        isMobile={isMobile}
         listHeight={listHeight}
       />
 
