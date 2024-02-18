@@ -21,7 +21,6 @@ export default function NewAddReviewForm({ onClose, ...props }) {
   const [modalIsId, setModalIsId] = useState(false);
   const [prompDelete, setPrompDelete] = useState(true);
   const [errorTextQuantity, setErrorTextQuantity] = useState(false);
-  const [showThankYouModal, setShowThankYouModal] = useState(false);
 
   const { productId } = useParams();
   const dispatch = useDispatch();
@@ -241,7 +240,6 @@ export default function NewAddReviewForm({ onClose, ...props }) {
     selectedPicturesReview.forEach(({ file }) => {
       console.log(file);
       formData.append(`review`, file);
-      
     });
 
     try {
@@ -249,9 +247,7 @@ export default function NewAddReviewForm({ onClose, ...props }) {
       setMessage('');
       setSelectedPicturesReview([]);
       setSelectedFilesReview([]);
-      setShowThankYouModal(true);
-    
-     
+      onClose();
     } catch (error) {
       console.error('Error submiting review:', error.response.status);
       if (error.response.status === 403 || error.response.status === 401) {
@@ -282,20 +278,6 @@ export default function NewAddReviewForm({ onClose, ...props }) {
     //   console.error('Error submitting review:', error);
     // }
   };
-
-  const closeModal = () => {
-    setShowThankYouModal(false);
-    onClose();
-  };
-
-  const thankYouModalContent = (
-    <Modal  className={styles['modal-container']} closeModal={closeModal}>
-      <div className={styles.modal}>
-        <h2>Дякуємо за відгук!</h2>
-        <p className={styles.modalText}>Ваш відгук буде опубліковано після попередньої перевірки нашими співробітниками.</p>
-      </div>
-    </Modal>
-  );
 
   return (
     <div className={styles.container}>
@@ -331,8 +313,6 @@ export default function NewAddReviewForm({ onClose, ...props }) {
       </form>
 
       {modalIsOpen && modalWindow}
-      
-      { showThankYouModal && thankYouModalContent}
     </div>
   );
 }
