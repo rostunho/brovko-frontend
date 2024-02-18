@@ -2,11 +2,6 @@ import { useSelector } from 'react-redux';
 import Order from '../Order';
 import styles from './OrderInformation.module.scss';
 
-//
-import { getAllOrders } from 'redux/basket/basketSelectors';
-import { getAllHistoryOrders } from 'redux/orders/ordersSelectors';
-//
-
 import { ordersUserHistory } from 'redux/user/userSelectors';
 
 const OrderInformation = ({
@@ -19,7 +14,7 @@ const OrderInformation = ({
   currencyId,
   val,
 }) => {
-  const orders = useSelector(getAllHistoryOrders);
+  const orders = useSelector(ordersUserHistory);
 
   const orderList = Array.isArray(orders)
     ? orders.map(

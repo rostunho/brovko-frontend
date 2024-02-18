@@ -11,7 +11,9 @@ export const addOrder = async data => {
 };
 
 export const getAllOrdersAuth = async () => {
-  const { data } = await instance.post('/orders/auth');
+  console.log('Get all orders');
+  const { data } = await instance.get('/orders/auth');
+  console.log('data', data);
   return data;
 };
 

@@ -28,13 +28,13 @@ import {
   PAYMENT_INFO,
 } from './ProductData/productsFackeData.js';
 
+import useProductInBasket from 'shared/hooks/useProductInBasket';
+
 import styles from './ProductDetail.module.scss';
 
-export default function ProductDetail({
-  product,
-  reviews,
-  reviewsError,
-}) {
+export default function ProductDetail({ product, reviews, reviewsError }) {
+  const { handleAddToCart } = useProductInBasket();
+
   // const [product, setProduct] = useState(null);
   // console.log('product into PD :>> ', product);
   // console.log('reviews into PD :>> ', reviews);
@@ -75,14 +75,16 @@ export default function ProductDetail({
 
   const orderInBasket = orders.some(order => order._id === product._id);
 
-  const handleAddToCart = () => {
-    if (orderInBasket) {
-      openModal();
-      return;
-    }
-    dispatch(addOrder({ ...product, value: value }));
-    dispatch(addPopupOperation('Товар додано в кошик'));
-  };
+  // handleAddToCart({ product, value });
+
+  // const handleAddToCart = () => {
+  //   if (orderInBasket) {
+  //     openModal();
+  //     return;
+  //   }
+  //   dispatch(addOrder({ ...product, value: value }));
+  //   dispatch(addPopupOperation('Товар додано в кошик'));
+  // };
 
   const EditButton = ({ userStatus, goToEditProduct }) => {
     if (userStatus === 'manager' || userStatus === 'superadmin') {
@@ -103,9 +105,7 @@ export default function ProductDetail({
         <div className={styles.productQuarterCard}>
           <Image className={styles.image} src={picture} />
           <ImageSlider picture={picture} />
-          {isDesktop && <Description
-            product={product}
-          />}
+          {isDesktop && <Description product={product} />}
         </div>
 
         <div className={styles.productQuarterCard}>
@@ -116,7 +116,9 @@ export default function ProductDetail({
 
           <div className={styles.price}>
             <h3 className={styles.priceHeading}>
-              {!isMobile ? <span style={{marginRight: '8px'}}>Ціна: </span> : null}
+              {!isMobile ? (
+                <span style={{ marginRight: '8px' }}>Ціна: </span>
+              ) : null}
               {price} {currencyId}
             </h3>
             <h3 className={styles.priceQuantity}>
@@ -125,7 +127,7 @@ export default function ProductDetail({
             </h3>
           </div>
           <Button
-            onClick={handleAddToCart}
+            onClick={() => handleAddToCart({ product, value })}
             value={value}
             type="submit"
             size="lg"
@@ -140,28 +142,30 @@ export default function ProductDetail({
           )}
           {isDesktop && (
             <Review
-            reviews={reviews}
-            reviewsError={reviewsError}
-            product={product}
-          />
+              reviews={reviews}
+              reviewsError={reviewsError}
+              product={product}
+            />
           )}
         </div>
       </div>
 
       <div className={styles.productHalfCard}>
-        {!isDesktop && (<div className={styles.productQuarterCard}>
-          <Description
-            product={product}
-          />
-        </div>)}
+        {!isDesktop && (
+          <div className={styles.productQuarterCard}>
+            <Description product={product} />
+          </div>
+        )}
 
-       { !isDesktop && (<div className={styles.productQuarterCard}>
-          <Review
-            reviews={reviews}
-            reviewsError={reviewsError}
-            product={product}
-          />
-        </div>)}
+        {!isDesktop && (
+          <div className={styles.productQuarterCard}>
+            <Review
+              reviews={reviews}
+              reviewsError={reviewsError}
+              product={product}
+            />
+          </div>
+        )}
       </div>
     </section>
   );

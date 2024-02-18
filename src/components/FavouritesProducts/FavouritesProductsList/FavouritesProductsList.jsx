@@ -14,6 +14,9 @@ const FavouritesProductsList = () => {
   const userStatus = useSelector(selectUserStatus);
 
   const { favouriteProducts, user, isLogin } = useSelector(({ user }) => user);
+  console.log('favouriteProducts', favouriteProducts);
+  console.log('user', user);
+  console.log('isLogin', isLogin);
   const products = isLogin ? user?.favouriteProducts : favouriteProducts;
 
   const [currentPage, setCurrentPage] = useState(1);
