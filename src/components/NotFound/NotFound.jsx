@@ -1,27 +1,15 @@
 import Image from 'shared/components/Image';
 import styles from './NotFound.module.scss';
-import smakolyk1 from './img/1.png';
-import smakolyk2 from './img/2.png';
-import smakolyk3 from './img/3.png';
-import smakolyk4 from './img/4.png';
-import smakolyk5 from './img/5.png';
-import smakolyk6 from './img/6.png';
 import Text from 'shared/components/Text/Text';
 import { useEffect, useState } from 'react';
 import ProductList from 'components/Products/ProductsList/ProductsList';
 import { getAllCategories, getAllProducts } from 'shared/services/api';
 import { useSearchParams } from 'react-router-dom';
+import images404 from './img';
 // import { getAllProducts } from 'redux/products/productsSelectors';
 
 export default function NotFound() {
-  const images = [
-    smakolyk1,
-    smakolyk2,
-    smakolyk3,
-    smakolyk4,
-    smakolyk5,
-    smakolyk6,
-  ];
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const keyWord = searchParams.get('key');
@@ -88,13 +76,13 @@ export default function NotFound() {
 
   const generateRamdomImage = () => {
     if (
-      image === undefined ||
-      image == null ||
-      !Array.isArray(image) ||
-      images.length
+      images404 === undefined ||
+      images404 == null ||
+      !Array.isArray(images404) ||
+      images404.length
     ) {
-      const ramdomIndex = Math.floor(Math.random() * images.length);
-      const ramdomImage = images[ramdomIndex];
+      const ramdomIndex = Math.floor(Math.random() * images404.length);
+      const ramdomImage = images404[ramdomIndex];
       if (image !== ramdomImage) {
         setImage(ramdomImage);
       } else {
