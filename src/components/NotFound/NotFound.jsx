@@ -35,31 +35,26 @@ export default function NotFound() {
 
   const ramdomFilterProducts = (products, quontityProducts) => {
     if (!products) {
-      console.log('no products');
+      // console.log('no products');
       return [];
     }
     const ramdomItems = [];
-    console.log(products, 'products', quontityProducts, 'qty');
     for (let i = 0; i < quontityProducts; i++) {
       let indexRandomItem = Math.floor(Math.random() * products.length);
-      ramdomItems.push(products[indexRandomItem]);
-      console.log('ramdomItems', ramdomItems);
+      if (!ramdomItems.includes(products[indexRandomItem])) {
+        ramdomItems.push(products[indexRandomItem]);
+      }
     }
-    // setRamProd(ramdomItems)
     return ramdomItems;
   };
 
   const [currentCategories, setCurrentCategories] = useState([]);
-  const [ramProd, setRamProd] = useState(
-    [])
   const [countPage, setCountPage] = useState(0);
-  console.log(countPage);
   const [firstRender, setFirstRender] = useState(true);
   const page = searchParams.get(countPage);
   // const [page, setPage] = useState(0);
 
-  console.log('products', products);
-  const fetchProducts = async (page, limit) => {
+  const fetchProducts = async (page = 1, limit) => {
     (async () => {
       try {
         const response = await getAllProducts({
@@ -69,8 +64,8 @@ export default function NotFound() {
           sortOrder: sortingOrder,
           priceMin: priceMin,
           priceMax: priceMax,
-          page: countPage ? Number(countPage) : 1,
-          perPage: limit ? Number(limit) : 500,
+          page: page ? Number(page) : 1,
+          perPage: limit ? Number(limit) : 1000,
         });
         setProducts(response);
       } catch (error) {
@@ -80,7 +75,6 @@ export default function NotFound() {
   };
 
   const [image, setImage] = useState();
-  console.log();
 
   const fetchCategories = async () => {
     try {
@@ -103,8 +97,6 @@ export default function NotFound() {
       const ramdomImage = images[ramdomIndex];
       if (image !== ramdomImage) {
         setImage(ramdomImage);
-        setRamProd(ramdomFilterProducts(products.products, 4));
-        console.log('image', image, 'ramprod', ramProd);
       } else {
         generateRamdomImage();
       }
@@ -115,7 +107,6 @@ export default function NotFound() {
 
   useEffect(() => {
     generateRamdomImage();
-    // setRamProd(ramdomFilterProducts(products.products, 4));
   }, []);
 
   useEffect(() => {
@@ -123,12 +114,9 @@ export default function NotFound() {
       (async () => {
         await fetchCategories();
         await fetchProducts(Number(page), Number(limit));
-        // generateRamdomImage();
-        // setRamProd(ramdomFilterProducts(products.products, 4)); // при першому рендері page=null i limit=null, тому функція викличеться без них. Зате при прямому вставленні урли - спрацюють;
+      // при першому рендері page=null i limit=null, тому функція викличеться без них. Зате при прямому вставленні урли - спрацюють;
         // initialProcessing(searchParams);setFirstRender(false);
       })();
-      // generateRamdomImage();
-      // setRamProd(ramdomFilterProducts(products.products, 4));
       // eslint-disable-next-line react-hooks/exhaustive-deps
     } else {
       setFirstRender(false);
@@ -138,9 +126,7 @@ export default function NotFound() {
   const handleClick = e => {
     e.preventDefault();
     generateRamdomImage();
-    // setRamProd(ramdomFilterProducts(products.products, 4));
   };
-  console.log(ramProd);
   return (
     <>
       <div className={styles.wrapper}>
@@ -160,7 +146,7 @@ export default function NotFound() {
       <Text className={styles.message}>
         Клікни на обертаючийся смаколик, щоб отримати інший
       </Text>
-      {ramProd.length > 0 && <ProductList products={ramProd} />}
+      {<ProductList products={ramdomFilterProducts(products.products, 4)} />}
     </>
   );
 }
