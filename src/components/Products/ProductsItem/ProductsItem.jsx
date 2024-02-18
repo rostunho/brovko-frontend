@@ -61,7 +61,7 @@ const ProductsItem = ({
     dispatch(addPopupOperation(text));
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e) => {
     const result = orders.some(order => order._id === product._id);
     if (result) {
       handleAddPopup('Товар вже знаходиться в кошику');
@@ -129,11 +129,16 @@ const ProductsItem = ({
       : false;
 
   return (
+   
     <div
       className={`${styles.productCard} ${
         cardIsSelected ? styles['productCard--selected'] : ''
       }`}
     >
+     <Link
+    to={`/shop/product/${product._id}`}
+    state={{ from: location }}
+  >
       <div className={styles.image}>
         {(userStatus === 'manager' || userStatus === 'superadmin') &&
           !adminInCustomerMode && (
@@ -153,7 +158,7 @@ const ProductsItem = ({
             isFavourite ? styles.heart_icon_checked : ''
           }`}
           checked={isFavourite}
-          onClick={handleToggleFavourite}
+          onClick={e => { e.preventDefault(); handleToggleFavourite(); }}
         />
 
         <Image src={product.picture} className={styles.picture} />
@@ -174,19 +179,18 @@ const ProductsItem = ({
           </div>
         </div>
         <div className={styles.buttons}>
-          <Link
-            to={`/shop/product/${product._id}`}
-            state={{ from: location }}
-          >
+        
             <Button mode="outlined">Подробиці</Button>
-          </Link>
+         
 
-          <Button onClick={handleAddToCart} mode="primary">
+          <Button onClick={e => { e.preventDefault(); handleAddToCart(); }} mode="primary">
             В кошик
           </Button>
         </div>
       </div>
+      </Link>
     </div>
+ 
   );
 };
 

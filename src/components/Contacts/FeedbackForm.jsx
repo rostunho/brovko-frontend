@@ -5,6 +5,7 @@ import submitFeedback from 'shared/services/api/brovko/feedback';
 import Input from 'shared/components/Input';
 import Textarea from 'shared/components/Textarea';
 import Button from 'shared/components/Button';
+import Modal from 'shared/components/Modal/Modal';
 import styles from './Contacts.module.scss'
 
 function FeedbackForm() {
@@ -16,6 +17,9 @@ function FeedbackForm() {
   };
   console.log('user', initialFormData);
   const [formData, setFormData] = useState(initialFormData);
+
+  const [showThankYouModal, setShowThankYouModal] = useState(false);
+
   const user = useSelector(selectUser);
  
 
@@ -44,9 +48,24 @@ function FeedbackForm() {
     e.preventDefault();
     await submitFeedback(formData, setFormData);
     setFormData(initialFormData); 
+    setShowThankYouModal(true);
   };
 
+  const closeModal = () => {
+    setShowThankYouModal(false);
+  };
+
+  const thankYouModalContent = (
+    <Modal closeModal={closeModal}>
+      <div className={styles.modal}>
+        <h2>Дякуємо за повідомлення!</h2>
+        <p>Незабаром наш співробітник звʼяжеться з Вами.</p>
+      </div>
+    </Modal>
+  );
+
   return (
+    <>
     <form onSubmit={handleSubmit} className={styles.feedbackForm}>
       
       <Input
@@ -97,6 +116,8 @@ function FeedbackForm() {
       
       <Button type="submit" size='lg' style={{ marginTop: '32px'}}>Надіслати</Button>
     </form>
+    { showThankYouModal && thankYouModalContent}
+    </>
   );
 }
 
