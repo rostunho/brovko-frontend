@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from 'redux/user/userOperations';
-import { errorAuth } from 'redux/user/userSelectors';
+import { errorAuth, selectIsLoadingUser } from 'redux/user/userSelectors';
 // import PropTypes from 'prop-types';
 // import OldInput from 'shared/components/OldInput/OldInput';
 import Input from 'shared/components/Input';
 import Button from 'shared/components/Button/Button';
 import Text from 'shared/components/Text/Text';
+import Loader from 'components/Loader';
 import useForm from 'shared/hooks/useForm';
 import initialState from './initialState';
 import UserConsent from './UserConsent';
@@ -25,6 +26,7 @@ const RegisterForm = () => {
   const [showSubmitButton, setShowSubmitButton] = useState(false);
   const formRef = useRef(null);
   const errorRegister = useSelector(errorAuth);
+  const isLoading = useSelector(selectIsLoadingUser);
   const [formError, setFormError] = useState(null);
   const dispatch = useDispatch();
 
@@ -73,6 +75,7 @@ const RegisterForm = () => {
         Створення облікового запису допоможе купувати швидше, а також
         переглядати замовлення зроблені раніше.
       </Text>
+      {isLoading && <Loader />}
 
       <Input
         label="E-mail"

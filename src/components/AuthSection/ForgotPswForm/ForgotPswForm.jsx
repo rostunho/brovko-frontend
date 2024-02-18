@@ -1,12 +1,17 @@
 import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectRequestSuccess } from 'redux/user/userSelectors';
+
 import { forgotPassword } from 'redux/user/userOperations';
-import { errorAuth } from 'redux/user/userSelectors';
+import {
+  errorAuth,
+  selectIsLoadingUser,
+  selectRequestSuccess,
+} from 'redux/user/userSelectors';
 import Input from 'shared/components/Input';
 import Button from 'shared/components/Button/Button';
 import Heading from 'shared/components/Heading';
 import Text from 'shared/components/Text/Text';
+import Loader from 'components/Loader';
 import useForm from 'shared/hooks/useForm';
 import initialState from './initialState';
 import styles from './ForgotPswForm.module.scss';
@@ -21,8 +26,9 @@ const ForgotPswForm = () => {
   const [isValidEmail, setIsValidEmail] = useState(null);
   const [showSubmitButton, setShowSubmitButton] = useState(false);
   const errorSendRequest = useSelector(errorAuth);
-  const [formError, setFormError] = useState(null);
   const isRequestSuccess = useSelector(selectRequestSuccess);
+  const [formError, setFormError] = useState(null);
+  const isLoading = useSelector(selectIsLoadingUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -67,6 +73,7 @@ const ForgotPswForm = () => {
         Будь ласка, введіть вашу e-mail адресу. Ви отримаєте електронний лист з
         посиланням для створення нового паролю.
       </Text>
+      {isLoading && <Loader />}
       <Input
         label="E-mail"
         type="email"

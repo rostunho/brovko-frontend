@@ -27,7 +27,6 @@ const ResetPswForm = () => {
   const [formError, setFormError] = useState(null);
   const dispatch = useDispatch();
   const { token } = useParams();
-  console.log(resetPswSuccess);
 
   useEffect(() => {
     password === confirmPassword
