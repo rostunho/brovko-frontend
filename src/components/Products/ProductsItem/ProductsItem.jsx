@@ -20,6 +20,7 @@ import Image from 'shared/components/Image';
 import Input from 'shared/components/Input';
 
 import HeartIcon from 'shared/icons/HeartIcon';
+import useProductInBasket from 'shared/hooks/useProductInBasket';
 
 import styles from './ProductsItem.module.scss';
 
@@ -29,10 +30,10 @@ const ProductsItem = ({
   userStatus,
   adminInCustomerMode,
 }) => {
+  const { handleAddToCart } = useProductInBasket();
   // const [product, setProduct] = useState(null);
   const [cardIsSelected, setCardIsSelected] = useState(false);
   // const [isFavourite, setIsFavourite] = useState(false);
-  // console.log(product);
 
   // const { productId } = useParams();
   // console.log('useParams', productId);
@@ -61,15 +62,17 @@ const ProductsItem = ({
     dispatch(addPopupOperation(text));
   };
 
-  const handleAddToCart = () => {
-    const result = orders.some(order => order._id === product._id);
-    if (result) {
-      handleAddPopup('Товар вже знаходиться в кошику');
-      return;
-    }
-    dispatch(addOrder({ ...product, value: 1 }));
-    dispatch(addPopupOperation('Товар додано в кошик'));
-  };
+  // handleAddToCart({ product, value: 1 });
+
+  // const handleAddToCart = () => {
+  //   const result = orders.some(order => order._id === product._id);
+  //   if (result) {
+  //     handleAddPopup('Товар вже знаходиться в кошику');
+  //     return;
+  //   }
+  //   dispatch(addOrder({ ...product, value: 1 }));
+  //   dispatch(addPopupOperation('Товар додано в кошик'));
+  // };
 
   const isProductFavourite = user => {
     return user.some(p => p.id === product.id);
@@ -174,14 +177,19 @@ const ProductsItem = ({
           </div>
         </div>
         <div className={styles.buttons}>
+
           <Link
             to={`/shop/product/${product._id}`}
             state={{ from: location.pathname }}
           >
+
             <Button mode="outlined">Подробиці</Button>
           </Link>
 
-          <Button onClick={handleAddToCart} mode="primary">
+          <Button
+            onClick={() => handleAddToCart({ product, value: 1 })}
+            mode="primary"
+          >
             В кошик
           </Button>
         </div>

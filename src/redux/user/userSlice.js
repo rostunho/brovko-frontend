@@ -22,6 +22,7 @@ const initialState = {
   error: null,
   resetToken: '',
   favouriteProducts: [],
+  productInBasket: [],
   isPasswordReset: false,
 };
 
@@ -39,10 +40,30 @@ const userSlice = createSlice({
       }
     },
     removeItemFromFavourite: (state, { payload }) => {
-      console.log(payload);
       state.favouriteProducts = state.favouriteProducts.filter(
         ({ id }) => id !== payload
       );
+    },
+    addOrderUser(state, { payload }) {
+      console.log('payload', payload);
+      state.productInBasket = [...state.productInBasket, { ...payload }];
+    },
+    deleteOrderUser(state, action) {
+      console.log('action', action);
+      const filteredOrders = state.productInBasket.filter(order => {
+        console.log('order', order);
+        return order._id !== action.payload;
+      });
+      state.productInBasket = filteredOrders;
+    },
+    changeQuantityOrderUser(state, action) {
+      const { id, value } = action.payload;
+      const orderToUpdate = state.productInBasket.find(
+        order => order._id === id
+      );
+      if (orderToUpdate) {
+        orderToUpdate.value = value;
+      }
     },
   },
   extraReducers: builder => {
@@ -192,7 +213,12 @@ const userSlice = createSlice({
       });
   },
 });
-export const { addItemToFavourite, removeItemFromFavourite } =
-  userSlice.actions;
+export const {
+  addItemToFavourite,
+  removeItemFromFavourite,
+  addOrderUser,
+  deleteOrderUser,
+  changeQuantityOrderUser,
+} = userSlice.actions;
 
 export default userSlice.reducer;
