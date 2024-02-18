@@ -1,16 +1,8 @@
-import { useSelector } from 'react-redux';
-
 import Button from 'shared/components/Button';
 import PageNumbersList from './PageNumbersList';
-
-import { selectTotalPages } from 'redux/products/productsSelectors';
-
 import style from './Pagination.module.scss';
 
 const Pagination = ({ page, totalPages, onChangePage }) => {
-  // const totalPages = useSelector(selectTotalPages);
-  // const totalPages = 90;
-
   const totalPagesArray = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   const handleChangePage = pageNumber => {
@@ -19,14 +11,14 @@ const Pagination = ({ page, totalPages, onChangePage }) => {
 
   const onPrevPageClick = () => {
     if (page > 1) {
-      const prevPage = page - 1;
+      const prevPage = Number(page) - 1;
       onChangePage(prevPage);
     }
   };
 
   const onNextPageClick = () => {
     if (page < totalPages) {
-      const nextPage = page + 1;
+      const nextPage = Number(page) + 1;
       onChangePage(nextPage);
     }
   };

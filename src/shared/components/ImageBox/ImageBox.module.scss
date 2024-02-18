@@ -9,9 +9,11 @@
 .large-image {
   display: block;
   box-sizing: border-box;
-  min-width: 288px;
-  width: 100%;
-  min-height: 288px;
+
+  // логіку перенесено в інлайн елемента
+  // min-width: 288px;
+  // width: 100%;
+  // min-height: 288px;
   // max-width: 448px;
 
   border-radius: 16px;
