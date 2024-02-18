@@ -1,8 +1,34 @@
 .list {
-  // height: auto;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .list li:not(:last-child) {
   margin-bottom: 12px;
+}
+
+.scrollbar {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f4f4f4;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #f3a610;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #f39610;
+  }
+}
+
+.visible-scroll {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }

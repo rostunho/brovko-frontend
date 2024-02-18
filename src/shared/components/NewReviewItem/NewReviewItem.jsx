@@ -8,13 +8,13 @@ import Image from '../Image';
 import ReviewRating from 'components/ProductDetail/ProductReview/ReviewRating';
 import styles from './NewReviewItem.module.scss';
 
-export default function NewReviewItem({ review, mode }) {
+export default function NewReviewItem({ review, mode, className }) {
   const [searchParams] = useSearchParams();
   const userStatus = useSelector(selectUserStatus);
   const isAdmin = userStatus === 'manager' || userStatus === 'superadmin';
 
   return (
-    <li className={styles.container}>
+    <li className={`${styles.container} ${className ? className : ''}`}>
       <p className={styles.product}>{review.productName}</p>
       <div className={styles.author}>
         <Image

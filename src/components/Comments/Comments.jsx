@@ -21,9 +21,9 @@ export default function Comments({ containerHeight, isMobile }) {
     setInitialCommentsParam('last');
 
     (async () => {
-      if (!commentsParam) {
-        return;
-      }
+      // if (!commentsParam) {
+      //   return;
+      // } // неактуально після зміни умов рендерингу компонента
       const originalReviews = await getReviewsByProductId(productId);
       const { comments } = originalReviews[0] || { comments: [] };
       const adaptedReviews = processOriginalReviews(comments);
