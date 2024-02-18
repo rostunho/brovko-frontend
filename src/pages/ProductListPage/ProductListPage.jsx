@@ -34,16 +34,8 @@ export default function ProductListPage() {
   const [categorySelectorIsOpen, setCategorySelectorIsOpen] = useState(false);
   const [sortingSelectorIsOpen, setSortingSelectorIsOpen] = useState(false);
 
-  const [initialPrices, setInitialPrices] = useState(null);
-  const [selectedPrices, setSelectedPrices] = useState({
-    maxPrice: '',
-    minPrice: '',
-  });
-
-  const [error, setError] = useState(null);
-
-  // const [firstRender, setFirstRender] = useState(true);
-
+  // const [page, setPage] = useState(1);
+  const [firstRender, setFirstRender] = useState(true);
 
   useEffect(() => {
     if (!firstRender) {
@@ -99,19 +91,19 @@ export default function ProductListPage() {
       return;
     }
 
-  const fetchAllCategories = async () => {
-    try {
-      const { categories } = await getAllCategories();
-    setCurrentCategories([...categories]);
-    setError(null);
-    return categories;
-      
-    } catch (error) {
-      setError('Gjvbkrf');
-      setCurrentCategories([]);
-      return [];
-    }
-    
+    fetchProducts(page, limit);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, limit]);
+
+  const handleCategory = data => {
+    setSearchParams(
+      existingSearchParams => {
+        existingSearchParams.set('id', data.id);
+        existingSearchParams.set('name', data.name);
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
   };
 
   const handleKeyWord = async () => {

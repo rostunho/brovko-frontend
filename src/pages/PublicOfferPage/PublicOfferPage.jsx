@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import Heading from "shared/components/Heading";
-import PublicOffer from 'components/OptionalPages/PublicOffer/PublicOffer';
+import PublicOffer from 'components/PublicOffer/PublicOffer';
 
 export default function PublicOfferPage() {
 

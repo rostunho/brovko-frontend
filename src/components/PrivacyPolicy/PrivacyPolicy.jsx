@@ -1,10 +1,23 @@
 import React from 'react';
 import Rectangle from 'components/Rectangle';
 import Image from 'shared/components/Image';
-import Section from '../Section';
 import privacyPolicyContent from './privacyPolicyContent';
 import photo_4 from 'shared/images/photo_4.jpeg'
-import styles from '../OptionPages.module.scss';
+import photo_1 from 'shared/images/photo_1.jpeg'
+import styles from './PrivacyPolicy.module.scss';
+
+function Section({ title, content }) {
+    return (
+      <section className={styles.section}>
+        <h3 className={styles.title}>{title}</h3>
+        <div>
+          {content.map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
+        </div>
+      </section>
+    );
+  }
 
   function PrivacyPolicy() {
     return (

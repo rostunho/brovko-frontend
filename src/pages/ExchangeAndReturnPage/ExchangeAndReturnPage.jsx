@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import Heading from 'shared/components/Heading';
-import ExchangeAndReturn from 'components/OptionalPages/ExchangeAndReturn/ExchangeAndReturn';
+import ExchangeAndReturn from 'components/ExchangeAndReturn/ExchangeAndReturn';
 
 export default function ExchangeAndReturnPage() {
 

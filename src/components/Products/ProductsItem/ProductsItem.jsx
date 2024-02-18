@@ -64,16 +64,17 @@ const ProductsItem = ({
     dispatch(addPopupOperation(text));
   };
 
-  const handleAddToCart = (e) => {
-    const result = orders.some(order => order._id === product._id);
-    if (result) {
-      handleAddPopup('Товар вже знаходиться в кошику');
-      return;
-    }
-    dispatch(addOrder({ ...product, value: 1 }));
-    dispatch(addPopupOperation('Товар додано в кошик'));
-  };
+  // handleAddToCart({ product, value: 1 });
 
+  // const handleAddToCart = () => {
+  //   const result = orders.some(order => order._id === product._id);
+  //   if (result) {
+  //     handleAddPopup('Товар вже знаходиться в кошику');
+  //     return;
+  //   }
+  //   dispatch(addOrder({ ...product, value: 1 }));
+  //   dispatch(addPopupOperation('Товар додано в кошик'));
+  // };
 
   const isProductFavourite = user => {
     return user.some(p => p.id === product.id);
@@ -133,16 +134,11 @@ const ProductsItem = ({
       : false;
 
   return (
-   
     <div
       className={`${styles.productCard} ${
         cardIsSelected ? styles['productCard--selected'] : ''
       }`}
     >
-     <Link
-    to={`/shop/product/${product._id}`}
-    state={{ from: location }}
-  >
       <div className={styles.image}>
         {(userStatus === 'manager' || userStatus === 'superadmin') &&
           !adminInCustomerMode && (
@@ -162,7 +158,7 @@ const ProductsItem = ({
             isFavourite ? styles.heart_icon_checked : ''
           }`}
           checked={isFavourite}
-          onClick={e => { e.preventDefault(); handleToggleFavourite(); }}
+          onClick={handleToggleFavourite}
         />
 
         <Image src={product.picture} className={styles.picture} />
@@ -184,18 +180,23 @@ const ProductsItem = ({
         </div>
         <div className={styles.buttons}>
 
+          <Link
+            to={`/shop/product/${product._id}`}
+            state={{ from: location.pathname + location.search }}
+          >
+
             <Button mode="outlined">Подробиці</Button>
-         
+          </Link>
 
-          <Button onClick={e => { e.preventDefault(); handleAddToCart(); }} mode="primary">
-
+          <Button
+            onClick={() => handleAddToCart({ product, value: 1 })}
+            mode="primary"
+          >
             В кошик
           </Button>
         </div>
       </div>
-      </Link>
     </div>
- 
   );
 };
 
