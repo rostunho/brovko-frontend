@@ -39,6 +39,9 @@ export default function ProductListPage() {
     maxPrice: '',
     minPrice: '',
   });
+
+  const [error, setError] = useState(null);
+
   // const [firstRender, setFirstRender] = useState(true);
 
   // беремо з бази даних актуальні категорії товарів
@@ -96,9 +99,18 @@ export default function ProductListPage() {
   };
 
   const fetchAllCategories = async () => {
-    const { categories } = await getAllCategories();
+    try {
+      const { categories } = await getAllCategories();
     setCurrentCategories([...categories]);
+    setError(null);
     return categories;
+      
+    } catch (error) {
+      setError('Gjvbkrf');
+      setCurrentCategories([]);
+      return [];
+    }
+    
   };
 
   const toggleCloseCategorySelector = () => {

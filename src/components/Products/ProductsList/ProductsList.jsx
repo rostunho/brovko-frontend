@@ -9,6 +9,7 @@ import { removeProductRequestTemplate } from './removeProductRequestTemplate';
 import { selectUserStatus } from 'redux/user/userSelectors';
 import ProductsItem from '../ProductsItem';
 import Button from 'shared/components/Button';
+import Modal from 'shared/components/Modal/Modal';
 import Pagination from 'components/Products/Pagination';
 // import Loader from 'components/Loader';
 import styles from './ProductsList.module.scss';
@@ -46,6 +47,10 @@ export default function ProductList({
 
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(100);
+
+  const [error, setError] = useState(null);
+  const [showErrorModal, setShowErrorModal] = useState(false); 
+
 
   useEffect(() => {
     // При зміні даних про продукти викликати onProductsChange
@@ -284,19 +289,31 @@ export default function ProductList({
     priceMin,
     priceMax
   ) => {
-    const { products, totalPages, minPrice, maxPrice } = await getAllProducts(
-      page,
-      perPage,
-      sortBy,
-      sortOrder,
-      priceMin,
-      priceMax
-    );
-    setCurrentProducts([...products]);
-    setTotalPages(totalPages);
-    setMinPrice(minPrice);
-    setMaxPrice(maxPrice);
+    try {
+      const { products, totalPages, minPrice, maxPrice } = await getAllProducts(
+        page,
+        perPage,
+        sortBy,
+        sortOrder,
+        priceMin,
+        priceMax
+      );
+      setCurrentProducts([...products]);
+      setTotalPages(totalPages);
+      setMinPrice(minPrice);
+      setMaxPrice(maxPrice);
+      setError(null);
+      setShowErrorModal(false);
+    } catch (error) {
+      setError('Помилка при завантаженні даних з сервера. Будь ласка, спробуйте ще раз пізніше.');
+      setCurrentProducts([]);
+      setTotalPages(1);
+      setMinPrice(null);
+      setMaxPrice(null);
+      setShowErrorModal(true);
+    }
   };
+  
 
   const fetchProductsByKeyword = async (
     keyWord,
@@ -396,8 +413,24 @@ export default function ProductList({
   //   return <Loader />;
   // }
 
+  const closeModal = () => {
+    setShowErrorModal(false);
+  };
+
+  const errorModalContent = (
+    <Modal  className={styles['modal-container']} closeModal={closeModal}>
+      <div className={styles.modal}>
+        <h2>Йой, сервер не відповідає...</h2>
+        <p className={styles.modalText}>Помилка при завантаженні даних з сервера. Будь ласка, спробуйте ще раз пізніше.</p>
+      </div>
+    </Modal>
+  );
+
+
   return (
     <>
+     {/* {error && <div className="error-message">{error}</div>} */}
+     {showErrorModal && errorModalContent}
       <div className={styles.products} style={{ position: 'relative' }}>
         {(userStatus === 'manager' || userStatus === 'superadmin') && (
           <ul className={styles['buttons-list']}>
@@ -440,7 +473,9 @@ export default function ProductList({
             ))}
           </ul>
         ) : (
-          <p>Нічого не знайдено</p>
+          
+          <p className={styles.modalText}>{error}</p>
+        
         )}
       </div>
       <Pagination
