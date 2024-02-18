@@ -4,13 +4,12 @@ import { removeProductRequestTemplate } from './removeProductRequestTemplate';
 import { selectUserStatus } from 'redux/user/userSelectors';
 import ProductsItem from '../ProductsItem';
 import Button from 'shared/components/Button';
-import styles from './ProductsList.module.scss';
 import { useSelector } from 'react-redux';
+import styles from './ProductsList.module.scss';
 
 export default function ProductList({ products }) {
   const [adminInCustomerMode, setAdminInCustomerMode] = useState(false);
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
-
   const userStatus = useSelector(selectUserStatus);
 
   const handleRemoveProducts = async () => {
@@ -50,6 +49,7 @@ export default function ProductList({ products }) {
             <li className={styles['buttons-item']}>
               <Button
                 admin
+                className={styles.button}
                 size="lg"
                 disabled={productIdsForRemoving.length < 1}
                 onClick={handleRemoveProducts}
@@ -58,7 +58,12 @@ export default function ProductList({ products }) {
               </Button>
             </li>
             <li className={styles['buttons-item']}>
-              <Button admin size="lg" onClick={handleViewMode}>
+              <Button
+                admin
+                className={styles.button}
+                size="lg"
+                onClick={handleViewMode}
+              >
                 {adminInCustomerMode
                   ? 'Повернутись в режим Адміна'
                   : 'Переглянути в режимі покупця'}

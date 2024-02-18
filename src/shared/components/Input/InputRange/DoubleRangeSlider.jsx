@@ -193,6 +193,7 @@ const DoubleRangeSlider = ({ onSubmit, minLimit, maxLimit, min, max }) => {
               return;
             }
             setMinSelectedValue(Number(e.target.value));
+            setMinRangeValue(Number(e.target.value));
             controlFromSlider();
           }}
         />
@@ -208,6 +209,7 @@ const DoubleRangeSlider = ({ onSubmit, minLimit, maxLimit, min, max }) => {
               return;
             }
             setMaxSelectedValue(Number(e.target.value));
+            setMaxRangeValue(Number(e.target.value));
             controlToSlider();
           }}
         />
