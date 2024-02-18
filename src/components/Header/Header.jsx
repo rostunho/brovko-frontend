@@ -41,7 +41,9 @@ export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
 
   const renderHeaderLogo = () => (
     <div className={styles.logo}>
-      <Link to="/main">{isMobile ? <Logo /> : <BrovkoHeaderIcon />}</Link>
+      <Link to="/main" aria-label="На головну сторінку">
+        {isMobile ? <Logo /> : <BrovkoHeaderIcon />}
+      </Link>
     </div>
   );
 
@@ -52,11 +54,21 @@ export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
     return (
       <div className={styles.boxBasket}>
         {!isMobile && (
-          <Link to="shop/favourites" className={styles.userIcon}>
+          <Link
+            to="shop/favourites"
+            aria-label="Відкрити сторінку з улюбленими смаколиками"
+            className={styles.userIcon}
+          >
             <HeartIcon className={styles.heart_icon} />
           </Link>
         )}
-        <Link to="shop/user" className={styles.userIcon}>
+        <Link
+          to="shop/user"
+          aria-label={
+            userIsLoggedIn ? 'Відкрити сторінку користувача' : 'Зареєструватися'
+          }
+          className={styles.userIcon}
+        >
           {userIsLoggedIn ? (
             <Avatar size={avatarSize} marginBottom="0" locked />
           ) : (
