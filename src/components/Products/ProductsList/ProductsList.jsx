@@ -4,6 +4,11 @@ import { removeProductRequestTemplate } from './removeProductRequestTemplate';
 import { selectUserStatus } from 'redux/user/userSelectors';
 import ProductsItem from '../ProductsItem';
 import Button from 'shared/components/Button';
+import Modal from 'shared/components/Modal/Modal';
+import Pagination from 'components/Products/Pagination';
+// import Loader from 'components/Loader';
+import styles from './ProductsList.module.scss';
+
 import { useSelector } from 'react-redux';
 import styles from './ProductsList.module.scss';
 
@@ -11,6 +16,333 @@ export default function ProductList({ products }) {
   const [adminInCustomerMode, setAdminInCustomerMode] = useState(false);
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
   const userStatus = useSelector(selectUserStatus);
+  const perPage = 10; // можемо зробити стейтом, якщо будемо даватиможливість обирати к-сть продуктоів на сторінці
+
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(100);
+
+  const [error, setError] = useState(null);
+  const [showErrorModal, setShowErrorModal] = useState(false); 
+
+
+  useEffect(() => {
+    // При зміні даних про продукти викликати onProductsChange
+    onProductsChange({ minPrice, maxPrice });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [minPrice, maxPrice]);
+
+  useEffect(() => {
+    // працює при прямому пейсті урли в нове вікно браузера
+    if (categoryId !== 'all') {
+      fetchProductsByCategory(
+        categoryId,
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    } else if (categoryId === 'all') {
+      fetchAllProducts(
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    }
+    setFirstRender(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setKeyWord(searchValue);
+  }, [searchValue]);
+
+  useEffect(() => {
+    setCategoryId(category.id);
+  }, [category.id]);
+
+  useEffect(() => {
+    setSort({ ...sorting });
+  }, [sorting]);
+
+  // для того щоб оновити список, якщо клікнути по кнопці порожнього серчбару при вибраній категорії
+  useEffect(() => {
+    setRefreshProducts(refresh);
+  }, [refresh]);
+
+  // оновлюємо продукти (перерендерюємо список) при потребі
+  useEffect(() => {
+    if (firstRender) {
+      return;
+    }
+
+    fetchAllProducts();
+    setRefreshProducts(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refreshProducts]);
+
+  useEffect(() => {
+    if (firstRender || !keyWord) {
+      return;
+    }
+
+    if (keyWord) {
+      setPage(1);
+      fetchProductsByKeyword(keyWord, 1, perPage, sort.field, sort.order);
+    } else if (categoryId) {
+      setPage(1);
+      fetchProductsByCategory(categoryId, 1, perPage, sort.field, sort.order);
+    } else if (!keyWord && categoryId === 'all') {
+      setPage(1);
+      fetchAllProducts(1, perPage, sort.field, sort.order);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [keyWord]);
+
+  useEffect(() => {
+    if (firstRender || !categoryId) {
+      return;
+    }
+
+    if (keyWord) {
+      setPage(1);
+      fetchProductsByKeyword(keyWord, 1, perPage, sort.field, sort.order);
+    } else if (categoryId && categoryId !== 'all') {
+      setPage(1);
+      fetchProductsByCategory(categoryId, 1, perPage, sort.field, sort.order);
+    } else if (!keyWord && categoryId === 'all') {
+      setPage(1);
+      fetchAllProducts(1, perPage, sort.field, sort.order);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoryId]);
+
+  useEffect(() => {
+    if (firstRender || sort.name === 'Сортування') {
+      return;
+    }
+    keyWord &&
+      fetchProductsByKeyword(
+        keyWord,
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    categoryId &&
+      fetchProductsByCategory(
+        categoryId,
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    !keyWord &&
+      categoryId === 'all' &&
+      fetchAllProducts(
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sort]);
+
+  useEffect(() => {
+    if (firstRender) {
+      return;
+    }
+
+    keyWord &&
+      fetchProductsByKeyword(
+        keyWord,
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    categoryId &&
+      fetchProductsByCategory(
+        categoryId,
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    !keyWord &&
+      categoryId === 'all' &&
+      fetchAllProducts(
+        page,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
+
+  useEffect(() => {
+    if (firstRender) {
+      return;
+    }
+    console.log('0 keyWord :>> ', keyWord);
+    console.log('0 categoryId :>> ', categoryId);
+
+    if (keyWord) {
+      setPage(1);
+      fetchProductsByKeyword(
+        keyWord,
+        1,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    } else if (categoryId !== 'all') {
+      setPage(1);
+      fetchProductsByCategory(
+        categoryId,
+        1,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    } else if (keyWord === '' && categoryId === 'all') {
+      console.log('Код дійшов до потрібної умови1');
+      setPage(1);
+      fetchAllProducts(
+        1,
+        perPage,
+        sort.field,
+        sort.order,
+        prices.minPrice,
+        prices.maxPrice
+      );
+    }
+    console.log('Код дійшов до потрібної умови2');
+    console.log('keyWord :>> ', keyWord);
+    console.log('categoryId :>> ', categoryId);
+    // setPage(1);
+    // fetchAllProducts(
+    //   1,
+    //   perPage,
+    //   sort.field,
+    //   sort.order,
+    //   prices.minPrice,
+    //   prices.maxPrice
+    // );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prices.maxPrice, prices.minPrice]);
+
+  /////////////  services functions  //
+
+  const fetchAllProducts = async (
+    page = 1,
+    perPage = 10,
+    sortBy = 'createdAt',
+    sortOrder = 'desc',
+    priceMin,
+    priceMax
+  ) => {
+    try {
+      const { products, totalPages, minPrice, maxPrice } = await getAllProducts(
+        page,
+        perPage,
+        sortBy,
+        sortOrder,
+        priceMin,
+        priceMax
+      );
+      setCurrentProducts([...products]);
+      setTotalPages(totalPages);
+      setMinPrice(minPrice);
+      setMaxPrice(maxPrice);
+      setError(null);
+      setShowErrorModal(false);
+    } catch (error) {
+      setError('Помилка при завантаженні даних з сервера. Будь ласка, спробуйте ще раз пізніше.');
+      setCurrentProducts([]);
+      setTotalPages(1);
+      setMinPrice(null);
+      setMaxPrice(null);
+      setShowErrorModal(true);
+    }
+  };
+  
+
+  const fetchProductsByKeyword = async (
+    keyWord,
+    page = 1,
+    perPage = 10,
+    sortBy = 'createdAt',
+    sortOrder = 'desc',
+    priceMin,
+    priceMax
+  ) => {
+    const { products, totalPages, minPrice, maxPrice } =
+      await getProductsByKeywords(
+        keyWord,
+        page,
+        perPage,
+        sortBy,
+        sortOrder,
+        priceMin,
+        priceMax
+      );
+    setCurrentProducts(products);
+    setTotalPages(totalPages);
+    setMinPrice(minPrice);
+    setMaxPrice(maxPrice);
+  };
+
+  const fetchProductsByCategory = async (
+    categoryId,
+    page = 1,
+    perPage = 10,
+    sortBy = 'createdAt',
+    sortOrder = 'desc',
+    priceMin,
+    priceMax
+  ) => {
+    if (categoryId === 'all') {
+      return;
+    }
+
+    const { products, totalPages, minPrice, maxPrice } =
+      await getProductsByCategory(
+        categoryId,
+        page,
+        perPage,
+        sortBy,
+        sortOrder,
+        priceMin,
+        priceMax
+      );
+
+    setCurrentProducts(products);
+    setTotalPages(totalPages);
+    setMinPrice(minPrice);
+    setMaxPrice(maxPrice);
+  };
+
 
   const handleRemoveProducts = async () => {
     const body = removeProductRequestTemplate;
@@ -41,8 +373,37 @@ export default function ProductList({ products }) {
     });
   };
 
+  const handleChangePage = pageNumber => {
+    setPage(pageNumber);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  // if (currentProducts.length < 1) {
+  //   // return <h2>Немає продуктів</h2>;
+  //   return <Loader />;
+  // }
+
+  const closeModal = () => {
+    setShowErrorModal(false);
+  };
+
+  const errorModalContent = (
+    <Modal  className={styles['modal-container']} closeModal={closeModal}>
+      <div className={styles.modal}>
+        <h2>Йой, сервер не відповідає...</h2>
+        <p className={styles.modalText}>Помилка при завантаженні даних з сервера. Будь ласка, спробуйте ще раз пізніше.</p>
+      </div>
+    </Modal>
+  );
+
+
   return (
     <>
+     {/* {error && <div className="error-message">{error}</div>} */}
+     {showErrorModal && errorModalContent}
       <div className={styles.products} style={{ position: 'relative' }}>
         {(userStatus === 'manager' || userStatus === 'superadmin') && (
           <ul className={styles['buttons-list']}>
@@ -85,7 +446,9 @@ export default function ProductList({ products }) {
             ))}
           </ul>
         ) : (
-          <p>Нічого не знайдено</p>
+          
+          <p className={styles.modalText}>{error}</p>
+        
         )}
       </div>
     </>
