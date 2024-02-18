@@ -33,6 +33,7 @@ const Navigation = () => {
       {isMobile && (
         <>
           <Button
+            aria-label={showMobileMenu ? 'закрити меню' : 'відкрити меню'}
             mode={showMobileMenu ? 'close' : 'menu'}
             size="lg"
             onClick={toggleMobileMenu}

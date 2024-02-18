@@ -6,10 +6,10 @@ import ProductList from 'components/Products/ProductsList/ProductsList';
 import { getAllCategories, getAllProducts } from 'shared/services/api';
 import { useSearchParams } from 'react-router-dom';
 import images404 from './img';
+// import Spiner from 'components/Loader/Loader';
 // import { getAllProducts } from 'redux/products/productsSelectors';
 
 export default function NotFound() {
-
   const [searchParams, setSearchParams] = useSearchParams();
 
   const keyWord = searchParams.get('key');
@@ -102,7 +102,7 @@ export default function NotFound() {
       (async () => {
         await fetchCategories();
         await fetchProducts(Number(page), Number(limit));
-      // при першому рендері page=null i limit=null, тому функція викличеться без них. Зате при прямому вставленні урли - спрацюють;
+        // при першому рендері page=null i limit=null, тому функція викличеться без них. Зате при прямому вставленні урли - спрацюють;
         // initialProcessing(searchParams);setFirstRender(false);
       })();
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -121,7 +121,8 @@ export default function NotFound() {
         <p className={styles.textTop}>4</p>
         <div className={styles.spinWrapper}>
           <a
-            href=""
+            href="#"
+            aria-label='Кнопка обертаючогося смаколика'
             className={styles.randomLink}
             onClick={e => handleClick(e)}
           >
@@ -130,11 +131,12 @@ export default function NotFound() {
         </div>
         <p className={styles.textBottom}>4</p>
       </div>
-      <Text className={styles.message}>Смаколик не знайдено🤔</Text>
+      <Text className={styles.message}>Улюблений смаколик не знайдено🤔</Text>
       <Text className={styles.message}>
         Клікни на обертаючийся смаколик, щоб отримати інший
       </Text>
-      {<ProductList products={ramdomFilterProducts(products.products, 4)} />}
+      {/* {products.products === undefined ? <Spiner /> : <ProductList products={ramdomFilterProducts(products.products, 4)} />} */}
+      <ProductList products={ramdomFilterProducts(products.products, 4)} />{' '}
     </>
   );
 }
