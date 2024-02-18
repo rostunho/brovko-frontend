@@ -58,6 +58,15 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     const files = Array.from(e.target.files);
 
     if (files.length > 0 && files.length <= xFiles) {
+      for (let i = 0; i < files.length; i += 1) {
+        const file = files[i];
+        if (file.size > 10 * 1024 * 1024) {
+          setErrorTextQuantity(
+            `Файл ${file.name} занадто великий! Максимальний розмір: 10MB.`
+          );
+          return;
+        }
+      }
       setSelectedFilesReview(files);
       addImages(files);
       setErrorTextQuantity(false);
