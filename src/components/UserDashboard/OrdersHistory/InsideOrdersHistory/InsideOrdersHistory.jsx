@@ -6,17 +6,12 @@ import DownArrowIcon from 'shared/icons/DownArrowIcon';
 import UpArrowIcon from 'shared/icons/UpArrowIcon';
 import OrderInformation from '../OrderInformation';
 
-//
-import { getAllOrders } from 'redux/basket/basketSelectors';
-import { getAllHistoryOrders } from 'redux/orders/ordersSelectors';
-//
-
 import { ordersUserHistory } from 'redux/user/userSelectors';
 
 import styles from './InsideOrdersHistory.module.scss';
 
 const InsideOrdersHistory = () => {
-  const orders = useSelector(getAllHistoryOrders);
+  const orders = useSelector(ordersUserHistory);
   console.log('orders', orders);
   const [showDetail, setShowdetail] = useState(false);
   const [showSumAllOrders, setshowSumAllOrders] = useState(0);
@@ -42,7 +37,7 @@ const InsideOrdersHistory = () => {
     <>
       {!orders.length ? (
         <div>
-          <p className={styles.text}>У Вас немає попередніх замовлень</p>
+          <p className={styles.text}>Ваш пес досі просить паляничку</p>
           <Button type="button" size="lg" onClick={goToProducts}>
             <p className={styles.spam}>Перейти до смаколиків</p>
           </Button>

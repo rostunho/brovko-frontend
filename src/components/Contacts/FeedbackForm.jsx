@@ -14,7 +14,7 @@ function FeedbackForm() {
   const initialFormData = {
     name: '',
     email: '',
-    phone: null,
+    phone: '',
     text: '',
   };
   console.log('user', initialFormData);
@@ -23,31 +23,32 @@ function FeedbackForm() {
   const [showThankYouModal, setShowThankYouModal] = useState(false);
 
   const user = useSelector(selectUser);
+
   const dispatch = useDispatch();
- 
+
 
   useEffect(() => {
     if (user) {
       const { firstName, email, phone } = user;
       setFormData({
-        name: firstName || "",
-        email: email || "",
+        name: firstName || '',
+        email: email || '',
         phone: phone || null,
       });
     }
   }, [user]);
-  
+
   console.log('user', formData);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
+    setFormData(prevData => ({
       ...prevData,
       [name]: value,
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     try {
       await submitFeedback(formData, setFormData);
@@ -71,6 +72,7 @@ function FeedbackForm() {
 
   const closeModal = () => {
     setShowThankYouModal(false);
+
   };
 
   const thankYouModalContent = (
@@ -85,27 +87,28 @@ function FeedbackForm() {
   return (
     <>
     <form onSubmit={handleSubmit} className={styles.feedbackForm}>
-      
       <Input
-      className={styles.feedbackInput}
-      label="Ім'я:"
-      type="text"
-      name="name"
-      placeholder="Ваше імʼя"
-      required={true}
-      value={formData.name}
-      onChange={handleChange}/>
-      
+        className={styles.feedbackInput}
+        label="Ім'я:"
+        type="text"
+        name="name"
+        placeholder="Ваше імʼя"
+        required={true}
+        value={formData.name}
+        onChange={handleChange}
+      />
+
       <Input
-      className={styles.feedbackInput}
-      label="Пошта:"
-      type="email"
-      name="email"
-      placeholder="Ваш емейл"
-      required={true}
-      value={formData.email}
-      onChange={handleChange}/>
-      
+        className={styles.feedbackInput}
+        label="Пошта:"
+        type="email"
+        name="email"
+        placeholder="Ваш емейл"
+        required={true}
+        value={formData.email}
+        onChange={handleChange}
+      />
+
       <Input
         className={styles.feedbackInput}
         label="Номер телефону:"
@@ -115,11 +118,11 @@ function FeedbackForm() {
         required={true}
         value={formData.phone}
         onChange={handleChange}
-        pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
+        // pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
       />
-      <div style = {{ marginTop: '16px'}}>
-      <Textarea
-        className={styles.feedbackTextarea}
+      <div style={{ marginTop: '16px' }}>
+        <Textarea
+          className={styles.feedbackTextarea}
           label="Коментар:"
           id="text"
           name="text"
@@ -127,12 +130,12 @@ function FeedbackForm() {
           value={formData.text}
           onChange={handleChange}
           required
-        
         />
       </div>
-       
-      
-      <Button type="submit" size='lg' style={{ marginTop: '32px'}}>Надіслати</Button>
+
+      <Button type="submit" size="lg" style={{ marginTop: '32px' }}>
+        Надіслати
+      </Button>
     </form>
     { showThankYouModal && thankYouModalContent}
     </>

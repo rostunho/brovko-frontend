@@ -1,10 +1,5 @@
-import { useState, useEffect } from 'react';
-import {
-  getAllProducts,
-  getProductsByKeywords,
-  getProductsByCategory,
-  removeProduct,
-} from 'shared/services/api/brovko/products';
+import { useState } from 'react';
+import { removeProduct } from 'shared/services/api/brovko/products';
 import { removeProductRequestTemplate } from './removeProductRequestTemplate';
 import { selectUserStatus } from 'redux/user/userSelectors';
 import ProductsItem from '../ProductsItem';
@@ -13,35 +8,13 @@ import Modal from 'shared/components/Modal/Modal';
 import Pagination from 'components/Products/Pagination';
 // import Loader from 'components/Loader';
 import styles from './ProductsList.module.scss';
-import { useSelector } from 'react-redux';
-// import { current } from '@reduxjs/toolkit';
 
-export default function ProductList({
-  searchValue,
-  category,
-  sorting,
-  refresh = false,
-  prices,
-  onProductsChange,
-}) {
-  const [keyWord, setKeyWord] = useState(searchValue || '');
-  const [categoryId, setCategoryId] = useState(category?.id || '');
-  const [sort, setSort] = useState(
-    { ...sorting } || {
-      id: 0,
-      name: 'Сортування',
-      order: 'desc',
-      field: 'createdAt',
-    }
-  );
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [currentProducts, setCurrentProducts] = useState([]);
+import { useSelector } from 'react-redux';
+import styles from './ProductsList.module.scss';
+
+export default function ProductList({ products }) {
   const [adminInCustomerMode, setAdminInCustomerMode] = useState(false);
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
-  const [refreshProducts, setRefreshProducts] = useState(refresh);
-  const [firstRender, setFirstRender] = useState(true); // допомагає уникати повторних запитів усіх продуктыв при першому рендері
-  const [showLoader, setShowLoader] = useState(false);
   const userStatus = useSelector(selectUserStatus);
   const perPage = 10; // можемо зробити стейтом, якщо будемо даватиможливість обирати к-сть продуктоів на сторінці
 
@@ -370,11 +343,11 @@ export default function ProductList({
     setMaxPrice(maxPrice);
   };
 
+
   const handleRemoveProducts = async () => {
     const body = removeProductRequestTemplate;
     body.product = productIdsForRemoving.map(id => ({ id }));
     await removeProduct(body);
-    setRefreshProducts(true);
   };
 
   const handleViewMode = () => {
@@ -436,8 +409,8 @@ export default function ProductList({
           <ul className={styles['buttons-list']}>
             <li className={styles['buttons-item']}>
               <Button
-                // className={styles['admin-button']}
                 admin
+                className={styles.button}
                 size="lg"
                 disabled={productIdsForRemoving.length < 1}
                 onClick={handleRemoveProducts}
@@ -447,8 +420,8 @@ export default function ProductList({
             </li>
             <li className={styles['buttons-item']}>
               <Button
-                // className={styles['admin-button']}
                 admin
+                className={styles.button}
                 size="lg"
                 onClick={handleViewMode}
               >
@@ -459,9 +432,9 @@ export default function ProductList({
             </li>
           </ul>
         )}
-        {currentProducts.length > 0 ? (
+        {products?.length ? (
           <ul className={styles.list}>
-            {currentProducts.map(product => (
+            {products.map(product => (
               <li key={product._id}>
                 <ProductsItem
                   product={product}
@@ -478,11 +451,6 @@ export default function ProductList({
         
         )}
       </div>
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        onChangePage={handleChangePage}
-      />
     </>
   );
 }

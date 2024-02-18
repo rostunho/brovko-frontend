@@ -20,6 +20,7 @@ import Image from 'shared/components/Image';
 import Input from 'shared/components/Input';
 
 import HeartIcon from 'shared/icons/HeartIcon';
+import useProductInBasket from 'shared/hooks/useProductInBasket';
 
 import styles from './ProductsItem.module.scss';
 
@@ -29,15 +30,17 @@ const ProductsItem = ({
   userStatus,
   adminInCustomerMode,
 }) => {
+  const { handleAddToCart } = useProductInBasket();
   // const [product, setProduct] = useState(null);
   const [cardIsSelected, setCardIsSelected] = useState(false);
   // const [isFavourite, setIsFavourite] = useState(false);
-  // console.log(product);
 
   // const { productId } = useParams();
   // console.log('useParams', productId);
 
   const location = useLocation();
+
+  // console.log('location :>> ', location);
 
   const orders = useSelector(getAllOrders);
   const dispatch = useDispatch();
@@ -70,6 +73,7 @@ const ProductsItem = ({
     dispatch(addOrder({ ...product, value: 1 }));
     dispatch(addPopupOperation('Товар додано в кошик'));
   };
+
 
   const isProductFavourite = user => {
     return user.some(p => p.id === product.id);
@@ -179,11 +183,12 @@ const ProductsItem = ({
           </div>
         </div>
         <div className={styles.buttons}>
-        
+
             <Button mode="outlined">Подробиці</Button>
          
 
           <Button onClick={e => { e.preventDefault(); handleAddToCart(); }} mode="primary">
+
             В кошик
           </Button>
         </div>

@@ -4,6 +4,7 @@ import { getAllOrders } from 'redux/basket/basketSelectors';
 import QuantityButtonModal from 'shared/components/QuantityButtonModal/QuantityButtonModal';
 import Heading from '../Heading';
 import Rectangle from 'components/Rectangle/Rectangle';
+import useProductInBasket from 'shared/hooks/useProductInBasket';
 import styles from './OrderList.module.scss';
 
 export default function OrderList({
@@ -12,19 +13,21 @@ export default function OrderList({
   setModalDelete,
   setOrderId,
 }) {
-  const orders = useSelector(getAllOrders);
+  const { showBascketOrders } = useProductInBasket();
+  const products = showBascketOrders();
+
   const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
-    const totalAmount = orders.reduce((total, { price, value }) => {
+    const totalAmount = products.reduce((total, { price, value }) => {
       return total + price * value;
     }, 0);
 
     setTotalAmount(totalAmount);
-  }, [orders]);
+  }, [products]);
 
-  const orderList = Array.isArray(orders)
-    ? orders.map(({ _id, name, note, picture, price, value }) => (
+  const orderList = Array.isArray(products)
+    ? products.map(({ _id, name, note, picture, price, value }) => (
         <li key={_id} className={styles.item}>
           <QuantityButtonModal
             id={_id}

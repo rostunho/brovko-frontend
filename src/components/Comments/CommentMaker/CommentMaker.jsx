@@ -19,17 +19,23 @@ const CommentMaker = forwardRef(({ productId, ...props }, ref) => {
     const targetParam = searchParams.get(param);
 
     !targetParam &&
-      setSearchParams(prevParams => {
-        prevParams.set(param, value);
-        return prevParams;
-      });
+      setSearchParams(
+        prevParams => {
+          prevParams.set(param, value);
+          return prevParams;
+        },
+        { replace: true }
+      );
   };
 
   const hanldeAddCommentParam = value => {
-    setSearchParams(prevParams => {
-      prevParams.set('add-comment', value);
-      return prevParams;
-    });
+    setSearchParams(
+      prevParams => {
+        prevParams.set('add-comment', value);
+        return prevParams;
+      },
+      { replace: true }
+    );
   };
 
   return (

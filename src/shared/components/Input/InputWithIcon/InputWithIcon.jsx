@@ -33,6 +33,16 @@ export default function InputWithIcon({
     setShowPassword(!showPassword);
   };
 
+  const handleKeyPress = event => {
+    if (type !== 'search') {
+      return;
+    }
+
+    if (event.key === 'Enter') {
+      handleOnClick();
+    }
+  };
+
   const handleType = () => {
     if (type === 'password' && !showPassword) {
       return 'password';
@@ -74,6 +84,7 @@ export default function InputWithIcon({
         className={className}
         onChange={handleOnChange}
         // onClick={onClick}
+        onKeyDown={handleKeyPress}
       />
 
       <button

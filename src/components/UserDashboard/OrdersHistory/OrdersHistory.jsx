@@ -6,14 +6,11 @@ import UserDataHeading from 'components/UserDashboard/UserDataHeading';
 import InsideOrdersHistory from './InsideOrdersHistory/InsideOrdersHistory';
 import { ordersUserHistory } from 'redux/user/userSelectors';
 import { usersOrdersHistory } from 'redux/user/userOperations';
-//
-import { getAllOrders } from 'redux/basket/basketSelectors';
-import { getAllHistoryOrders } from 'redux/orders/ordersSelectors';
-//
+
 import styles from './OrdersHistory.module.scss';
 
 const OrdersHistory = () => {
-  const orders = useSelector(getAllHistoryOrders);
+  const orders = useSelector(ordersUserHistory);
   const dispatch = useDispatch();
 
   useEffect(() => {

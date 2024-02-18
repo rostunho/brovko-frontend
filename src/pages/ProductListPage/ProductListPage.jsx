@@ -1,38 +1,38 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import { getAllCategories } from 'shared/services/api';
+import { getAllCategories, getAllProducts } from 'shared/services/api';
 import { sortingTemplate } from './sortingTemplate';
-// import Loader from 'components/Loader';
 import Heading from 'shared/components/Heading/Heading';
 import Input from 'shared/components/Input';
 import Selector from 'shared/components/Selector';
 import ProductList from 'components/Products/ProductsList/ProductsList';
 import styles from './ProductListPage.module.scss';
 import DoubleRangeSlider from 'shared/components/Input/InputRange/DoubleRangeSlider';
+import Pagination from 'components/Products/Pagination';
 
 export default function ProductListPage() {
-  const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/';
-
   const [searchParams, setSearchParams] = useSearchParams();
+  const keyWord = searchParams.get('key');
+  const categoryId = searchParams.get('id');
+  const categoryName = searchParams.get('name'); // потрібна лише для дефолтного виявлення категорії при вставленні урли в нове вікно без повторних рендерів
+  const sortingBy = searchParams.get('by');
+  const sortingOrder = searchParams.get('order');
+  const priceMin = searchParams.get('min');
+  const priceMax = searchParams.get('max');
+  const page = searchParams.get('page');
+  const limit = searchParams.get('limit');
+
+  const [products, setProducts] = useState([]);
   const [searchBarValue, setSearchBarValue] = useState('');
-  const [keyWord, setKeyWord] = useState('');
-  const [currentCategories, setCurrentCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState({
-    name: 'Всі категорії старт',
-    id: 'all',
-  });
-  const [refreshCategory, setRefreshCategory] = useState(false);
-  const [selectedSortingOption, setSelectedSortingOption] = useState({
+  const [sortingToShow, setSortingToShow] = useState({
     id: 0,
     name: 'Сортування',
-    order: 'desc',
-    field: 'createdAt',
   });
+
+  const [currentCategories, setCurrentCategories] = useState([]);
+
   const [categorySelectorIsOpen, setCategorySelectorIsOpen] = useState(false);
   const [sortingSelectorIsOpen, setSortingSelectorIsOpen] = useState(false);
-  const [refreshProducts, setRefreshProducts] = useState(false);
 
   const [initialPrices, setInitialPrices] = useState(null);
   const [selectedPrices, setSelectedPrices] = useState({
@@ -44,59 +44,60 @@ export default function ProductListPage() {
 
   // const [firstRender, setFirstRender] = useState(true);
 
-  // беремо з бази даних актуальні категорії товарів
+
   useEffect(() => {
+    if (!firstRender) {
+      return;
+    }
+
     (async () => {
-      const savedCategories = await fetchAllCategories();
-      searchParamsProcessing(savedCategories);
-      // setFirstRender(false);
+      await fetchCategories();
+      await fetchProducts(Number(page), Number(limit)); // при першому рендері page=null i limit=null, тому функція викличеться без них. Зате при прямому вставленні урли - спрацюють;
+      initialProcessing(searchParams);
     })();
+    setFirstRender(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // обнуляємо ключове слово при зміні категорії
   useEffect(() => {
-    // if (firstRender) {
-    //   return;
-    // }
-    // setSearchBarValue('');
-    // setKeyWord('');
-    setSearchParams({
-      key: keyWord,
-      category: selectedCategory.id,
-      sort: selectedSortingOption.field,
-      order: selectedSortingOption.order,
-      max: selectedPrices.maxPrice,
-      min: selectedPrices.minPrice,
-    });
+    // якщо це перший рендер - уникаємо дублювання запиту, якщо id категорії "all" - значить ми повернулись на "всі категорії" з іншої категорії
+    if (firstRender || !categoryId) {
+      return;
+    }
+    fetchProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCategory, keyWord, selectedSortingOption, selectedPrices]);
-
-  // кожного разу скидаємо тумблер refreshCategory в значення за замовчуванням
-  useEffect(() => {
-    if (!refreshCategory) {
-      return;
-    }
-    setRefreshCategory(false);
-  }, [refreshCategory]);
+  }, [categoryId]);
 
   useEffect(() => {
-    if (!refreshProducts) {
+    if (firstRender || keyWord === '') {
       return;
     }
-    setRefreshProducts(false);
-  }, [refreshProducts]);
+    fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [keyWord]);
 
-  const handleKeyWord = async () => {
-    setKeyWord(searchBarValue);
-    setSelectedCategory({
-      name: 'Всі категорії старт',
-      id: 'all',
-    });
-    // setSearchBarValue('');
-    setRefreshCategory(true);
-    searchBarValue === '' && setRefreshProducts(true);
-  };
+  useEffect(() => {
+    if (firstRender || sortingToShow?.id === 0) {
+      // sortingToShow.id === 0 лише при першому рендері
+      return;
+    }
+    fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortingBy, sortingOrder]);
+
+  useEffect(() => {
+    if (firstRender || !priceMin || !priceMax) {
+      return;
+    }
+    fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [priceMin, priceMax]);
+
+  useEffect(() => {
+    if (firstRender || page === '0') {
+      // (page === '0') - тільки під час ініціації
+      return;
+    }
 
   const fetchAllCategories = async () => {
     try {
@@ -111,6 +112,155 @@ export default function ProductListPage() {
       return [];
     }
     
+  };
+
+  const handleKeyWord = async () => {
+    setSearchParams(
+      existingSearchParams => {
+        existingSearchParams.set('key', searchBarValue);
+        existingSearchParams.set('id', 'all');
+        existingSearchParams.set(
+          'name',
+          'Всі категорії (після зміни ключового слова)'
+        );
+
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
+  };
+
+  const handleSortingOptions = data => {
+    setSortingToShow({ id: data.id, name: data.name });
+    setSearchParams(
+      existingSearchParams => {
+        existingSearchParams.set('by', data.field);
+        existingSearchParams.set('order', data.order);
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const { categories } = await getAllCategories();
+      setCurrentCategories([...categories]);
+      return categories;
+    } catch (error) {
+      console.log('Не отримано категорій', error);
+    }
+  };
+
+  const fetchProducts = async (page, limit) => {
+    (async () => {
+      try {
+        const response = await getAllProducts({
+          search: keyWord,
+          categoryId: categoryId,
+          sortBy: sortingBy,
+          sortOrder: sortingOrder,
+          priceMin: priceMin,
+          priceMax: priceMax,
+          page: page ? Number(page) : 1,
+          perPage: limit ? Number(limit) : 12,
+        });
+        setProducts(response);
+      } catch (error) {
+        console.log('Не отримано продуктів', error);
+      }
+    })();
+  };
+
+  const getKeyWordFromSearchParams = keyWord => {
+    setSearchBarValue(keyWord);
+  }; // Поки, ДУБЛЬ ФУНКЦІОНАЛУ
+
+  const setKeyWordToSearchParams = keyWord => {
+    setSearchParams(
+      existingSearchParams => {
+        existingSearchParams.set('key', keyWord);
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
+  };
+
+  const setCategoryToSearchParams = (id, name) => {
+    setSearchParams(
+      existingSearchParams => {
+        existingSearchParams.set('id', id);
+        existingSearchParams.set('name', name);
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
+  };
+
+  const getSortingOptionsFromSearchParams = (
+    by,
+    order,
+    template = sortingTemplate
+  ) => {
+    if (order === 'createdAt' && order === 'desc') {
+      setSortingToShow({ ...template[2] });
+    } else if (by === 'createdAt' && order === 'asc') {
+      setSortingToShow({ ...template[3] });
+    } else if (by === 'price' && order === 'desc') {
+      setSortingToShow({ ...template[0] });
+    } else if (by === 'price' && order === 'asc') {
+      setSortingToShow({ ...template[1] });
+    }
+  };
+
+  const setSortingOptionsToSearchParams = (by, order) => {
+    setSearchParams(
+      existingSearchParams => {
+        existingSearchParams.set('by', by);
+        existingSearchParams.set('order', order);
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
+  };
+
+  const setPricesToSearchParams = (min, max) => {
+    setSearchParams(
+      existingSearchParams => {
+        existingSearchParams.set('min', min);
+        existingSearchParams.set('max', max);
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
+  };
+
+  const setPagesToSearchParams = (page, limit) => {
+    setSearchParams(
+      existingSearchParams => {
+        existingSearchParams.set('page', page);
+        existingSearchParams.set('limit', limit);
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
+  };
+
+  const initialProcessing = params => {
+    const { key, id, name, by, order, min, max, page, limit } =
+      Object.fromEntries(params);
+
+    key ? getKeyWordFromSearchParams(key) : setKeyWordToSearchParams('');
+
+    !id && !name && setCategoryToSearchParams('', 'Всі категорії (дефолт 2)'); // не використовуємо get-функції, бо усі потрібні опції вже є в searchParams.get();
+
+    by && order
+      ? getSortingOptionsFromSearchParams(by, order)
+      : setSortingOptionsToSearchParams('createdAt', 'asc');
+
+    !min && !max && setPricesToSearchParams('', '');
+
+    !page && !limit && setPagesToSearchParams(0, 12); // По нулю будемо ідентифыкувати значення ініціації
   };
 
   const toggleCloseCategorySelector = () => {
@@ -131,142 +281,49 @@ export default function ProductListPage() {
 
   const clearSearchBar = () => {
     setSearchBarValue('');
-    setKeyWord('');
+    setSearchParams(
+      existingSearchParams => {
+        console.log('existingSearchParams :>> ', existingSearchParams);
+        existingSearchParams.set('key', '');
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
   };
 
-  const setCategoryToSearchParams = () => {
-    setSearchParams({
-      key: keyWord,
-      category: selectedCategory.id,
-      sort: selectedSortingOption.field,
-      order: selectedSortingOption.order,
-      max: selectedPrices.maxPrice,
-      min: selectedPrices.minPrice,
+  const handlePrices = (min, max) => {
+    setSearchParams(
+      existingSearchParams => {
+        existingSearchParams.set('min', min);
+        existingSearchParams.set('max', max);
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
+  };
+
+  const setPageNumber = number => {
+    setSearchParams(
+      existingSearchParams => {
+        existingSearchParams.set('page', number);
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
+  };
+
+  const handleChangePage = pageNumber => {
+    setPageNumber(pageNumber);
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
     });
-  };
-
-  const getCategoryFromSearchParams = savedCategories => {
-    const savedCategoryId = searchParams.get('category');
-
-    if (savedCategories.length < 1) {
-      console.log('Ще немає списку усіх категорій');
-      return;
-    }
-
-    const savedCategory = savedCategories.find(
-      category => category.id === savedCategoryId
-    ) || { id: 'all', name: 'Всі категорії відновлені' };
-
-    setSelectedCategory({ ...savedCategory });
-  };
-
-  const setKeyWordtoSearchParams = () => {
-    setSearchParams({
-      key: keyWord,
-      category: selectedCategory.id,
-      sort: selectedSortingOption.field,
-      order: selectedSortingOption.order,
-      max: selectedPrices.maxPrice,
-      min: selectedPrices.minPrice,
-    });
-  };
-
-  const getKeyWordFromSearchParams = () => {
-    const savedKeyWord = searchParams.get('key');
-    setSearchBarValue(savedKeyWord);
-    setKeyWord(savedKeyWord);
-  };
-
-  const setSortingToSearchParams = () => {
-    setSearchParams({
-      key: keyWord,
-      category: selectedCategory.id,
-      sort: selectedSortingOption.field,
-      order: selectedSortingOption.order,
-      max: selectedPrices.maxPrice,
-      min: selectedPrices.minPrice,
-    });
-  };
-
-  const getSortingFromSearchParams = template => {
-    const savedField = searchParams.get('sort');
-    const savedOrder = searchParams.get('order');
-
-    const { id, name } = template
-      .filter(el => el.field === savedField)
-      .find(el => el.order === savedOrder);
-
-    setSelectedSortingOption({
-      id: id,
-      name: name,
-      field: savedField,
-      order: savedOrder,
-    });
-  };
-
-  const setPricesToSearchParams = () => {
-    setSearchParams({
-      key: keyWord,
-      category: selectedCategory.id,
-      sort: selectedSortingOption.field,
-      order: selectedSortingOption.order,
-      max: selectedPrices.maxPrice,
-      min: selectedPrices.minPrice,
-    });
-  };
-
-  const getPricesFromSearchParams = () => {
-    const minPrice = searchParams.get('min');
-    const maxPrice = searchParams.get('max');
-
-    console.log('maxPrice :>> ', maxPrice);
-    console.log('minPrice :>> ', minPrice);
-
-    setSelectedPrices({ minPrice, maxPrice });
-  };
-
-  const searchParamsProcessing = savedCategories => {
-    const category = searchParams.has('category');
-    const keyWord = searchParams.get('key');
-    const sort = searchParams.get('sort');
-    const order = searchParams.get('order');
-    const min = searchParams.get('min');
-    const max = searchParams.get('max');
-
-    category
-      ? getCategoryFromSearchParams(savedCategories)
-      : setCategoryToSearchParams();
-
-    keyWord ? getKeyWordFromSearchParams() : setKeyWordtoSearchParams();
-
-    if (sort && order) {
-      getSortingFromSearchParams(sortingTemplate);
-    } else {
-      setSortingToSearchParams();
-    }
-
-    if (max && min) {
-      getPricesFromSearchParams();
-    } else {
-      setPricesToSearchParams();
-    }
-  };
-
-  const handleSliderSubmit = (minPrice, maxPrice) => {
-    // Обробка значень minPrice та maxPrice
-    console.log('minPrice:', minPrice);
-    console.log('maxPrice:', maxPrice);
-    setSelectedPrices({ minPrice, maxPrice });
-
-    // Додайте інші необхідні дії тут
   };
 
   return (
     <>
-      {/* <Loader /> */}
-      <Heading withGoBack fromHC={backLinkHref}>
-        Крамничка
-      </Heading>
+      <Heading withGoBack>Крамничка</Heading>
       <Input
         name="searchbar"
         label=""
@@ -280,10 +337,12 @@ export default function ProductListPage() {
           name="categories"
           label=""
           data={currentCategories}
-          fetchSelectorValue={setSelectedCategory}
-          defaultValue={selectedCategory}
+          fetchSelectorValue={handleCategory}
+          defaultValue={{
+            id: categoryId,
+            name: categoryName,
+          }}
           defaultOption={'Всі категорії'}
-          refresh={refreshCategory}
           onClick={toggleCloseCategorySelector}
           onOptionClick={clearSearchBar}
           forceClosing={sortingSelectorIsOpen}
@@ -292,26 +351,36 @@ export default function ProductListPage() {
           name="sorting"
           label=""
           data={sortingTemplate}
-          fetchSelectorValue={setSelectedSortingOption}
-          defaultValue={selectedSortingOption}
+          fetchSelectorValue={handleSortingOptions}
+          defaultValue={sortingToShow}
           onClick={toggleCloseSortingSelector}
           forceClosing={categorySelectorIsOpen}
         />
       </div>
+
       <DoubleRangeSlider
-        onSubmit={handleSliderSubmit}
-        min={initialPrices?.minPrice}
-        max={initialPrices?.maxPrice}
+        onSubmit={handlePrices}
+        minLimit={products?.minPrice}
+        maxLimit={products?.maxPrice}
+        min={Number(priceMin)}
+        max={Number(priceMax)}
         keyword={keyWord}
       />
-      <ProductList
-        searchValue={keyWord}
-        category={selectedCategory}
-        sorting={selectedSortingOption}
-        refresh={refreshProducts}
-        prices={selectedPrices}
-        onProductsChange={setInitialPrices}
-      />
+
+      {products?.products && (
+        <>
+          <ProductList
+            products={products.products}
+            totalPages={products.totalPages}
+            searchValue={keyWord}
+          />
+          <Pagination
+            page={page === '0' ? 1 : Number(page)}
+            totalPages={products.totalPages}
+            onChangePage={handleChangePage}
+          />
+        </>
+      )}
     </>
   );
 }
