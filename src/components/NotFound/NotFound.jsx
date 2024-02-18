@@ -34,9 +34,9 @@ export default function NotFound() {
   const priceMax = searchParams.get('max');
   const limit = searchParams.get('limit');
   const [currentCategories, setCurrentCategories] = useState([]);
-
-  const [countPage, setCountPage] = useState(0)
-  console.log(countPage)
+const[ramProd, setRamProd] = useState([])
+  const [countPage, setCountPage] = useState(0);
+  console.log(countPage);
   const [firstRender, setFirstRender] = useState(true);
   const page = searchParams.get(countPage);
   // const [page, setPage] = useState(0);
@@ -63,9 +63,24 @@ export default function NotFound() {
     })();
   };
 
-
   const [image, setImage] = useState();
   console.log();
+
+  const ramdomFilterProducts = (products, quontityProducts) => {
+    if (!products) {
+      return [];
+    }
+const ramdomItems = []
+for (let i=0;i<quontityProducts;i++) {
+  let indexRandomItem = Math.floor(Math.random() * products.length);
+  while (ramdomItems.includes(indexRandomItem)) {
+    indexRandomItem = Math.floor(Math.random() * products.length);
+  }
+  ramdomItems.push(indexRandomItem);
+}
+return ramdomItems.map((item) => products[item]);
+};
+  
 
   const fetchCategories = async () => {
     try {
@@ -108,9 +123,10 @@ export default function NotFound() {
   const handleClick = e => {
     e.preventDefault();
     generateRamdomImage();
-    fetchProducts();
-    setCountPage(countPage + 1)
-    console.log(page)
+    const setRamProd = ramdomFilterProducts(products, 4)
+    // fetchProducts();
+    // setCountPage(countPage + 1);
+    // console.log(page);
   };
   console.log(image);
   return (
@@ -132,7 +148,7 @@ export default function NotFound() {
       <Text className={styles.message}>
         Клікни на обертаючийся смаколик, щоб отримати інший
       </Text>
-      <ProductList products={products.products} />
+      <ProductList products={ramProd.products} />
     </>
   );
 }
