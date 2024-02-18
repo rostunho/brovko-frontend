@@ -40,6 +40,8 @@ const ProductsItem = ({
 
   const location = useLocation();
 
+  // console.log('location :>> ', location);
+
   const orders = useSelector(getAllOrders);
   const dispatch = useDispatch();
 
@@ -180,7 +182,7 @@ const ProductsItem = ({
 
           <Link
             to={`/shop/product/${product._id}`}
-            state={{ from: location.pathname }}
+            state={{ from: location.pathname + location.search }}
           >
 
             <Button mode="outlined">Подробиці</Button>

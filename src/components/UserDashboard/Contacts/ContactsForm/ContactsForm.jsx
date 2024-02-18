@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { parsePhoneNumber } from 'utils';
 import Input from 'shared/components/Input';
 import Button from 'shared/components/Button';
 import styles from './ContactsForm.module.scss';
@@ -34,9 +35,15 @@ export default function ContactsForm({
   const handleChange = e => {
     const { name, value } = e.target;
 
-    setUserInfo(prevState => {
-      return { ...prevState, [name]: value };
-    });
+    if (name === 'phone') {
+      setUserInfo(prevState => {
+        return { ...prevState, [name]: parsePhoneNumber(value) };
+      });
+    } else {
+      setUserInfo(prevState => {
+        return { ...prevState, [name]: value };
+      });
+    }
   };
 
   const getCityData = data => {

@@ -12,7 +12,7 @@ export default function ImageBox({ images = [], isMobile, className }) {
   const [containerWidth, setContainerWidth] = useState(() => screenWidth - 32); // штрина видимої частини міні-галереї;
   const [maxOffset, setMaxOffset] = useState(0); // максимально домустиме зміщення
 
-  console.log('containerWidth :>> ', containerWidth);
+  // console.log('containerWidth :>> ', containerWidth);
 
   useEffect(() => {
     if (images.length <= 0) {

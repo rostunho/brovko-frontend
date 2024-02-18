@@ -19,8 +19,6 @@ export default function DeliveryCity({
   const [showWarning, setShowWarning] = useState(false);
   const [refreshSelector, setRefreshSelector] = useState(false);
 
-  console.log('refreshSelector :>> ', refreshSelector);
-
   useEffect(() => {
     if (savedCity && targetCity === savedCity.Present) {
       return;
@@ -49,12 +47,6 @@ export default function DeliveryCity({
     try {
       const value = targetCity?.toLowerCase();
       const response = await findCity(value);
-
-      console.log('response in DELIVERY CITY :>> ', response);
-      console.log(
-        'count of warehouses :>> ',
-        typeof response.Addresses[0].Warehouses
-      );
 
       if (!response) {
         return;

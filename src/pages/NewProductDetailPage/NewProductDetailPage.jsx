@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useScreen } from 'shared/hooks/useScreen';
 import { getProductById } from 'shared/services/api';
 import { addPopupOperation } from 'redux/popup/popupOperations';
+import { selectUserStatus } from 'redux/user/userSelectors';
 
 import Heading from 'shared/components/Heading';
 import Rating from 'components/ProductDetail/ProductRating/Rating';
@@ -13,6 +14,9 @@ import ProductParams from 'components/ProductDetail/ProductParams/ProductParams'
 import NewDescription from './NewDescription/NewDescription';
 import Comments from 'components/Comments/Comments';
 import LogisticInfo from 'components/ProductDetail/LogisticInfo/LogisticInfo';
+import Button from 'shared/components/Button';
+import { removeProduct } from 'shared/services/api/brovko';
+import { removeProductRequestTemplate } from 'components/Products/ProductsList';
 import styles from './NewProductDetail.module.scss';
 
 export default function NewProductDetailPage() {
@@ -31,6 +35,9 @@ export default function NewProductDetailPage() {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const userStatus = useSelector(selectUserStatus);
+
+  console.log('userStatus :>> ', userStatus);
 
   useEffect(() => {
     // після того, як прийшов продукт вимірюємо висоту контейнера, шоб дати таку саму сайдбару
@@ -62,12 +69,44 @@ export default function NewProductDetailPage() {
     }
   }
 
+  const goToEditProduct = () => {
+    navigate(`/admin/${productId}`);
+  };
+
+  const removeProducts = async id => {
+    const body = removeProductRequestTemplate;
+
+    body.product[0] = { id: productId };
+
+    await removeProduct(body);
+  };
+
   return (
     <>
       <section className={styles['page-screen']}>
         <Heading withGoBack fromHC={fromPage} containerClassName={styles.title}>
           {product?.name}
         </Heading>
+        {(userStatus === 'manager' || userStatus === 'superadmin') && (
+          <div className={styles['admin-block']}>
+            <Button
+              admin
+              className={styles['edit-button']}
+              size="lg"
+              onClick={goToEditProduct}
+            >
+              РЕДАГУВАТИ
+            </Button>
+            <Button
+              admin
+              className={styles['edit-button']}
+              size="lg"
+              onClick={removeProducts}
+            >
+              ВИДАЛИТИ
+            </Button>
+          </div>
+        )}
         <div ref={mainScreenRef} className={styles['main-screen']}>
           <Rating className={styles.rating} />
 
