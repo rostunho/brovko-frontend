@@ -289,10 +289,10 @@ export default function NewAddReviewForm({ onClose, ...props }) {
   };
 
   const thankYouModalContent = (
-    <Modal closeModal={closeModal}>
+    <Modal  className={styles['modal-container']} closeModal={closeModal}>
       <div className={styles.modal}>
         <h2>Дякуємо за відгук!</h2>
-        <p>Ваш відгук буде опубліковано після попередньої перевірки нашими співробітниками.</p>
+        <p className={styles.modalText}>Ваш відгук буде опубліковано після попередньої перевірки нашими співробітниками.</p>
       </div>
     </Modal>
   );
