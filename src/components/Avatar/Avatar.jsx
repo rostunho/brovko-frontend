@@ -41,13 +41,14 @@ const Avatar = ({
     setModalIsOpen(false);
     setPrompDelete(false);
   };
-  const { firstName, email, avatarURL, _id, status } = useSelector(selectUser);
+  const { user } = useSelector(selectUser);
+
   const dispatch = useDispatch();
 
   const delAvatar = async () => {
     try {
       setLoading(true);
-      const dataAvatar = { avatarURL: '', id: _id };
+      const dataAvatar = { avatarURL: '', id: user?._id };
 
       await dispatch(update(dataAvatar));
       dispatch(addPopupOperation('Аватарку успішно видалено'));
@@ -140,14 +141,16 @@ const Avatar = ({
           marginRight,
           marginBottom,
           border:
-            status === 'customer' ? '2px solid #F3A610' : '2px solid #4d95c3',
+            user?.status === 'customer'
+              ? '2px solid #F3A610'
+              : '2px solid #4d95c3',
         }}
         // onClick={openModalEditPhoto}
       >
         <Image
           className={styles.avatar}
-          src={src || avatarURL}
-          text={firstName || email}
+          src={src || user?.avatarURL}
+          text={user?.firstName || user?.email}
           height={size}
           width={size}
           fontSize={fontSize}
@@ -169,14 +172,16 @@ const Avatar = ({
           marginRight,
           marginBottom,
           border:
-            status === 'customer' ? '2px solid #F3A610' : '2px solid #4d95c3',
+            user?.status === 'customer'
+              ? '2px solid #F3A610'
+              : '2px solid #4d95c3',
         }}
         onClick={openModalEditPhoto}
       >
         <Image
           className={styles.avatar}
-          src={avatarURL}
-          text={firstName || email}
+          src={user?.avatarURL}
+          text={user?.firstName || user?.email}
           height={size}
           width={size}
           fontSize={fontSize}
@@ -193,8 +198,8 @@ const Avatar = ({
           <div className={styles.wrapper}>
             <Image
               className={styles.avatarEdit}
-              src={!prompDelete && avatarURL}
-              text={firstName || email}
+              src={!prompDelete && user?.avatarURL}
+              text={user?.firstName || user?.email}
             />
           </div>
           {prompDelete && (
@@ -232,7 +237,7 @@ const Avatar = ({
                 }}
               />
             </label>
-            {avatarURL && (
+            {user?.avatarURL && (
               <Button
                 onClick={prompDelete ? delAvatar : () => setPrompDelete(true)}
                 mode={!prompDelete ? 'outlined' : 'primary'}

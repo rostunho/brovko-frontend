@@ -23,6 +23,7 @@ export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
 
   const { showBascketOrders } = useProductInBasket();
   const products = showBascketOrders();
+
   const userIsLoggedIn = useSelector(selectIsLogin);
   const { pathname } = useLocation();
   const { isOpen, openModal, closeModal } = useModal();
@@ -81,7 +82,7 @@ export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
           className={styles.buttonBasket}
         >
           <BasketLight width={iconSize} height={iconSize} />
-          {products?.length !== 0 && (
+          {products && products?.length > 0 && (
             <div className={styles.ellips}>
               <Ellipse />
               <span className={styles.ellipsSpan}>{products?.length}</span>

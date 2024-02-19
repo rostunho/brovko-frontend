@@ -14,8 +14,7 @@ import styles from './Contacts.module.scss';
 const Contacts = () => {
   const [showInfo, setShowInfo] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { phone, email, novaPoshta, buildingNumber, flat, _id } =
-    useSelector(selectUser);
+  const { user } = useSelector(selectUser);
 
   // const { city, street, warehouse } = novaPoshta;
   const dispatch = useDispatch();
@@ -48,14 +47,14 @@ const Contacts = () => {
       {showInfo && (
         <div className={styles['contacts-info']}>
           <ContactsForm
-            phone={phone}
-            email={email}
-            city={novaPoshta?.city}
-            street={novaPoshta?.street}
-            warehouse={novaPoshta?.warehouse}
-            buildingNumber={buildingNumber}
-            flat={flat}
-            id={_id}
+            phone={user?.phone}
+            email={user?.email}
+            city={user?.novaPoshta?.city}
+            street={user?.novaPoshta?.street}
+            warehouse={user?.novaPoshta?.warehouse}
+            buildingNumber={user?.buildingNumber}
+            flat={user?.flat}
+            id={user?._id}
             onSubmitForm={onSubmitForm}
           />
         </div>

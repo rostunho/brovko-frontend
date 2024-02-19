@@ -18,6 +18,7 @@ const Image = props => {
   };
 
   // console.log('src :>> ', src);
+  // console.log('typeof src :>> ', typeof src);
   // const letterAvatar = text.substring(0, 1).toUpperCase();
   // console.log(letterAvatar);
 
