@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import Heading from "shared/components/Heading";
-import PrivacyPolicy from "components/PrivacyPolicy/PrivacyPolicy";
+import PrivacyPolicy from "components/Optional Pages/PrivacyPolicy/PrivacyPolicy";
 
 export default function PrivacyPolicyPage() {
   const location = useLocation();
