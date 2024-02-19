@@ -27,6 +27,8 @@ const TestingPage = lazy(() => import('pages/Testing/TestingPage'));
 const ModerateReviewPage = lazy(() =>
   import('pages/ModerateReviewPage/ModerateReviewPage')
 );
+const FeedbackPage = lazy(() => import('./pages/FeedbackPage/FeedbackPage'));
+
 const NewReviews = lazy(() =>
   import('components/Reviews/NewReviews/NewReviews')
 );
@@ -61,6 +63,7 @@ function App() {
           path="/admin/moderate-reviews"
           element={<ModerateReviewPage />}
         />
+        <Route path="admin/feedbacks" element={<FeedbackPage />} />
 
         <Route path="/order" element={<OrderPage />}>
           <Route
