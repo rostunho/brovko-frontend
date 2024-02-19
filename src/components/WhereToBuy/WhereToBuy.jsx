@@ -8,6 +8,7 @@ import CalendarIcon from 'shared/icons/Calendar2Icon';
 import styles from './WhereToBuy.module.scss';
 
 export default function WhereToBuy({locationPoints}) {
+  console.log('locationPoints', locationPoints)
   return (
     <div className={styles.container}>
       <ul className={styles.box}>

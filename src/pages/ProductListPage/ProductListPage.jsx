@@ -6,6 +6,7 @@ import Heading from 'shared/components/Heading/Heading';
 import Input from 'shared/components/Input';
 import Selector from 'shared/components/Selector';
 import ProductList from 'components/Products/ProductsList/ProductsList';
+import Modal from 'shared/components/Modal/Modal';
 import styles from './ProductListPage.module.scss';
 import DoubleRangeSlider from 'shared/components/Input/InputRange/DoubleRangeSlider';
 import Pagination from 'components/Products/Pagination';
@@ -36,6 +37,9 @@ export default function ProductListPage() {
 
   // const [page, setPage] = useState(1);
   const [firstRender, setFirstRender] = useState(true);
+
+  const [error, setError] = useState(null);
+  const [showErrorModal, setShowErrorModal] = useState(false); 
 
   useEffect(() => {
     if (!firstRender) {
@@ -158,8 +162,12 @@ export default function ProductListPage() {
           perPage: limit ? Number(limit) : 12,
         });
         setProducts(response);
+        setError(null);
+        setShowErrorModal(false);
       } catch (error) {
         console.log('Не отримано продуктів', error);
+        setError('Помилка при завантаженні даних з сервера. Будь ласка, спробуйте ще раз пізніше.');
+        setShowErrorModal(true);
       }
     })();
   };
@@ -313,8 +321,22 @@ export default function ProductListPage() {
     });
   };
 
+  const closeModal = () => {
+    setShowErrorModal(false);
+  };
+
+  const errorModalContent = (
+    <Modal  className={styles['modal-container']} closeModal={closeModal}>
+      <div className={styles.modal}>
+        <h2>Йой, сервер не відповідає...</h2>
+        <p className={styles.modalText}>Помилка при завантаженні даних з сервера. Будь ласка, спробуйте ще раз пізніше.</p>
+      </div>
+    </Modal>
+  );
+
   return (
     <>
+     {showErrorModal && errorModalContent}
       <Heading withGoBack>Крамничка</Heading>
       <Input
         name="searchbar"
