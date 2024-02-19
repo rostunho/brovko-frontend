@@ -6,7 +6,10 @@ import styles from './CommentMaker.module.scss';
 
 // export default function CommentMaker({ productId, ...props })
 
-const CommentMaker = forwardRef(({ productId, ...props }, ref) => {
+const CommentMaker = forwardRef(function CommentMaker(
+  { productId, ...props },
+  ref
+) {
   const [searchParams, setSearchParams] = useSearchParams();
   const isFullView = searchParams.get('add-comment');
 

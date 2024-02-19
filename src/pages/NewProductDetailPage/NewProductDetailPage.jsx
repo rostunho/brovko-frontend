@@ -37,7 +37,7 @@ export default function NewProductDetailPage() {
   const navigate = useNavigate();
   const userStatus = useSelector(selectUserStatus);
 
-  console.log('userStatus :>> ', userStatus);
+  // console.log('userStatus :>> ', userStatus);
 
   useEffect(() => {
     // після того, як прийшов продукт вимірюємо висоту контейнера, шоб дати таку саму сайдбару

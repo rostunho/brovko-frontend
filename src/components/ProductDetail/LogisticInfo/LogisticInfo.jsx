@@ -3,7 +3,7 @@ import styles from './LogisticInfo.module.scss';
 
 // export default function LogisticInfo()
 
-const LogisticInfo = forwardRef((props, ref) => {
+const LogisticInfo = forwardRef(function LogisticInfo({ ...props }, ref) {
   return (
     <div className={styles.container} ref={ref}>
       <h3 className={styles.title}>Доставка</h3>

@@ -10,7 +10,10 @@ import styles from './OrderPrice.module.scss';
 
 // export default function OrderPrice({ product, className, ...props })
 
-const OrderPrice = forwardRef(({ product, className, ...props }, ref) => {
+const OrderPrice = forwardRef(function OrderPrice(
+  { product, className, ...props },
+  ref
+) {
   const currentOrders = useSelector(getAllOrders);
   const [quantity, setQuantity] = useState(1);
   const [showBasket, setShowBasket] = useState(false);
