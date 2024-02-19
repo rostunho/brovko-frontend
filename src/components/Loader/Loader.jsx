@@ -1,13 +1,11 @@
 import { createPortal } from 'react-dom';
 import styles from './loader.module.scss';
-// import paw from './spiner_paw.svg';
 
 const Spiner = () => {
   return createPortal(
     <>
       <div className={styles.wrapper}></div>
       <div className={styles.container}>
-        {/* <img src={paw} alt="Your paw" /> */}
         <svg
           width="178"
           height="137"

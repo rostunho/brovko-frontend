@@ -20,6 +20,7 @@ import Image from 'shared/components/Image';
 import Input from 'shared/components/Input';
 
 import HeartIcon from 'shared/icons/HeartIcon';
+import useProductInBasket from 'shared/hooks/useProductInBasket';
 
 import styles from './ProductsItem.module.scss';
 
@@ -29,15 +30,17 @@ const ProductsItem = ({
   userStatus,
   adminInCustomerMode,
 }) => {
+  const { handleAddToCart } = useProductInBasket();
   // const [product, setProduct] = useState(null);
   const [cardIsSelected, setCardIsSelected] = useState(false);
   // const [isFavourite, setIsFavourite] = useState(false);
-  // console.log(product);
 
   // const { productId } = useParams();
   // console.log('useParams', productId);
 
   const location = useLocation();
+
+  // console.log('location :>> ', location);
 
   const orders = useSelector(getAllOrders);
   const dispatch = useDispatch();
@@ -61,15 +64,17 @@ const ProductsItem = ({
     dispatch(addPopupOperation(text));
   };
 
-  const handleAddToCart = () => {
-    const result = orders.some(order => order._id === product._id);
-    if (result) {
-      handleAddPopup('Товар вже знаходиться в кошику');
-      return;
-    }
-    dispatch(addOrder({ ...product, value: 1 }));
-    dispatch(addPopupOperation('Товар додано в кошик'));
-  };
+  // handleAddToCart({ product, value: 1 });
+
+  // const handleAddToCart = () => {
+  //   const result = orders.some(order => order._id === product._id);
+  //   if (result) {
+  //     handleAddPopup('Товар вже знаходиться в кошику');
+  //     return;
+  //   }
+  //   dispatch(addOrder({ ...product, value: 1 }));
+  //   dispatch(addPopupOperation('Товар додано в кошик'));
+  // };
 
   const isProductFavourite = user => {
     return user.some(p => p.id === product.id);
@@ -134,6 +139,10 @@ const ProductsItem = ({
         cardIsSelected ? styles['productCard--selected'] : ''
       }`}
     >
+     <Link
+            to={`/shop/product/${product._id}`}
+            state={{ from: location.pathname + location.search }}
+          >
       <div className={styles.image}>
         {(userStatus === 'manager' || userStatus === 'superadmin') &&
           !adminInCustomerMode && (
@@ -153,7 +162,7 @@ const ProductsItem = ({
             isFavourite ? styles.heart_icon_checked : ''
           }`}
           checked={isFavourite}
-          onClick={handleToggleFavourite}
+          onClick={e => { e.preventDefault(); handleToggleFavourite(); }}
         />
 
         <Image src={product.picture} className={styles.picture} />
@@ -174,18 +183,16 @@ const ProductsItem = ({
           </div>
         </div>
         <div className={styles.buttons}>
-          <Link
-            to={`/shop/product/${product._id}`}
-            state={{ from: location }}
+          <Button mode="outlined">Подробиці</Button>
+          <Button
+            onClick={(e) => {e.preventDefault(); handleAddToCart({ product, value: 1 })}}
+            mode="primary"
           >
-            <Button mode="outlined">Подробиці</Button>
-          </Link>
-
-          <Button onClick={handleAddToCart} mode="primary">
             В кошик
           </Button>
         </div>
       </div>
+      </Link>
     </div>
   );
 };

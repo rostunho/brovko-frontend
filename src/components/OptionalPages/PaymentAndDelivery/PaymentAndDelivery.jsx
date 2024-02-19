@@ -1,25 +1,15 @@
 import Image from 'shared/components/Image'
 import photo_2 from 'shared/images/photo_2.jpeg'
 import paymentAndDeliveryContent from './paymentAndDeliveryContent';
+import Section from '../Sections';
 import Rectangle from 'components/Rectangle';
-import styles from './PaymentAndDelivery.module.scss'
+import styles from '../OptionalPages.module.scss'
 
-function Section({ title, content }) {
-    return (
-      <section className={styles.section}>
-        <h3 className={styles.title}>{title}</h3>
-        <div>
-          {content.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-          ))}
-        </div>
-      </section>
-    );
-          }
+
 
 function PaymentAndDelivery () {
     return(
-        <div className={styles.wrapper} >
+      <div className={styles.wrapper} >
       <Image src={photo_2} className={styles.image}/>
 
       <section className={styles.container}>

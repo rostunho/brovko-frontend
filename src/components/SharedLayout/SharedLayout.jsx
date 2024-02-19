@@ -13,6 +13,7 @@ import BackToTopButton from 'components/BackToTopButton/BackToTopButton';
 
 import styles from './SharedLayout.module.scss';
 import Loader from 'components/Loader';
+import CookieConsentBanner from 'components/CookiesBanner/CookiesBanner';
 
 const SharedLayout = () => {
   const [showToTopButton, fadeOut, setShowToTopButton] = useFadeOut(500);
@@ -35,6 +36,7 @@ const SharedLayout = () => {
         {showToTopButton && <BackToTopButton animation={fadeOut} />}
       </main>
       <Footer />
+      <CookieConsentBanner />
     </div>
   );
 };

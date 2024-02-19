@@ -1,8 +1,85 @@
 .list {
-  // height: auto;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .list li:not(:last-child) {
   margin-bottom: 12px;
 }
+
+.scrollbar {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f4f4f4;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #f3a610;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #f39610;
+  }
+}
+
+.visible-scroll {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+// // Кросбраузерність (нищить окремі стилі веб-кітів):
+// .scrollbar {
+//   scrollbar-width: thin; /* Для Firefox та Edge */
+//   scrollbar-color: #f3a610 #f4f4f4; /* Для Firefox та Edge */
+// }
+
+// /* Стилі для WebKit браузерів (Chrome, Safari, Android WebView) */
+// .scrollbar::-webkit-scrollbar {
+//   width: 4px;
+// }
+
+// .scrollbar::-webkit-scrollbar-track {
+//   background: #f4f4f4;
+//   border-top-right-radius: 8px;
+//   border-bottom-right-radius: 8px;
+// }
+
+// .scrollbar::-webkit-scrollbar-thumb {
+//   background: #f3a610;
+//   border-top-right-radius: 8px;
+//   border-bottom-right-radius: 8px;
+// }
+
+// .scrollbar::-webkit-scrollbar-thumb:hover {
+//   background: #f39610;
+// }
+
+// /* Стилі для Firefox та Edge */
+// @supports (-ms-ime-align: auto) {
+//   .scrollbar {
+//     scrollbar-width: thin;
+//     scrollbar-color: #f3a610 #f4f4f4;
+//   }
+// }
+
+// /* Стилі для Samsung Internet */
+// @supports (-webkit-touch-callout: none) {
+//   .scrollbar {
+//     scrollbar-width: thin;
+//     scrollbar-color: #f3a610 #f4f4f4;
+//   }
+// }
+
+// /* Стилі для Opera */
+// @supports (-o-appearance: none) {
+//   .scrollbar {
+//     scrollbar-width: thin;
+//     scrollbar-color: #f3a610 #f4f4f4;
+//   }
+// }

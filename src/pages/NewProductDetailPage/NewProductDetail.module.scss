@@ -21,7 +21,6 @@
   height: auto;
   margin: 0 auto;
   align-self: stretch;
-  // padding: 0 16px;
 
   @media screen and (min-width: 768px) {
     width: 352px;
@@ -34,6 +33,7 @@
 }
 
 .sidebar {
+  // flex-grow: 1;
   align-self: stretch;
   @media screen and (min-width: 768px) {
     width: 352px;
@@ -44,6 +44,7 @@
 }
 
 .title {
+  flex-grow: 2;
   @media screen and (min-width: 768px) {
     width: 736px;
   }
@@ -65,4 +66,24 @@
 
 .desc {
   margin-top: 32px;
+}
+
+.admin-block {
+  width: 100%;
+  margin-bottom: 32px;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+  }
+}
+
+.edit-button {
+  &:not(:last-child) {
+    margin-bottom: 4px;
+  }
+  @media screen and (min-width: 768px) {
+    margin: 0;
+  }
 }

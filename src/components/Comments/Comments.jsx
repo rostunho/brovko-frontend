@@ -9,20 +9,21 @@ import styles from './Comments.module.scss';
 export default function Comments({ containerHeight, isMobile }) {
   const { productId } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  const commentsParam = searchParams.get('comments');
   const [currentReviews, setCurrentReviews] = useState([]);
   const [listHeight, setListHeight] = useState(null);
+  const commentsParam = searchParams.get('comments');
   const makerView = searchParams.get('add-comment');
-
-  // console.log('makerView :>> ', makerView);
 
   const titleRef = useRef();
   const makerRef = useRef();
 
   useEffect(() => {
-    isMobile ? setInitialCommentsParam('last') : setInitialCommentsParam('all');
+    setInitialCommentsParam('last');
 
     (async () => {
+      // if (!commentsParam) {
+      //   return;
+      // } // неактуально після зміни умов рендерингу компонента
       const originalReviews = await getReviewsByProductId(productId);
       const { comments } = originalReviews[0] || { comments: [] };
       const adaptedReviews = processOriginalReviews(comments);
@@ -38,10 +39,6 @@ export default function Comments({ containerHeight, isMobile }) {
 
     const titleHeight = titleRef.current.clientHeight;
     const makerHeight = makerRef.current.clientHeight;
-
-    console.log('containerHeight :>> ', containerHeight);
-    console.log('titleHeight :>> ', titleHeight);
-    console.log('makerHeight :>> ', makerHeight);
 
     setListHeight(containerHeight - titleHeight - makerHeight - 20); // "-20" - вирівнювання на верхній паддінг контейнера списку
   }, [containerHeight, makerView]);
@@ -68,26 +65,35 @@ export default function Comments({ containerHeight, isMobile }) {
 
     if (existingCommentsParam) {
       // console.log('existingSearchParams :>> ', existingSearchParams);
-      setSearchParams({
-        ...existingSearchParams,
-        comments: existingCommentsParam,
-      });
+      setSearchParams(
+        {
+          ...existingSearchParams,
+          comments: existingCommentsParam,
+        },
+        { replace: true }
+      );
     } else {
-      setSearchParams({ ...existingSearchParams, comments: value });
+      setSearchParams(
+        { ...existingSearchParams, comments: value },
+        { replace: true }
+      );
     }
   };
 
   const handleViewMode = () => {
-    setSearchParams(prevSearchParams => {
-      const prevMode = prevSearchParams.get('comments');
-      console.log('prevMode :>> ', prevMode);
+    setSearchParams(
+      prevSearchParams => {
+        const prevMode = prevSearchParams.get('comments');
+        console.log('prevMode :>> ', prevMode);
 
-      prevMode === 'all'
-        ? prevSearchParams.set('comments', 'last')
-        : prevSearchParams.set('comments', 'all');
+        prevMode === 'all'
+          ? prevSearchParams.set('comments', 'last')
+          : prevSearchParams.set('comments', 'all');
 
-      return prevSearchParams;
-    });
+        return prevSearchParams;
+      },
+      { replace: true }
+    );
   };
 
   return (
@@ -99,8 +105,9 @@ export default function Comments({ containerHeight, isMobile }) {
       <CommentMaker ref={makerRef} productId={productId} />
 
       <CommentsList
-        param={commentsParam}
         reviews={currentReviews}
+        param={commentsParam}
+        isMobile={isMobile}
         listHeight={listHeight}
       />
 

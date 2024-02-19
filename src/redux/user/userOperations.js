@@ -26,6 +26,7 @@ export const login = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const result = await api.login(data);
+      console.log('result', result);
       return result;
     } catch ({ response }) {
       // console.log(response.data.message);
@@ -186,6 +187,7 @@ export const usersOrdersHistory = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const result = await api.getAllOrdersAuth();
+      console.log('result', result);
       return result;
     } catch ({ response }) {
       // console.log(response.data.message);

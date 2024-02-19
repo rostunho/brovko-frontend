@@ -18,6 +18,7 @@ const Image = props => {
   };
 
   // console.log('src :>> ', src);
+  // console.log('typeof src :>> ', typeof src);
   // const letterAvatar = text.substring(0, 1).toUpperCase();
   // console.log(letterAvatar);
 
@@ -35,13 +36,15 @@ const Image = props => {
   return (
     <>
       {text.length > 0 && !src && (
-        <div
+        <p
           className={`${styles.letter} ${
-            height === '32px' ? styles['in-small-avatar'] : ''
+            height === '32px' || height === '40px'
+              ? styles['in-small-avatar']
+              : ''
           } ${className ? className : ''}`}
         >
-          {text.substring(0, 1).toUpperCase()}{' '}
-        </div>
+          {text.substring(0, 1).toUpperCase()}
+        </p>
       )}
       {(!text.length > 0 || src) && (
         <img

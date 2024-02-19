@@ -40,7 +40,6 @@ const DoubleRangeSlider = ({ onSubmit, minLimit, maxLimit, min, max }) => {
   }, [maxSelectedValue]);
 
   const getParsed = useCallback((currentFrom, currentTo) => {
-    console.log('getParsed works');
     const minPrice =
       currentFrom.current.value.trim() === ''
         ? null
@@ -128,14 +127,14 @@ const DoubleRangeSlider = ({ onSubmit, minLimit, maxLimit, min, max }) => {
             className={styles.form_control_container__time__input}
             type="number"
             id={styles.fromInput}
-            value={minDigitValue === null ? '' : minDigitValue}
+            value={minDigitValue === undefined ? '' : minDigitValue}
             min={minPriceLimit}
             max={maxPriceLimit}
             ref={fromInput}
             step="0.1"
             onChange={e =>
               setMinDigitValue(
-                e.target.value === '' ? null : Number(e.target.value)
+                e.target.value === '' ? undefined : Number(e.target.value)
               )
             }
             onBlur={e => {
@@ -155,14 +154,14 @@ const DoubleRangeSlider = ({ onSubmit, minLimit, maxLimit, min, max }) => {
             className={styles.form_control_container__time__input}
             type="number"
             id={styles.toInput}
-            value={maxDigitValue === null ? '' : maxDigitValue}
+            value={maxDigitValue === undefined ? '' : maxDigitValue}
             min={minPriceLimit}
             max={maxPriceLimit}
             ref={toInput}
             step="0.1"
             onChange={e =>
               setMaxDigitValue(
-                e.target.value === '' ? null : Number(e.target.value)
+                e.target.value === '' ? undefined : Number(e.target.value)
               )
             }
             onBlur={e => {
@@ -194,6 +193,7 @@ const DoubleRangeSlider = ({ onSubmit, minLimit, maxLimit, min, max }) => {
               return;
             }
             setMinSelectedValue(Number(e.target.value));
+            setMinRangeValue(Number(e.target.value));
             controlFromSlider();
           }}
         />
@@ -209,6 +209,7 @@ const DoubleRangeSlider = ({ onSubmit, minLimit, maxLimit, min, max }) => {
               return;
             }
             setMaxSelectedValue(Number(e.target.value));
+            setMaxRangeValue(Number(e.target.value));
             controlToSlider();
           }}
         />

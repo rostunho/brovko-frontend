@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { getAllOrders } from 'redux/basket/basketSelectors';
 import { selectIsLogin } from 'redux/user/userSelectors';
 import useLayoutType from 'shared/hooks/useLayoutType';
 import Logo from 'shared/icons/Logo';
@@ -14,6 +13,7 @@ import Avatar from 'components/Avatar';
 import useModal from 'shared/hooks/useModal';
 import styles from './Header.module.scss';
 import HeartIcon from 'shared/icons/HeartIcon';
+import useProductInBasket from 'shared/hooks/useProductInBasket';
 
 export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
   const layoutType = useLayoutType();
@@ -21,7 +21,9 @@ export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
   const isTablet = layoutType === 'tablet';
   // const isDesktop = layoutType === 'desktop';
 
-  const orders = useSelector(getAllOrders);
+  const { showBascketOrders } = useProductInBasket();
+  const products = showBascketOrders();
+
   const userIsLoggedIn = useSelector(selectIsLogin);
   const { pathname } = useLocation();
   const { isOpen, openModal, closeModal } = useModal();
@@ -40,7 +42,9 @@ export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
 
   const renderHeaderLogo = () => (
     <div className={styles.logo}>
-      <Link to="/main">{isMobile ? <Logo /> : <BrovkoHeaderIcon />}</Link>
+      <Link to="/main" aria-label="На головну сторінку">
+        {isMobile ? <Logo /> : <BrovkoHeaderIcon />}
+      </Link>
     </div>
   );
 
@@ -51,11 +55,21 @@ export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
     return (
       <div className={styles.boxBasket}>
         {!isMobile && (
-          <Link to="shop/favourites" className={styles.userIcon}>
+          <Link
+            to="shop/favourites"
+            aria-label="Відкрити сторінку з улюбленими смаколиками"
+            className={styles.userIcon}
+          >
             <HeartIcon className={styles.heart_icon} />
           </Link>
         )}
-        <Link to="shop/user" className={styles.userIcon}>
+        <Link
+          to="shop/user"
+          aria-label={
+            userIsLoggedIn ? 'Відкрити сторінку користувача' : 'Зареєструватися'
+          }
+          className={styles.userIcon}
+        >
           {userIsLoggedIn ? (
             <Avatar size={avatarSize} marginBottom="0" locked />
           ) : (
@@ -68,10 +82,10 @@ export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
           className={styles.buttonBasket}
         >
           <BasketLight width={iconSize} height={iconSize} />
-          {orders.length !== 0 && (
+          {products && products?.length > 0 && (
             <div className={styles.ellips}>
               <Ellipse />
-              <span className={styles.ellipsSpan}>{orders.length}</span>
+              <span className={styles.ellipsSpan}>{products?.length}</span>
             </div>
           )}
         </button>

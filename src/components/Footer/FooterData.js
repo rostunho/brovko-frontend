@@ -34,6 +34,7 @@ export const socialIconsData = [
     label: 'Instagram',
     href: 'https://www.instagram.com/brovko.pet/',
     icon: <InstaIcon className={styles.icon} />,
+    ariaLabel:'Ми в Instagram',
   },
   // {
   //   label: 'Viber',
@@ -44,11 +45,13 @@ export const socialIconsData = [
     label: 'FaceBook',
     href: 'https://www.facebook.com/profile.php?id=100089139919993',
     icon: <FaceBook2Icon className={styles.icon} />,
+    ariaLabel:'Ми в FaceBook',
   },
   {
     label: 'Telegram',
     href: 'https://t.me/brovko_pet',
     icon: <TelegramIcon className={styles.icon} />,
+    ariaLabel:'Ми в Telegram',
   },
 ];
 

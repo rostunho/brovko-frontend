@@ -9,6 +9,7 @@
 
   width: 100%;
   min-width: 120px;
+  max-width: 288px;
   height: 40px;
 
   @include text-styles(Nunito, 14px, bold, 19px);

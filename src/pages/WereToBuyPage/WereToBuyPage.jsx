@@ -2,7 +2,9 @@ import {useState, useEffect} from 'react';
 import { useLocation } from "react-router-dom";
 import Heading from "shared/components/Heading";
 import WhereToBuy from "components/WhereToBuy/WhereToBuy";
+import Modal from 'shared/components/Modal/Modal';
 import { getAllLocations } from "shared/services/api/brovko/locations";
+import styles from './WereToBuyPage.module.scss'
 
 export default function WereToBuyPage() {
   const location = useLocation();
@@ -10,6 +12,7 @@ export default function WereToBuyPage() {
   
   const [locationPoints, setLocationPoints] = useState([]);
   const [locationPointsError, setLocationPointsError] = useState(null);
+  const [showErrorModal, setShowErrorModal] = useState(false); 
  
 
   useEffect(() => {
@@ -19,27 +22,47 @@ export default function WereToBuyPage() {
   const fetchLocationPoints = async () => {
     try {
       const locations = await getAllLocations();
+      console.log('locations', locations);
       setLocationPoints(locations);
+      setLocationPointsError(null);
+      setShowErrorModal(false);
     } catch (error) {
       console.error('Помилка при отриманні локацій:', error);
       setLocationPointsError(
         'Не вдалося завантажити локації. Спробуйте знову пізніше.'
       );
+      setShowErrorModal(true);
     }
   };
+  console.log('locationPoints', locationPoints)
   
+  const closeModal = () => {
+    setShowErrorModal(false);
+  };
 
-  if (!locationPoints || locationPointsError) {
-    return <p style={{ color: 'red', marginTop: '20px' }}> {locationPointsError} </p>
-  }
+
+  const errorModalContent = (
+    <Modal  className={styles['modal-container']} closeModal={closeModal}>
+    <div className={styles.modal}>
+      <h2>Йой, сервер не відповідає...</h2>
+      <p className={styles.modalText}>Помилка при завантаженні даних з сервера. Будь ласка, спробуйте ще раз пізніше.</p>
+    </div>
+  </Modal>    
+    )
+
   
   return (
     <>
         <Heading withGoBack fromHC={backLinkHref}>Локації</Heading>
        
+        {showErrorModal && errorModalContent}
+
+        {locationPoints > 0  ?  
         <WhereToBuy
           locationPoints={locationPoints}
-        />
+        /> :  
+        <p className={styles.modalText}>{locationPointsError}</p>
+        }
       
     </>
   );

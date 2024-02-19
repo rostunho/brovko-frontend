@@ -14,11 +14,8 @@ import styles from './PersonalData.module.scss';
 const PersonalData = () => {
   const [showInfo, setShowInfo] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { firstName, middleName, lastName, _id } = useSelector(selectUser);
+  const user = useSelector(selectUser).user;
   const dispatch = useDispatch();
-
-  // const user = useSelector(selectUser);
-  // console.log(user);
 
   const onSubmitForm = async data => {
     try {
@@ -47,11 +44,11 @@ const PersonalData = () => {
       {showInfo && (
         <div className={styles.userInfo}>
           <PersonalDataForm
-            firstName={firstName}
-            middleName={middleName}
-            lastName={lastName}
+            firstName={user?.firstName}
+            middleName={user?.middleName}
+            lastName={user?.lastName}
             onSubmitForm={onSubmitForm}
-            id={_id}
+            id={user?._id}
           />
         </div>
       )}

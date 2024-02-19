@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { login } from 'redux/user/userOperations';
-import { errorAuth } from 'redux/user/userSelectors';
+import { errorAuth, selectIsLoadingUser } from 'redux/user/userSelectors';
 import { useEffect, useRef, useState } from 'react';
 // import PropTypes from 'prop-types';
 import Input from 'shared/components/Input';
 import Text from 'shared/components/Text/Text';
 import Button from 'shared/components/Button/Button';
+import Loader from 'components/Loader';
 import useForm from 'shared/hooks/useForm';
 import initialState from './initialState';
 import styles from './LoginForm.module.scss';
@@ -23,6 +24,7 @@ const LoginForm = () => {
   const [isValidPassword, setIsValidPassword] = useState(null);
   const [showSubmitButton, setShowSubmitButton] = useState(false);
   const errorLogin = useSelector(errorAuth);
+  const isLoading = useSelector(selectIsLoadingUser);
   const [formError, setFormError] = useState(null);
 
   useEffect(() => {
@@ -51,6 +53,7 @@ const LoginForm = () => {
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
+      {isLoading && <Loader />}
       <Input
         label="E-mail"
         type="email"
