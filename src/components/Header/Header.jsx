@@ -81,10 +81,10 @@ export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
           className={styles.buttonBasket}
         >
           <BasketLight width={iconSize} height={iconSize} />
-          {products.length !== 0 && (
+          {products?.length !== 0 && (
             <div className={styles.ellips}>
               <Ellipse />
-              <span className={styles.ellipsSpan}>{products.length}</span>
+              <span className={styles.ellipsSpan}>{products?.length}</span>
             </div>
           )}
         </button>
