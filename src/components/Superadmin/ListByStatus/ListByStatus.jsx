@@ -4,7 +4,7 @@ import ListByStatusItem from './ListByStatusItem';
 
 import styles from './ListByStatus.module.scss';
 
-const ListByStatus = ({ list }) => {
+const ListByStatus = ({ list, onStatusChanged }) => {
   const [selected, setSelected] = useState('');
 
   const onToggleSelect = data => {
@@ -21,6 +21,7 @@ const ListByStatus = ({ list }) => {
                 user={item}
                 selected={selected}
                 onToggleSelect={onToggleSelect}
+                onStatusChanged={onStatusChanged}
               />
             </li>
           ))}
