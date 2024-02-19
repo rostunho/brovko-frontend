@@ -1,52 +1,39 @@
-import { useSelector } from 'react-redux';
 import Order from '../Order';
 import styles from './OrderInformation.module.scss';
 
-import { ordersUserHistory } from 'redux/user/userSelectors';
-
-const OrderInformation = ({
-  id,
-  picture,
-  name,
-  note,
-  quantity,
-  price,
-  currencyId,
-  val,
-}) => {
-  const orders = useSelector(ordersUserHistory);
-
-  const orderList = Array.isArray(orders)
-    ? orders.map(
-        ({
-          amount,
-          commission,
-          costPerItem,
-          description,
-          discount,
-          id,
-          name,
-          sku,
-          picture,
-        }) => (
-          <li key={id} className={styles.item}>
-            <Order
-              id={id}
-              name={name}
-              note={note}
-              picture={picture}
-              price={costPerItem}
-              val={amount}
-            />
-          </li>
-        )
-      )
-    : null;
+const OrderInformation = ({ order }) => {
+  const orderList = order.data.products.map(
+    ({ amount, productId, name, price, picture }) => (
+      <li key={productId} className={styles.item}>
+        <Order
+          id={productId}
+          name={name}
+          // note={note}
+          // picture={picture}
+          price={price}
+          val={amount}
+        />
+      </li>
+    )
+  );
 
   return (
     <>
       <p className={styles.textDetail}>Інформація про замовлення</p>
       <ul className={styles.list}>{orderList}</ul>
+      <p className={styles.text}>Одержувач</p>
+      <p className={styles.textGet}>
+        {order.data.contacts[0].fName} {order.data.contacts[0].lName}
+      </p>
+      <p className={styles.text}>Тип доставки</p>
+      <p className={styles.textGet}>{order.data.shipping_address}</p>
+      <p className={styles.textGet}>
+        {order.meta.fields.shipping_method.options[0].text}
+      </p>
+      <p className={styles.text}>Спосіб оплати</p>
+      <p className={styles.textGet}>
+        {order.meta.fields.payment_method.options[0].text}
+      </p>
     </>
   );
 };

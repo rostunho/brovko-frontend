@@ -85,7 +85,15 @@ export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
           {products && products?.length > 0 && (
             <div className={styles.ellips}>
               <Ellipse />
-              <span className={styles.ellipsSpan}>{products?.length}</span>
+              <span
+                className={
+                  products && products.length > 9
+                    ? styles.ellipsSpan1
+                    : styles.ellipsSpan
+                }
+              >
+                {products?.length}
+              </span>
             </div>
           )}
         </button>
