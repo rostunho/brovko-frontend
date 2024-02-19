@@ -90,9 +90,16 @@ const SuperadminPage = () => {
       dispatch(addPopupOperation('Щось не так, спробуйте знову'), 'error');
     }
     try {
-      await setUser();
+      const { user } = await getUserByEmail(requestedEmail);
+      setUserFound(user);
     } catch (e) {
-      dispatch(addPopupOperation('Щось не так, спробуйте знову'), 'error');
+      setUserFound(null);
+      dispatch(
+        addPopupOperation(
+          'Не вдалося відобразити оновлені дані, спробуйте перезавантажити сторінку',
+          'error'
+        )
+      );
     }
     setLoading(false);
     setIsModalOpen(false);

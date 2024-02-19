@@ -9,13 +9,19 @@ import { changeUserStatus } from 'shared/services/api/brovko/user';
 import Image from 'shared/components/Image';
 import Button from 'shared/components/Button';
 import Modal from 'shared/components/Modal/Modal';
+import Loader from 'components/Loader';
 
 import ModalStatusUpdate from 'components/Superadmin/ModalStatusUpdate';
 import NewStatusOptions from 'components/Superadmin/NewStatusOptions';
 
 import styles from './ListByStatusItem.module.scss';
 
-const ListByStatusItem = ({ user, selected, onToggleSelect }) => {
+const ListByStatusItem = ({
+  user,
+  selected,
+  onToggleSelect,
+  onStatusChanged,
+}) => {
   const [status, setStatus] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -31,6 +37,7 @@ const ListByStatusItem = ({ user, selected, onToggleSelect }) => {
     try {
       await changeUserStatus(data);
       dispatch(addPopupOperation('Є, змінили статус!'), 'success');
+      onStatusChanged(user._id);
     } catch (e) {
       dispatch(addPopupOperation('Щось не так, спробуйте знову'), 'error');
     }
@@ -44,12 +51,13 @@ const ListByStatusItem = ({ user, selected, onToggleSelect }) => {
   };
   return (
     <>
+      {loading && <Loader />}
       {isModalOpen && (
         <Modal closeModal={onCloseModal}>
           <ModalStatusUpdate
             onSubmitForm={onChangingStatus}
             email={currentUser.email}
-            _id={user._id}
+            _id={user?._id}
             status={status}
           />
         </Modal>
@@ -82,9 +90,7 @@ const ListByStatusItem = ({ user, selected, onToggleSelect }) => {
           </div>
         </div>
         {selected === user.email && (
-          <div
-            className={`${styles.newStatusBox} ${!selected ? 'disable' : ''}`}
-          >
+          <div className={styles.newStatusBox}>
             <NewStatusOptions
               oldStatus={user.status}
               setNewStatus={setNewStatus}

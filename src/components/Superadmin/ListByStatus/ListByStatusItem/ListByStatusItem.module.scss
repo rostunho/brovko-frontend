@@ -55,10 +55,32 @@
   padding-right: 24px;
   border-radius: var(--border-radius-secondary);
   box-shadow: var(--box-shadow);
-  opacity: 1;
-  transition: opacity 1s ease-in-out;
+  // opacity: 1;
+  // transition: opacity 1s ease-in-out;
+  animation-name: fade-in;
+  animation-timing-function: ease-in;
+  animation-duration: 500ms;
+  animation-fill-mode: forwards;
 }
 
-.newStatusBox.disable {
-  opacity: 0;
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  85% {
+    opacity: 0.5;
+    transform: translateY(10%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
+// .disable {
+//   opacity: 0;
+//   transition: opacity 1s ease-in-out;
+// }

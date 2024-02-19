@@ -33,7 +33,7 @@ const StatusSection = () => {
       dispatch(addPopupOperation('Декого таки знайшли'));
       setList(data.users);
     } catch (error) {
-      if (error.response.status === 404) {
+      if (error?.response?.status === 404) {
         setList([]);
         dispatch(addPopupOperation('Немає нікого з таким статусом', 'error'));
         setNobodyExist(true);
@@ -42,14 +42,24 @@ const StatusSection = () => {
     setLoading(false);
   };
 
+  const onStatusChanged = data => {
+    const newList = list.filter(user => user._id !== data);
+    setList(newList);
+  };
+
   return (
     <div className={styles.container}>
-      <StatusOptions toggleStatusToShow={toggleStatusToShow} />
+      <StatusOptions
+        toggleStatusToShow={toggleStatusToShow}
+        selectedStatus={showStatus}
+      />
       <Button onClick={onShowStatusList} className={styles.buttonShow}>
         Показати список
       </Button>
       {loading && <Loader />}
-      {list.length > 0 && <ListByStatus list={list} />}
+      {list.length > 0 && (
+        <ListByStatus onStatusChanged={onStatusChanged} list={list} />
+      )}
       {nobodyExist && <p>Ця роль ще ніким не зайнята!</p>}
     </div>
   );

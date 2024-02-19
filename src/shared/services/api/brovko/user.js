@@ -135,9 +135,7 @@ export const getUserByEmail = async (email = '') => {
 
 export const changeUserStatus = async data => {
   try {
-    console.log(data, 'data to change status');
     const { data: result } = await instance.patch('/user/update-status', data);
-    console.log('change user status: ', result);
     return result;
   } catch (error) {
     console.error('Error changing user status: ', error);
