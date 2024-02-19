@@ -132,11 +132,14 @@ const DoubleRangeSlider = ({ onSubmit, minLimit, maxLimit, min, max }) => {
             max={maxPriceLimit}
             ref={fromInput}
             step="0.1"
-            onChange={e =>
+            onChange={e => {
+              setMinSelectedValue(
+                e.target.value === '' ? undefined : Number(e.target.value)
+              );
               setMinDigitValue(
                 e.target.value === '' ? undefined : Number(e.target.value)
-              )
-            }
+              );
+            }}
             onBlur={e => {
               if (e.target.value < minPriceLimit) {
                 setMinDigitValue(minPriceLimit);
@@ -159,11 +162,14 @@ const DoubleRangeSlider = ({ onSubmit, minLimit, maxLimit, min, max }) => {
             max={maxPriceLimit}
             ref={toInput}
             step="0.1"
-            onChange={e =>
+            onChange={e => {
+              setMaxSelectedValue(
+                e.target.value === '' ? undefined : Number(e.target.value)
+              );
               setMaxDigitValue(
                 e.target.value === '' ? undefined : Number(e.target.value)
-              )
-            }
+              );
+            }}
             onBlur={e => {
               if (e.target.value > maxPriceLimit) {
                 setMaxDigitValue(maxPriceLimit);
@@ -193,8 +199,12 @@ const DoubleRangeSlider = ({ onSubmit, minLimit, maxLimit, min, max }) => {
               setMinRangeValue(Number(maxRangeValue));
               return;
             }
-            setMinSelectedValue(Number(e.target.value));
-            setMinRangeValue(Number(e.target.value));
+            setMinSelectedValue(
+              e.target.value === '' ? undefined : Number(e.target.value)
+            );
+            setMinRangeValue(
+              e.target.value === '' ? undefined : Number(e.target.value)
+            );
             controlFromSlider();
           }}
         />
@@ -210,8 +220,12 @@ const DoubleRangeSlider = ({ onSubmit, minLimit, maxLimit, min, max }) => {
               setMinRangeValue(Number(minRangeValue));
               return;
             }
-            setMaxSelectedValue(Number(e.target.value));
-            setMaxRangeValue(Number(e.target.value));
+            setMaxSelectedValue(
+              e.target.value === '' ? undefined : Number(e.target.value)
+            );
+            setMaxRangeValue(
+              e.target.value === '' ? undefined : Number(e.target.value)
+            );
             controlToSlider();
           }}
         />
