@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { selectUser } from 'redux/user/userSelectors';
 import submitFeedback from 'shared/services/api/brovko/feedback';
 import Input from 'shared/components/Input';
 import Textarea from 'shared/components/Textarea';
 import Button from 'shared/components/Button';
 import Modal from 'shared/components/Modal/Modal';
+import { addPopupOperation } from 'redux/popup/popupOperations';
 import styles from './Contacts.module.scss';
 
 function FeedbackForm() {
@@ -21,6 +23,7 @@ function FeedbackForm() {
   const [showThankYouModal, setShowThankYouModal] = useState(false);
 
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (user) {
@@ -42,11 +45,26 @@ function FeedbackForm() {
     }));
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    await submitFeedback(formData, setFormData);
-    setFormData(initialFormData);
+    try {
+      await submitFeedback(formData, setFormData);
+    setFormData(initialFormData); 
     setShowThankYouModal(true);
+    } catch (error) {
+      console.error('Error submit feedback', error.response.data.message);
+        if (error.response.data.message === 'Мінімальна довжина тексту повинна бути не менше 10 символів') 
+        { dispatch(addPopupOperation('Мінімальна довжина тексту повинна бути не менше 10 символів', 'error'))
+          } else {
+            dispatch(
+              addPopupOperation(
+                'Щось пішло не так, спробуй пізніше',
+                'warning'
+              )
+            );
+      }
+    }
+    
   };
 
 
@@ -58,7 +76,7 @@ function FeedbackForm() {
     <Modal closeModal={closeModal}>
       <div className={styles.modal}>
         <h2>Дякуємо за повідомлення!</h2>
-        <p>Незабаром наш співробітник звʼяжеться з Вами.</p>
+        <p className={styles.modalText}>Незабаром наш співробітник звʼяжеться з Вами.</p>
       </div>
     </Modal>
   );
