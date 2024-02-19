@@ -62,9 +62,9 @@ export const update = createAsyncThunk(
     try {
       const result = await api.update(data);
       return result;
-    } catch ({ response }) {
-      // console.log(response.data.message);
-      return rejectWithValue(response.data.message);
+    } catch (response) {
+      console.log('response into update catch', response);
+      return rejectWithValue(response);
     }
   }
 );
@@ -187,7 +187,7 @@ export const usersOrdersHistory = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const result = await api.getAllOrdersAuth();
-      console.log('result', result);
+      // console.log('result', result);
       return result;
     } catch ({ response }) {
       // console.log(response.data.message);

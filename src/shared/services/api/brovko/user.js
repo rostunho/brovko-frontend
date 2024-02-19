@@ -76,9 +76,14 @@ export const logout = async () => {
 };
 
 export const update = async updatedData => {
-  const { data: result } = await instance.patch(`/user/update`, updatedData);
-  setToken(result.accessToken);
-  return result;
+  try {
+    const { data: result } = await instance.patch(`/user/update`, updatedData);
+    setToken(result.accessToken);
+    return result;
+  } catch (error) {
+    console.log('error in api.update :', error);
+    throw new Error(error);
+  }
 };
 
 export const updateAvatar = async updatedData => {
