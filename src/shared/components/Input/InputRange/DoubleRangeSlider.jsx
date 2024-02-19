@@ -190,6 +190,7 @@ const DoubleRangeSlider = ({ onSubmit, minLimit, maxLimit, min, max }) => {
           ref={fromSlider}
           onChange={e => {
             if (e.target.value > maxRangeValue) {
+              setMinRangeValue(Number(maxRangeValue));
               return;
             }
             setMinSelectedValue(Number(e.target.value));
@@ -206,6 +207,7 @@ const DoubleRangeSlider = ({ onSubmit, minLimit, maxLimit, min, max }) => {
           ref={toSlider}
           onChange={e => {
             if (e.target.value < minRangeValue) {
+              setMinRangeValue(Number(minRangeValue));
               return;
             }
             setMaxSelectedValue(Number(e.target.value));
