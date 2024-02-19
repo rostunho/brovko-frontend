@@ -10,6 +10,7 @@ import Modal from 'shared/components/Modal/Modal';
 import styles from './ProductListPage.module.scss';
 import DoubleRangeSlider from 'shared/components/Input/InputRange/DoubleRangeSlider';
 import Pagination from 'components/Products/Pagination';
+import ProductCardSkeleton from 'components/Products/Skeleton/ProductCardSkeleton';
 
 export default function ProductListPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -37,7 +38,8 @@ export default function ProductListPage() {
 
   // const [page, setPage] = useState(1);
   const [firstRender, setFirstRender] = useState(true);
-
+  const [loadingData, setLoadingData] = useState(true); // Додаємо стан для відстеження завантаження даних
+  const [loadingPage, setLoadingPage] = useState(false);
   const [error, setError] = useState(null);
   const [showErrorModal, setShowErrorModal] = useState(false); 
 
@@ -149,6 +151,8 @@ export default function ProductListPage() {
   };
 
   const fetchProducts = async (page, limit) => {
+    setLoadingPage(true);
+    await new Promise(resolve => setTimeout(resolve, 1000));
     (async () => {
       try {
         const response = await getAllProducts({
@@ -162,6 +166,9 @@ export default function ProductListPage() {
           perPage: limit ? Number(limit) : 12,
         });
         setProducts(response);
+
+        setLoadingData(false);
+        setLoadingPage(false);
         setError(null);
         setShowErrorModal(false);
       } catch (error) {
@@ -335,66 +342,74 @@ export default function ProductListPage() {
   );
 
   return (
-    <>
-     {showErrorModal && errorModalContent}
-      <Heading withGoBack>Крамничка</Heading>
-      <Input
-        name="searchbar"
-        label=""
-        type="search"
-        value={searchBarValue}
-        onChange={e => setSearchBarValue(e.target.value)}
-        onClick={handleKeyWord}
-      />
-      <div className={styles['selectors-container']}>
-        <Selector
-          name="categories"
+  <>
+    {loadingData || loadingPage ? (
+      <ProductCardSkeleton />
+    ) : (
+      <>
+        {showErrorModal && errorModalContent}
+        <Heading withGoBack>Крамничка</Heading>
+        <Input
+          name="searchbar"
           label=""
-          data={currentCategories}
-          fetchSelectorValue={handleCategory}
-          defaultValue={{
-            id: categoryId,
-            name: categoryName,
-          }}
-          defaultOption={'Всі категорії'}
-          onClick={toggleCloseCategorySelector}
-          onOptionClick={clearSearchBar}
-          forceClosing={sortingSelectorIsOpen}
+          type="search"
+          value={searchBarValue}
+          onChange={e => setSearchBarValue(e.target.value)}
+          onClick={handleKeyWord}
         />
-        <Selector
-          name="sorting"
-          label=""
-          data={sortingTemplate}
-          fetchSelectorValue={handleSortingOptions}
-          defaultValue={sortingToShow}
-          onClick={toggleCloseSortingSelector}
-          forceClosing={categorySelectorIsOpen}
-        />
-      </div>
-
-      <DoubleRangeSlider
-        onSubmit={handlePrices}
-        minLimit={products?.minPrice}
-        maxLimit={products?.maxPrice}
-        min={Number(priceMin)}
-        max={Number(priceMax)}
-        keyword={keyWord}
-      />
-
-      {products?.products && (
-        <>
-          <ProductList
-            products={products.products}
-            totalPages={products.totalPages}
-            searchValue={keyWord}
+        <div className={styles['selectors-container']}>
+          <Selector
+            name="categories"
+            label=""
+            data={currentCategories}
+            fetchSelectorValue={handleCategory}
+            defaultValue={{
+              id: categoryId,
+              name: categoryName,
+            }}
+            defaultOption={'Всі категорії'}
+            onClick={toggleCloseCategorySelector}
+            onOptionClick={clearSearchBar}
+            forceClosing={sortingSelectorIsOpen}
           />
-          <Pagination
-            page={page === '0' ? 1 : Number(page)}
-            totalPages={products.totalPages}
-            onChangePage={handleChangePage}
+          <Selector
+            name="sorting"
+            label=""
+            data={sortingTemplate}
+            fetchSelectorValue={handleSortingOptions}
+            defaultValue={sortingToShow}
+            onClick={toggleCloseSortingSelector}
+            forceClosing={categorySelectorIsOpen}
           />
-        </>
-      )}
-    </>
-  );
+        </div>
+
+        {products.products.length > 1 && (
+          <DoubleRangeSlider
+            onSubmit={handlePrices}
+            minLimit={products?.minPrice}
+            maxLimit={products?.maxPrice}
+            min={Number(priceMin)}
+            max={Number(priceMax)}
+            keyword={keyWord}
+          />
+        )}
+
+        {products?.products && (
+          <>
+            <ProductList
+              products={products.products}
+              totalPages={products.totalPages}
+              searchValue={keyWord}
+            />
+            <Pagination
+              page={page === '0' ? 1 : Number(page)}
+              totalPages={products.totalPages}
+              onChangePage={handleChangePage}
+            />
+          </>
+        )}
+      </>
+    )}
+  </>
+);
 }
