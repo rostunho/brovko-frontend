@@ -1,17 +1,12 @@
 import { useSearchParams } from 'react-router-dom';
 import Rectangle from 'components/Rectangle';
-import styles from './ModerateReviewsSwitcher.module.scss';
+import styles from './FeedbackSwitcher.module.scss';
 
-export default function ModerateReviewsSwitcher({
-  // onNewClick,
-  // onApprovedClick,
-  // onRejectedClick,
-  ...props
-}) {
+export default function FeedbackSwitcher() {
   const [, setSearchParams] = useSearchParams();
 
   const changeCommentsCategory = category => {
-    setSearchParams({ comments: category }, { replace: true });
+    setSearchParams({ feedbacks: category }, { replace: true });
   };
   return (
     <>
@@ -30,18 +25,9 @@ export default function ModerateReviewsSwitcher({
           <button
             type="button"
             className={styles.button}
-            onClick={() => changeCommentsCategory('approved')}
+            onClick={() => changeCommentsCategory('archived')}
           >
-            Затверджені
-          </button>
-        </li>
-        <li>
-          <button
-            type="button"
-            className={styles.button}
-            onClick={() => changeCommentsCategory('rejected')}
-          >
-            Відхилені
+            Архів
           </button>
         </li>
       </ul>

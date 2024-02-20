@@ -4,7 +4,7 @@ import { getReviewsByStatus } from 'shared/services/api/brovko';
 import NewReviewItem from '../NewReviewItem/NewReviewItem';
 import styles from './NewReviewsList.module.scss';
 
-export default function NewReviewsList({ ...props }) {
+export default function NewReviewsList({ style, ...props }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [reviews, setReviews] = useState([]);
 
@@ -27,7 +27,7 @@ export default function NewReviewsList({ ...props }) {
     })();
   }, [searchParams]);
   return (
-    <ul>
+    <ul style={style}>
       {reviews &&
         reviews.length > 0 &&
         reviews.map((review, idx) => {
