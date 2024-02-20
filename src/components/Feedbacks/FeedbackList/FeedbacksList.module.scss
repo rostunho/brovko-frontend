@@ -1,0 +1,17 @@
+.list {
+  width: 100%;
+  margin-top: 16px;
+
+  @media screen and (min-width: 480px) {
+    border-radius: 12px;
+    padding: 28px 20px;
+    width: 480px;
+
+    margin: 16px auto 0;
+    box-shadow: 0 1px 12px -4px rgba(0, 0, 0, 0.2);
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 606px;
+  }
+}
