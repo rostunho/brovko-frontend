@@ -17,7 +17,7 @@ export default function FeedbackItem({ feedback, ...props }) {
       user && setAuthor({ ...user });
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [feedback]);
 
   return (
     <li
