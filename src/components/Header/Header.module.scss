@@ -96,6 +96,14 @@
   @include text-styles(Nunito, 12px);
 }
 
+.ellipsSpan1 {
+  position: absolute;
+  left: 3%;
+  width: 15px;
+  color: var(--white-text-color);
+  @include text-styles(Nunito, 12px);
+}
+
 .heart_icon {
   fill: transparent;
   stroke: rgba(243, 166, 16, 1);
