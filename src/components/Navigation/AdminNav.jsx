@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { selectUser } from 'redux/user/userSelectors';
-import Button from 'shared/components/Button/Button';
+
 import styles from './Nav.module.scss';
 
 export default function AdminNav({ onClick }) {
@@ -14,6 +14,11 @@ export default function AdminNav({ onClick }) {
             Адмін
           </NavLink>
         </li>
+        {/* <li className={styles.item} onClick={onClick}>
+          <NavLink className={styles.link} to="/superadmin">
+            SuperAdmin
+          </NavLink>
+        </li> */}
       </ul>
     </>
     //

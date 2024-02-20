@@ -10,38 +10,29 @@ export default function AllUserNav({ onClick }) {
   const currentUser = useSelector(selectUser);
 
   const location = useLocation();
-  // console.log('location in Menu', location)
 
   return (
     <>
       <ul className={styles.list}>
-        <li className={styles.item} onClick={onClick}>
-          <NavLink
-            className={styles.link}
-            to="/all/where-to-buy"
-            state={{ from: location }}
-          >
-            Локації
-          </NavLink>
-        </li>
-        <li className={styles.item} onClick={onClick}>
-          <NavLink
-            className={styles.link}
-            to="/all/about"
-            state={{ from: location }}
-          >
+
+      <li className={styles.item} onClick={onClick}>
+          <NavLink className={styles.link} to="/all/about" state={{ from: location }}>
             Про Бровка
           </NavLink>
         </li>
+
         <li className={styles.item} onClick={onClick}>
-          <NavLink
-            className={styles.link}
-            to="/all/perevagy"
-            state={{ from: location }}
-          >
+          <NavLink className={styles.link} to="/all/where-to-buy" state={{ from: location }}>
+            Локації
+          </NavLink>
+        </li>
+        
+        <li className={styles.item} onClick={onClick}>
+          <NavLink className={styles.link} to="/all/advantages" state={{ from: location }}>
             Чому це корисно?
           </NavLink>
         </li>
+
         <li className={styles.item} onClick={onClick}>
           <NavLink
             className={styles.link}
@@ -51,7 +42,8 @@ export default function AllUserNav({ onClick }) {
             КОНТАКТИ
           </NavLink>
         </li>
-        {currentUser.user.status === 'superadmin' && (
+        
+        {currentUser.status === 'superadmin' && (
           <li className={styles.item} onClick={onClick}>
             <NavLink className={styles.link} to="/all/admin">
               Адмін

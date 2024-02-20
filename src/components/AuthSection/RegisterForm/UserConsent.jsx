@@ -5,11 +5,11 @@ const UserConsent = () => {
     <>
       <p className={styles.text}>
         Реєструючись, ви погоджуєтеся з умовами {''}
-        <a className={styles.link} href="/all/personal-data-protection">
+        <a className={styles.link} href="/all/privacy-policy">
           положення про обробку і захист персональних даних {''}
         </a>
         та
-        <a className={styles.link} href="/all/user-agreement">
+        <a className={styles.link} href="/all/public-offer">
           {''} угодою користувача
         </a>
       </p>
