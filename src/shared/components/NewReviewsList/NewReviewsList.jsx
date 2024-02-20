@@ -9,7 +9,7 @@ export default function NewReviewsList({ style, ...props }) {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    setSearchParams({ comments: 'new' });
+    setSearchParams({ comments: 'new' }, { replace: true });
     (async () => {
       const newReviews = await getReviewsByStatus();
       console.log('newReviews :>> ', newReviews);

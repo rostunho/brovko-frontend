@@ -133,7 +133,7 @@ export const getUserByEmail = async (email = '') => {
     });
     return data;
   } catch (error) {
-    console.error('Error getting user by email: ', error);
+    console.log('Error getting user by email: ', error);
     throw error;
   }
 };

@@ -25,6 +25,15 @@ export default function FeedbackSwitcher() {
           <button
             type="button"
             className={styles.button}
+            onClick={() => changeCommentsCategory('all')}
+          >
+            Усі
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            className={styles.button}
             onClick={() => changeCommentsCategory('archived')}
           >
             Архів
