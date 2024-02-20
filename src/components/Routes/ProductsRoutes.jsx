@@ -25,14 +25,14 @@ const NewProductDetailPage = lazy(() =>
   import('pages/NewProductDetailPage/NewProductDetailPage')
 );
 
-const LazyProductDescriptionPage = lazy(() =>
-  import('pages/ProductDetailPage/ProductDescriptionPage')
-);
-const LazyProductReviewPage = lazy(() =>
-  import('pages/ProductDetailPage/ProductReviewPage')
-);
+// const LazyProductDescriptionPage = lazy(() =>
+//   import('pages/ProductDetailPage/ProductDescriptionPage')
+// );
+// const LazyProductReviewPage = lazy(() =>
+//   import('pages/ProductDetailPage/ProductReviewPage')
+// );
 
-const OrderPage = lazy(() => import('pages/OrderPage'));
+// const OrderPage = lazy(() => import('pages/OrderPage'));
 
 export default function ProductsRoutes() {
   return (

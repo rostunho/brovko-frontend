@@ -49,17 +49,17 @@ function FeedbackForm() {
     e.preventDefault();
     try {
       await submitFeedback(formData, setFormData);
-    setFormData(initialFormData); 
+    setFormData(prevData => ({ ...prevData, text: ''})); //перевірити 
     setShowThankYouModal(true);
     } catch (error) {
-      console.error('Error submit feedback', error.response.data.message);
+      console.error('Error submit feedback', error.response.data.message); 
         if (error.response.data.message === 'Мінімальна довжина тексту повинна бути не менше 10 символів') 
         { dispatch(addPopupOperation('Мінімальна довжина тексту повинна бути не менше 10 символів', 'error'))
           } else {
             dispatch(
               addPopupOperation(
                 'Щось пішло не так, спробуй пізніше',
-                'warning'
+                'error'
               )
             );
       }
