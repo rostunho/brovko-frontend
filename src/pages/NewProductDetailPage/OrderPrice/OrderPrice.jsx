@@ -7,14 +7,18 @@ import QuantityButtons from 'shared/components/QuantityButtonModal/QuantityButto
 import Button from 'shared/components/Button';
 import ModalProductsInBasket from 'components/ModalProductsInBasket/ModalProductsInBasket';
 import styles from './OrderPrice.module.scss';
+import useProductInBasket from 'shared/hooks/useProductInBasket';
 
 // export default function OrderPrice({ product, className, ...props })
 
 const OrderPrice = forwardRef(({ product, className, ...props }, ref) => {
+  const { handleAddToCart, showBascketOrders } = useProductInBasket();
+  const products = showBascketOrders();
+
   const currentOrders = useSelector(getAllOrders);
   const [quantity, setQuantity] = useState(1);
   const [showBasket, setShowBasket] = useState(false);
-  const productInBasket = currentOrders.find(el => el._id === product._id);
+  const productInBasket = products.find(el => el._id === product._id);
   const { screenWidth } = useScreen();
   const dispatch = useDispatch();
 
@@ -45,7 +49,7 @@ const OrderPrice = forwardRef(({ product, className, ...props }, ref) => {
       return;
     }
 
-    dispatch(addOrder({ ...product, value: quantity }));
+    handleAddToCart({ product, value: quantity });
     setShowBasket(true);
   };
 

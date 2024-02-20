@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import QuntityButtons from './QuantityButtons';
 import Image from '../Image';
 import BasketSmall from 'shared/icons/BasketSmall';
-import { useDispatch } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUser } from 'redux/user/userSelectors';
 import { changeQuantity } from 'redux/basket/basketSlice';
+import { changeQuantityOrderUser } from 'redux/user/userSlice';
 
 import styles from './QuantityButtonModal.module.scss';
 
@@ -18,7 +19,9 @@ const QuantityButtonModal = ({
   val,
   setModalDelete,
   setOrderId,
+  setTotalValue,
 }) => {
+  const { isLogin } = useSelector(selectUser);
   const [value, setValue] = useState(val || 1);
   const currentPrice = (price * value).toFixed(2);
 
@@ -31,7 +34,13 @@ const QuantityButtonModal = ({
   };
 
   useEffect(() => {
-    dispatch(changeQuantity({ id, value }));
+    if (isLogin) {
+      dispatch(changeQuantityOrderUser({ id, value }));
+    } else {
+      dispatch(changeQuantity({ id, value }));
+    }
+
+    setTotalValue(value);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 

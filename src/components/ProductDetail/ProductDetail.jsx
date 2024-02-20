@@ -33,7 +33,8 @@ import useProductInBasket from 'shared/hooks/useProductInBasket';
 import styles from './ProductDetail.module.scss';
 
 export default function ProductDetail({ product, reviews, reviewsError }) {
-  const { handleAddToCart } = useProductInBasket();
+  const { handleAddToCart, showBascketOrders } = useProductInBasket();
+  const products = showBascketOrders();
 
   // const [product, setProduct] = useState(null);
   // console.log('product into PD :>> ', product);
@@ -65,26 +66,11 @@ export default function ProductDetail({ product, reviews, reviewsError }) {
   const delivery = DELIVERY_INFO;
   const payment = PAYMENT_INFO;
 
-  // const handleAddPopup = text => {
-  //   dispatch(addPopupOperation(text));
-  // };
-
   const goToEditProduct = () => {
     navigate(`/admin/${productId}`);
   };
-
-  const orderInBasket = orders.some(order => order._id === product._id);
-
-  // handleAddToCart({ product, value });
-
-  // const handleAddToCart = () => {
-  //   if (orderInBasket) {
-  //     openModal();
-  //     return;
-  //   }
-  //   dispatch(addOrder({ ...product, value: value }));
-  //   dispatch(addPopupOperation('Товар додано в кошик'));
-  // };
+  console.log('products', products);
+  const orderInBasket = products.some(order => console.log('order', order));
 
   const EditButton = ({ userStatus, goToEditProduct }) => {
     if (userStatus === 'manager' || userStatus === 'superadmin') {
@@ -127,13 +113,16 @@ export default function ProductDetail({ product, reviews, reviewsError }) {
             </h3>
           </div>
           <Button
-            onClick={() => handleAddToCart({ product, value })}
+            onClick={e => {
+              e.preventDefault();
+              handleAddToCart({ product, value });
+            }}
             value={value}
             type="submit"
             size="lg"
             style={{ marginTop: 32 }}
           >
-            {orderInBasket ? 'Видалити з кошика' : 'Додати в кошик'}
+            {!orderInBasket ? 'Видалити з кошика' : 'Додати в кошик'}
           </Button>
 
           {isOpen && <ModalProductsInBasket closeModal={closeModal} />}
