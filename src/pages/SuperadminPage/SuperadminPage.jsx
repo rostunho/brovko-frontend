@@ -67,9 +67,9 @@ const SuperadminPage = () => {
 
   const currentUser = useSelector(selectUser);
 
-  if (currentUser.status !== 'superadmin') {
-    return <Navigate to="/" />;
-  }
+  // if (currentUser.status !== 'superadmin') {
+  //   return <Navigate to="/" />;
+  // }
 
   const handleSubmit = async event => {
     event.preventDefault();
