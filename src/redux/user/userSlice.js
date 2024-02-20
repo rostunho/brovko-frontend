@@ -6,6 +6,7 @@ import {
   current,
   update,
   updateAvatar,
+  updateBasket,
   logout,
   googleAuth,
   usersOrdersHistory,
@@ -45,16 +46,14 @@ const userSlice = createSlice({
       );
     },
     addOrderUser(state, { payload }) {
-      console.log('payload', payload);
       state.productInBasket = [...state.productInBasket, { ...payload }];
     },
     deleteOrderUser(state, action) {
-      console.log('action', action);
-      const filteredOrders = state.productInBasket.filter(order => {
-        console.log('order', order);
-        return order._id !== action.payload;
-      });
-      state.productInBasket = filteredOrders;
+      const { payload } = action;
+      // Фильтруем заказы, оставляя только те, которые не совпадают с удаляемым заказом
+      state.productInBasket = state.productInBasket.filter(
+        order => order._id !== payload
+      );
     },
     changeQuantityOrderUser(state, action) {
       const { id, value } = action.payload;
@@ -126,6 +125,21 @@ const userSlice = createSlice({
         state.isLogin = true;
       })
       .addCase(updateAvatar.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.token = '';
+        state.error = payload;
+      })
+      .addCase(updateBasket.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateBasket.fulfilled, (state, { payload }) => {
+        const { productInBasket } = payload;
+        state.loading = false;
+        state.user = { ...state.user, productInBasket };
+        state.isLogin = true;
+      })
+      .addCase(updateBasket.rejected, (state, { payload }) => {
         state.loading = false;
         state.token = '';
         state.error = payload;

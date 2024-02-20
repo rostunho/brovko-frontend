@@ -21,15 +21,18 @@ const useProductInBasket = () => {
       const dataToUpdate = {
         id: user._id,
         ...user,
-        productInBasket: productInBasket,
+        productInBasket,
       };
+      console.log('dataToUpdate', dataToUpdate);
+
       dispatch(update(dataToUpdate));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userIsLoggedIn, productInBasket, dispatch]);
 
   const showBascketOrders = () => {
-    const products = isLogin ? user?.productInBasket : orders;
+    const products = isLogin ? user.productInBasket : orders;
+    // console.log('products', products);
     return products;
   };
 

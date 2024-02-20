@@ -9,26 +9,8 @@ import { selectIsLogin } from 'redux/user/userSelectors';
 import styles from './ModalDelete.module.scss';
 
 const ModalDelete = ({ setModalDelete, orderId }) => {
-  // const dispatch = useDispatch();
-  // const userIsLoggedIn = useSelector(selectIsLogin);
-  // console.log('setModalDelete', setModalDelete);
-  // console.log('orderId', orderId);
+  console.log('orderId', orderId);
   const { hahdleBasketDel, hahdleBasketClose } = useProductInBasket();
-  // console.log('hahdleBasketDel', hahdleBasketDel);
-
-  // const hahdleBasketDel = () => {
-  //   if (userIsLoggedIn) {
-  //     dispatch(deleteOrderUser(orderId));
-  //     setModalDelete(false);
-  //   }
-  //   console.log('!user');
-  //   dispatch(deleteOrder(orderId));
-  //   setModalDelete(false);
-  // };
-
-  // const hahdleBasketClose = () => {
-  //   setModalDelete(false);
-  // };
 
   return (
     <div className={styles.wrapper}>

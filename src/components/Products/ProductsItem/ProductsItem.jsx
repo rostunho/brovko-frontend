@@ -31,25 +31,13 @@ const ProductsItem = ({
   adminInCustomerMode,
 }) => {
   const { handleAddToCart } = useProductInBasket();
-  // const [product, setProduct] = useState(null);
   const [cardIsSelected, setCardIsSelected] = useState(false);
-  // const [isFavourite, setIsFavourite] = useState(false);
-
-  // const { productId } = useParams();
-  // console.log('useParams', productId);
 
   const location = useLocation();
 
-  // console.log('location :>> ', location);
-
-  const orders = useSelector(getAllOrders);
   const dispatch = useDispatch();
 
   const { favouriteProducts, user, isLogin } = useSelector(({ user }) => user);
-
-  // useEffect(() => {
-  //   getProductById(productId).then(product => setProduct(product));
-  // }, [productId]);
 
   useEffect(() => {
     onChange && onChange(product.id, cardIsSelected);
@@ -60,20 +48,8 @@ const ProductsItem = ({
     setCardIsSelected(!cardIsSelected);
   };
 
-  const handleAddPopup = text => {
-    dispatch(addPopupOperation(text));
-  };
-
-  // handleAddToCart({ product, value: 1 });
-
-  // const handleAddToCart = () => {
-  //   const result = orders.some(order => order._id === product._id);
-  //   if (result) {
-  //     handleAddPopup('Товар вже знаходиться в кошику');
-  //     return;
-  //   }
-  //   dispatch(addOrder({ ...product, value: 1 }));
-  //   dispatch(addPopupOperation('Товар додано в кошик'));
+  // const handleAddPopup = text => {
+  //   dispatch(addPopupOperation(text));
   // };
 
   const isProductFavourite = user => {
@@ -139,59 +115,65 @@ const ProductsItem = ({
         cardIsSelected ? styles['productCard--selected'] : ''
       }`}
     >
-     <Link
-            to={`/shop/product/${product._id}`}
-            state={{ from: location.pathname + location.search }}
-          >
-      <div className={styles.image}>
-        {(userStatus === 'manager' || userStatus === 'superadmin') &&
-          !adminInCustomerMode && (
-            <div className={styles['checkbox-backdrop']}>
-              <Input
-                type="checkbox"
-                className={styles.checkbox}
-                inputClassName={styles['checkbox-input']}
-                value={cardIsSelected}
-                onChange={handleCardSelecting}
-              />
+      <Link
+        to={`/shop/product/${product._id}`}
+        state={{ from: location.pathname + location.search }}
+      >
+        <div className={styles.image}>
+          {(userStatus === 'manager' || userStatus === 'superadmin') &&
+            !adminInCustomerMode && (
+              <div className={styles['checkbox-backdrop']}>
+                <Input
+                  type="checkbox"
+                  className={styles.checkbox}
+                  inputClassName={styles['checkbox-input']}
+                  value={cardIsSelected}
+                  onChange={handleCardSelecting}
+                />
+              </div>
+            )}
+
+          <HeartIcon
+            className={`${styles.heart_icon} ${
+              isFavourite ? styles.heart_icon_checked : ''
+            }`}
+            checked={isFavourite}
+            onClick={e => {
+              e.preventDefault();
+              handleToggleFavourite();
+            }}
+          />
+
+          <Image src={product.picture} className={styles.picture} />
+        </div>
+
+        <div className={styles.description}>
+          <div className={styles.info}>
+            <div className={styles.textDesc}>
+              <p className={styles.name}>{product.name}</p>
+              <p className={styles.price}>{product.price} грн</p>
             </div>
-          )}
-
-        <HeartIcon
-          className={`${styles.heart_icon} ${
-            isFavourite ? styles.heart_icon_checked : ''
-          }`}
-          checked={isFavourite}
-          onClick={e => { e.preventDefault(); handleToggleFavourite(); }}
-        />
-
-        <Image src={product.picture} className={styles.picture} />
-      </div>
-
-      <div className={styles.description}>
-        <div className={styles.info}>
-          <div className={styles.textDesc}>
-            <p className={styles.name}>{product.name}</p>
-            <p className={styles.price}>{product.price} грн</p>
+            <div className={styles.rating}>
+              <StarEmpty />
+              <StarEmpty />
+              <StarEmpty />
+              <StarEmpty />
+              <StarEmpty />
+            </div>
           </div>
-          <div className={styles.rating}>
-            <StarEmpty />
-            <StarEmpty />
-            <StarEmpty />
-            <StarEmpty />
-            <StarEmpty />
+          <div className={styles.buttons}>
+            <Button mode="outlined">Подробиці</Button>
+            <Button
+              onClick={e => {
+                e.preventDefault();
+                handleAddToCart({ product, value: 1 });
+              }}
+              mode="primary"
+            >
+              В кошик
+            </Button>
           </div>
         </div>
-        <div className={styles.buttons}>
-          <Button mode="outlined">Подробиці</Button>
-          <Button
-            onClick={(e) => {e.preventDefault(); handleAddToCart({ product, value: 1 })}}
-            mode="primary"
-          >
-            В кошик
-          </Button>
-        </div>
-      </div>
       </Link>
     </div>
   );

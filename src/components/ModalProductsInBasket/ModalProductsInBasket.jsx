@@ -22,13 +22,6 @@ const ModalProductsInBasket = ({ closeModal }) => {
   const { showBascketOrders } = useProductInBasket();
   const products = showBascketOrders();
 
-  // const { productInBasket, user, isLogin } = useSelector(selectUser);
-  // console.log('productInBasket', productInBasket);
-  // console.log('user', user);
-  // const orders = useSelector(getAllOrders);
-  // console.log('orders', orders);
-  // const products = isLogin ? user?.productInBasket : orders;
-
   const navigate = useNavigate();
 
   const hendlClickReturn = () => {
