@@ -20,12 +20,13 @@ const PersonalData = () => {
   const onSubmitForm = async data => {
     try {
       setLoading(true);
-      await dispatch(update(data));
+      const result = await dispatch(update(data));
+      console.log('result into Personal Data :>> ', result);
       dispatch(addPopupOperation('Перезаписали!'));
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error.response);
+      console.log('error into Personal Data', error);
       dispatch(
         addPopupOperation('Не вдалося видалити, спробуйте ще разок', 'error')
       );

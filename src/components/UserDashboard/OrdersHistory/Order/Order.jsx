@@ -23,11 +23,10 @@ const Order = ({
         <div className={styles['wrapper-text']}>
           <div className={styles['wrapper-text-product']}>
             <p className={styles['text-product']}>{name}</p>
-            <p className={styles['text-product']}>{note}</p>
           </div>
           <div className={styles['wrapper-total']}>
             <p className={styles['total']}>{val} шт</p>
-            <p className={styles['total']}>{price * val} ₴</p>
+            <p className={styles['total1']}>{price * val} ₴</p>
           </div>
         </div>
       </div>

@@ -17,13 +17,14 @@
 .wrapper-text {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
+  justify-content: space-around;
+  // align-items: flex-start;
+  gap: 40px;
   flex: 1 0 0;
 }
 .wrapper-text-product {
   // display: flex;
-  width: 183px;
+  // width: 183px;
   // align-items: flex-start;
   // gap: 65px;
 }
@@ -41,9 +42,9 @@
 
 .wrapper-total {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  align-self: stretch;
+
+  // align-self: stretch;
+  // padding-top: 25px;
 }
 
 .total {
@@ -55,4 +56,9 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+
+.total1 {
+  @extend .total;
+  margin-left: auto;
 }

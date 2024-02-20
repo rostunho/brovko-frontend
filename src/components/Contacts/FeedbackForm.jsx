@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { selectUser } from 'redux/user/userSelectors';
-import submitFeedback from 'shared/services/api/brovko/feedback';
+import { addFeedback } from 'shared/services/api/brovko/feedback';
 import Input from 'shared/components/Input';
 import Textarea from 'shared/components/Textarea';
 import Button from 'shared/components/Button';
@@ -17,7 +17,7 @@ function FeedbackForm() {
     phone: '',
     text: '',
   };
- 
+
   const [formData, setFormData] = useState(initialFormData);
 
   const [showThankYouModal, setShowThankYouModal] = useState(false);
@@ -45,28 +45,31 @@ function FeedbackForm() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await submitFeedback(formData, setFormData);
-    setFormData(initialFormData); 
-    setShowThankYouModal(true);
+      await addFeedback(formData, setFormData);
+      setFormData(initialFormData);
+      setShowThankYouModal(true);
     } catch (error) {
       console.error('Error submit feedback', error.response.data.message);
-        if (error.response.data.message === 'Мінімальна довжина тексту повинна бути не менше 10 символів') 
-        { dispatch(addPopupOperation('Мінімальна довжина тексту повинна бути не менше 10 символів', 'error'))
-          } else {
-            dispatch(
-              addPopupOperation(
-                'Щось пішло не так, спробуй пізніше',
-                'warning'
-              )
-            );
+      if (
+        error.response.data.message ===
+        'Мінімальна довжина тексту повинна бути не менше 10 символів'
+      ) {
+        dispatch(
+          addPopupOperation(
+            'Мінімальна довжина тексту повинна бути не менше 10 символів',
+            'error'
+          )
+        );
+      } else {
+        dispatch(
+          addPopupOperation('Щось пішло не так, спробуй пізніше', 'warning')
+        );
       }
     }
-    
   };
-
 
   const closeModal = () => {
     setShowThankYouModal(false);
@@ -76,67 +79,69 @@ function FeedbackForm() {
     <Modal closeModal={closeModal}>
       <div className={styles.modal}>
         <h2>Дякуємо за повідомлення!</h2>
-        <p className={styles.modalText}>Незабаром наш співробітник звʼяжеться з Вами.</p>
+        <p className={styles.modalText}>
+          Незабаром наш співробітник звʼяжеться з Вами.
+        </p>
       </div>
     </Modal>
   );
 
   return (
     <>
-    <form onSubmit={handleSubmit} className={styles.feedbackForm}>
-      <Input
-        className={styles.feedbackInput}
-        label="Ім'я:"
-        type="text"
-        name="name"
-        placeholder="Ваше імʼя"
-        required={true}
-        value={formData.name}
-        onChange={handleChange}
-      />
-
-      <Input
-        className={styles.feedbackInput}
-        label="Пошта:"
-        type="email"
-        name="email"
-        placeholder="Ваш емейл"
-        required={true}
-        value={formData.email}
-        onChange={handleChange}
-      />
-
-      <Input
-        className={styles.feedbackInput}
-        label="Номер телефону:"
-        type="tel"
-        name="phone"
-        placeholder="Ваш номер телефону у форматі 050-000-00-00"
-        required={true}
-        value={formData.phone}
-        onChange={handleChange}
-        // pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
-      />
-      <div style={{ marginTop: '16px' }}>
-        <Textarea
-          className={styles.feedbackTextarea}
-          label="Коментар:"
-          id="text"
-          name="text"
-          placeholder="Ваш коментар"
-          value={formData.text}
+      <form onSubmit={handleSubmit} className={styles.feedbackForm}>
+        <Input
+          className={styles.feedbackInput}
+          label="Ім'я:"
+          type="text"
+          name="name"
+          placeholder="Ваше імʼя"
+          required={true}
+          value={formData.name}
           onChange={handleChange}
-          required
         />
-      </div>
 
-      <Button type="submit" size="lg" style={{ marginTop: '32px' }}>
-        Надіслати
-      </Button>
-    </form>
+        <Input
+          className={styles.feedbackInput}
+          label="Пошта:"
+          type="email"
+          name="email"
+          placeholder="Ваш емейл"
+          required={true}
+          value={formData.email}
+          onChange={handleChange}
+        />
 
-     { showThankYouModal && thankYouModalContent}
-     </>
+        <Input
+          className={styles.feedbackInput}
+          label="Номер телефону:"
+          type="tel"
+          name="phone"
+          placeholder="Ваш номер телефону у форматі 050-000-00-00"
+          required={true}
+          value={formData.phone}
+          onChange={handleChange}
+          // pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
+        />
+        <div style={{ marginTop: '16px' }}>
+          <Textarea
+            className={styles.feedbackTextarea}
+            label="Коментар:"
+            id="text"
+            name="text"
+            placeholder="Ваш коментар"
+            value={formData.text}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <Button type="submit" size="lg" style={{ marginTop: '32px' }}>
+          Надіслати
+        </Button>
+      </form>
+
+      {showThankYouModal && thankYouModalContent}
+    </>
   );
 }
 
