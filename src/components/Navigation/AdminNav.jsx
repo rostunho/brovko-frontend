@@ -14,11 +14,11 @@ export default function AdminNav({ onClick }) {
             Адмін
           </NavLink>
         </li>
-        <li className={styles.item} onClick={onClick}>
+        {/* <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/superadmin">
-            Адмін
+            SuperAdmin
           </NavLink>
-        </li>
+        </li> */}
       </ul>
     </>
     //
