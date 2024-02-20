@@ -139,6 +139,10 @@ const ProductsItem = ({
         cardIsSelected ? styles['productCard--selected'] : ''
       }`}
     >
+     <Link
+            to={`/shop/product/${product._id}`}
+            state={{ from: location.pathname + location.search }}
+          >
       <div className={styles.image}>
         {(userStatus === 'manager' || userStatus === 'superadmin') &&
           !adminInCustomerMode && (
@@ -158,7 +162,7 @@ const ProductsItem = ({
             isFavourite ? styles.heart_icon_checked : ''
           }`}
           checked={isFavourite}
-          onClick={handleToggleFavourite}
+          onClick={e => { e.preventDefault(); handleToggleFavourite(); }}
         />
 
         <Image src={product.picture} className={styles.picture} />
@@ -179,23 +183,16 @@ const ProductsItem = ({
           </div>
         </div>
         <div className={styles.buttons}>
-
-          <Link
-            to={`/shop/product/${product._id}`}
-            state={{ from: location.pathname + location.search }}
-          >
-
-            <Button mode="outlined">Подробиці</Button>
-          </Link>
-
+          <Button mode="outlined">Подробиці</Button>
           <Button
-            onClick={() => handleAddToCart({ product, value: 1 })}
+            onClick={(e) => {e.preventDefault(); handleAddToCart({ product, value: 1 })}}
             mode="primary"
           >
             В кошик
           </Button>
         </div>
       </div>
+      </Link>
     </div>
   );
 };

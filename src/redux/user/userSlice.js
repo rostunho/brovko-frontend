@@ -113,7 +113,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.token = '';
         state.error = 'Update REJECTED';
-        throw new Error('UPDATE IS REJECTED. TRY LATER');
+        // throw new Error('UPDATE IS REJECTED. TRY LATER');
       })
       .addCase(updateAvatar.pending, state => {
         state.loading = true;

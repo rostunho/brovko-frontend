@@ -3,7 +3,7 @@ import Input from 'shared/components/Input';
 
 import styles from './StatusOptions.module.scss';
 
-const StatusOptions = ({ toggleStatusToShow }) => {
+const StatusOptions = ({ toggleStatusToShow, selectedStatus }) => {
   const selectStatus = e => {
     const { value } = e.target;
     toggleStatusToShow(value);
@@ -21,6 +21,7 @@ const StatusOptions = ({ toggleStatusToShow }) => {
             label="покупці"
             value="customer"
             onChange={selectStatus}
+            defaultChecked={selectedStatus === 'customer'}
           />
         </li>
         <li className={styles.item}>
@@ -31,6 +32,7 @@ const StatusOptions = ({ toggleStatusToShow }) => {
             label="менеджери"
             value="manager"
             onChange={selectStatus}
+            defaultChecked={selectedStatus === 'manager'}
           />
         </li>
         <li className={styles.item}>
@@ -41,6 +43,7 @@ const StatusOptions = ({ toggleStatusToShow }) => {
             label="суперадміни"
             value="superadmin"
             onChange={selectStatus}
+            defaultChecked={selectedStatus === 'superadmin'}
           />
         </li>
       </ul>

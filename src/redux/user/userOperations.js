@@ -187,7 +187,6 @@ export const usersOrdersHistory = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const result = await api.getAllOrdersAuth();
-      // console.log('result', result);
       return result;
     } catch ({ response }) {
       // console.log(response.data.message);

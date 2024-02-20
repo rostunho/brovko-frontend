@@ -51,7 +51,12 @@ const ModalStatusUpdate = ({ onSubmitForm, email, _id, status }) => {
         validateStatus={setIsValidPassword}
         onChange={handleChange}
       />
-      <Button type="submit" size="lg" disabled={!showSubmitButton}>
+      <Button
+        className={styles.button}
+        type="submit"
+        size="lg"
+        disabled={!showSubmitButton}
+      >
         Підтверджую
       </Button>
     </form>

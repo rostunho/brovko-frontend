@@ -21,3 +21,28 @@
   gap: 20px;
   align-self: stretch;
 }
+
+.list {
+  width: 415px;
+}
+
+.text {
+  color: var(--gray, #a3a5a4);
+  /* Additional */
+  font-family: Nunito;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.textGet {
+  color: var(--black_text, #191c2c);
+  /* Additional */
+  font-family: Nunito;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  white-space: nowrap;
+}

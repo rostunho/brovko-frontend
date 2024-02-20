@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { selectUser } from 'redux/user/userSelectors';
 import submitFeedback from 'shared/services/api/brovko/feedback';
 import Input from 'shared/components/Input';
 import Textarea from 'shared/components/Textarea';
 import Button from 'shared/components/Button';
+import Modal from 'shared/components/Modal/Modal';
+import { addPopupOperation } from 'redux/popup/popupOperations';
 import styles from './Contacts.module.scss';
 
 function FeedbackForm() {
@@ -14,22 +17,25 @@ function FeedbackForm() {
     phone: '',
     text: '',
   };
-  console.log('user', initialFormData);
+ 
   const [formData, setFormData] = useState(initialFormData);
+
+  const [showThankYouModal, setShowThankYouModal] = useState(false);
+
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (user) {
-      const { firstName, email, phone } = user;
       setFormData({
-        name: firstName || '',
-        email: email || '',
-        phone: phone || null,
+        name: user.user.firstName || '',
+        email: user.user.email || '',
+        phone: user.user.phone || null,
       });
     }
   }, [user]);
-
-  console.log('user', formData);
+  console.log('user.email', user.user.email);
+  console.log('user formData', formData);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -39,13 +45,44 @@ function FeedbackForm() {
     }));
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    await submitFeedback(formData, setFormData);
-    setFormData(initialFormData);
+    try {
+      await submitFeedback(formData, setFormData);
+    setFormData(initialFormData); 
+    setShowThankYouModal(true);
+    } catch (error) {
+      console.error('Error submit feedback', error.response.data.message);
+        if (error.response.data.message === 'Мінімальна довжина тексту повинна бути не менше 10 символів') 
+        { dispatch(addPopupOperation('Мінімальна довжина тексту повинна бути не менше 10 символів', 'error'))
+          } else {
+            dispatch(
+              addPopupOperation(
+                'Щось пішло не так, спробуй пізніше',
+                'warning'
+              )
+            );
+      }
+    }
+    
   };
 
+
+  const closeModal = () => {
+    setShowThankYouModal(false);
+  };
+
+  const thankYouModalContent = (
+    <Modal closeModal={closeModal}>
+      <div className={styles.modal}>
+        <h2>Дякуємо за повідомлення!</h2>
+        <p className={styles.modalText}>Незабаром наш співробітник звʼяжеться з Вами.</p>
+      </div>
+    </Modal>
+  );
+
   return (
+    <>
     <form onSubmit={handleSubmit} className={styles.feedbackForm}>
       <Input
         className={styles.feedbackInput}
@@ -97,6 +134,9 @@ function FeedbackForm() {
         Надіслати
       </Button>
     </form>
+
+     { showThankYouModal && thankYouModalContent}
+     </>
   );
 }
 

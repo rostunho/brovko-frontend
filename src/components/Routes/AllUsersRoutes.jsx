@@ -16,7 +16,9 @@ const LazyContactsPage = lazy(() => import('pages/ContactsPage/ContactsPage'));
 const LazyExchangeAndReturnPage = lazy(() =>
   import('pages/ExchangeAndReturnPage/ExchangeAndReturnPage')
 );
-const LazyPaymentAndDeliveryPage = lazy(()=> import('pages/PaymentAndDelivery/PaymentAndDeliveryPage'));
+const LazyPaymentAndDeliveryPage = lazy(() =>
+  import('pages/PaymentAndDelivery/PaymentAndDeliveryPage')
+);
 const LazyPublicOfferPagePage = lazy(() =>
   import('pages/PublicOfferPage/PublicOfferPage')
 );
@@ -29,15 +31,15 @@ const SuperadminPage = lazy(() =>
 const LazyPersonalDataProtectionPage = lazy(() =>
   import('pages/PersonalDataProtectionPage/PersonalDataProtectionPage')
 );
-const LazyPrivacyPolicyPage = lazy(() => import('pages/PrivacyPolicyPage/PrivacyPolicyPage.jsx'));
-
-const LazyNotFoundPage = lazy(() =>
-  import('pages/NotFoundPage/NotFoundPage')
+const LazyPrivacyPolicyPage = lazy(() =>
+  import('pages/PrivacyPolicyPage/PrivacyPolicyPage.jsx')
 );
+
+const LazyNotFoundPage = lazy(() => import('pages/NotFoundPage/NotFoundPage'));
 
 export const allUserRoutes = [
   {
-    path: '/superadmin',
+    path: '/superadmin1',
     Component: SuperadminPage,
   },
   {
