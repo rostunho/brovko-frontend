@@ -26,7 +26,7 @@ export default function FeedbackItem({ feedback, ...props }) {
       }`}
     >
       <div className={styles.heading}>
-        {author?.avatarURL ? (
+        {author && author.avatarURL !== '' ? (
           <img
             className={styles.avatar}
             src={author?.avatarURL}
