@@ -13,7 +13,7 @@ export default function FeedbackItem({ feedback, ...props }) {
 
   useEffect(() => {
     (async () => {
-      const { user } = await getUserByEmail(feedback?.email);
+      const { user } = await getUserByEmail(feedback.email);
       user && setAuthor({ ...user });
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
