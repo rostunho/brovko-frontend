@@ -85,12 +85,13 @@ const NewStatusOptions = ({ oldStatus, setNewStatus }) => {
       {options.length && (
         <>
           <Heading type="h3">Надати користувачу нового статусу?</Heading>
+
           <ul className={styles.list}>
             <li className={styles.item}>
               <Input
                 className={styles.input}
                 type="radio"
-                name="status"
+                name="newstatus"
                 label={options[0].description}
                 value={options[0].role}
                 onChange={selectStatus}
@@ -100,7 +101,7 @@ const NewStatusOptions = ({ oldStatus, setNewStatus }) => {
               <Input
                 className={styles.input}
                 type="radio"
-                name="status"
+                name="newstatus"
                 label={options[1].description}
                 value={options[1].role}
                 onChange={selectStatus}
@@ -110,7 +111,7 @@ const NewStatusOptions = ({ oldStatus, setNewStatus }) => {
               <li className={styles.item}>
                 <Input
                   type="radio"
-                  name="status"
+                  name="newstatus"
                   label={options[2].description}
                   value={options[2].role}
                   onChange={selectStatus}

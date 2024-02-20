@@ -25,8 +25,8 @@ const LazyPublicOfferPagePage = lazy(() =>
 // const LazyUserAgreementPage = lazy(() =>
 //   import('pages/UserAgreementPage/UserAgreementPage')
 // );
-const SuperadminPage = lazy(() =>
-  import('pages/SuperadminPage/SuperadminPage')
+const AllAdminsPage = lazy(() =>
+  import('pages/AllAdminsPage')
 );
 const LazyPersonalDataProtectionPage = lazy(() =>
   import('pages/PersonalDataProtectionPage/PersonalDataProtectionPage')
@@ -39,8 +39,10 @@ const LazyNotFoundPage = lazy(() => import('pages/NotFoundPage/NotFoundPage'));
 
 export const allUserRoutes = [
   {
-    path: '/superadmin1',
-    Component: SuperadminPage,
+
+    path: '/admin',
+    Component: AllAdminsPage,
+
   },
   {
     path: '/start',
