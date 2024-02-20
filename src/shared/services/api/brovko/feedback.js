@@ -27,3 +27,18 @@ export const getFeedbacks = async body => {
     console.error(error);
   }
 };
+
+export const updateFeedbackStatus = async (id, status) => {
+  const body = { status: status };
+
+  try {
+    const { data } = await instance.patch(
+      `/feedbacks/update-feedback/${id}`,
+      body
+    );
+    console.log(`Відгук з ID(${id}) успішно заархівовано`);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};

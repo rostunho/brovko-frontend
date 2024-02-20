@@ -15,6 +15,10 @@
   margin-bottom: 8px;
 }
 
+.item.archived {
+  opacity: 0.75;
+}
+
 .heading {
   display: flex;
   align-items: center;
@@ -74,19 +78,29 @@
 }
 
 .message {
+  width: 100%;
   font-family: 'Nunito', sans-serif;
   font-size: 14px;
   line-height: normal;
   font-weight: 400;
+  margin-bottom: 16px;
 }
 
 .registred {
   width: 100%;
   font-family: 'Nunito', sans-serif;
   font-weight: 400;
-  font-size: 10px;
+  font-size: 8px;
   line-height: 1;
   text-align: end;
   text-transform: uppercase;
   color: #68baee;
+
+  @media screen and (min-width: 480px) {
+    font-size: 10px;
+  }
+}
+
+.button {
+  margin: 0 auto;
 }

@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { getUserByEmail } from 'shared/services/api/brovko/user';
+import { updateFeedbackStatus } from 'shared/services/api/brovko/feedback';
 import UserLight from 'shared/icons/UserLight';
+import Button from 'shared/components/Button';
 import styles from './FeedbackItem.module.scss';
 
 export default function FeedbackItem({ feedback, ...props }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const status = searchParams.get('feedbacks');
   const [author, setAuthor] = useState(null);
 
   useEffect(() => {
@@ -12,10 +16,15 @@ export default function FeedbackItem({ feedback, ...props }) {
       const { user } = await getUserByEmail(feedback?.email);
       user && setAuthor({ ...user });
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <li className={styles.item}>
+    <li
+      className={`${styles.item} ${
+        status === 'archived' ? styles.archived : ''
+      }`}
+    >
       <div className={styles.heading}>
         {author?.avatarURL ? (
           <img
@@ -24,7 +33,6 @@ export default function FeedbackItem({ feedback, ...props }) {
             alt="avatar"
             width="40px"
             height="40px"
-            locked
           />
         ) : (
           <div className={styles['default-avatar-thumb']}>
@@ -54,6 +62,15 @@ export default function FeedbackItem({ feedback, ...props }) {
         </div>
       </div>
       <p className={styles.message}>{feedback?.text}</p>
+      {(status === 'all' || status === 'new') && (
+        <Button
+          admin
+          className={styles.button}
+          onClick={() => updateFeedbackStatus(feedback._id, 'archived')}
+        >
+          Опрацьовано
+        </Button>
+      )}
     </li>
   );
 }
