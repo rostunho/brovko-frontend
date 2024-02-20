@@ -10,12 +10,16 @@ import SharedLayout from 'components/SharedLayout/SharedLayout';
 import AllUsersRoutes from 'components/Routes/AllUsersRoutes';
 import ProductsRoutes from 'components/Routes/ProductsRoutes';
 import AuthRoutes from 'components/Routes/AuthRoutes';
+import AdminRoutes from 'components/Routes/AdminRoutes';
 
 const AuthFormWrapper = lazy(() =>
   import('components/AuthSection/AuthFormWrapper/AuthFormWrapper')
 );
 const LoginForm = lazy(() =>
   import('components/AuthSection/LoginForm/LoginForm')
+);
+const LazyUserDashboardPage = lazy(() =>
+  import('pages/UserDashboardPage/UserDashboardPage')
 );
 const OrderForm = lazy(() => import('components/OrderForm/OrderForm'));
 const LazyMainPage = lazy(() => import('pages/MainPage/MainPage'));
@@ -49,20 +53,15 @@ function App() {
         <Route index element={<Navigate to="/main" />} />
         <Route path="/main" element={<LazyMainPage />} />
 
+        <Route path="/user" element={<LazyUserDashboardPage />} />
+
         <Route path="/all/*" element={<AllUsersRoutes />} />
 
         <Route path="/shop/*" element={<ProductsRoutes />} />
 
         <Route path="/auth/*" element={<AuthRoutes />} />
 
-        <Route path="/admin" element={<AdminPage />}>
-          <Route path=":productId" element={<AdminPage />} />
-        </Route>
-        <Route
-          path="/admin/moderate-reviews"
-          element={<ModerateReviewPage />}
-        />
-        <Route path="admin/feedbacks" element={<FeedbackPage />} />
+        <Route path="/admin/*" element={<AdminRoutes />} />
 
         <Route path="/order" element={<OrderPage />}>
           <Route
@@ -81,10 +80,18 @@ function App() {
           <Route path="order-form" element={<OrderForm />} />
         </Route>
 
+        <Route path="*" element={<LazyNotFoundPage />} />
+
+        {/* <Route path="/admin" element={<AdminPage />}>
+          <Route path=":productId" element={<AdminPage />} />
+        </Route> */}
+        {/* <Route
+          path="/admin/moderate-reviews"
+          element={<ModerateReviewPage />}
+        /> */}
+        {/* <Route path="admin/feedbacks" element={<FeedbackPage />} /> */}
         <Route path="/testing" element={<TestingPage />} />
 
-        {/* Not Found */}
-        <Route path="*" element={<LazyNotFoundPage />} />
       </Route>
     </Routes>
   );

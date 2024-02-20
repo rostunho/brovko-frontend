@@ -48,8 +48,7 @@ function FeedbackForm() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-
-      await submitFeedback(formData, setFormData);
+      await addFeedback(formData, setFormData);
     setFormData(prevData => ({ ...prevData, text: ''})); //перевірити 
     setShowThankYouModal(true);
     } catch (error) {
@@ -63,7 +62,6 @@ function FeedbackForm() {
                 'error'
               )
             );
-
       }
     }
   };
