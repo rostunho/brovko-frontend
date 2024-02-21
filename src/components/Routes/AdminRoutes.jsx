@@ -13,27 +13,30 @@ const ModerateReviewPage = lazy(() =>
   import('pages/ModerateReviewPage/ModerateReviewPage')
 );
 const FeedbackPage = lazy(() => import('pages/FeedbackPage/FeedbackPage'));
-const ProductListPage = lazy(() => import('pages/ProductListPage/ProductListPage'));
-
-
-
+const AdminLocationsPage = lazy(() =>
+  import('pages/AdminLocationsPage/AdminLocationsPage')
+);
+const ProductListPage = lazy(() =>
+  import('pages/ProductListPage/ProductListPage')
+);
 
 export default function AdminRoutes() {
-    return (
-      <Suspense fallback={<Loader />}>
-        <Routes>
+  return (
+    <Suspense fallback={<Loader />}>
+      <Routes>
         <Route path="/" element={<AllAdminsPage />} />
         <Route path="/addProduct" element={<AdminPage />}>
           <Route path=":productId" element={<AdminPage />} />
         </Route>
-        
-         <Route path="/updateProduct" element={<ProductListPage />} />
-          
+
+        <Route path="/updateProduct" element={<ProductListPage />} />
+
         {/* <Route path="/updateProduct/:productId" element={<AdminPage />} /> */}
-        <Route path="/moderate-reviews" element={<ModerateReviewPage />} />    
+        <Route path="/moderate-reviews" element={<ModerateReviewPage />} />
         <Route path="/superadmin" element={<SuperadminPage />} />
         <Route path="/feedbacks" element={<FeedbackPage />} />
+        <Route path="/locations" element={<AdminLocationsPage />} />
       </Routes>
-      </Suspense>
-      )
+    </Suspense>
+  );
 }
