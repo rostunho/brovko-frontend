@@ -61,6 +61,10 @@ export const addProductReducer = (state, action) => {
       newState.product[0].barcode = payload;
       return newState;
 
+    case 'ADD_STOCK_BALANCE':
+      newState.product[0].stockBalance = payload;
+      return newState;
+
     case 'ADD_HEIGHT':
       newState.product[0].height = payload;
       return newState;

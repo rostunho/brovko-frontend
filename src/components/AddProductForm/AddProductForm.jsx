@@ -369,6 +369,15 @@ export default function AddProductForm({ update }) {
             value={requestBody.product[0].id}
             onChange={e => dispatchRequestBody(e, 'ADD_ID')}
           />
+
+          <Input
+            type="number"
+            label="Залишок на складі"
+            name="stock"
+            length="md"
+            defaultValue={0} // НЕ ЗАБУТИ ПЕРЕВІРИТИ
+            onChange={e => dispatchRequestBody(e, 'ADD_STOCK_BALANCE')}
+          />
         </div>
 
         <Input
