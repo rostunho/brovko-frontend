@@ -4,6 +4,7 @@ import useLayoutType from 'shared/hooks/useLayoutType';
 import AllUserNav from './AllUserNav';
 import AuthNav from './AuthNav';
 import ProductrNav from './ProductNav';
+import AdminNav from './AdminNav';
 
 import MobileMenu from '../MobileMenu/MobileMenu';
 import { selectIsLogin } from 'redux/user/userSelectors';
@@ -43,6 +44,7 @@ const Navigation = () => {
               <ProductrNav isMobile={isMobile} onClick={toggleMobileMenu} />
               <AllUserNav onClick={toggleMobileMenu} />
               <AuthNav onClick={toggleMobileMenu} />
+              <AdminNav onClick={toggleMobileMenu} />
             </MobileMenu>
           )}
         </>

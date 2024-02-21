@@ -5,6 +5,16 @@ export const data = [
     link: '/admin/addProduct',
   },
   {
+    heading: 'Оновити товар',
+    text: 'Зроби смаколики ще привабливішими',
+    link: '/shop/product-list-page',
+  },
+  {
+    heading: 'Категорії',
+    text: 'Пора щось змінити в категоріях',
+    link: '/admin/categories-form',
+  },
+  {
     heading: 'Модерування коментів',
     text: 'Почитаємо, як бровки хвалять наші палянички?',
     link: '/admin/moderate-reviews',
@@ -12,6 +22,11 @@ export const data = [
   { heading: "Зворотній зв'язок", 
     text: 'Якщо є запитання, варто відповісти',
     link: '/admin/feedbacks',
+  },
+  {
+    heading: 'Сторінка локацій',
+    text: 'Наші торгівельні майданчики',
+    link: "/admin/locations-form",
   },
   {
     heading: 'Сторінка суперадміна',
