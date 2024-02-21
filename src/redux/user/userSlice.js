@@ -50,7 +50,6 @@ const userSlice = createSlice({
     },
     deleteOrderUser(state, action) {
       const { payload } = action;
-      // Фильтруем заказы, оставляя только те, которые не совпадают с удаляемым заказом
       state.productInBasket = state.productInBasket.filter(
         order => order._id !== payload
       );
