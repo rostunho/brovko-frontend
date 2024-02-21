@@ -8,7 +8,7 @@ export default function AdminNav({ onClick }) {
   const { email } = useSelector(selectUser);
   return (
     <>
-      <ul>
+      <ul className={styles.list}>
         <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/admin">
             Адмін
