@@ -14,11 +14,6 @@ export default function AdminNav({ onClick }) {
             Адмін
           </NavLink>
         </li>
-        {/* <li className={styles.item} onClick={onClick}>
-          <NavLink className={styles.link} to="/superadmin">
-            SuperAdmin
-          </NavLink>
-        </li> */}
       </ul>
     </>
     //

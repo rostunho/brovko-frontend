@@ -25,14 +25,6 @@ const NewProductDetailPage = lazy(() =>
   import('pages/NewProductDetailPage/NewProductDetailPage')
 );
 
-// const LazyProductDescriptionPage = lazy(() =>
-//   import('pages/ProductDetailPage/ProductDescriptionPage')
-// );
-// const LazyProductReviewPage = lazy(() =>
-//   import('pages/ProductDetailPage/ProductReviewPage')
-// );
-
-// const OrderPage = lazy(() => import('pages/OrderPage'));
 
 export default function ProductsRoutes() {
   return (
@@ -40,17 +32,12 @@ export default function ProductsRoutes() {
       <Routes>
         <Route path="product-list-page" element={<LazyProductListPage />} />
         <Route path="favourites" element={<LazyProductFavouritePage />} />
-        <Route path="user" element={<LazyUserDashboardPage />} />
+        {/* <Route path="user" element={<LazyUserDashboardPage />} /> */}
         <Route path="product/:productId" element={<NewProductDetailPage />} />
         <Route
           path="product/:productId/old"
           element={<LazyProductDetailPage />}
         />
-
-        {/* <Route path="product/:productId" element={<LazyProductDetailPage />}>
-          <Route path="description" element={<LazyProductDescriptionPage />} />
-          <Route path="review" element={<LazyProductReviewPage />} />
-        </Route> */}
       </Routes>
     </Suspense>
   );
