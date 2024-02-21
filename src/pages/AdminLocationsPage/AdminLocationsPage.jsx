@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
+import PhonesConstrucor from 'components/PhonesConstrucor/PhonesConstrucor';
 import styles from './AdminLocationsPage.module.scss';
 
 export default function AdminLocationsPage({ ...props }) {
@@ -11,6 +12,7 @@ export default function AdminLocationsPage({ ...props }) {
     longitude: '',
     address: '',
     mapUrl: '',
+    phone: [],
   });
   const [coords, setCoords] = useState('');
 
@@ -41,13 +43,22 @@ export default function AdminLocationsPage({ ...props }) {
     const latitude = coords[0];
     const longtitude = coords[1];
 
-    console.log('latitude :>> ', latitude);
-    console.log('longtitude :>> ', longtitude);
+    // console.log('latitude :>> ', latitude);
+    // console.log('longtitude :>> ', longtitude);
 
     setRequestBody(prevBody => {
       const newBody = { ...prevBody };
       newBody.latitude = latitude;
       newBody.longitude = longtitude;
+      return newBody;
+    });
+  };
+
+  const handlePhones = data => {
+    setRequestBody(prevBody => {
+      const newBody = { ...prevBody };
+      const mappedData = data.map(({ tel }) => tel);
+      newBody.phone = [...mappedData];
       return newBody;
     });
   };
@@ -87,6 +98,7 @@ export default function AdminLocationsPage({ ...props }) {
           value={requestBody.mapUrl}
           onChange={handleChange}
         />
+        <PhonesConstrucor extractData={handlePhones} />
       </form>
     </div>
   );
