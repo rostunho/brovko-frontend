@@ -17,19 +17,26 @@ const useProductInBasket = () => {
   const { productInBasket, user, isLogin } = useSelector(selectUser);
 
   useEffect(() => {
-    if (userIsLoggedIn && productInBasket.length > 0) {
+    if (userIsLoggedIn) {
       const dataToUpdate = {
         id: user._id,
         ...user,
-        productInBasket: productInBasket,
+        productInBasket,
       };
-      dispatch(update(dataToUpdate));
+
+      try {
+        dispatch(dispatch => {
+          dispatch(update(dataToUpdate));
+        });
+      } catch (error) {
+        console.error('Error during user update:', error);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userIsLoggedIn, productInBasket, dispatch]);
+  }, [productInBasket]);
 
   const showBascketOrders = () => {
-    const products = isLogin ? user?.productInBasket : orders;
+    const products = isLogin ? user.productInBasket : orders;
     return products;
   };
 

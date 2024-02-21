@@ -81,6 +81,19 @@ export const updateAvatar = createAsyncThunk(
   }
 );
 
+export const updateBasket = createAsyncThunk(
+  'user/basket',
+  async (data, { rejectWithValue }) => {
+    try {
+      const result = await api.updateBasket(data);
+      return result;
+    } catch ({ response }) {
+      console.log('response into updateBasket catch', response);
+      return rejectWithValue(response.data.message);
+    }
+  }
+);
+
 export const current = createAsyncThunk(
   'user/current',
   async (_, { rejectWithValue, getState }) => {
