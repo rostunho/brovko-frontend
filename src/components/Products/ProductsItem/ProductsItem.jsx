@@ -152,7 +152,8 @@ const ProductsItem = ({
                 className={styles.checkbox}
                 inputClassName={styles['checkbox-input']}
                 value={cardIsSelected}
-                onChange={handleCardSelecting}
+                // onChange={e => {e.preventDefault(); handleCardSelecting();}}
+                onChange={(e) => { e.stopPropagation(); handleCardSelecting(); }}
               />
             </div>
           )}
