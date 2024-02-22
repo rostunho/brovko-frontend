@@ -24,13 +24,13 @@ const useProductInBasket = () => {
         productInBasket,
       };
 
-      try {
-        dispatch(dispatch => {
-          dispatch(update(dataToUpdate));
-        });
-      } catch (error) {
-        console.error('Error during user update:', error);
-      }
+      // try {
+      //   dispatch(dispatch => {
+      //     dispatch(update(dataToUpdate));
+      //   });
+      // } catch (error) {
+      //   console.error('Error during user update:', error);
+      // }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productInBasket]);

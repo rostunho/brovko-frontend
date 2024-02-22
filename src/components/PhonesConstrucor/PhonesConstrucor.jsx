@@ -56,6 +56,7 @@ export default function PhonesConstrucor({ extractData, ...props }) {
   };
   return (
     <div>
+      <p className={styles.label}>Телефон :</p>
       <ul className={styles['phones-list']}>
         {phones.map((phone, idx) => {
           return (
