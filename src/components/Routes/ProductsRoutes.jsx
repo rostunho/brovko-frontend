@@ -32,7 +32,6 @@ export default function ProductsRoutes() {
       <Routes>
         <Route path="product-list-page" element={<LazyProductListPage />} />
         <Route path="favourites" element={<LazyProductFavouritePage />} />
-        {/* <Route path="user" element={<LazyUserDashboardPage />} /> */}
         <Route path="product/:productId" element={<NewProductDetailPage />} />
         <Route
           path="product/:productId/old"

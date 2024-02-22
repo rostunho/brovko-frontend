@@ -64,7 +64,7 @@ export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
           </Link>
         )}
         <Link
-          to="user"
+          to="/user"
           aria-label={
             userIsLoggedIn ? 'Відкрити сторінку користувача' : 'Зареєструватися'
           }
