@@ -19,18 +19,19 @@ export const data = [
     text: 'Почитаємо, як бровки хвалять наші палянички?',
     link: '/admin/moderate-reviews',
   },
-  { heading: "Зворотній зв'язок", 
+  {
+    heading: "Зворотній зв'язок",
     text: 'Якщо є запитання, варто відповісти',
     link: '/admin/feedbacks',
   },
   {
     heading: 'Сторінка локацій',
     text: 'Наші торгівельні майданчики',
-    link: "/admin/locations-form",
+    link: '/admin/locations',
   },
   {
     heading: 'Сторінка суперадміна',
     text: 'Суперсекретно, доступ тільки для обраних',
-    link: "/admin/superadmin",
+    link: '/admin/superadmin',
   },
 ];

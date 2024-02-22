@@ -1,0 +1,33 @@
+.phones-list {
+  margin-bottom: 8px;
+}
+
+.buttons-list {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.quantity-button {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  background-color: transparent;
+  border: none;
+  padding: 0;
+
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #a3a5a4;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #f3a610;
+  }
+}
