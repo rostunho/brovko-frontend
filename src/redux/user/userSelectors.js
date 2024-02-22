@@ -18,7 +18,7 @@ export const selectRequestSuccess = ({ user }) => user.resetToken;
 
 export const selectIsPswReset = ({ user }) => user.isPasswordReset;
 
-const selectLoginAndToken = state => {
+export const selectLoginAndToken = state => {
   return {
     isLogin: state.user.isLogin,
     token: state.user.token,

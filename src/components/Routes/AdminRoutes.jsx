@@ -28,11 +28,9 @@ export default function AdminRoutes() {
         <Route path="/addProduct" element={<AdminPage />}>
           <Route path=":productId" element={<AdminPage />} />
         </Route>
+         <Route path="/updateProduct" element={<ProductListPage />} />
+        <Route path="/moderate-reviews" element={<ModerateReviewPage />} />    
 
-        <Route path="/updateProduct" element={<ProductListPage />} />
-
-        {/* <Route path="/updateProduct/:productId" element={<AdminPage />} /> */}
-        <Route path="/moderate-reviews" element={<ModerateReviewPage />} />
         <Route path="/superadmin" element={<SuperadminPage />} />
         <Route path="/feedbacks" element={<FeedbackPage />} />
         <Route path="/locations" element={<AdminLocationsPage />} />

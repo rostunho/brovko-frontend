@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectIsLogin } from 'redux/user/userSelectors';
-
 import { lazy } from 'react';
 // import './index.css';
 
@@ -11,6 +10,9 @@ import AllUsersRoutes from 'components/Routes/AllUsersRoutes';
 import ProductsRoutes from 'components/Routes/ProductsRoutes';
 import AuthRoutes from 'components/Routes/AuthRoutes';
 import AdminRoutes from 'components/Routes/AdminRoutes';
+import PublicRoute from 'utils/Routers/PublicRoute';
+import PrivateRoute from 'utils/Routers/PrivateRoute';
+import AdminRoute from 'utils/Routers/AdminRoute';
 
 const AuthFormWrapper = lazy(() =>
   import('components/AuthSection/AuthFormWrapper/AuthFormWrapper')
@@ -52,17 +54,22 @@ function App() {
       <Route path="/" element={<SharedLayout />}>
         <Route index element={<Navigate to="/main" />} />
         <Route path="/main" element={<LazyMainPage />} />
+   
+        <Route element={<PublicRoute/>}>
+              <Route path="/shop/*" element={<ProductsRoutes />} />
+              <Route path="/all/*" element={<AllUsersRoutes />} />
+              <Route path="/auth/*" element={<AuthRoutes />} /> 
+        </Route>
 
-        <Route path="/user" element={<LazyUserDashboardPage />} />
+        <Route element={<PrivateRoute />}>     
+              <Route path="/user" element={<LazyUserDashboardPage />} />
+        </Route>
 
-        <Route path="/all/*" element={<AllUsersRoutes />} />
-
-        <Route path="/shop/*" element={<ProductsRoutes />} />
-
-        <Route path="/auth/*" element={<AuthRoutes />} />
-
-        <Route path="/admin/*" element={<AdminRoutes />} />
-
+        <Route element={<AdminRoute />}>
+             <Route path="/admin/*" element={<AdminRoutes />} />
+        </Route>
+      
+       
         <Route path="/order" element={<OrderPage />}>
           <Route
             index
@@ -82,14 +89,6 @@ function App() {
 
         <Route path="*" element={<LazyNotFoundPage />} />
 
-        {/* <Route path="/admin" element={<AdminPage />}>
-          <Route path=":productId" element={<AdminPage />} />
-        </Route> */}
-        {/* <Route
-          path="/admin/moderate-reviews"
-          element={<ModerateReviewPage />}
-        /> */}
-        {/* <Route path="admin/feedbacks" element={<FeedbackPage />} /> */}
         <Route path="/testing" element={<TestingPage />} />
 
       </Route>
