@@ -92,14 +92,6 @@ export const updateAvatar = async updatedData => {
   return result;
 };
 
-export const updateBasket = async updatedData => {
-  console.log('updatedData', updatedData);
-  const { data: result } = await instance.patch(`/user/basket`, updatedData);
-  console.log('result', result);
-  setToken(result.accessToken);
-  return result;
-};
-
 export const forgotPassword = async data => {
   const { data: result } = await instance.post('/user/forgot-password', data);
 

@@ -15,14 +15,11 @@ export default function OrderList({
 }) {
   const { showBascketOrders } = useProductInBasket();
   const products = showBascketOrders();
-  console.log('products', products);
 
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalValue, setTotalValue] = useState(1);
-  console.log('totalValue', totalValue);
 
   useEffect(() => {
-    console.log('useEffect');
     const totalAmount = products.reduce((total, { price, value }) => {
       return total + price * totalValue || value;
     }, 0);
