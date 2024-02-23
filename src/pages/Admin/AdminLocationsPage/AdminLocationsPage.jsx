@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
-import PhonesConstrucor from 'components/PhonesConstrucor/PhonesConstrucor';
+import PhonesConstrucor from 'components/Admin/PhonesConstrucor/PhonesConstrucor';
+import WorkingHoursConstructor from './WorkingHoursConstructor/WorkingHoursConstructor';
+
 import styles from './AdminLocationsPage.module.scss';
 
 export default function AdminLocationsPage({ ...props }) {
@@ -99,6 +101,7 @@ export default function AdminLocationsPage({ ...props }) {
           onChange={handleChange}
         />
         <PhonesConstrucor extractData={handlePhones} />
+        <WorkingHoursConstructor />
       </form>
     </div>
   );

@@ -8,8 +8,8 @@ import {
 } from 'shared/services/api';
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
-import Selector from 'shared/components/Selector/Selector';
-import AddCategoryPopup from 'components/AddProductForm/AddCategoryPopup/AddCategoryPopup';
+import Selector from 'shared/components/Selector';
+import AddCategoryPopup from './AddCategoryPopup/AddCategoryPopup';
 import ParamsConstructor from './ParamsConstructor/ParamsConstructor';
 import Button from 'shared/components/Button/Button';
 import Textarea from 'shared/components/Textarea/Textarea';
