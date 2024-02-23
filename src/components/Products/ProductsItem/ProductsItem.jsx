@@ -115,7 +115,6 @@ const ProductsItem = ({
         cardIsSelected ? styles['productCard--selected'] : ''
       }`}
     >
-    
       <Link
         to={`/shop/product/${product._id}`}
         state={{ from: location.pathname + location.search }}
@@ -129,7 +128,10 @@ const ProductsItem = ({
                   className={styles.checkbox}
                   inputClassName={styles['checkbox-input']}
                   value={cardIsSelected}
-                  onChange={(e) => { e.stopPropagation(); handleCardSelecting(); }}
+                  onChange={e => {
+                    e.stopPropagation();
+                    handleCardSelecting();
+                  }}
                 />
               </div>
             )}
@@ -160,7 +162,6 @@ const ProductsItem = ({
               <StarEmpty />
               <StarEmpty />
               <StarEmpty />
-
             </div>
           </div>
           <div className={styles.buttons}>
