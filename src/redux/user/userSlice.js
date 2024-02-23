@@ -62,10 +62,11 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(register.fulfilled, (state, { payload }) => {
-        const { newUser, accessToken } = payload;
+        const { user } = payload;
+        console.log('payload-register', payload);
         state.loading = false;
-        state.user = newUser;
-        state.token = accessToken;
+        state.user = user;
+        state.token = user.accessToken;
         state.isLogin = true;
       })
       .addCase(register.rejected, (state, { payload }) => {
@@ -78,7 +79,7 @@ const userSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, { payload }) => {
         const { user } = payload;
-        console.log('payload', payload);
+        console.log('payload-login', payload);
         state.loading = false;
         state.user = user;
         state.token = user.accessToken;
