@@ -3,8 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
 import Prompt from 'shared/components/Prompt';
-import AddingPlusIcon from 'shared/icons/AddingPlusIcon';
-import AddingMinusIcon from 'shared/icons/AddingMinusIcon';
+import LineQuantittyButtons from 'components/Admin/LineQuantittyButtons/LineQuantittyButtons';
 import styles from './ParamsConstructor.module.scss';
 
 export default function ParamsConstructor({ initialParams, extractData }) {
@@ -138,7 +137,13 @@ export default function ParamsConstructor({ initialParams, extractData }) {
               );
             })}
           </ul>
-          <ul className={styles['buttons-list']}>
+          <LineQuantittyButtons
+            addLabel="Додати позицію"
+            addAction={addRow}
+            removeLabel="Забрати позицію"
+            removeAction={removeRow}
+          />
+          {/* <ul className={styles['buttons-list']}>
             <button
               type="button"
               className={styles['quantity-button']}
@@ -155,7 +160,7 @@ export default function ParamsConstructor({ initialParams, extractData }) {
               Додати позицію
               <AddingPlusIcon />
             </button>
-          </ul>
+          </ul> */}
         </div>
       )}
     </>

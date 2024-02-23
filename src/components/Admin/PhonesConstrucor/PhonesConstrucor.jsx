@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import { parsePhoneNumber, toPhoneFormat } from 'utils';
 import Input from 'shared/components/Input';
-import AddingPlusIcon from 'shared/icons/AddingPlusIcon';
-import AddingMinusIcon from 'shared/icons/AddingMinusIcon';
+import LineQuantittyButtons from '../LineQuantittyButtons/LineQuantittyButtons';
+
 import styles from './PhonesConstrucor.module.scss';
 
 export default function PhonesConstrucor({ extractData, ...props }) {
@@ -69,7 +69,13 @@ export default function PhonesConstrucor({ extractData, ...props }) {
           );
         })}
       </ul>
-      <ul className={styles['buttons-list']}>
+      <LineQuantittyButtons
+        addLabel="Додати телефон"
+        removeLabel="Забрати телефон"
+        addAction={addPhone}
+        removeAction={removePhone}
+      />
+      {/* <ul className={styles['buttons-list']}>
         <button
           type="button"
           className={styles['quantity-button']}
@@ -86,7 +92,7 @@ export default function PhonesConstrucor({ extractData, ...props }) {
           Додати телефон
           <AddingPlusIcon />
         </button>
-      </ul>
+      </ul> */}
     </div>
   );
 }

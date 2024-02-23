@@ -1,9 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Input from 'shared/components/Input';
+import LineQuantittyButtons from '../LineQuantittyButtons/LineQuantittyButtons';
 import styles from './WorkingHoursConstructor.module.scss';
 
-export default function WorkingHoursConstructor() {
+export default function WorkingHoursConstructor({ extractData, ...props }) {
   const [lines, setLines] = useState([{ days: '', hours: '' }]);
+
+  useEffect(() => {
+    extractData && extractData(convertData(lines));
+    console.log(convertData(lines));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lines]);
 
   const handleOnchange = event => {
     const {
@@ -19,10 +26,36 @@ export default function WorkingHoursConstructor() {
     });
   };
 
+  const addLine = () => {
+    setLines(prevLines => {
+      const newLines = [...prevLines];
+      newLines.push({ days: '', hours: '' });
+      return newLines;
+    });
+  };
+
+  const removeLine = () => {
+    setLines(prevLines => {
+      const newLines = [...prevLines];
+      newLines.pop();
+      return newLines;
+    });
+  };
+
+  const convertData = data => {
+    const mappedData = {};
+
+    data.map(el => {
+      return (mappedData[el.days] = el.hours);
+    });
+
+    return mappedData;
+  };
+
   return (
     <div>
       <p className={styles.label}>Час роботи :</p>
-      <ul>
+      <ul className={styles.list}>
         {lines?.map((line, idx) => {
           return (
             <li key={idx} className={styles['inner-container']}>
@@ -48,6 +81,12 @@ export default function WorkingHoursConstructor() {
           );
         })}
       </ul>
+      <LineQuantittyButtons
+        addLabel="Додати опцію"
+        removeLabel="Забрати опцію"
+        addAction={addLine}
+        removeAction={removeLine}
+      />
     </div>
   );
 }

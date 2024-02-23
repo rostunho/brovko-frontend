@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import { addLocation } from 'shared/services/api/brovko/locations';
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
 import PhonesConstrucor from 'components/Admin/PhonesConstrucor/PhonesConstrucor';
-import WorkingHoursConstructor from './WorkingHoursConstructor/WorkingHoursConstructor';
-
+import WorkingHoursConstructor from '../../../components/Admin/WorkingHoursConstructor/WorkingHoursConstructor';
+import Button from 'shared/components/Button';
 import styles from './AdminLocationsPage.module.scss';
 
 export default function AdminLocationsPage({ ...props }) {
@@ -15,6 +16,7 @@ export default function AdminLocationsPage({ ...props }) {
     address: '',
     mapUrl: '',
     phone: [],
+    workingHours: {},
   });
   const [coords, setCoords] = useState('');
 
@@ -65,10 +67,24 @@ export default function AdminLocationsPage({ ...props }) {
     });
   };
 
+  const handleWorkingHours = data => {
+    setRequestBody(prevBody => {
+      const newBody = { ...prevBody };
+      newBody.workingHours = { ...data };
+      return newBody;
+    });
+  };
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+
+    await addLocation(requestBody);
+  };
+
   return (
     <div className={styles.container}>
       <Heading withGoBack>Створити локацію</Heading>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <Input
           label="Заголовок :"
           name="name"
@@ -101,7 +117,8 @@ export default function AdminLocationsPage({ ...props }) {
           onChange={handleChange}
         />
         <PhonesConstrucor extractData={handlePhones} />
-        <WorkingHoursConstructor />
+        <WorkingHoursConstructor extractData={handleWorkingHours} />
+        <Button type="submit">Зберегти</Button>
       </form>
     </div>
   );

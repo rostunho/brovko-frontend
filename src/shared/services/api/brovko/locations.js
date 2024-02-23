@@ -10,3 +10,12 @@ export const getAllLocations = async () => {
     throw error;
   }
 };
+
+export const addLocation = async body => {
+  try {
+    const { data } = await instance.post('/locations/add-location', body);
+    console.log('data into AddLocation :>> ', data);
+  } catch (error) {
+    console.log('error into addLocation api-function :', error);
+  }
+};
