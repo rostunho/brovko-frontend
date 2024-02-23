@@ -45,15 +45,6 @@ const userSlice = createSlice({
         ({ id }) => id !== payload
       );
     },
-    addOrderUser(state, { payload }) {
-      state.productInBasket = [...state.productInBasket, { ...payload }];
-    },
-    deleteOrderUser(state, action) {
-      const { payload } = action;
-      state.productInBasket = state.productInBasket.filter(
-        order => order._id !== payload
-      );
-    },
     changeQuantityOrderUser(state, action) {
       const { id, value } = action.payload;
       const orderToUpdate = state.productInBasket.find(
@@ -86,10 +77,11 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, { payload }) => {
-        const { user, accessToken } = payload;
+        const { user } = payload;
+        console.log('payload', payload);
         state.loading = false;
         state.user = user;
-        state.token = accessToken;
+        state.token = user.accessToken;
         state.isLogin = true;
       })
       .addCase(login.rejected, (state, { payload }) => {
@@ -102,6 +94,7 @@ const userSlice = createSlice({
       })
       .addCase(update.fulfilled, (state, { payload }) => {
         const { accessToken } = payload;
+        console.log('payload-update', payload);
         state.loading = false;
         state.user = payload;
         state.token = accessToken;
@@ -128,21 +121,6 @@ const userSlice = createSlice({
         state.token = '';
         state.error = payload;
       })
-      .addCase(updateBasket.pending, state => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(updateBasket.fulfilled, (state, { payload }) => {
-        const { productInBasket } = payload;
-        state.loading = false;
-        state.user = { ...state.user, productInBasket };
-        state.isLogin = true;
-      })
-      .addCase(updateBasket.rejected, (state, { payload }) => {
-        state.loading = false;
-        state.token = '';
-        state.error = payload;
-      })
       .addCase(googleAuth.pending, state => {
         state.loading = true;
         state.error = null;
@@ -163,10 +141,11 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(current.fulfilled, (state, { payload }) => {
-        const { user, accessToken } = payload;
+        const { user } = payload;
+        console.log('payload-current', payload);
         state.loading = false;
         state.user = user;
-        state.token = accessToken;
+        state.token = user.accessToken;
         state.isLogin = true;
       })
       .addCase(current.rejected, (state, { payload }) => {

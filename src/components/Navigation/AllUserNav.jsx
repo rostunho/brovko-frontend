@@ -42,14 +42,14 @@ export default function AllUserNav({ onClick }) {
             КОНТАКТИ
           </NavLink>
         </li>
-        
+{/*         
         {currentUser.status === 'superadmin' && (
           <li className={styles.item} onClick={onClick}>
             <NavLink className={styles.link} to="/all/admin">
               Адмін
             </NavLink>
           </li>
-        )}
+        )} */}
 
         {/* <li className={styles.item} onClick={onClick}>
           <NavLink className={styles.link} to="/all/shipping-and-payments">
