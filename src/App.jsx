@@ -28,10 +28,10 @@ const LazyMainPage = lazy(() => import('pages/MainPage/MainPage'));
 const LazyNotFoundPage = lazy(() => import('pages/NotFoundPage/NotFoundPage'));
 
 const OrderPage = lazy(() => import('pages/OrderPage'));
-const AdminPage = lazy(() => import('pages/AdminPage'));
+const AdminPage = lazy(() => import('pages/Admin/AdminPage'));
 const TestingPage = lazy(() => import('pages/Testing/TestingPage'));
 const ModerateReviewPage = lazy(() =>
-  import('pages/ModerateReviewPage/ModerateReviewPage')
+  import('pages/Admin/ModerateReviewPage/ModerateReviewPage')
 );
 const FeedbackPage = lazy(() => import('pages/FeedbackPage/FeedbackPage'));
 const NewReviews = lazy(() =>
@@ -54,22 +54,21 @@ function App() {
       <Route path="/" element={<SharedLayout />}>
         <Route index element={<Navigate to="/main" />} />
         <Route path="/main" element={<LazyMainPage />} />
-   
-        <Route element={<PublicRoute/>}>
-              <Route path="/shop/*" element={<ProductsRoutes />} />
-              <Route path="/all/*" element={<AllUsersRoutes />} />
-              <Route path="/auth/*" element={<AuthRoutes />} /> 
+
+        <Route element={<PublicRoute />}>
+          <Route path="/shop/*" element={<ProductsRoutes />} />
+          <Route path="/all/*" element={<AllUsersRoutes />} />
+          <Route path="/auth/*" element={<AuthRoutes />} />
         </Route>
 
-        <Route element={<PrivateRoute />}>     
-              <Route path="/user" element={<LazyUserDashboardPage />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/user" element={<LazyUserDashboardPage />} />
         </Route>
 
         <Route element={<AdminRoute />}>
-             <Route path="/admin/*" element={<AdminRoutes />} />
+          <Route path="/admin/*" element={<AdminRoutes />} />
         </Route>
-      
-       
+
         <Route path="/order" element={<OrderPage />}>
           <Route
             index
@@ -90,7 +89,6 @@ function App() {
         <Route path="*" element={<LazyNotFoundPage />} />
 
         <Route path="/testing" element={<TestingPage />} />
-
       </Route>
     </Routes>
   );

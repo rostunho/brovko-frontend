@@ -101,8 +101,6 @@ export default function NumericInput({
     selectionStart < 6 && event.target.setSelectionRange(6, 6);
   };
 
-  console.log('NUMERIC INPUT', { ...props });
-
   return (
     <>
       {showCurrencyParams && (
