@@ -41,10 +41,7 @@ export default function PhonesConstrucor({ extractData, ...props }) {
   const removePhone = () => {
     if (phones.length < 2) {
       dispatch(
-        addPopupOperation(
-          'Більше немає телефонів для видалення. Спочатку додай який-небудь.',
-          'warning'
-        )
+        addPopupOperation('Це останній телефон. Вкажи хоча б один.', 'warning')
       );
       return;
     }

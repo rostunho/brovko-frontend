@@ -4,3 +4,25 @@
   line-height: normal;
   font-weight: 400;
 }
+
+.inner-container {
+  display: flex;
+  gap: 2px;
+}
+
+.days-wrapper {
+  width: calc(55% - 2px);
+}
+.hours-wrapper {
+  width: calc(45% - 2px);
+}
+
+.days {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.hours {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

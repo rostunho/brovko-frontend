@@ -142,7 +142,7 @@ const userSlice = createSlice({
       })
       .addCase(current.fulfilled, (state, { payload }) => {
         const { user } = payload;
-        console.log('payload-current', payload);
+        // console.log('payload-current', payload);
         state.loading = false;
         state.user = user;
         state.token = user.accessToken;
