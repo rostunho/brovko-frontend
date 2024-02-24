@@ -1,4 +1,4 @@
-import { addProductRequestTemplate } from 'components/AddProductForm/addProductRequestTemplate';
+import { addProductRequestTemplate } from 'components/Admin/AddProductForm/addProductRequestTemplate';
 
 export const addProductReducer = (state, action) => {
   const { type, payload } = action;
@@ -59,6 +59,10 @@ export const addProductReducer = (state, action) => {
 
     case 'ADD_BARCODE':
       newState.product[0].barcode = payload;
+      return newState;
+
+    case 'ADD_STOCK_BALANCE':
+      newState.product[0].stockBalance = payload;
       return newState;
 
     case 'ADD_HEIGHT':

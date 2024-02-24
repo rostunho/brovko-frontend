@@ -12,11 +12,15 @@ import ModalDelete from 'components/ModalDelete/ModalDelete';
 import ModalBasketIsEmpty from 'components/ModalBasketIsEmpty/ModalBasketIsEmpty';
 import styles from './OrderPage.module.scss';
 
+import useProductInBasket from 'shared/hooks/useProductInBasket';
+
 export default function OrderPage() {
   const [modalDelete, setModalDelete] = useState(false);
   const [orderId, setOrderId] = useState('');
-  const orders = useSelector(getAllOrders);
   const userIsLoggedIn = useSelector(selectIsLogin);
+
+  const { showBascketOrders } = useProductInBasket();
+  const products = showBascketOrders();
 
   const navigate = useNavigate();
   const hendlClickReturn = () => {
@@ -26,7 +30,7 @@ export default function OrderPage() {
     <div className={styles.container}>
       <Heading>Оформлення замовлення</Heading>
 
-      {orders.length ? (
+      {products.length ? (
         !modalDelete ? (
           <OrderList
             totalLabel="Ваше замовлення на суму:"

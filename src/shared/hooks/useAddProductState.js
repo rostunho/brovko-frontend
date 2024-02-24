@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 import { addProductReducer } from 'shared/reducers/addProductReducer';
-import { addProductRequestTemplate } from 'components/AddProductForm/addProductRequestTemplate';
+import { addProductRequestTemplate } from 'components/Admin/AddProductForm/addProductRequestTemplate';
 
 export const useAddProductState = () => {
   const [state, dispatch] = useReducer(

@@ -1,15 +1,14 @@
 import Loader from 'components/Loader';
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-// import { LazyPrivacyPolicyPage } from 'routes';
+
 
 const LazyAboutPage = lazy(() => import('pages/AboutPage/AboutPage'));
-const LazyStartPage = lazy(() => import('pages/StartPage/StartPage'));
 const LazyAdvantagesPage = lazy(() =>
   import('pages/AdvantagesPage/AdvantagesPage')
 );
-const LazyWereToBuyPage = lazy(() =>
-  import('pages/WereToBuyPage/WereToBuyPage.jsx')
+const LazyWhereToBuyPage = lazy(() =>
+  import('pages/WhereToBuyPage/WhereToBuyPage')
 );
 const LazyContactsPage = lazy(() => import('pages/ContactsPage/ContactsPage'));
 
@@ -22,41 +21,25 @@ const LazyPaymentAndDeliveryPage = lazy(() =>
 const LazyPublicOfferPagePage = lazy(() =>
   import('pages/PublicOfferPage/PublicOfferPage')
 );
-// const LazyUserAgreementPage = lazy(() =>
-//   import('pages/UserAgreementPage/UserAgreementPage')
-// );
-const SuperadminPage = lazy(() =>
-  import('pages/SuperadminPage/SuperadminPage')
-);
-const LazyPersonalDataProtectionPage = lazy(() =>
-  import('pages/PersonalDataProtectionPage/PersonalDataProtectionPage')
-);
+
 const LazyPrivacyPolicyPage = lazy(() =>
   import('pages/PrivacyPolicyPage/PrivacyPolicyPage.jsx')
 );
-
 const LazyNotFoundPage = lazy(() => import('pages/NotFoundPage/NotFoundPage'));
 
+
 export const allUserRoutes = [
-  {
-    path: '/superadmin1',
-    Component: SuperadminPage,
-  },
-  {
-    path: '/start',
-    Component: LazyStartPage,
-  },
   {
     path: '/about',
     Component: LazyAboutPage,
   },
   {
-    path: '/perevagy',
+    path: '/advantages',
     Component: LazyAdvantagesPage,
   },
   {
     path: '/where-to-buy',
-    Component: LazyWereToBuyPage,
+    Component: LazyWhereToBuyPage,
   },
   {
     path: '/contacts',
@@ -77,18 +60,6 @@ export const allUserRoutes = [
   {
     path: '/public-offer',
     Component: LazyPublicOfferPagePage,
-  },
-  // {
-  //   path: '/user-agreement',
-  //   Component: LazyUserAgreementPage,
-  // },
-  {
-    path: '/personal-data-protection',
-    Component: LazyPersonalDataProtectionPage,
-  },
-  {
-    path: '/privacy-policy',
-    Component: LazyPrivacyPolicyPage,
   },
   {
     path: '*',

@@ -1,0 +1,45 @@
+import { useSelector } from 'react-redux';
+import { NavLink, Navigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+
+import { selectUser } from 'redux/user/userSelectors';
+
+import Heading from 'shared/components/Heading/Heading';
+
+import { data } from './data';
+
+import styles from './AllAdminsPages.module.scss';
+
+const AllAdminsPage = () => {
+  const location = useLocation();
+
+  const currentUser = useSelector(selectUser);
+
+  console.log(currentUser);
+
+  if (currentUser.user.status !== 'superadmin') {
+    return <Navigate to="/" />;
+  }
+
+  return (
+    <div className={styles.container}>
+      <Heading>Панель керування</Heading>
+      <ul className={styles.box}>
+        {data.map((card, index) => (
+          <li className={styles.link} key={index}>
+            <div className={styles.card}>
+              <NavLink to={card.link} state={{ from: location }}>
+                <Heading type="h2" /*className={styles.title}*/>
+                  {card.heading}
+                </Heading>
+                <p className={styles.text}>{card.text}</p>
+              </NavLink>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default AllAdminsPage;

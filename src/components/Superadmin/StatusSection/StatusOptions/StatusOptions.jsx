@@ -17,7 +17,7 @@ const StatusOptions = ({ toggleStatusToShow, selectedStatus }) => {
           <Input
             className={styles.input}
             type="radio"
-            name="status"
+            name="findstatus"
             label="покупці"
             value="customer"
             onChange={selectStatus}
@@ -28,7 +28,7 @@ const StatusOptions = ({ toggleStatusToShow, selectedStatus }) => {
           <Input
             className={styles.input}
             type="radio"
-            name="status"
+            name="findstatus"
             label="менеджери"
             value="manager"
             onChange={selectStatus}
@@ -39,7 +39,7 @@ const StatusOptions = ({ toggleStatusToShow, selectedStatus }) => {
           <Input
             className={styles.input}
             type="radio"
-            name="status"
+            name="findstatus"
             label="суперадміни"
             value="superadmin"
             onChange={selectStatus}

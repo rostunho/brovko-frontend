@@ -10,7 +10,7 @@ export default function FeedbacksList({ feedbacks, ...props }) {
   const [currentFeedbacks, setCurrentFeedbacks] = useState([]);
 
   useEffect(() => {
-    setSearchParams({ sort: 'new' }, { replace: true });
+    setSearchParams({ feedbacks: 'new' }, { replace: true });
     (async () => {
       const feedbacks = await getFeedbacks();
       setCurrentFeedbacks(feedbacks);

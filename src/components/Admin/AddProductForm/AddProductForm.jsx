@@ -8,8 +8,8 @@ import {
 } from 'shared/services/api';
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
-import Selector from 'shared/components/Selector/Selector';
-import AddCategoryPopup from 'components/AddProductForm/AddCategoryPopup/AddCategoryPopup';
+import Selector from 'shared/components/Selector';
+import AddCategoryPopup from './AddCategoryPopup/AddCategoryPopup';
 import ParamsConstructor from './ParamsConstructor/ParamsConstructor';
 import Button from 'shared/components/Button/Button';
 import Textarea from 'shared/components/Textarea/Textarea';
@@ -390,6 +390,15 @@ export default function AddProductForm({ update }) {
             length="md"
             value={requestBody.product[0].id}
             onChange={e => dispatchRequestBody(e, 'ADD_ID')}
+          />
+
+          <Input
+            type="number"
+            label="Залишок на складі"
+            name="stock"
+            length="md"
+            defaultValue={0} // НЕ ЗАБУТИ ПЕРЕВІРИТИ
+            onChange={e => dispatchRequestBody(e, 'ADD_STOCK_BALANCE')}
           />
         </div>
 

@@ -8,7 +8,7 @@ import MasterCardIcon from 'shared/icons/MasterCardIcon';
 
 export const aboutUsLinks = [
   { url: '/all/about', label: 'Про Бровка' },
-  { url: '/all/perevagy', label: 'Чому це корисно' },
+  { url: '/all/advantages', label: 'Чому це корисно' },
   { url: '/all/contacts', label: 'Контакти' },
 ];
 

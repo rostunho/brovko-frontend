@@ -4,9 +4,9 @@ import Heading from "shared/components/Heading";
 import WhereToBuy from "components/WhereToBuy/WhereToBuy";
 import Modal from 'shared/components/Modal/Modal';
 import { getAllLocations } from "shared/services/api/brovko/locations";
-import styles from './WereToBuyPage.module.scss'
+import styles from './WhereToBuyPage.module.scss'
 
-export default function WereToBuyPage() {
+export default function WhereToBuyPage() {
   const location = useLocation();
   const backLinkHref = location.state?.from ?? "/";
   
@@ -57,7 +57,7 @@ export default function WereToBuyPage() {
        
         {showErrorModal && errorModalContent}
 
-        {locationPoints > 0  ?  
+        {locationPoints  ?  
         <WhereToBuy
           locationPoints={locationPoints}
         /> :  

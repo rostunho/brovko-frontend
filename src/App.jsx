@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectIsLogin } from 'redux/user/userSelectors';
-
 import { lazy } from 'react';
 // import './index.css';
 
@@ -10,6 +9,10 @@ import SharedLayout from 'components/SharedLayout/SharedLayout';
 import AllUsersRoutes from 'components/Routes/AllUsersRoutes';
 import ProductsRoutes from 'components/Routes/ProductsRoutes';
 import AuthRoutes from 'components/Routes/AuthRoutes';
+import AdminRoutes from 'components/Routes/AdminRoutes';
+import PublicRoute from 'utils/Routers/PublicRoute';
+import PrivateRoute from 'utils/Routers/PrivateRoute';
+import AdminRoute from 'utils/Routers/AdminRoute';
 
 const AuthFormWrapper = lazy(() =>
   import('components/AuthSection/AuthFormWrapper/AuthFormWrapper')
@@ -17,15 +20,18 @@ const AuthFormWrapper = lazy(() =>
 const LoginForm = lazy(() =>
   import('components/AuthSection/LoginForm/LoginForm')
 );
+const LazyUserDashboardPage = lazy(() =>
+  import('pages/UserDashboardPage/UserDashboardPage')
+);
 const OrderForm = lazy(() => import('components/OrderForm/OrderForm'));
 const LazyMainPage = lazy(() => import('pages/MainPage/MainPage'));
 const LazyNotFoundPage = lazy(() => import('pages/NotFoundPage/NotFoundPage'));
 
 const OrderPage = lazy(() => import('pages/OrderPage'));
-const AdminPage = lazy(() => import('pages/AdminPage'));
+const AdminPage = lazy(() => import('pages/Admin/AdminPage'));
 const TestingPage = lazy(() => import('pages/Testing/TestingPage'));
 const ModerateReviewPage = lazy(() =>
-  import('pages/ModerateReviewPage/ModerateReviewPage')
+  import('pages/Admin/ModerateReviewPage/ModerateReviewPage')
 );
 const FeedbackPage = lazy(() => import('pages/FeedbackPage/FeedbackPage'));
 const NewReviews = lazy(() =>
@@ -49,20 +55,19 @@ function App() {
         <Route index element={<Navigate to="/main" />} />
         <Route path="/main" element={<LazyMainPage />} />
 
-        <Route path="/all/*" element={<AllUsersRoutes />} />
-
-        <Route path="/shop/*" element={<ProductsRoutes />} />
-
-        <Route path="/auth/*" element={<AuthRoutes />} />
-
-        <Route path="/admin" element={<AdminPage />}>
-          <Route path=":productId" element={<AdminPage />} />
+        <Route element={<PublicRoute />}>
+          <Route path="/shop/*" element={<ProductsRoutes />} />
+          <Route path="/all/*" element={<AllUsersRoutes />} />
+          <Route path="/auth/*" element={<AuthRoutes />} />
         </Route>
-        <Route
-          path="/admin/moderate-reviews"
-          element={<ModerateReviewPage />}
-        />
-        <Route path="admin/feedbacks" element={<FeedbackPage />} />
+
+        <Route element={<PrivateRoute />}>
+          <Route path="/user" element={<LazyUserDashboardPage />} />
+        </Route>
+
+        <Route element={<AdminRoute />}>
+          <Route path="/admin/*" element={<AdminRoutes />} />
+        </Route>
 
         <Route path="/order" element={<OrderPage />}>
           <Route
@@ -81,10 +86,9 @@ function App() {
           <Route path="order-form" element={<OrderForm />} />
         </Route>
 
-        <Route path="/testing" element={<TestingPage />} />
-
-        {/* Not Found */}
         <Route path="*" element={<LazyNotFoundPage />} />
+
+        <Route path="/testing" element={<TestingPage />} />
       </Route>
     </Routes>
   );
