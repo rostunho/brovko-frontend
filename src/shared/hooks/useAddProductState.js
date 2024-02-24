@@ -8,11 +8,16 @@ export const useAddProductState = () => {
     addProductRequestTemplate()
   );
 
-  const updateState = (event, type, data) => {
+  const updateState = (event, type, data, text) => {
     if (Array.isArray(data)) {
       dispatch({
         type: type,
         payload: data ? [...data] : event?.target.value,
+      });
+    } else if (text) {
+      dispatch({
+        type: type,
+        payload: text ? text : event?.target.value,
       });
     } else {
       dispatch({

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ReadMoreButton from '../ReadMoreButton/ReadMoreButton';
 import styles from './NewDescription.module.scss';
+import * as DOMPurify from 'dompurify';
 
 export default function NewDescription({
   children,
@@ -12,6 +13,7 @@ export default function NewDescription({
   const [searchParams, setSearchParams] = useSearchParams();
   const descParam = searchParams.get('desc');
   const [firstSentence, setFirstSentence] = useState('');
+  const [text, setText] = useState('');
 
   useEffect(() => {
     isMobile
@@ -22,10 +24,13 @@ export default function NewDescription({
 
   useEffect(() => {
     children && extractFirstSentence(children);
+    const cleanedText = DOMPurify.sanitize(children);
+    setText(cleanedText);
   }, [children]);
 
   const extractFirstSentence = text => {
-    const targetText = text.match(/.*?[.!?](?:\s|$)/);
+    const cleanedText = DOMPurify.sanitize(text);
+    const targetText = cleanedText.match(/.*?[.!?](?:\s|$)/);
 
     if (targetText) {
       setFirstSentence(targetText);
@@ -68,21 +73,15 @@ export default function NewDescription({
     <div className={`${styles.container} ${className ? className : ''}`}>
       <h3 className={styles.title}>Опис:</h3>
       {descParam === 'full' || !isMobile ? (
-        <div>
-          {children?.split('\n').map((paragraph, index) => (
-            <p key={index} className={styles.paragraph}>
-              <span className={styles.indent}>{paragraph.charAt(0)}</span>
-              {paragraph.substring(1)}
-            </p>
-          ))}
-        </div>
+        <div
+          className={styles.descriptionWrapper}
+          dangerouslySetInnerHTML={{ __html: text }}
+        ></div>
       ) : (
-        <p className={styles.text}>
-          <span className={styles.indent}>
-            {firstSentence ? firstSentence[0].charAt(0) : ''}
-          </span>
-          {firstSentence ? firstSentence[0].substring(1) : ''}
-        </p>
+        <div
+          className={styles.descriptionWrapper}
+          dangerouslySetInnerHTML={{ __html: firstSentence }}
+        ></div>
       )}
       {isMobile && (
         <ReadMoreButton

@@ -17,11 +17,16 @@ import Prompt from 'shared/components/Prompt/Prompt';
 import CalendarIcon from 'shared/icons/CalendarIcon';
 import LinkIcon from 'shared/icons/LinkIcon';
 import SettingsWheelIcon from 'shared/icons/SettingsWheelIcon';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import './editor.css';
+
 import styles from './AddProductForm.module.scss';
 
 import { useSelectorValue } from 'shared/hooks/useSelectorValue';
 import { useAddProductState } from 'shared/hooks/useAddProductState';
 import AddProductImage from './AddProductImage';
+
 export default function AddProductForm({ update }) {
   const [existingProduct, setExistingProduct] = useState(null);
   const [requestBody, dispatchRequestBody] = useAddProductState();
@@ -35,6 +40,10 @@ export default function AddProductForm({ update }) {
   const [refreshSelector, setRefreshSelector] = useState(false);
   const [params, setParams] = useState([]);
   const [files, setFiles] = useState([]);
+  const [descriptionEditorValue, setDescriptionEditorValue] = useState('');
+
+  const [isFocused, setIsFocused] = useState(false);
+
   const formRef = useRef();
   const { productId } = useParams();
 
@@ -131,6 +140,11 @@ export default function AddProductForm({ update }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params]);
 
+  useEffect(() => {
+    dispatchRequestBody(null, 'ADD_DESCRIPTION', null, descriptionEditorValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [descriptionEditorValue]);
+
   const handleSubmit = async event => {
     event.preventDefault();
     console.log(requestBody, files);
@@ -183,6 +197,14 @@ export default function AddProductForm({ update }) {
   //   const foundProduct = array.find(el => el.id === id);
   //   return foundProduct?.name;
   // }
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
 
   return (
     <div className={styles.container}>
@@ -425,12 +447,40 @@ export default function AddProductForm({ update }) {
           Різновиди товарів
         </Button>
 
-        <Textarea
-          label="Опис :"
-          name="description"
-          onChange={e => dispatchRequestBody(e, 'ADD_DESCRIPTION')}
-          rows="6"
-          value={requestBody.product[0].description}
+        <ReactQuill
+          className={isFocused ? 'active-react-quill' : ''}
+          theme="snow"
+          value={descriptionEditorValue}
+          onChange={setDescriptionEditorValue}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          modules={{
+            toolbar: [
+              [{ header: [1, 2, false] }],
+              ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+              [
+                { list: 'ordered' },
+                { list: 'bullet' },
+                { indent: '-1' },
+                { indent: '+1' },
+              ],
+              ['link', 'image'],
+              ['clean'],
+            ],
+          }}
+          formats={[
+            'header',
+            'bold',
+            'italic',
+            'underline',
+            'strike',
+            'blockquote',
+            'list',
+            'bullet',
+            'indent',
+            'link',
+            'image',
+          ]}
         />
 
         <Button type="submit" style={{ marginTop: '56px' }}>
