@@ -8,6 +8,7 @@ import Button from 'shared/components/Button';
 import ModalProductsInBasket from 'components/ModalProductsInBasket/ModalProductsInBasket';
 import styles from './OrderPrice.module.scss';
 import useProductInBasket from 'shared/hooks/useProductInBasket';
+import { useNavigate } from 'react-router-dom';
 
 // export default function OrderPrice({ product, className, ...props })
 
@@ -21,6 +22,7 @@ const OrderPrice = forwardRef(({ product, className, ...props }, ref) => {
   const productInBasket = products.find(el => el._id === product._id);
   const { screenWidth } = useScreen();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   currentOrders.length ? setQuantity(currentOrders.length) : setQuantity(1);
@@ -69,31 +71,42 @@ const OrderPrice = forwardRef(({ product, className, ...props }, ref) => {
         </h3>
         <p className={`${styles.title} `}> {product.price} ₴</p>
       </div>
-      <div className={styles.quantity}>
-        <h3
-          className={`${styles.title} ${
-            screenWidth < 400 ? styles.mobile : ''
-          }`}
-          aria-hidden="false"
-        >
-          Кількість:
-        </h3>
+      {product.quantityInStock > 0 ? (
         <div className={styles.quantity}>
-          <QuantityButtons
-            className={`${styles.counter} `}
-            valueClassName={styles['counter-value']}
-            value={quantity}
-            setValue={setQuantity}
-          />
+          <h3
+            className={`${styles.title} ${
+              screenWidth < 400 ? styles.mobile : ''
+            }`}
+            aria-hidden="false"
+          >
+            Кількість:
+          </h3>
+          <div className={styles.quantity}>
+            <QuantityButtons
+              className={`${styles.counter} `}
+              valueClassName={styles['counter-value']}
+              value={quantity}
+              setValue={setQuantity}
+              quantityInStock={product.quantityInStock}
+            />
+          </div>
         </div>
-      </div>
-      <Button
-        size="lg"
-        onClick={addProductToBasket}
-        className={styles['add-button']}
-      >
-        {productInBasket ? 'Видалити з кошика' : 'Додати в кошик'}
-      </Button>
+      ) : (
+        <div className={styles.notAvailable}>Немає в наявності</div>
+      )}
+      {product.quantityInStock !== 0 ? (
+        <Button
+          size="lg"
+          onClick={addProductToBasket}
+          className={styles['add-button']}
+        >
+          {productInBasket ? 'Видалити з кошика' : 'Додати в кошик'}
+        </Button>
+      ) : (
+        <Button size="lg" onClick={() => navigate('/all/contacts')}>
+          Зв'язатися з менеджером
+        </Button>
+      )}
       {showBasket && (
         <ModalProductsInBasket closeModal={() => setShowBasket(false)} />
       )}
