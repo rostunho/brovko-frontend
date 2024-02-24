@@ -113,6 +113,8 @@ const ProductsItem = ({
     <div
       className={`${styles.productCard} ${
         cardIsSelected ? styles['productCard--selected'] : ''
+      } ${
+        product.quantityInStock === 0 ? styles['productCard--notAvailable'] : ''
       }`}
     >
       <Link
@@ -147,6 +149,10 @@ const ProductsItem = ({
             }}
           />
 
+          {product.quantityInStock < 10 && product.quantityInStock !== 0 && (
+            <div className={styles.expire}>Товар закінчується</div>
+          )}
+
           <Image src={product.picture} className={styles.picture} />
         </div>
 
@@ -156,25 +162,32 @@ const ProductsItem = ({
               <p className={styles.name}>{product.name}</p>
               <p className={styles.price}>{product.price} грн</p>
             </div>
-            <div className={styles.rating}>
-              <StarEmpty />
-              <StarEmpty />
-              <StarEmpty />
-              <StarEmpty />
-              <StarEmpty />
+            <div className={styles.wrapper}>
+              <div className={styles.rating}>
+                <StarEmpty />
+                <StarEmpty />
+                <StarEmpty />
+                <StarEmpty />
+                <StarEmpty />
+              </div>
+              {product.quantityInStock === 0 && (
+                <div className={styles.notAvailable}>Немає в наявності</div>
+              )}
             </div>
           </div>
           <div className={styles.buttons}>
             <Button mode="outlined">Подробиці</Button>
-            <Button
-              onClick={e => {
-                e.preventDefault();
-                handleAddToCart({ product, value: 1 });
-              }}
-              mode="primary"
-            >
-              В кошик
-            </Button>
+            {product.quantityInStock > 0 && (
+              <Button
+                onClick={e => {
+                  e.preventDefault();
+                  handleAddToCart({ product, value: 1 });
+                }}
+                mode="primary"
+              >
+                В кошик
+              </Button>
+            )}
           </div>
         </div>
       </Link>
