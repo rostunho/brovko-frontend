@@ -41,7 +41,7 @@ export default function ProductListPage() {
   const [loadingData, setLoadingData] = useState(true); // Додаємо стан для відстеження завантаження даних
   const [loadingPage, setLoadingPage] = useState(false);
   const [error, setError] = useState(null);
-  const [showErrorModal, setShowErrorModal] = useState(false); 
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   useEffect(() => {
     if (!firstRender) {
@@ -152,7 +152,7 @@ export default function ProductListPage() {
 
   const fetchProducts = async (page, limit) => {
     setLoadingPage(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 250));
     (async () => {
       try {
         const response = await getAllProducts({
@@ -173,7 +173,9 @@ export default function ProductListPage() {
         setShowErrorModal(false);
       } catch (error) {
         console.log('Не отримано продуктів', error);
-        setError('Помилка при завантаженні даних з сервера. Будь ласка, спробуйте ще раз пізніше.');
+        setError(
+          'Помилка при завантаженні даних з сервера. Будь ласка, спробуйте ще раз пізніше.'
+        );
         setShowErrorModal(true);
       }
     })();
@@ -333,83 +335,86 @@ export default function ProductListPage() {
   };
 
   const errorModalContent = (
-    <Modal  className={styles['modal-container']} closeModal={closeModal}>
+    <Modal className={styles['modal-container']} closeModal={closeModal}>
       <div className={styles.modal}>
         <h2>Йой, сервер не відповідає...</h2>
-        <p className={styles.modalText}>Помилка при завантаженні даних з сервера. Будь ласка, спробуйте ще раз пізніше.</p>
+        <p className={styles.modalText}>
+          Помилка при завантаженні даних з сервера. Будь ласка, спробуйте ще раз
+          пізніше.
+        </p>
       </div>
     </Modal>
   );
 
   return (
-  <>
-    {loadingData || loadingPage ? (
-      <ProductCardSkeleton />
-    ) : (
-      <>
-        {showErrorModal && errorModalContent}
-        <Heading withGoBack>Крамничка</Heading>
-        <Input
-          name="searchbar"
-          label=""
-          type="search"
-          value={searchBarValue}
-          onChange={e => setSearchBarValue(e.target.value)}
-          onClick={handleKeyWord}
-        />
-        <div className={styles['selectors-container']}>
-          <Selector
-            name="categories"
+    <>
+      {loadingData || loadingPage ? (
+        <ProductCardSkeleton />
+      ) : (
+        <>
+          {showErrorModal && errorModalContent}
+          <Heading withGoBack>Крамничка</Heading>
+          <Input
+            name="searchbar"
             label=""
-            data={currentCategories}
-            fetchSelectorValue={handleCategory}
-            defaultValue={{
-              id: categoryId,
-              name: categoryName,
-            }}
-            defaultOption={'Всі категорії'}
-            onClick={toggleCloseCategorySelector}
-            onOptionClick={clearSearchBar}
-            forceClosing={sortingSelectorIsOpen}
+            type="search"
+            value={searchBarValue}
+            onChange={e => setSearchBarValue(e.target.value)}
+            onClick={handleKeyWord}
           />
-          <Selector
-            name="sorting"
-            label=""
-            data={sortingTemplate}
-            fetchSelectorValue={handleSortingOptions}
-            defaultValue={sortingToShow}
-            onClick={toggleCloseSortingSelector}
-            forceClosing={categorySelectorIsOpen}
-          />
-        </div>
-
-        {products.products.length > 1 && (
-          <DoubleRangeSlider
-            onSubmit={handlePrices}
-            minLimit={products?.minPrice}
-            maxLimit={products?.maxPrice}
-            min={Number(priceMin)}
-            max={Number(priceMax)}
-            keyword={keyWord}
-          />
-        )}
-
-        {products?.products && (
-          <>
-            <ProductList
-              products={products.products}
-              totalPages={products.totalPages}
-              searchValue={keyWord}
+          <div className={styles['selectors-container']}>
+            <Selector
+              name="categories"
+              label=""
+              data={currentCategories}
+              fetchSelectorValue={handleCategory}
+              defaultValue={{
+                id: categoryId,
+                name: categoryName,
+              }}
+              defaultOption={'Всі категорії'}
+              onClick={toggleCloseCategorySelector}
+              onOptionClick={clearSearchBar}
+              forceClosing={sortingSelectorIsOpen}
             />
-            <Pagination
-              page={page === '0' ? 1 : Number(page)}
-              totalPages={products.totalPages}
-              onChangePage={handleChangePage}
+            <Selector
+              name="sorting"
+              label=""
+              data={sortingTemplate}
+              fetchSelectorValue={handleSortingOptions}
+              defaultValue={sortingToShow}
+              onClick={toggleCloseSortingSelector}
+              forceClosing={categorySelectorIsOpen}
             />
-          </>
-        )}
-      </>
-    )}
-  </>
-);
+          </div>
+
+          {products.products.length > 1 && (
+            <DoubleRangeSlider
+              onSubmit={handlePrices}
+              minLimit={products?.minPrice}
+              maxLimit={products?.maxPrice}
+              min={Number(priceMin)}
+              max={Number(priceMax)}
+              keyword={keyWord}
+            />
+          )}
+
+          {products?.products && (
+            <>
+              <ProductList
+                products={products.products}
+                totalPages={products.totalPages}
+                searchValue={keyWord}
+              />
+              <Pagination
+                page={page === '0' ? 1 : Number(page)}
+                totalPages={products.totalPages}
+                onChangePage={handleChangePage}
+              />
+            </>
+          )}
+        </>
+      )}
+    </>
+  );
 }
