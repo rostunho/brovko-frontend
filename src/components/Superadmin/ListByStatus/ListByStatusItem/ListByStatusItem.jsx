@@ -56,7 +56,7 @@ const ListByStatusItem = ({
         <Modal closeModal={onCloseModal}>
           <ModalStatusUpdate
             onSubmitForm={onChangingStatus}
-            email={currentUser.email}
+            email={currentUser.user.email}
             _id={user?._id}
             status={status}
           />

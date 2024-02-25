@@ -67,7 +67,7 @@ const SuperadminPage = () => {
 
   const currentUser = useSelector(selectUser);
 
-  if (currentUser.status !== 'superadmin') {
+  if (currentUser.user.status !== 'superadmin') {
     return <Navigate to="/" />;
   }
 
@@ -116,7 +116,7 @@ const SuperadminPage = () => {
         <Modal closeModal={onCloseModal}>
           <ModalStatusUpdate
             onSubmitForm={onChangingStatus}
-            email={currentUser.email}
+            email={currentUser.user.email}
             _id={userFound?._id}
             status={status}
           />
