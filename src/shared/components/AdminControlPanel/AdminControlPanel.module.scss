@@ -63,13 +63,27 @@
 
 .buttons-bottom-list {
   display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 201;
+  //   top: calc(100vh - 100px);
+  //   bottom: 32px;
+  bottom: 104px;
+  //   left: 32px;
+  right: 32px;
+  gap: 8px;
 }
 
 .buttons-bottom-list .button {
-  height: 100%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
 }
 
 .buttons-bottom-list .buttons-item {
-  width: 72px;
-  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
 }

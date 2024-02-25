@@ -10,7 +10,8 @@
 
   position: fixed;
   z-index: 100;
-  top: calc(100vh - 100px);
+  // top: calc(100vh - 100px);
+  bottom: 32px;
   right: 32px;
 
   opacity: 0;
