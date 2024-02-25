@@ -1,21 +1,39 @@
 import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { removeProduct } from 'shared/services/api/brovko/products';
 import { removeProductRequestTemplate } from './removeProductRequestTemplate';
 import { selectUserStatus } from 'redux/user/userSelectors';
 import ProductsItem from '../ProductsItem';
 import Button from 'shared/components/Button';
-import { useSelector } from 'react-redux';
+import AdminControlPanel from 'shared/components/AdminControlPanel/AdminControlPanel';
 import styles from './ProductsList.module.scss';
 
 export default function ProductList({ products }) {
   const [adminInCustomerMode, setAdminInCustomerMode] = useState(false);
-  const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
+  const [idsOfSelectedProducts, setIdsOfSelectedProducts] = useState([]);
   const userStatus = useSelector(selectUserStatus);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleRemoveProducts = async () => {
     const body = removeProductRequestTemplate;
-    body.product = productIdsForRemoving.map(id => ({ id }));
+    body.product = idsOfSelectedProducts.map(id => ({ id }));
     await removeProduct(body);
+  };
+
+  const handleEditProduct = () => {
+    if (idsOfSelectedProducts.length !== 1) {
+      return;
+    }
+
+    const selectedId = idsOfSelectedProducts.join();
+    const targetProduct = products.find(product => product.id === selectedId);
+
+    console.log('brovkoId :>> ', targetProduct);
+    navigate(`/admin/addProduct/${targetProduct._id}`, {
+      state: { from: location.pathname + location.search },
+    });
   };
 
   const handleViewMode = () => {
@@ -29,11 +47,11 @@ export default function ProductList({ products }) {
   };
 
   const addProductIdToDeletingList = id => {
-    setProductIdsForRemoving(prevState => [...prevState, id]);
+    setIdsOfSelectedProducts(prevState => [...prevState, id]);
   };
 
   const removeProductIdToDeletingList = id => {
-    setProductIdsForRemoving(prevState => {
+    setIdsOfSelectedProducts(prevState => {
       const idIdx = prevState.indexOf(id);
       const newState = [...prevState];
       newState.splice(idIdx, 1);
@@ -45,31 +63,50 @@ export default function ProductList({ products }) {
     <>
       <div className={styles.products} style={{ position: 'relative' }}>
         {(userStatus === 'manager' || userStatus === 'superadmin') && (
-          <ul className={styles['buttons-list']}>
-            <li className={styles['buttons-item']}>
-              <Button
-                admin
-                className={styles.button}
-                size="lg"
-                disabled={productIdsForRemoving.length < 1}
-                onClick={handleRemoveProducts}
-              >
-                Видалити
-              </Button>
-            </li>
-            <li className={styles['buttons-item']}>
-              <Button
-                admin
-                className={styles.button}
-                size="lg"
-                onClick={handleViewMode}
-              >
-                {adminInCustomerMode
-                  ? 'Повернутись в режим Адміна'
-                  : 'Переглянути в режимі покупця'}
-              </Button>
-            </li>
-          </ul>
+          <AdminControlPanel
+            editDisabled={!(idsOfSelectedProducts.length === 1)}
+            deleteDisabled={idsOfSelectedProducts.length < 1}
+            onEditClick={handleEditProduct}
+            onDeleteClick={handleRemoveProducts}
+            viewMode={adminInCustomerMode}
+            onViewModeClick={handleViewMode}
+          />
+          // <ul className={styles['buttons-list']}>
+          //   <li className={styles['buttons-item']}>
+          //     <Button
+          //       admin
+          //       className={styles.button}
+          //       size="lg"
+          //       disabled={!(idsOfSelectedProducts.length === 1)}
+          //       onClick={handleEditProduct}
+          //     >
+          //       Редагувати
+          //     </Button>
+          //   </li>
+          //   <li className={styles['buttons-item']}>
+          //     <Button
+          //       admin
+          //       className={styles.button}
+          //       size="lg"
+          //       disabled={idsOfSelectedProducts.length < 1}
+          //       onClick={handleRemoveProducts}
+          //     >
+          //       Видалити
+          //     </Button>
+          //   </li>
+          //   <li className={styles['buttons-item']}>
+          //     <Button
+          //       admin
+          //       className={styles.button}
+          //       size="lg"
+          //       onClick={handleViewMode}
+          //     >
+          //       {adminInCustomerMode
+          //         ? 'Повернутись в режим Адміна'
+          //         : 'Переглянути в режимі покупця'}
+          //     </Button>
+          //   </li>
+          // </ul>
         )}
         {products?.length ? (
           <ul className={styles.list}>
