@@ -8,6 +8,7 @@ export default function AdminControlPanel({
   viewMode,
   editDisabled,
   deleteDisabled,
+  onAddClick,
   onEditClick,
   onDeleteClick,
   onViewModeClick,
@@ -29,7 +30,7 @@ export default function AdminControlPanel({
               className={styles.button}
               //   size="md"
               //   disabled={editDisabled}
-              onClick={onEditClick}
+              onClick={onAddClick}
             >
               <AddIcon
                 size={40}
