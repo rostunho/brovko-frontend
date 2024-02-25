@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import Button from '../Button';
+import { EditIcon, DeleteIcon, ViewIcon } from 'shared/icons/Admin';
 import styles from './AdminControlPanel.module.scss';
 
 export default function AdminControlPanel({
@@ -30,7 +31,11 @@ export default function AdminControlPanel({
               disabled={editDisabled}
               onClick={onEditClick}
             >
-              Редагувати
+              <EditIcon
+                size={40}
+                iconColor="#fefefe"
+                borderColor="transparent"
+              />
             </Button>
           </li>
           <li className={styles['buttons-item']}>
@@ -41,7 +46,11 @@ export default function AdminControlPanel({
               disabled={deleteDisabled}
               onClick={onDeleteClick}
             >
-              Видалити
+              <DeleteIcon
+                size={40}
+                iconColor="#fefefe"
+                borderColor="transparent"
+              />
             </Button>
           </li>
           <li className={styles['buttons-item']}>
@@ -51,7 +60,11 @@ export default function AdminControlPanel({
               size="lg"
               onClick={handleViewMode}
             >
-              Подивитись, як покупець
+              <ViewIcon
+                size={40}
+                iconColor="#fefefe"
+                borderColor="transparent"
+              />
             </Button>
           </li>
         </ul>

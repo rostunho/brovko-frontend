@@ -71,42 +71,6 @@ export default function ProductList({ products }) {
             viewMode={adminInCustomerMode}
             onViewModeClick={handleViewMode}
           />
-          // <ul className={styles['buttons-list']}>
-          //   <li className={styles['buttons-item']}>
-          //     <Button
-          //       admin
-          //       className={styles.button}
-          //       size="lg"
-          //       disabled={!(idsOfSelectedProducts.length === 1)}
-          //       onClick={handleEditProduct}
-          //     >
-          //       Редагувати
-          //     </Button>
-          //   </li>
-          //   <li className={styles['buttons-item']}>
-          //     <Button
-          //       admin
-          //       className={styles.button}
-          //       size="lg"
-          //       disabled={idsOfSelectedProducts.length < 1}
-          //       onClick={handleRemoveProducts}
-          //     >
-          //       Видалити
-          //     </Button>
-          //   </li>
-          //   <li className={styles['buttons-item']}>
-          //     <Button
-          //       admin
-          //       className={styles.button}
-          //       size="lg"
-          //       onClick={handleViewMode}
-          //     >
-          //       {adminInCustomerMode
-          //         ? 'Повернутись в режим Адміна'
-          //         : 'Переглянути в режимі покупця'}
-          //     </Button>
-          //   </li>
-          // </ul>
         )}
         {products?.length ? (
           <ul className={styles.list}>
