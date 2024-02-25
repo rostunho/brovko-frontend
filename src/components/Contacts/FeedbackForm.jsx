@@ -49,7 +49,7 @@ function FeedbackForm() {
     e.preventDefault();
     try {
       await addFeedback(formData, setFormData);
-    setFormData(prevData => ({ ...prevData, text: ''})); //перевірити 
+    setFormData(prevData => ({ ...prevData, text: ''})); 
     setShowThankYouModal(true);
     } catch (error) {
       console.error('Error submit feedback', error.response.data.message); 

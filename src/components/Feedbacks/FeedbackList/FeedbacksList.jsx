@@ -22,10 +22,8 @@ export default function FeedbacksList({ feedbacks, ...props }) {
     if (!status) {
       return;
     }
-    // console.log('status :>> ', status);
     (async () => {
       const feedbacks = await getFeedbacks(status);
-      // console.log('feedbacks :>> ', feedbacks);
       setCurrentFeedbacks(feedbacks);
     })();
   }, [status]);

@@ -8,6 +8,7 @@ const AdminRoute = () => {
   const isAdminOrSuperadmin = userStatus === 'manager' || userStatus === 'superadmin';
 
   console.log(isAdminOrSuperadmin)
+  console.log('userStatus', userStatus)
 
   if (!isAdminOrSuperadmin) {
     return (

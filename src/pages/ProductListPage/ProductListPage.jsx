@@ -344,10 +344,14 @@ export default function ProductListPage() {
   return (
   <>
     {loadingData || loadingPage ? (
+      <>
       <ProductCardSkeleton />
+      {showErrorModal && errorModalContent}
+      </>
+     
     ) : (
       <>
-        {showErrorModal && errorModalContent}
+       
         <Heading withGoBack>Крамничка</Heading>
         <Input
           name="searchbar"
