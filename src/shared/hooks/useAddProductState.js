@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 import { addProductReducer } from 'shared/reducers/addProductReducer';
-import { addProductRequestTemplate } from 'components/AddProductForm/addProductRequestTemplate';
+import { addProductRequestTemplate } from 'components/Admin/AddProductForm/addProductRequestTemplate';
 
 export const useAddProductState = () => {
   const [state, dispatch] = useReducer(
@@ -8,11 +8,16 @@ export const useAddProductState = () => {
     addProductRequestTemplate()
   );
 
-  const updateState = (event, type, data) => {
+  const updateState = (event, type, data, text) => {
     if (Array.isArray(data)) {
       dispatch({
         type: type,
         payload: data ? [...data] : event?.target.value,
+      });
+    } else if (text) {
+      dispatch({
+        type: type,
+        payload: text ? text : event?.target.value,
       });
     } else {
       dispatch({

@@ -25,6 +25,14 @@
   justify-content: end;
 }
 
+.notAvailable {
+  color: var(--gray-color);
+
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+  }
+}
+
 .title {
   display: block;
   font-family: 'Nunito', sans-serif;

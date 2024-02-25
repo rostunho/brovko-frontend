@@ -30,7 +30,6 @@ const LazyMainPage = lazy(() => import('pages/MainPage/MainPage'));
 const LazyNotFoundPage = lazy(() => import('pages/NotFoundPage/NotFoundPage'));
 const TestingPage = lazy(() => import('pages/Testing/TestingPage'));
 
-
 function App() {
   // const userIsLogin = useSelector(selectIsLogin);
   // console.log('userIsLogin :>> ', userIsLogin);
@@ -40,8 +39,7 @@ function App() {
       <Route path="/" element={<SharedLayout />}>
         <Route index element={<Navigate to="/main" />} />
         <Route path="/main" element={<LazyMainPage />} />
-      
-   
+
         <Route element={<PublicRoute/>}>
               <Route path="/shop/*" element={<ProductsRoutes />} />
               <Route path="/all/*" element={<AllUsersRoutes />} />
@@ -49,18 +47,17 @@ function App() {
               <Route path='/order/*' element={<OrderRoutes/>} />
         </Route>
 
-        <Route element={<PrivateRoute />}>     
-              <Route path="/user" element={<LazyUserDashboardPage />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/user" element={<LazyUserDashboardPage />} />
         </Route>
 
         <Route element={<AdminRoute />}>
-             <Route path="/admin/*" element={<AdminRoutes />} />
+          <Route path="/admin/*" element={<AdminRoutes />} />
         </Route>
 
         <Route path="*" element={<LazyNotFoundPage />} />
 
         <Route path="/testing" element={<TestingPage />} />
-
       </Route>
     </Routes>
   );

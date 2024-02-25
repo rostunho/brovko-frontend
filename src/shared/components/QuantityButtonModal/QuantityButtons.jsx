@@ -10,6 +10,7 @@ export default function QuntityButtons({
   hadleQuantityClick,
   className,
   valueClassName,
+  quantityInStock,
 }) {
   const addOne = () => {
     setValue(prevValue => prevValue + 1);
@@ -44,7 +45,7 @@ export default function QuntityButtons({
         className={styles['plus-button']}
         type="button"
         onClick={addOne}
-        disabled={value >= 99}
+        disabled={value >= quantityInStock}
       >
         <AddingPlusIcon />
       </button>

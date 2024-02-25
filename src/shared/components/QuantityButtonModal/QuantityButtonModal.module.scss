@@ -58,6 +58,10 @@
   padding: 0;
   margin: 0;
   background-color: transparent;
+
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 
 .minus-button {

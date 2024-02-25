@@ -1,4 +1,4 @@
-import { addProductRequestTemplate } from 'components/AddProductForm/addProductRequestTemplate';
+import { addProductRequestTemplate } from 'components/Admin/AddProductForm/addProductRequestTemplate';
 
 export const addProductReducer = (state, action) => {
   const { type, payload } = action;
