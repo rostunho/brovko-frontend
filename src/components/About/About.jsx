@@ -1,5 +1,4 @@
 import React from 'react';
-import Heading from 'shared/components/Heading';
 import BrovkoIcon from 'shared/icons/BrovkoIcon';
 import Image from 'shared/components/Image';
 import { smakolykData } from './smakolykData';

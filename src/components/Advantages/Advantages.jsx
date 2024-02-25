@@ -1,7 +1,6 @@
 import styles from './Advantages.module.scss';
 import { cardData, getIconComponent } from './cardData';
 import Heading from 'shared/components/Heading';
-import Rectangle from 'components/Rectangle/Rectangle';
 
 export default function Advantages() {
   return (

@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import Button from 'shared/components/Button';
 import Image from 'shared/components/Image';
 import useLayoutType from 'shared/hooks/useLayoutType';
-// import FotoIcon from 'shared/icons/Foto';
 import PhoneIcon from 'shared/icons/PhoneIcon';
 import MailIcon from 'shared/icons/MailIcon';
 import Insta2Icon from 'shared/icons/Insta2Icon';

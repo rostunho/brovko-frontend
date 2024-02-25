@@ -1,15 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-
-import AuthFormWrapper from 'components/AuthSection/AuthFormWrapper/AuthFormWrapper';
-import LoginForm from 'components/AuthSection/LoginForm/LoginForm';
-
-import OrderForm from 'components/OrderForm/OrderForm';
 import Loader from 'components/Loader';
-
-const LazyUserDashboardPage = lazy(() =>
-  import('pages/UserDashboardPage/UserDashboardPage')
-);
 
 const LazyProductListPage = lazy(() =>
   import('pages/ProductListPage/ProductListPage')
