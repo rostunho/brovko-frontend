@@ -7,6 +7,9 @@
   background-color: var(--input_stroke);
   margin: 0px -16px;
   padding: 15px 0px;
+  @media screen and (min-width: 1440px) {
+    max-width: 1280px;
+  }
 }
 
 .container {
