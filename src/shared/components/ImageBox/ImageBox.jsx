@@ -86,7 +86,11 @@ export default function ImageBox({ images = [], isMobile, className }) {
   return (
     <div className={`${styles['box-container']} ${className ? className : ''}`}>
       <img
-        src={images[currentImgIdx]}
+        src={
+          Array.isArray(images) && images[0] !== '' && images.length > 0
+            ? images[currentImgIdx]
+            : defaultImage
+        }
         className={styles['large-image']}
         alt="Смаколик"
         style={{ width: containerWidth, height: containerWidth }}
