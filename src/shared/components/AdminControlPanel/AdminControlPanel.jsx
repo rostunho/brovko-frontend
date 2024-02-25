@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import Button from '../Button';
-import { EditIcon, DeleteIcon, ViewIcon } from 'shared/icons/Admin';
+import { EditIcon, DeleteIcon, ViewIcon, AddIcon } from 'shared/icons/Admin';
 import styles from './AdminControlPanel.module.scss';
 
 export default function AdminControlPanel({
@@ -24,10 +24,25 @@ export default function AdminControlPanel({
       {!customerMode ? (
         <ul className={styles['buttons-list']}>
           <li className={styles['buttons-item']}>
-            <Button
+            <button
               admin
               className={styles.button}
-              size="lg"
+              //   size="md"
+              //   disabled={editDisabled}
+              onClick={onEditClick}
+            >
+              <AddIcon
+                size={40}
+                iconColor="#fefefe"
+                borderColor="transparent"
+              />
+            </button>
+          </li>
+          <li className={styles['buttons-item']}>
+            <button
+              admin
+              className={styles.button}
+              //   size="md"
               disabled={editDisabled}
               onClick={onEditClick}
             >
@@ -36,13 +51,13 @@ export default function AdminControlPanel({
                 iconColor="#fefefe"
                 borderColor="transparent"
               />
-            </Button>
+            </button>
           </li>
           <li className={styles['buttons-item']}>
-            <Button
+            <button
               admin
               className={styles.button}
-              size="lg"
+              size="md"
               disabled={deleteDisabled}
               onClick={onDeleteClick}
             >
@@ -51,13 +66,13 @@ export default function AdminControlPanel({
                 iconColor="#fefefe"
                 borderColor="transparent"
               />
-            </Button>
+            </button>
           </li>
           <li className={styles['buttons-item']}>
-            <Button
+            <button
               admin
               className={styles.button}
-              size="lg"
+              size="md"
               onClick={handleViewMode}
             >
               <ViewIcon
@@ -65,7 +80,7 @@ export default function AdminControlPanel({
                 iconColor="#fefefe"
                 borderColor="transparent"
               />
-            </Button>
+            </button>
           </li>
         </ul>
       ) : (
