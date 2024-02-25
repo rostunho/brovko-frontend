@@ -15,17 +15,23 @@ const AllAdminsPage = () => {
 
   const currentUser = useSelector(selectUser);
 
-  console.log(currentUser);
-
-  if (currentUser.user.status !== 'superadmin') {
+  if (
+    currentUser.user.status !== 'superadmin' &&
+    currentUser.user.status !== 'manager'
+  ) {
     return <Navigate to="/" />;
   }
+
+  const linksArray =
+    currentUser.user.status === 'superadmin'
+      ? data
+      : data.filter(item => item.userStatus !== 'superadmin');
 
   return (
     <div className={styles.container}>
       <Heading>Панель керування</Heading>
       <ul className={styles.box}>
-        {data.map((card, index) => (
+        {linksArray.map((card, index) => (
           <li className={styles.link} key={index}>
             <div className={styles.card}>
               <NavLink to={card.link} state={{ from: location }}>
