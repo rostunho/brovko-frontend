@@ -60,3 +60,16 @@
   top: 25px;
   right: 16px;
 }
+
+.buttons-bottom-list {
+  display: flex;
+}
+
+.buttons-bottom-list .button {
+  height: 100%;
+}
+
+.buttons-bottom-list .buttons-item {
+  width: 72px;
+  height: 72px;
+}

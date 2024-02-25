@@ -23,67 +23,117 @@ export default function AdminControlPanel({
   return (
     <>
       {!customerMode ? (
-        <ul className={styles['buttons-list']}>
-          <li className={styles['buttons-item']}>
-            <button
-              admin
-              className={styles.button}
-              //   size="md"
-              //   disabled={editDisabled}
-              onClick={onAddClick}
-            >
-              <AddIcon
-                size={40}
-                iconColor="#fefefe"
-                borderColor="transparent"
-              />
-            </button>
-          </li>
-          <li className={styles['buttons-item']}>
-            <button
-              admin
-              className={styles.button}
-              //   size="md"
-              disabled={editDisabled}
-              onClick={onEditClick}
-            >
-              <EditIcon
-                size={40}
-                iconColor="#fefefe"
-                borderColor="transparent"
-              />
-            </button>
-          </li>
-          <li className={styles['buttons-item']}>
-            <button
-              admin
-              className={styles.button}
-              size="md"
-              disabled={deleteDisabled}
-              onClick={onDeleteClick}
-            >
-              <DeleteIcon
-                size={40}
-                iconColor="#fefefe"
-                borderColor="transparent"
-              />
-            </button>
-          </li>
-          <li className={styles['buttons-item']}>
-            <button
-              admin
-              className={styles.button}
-              size="md"
-              onClick={handleViewMode}
-            >
-              <ViewIcon
-                size={40}
-                iconColor="#fefefe"
-                borderColor="transparent"
-              />
-            </button>
-          </li>
-        </ul>
+        <>
+          <ul className={styles['buttons-list']}>
+            <li className={styles['buttons-item']}>
+              <button admin className={styles.button} onClick={onAddClick}>
+                <AddIcon
+                  size={40}
+                  iconColor="#fefefe"
+                  borderColor="transparent"
+                />
+              </button>
+            </li>
+            <li className={styles['buttons-item']}>
+              <button
+                admin
+                className={styles.button}
+                disabled={editDisabled}
+                onClick={onEditClick}
+              >
+                <EditIcon
+                  size={40}
+                  iconColor="#fefefe"
+                  borderColor="transparent"
+                />
+              </button>
+            </li>
+            <li className={styles['buttons-item']}>
+              <button
+                admin
+                className={styles.button}
+                size="md"
+                disabled={deleteDisabled}
+                onClick={onDeleteClick}
+              >
+                <DeleteIcon
+                  size={40}
+                  iconColor="#fefefe"
+                  borderColor="transparent"
+                />
+              </button>
+            </li>
+            <li className={styles['buttons-item']}>
+              <button
+                admin
+                className={styles.button}
+                size="md"
+                onClick={handleViewMode}
+              >
+                <ViewIcon
+                  size={40}
+                  iconColor="#fefefe"
+                  borderColor="transparent"
+                />
+              </button>
+            </li>
+          </ul>
+
+          <ul className={styles['buttons-bottom-list']}>
+            <li className={styles['buttons-item']}>
+              <button admin className={styles.button} onClick={onAddClick}>
+                <AddIcon
+                  size={40}
+                  iconColor="#fefefe"
+                  borderColor="transparent"
+                />
+              </button>
+            </li>
+            <li className={styles['buttons-item']}>
+              <button
+                admin
+                className={styles.button}
+                disabled={editDisabled}
+                onClick={onEditClick}
+              >
+                <EditIcon
+                  size={40}
+                  iconColor="#fefefe"
+                  borderColor="transparent"
+                />
+              </button>
+            </li>
+            <li className={styles['buttons-item']}>
+              <button
+                admin
+                className={styles.button}
+                size="md"
+                disabled={deleteDisabled}
+                onClick={onDeleteClick}
+              >
+                <DeleteIcon
+                  size={40}
+                  iconColor="#fefefe"
+                  borderColor="transparent"
+                />
+              </button>
+            </li>
+            <li className={styles['buttons-item']}>
+              <button
+                admin
+                className={styles.button}
+                size="md"
+                onClick={handleViewMode}
+              >
+                <ViewIcon
+                  size={40}
+                  iconColor="#fefefe"
+                  borderColor="transparent"
+                />
+              </button>
+            </li>
+          </ul>
+        </>
       ) : (
         createPortal(
           <Button
@@ -93,7 +143,7 @@ export default function AdminControlPanel({
           >
             Повернутись в режим адміна
           </Button>,
-          document.getElementById('service-root')
+          document.getElementById('modal-root')
         )
       )}
     </>
