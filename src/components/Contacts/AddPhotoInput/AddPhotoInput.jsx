@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './addPhotoInput.module.scss';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import { useDispatch } from 'react-redux';
@@ -7,10 +7,10 @@ import Image from 'shared/components/Image';
 import AddIconImage from 'shared/icons/AddIconImage';
 import Modal from 'shared/components/Modal/Modal';
 
-const AddPhotoInput = ({files, setFiles}) => {
+const AddPhotoInput = ({setFiles}) => {
   const [selectedImagesReview, setSelectedImagesReview] = useState([]);
   const [selectedPicturesReview, setSelectedPicturesReview] = useState([]);
-//   const [files, setFiles] = useState([]);
+  const [selectedFilesReview, setSelectedFilesReview] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsImage, setModalIsImage] = useState(false);
   const [modalIsId, setModalIsId] = useState(false);
@@ -45,7 +45,7 @@ const AddPhotoInput = ({files, setFiles}) => {
     const files = Array.from(e.target.files);
 
     if (files.length > 0 && files.length <= xFiles) {
-      setFiles(files);
+      setSelectedFilesReview(files);
       addImages(files);
       setErrorTextQuantity(false);
     } else {
@@ -110,7 +110,6 @@ const AddPhotoInput = ({files, setFiles}) => {
 
     setSelectedImagesReview(prevImages => [...prevImages, ...newImages]); // Змінено тут
     setSelectedPicturesReview(prevPictures => [...prevPictures, ...newImages]); // Змінено тут
-    setFiles(...selectedPicturesReview)
     dispatch(
       addPopupOperation(
         `Додано ${newImages.length} файл${
@@ -118,7 +117,7 @@ const AddPhotoInput = ({files, setFiles}) => {
         }`
       )
     );
-    setFiles([]);
+    setSelectedFilesReview([]);
   };
 
   const images = selectedPicturesReview.map(({ id, url }, index) => (
@@ -141,6 +140,11 @@ const AddPhotoInput = ({files, setFiles}) => {
       />
     </Button>
   ));
+
+  useEffect(() => {
+    setFiles(selectedPicturesReview);
+  }, [selectedPicturesReview]);
+
 
   const inputPhoto = index => (
     <label className={styles['file-input-label']} key={index}>
