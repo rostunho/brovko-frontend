@@ -98,12 +98,17 @@ export const forgotPassword = async data => {
   return result;
 };
 
+export const resetPasswordRequest = async token => {
+  const { data: result } = await instance.get(`user/reset-password/${token}`);
+  return result;
+};
+
 export const resetPassword = async (token, password) => {
   const { data: result } = await instance.post(
     `user/reset-password/${token}`,
     password
   );
-  console.log(result);
+
   return result;
 };
 
