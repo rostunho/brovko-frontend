@@ -1,12 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addOrder } from 'redux/basket/basketSlice';
-import { Link, useParams } from 'react-router-dom';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import { getAllOrders } from 'redux/basket/basketSelectors';
-import { selectUser } from 'redux/user/userSelectors';
-import { getProductById } from 'shared/services/api';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import { update } from 'redux/user/userOperations';
 import {

@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { getAllOrders } from 'redux/basket/basketSelectors';
 import QuantityButtonModal from 'shared/components/QuantityButtonModal/QuantityButtonModal';
 import Heading from '../Heading';
 import Rectangle from 'components/Rectangle/Rectangle';
