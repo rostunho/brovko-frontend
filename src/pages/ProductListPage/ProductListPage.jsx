@@ -354,50 +354,54 @@ export default function ProductListPage() {
         <>
           {showErrorModal && errorModalContent}
           <Heading withGoBack>Крамничка</Heading>
-          <Input
-            name="searchbar"
-            label=""
-            type="search"
-            value={searchBarValue}
-            onChange={e => setSearchBarValue(e.target.value)}
-            onClick={handleKeyWord}
-          />
           <div className={styles['selectors-container']}>
-            <Selector
-              name="categories"
+            <Input
+              name="searchbar"
+              className={styles.searchbar}
+              inputClassName={styles['searchbar-input']}
               label=""
-              data={currentCategories}
-              fetchSelectorValue={handleCategory}
-              defaultValue={{
-                id: categoryId,
-                name: categoryName,
-              }}
-              defaultOption={'Всі категорії'}
-              onClick={toggleCloseCategorySelector}
-              onOptionClick={clearSearchBar}
-              forceClosing={sortingSelectorIsOpen}
+              type="search"
+              placeholder="Пошук сммаколиків"
+              value={searchBarValue}
+              onChange={e => setSearchBarValue(e.target.value)}
+              onClick={handleKeyWord}
             />
-            <Selector
-              name="sorting"
-              label=""
-              data={sortingTemplate}
-              fetchSelectorValue={handleSortingOptions}
-              defaultValue={sortingToShow}
-              onClick={toggleCloseSortingSelector}
-              forceClosing={categorySelectorIsOpen}
-            />
+            <div className={styles['multi-selectors-container']}>
+              <Selector
+                name="categories"
+                label=""
+                data={currentCategories}
+                fetchSelectorValue={handleCategory}
+                defaultValue={{
+                  id: categoryId,
+                  name: categoryName,
+                }}
+                defaultOption={'Всі категорії'}
+                onClick={toggleCloseCategorySelector}
+                onOptionClick={clearSearchBar}
+                forceClosing={sortingSelectorIsOpen}
+              />
+              <Selector
+                name="sorting"
+                label=""
+                data={sortingTemplate}
+                fetchSelectorValue={handleSortingOptions}
+                defaultValue={sortingToShow}
+                onClick={toggleCloseSortingSelector}
+                forceClosing={categorySelectorIsOpen}
+              />
+            </div>
+            {products.products.length > 1 && (
+              <DoubleRangeSlider
+                onSubmit={handlePrices}
+                minLimit={products?.minPrice}
+                maxLimit={products?.maxPrice}
+                min={Number(priceMin)}
+                max={Number(priceMax)}
+                keyword={keyWord}
+              />
+            )}
           </div>
-
-          {products.products.length > 1 && (
-            <DoubleRangeSlider
-              onSubmit={handlePrices}
-              minLimit={products?.minPrice}
-              maxLimit={products?.maxPrice}
-              min={Number(priceMin)}
-              max={Number(priceMax)}
-              keyword={keyWord}
-            />
-          )}
 
           {products?.products && (
             <>

@@ -121,7 +121,9 @@ export default function Selector({
         <label htmlFor={id}>{label}</label>
         <input
           // className={styles.select}
-          className={`${styles.select} ${style ? styles['custom-style'] : ''}`}
+          className={`${styles.select} ${
+            !label ? styles['without-label'] : ''
+          } ${style ? styles['custom-style'] : ''}`}
           id={id}
           name={name}
           value={currentValue?.name || ''}
