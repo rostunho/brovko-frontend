@@ -5,8 +5,7 @@ import BasketSmall from 'shared/icons/BasketSmall';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from 'redux/user/userSelectors';
 import { changeQuantity } from 'redux/basket/basketSlice';
-import { changeQuantityOrderUser } from 'redux/user/userSlice';
-// import useProductInBasket from 'shared/hooks/useProductInBasket';
+import useProductInBasket from 'shared/hooks/useProductInBasket';
 
 import styles from './QuantityButtonModal.module.scss';
 
@@ -25,8 +24,7 @@ const QuantityButtonModal = ({
   const { isLogin } = useSelector(selectUser);
   const [value, setValue] = useState(val || 1);
   const currentPrice = (price * value).toFixed(2);
-  // const { changeQuantityOrderUser } = useProductInBasket();
-
+  const { updateUserBasket } = useProductInBasket();
   const dispatch = useDispatch();
 
   const hahdleBasketClick = () => {
@@ -37,7 +35,7 @@ const QuantityButtonModal = ({
 
   useEffect(() => {
     if (isLogin) {
-      dispatch(changeQuantityOrderUser({ id, value }));
+      updateUserBasket({ id, value });
     } else {
       dispatch(changeQuantity({ id, value }));
     }
