@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllOrders } from 'redux/basket/basketSelectors';
 import { selectUser } from 'redux/user/userSelectors';
-import { selectIsLogin } from 'redux/user/userSelectors';
 import { addOrder } from 'redux/basket/basketSlice';
 import { deleteOrder } from 'redux/basket/basketSlice';
 import { addPopupOperation } from 'redux/popup/popupOperations';
@@ -11,6 +10,7 @@ const useProductInBasket = () => {
   const dispatch = useDispatch();
   const orders = useSelector(getAllOrders);
   const { user, isLogin } = useSelector(selectUser);
+  // const { isOpen } = useModal();
 
   // useEffect(() => {
   //   console.log('useEffect');
@@ -80,23 +80,30 @@ const useProductInBasket = () => {
     setModalDelete(false);
   };
 
-  const changeQuantityOrderUser = ({ id, value }) => {
-    // console.log('id', id);
-    // const orderToUpdateIndex = user.productInBasket.findIndex(
-    //   order => order._id === id
-    // );
-    // if (orderToUpdateIndex !== -1) {
-    //   const updatedProductInBasket = [...user.productInBasket];
-    //   updatedProductInBasket[orderToUpdateIndex] = {
-    //     ...updatedProductInBasket[orderToUpdateIndex],
-    //     value: value,
-    //   };
-    //   const updatedUser = {
-    //     ...user,
-    //     productInBasket: updatedProductInBasket,
-    //   };
-    //   console.log('updatedUser', updatedUser);
-    // }
+  const updateUserBasket = ({ id, value }) => {
+    const orderToUpdateIndex = user.productInBasket.findIndex(
+      order => order._id === id
+    );
+
+    if (orderToUpdateIndex !== -1) {
+      const updatedProductInBasket = [...user.productInBasket];
+      const oldValue = updatedProductInBasket[orderToUpdateIndex].value;
+
+      if (oldValue !== value) {
+        updatedProductInBasket[orderToUpdateIndex] = {
+          ...updatedProductInBasket[orderToUpdateIndex],
+          value: value,
+        };
+
+        const updatedUser = {
+          id: user._id,
+          ...user,
+          productInBasket: updatedProductInBasket,
+        };
+        console.log('update');
+        dispatch(update(updatedUser));
+      }
+    }
   };
 
   return {
@@ -104,7 +111,7 @@ const useProductInBasket = () => {
     handleAddToCart,
     hahdleBasketDel,
     hahdleBasketClose,
-    changeQuantityOrderUser,
+    updateUserBasket,
   };
 };
 
