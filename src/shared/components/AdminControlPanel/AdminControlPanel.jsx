@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useScreen } from 'shared/hooks/useScreen';
-import useScreenWidth from 'shared/hooks/useScreenWidth';
 import useScroll from 'shared/hooks/useScroll';
 import useFadeOut from 'shared/hooks/useFadeOut';
-import Button from '../Button';
 import BottomControls from './BottomControls/BottomControls';
 import { EditIcon, DeleteIcon, ViewIcon, AddIcon } from 'shared/icons/Admin';
 import styles from './AdminControlPanel.module.scss';
@@ -21,12 +20,20 @@ export default function AdminControlPanel({
   const [customerMode, setCustomerMode] = useState(false);
   const [showBottomMenu, fadeOut, setShowBottomMenu] = useFadeOut(500);
   const scroll = useScroll();
-  const { isMobile } = useScreen();
+  const { isMobile, screenWidth } = useScreen();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     setShowBottomMenu(isMobile && scroll >= 700);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile, scroll]);
+
+  const handleAddProduct = () => {
+    navigate(`/admin/addProduct`, {
+      state: { from: location.pathname + location.search },
+    });
+  };
 
   const handleViewMode = () => {
     setCustomerMode(!customerMode);
@@ -40,7 +47,11 @@ export default function AdminControlPanel({
           <ul className={styles['buttons-list']}>
             {!simple && (
               <li className={styles['buttons-item']}>
-                <button admin className={styles.button} onClick={onAddClick}>
+                <button
+                  admin
+                  className={styles.button}
+                  onClick={handleAddProduct}
+                >
                   <span className={styles['icon-wrapper']}>
                     <AddIcon
                       size={40}
@@ -55,7 +66,9 @@ export default function AdminControlPanel({
             <li className={styles['buttons-item']}>
               <button
                 admin
-                className={styles.button}
+                className={`${styles.button} ${
+                  simple ? styles['simple-mode'] : ''
+                }`}
                 disabled={editDisabled}
                 onClick={onEditClick}
               >
@@ -66,13 +79,15 @@ export default function AdminControlPanel({
                     borderColor="transparent"
                   />
                 </span>
-                {!isMobile && 'Редагувати'}
+                {(!isMobile || (simple && screenWidth > 379)) && 'Редагувати'}
               </button>
             </li>
             <li className={styles['buttons-item']}>
               <button
                 admin
-                className={styles.button}
+                className={`${styles.button} ${
+                  simple ? styles['simple-mode'] : ''
+                }`}
                 size="md"
                 disabled={deleteDisabled}
                 onClick={onDeleteClick}
@@ -84,7 +99,7 @@ export default function AdminControlPanel({
                     borderColor="transparent"
                   />
                 </span>
-                {!isMobile && 'Видалити'}
+                {(!isMobile || (simple && screenWidth > 379)) && 'Видалити'}
               </button>
             </li>
             {!simple && (
@@ -124,20 +139,12 @@ export default function AdminControlPanel({
         </>
       ) : (
         createPortal(
-          // <Button
-          //   className={styles['portal-button']}
-          //   admin
-          //   onClick={handleViewMode}
-          // >
-          //   Повернутись в режим адміна
-          // </Button>,
           <button
             admin
             className={`${styles.button} ${styles['portal-button']}`}
             size="md"
             onClick={handleViewMode}
           >
-            {/* Повернутись в режим адміна */}
             <span className={styles['icon-wrapper']}>
               <ViewIcon
                 size={40}

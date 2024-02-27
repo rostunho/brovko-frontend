@@ -5,7 +5,6 @@ import { removeProduct } from 'shared/services/api/brovko/products';
 import { removeProductRequestTemplate } from './removeProductRequestTemplate';
 import { selectUserStatus } from 'redux/user/userSelectors';
 import ProductsItem from '../ProductsItem';
-import Button from 'shared/components/Button';
 import AdminControlPanel from 'shared/components/AdminControlPanel/AdminControlPanel';
 import styles from './ProductsList.module.scss';
 
@@ -15,12 +14,6 @@ export default function ProductList({ products }) {
   const userStatus = useSelector(selectUserStatus);
   const navigate = useNavigate();
   const location = useLocation();
-
-  const handleAddProduct = () => {
-    navigate(`/admin/addProduct`, {
-      state: { from: location.pathname + location.search },
-    });
-  };
 
   const handleRemoveProducts = async () => {
     const body = removeProductRequestTemplate;
@@ -72,7 +65,6 @@ export default function ProductList({ products }) {
           <AdminControlPanel
             editDisabled={!(idsOfSelectedProducts.length === 1)}
             deleteDisabled={idsOfSelectedProducts.length < 1}
-            onAddClick={handleAddProduct}
             onEditClick={handleEditProduct}
             onDeleteClick={handleRemoveProducts}
             viewMode={adminInCustomerMode}

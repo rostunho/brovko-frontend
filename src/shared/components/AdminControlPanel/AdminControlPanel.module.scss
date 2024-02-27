@@ -93,6 +93,12 @@
   }
 }
 
+.button.simple-mode {
+  width: 100%;
+  justify-content: center;
+  gap: 8px;
+}
+
 .portal-button {
   position: fixed;
   z-index: 21;
