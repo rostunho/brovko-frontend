@@ -182,7 +182,9 @@ export default function AddProductForm({ update }) {
 
   return (
     <div className={styles.container}>
-      <Heading withGoBack>Додати новий товар</Heading>
+      <Heading withGoBack>
+        {!update ? 'Додати новий товар' : 'Редагувати товар'}
+      </Heading>
 
       <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
         <Input

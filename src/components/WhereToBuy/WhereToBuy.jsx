@@ -1,14 +1,9 @@
-// import { locationPoints } from './locationPoints';
-// import { useEffect, useState } from 'react';
-// import BabayDog from 'shared/icons/BabyDog';
-// import Steak from 'shared/icons/Steak';
 import LocationIcon from 'shared/icons/LocationIcon';
 import PhoneIcon from 'shared/icons/PhoneIcon';
 import CalendarIcon from 'shared/icons/Calendar2Icon';
 import styles from './WhereToBuy.module.scss';
 
 export default function WhereToBuy({ locationPoints }) {
-  console.log('locationPoints', locationPoints);
   return (
     <div className={styles.container}>
       <ul className={styles.box}>
