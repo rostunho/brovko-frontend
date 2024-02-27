@@ -1,14 +1,18 @@
 .to-top-button {
-  width: 65px;
-  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
   border: none;
   padding: 0;
   background-color: transparent;
 
   position: fixed;
   z-index: 100;
-  top: calc(100vh - 100px);
-  right: 32px;
+  // top: calc(100vh - 100px);
+  bottom: 32px;
+  right: 16px;
 
   opacity: 0;
   animation: fadeIn 250ms ease-in forwards;
@@ -18,14 +22,14 @@
   }
 }
 
-.to-top-icon {
-  fill: #f3a610;
-  cursor: pointer;
-  &:hover {
-    fill: #f39610;
-    // filter: drop-shadow(0px 1px 5px rgba(255, 193, 7, 0.5));
-  }
-}
+// .to-top-icon {
+//   fill: #f3a610;
+//   cursor: pointer;
+//   // &:hover {
+//   //   fill: #f39610;
+//   //   // filter: drop-shadow(0px 1px 5px rgba(255, 193, 7, 0.5));
+//   // }
+// }
 
 @keyframes fadeIn {
   to {

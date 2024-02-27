@@ -1,0 +1,143 @@
+.buttons-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 8px;
+
+  width: 100%;
+  height: 60px;
+  margin-bottom: 24px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media screen and (min-width: 480px) {
+    width: 448px;
+  }
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    justify-content: space-around;
+    // gap: 32px;
+    width: 736px;
+    // padding: 0 16px;
+  }
+}
+
+.buttons-item {
+  display: flex;
+  justify-content: center;
+  min-width: 64px;
+  // width: 100%;
+  width: auto;
+  max-width: 180px;
+
+  // @media screen and (min-width: 768px) {
+  //   min-width: 200px;
+  // }
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 60px;
+  min-height: 60px;
+  width: 60px;
+  height: 60px;
+
+  border-radius: 50%;
+  background-color: #2480dc;
+}
+
+.button:hover .icon-wrapper,
+.button:focus .icon-wrapper,
+.button:active .icon-wrapper {
+  background-color: #1662af;
+}
+
+.button:disabled .icon-wrapper,
+.button:hover:disabled .icon-wrapper {
+  background-color: rgba(0, 102, 204, 0.3);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  background-color: transparent;
+
+  font-family: 'Amatic SC', sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  color: #2480dc;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #1662af;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 100%;
+    justify-content: center;
+    gap: 8px;
+  }
+}
+
+.portal-button {
+  position: fixed;
+  z-index: 21;
+  top: 32px;
+  right: 16px;
+  justify-content: end;
+  width: 60px;
+
+  line-height: 1;
+
+  &:hover {
+    width: 200px;
+    border: 2px solid #2480dc;
+    background-color: white;
+    border-radius: 30px;
+    padding-left: 16px;
+    &::before {
+      content: 'Повернутись в режим адміна';
+    }
+  }
+}
+
+// .buttons-bottom-list {
+//   display: flex;
+//   flex-direction: column;
+//   position: fixed;
+//   z-index: 201;
+//   //   top: calc(100vh - 100px);
+//   //   bottom: 32px;
+//   bottom: 104px;
+//   //   left: 32px;
+//   right: 32px;
+//   gap: 8px;
+// }
+
+// .buttons-bottom-list .button {
+//   width: 60px;
+//   height: 60px;
+//   border-radius: 50%;
+// }
+
+// .buttons-bottom-list .buttons-item {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 64px;
+//   height: 64px;
+// }
