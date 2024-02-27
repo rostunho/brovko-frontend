@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useScreen } from 'shared/hooks/useScreen';
 import useScreenWidth from 'shared/hooks/useScreenWidth';
 import useScroll from 'shared/hooks/useScroll';
 import useFadeOut from 'shared/hooks/useFadeOut';
@@ -19,13 +20,13 @@ export default function AdminControlPanel({
 }) {
   const [customerMode, setCustomerMode] = useState(false);
   const [showToTopButton, fadeOut, setShowToTopButton] = useFadeOut(500);
-  const screenWidth = useScreenWidth();
   const scroll = useScroll();
+  const { isMobile } = useScreen();
 
   useEffect(() => {
-    setShowToTopButton(screenWidth <= 768 && scroll >= 700);
+    setShowToTopButton(isMobile && scroll >= 700);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [screenWidth, scroll]);
+  }, [isMobile, scroll]);
 
   const handleViewMode = () => {
     setCustomerMode(!customerMode);
@@ -39,11 +40,14 @@ export default function AdminControlPanel({
           <ul className={styles['buttons-list']}>
             <li className={styles['buttons-item']}>
               <button admin className={styles.button} onClick={onAddClick}>
-                <AddIcon
-                  size={40}
-                  iconColor="#fefefe"
-                  borderColor="transparent"
-                />
+                <span className={styles['icon-wrapper']}>
+                  <AddIcon
+                    size={40}
+                    iconColor="#fefefe"
+                    borderColor="transparent"
+                  />
+                </span>
+                {!isMobile && 'Додати'}
               </button>
             </li>
             <li className={styles['buttons-item']}>
@@ -53,11 +57,14 @@ export default function AdminControlPanel({
                 disabled={editDisabled}
                 onClick={onEditClick}
               >
-                <EditIcon
-                  size={40}
-                  iconColor="#fefefe"
-                  borderColor="transparent"
-                />
+                <span className={styles['icon-wrapper']}>
+                  <EditIcon
+                    size={40}
+                    iconColor="#fefefe"
+                    borderColor="transparent"
+                  />
+                </span>
+                {!isMobile && 'Редагувати'}
               </button>
             </li>
             <li className={styles['buttons-item']}>
@@ -68,11 +75,14 @@ export default function AdminControlPanel({
                 disabled={deleteDisabled}
                 onClick={onDeleteClick}
               >
-                <DeleteIcon
-                  size={40}
-                  iconColor="#fefefe"
-                  borderColor="transparent"
-                />
+                <span className={styles['icon-wrapper']}>
+                  <DeleteIcon
+                    size={40}
+                    iconColor="#fefefe"
+                    borderColor="transparent"
+                  />
+                </span>
+                {!isMobile && 'Видалити'}
               </button>
             </li>
             <li className={styles['buttons-item']}>
@@ -82,11 +92,14 @@ export default function AdminControlPanel({
                 size="md"
                 onClick={handleViewMode}
               >
-                <ViewIcon
-                  size={40}
-                  iconColor="#fefefe"
-                  borderColor="transparent"
-                />
+                <span className={styles['icon-wrapper']}>
+                  <ViewIcon
+                    size={40}
+                    iconColor="#fefefe"
+                    borderColor="transparent"
+                  />
+                </span>
+                {!isMobile && 'Переглянути, як покупець'}
               </button>
             </li>
           </ul>
