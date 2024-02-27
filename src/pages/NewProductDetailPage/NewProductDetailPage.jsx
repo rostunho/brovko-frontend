@@ -69,7 +69,7 @@ export default function NewProductDetailPage() {
   }
 
   const goToEditProduct = () => {
-    navigate(`/admin/addproduct/${productId}`);
+    navigate(`/admin/add-product/${productId}`);
   };
 
   const removeProducts = async id => {

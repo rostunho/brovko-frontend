@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { useScreen } from 'shared/hooks/useScreen';
 import useScroll from 'shared/hooks/useScroll';
 import useFadeOut from 'shared/hooks/useFadeOut';
@@ -21,19 +20,11 @@ export default function AdminControlPanel({
   const [showBottomMenu, fadeOut, setShowBottomMenu] = useFadeOut(500);
   const scroll = useScroll();
   const { isMobile, screenWidth } = useScreen();
-  const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     setShowBottomMenu(isMobile && scroll >= 700);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile, scroll]);
-
-  const handleAddProduct = () => {
-    navigate(`/admin/addProduct`, {
-      state: { from: location.pathname + location.search },
-    });
-  };
 
   const handleViewMode = () => {
     setCustomerMode(!customerMode);
@@ -47,11 +38,7 @@ export default function AdminControlPanel({
           <ul className={styles['buttons-list']}>
             {!simple && (
               <li className={styles['buttons-item']}>
-                <button
-                  admin
-                  className={styles.button}
-                  onClick={handleAddProduct}
-                >
+                <button admin className={styles.button} onClick={onAddClick}>
                   <span className={styles['icon-wrapper']}>
                     <AddIcon
                       size={40}

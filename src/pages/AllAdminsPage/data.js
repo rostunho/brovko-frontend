@@ -2,7 +2,7 @@ export const data = [
   {
     heading: 'Додати товар',
     text: 'Пора показати усім бровкам дещо новеньке',
-    link: '/admin/addProduct',
+    link: '/admin/add-product',
     userStatus: 'admin',
   },
   {

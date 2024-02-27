@@ -15,6 +15,12 @@ export default function ProductList({ products }) {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const handleAddProduct = () => {
+    navigate(`/admin/add-product`, {
+      state: { from: location.pathname + location.search },
+    });
+  };
+
   const handleRemoveProducts = async () => {
     const body = removeProductRequestTemplate;
     body.product = idsOfSelectedProducts.map(id => ({ id }));
@@ -30,7 +36,7 @@ export default function ProductList({ products }) {
     const targetProduct = products.find(product => product.id === selectedId);
 
     console.log('brovkoId :>> ', targetProduct);
-    navigate(`/admin/addProduct/${targetProduct._id}`, {
+    navigate(`/admin/add-product/${targetProduct._id}`, {
       state: { from: location.pathname + location.search },
     });
   };
@@ -65,6 +71,7 @@ export default function ProductList({ products }) {
           <AdminControlPanel
             editDisabled={!(idsOfSelectedProducts.length === 1)}
             deleteDisabled={idsOfSelectedProducts.length < 1}
+            onAddClick={handleAddProduct}
             onEditClick={handleEditProduct}
             onDeleteClick={handleRemoveProducts}
             viewMode={adminInCustomerMode}

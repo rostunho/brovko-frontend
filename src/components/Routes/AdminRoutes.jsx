@@ -25,10 +25,10 @@ export default function AdminRoutes() {
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<AllAdminsPage />} />
-        <Route path="/addProduct" element={<AdminPage />}>
+        <Route path="/add-product" element={<AdminPage />}>
           <Route path=":productId" element={<AdminPage />} />
         </Route>
-        <Route path="/updateProduct" element={<ProductListPage />} />
+        <Route path="/update-product" element={<ProductListPage />} />
         <Route path="/moderate-reviews" element={<ModerateReviewPage />} />
 
         <Route path="/superadmin" element={<SuperadminPage />} />
