@@ -38,7 +38,7 @@ export default function AdminControlPanel({
           <ul className={styles['buttons-list']}>
             {!simple && (
               <li className={styles['buttons-item']}>
-                <button admin className={styles.button} onClick={onAddClick}>
+                <button className={styles.button} onClick={onAddClick}>
                   <span className={styles['icon-wrapper']}>
                     <AddIcon
                       size={40}
@@ -52,7 +52,6 @@ export default function AdminControlPanel({
             )}
             <li className={styles['buttons-item']}>
               <button
-                admin
                 className={`${styles.button} ${
                   simple ? styles['simple-mode'] : ''
                 }`}
@@ -71,7 +70,6 @@ export default function AdminControlPanel({
             </li>
             <li className={styles['buttons-item']}>
               <button
-                admin
                 className={`${styles.button} ${
                   simple ? styles['simple-mode'] : ''
                 }`}
@@ -92,7 +90,6 @@ export default function AdminControlPanel({
             {!simple && (
               <li className={styles['buttons-item']}>
                 <button
-                  admin
                   className={styles.button}
                   size="md"
                   onClick={handleViewMode}
@@ -127,7 +124,6 @@ export default function AdminControlPanel({
       ) : (
         createPortal(
           <button
-            admin
             className={`${styles.button} ${styles['portal-button']}`}
             size="md"
             onClick={handleViewMode}
