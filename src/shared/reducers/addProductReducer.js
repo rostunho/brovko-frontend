@@ -115,6 +115,7 @@ export const addProductReducer = (state, action) => {
       newState.product[0].barcode = payload.barcode;
       newState.product[0].keywords = payload.keywords;
       newState.product[0].note = payload.note;
+      newState.product[0].stockBalance = payload.quantityInStock;
       return newState;
 
     case 'ADD_SAVED_CATEGORY':
