@@ -7,17 +7,17 @@
 
   @media screen and (min-width: 768px) {
     width: 360px;
-    margin-bottom: 16px;
-  }
-  @media screen and (min-width: 768px) {
-    width: 360px;
+    padding-bottom: 16px;
     margin-right: auto;
+    margin-bottom: auto;
   }
 }
 
 .sliders_control {
   position: relative;
   min-height: 2px;
+  // height: 40px;
+  margin-top: 27px;
   margin-left: 15px;
 }
 
@@ -26,15 +26,17 @@
 // }
 
 .form_control {
-  position: relative;
+  // position: relative;
   display: flex;
-  align-items: end;
+  align-items: center;
+  height: 40px;
+
   font-size: 24px;
   color: #635a5a;
-  margin-bottom: 24px;
+  // margin-bottom: 24px;
 
   @media screen and (min-width: 768px) {
-    margin-bottom: 32px;
+    // margin-bottom: 32px;
   }
 }
 
@@ -86,15 +88,16 @@ input[type='number'] {
 
   font-family: 'Nunito', sans-serif;
 
-  // color: #8a8383;
-
-  // border: 1px solid #d2d2d2;
-  border: 1px solid var(--black-text-color);
+  border: 1px solid #7b7b7b;
   border-radius: 8px;
   outline: none;
   cursor: pointer;
 
   transition: all 0.3s ease 0s;
+
+  @media screen and (min-width: 768px) {
+    height: 40px;
+  }
 }
 
 input[type='number']:hover,
@@ -159,6 +162,10 @@ input[type='range']:first-child {
   background-color: var(--accent-color);
 
   transition: background-color 0.3s ease 0s, box-shadow 0.3s ease 0s;
+
+  @media screen and (min-width: 768px) {
+    height: 40px;
+  }
 }
 
 // .button_color_accent {

@@ -120,13 +120,28 @@ export default function AdminControlPanel({
         </>
       ) : (
         createPortal(
-          <Button
-            className={styles['portal-button']}
+          // <Button
+          //   className={styles['portal-button']}
+          //   admin
+          //   onClick={handleViewMode}
+          // >
+          //   Повернутись в режим адміна
+          // </Button>,
+          <button
             admin
+            className={`${styles.button} ${styles['portal-button']}`}
+            size="md"
             onClick={handleViewMode}
           >
-            Повернутись в режим адміна
-          </Button>,
+            {/* Повернутись в режим адміна */}
+            <span className={styles['icon-wrapper']}>
+              <ViewIcon
+                size={40}
+                iconColor="#fefefe"
+                borderColor="transparent"
+              />
+            </span>
+          </button>,
           document.getElementById('modal-root')
         )
       )}

@@ -1,7 +1,7 @@
 .buttons-list {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   gap: 8px;
 
   width: 100%;
@@ -96,8 +96,23 @@
 .portal-button {
   position: fixed;
   z-index: 21;
-  top: 25px;
+  top: 32px;
   right: 16px;
+  justify-content: end;
+  width: 60px;
+
+  line-height: 1;
+
+  &:hover {
+    width: 200px;
+    border: 2px solid #2480dc;
+    background-color: white;
+    border-radius: 30px;
+    padding-left: 16px;
+    &::before {
+      content: 'Повернутись в режим адміна';
+    }
+  }
 }
 
 // .buttons-bottom-list {

@@ -9,12 +9,12 @@
   width: 100%;
 
   @media screen and (min-width: 768px) {
-    width: 736px;
+    max-width: 736px;
     // padding: 0 16px;
     margin: 0 auto;
   }
   @media screen and (min-width: 1280px) {
-    width: 1280px;
+    max-width: 1280px;
   }
 }
 
