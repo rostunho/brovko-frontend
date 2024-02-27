@@ -28,31 +28,6 @@
   top: 10;
 }
 
-.buttons-list {
-  width: 100%;
-  margin-bottom: 24px;
-  margin-left: auto;
-  margin-right: auto;
-
-  @media screen and (min-width: 768px) {
-    display: flex;
-    justify-content: center;
-    gap: 32px;
-  }
-}
-
-.buttons-item {
-  min-width: 260px;
-}
-
-.buttons-item:not(:last-child) {
-  margin-bottom: 8px;
-}
-
-.button {
-  margin: 0;
-}
-
 .searchContainer {
   margin-bottom: 24px;
 }

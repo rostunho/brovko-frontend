@@ -2,6 +2,10 @@
 
 .container {
   position: relative;
+
+  @media screen and (min-width: 768px) {
+    width: 360px;
+  }
 }
 
 .label {
@@ -55,15 +59,13 @@
   height: 40px;
   margin-top: 4px;
   padding: 0 16px;
-  /* основний текст */
+
   @include text-styles();
   font-family: 'Nunito', sans-serif;
-  background: #191c2c;
 
-  //   cursor: pointer;
   pointer-events: auto;
   cursor: pointer;
-  border: 1px solid var(--black-text-color);
+  border: 1px solid #7b7b7b;
   border-radius: 8px;
   background-color: transparent;
 
@@ -99,6 +101,10 @@
     font-weight: 400;
     width: calc(100%);
   }
+}
+
+.select.without-label {
+  margin: 0;
 }
 
 .dropdown-container {

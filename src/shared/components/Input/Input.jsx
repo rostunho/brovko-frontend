@@ -166,8 +166,8 @@ export default function Input({
           styles[`input-box__length--${length}`]
         } ${isCheckbox || isRadio ? styles['input-box__controls'] : ''} ${
           checkBoxIsChecked ? styles['input-box__controls--checked'] : ''
-        } ${className ? className : ''} ${
-          !label ? styles['without-label'] : ''
+        }  ${!label ? styles['without-label'] : ''} ${
+          className ? className : ''
         }`}
       >
         <label

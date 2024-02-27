@@ -7,7 +7,7 @@ import Loader from 'components/Loader';
 
 const PublicRoute = () => {
   const { isLogin, token } = useSelector(memoizedSelectLoginAndToken);
-  console.log('isLogin, token', isLogin, token);
+  // console.log('isLogin, token', isLogin, token);
 
   if (!isLogin && token) {
     return <Loader />;

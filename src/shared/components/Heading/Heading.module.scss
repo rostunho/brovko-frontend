@@ -7,6 +7,15 @@
   justify-content: center;
   gap: 8px;
   width: 100%;
+
+  @media screen and (min-width: 768px) {
+    max-width: 736px;
+    // padding: 0 16px;
+    margin: 0 auto;
+  }
+  @media screen and (min-width: 1280px) {
+    max-width: 1280px;
+  }
 }
 
 .heading {
@@ -31,6 +40,7 @@
   text-align: center;
   @media screen and (min-width: 768px) {
     font-size: 40px;
+    line-height: 1.5;
   }
 }
 

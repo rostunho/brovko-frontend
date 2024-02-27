@@ -162,6 +162,10 @@
     background-color: transparent;
     box-shadow: none;
   }
+
+  // @media screen and (min-width: 768px) {
+  //   left: 16px;
+  // }
 }
 
 .button_sort {
@@ -269,13 +273,16 @@
 }
 
 .admin-button {
-  background-color: #0066cc;
+  // background-color: #0066cc;
+  background-color: #0a84ff;
   filter: saturate(75%);
 
   &:hover,
   &:focus,
   &:active {
-    background-color: #004e9c;
+    // background-color: #004e9c;
+    background-color: #0066cc;
+    box-shadow: none;
   }
 
   &:disabled {

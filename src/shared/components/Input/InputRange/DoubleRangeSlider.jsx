@@ -122,57 +122,57 @@ const DoubleRangeSlider = ({ onSubmit, minLimit, maxLimit, min, max }) => {
   return (
     <div className={styles.range_container}>
       <form className={styles.form_control} onSubmit={onOkClick}>
-        <div className={styles.form_control_container}>
-          <input
-            className={styles.form_control_container__time__input}
-            type="number"
-            id={styles.fromInput}
-            value={minDigitValue === undefined ? '' : minDigitValue}
-            min={minPriceLimit}
-            max={maxPriceLimit}
-            ref={fromInput}
-            step="0.1"
-            onChange={e =>
-              setMinDigitValue(
-                e.target.value === '' ? undefined : Number(e.target.value)
-              )
+        {/* <div className={styles.form_control_container}> */}
+        <input
+          className={styles.form_control_container__time__input}
+          type="number"
+          id={styles.fromInput}
+          value={minDigitValue === undefined ? '' : minDigitValue}
+          min={minPriceLimit}
+          max={maxPriceLimit}
+          ref={fromInput}
+          step="0.1"
+          onChange={e =>
+            setMinDigitValue(
+              e.target.value === '' ? undefined : Number(e.target.value)
+            )
+          }
+          onBlur={e => {
+            if (e.target.value < minPriceLimit) {
+              setMinDigitValue(minPriceLimit);
+            } else if (e.target.value > maxDigitValue) {
+              setMinDigitValue(maxDigitValue);
             }
-            onBlur={e => {
-              if (e.target.value < minPriceLimit) {
-                setMinDigitValue(minPriceLimit);
-              } else if (e.target.value > maxDigitValue) {
-                setMinDigitValue(maxDigitValue);
-              }
-            }}
-          />
-        </div>
+          }}
+        />
+        {/* </div> */}
         <span aria-hidden="true" className={styles.slider_filter__divider}>
           -
         </span>
-        <div className={styles.form_control_container}>
-          <input
-            className={styles.form_control_container__time__input}
-            type="number"
-            id={styles.toInput}
-            value={maxDigitValue === undefined ? '' : maxDigitValue}
-            min={minPriceLimit}
-            max={maxPriceLimit}
-            ref={toInput}
-            step="0.1"
-            onChange={e =>
-              setMaxDigitValue(
-                e.target.value === '' ? undefined : Number(e.target.value)
-              )
+        {/* <div className={styles.form_control_container}> */}
+        <input
+          className={styles.form_control_container__time__input}
+          type="number"
+          id={styles.toInput}
+          value={maxDigitValue === undefined ? '' : maxDigitValue}
+          min={minPriceLimit}
+          max={maxPriceLimit}
+          ref={toInput}
+          step="0.1"
+          onChange={e =>
+            setMaxDigitValue(
+              e.target.value === '' ? undefined : Number(e.target.value)
+            )
+          }
+          onBlur={e => {
+            if (e.target.value > maxPriceLimit) {
+              setMaxDigitValue(maxPriceLimit);
+            } else if (e.target.value < minDigitValue) {
+              setMaxDigitValue(minDigitValue);
             }
-            onBlur={e => {
-              if (e.target.value > maxPriceLimit) {
-                setMaxDigitValue(maxPriceLimit);
-              } else if (e.target.value < minDigitValue) {
-                setMaxDigitValue(minDigitValue);
-              }
-            }}
-          />
-        </div>
+          }}
+        />
+        {/* </div> */}
         <button
           type="submit"
           className={`${styles.button} ${styles.button_color_accent} ${styles.button_size_small} ${styles.slider_filter__button}`}
