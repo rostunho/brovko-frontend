@@ -9,15 +9,7 @@ import styles from './FeedbackItem.module.scss';
 export default function FeedbackItem({ feedback, ...props }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const status = searchParams.get('feedbacks');
-  const [author, setAuthor] = useState(null);
-
-  useEffect(() => {
-    (async () => {
-      const { user } = await getUserByEmail(feedback.email);
-      user && setAuthor({ ...user });
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [feedback]);
+  const avatarURL = feedback.user?.avatarURL;
 
   return (
     <li
@@ -26,10 +18,10 @@ export default function FeedbackItem({ feedback, ...props }) {
       }`}
     >
       <div className={styles.heading}>
-        {author && author.avatarURL !== '' ? (
+        {avatarURL && avatarURL !== '' ? (
           <img
             className={styles.avatar}
-            src={author?.avatarURL}
+            src={avatarURL}
             alt="avatar"
             width="40px"
             height="40px"
@@ -40,7 +32,9 @@ export default function FeedbackItem({ feedback, ...props }) {
           </div>
         )}
         <div className={styles.author}>
-          {author && <span className={styles.registred}>Зареєстрований</span>}
+          {feedback.isLogin && (
+            <span className={styles.registred}>Зареєстрований</span>
+          )}
           <div className={styles.info}>
             <p className={styles.label}>Пише :</p>
             <p className={styles.name}>
@@ -62,15 +56,17 @@ export default function FeedbackItem({ feedback, ...props }) {
         </div>
       </div>
       <p className={styles.message}>{feedback?.text}</p>
-      {(status === 'all' || status === 'new') && (
-        <Button
-          admin
-          className={styles.button}
-          onClick={() => updateFeedbackStatus(feedback._id, 'archived')}
-        >
-          Опрацьовано
-        </Button>
-      )}
+      {status === 'all' || status === 'new'
+        ? feedback.status !== 'archived' && (
+            <Button
+              admin
+              className={styles.button}
+              onClick={() => updateFeedbackStatus(feedback._id, 'archived')}
+            >
+              Опрацьовано
+            </Button>
+          )
+        : null}
     </li>
   );
 }
