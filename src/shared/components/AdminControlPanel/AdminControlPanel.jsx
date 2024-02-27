@@ -10,7 +10,7 @@ import { EditIcon, DeleteIcon, ViewIcon, AddIcon } from 'shared/icons/Admin';
 import styles from './AdminControlPanel.module.scss';
 
 export default function AdminControlPanel({
-  viewMode,
+  simple,
   editDisabled,
   deleteDisabled,
   onAddClick,
@@ -19,12 +19,12 @@ export default function AdminControlPanel({
   onViewModeClick,
 }) {
   const [customerMode, setCustomerMode] = useState(false);
-  const [showToTopButton, fadeOut, setShowToTopButton] = useFadeOut(500);
+  const [showBottomMenu, fadeOut, setShowBottomMenu] = useFadeOut(500);
   const scroll = useScroll();
   const { isMobile } = useScreen();
 
   useEffect(() => {
-    setShowToTopButton(isMobile && scroll >= 700);
+    setShowBottomMenu(isMobile && scroll >= 700);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile, scroll]);
 
@@ -38,18 +38,20 @@ export default function AdminControlPanel({
       {!customerMode ? (
         <>
           <ul className={styles['buttons-list']}>
-            <li className={styles['buttons-item']}>
-              <button admin className={styles.button} onClick={onAddClick}>
-                <span className={styles['icon-wrapper']}>
-                  <AddIcon
-                    size={40}
-                    iconColor="#fefefe"
-                    borderColor="transparent"
-                  />
-                </span>
-                {!isMobile && 'Додати'}
-              </button>
-            </li>
+            {!simple && (
+              <li className={styles['buttons-item']}>
+                <button admin className={styles.button} onClick={onAddClick}>
+                  <span className={styles['icon-wrapper']}>
+                    <AddIcon
+                      size={40}
+                      iconColor="#fefefe"
+                      borderColor="transparent"
+                    />
+                  </span>
+                  {!isMobile && 'Додати'}
+                </button>
+              </li>
+            )}
             <li className={styles['buttons-item']}>
               <button
                 admin
@@ -85,26 +87,28 @@ export default function AdminControlPanel({
                 {!isMobile && 'Видалити'}
               </button>
             </li>
-            <li className={styles['buttons-item']}>
-              <button
-                admin
-                className={styles.button}
-                size="md"
-                onClick={handleViewMode}
-              >
-                <span className={styles['icon-wrapper']}>
-                  <ViewIcon
-                    size={40}
-                    iconColor="#fefefe"
-                    borderColor="transparent"
-                  />
-                </span>
-                {!isMobile && 'Переглянути, як покупець'}
-              </button>
-            </li>
+            {!simple && (
+              <li className={styles['buttons-item']}>
+                <button
+                  admin
+                  className={styles.button}
+                  size="md"
+                  onClick={handleViewMode}
+                >
+                  <span className={styles['icon-wrapper']}>
+                    <ViewIcon
+                      size={40}
+                      iconColor="#fefefe"
+                      borderColor="transparent"
+                    />
+                  </span>
+                  {!isMobile && 'Переглянути, як покупець'}
+                </button>
+              </li>
+            )}
           </ul>
 
-          {showToTopButton &&
+          {showBottomMenu &&
             createPortal(
               <BottomControls
                 onAddClick={onAddClick}
