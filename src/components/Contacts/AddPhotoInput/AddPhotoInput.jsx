@@ -7,7 +7,7 @@ import Image from 'shared/components/Image';
 import AddIconImage from 'shared/icons/AddIconImage';
 import Modal from 'shared/components/Modal/Modal';
 
-const AddPhotoInput = ({setFiles}) => {
+const AddPhotoInput = ({ setFiles }) => {
   const [selectedImagesReview, setSelectedImagesReview] = useState([]);
   const [selectedPicturesReview, setSelectedPicturesReview] = useState([]);
   const [selectedFilesReview, setSelectedFilesReview] = useState([]);
@@ -17,6 +17,7 @@ const AddPhotoInput = ({setFiles}) => {
   const [prompDelete, setPrompDelete] = useState(true);
   const [errorTextQuantity, setErrorTextQuantity] = useState(false);
   const dispatch = useDispatch();
+  const [index, setIndex] = useState(0);
 
   const openModalEditPhoto = (id, url) => {
     setModalIsId(id);
@@ -59,26 +60,109 @@ const AddPhotoInput = ({setFiles}) => {
     e.dataTransfer.setData('text/plain', index);
   };
 
+  const handleDragOver = e => {
+    e.preventDefault();
+  };
+
   const handleDrop = (e, toIndex) => {
     e.preventDefault();
-    const fromIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
-    const draggedPicture = selectedPicturesReview[fromIndex];
+    const dataTransfer = e.dataTransfer;
+    if (dataTransfer) {
+      const fromIndex = parseInt(dataTransfer.getData('text/plain'), 10);
+      const draggedPicture = selectedPicturesReview[fromIndex];
 
-    // Create a copy of the selectedPicturesReview array
-    const updatedPictures = [...selectedPicturesReview];
+      // Create a copy of the selectedPicturesReview array
+      const updatedPictures = [...selectedPicturesReview];
 
-    // Remove the picture from its original position
-    updatedPictures.splice(fromIndex, 1);
+      // Remove the picture from its original position
+      updatedPictures.splice(fromIndex, 1);
 
-    // Insert the picture at the new position
-    updatedPictures.splice(toIndex, 0, draggedPicture);
+      // Insert the picture at the new position
+      updatedPictures.splice(toIndex, 0, draggedPicture);
 
-    const reorderedPictures = updatedPictures.map((picture, index) => ({
-      ...picture,
-      id: index,
-    }));
+      const reorderedPictures = updatedPictures.map((picture, index) => ({
+        ...picture,
+        id: index,
+      }));
 
-    setSelectedPicturesReview(reorderedPictures);
+      setSelectedPicturesReview(reorderedPictures);
+    }
+  };
+  const [touchStartPos, setTouchStartPos] = useState(null);
+
+  const handleTouchStart = index => {
+    return event => {
+      event.preventDefault();
+      event.stopPropagation();
+      const touch = event.targetTouches[0];
+      const offsetX = touch.clientX - event.target.getBoundingClientRect().left;
+      const offsetY = touch.clientY - event.target.getBoundingClientRect().top;
+      setTouchStartPos({ index, offsetX, offsetY });
+    };
+  };
+
+  // useEffect(() => {
+  //   const input = document.getElementById(`input-${index}`);
+  //   input.addEventListener('touchstart', handleTouchStart(index), { passive: false });
+
+  //   return () => {
+  //     input.removeEventListener('touchstart', handleTouchStart(index));
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   const input = document.getElementById(`input-${index}`);
+  //   if (input) {
+  //     const handleTouchStartWithIndex = handleTouchStart(index);
+  //     input.addEventListener('touchstart', handleTouchStartWithIndex, {
+  //       passive: false,
+  //     });
+
+  //     return () => {
+  //       input.removeEventListener('touchstart', handleTouchStartWithIndex);
+  //     };
+  //   }
+  // }, [index]);
+
+  useEffect(() => {
+    const input = document.getElementById(`input-${index}`);
+    const handleTouchStartWithIndex = handleTouchStart(index);
+    input.addEventListener('touchstart', handleTouchStartWithIndex, { passive: false });
+    
+    return () => {
+      input.removeEventListener('touchstart', handleTouchStartWithIndex);
+    };
+  }, [index]);
+
+  const handleTouchMove = index => {
+    return event => {
+      event.preventDefault();
+      event.stopPropagation();
+      const touch = event.targetTouches[0];
+      const newX = touch.clientX - touchStartPos.offsetX;
+      const newY = touch.clientY - touchStartPos.offsetY;
+      event.target.style.transform = `translate(${newX}px, ${newY}px)`;
+    };
+  };
+
+  const handleTouchEnd = index => {
+    return event => {
+      event.preventDefault();
+      event.stopPropagation();
+      const touch = event.changedTouches[0];
+      const newIndex = calculateNewIndex(touch.clientX, touch.clientY);
+      // Реалізуйте логіку переміщення елементів масиву
+      // Приблизно так: видалити елемент зі старої позиції, вставити його в нову
+      // Ви можете використати функцію handleDrop для цього
+      // Наприклад:
+      handleDrop(event, newIndex);
+      event.target.style.transform = 'none'; // Скидання трансформації
+    };
+  };
+
+  const calculateNewIndex = (clientX, clientY) => {
+    // Розрахунок нового індексу для переміщення елемента у масиві
+    // Залежно від його позиції на екрані
   };
 
   const addImages = files => {
@@ -128,6 +212,9 @@ const AddPhotoInput = ({setFiles}) => {
       draggable
       onDragStart={e => handleDragStart(e, index)}
       onDrop={e => handleDrop(e, index)}
+      onTouchStart={handleTouchStart(index)}
+      onTouchMove={handleTouchMove(index)}
+      onTouchEnd={handleTouchEnd(index)}
       onClick={e => {
         openModalEditPhoto(index, url);
       }}
@@ -145,19 +232,31 @@ const AddPhotoInput = ({setFiles}) => {
     setFiles(selectedPicturesReview);
   }, [selectedPicturesReview]);
 
+  const inputPhoto = index => {
+    // const handleTouchStart = index => {
+    //   return event => {
+    //     event.preventDefault();
+    //     event.stopPropagation();
+    //     const touch = event.targetTouches[0];
+    //     const offsetX = touch.clientX - event.target.getBoundingClientRect().left;
+    //     const offsetY = touch.clientY - event.target.getBoundingClientRect().top;
+    //     setTouchStartPos({ index, offsetX, offsetY });
+    //   };
+    // };
 
-  const inputPhoto = index => (
-    <label className={styles['file-input-label']} key={index}>
-      <input
-        className={styles['visually-hidden']}
-        type="file"
-        accept="image/jpeg, image/jpg, image/png"
-        multiple
-        onChange={e => handleImageChange(e)}
-      />
-      <AddIconImage />
-    </label>
-  );
+    return (
+      <label className={styles['file-input-label']} key={index}>
+        <input
+          className={styles['visually-hidden']}
+          type="file"
+          accept="image/jpeg, image/jpg, image/png"
+          multiple
+          onChange={e => handleImageChange(e)}
+        />
+        <AddIconImage />
+      </label>
+    );
+  };
 
   const inputPhotos = () => {
     const remainingInputs = Math.max(5 - selectedPicturesReview.length, 0);
@@ -225,11 +324,16 @@ const AddPhotoInput = ({setFiles}) => {
   );
 
   return (
-    <div className={styles['add-image-container']}>
-      {images}
-      {inputPhotos()}
+    <>
+      <div
+        className={styles['add-image-container']}
+        onDragOver={handleDragOver}
+      >
+        {images}
+        {inputPhotos()}
+      </div>
       {modalIsOpen && modalWindow}
-    </div>
+    </>
   );
 };
 
