@@ -45,9 +45,10 @@ export default function ProductListPage() {
 
   useEffect(() => {
     if (!firstRender) {
+      console.log('NOT FIRST RENDER');
       return;
     }
-
+    console.log(' FIRST RENDER');
     (async () => {
       await fetchCategories();
       await fetchProducts(Number(page), Number(limit)); // при першому рендері page=null i limit=null, тому функція викличеться без них. Зате при прямому вставленні урли - спрацюють;
