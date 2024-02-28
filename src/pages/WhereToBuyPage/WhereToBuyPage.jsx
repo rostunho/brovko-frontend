@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUserStatus } from 'redux/user/userSelectors';
 import Heading from 'shared/components/Heading';
-import AdminControlPanel from 'shared/components/AdminControlPanel/AdminControlPanel';
+// import AdminControlPanel from 'shared/components/AdminControlPanel/AdminControlPanel';
 import WhereToBuy from 'components/WhereToBuy/WhereToBuy';
 import Modal from 'shared/components/Modal/Modal';
 import { getAllLocations } from 'shared/services/api/brovko/locations';
@@ -18,10 +18,18 @@ export default function WhereToBuyPage() {
   const [locationPoints, setLocationPoints] = useState([]);
   const [locationPointsError, setLocationPointsError] = useState(null);
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [refreshLocations, setRefreshLocations] = useState(false);
 
   useEffect(() => {
     fetchLocationPoints();
   }, []);
+
+  useEffect(() => {
+    if (refreshLocations) {
+      fetchLocationPoints();
+    }
+    setRefreshLocations(false);
+  }, [refreshLocations]);
 
   const fetchLocationPoints = async () => {
     try {
@@ -66,10 +74,14 @@ export default function WhereToBuyPage() {
 
       {locationPoints ? (
         <>
-          {(userStatus === 'superadmin' || userStatus === 'manager') && (
+          {/* {(userStatus === 'superadmin' || userStatus === 'manager') && (
             <AdminControlPanel />
-          )}
-          <WhereToBuy userStatus={userStatus} locationPoints={locationPoints} />
+          )} */}
+          <WhereToBuy
+            userStatus={userStatus}
+            locationPoints={locationPoints}
+            refreshLocations={() => setRefreshLocations(true)}
+          />
         </>
       ) : (
         <p className={styles.modalText}>{locationPointsError}</p>

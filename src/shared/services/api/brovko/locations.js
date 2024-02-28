@@ -45,3 +45,15 @@ export const updateLocationById = async (id, body) => {
     console.log('error into updateLocationById api-function :', error);
   }
 };
+
+export const removeLocations = async body => {
+  try {
+    const requestBody = { ids: body };
+    console.log('requestBody :>> ', requestBody);
+
+    const { data } = await instance.post('locations/delete', requestBody);
+    console.log('data :>> ', data);
+  } catch (error) {
+    console.log(error);
+  }
+};

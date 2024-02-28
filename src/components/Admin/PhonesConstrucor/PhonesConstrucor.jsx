@@ -93,7 +93,7 @@ export default function PhonesConstrucor({
       <p className={styles.label}>Телефон :</p>
       <ul className={styles['phones-list']}>
         {phones.map((phone, idx) => {
-          console.log('phone INTO MAP :>> ', phone);
+          // console.log('phone INTO MAP :>> ', phone);
           return (
             <li key={idx}>
               <Input
