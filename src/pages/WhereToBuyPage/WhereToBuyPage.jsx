@@ -12,7 +12,7 @@ import styles from './WhereToBuyPage.module.scss';
 export default function WhereToBuyPage() {
   const location = useLocation();
   const userStatus = useSelector(selectUserStatus);
-  console.log('userStatus :>> ', userStatus);
+
   const backLinkHref = location.state?.from ?? '/';
 
   const [locationPoints, setLocationPoints] = useState([]);
@@ -69,7 +69,7 @@ export default function WhereToBuyPage() {
           {(userStatus === 'superadmin' || userStatus === 'manager') && (
             <AdminControlPanel />
           )}
-          <WhereToBuy locationPoints={locationPoints} />
+          <WhereToBuy userStatus={userStatus} locationPoints={locationPoints} />
         </>
       ) : (
         <p className={styles.modalText}>{locationPointsError}</p>
