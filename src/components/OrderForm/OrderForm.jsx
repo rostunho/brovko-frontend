@@ -20,7 +20,7 @@ export default function OrderForm() {
   const [paymentMethod, setPaymentMethod] = useState({});
   const productsInBasket = useSelector(getAllOrders);
   const userIsLoggedIn = useSelector(selectIsLogin);
-  const user = useSelector(selectUser);
+  const { user } = useSelector(selectUser);
 
   const navigate = useNavigate();
 

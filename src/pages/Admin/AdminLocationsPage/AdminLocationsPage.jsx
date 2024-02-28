@@ -81,7 +81,7 @@ export default function AdminLocationsPage({ ...props }) {
   const handlePhones = data => {
     setRequestBody(prevBody => {
       const newBody = { ...prevBody };
-      const mappedData = data.map(({ tel }) => tel);
+      const mappedData = data.map(tel => tel);
       newBody.phone = [...mappedData];
       return newBody;
     });
