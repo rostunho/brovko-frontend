@@ -84,7 +84,6 @@ export default function WorkingHoursConstructor({
       <p className={styles.label}>Час роботи :</p>
       <ul className={styles.list}>
         {lines.map((line, idx) => {
-          console.log('lines INTO MAP :>> ', lines);
           return (
             <li key={idx} className={styles['inner-container']}>
               <Input

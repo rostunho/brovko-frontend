@@ -27,8 +27,6 @@ export default function AdminLocationsPage({ ...props }) {
   const [coords, setCoords] = useState('');
   const { locationId } = useParams();
 
-  console.log('PARRENT :>>', requestBody.workingHours);
-
   useEffect(() => {
     (async () => {
       const savedLocation = await getLocationById(locationId);
@@ -44,7 +42,6 @@ export default function AdminLocationsPage({ ...props }) {
       return;
     }
 
-    console.log('TTEESSTT');
     setCoords(requestBody.latitude + ', ' + requestBody.longitude);
   }, [requestBody]);
 
