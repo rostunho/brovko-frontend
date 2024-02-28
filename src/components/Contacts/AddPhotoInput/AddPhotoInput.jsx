@@ -94,8 +94,20 @@ const AddPhotoInput = ({ setFiles }) => {
     const files = Array.from(e.target.files);
 
     if (files.length > 0 && files.length <= xFiles) {
-      setSelectedFilesReview(files);
-      addImages(files);
+      // setSelectedFilesReview(files);
+      // setSelectedFilesReview(prevFiles => [...prevFiles, ...files]);
+      // const newFilesReview = [...selectedFilesReview, ...files];
+      // const newSelectedPicturesReview = addImages(files);
+      // setSelectedFilesReview(newFilesReview);
+      // setSelectedPicturesReview(newSelectedPicturesReview);
+      const newFilesReview = [...selectedFilesReview, ...files];
+    setSelectedFilesReview(prevFiles => [...prevFiles, ...files]);
+    // const updatedSelectedPicturesReview = addImages(files);
+    // setSelectedPicturesReview(updatedSelectedPicturesReview);
+    const newImages = addImages(files);
+    setSelectedPicturesReview(prevPictures => [...prevPictures, ...newImages]);
+    // const newSelectedPicturesReview = addImages(files);
+    // setSelectedPicturesReview(prevPictures => [...prevPictures, ...newImages]);
       setErrorTextQuantity(false);
     } else {
       dispatch(
@@ -240,16 +252,28 @@ const AddPhotoInput = ({ setFiles }) => {
       })
       .filter(Boolean);
 
-    setSelectedImagesReview(prevImages => [...prevImages, ...newImages]); // Змінено тут
-    setSelectedPicturesReview(prevPictures => [...prevPictures, ...newImages]); // Змінено тут
-    dispatch(
-      addPopupOperation(
-        `Додано ${newImages.length} файл${
-          newImages.length === 1 ? '' : newImages.length < 5 ? 'и' : 'ів'
-        }`
-      )
-    );
-    setSelectedFilesReview([]);
+      const updatedSelectedPicturesReview = [...selectedPicturesReview, ...newImages];
+      return updatedSelectedPicturesReview;
+    
+
+      // return newImages;
+
+
+      // const newSelectedPicturesReview = [...selectedPicturesReview, ...newImages];
+      // return newSelectedPicturesReview;
+    
+
+    // setSelectedImagesReview(prevImages => [...prevImages, ...newImages]); // Змінено тут
+    // setSelectedPicturesReview(prevPictures => [...prevPictures, ...newImages]); // Змінено тут
+
+    // dispatch(
+    //   addPopupOperation(
+    //     `Додано ${newImages.length} файл${
+    //       newImages.length === 1 ? '' : newImages.length < 5 ? 'и' : 'ів'
+    //     }`
+    //   )
+    // );
+    // setSelectedFilesReview([]);
   };
 
   const images = selectedPicturesReview.map(({ id, url }, index) => (
