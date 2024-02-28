@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import {
   addLocation,
   getLocationById,
+  updateLocationById,
 } from 'shared/services/api/brovko/locations';
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
@@ -12,7 +13,7 @@ import Button from 'shared/components/Button';
 import styles from './AdminLocationsPage.module.scss';
 
 export default function AdminLocationsPage({ ...props }) {
-  const [existingLocation, setExistingLocation] = useState(null);
+  // const [existingLocation, setExistingLocation] = useState(null);
   const [requestBody, setRequestBody] = useState({
     name: '',
     fullName: '',
@@ -36,7 +37,16 @@ export default function AdminLocationsPage({ ...props }) {
       setRequestBody({ ...savedLocation });
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [existingLocation]);
+  }, []);
+
+  useEffect(() => {
+    if (!requestBody.latitude || !requestBody.longitude) {
+      return;
+    }
+
+    console.log('TTEESSTT');
+    setCoords(requestBody.latitude + ', ' + requestBody.longitude);
+  }, [requestBody]);
 
   useEffect(() => {
     coords && handleCoords(coords);
@@ -91,7 +101,9 @@ export default function AdminLocationsPage({ ...props }) {
   const handleSubmit = async event => {
     event.preventDefault();
 
-    await addLocation(requestBody);
+    locationId
+      ? await updateLocationById(locationId, requestBody)
+      : await addLocation(requestBody);
   };
 
   return (
