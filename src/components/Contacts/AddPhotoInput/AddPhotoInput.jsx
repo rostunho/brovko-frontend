@@ -19,6 +19,54 @@ const AddPhotoInput = ({ setFiles }) => {
   const dispatch = useDispatch();
   const [index, setIndex] = useState(0);
 
+
+
+
+  const [state, setState] = useState([]);
+  const [draggedImageId, setDraggedImageId] = useState(null);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+  const handleTouchStart = (event, id) => {
+    setDraggedImageId(id);
+    const touch = event.touches[0];
+    setOffset({ x: touch.pageX, y: touch.pageY });
+  };
+
+  const handleTouchMove = (event) => {
+    if (!draggedImageId) {
+      return;
+    }
+    event.preventDefault();
+    const touch = event.touches[0];
+    const deltaX = touch.pageX - offset.x;
+    const deltaY = touch.pageY - offset.y;
+    const updatedImages = [...state];
+    const sourceIndex = updatedImages.findIndex((img) => img.id === draggedImageId);
+    const targetIndex = updatedImages.findIndex(
+      (img, index) =>
+        img.id !== draggedImageId &&
+        deltaX > -100 &&
+        deltaX < 100 &&
+        deltaY > -100 &&
+        deltaY < 100 &&
+        index > sourceIndex
+    );
+    if (targetIndex === -1) {
+      return;
+    }
+    const temp = updatedImages[sourceIndex];
+    updatedImages.splice(sourceIndex, 1);
+    updatedImages.splice(targetIndex, 0, temp);
+    setSelectedPicturesReview(updatedImages);
+    setOffset({ x: touch.pageX, y: touch.pageY });
+  };
+
+  const handleTouchEnd = () => {
+    setDraggedImageId(null);
+  };
+
+
+
   const openModalEditPhoto = (id, url) => {
     setModalIsId(id);
     setModalIsImage(url);
@@ -88,18 +136,18 @@ const AddPhotoInput = ({ setFiles }) => {
       setSelectedPicturesReview(reorderedPictures);
     }
   };
-  const [touchStartPos, setTouchStartPos] = useState(null);
+  // const [touchStartPos, setTouchStartPos] = useState(null);
 
-  const handleTouchStart = index => {
-    return event => {
-      event.preventDefault();
-      event.stopPropagation();
-      const touch = event.targetTouches[0];
-      const offsetX = touch.clientX - event.target.getBoundingClientRect().left;
-      const offsetY = touch.clientY - event.target.getBoundingClientRect().top;
-      setTouchStartPos({ index, offsetX, offsetY });
-    };
-  };
+  // const handleTouchStart = index => {
+  //   return event => {
+  //     event.preventDefault();
+  //     event.stopPropagation();
+  //     const touch = event.targetTouches[0];
+  //     const offsetX = touch.clientX - event.target.getBoundingClientRect().left;
+  //     const offsetY = touch.clientY - event.target.getBoundingClientRect().top;
+  //     setTouchStartPos({ index, offsetX, offsetY });
+  //   };
+  // };
 
   // useEffect(() => {
   //   const input = document.getElementById(`input-${index}`);
@@ -124,46 +172,46 @@ const AddPhotoInput = ({ setFiles }) => {
   //   }
   // }, [index]);
 
-  useEffect(() => {
-    const input = document.getElementById(`input-${index}`);
-    const handleTouchStartWithIndex = handleTouchStart(index);
-    input.addEventListener('touchstart', handleTouchStartWithIndex, { passive: false });
+  // useEffect(() => {
+  //   const input = document.getElementById(`input-${index}`);
+  //   const handleTouchStartWithIndex = handleTouchStart(index);
+  //   input.addEventListener('touchstart', handleTouchStartWithIndex, { passive: false });
     
-    return () => {
-      input.removeEventListener('touchstart', handleTouchStartWithIndex);
-    };
-  }, [index]);
+  //   return () => {
+  //     input.removeEventListener('touchstart', handleTouchStartWithIndex);
+  //   };
+  // }, [index]);
 
-  const handleTouchMove = index => {
-    return event => {
-      event.preventDefault();
-      event.stopPropagation();
-      const touch = event.targetTouches[0];
-      const newX = touch.clientX - touchStartPos.offsetX;
-      const newY = touch.clientY - touchStartPos.offsetY;
-      event.target.style.transform = `translate(${newX}px, ${newY}px)`;
-    };
-  };
+  // const handleTouchMove = index => {
+  //   return event => {
+  //     event.preventDefault();
+  //     event.stopPropagation();
+  //     const touch = event.targetTouches[0];
+  //     const newX = touch.clientX - touchStartPos.offsetX;
+  //     const newY = touch.clientY - touchStartPos.offsetY;
+  //     event.target.style.transform = `translate(${newX}px, ${newY}px)`;
+  //   };
+  // };
 
-  const handleTouchEnd = index => {
-    return event => {
-      event.preventDefault();
-      event.stopPropagation();
-      const touch = event.changedTouches[0];
-      const newIndex = calculateNewIndex(touch.clientX, touch.clientY);
-      // Реалізуйте логіку переміщення елементів масиву
-      // Приблизно так: видалити елемент зі старої позиції, вставити його в нову
-      // Ви можете використати функцію handleDrop для цього
-      // Наприклад:
-      handleDrop(event, newIndex);
-      event.target.style.transform = 'none'; // Скидання трансформації
-    };
-  };
+  // const handleTouchEnd = index => {
+  //   return event => {
+  //     event.preventDefault();
+  //     event.stopPropagation();
+  //     const touch = event.changedTouches[0];
+  //     const newIndex = calculateNewIndex(touch.clientX, touch.clientY);
+  //     // Реалізуйте логіку переміщення елементів масиву
+  //     // Приблизно так: видалити елемент зі старої позиції, вставити його в нову
+  //     // Ви можете використати функцію handleDrop для цього
+  //     // Наприклад:
+  //     handleDrop(event, newIndex);
+  //     event.target.style.transform = 'none'; // Скидання трансформації
+  //   };
+  // };
 
-  const calculateNewIndex = (clientX, clientY) => {
-    // Розрахунок нового індексу для переміщення елемента у масиві
-    // Залежно від його позиції на екрані
-  };
+  // const calculateNewIndex = (clientX, clientY) => {
+  //   // Розрахунок нового індексу для переміщення елемента у масиві
+  //   // Залежно від його позиції на екрані
+  // };
 
   const addImages = files => {
     if (!files.length) {
@@ -212,7 +260,7 @@ const AddPhotoInput = ({ setFiles }) => {
       draggable
       onDragStart={e => handleDragStart(e, index)}
       onDrop={e => handleDrop(e, index)}
-      onTouchStart={handleTouchStart(index)}
+      onTouchStart={(e) => handleTouchStart(e, index)}
       onTouchMove={handleTouchMove(index)}
       onTouchEnd={handleTouchEnd(index)}
       onClick={e => {
