@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
-import { addLocation } from 'shared/services/api/brovko/locations';
+import { useParams } from 'react-router-dom';
+import {
+  addLocation,
+  getLocationById,
+} from 'shared/services/api/brovko/locations';
 import Heading from 'shared/components/Heading';
 import Input from 'shared/components/Input';
 import PhonesConstrucor from 'components/Admin/PhonesConstrucor/PhonesConstrucor';
@@ -8,6 +12,7 @@ import Button from 'shared/components/Button';
 import styles from './AdminLocationsPage.module.scss';
 
 export default function AdminLocationsPage({ ...props }) {
+  const [existingLocation, setExistingLocation] = useState(null);
   const [requestBody, setRequestBody] = useState({
     name: '',
     fullName: '',
@@ -19,11 +24,19 @@ export default function AdminLocationsPage({ ...props }) {
     workingHours: {},
   });
   const [coords, setCoords] = useState('');
+  const { locationId } = useParams();
 
-  //   console.log(
-  //     'COORDS LENGTH TEST',
-  //     '49.85694712834761, 24.02763907975984'.length
-  //   );
+  console.log('PARRENT :>>', requestBody.workingHours);
+
+  useEffect(() => {
+    (async () => {
+      const savedLocation = await getLocationById(locationId);
+      // console.log('savedLocation into useEffect :>> ', savedLocation);
+
+      setRequestBody({ ...savedLocation });
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [existingLocation]);
 
   useEffect(() => {
     coords && handleCoords(coords);
@@ -39,7 +52,7 @@ export default function AdminLocationsPage({ ...props }) {
   };
 
   const handleCoords = value => {
-    console.log('value :>> ', value);
+    // console.log('value :>> ', value);
     if (value.length < 36) {
       return;
     }
@@ -83,7 +96,9 @@ export default function AdminLocationsPage({ ...props }) {
 
   return (
     <div className={styles.container}>
-      <Heading withGoBack>Створити локацію</Heading>
+      <Heading withGoBack>
+        {!locationId ? 'Створити нову локацію' : 'Редагувати локацію'}
+      </Heading>
       <form className={styles.form} onSubmit={handleSubmit}>
         <Input
           label="Заголовок :"
@@ -116,8 +131,14 @@ export default function AdminLocationsPage({ ...props }) {
           value={requestBody.mapUrl}
           onChange={handleChange}
         />
-        <PhonesConstrucor extractData={handlePhones} />
-        <WorkingHoursConstructor extractData={handleWorkingHours} />
+        <PhonesConstrucor
+          defaultData={requestBody.phone}
+          extractData={handlePhones}
+        />
+        <WorkingHoursConstructor
+          defaultData={{ ...requestBody.workingHours }}
+          extractData={handleWorkingHours}
+        />
         <Button type="submit">Зберегти</Button>
       </form>
     </div>

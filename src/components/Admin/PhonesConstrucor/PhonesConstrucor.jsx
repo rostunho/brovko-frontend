@@ -7,7 +7,11 @@ import LineQuantittyButtons from '../LineQuantittyButtons/LineQuantittyButtons';
 
 import styles from './PhonesConstrucor.module.scss';
 
-export default function PhonesConstrucor({ extractData, ...props }) {
+export default function PhonesConstrucor({
+  defaultData,
+  extractData,
+  ...props
+}) {
   const [phones, setPhones] = useState([{ tel: '' }]);
   const dispatch = useDispatch();
 

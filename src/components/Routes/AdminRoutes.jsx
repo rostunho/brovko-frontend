@@ -33,7 +33,9 @@ export default function AdminRoutes() {
 
         <Route path="/superadmin" element={<SuperadminPage />} />
         <Route path="/feedbacks" element={<FeedbackPage />} />
-        <Route path="/locations" element={<AdminLocationsPage />} />
+        <Route path="/add-location" element={<AdminLocationsPage />}>
+          <Route path=":locationId" element={<AdminLocationsPage />} />
+        </Route>
       </Routes>
     </Suspense>
   );

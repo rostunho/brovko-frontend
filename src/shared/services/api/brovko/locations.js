@@ -19,3 +19,13 @@ export const addLocation = async body => {
     console.log('error into addLocation api-function :', error);
   }
 };
+
+export const getLocationById = async body => {
+  try {
+    const { data } = await instance.get(`/locations/${body}`);
+    // console.log('data into getLocationById :>> ', data);
+    return data;
+  } catch (error) {
+    console.log('error into getLocationById api-function :', error);
+  }
+};

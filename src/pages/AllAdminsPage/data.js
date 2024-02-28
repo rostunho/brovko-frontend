@@ -32,7 +32,7 @@ export const data = [
   {
     heading: 'Сторінка локацій',
     text: 'Наші торгівельні майданчики',
-    link: '/admin/locations',
+    link: '/admin/add-location',
     userStatus: 'admin',
   },
   {

@@ -5,12 +5,12 @@ import Loader from 'components/Loader';
 
 const AdminRoute = () => {
   const userStatus = useSelector(selectUserStatus);
-  console.log('userStatus :>> ', userStatus);
+  // console.log('userStatus :>> ', userStatus);
   const isAdminOrSuperadmin =
     userStatus === 'manager' || userStatus === 'superadmin';
 
-  console.log(isAdminOrSuperadmin)
-  console.log('userStatus', userStatus)
+  // console.log(isAdminOrSuperadmin)
+  // console.log('userStatus', userStatus)
 
   if (userStatus && !isAdminOrSuperadmin) {
     return (

@@ -17,9 +17,7 @@
   @media screen and (min-width: 768px) {
     display: flex;
     justify-content: space-around;
-    // gap: 32px;
     width: 736px;
-    // padding: 0 16px;
   }
 }
 
@@ -30,10 +28,6 @@
   // width: 100%;
   width: auto;
   max-width: 176px;
-
-  // @media screen and (min-width: 768px) {
-  //   min-width: 200px;
-  // }
 }
 
 .icon-wrapper {
@@ -120,30 +114,3 @@
     }
   }
 }
-
-// .buttons-bottom-list {
-//   display: flex;
-//   flex-direction: column;
-//   position: fixed;
-//   z-index: 201;
-//   //   top: calc(100vh - 100px);
-//   //   bottom: 32px;
-//   bottom: 104px;
-//   //   left: 32px;
-//   right: 32px;
-//   gap: 8px;
-// }
-
-// .buttons-bottom-list .button {
-//   width: 60px;
-//   height: 60px;
-//   border-radius: 50%;
-// }
-
-// .buttons-bottom-list .buttons-item {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   width: 64px;
-//   height: 64px;
-// }

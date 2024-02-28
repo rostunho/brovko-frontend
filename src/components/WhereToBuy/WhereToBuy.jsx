@@ -11,7 +11,6 @@ export default function WhereToBuy({ locationPoints }) {
           <li className={styles.link} key={index}>
             <div className={styles.card}>
               <div className={styles.icon}>
-                {/* <Steak/> */}
                 <h3 style={{ color: '#fefefe' }}>{location.name}</h3>
               </div>
               <div className={styles.content}>
