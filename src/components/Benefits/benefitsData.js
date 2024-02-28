@@ -4,10 +4,11 @@ import Smakolyk3 from 'shared/images/Smakolyk3.jpg';
 import Smakolyk4 from 'shared/images/Smakolyk4.jpg';
 
 export const benefitsData = [
-  { imgSrc: Smakolyk1, text: 'користь приносили' },
-  { imgSrc: Smakolyk2, text: 'смачними були' },
-  { imgSrc: Smakolyk3, text: 'пахнули приємно' },
-  { imgSrc: Smakolyk4, text: 'виглядали апетитно' },
+  { imgSrc: Smakolyk1, text: 'Інгредієнти пройшли ревізію нутриціолога.' },
+  { imgSrc: Smakolyk2, text: 'Ягоди, фрукти, овочі, трави та навіть суперфуди - мегаважливі для собачого здоровʼя. Ми додаємо їх до снеків!' },
+  { imgSrc: Smakolyk3, text: 'Смаколики висушуються без термічної обробки, що дозволяє зберегти в продукті вітаміни та мікроелементи.' },
+  { imgSrc: Smakolyk4, text: 'Клітковина - обовʼязкова складова кожного снеку. Стимулює моторику кишківника, виводить з організму токсини, насичує його вітамінами та поживними речовинами.' },
+  { imgSrc: Smakolyk1, text: 'Ласощі не містять ароматизаторів, барвників чи підсилювачів смаку. Тільки натуральні інгредієнти!' },
 ];
 
 export const benefitsTextData = [
