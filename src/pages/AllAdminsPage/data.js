@@ -2,7 +2,7 @@ export const data = [
   {
     heading: 'Додати товар',
     text: 'Пора показати усім бровкам дещо новеньке',
-    link: '/admin/addProduct',
+    link: '/admin/add-product',
     userStatus: 'admin',
   },
   {
@@ -32,7 +32,7 @@ export const data = [
   {
     heading: 'Сторінка локацій',
     text: 'Наші торгівельні майданчики',
-    link: '/admin/locations',
+    link: '/admin/add-location',
     userStatus: 'admin',
   },
   {

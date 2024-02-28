@@ -7,9 +7,37 @@ import LineQuantittyButtons from '../LineQuantittyButtons/LineQuantittyButtons';
 
 import styles from './PhonesConstrucor.module.scss';
 
-export default function PhonesConstrucor({ extractData, ...props }) {
-  const [phones, setPhones] = useState([{ tel: '' }]);
+export default function PhonesConstrucor({
+  defaultData,
+  extractData,
+  ...props
+}) {
+  const [initialData, setInitialData] = useState(null);
+  const [phones, setPhones] = useState(['']);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (defaultData && defaultData.length > 0) {
+      // setPhones([...defaultData]);
+      setInitialData([...defaultData]);
+    }
+  }, [defaultData]);
+
+  useEffect(() => {
+    if (initialData && initialData.join(', ') !== '') {
+      const arrayToCompare = [...initialData];
+      console.log('arrayToCompare :>> ', arrayToCompare);
+
+      console.log(
+        'CONDITION RESULT >>:',
+        JSON.stringify(arrayToCompare) !== JSON.stringify(phones)
+      );
+
+      if (JSON.stringify(arrayToCompare) !== JSON.stringify(phones)) {
+        setPhones(prevPhones => [...initialData]);
+      }
+    }
+  }, [initialData]);
 
   useEffect(() => {
     extractData && extractData([...phones]);
@@ -24,7 +52,7 @@ export default function PhonesConstrucor({ extractData, ...props }) {
 
     setPhones(prevRows => {
       const newRows = [...prevRows];
-      newRows[idx].tel = parsePhoneNumber(value);
+      newRows[idx] = parsePhoneNumber(value);
 
       return newRows;
     });
@@ -33,7 +61,7 @@ export default function PhonesConstrucor({ extractData, ...props }) {
   const addPhone = () => {
     setPhones(prevPhones => {
       const newPhones = [...prevPhones];
-      newPhones.push({ tel: '' });
+      newPhones.push('');
       return newPhones;
     });
   };
@@ -51,18 +79,28 @@ export default function PhonesConstrucor({ extractData, ...props }) {
       return newPhones;
     });
   };
+
+  // const areArraysEqual = (arr1, arr2) => {
+  //   if (arr1.length !== arr2.length) {
+  //     return false;
+  //   }
+
+  //   return arr1.every((value, idx) => value === arr2[idx]);
+  // };
+
   return (
     <div>
       <p className={styles.label}>Телефон :</p>
       <ul className={styles['phones-list']}>
         {phones.map((phone, idx) => {
+          // console.log('phone INTO MAP :>> ', phone);
           return (
             <li key={idx}>
               <Input
                 type="tel"
                 name={`phone-${idx}`}
                 data-idx={idx}
-                value={phone[idx]}
+                value={phone}
                 onChange={handleOnChange}
               />
             </li>

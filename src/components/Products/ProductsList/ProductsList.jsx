@@ -5,7 +5,6 @@ import { removeProduct } from 'shared/services/api/brovko/products';
 import { removeProductRequestTemplate } from './removeProductRequestTemplate';
 import { selectUserStatus } from 'redux/user/userSelectors';
 import ProductsItem from '../ProductsItem';
-import Button from 'shared/components/Button';
 import AdminControlPanel from 'shared/components/AdminControlPanel/AdminControlPanel';
 import styles from './ProductsList.module.scss';
 
@@ -17,7 +16,7 @@ export default function ProductList({ products }) {
   const location = useLocation();
 
   const handleAddProduct = () => {
-    navigate(`/admin/addProduct`, {
+    navigate(`/admin/add-product`, {
       state: { from: location.pathname + location.search },
     });
   };
@@ -37,7 +36,7 @@ export default function ProductList({ products }) {
     const targetProduct = products.find(product => product.id === selectedId);
 
     console.log('brovkoId :>> ', targetProduct);
-    navigate(`/admin/addProduct/${targetProduct._id}`, {
+    navigate(`/admin/add-product/${targetProduct._id}`, {
       state: { from: location.pathname + location.search },
     });
   };

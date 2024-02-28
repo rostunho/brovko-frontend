@@ -17,7 +17,7 @@ function reducer(state, action) {
       return { ...state, lastName: action.payload };
 
     case 'ADD_PHONE':
-      return { ...state, phone: action.payload };
+      return { ...state, phone: parsePhoneNumber(action.payload) };
 
     case 'ADD_EMAIL':
       return { ...state, email: action.payload };
