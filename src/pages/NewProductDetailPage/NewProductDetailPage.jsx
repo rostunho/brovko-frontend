@@ -117,7 +117,7 @@ export default function NewProductDetailPage() {
             {product.description}
           </NewDescription>
 
-          {isMobile && <Comments isMobile={isMobile} />}
+          {isMobile && <Comments isMobile={isMobile} onUpdateCommentsLength={updateCommentsLength}/>}
         </div>
 
         {!isMobile && (
