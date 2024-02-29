@@ -65,7 +65,8 @@ export default function PayForm({
         orderReference: data.data.orderId,
       }));
 
-      setTimeout(generateSignature(data), 500);
+      // Використання setTimeout з функцією обгорткою, щоб передати параметри
+      setTimeout(() => generateSignature(data), 500);
     }
   };
   const generateSignature = async data => {
@@ -81,12 +82,8 @@ export default function PayForm({
         }),
       });
 
-      console.log('response :>> ', response);
-
       if (response.ok) {
         const data = await response.json();
-
-        console.log('data in response :>> ', data in response);
 
         const merchantSignature = data.signature;
         updateFormDataWithSignature(merchantSignature);

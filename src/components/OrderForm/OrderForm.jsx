@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { getAllOrders } from 'redux/basket/basketSelectors';
-import { selectIsLogin, selectUser } from 'redux/user/userSelectors';
+import {
+  selectIsLogin,
+  selectUser,
+  productInBasketCurrentUser,
+} from 'redux/user/userSelectors';
 import { getMainWarehouse } from 'shared/services/api/nova-poshta/nova-poshta-api';
 import CustomerForm from './CustomerForm/CustomerForm';
 import { DeliveryForm } from 'components/OrderForm/DeliveryForm';
@@ -18,8 +22,13 @@ export default function OrderForm() {
   const [customer, setCustomer] = useState({});
   const [delivery, setDelivery] = useState({});
   const [paymentMethod, setPaymentMethod] = useState({});
-  const productsInBasket = useSelector(getAllOrders);
   const userIsLoggedIn = useSelector(selectIsLogin);
+
+  const isCurrentUserProducts = userIsLoggedIn
+    ? productInBasketCurrentUser
+    : getAllOrders;
+
+  const productsInBasket = useSelector(isCurrentUserProducts);
   const { user } = useSelector(selectUser);
 
   const navigate = useNavigate();
@@ -68,7 +77,6 @@ export default function OrderForm() {
     );
 
     const response = await addNewOrder(addOrderRequestBody);
-    // console.log(data);
     return response?.data;
   };
 
