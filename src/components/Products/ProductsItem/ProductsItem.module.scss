@@ -1,3 +1,5 @@
+@import 'theme/abstract/mixins';
+
 .productCard {
   max-width: 448px;
   min-width: 280px;
@@ -99,6 +101,14 @@
   }
 }
 
+.description {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
 .info {
   display: flex;
   justify-content: space-between;
@@ -115,16 +125,15 @@
 }
 
 .name {
-  font-weight: 700;
+  @include text-styles(Nunito, 16px, 700);
   color: var(--black-text-color);
   margin: 0;
   max-width: 100%;
 }
 
 .price {
-  font-weight: 400px;
+  @include text-styles(Nunito, 14px, 400);
   color: var(--gray-color);
-  // opacity: 70%;
   margin: 0;
 }
 
@@ -138,18 +147,6 @@
   color: var(--gray-color);
 }
 
-.rating {
-  margin-top: 5px;
-  display: flex;
-  gap: 5px;
-}
-
-.description {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex-grow: 1;
-}
 
 .buttons {
   display: flex;

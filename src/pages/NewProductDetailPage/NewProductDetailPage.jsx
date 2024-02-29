@@ -28,6 +28,11 @@ export default function NewProductDetailPage() {
   const [logisticHeight, setLogisticHeght] = useState(null);
   const { isMobile } = useScreen();
   const [fromPage, setFromPage] = useState(null);
+  const [commentsLength, setCommentsLength] = useState(0);
+
+  const updateCommentsLength = (length) => {
+    setCommentsLength(length);
+  };
 
   const mainScreenRef = useRef();
   // const dispatch = useDispatch();
@@ -94,7 +99,7 @@ export default function NewProductDetailPage() {
           />
         )}
         <div ref={mainScreenRef} className={styles['main-screen']}>
-          <Rating className={styles.rating} />
+          <Rating className={styles.rating} commentsLength={commentsLength}/>
 
           <ImageBox
             className={styles['image-box']}
@@ -125,6 +130,7 @@ export default function NewProductDetailPage() {
             <Comments
               containerHeight={mainScreenHeight - priceHeight - logisticHeight}
               isMobile={isMobile}
+              onUpdateCommentsLength={updateCommentsLength}
             />
           </aside>
         )}
