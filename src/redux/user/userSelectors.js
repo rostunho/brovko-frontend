@@ -14,6 +14,9 @@ export const ordersUserHistory = ({ user }) => user.ordersHistory;
 
 export const productInBasket = ({ user }) => user.productInBasket;
 
+export const productInBasketCurrentUser = ({ user }) =>
+  user.user.productInBasket;
+
 export const selectRequestSuccess = ({ user }) => user.resetToken;
 
 export const selectIsPswReset = ({ user }) => user.isPasswordReset;
