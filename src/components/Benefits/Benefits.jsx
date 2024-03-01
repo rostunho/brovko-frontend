@@ -15,7 +15,7 @@ export default function Benefits() {
   return (
     <div className={styles.benefitsContainer}>
       <div className={styles.benefitsImage}>
-        <Image src={usefulSmakolyk}></Image>
+        <Image src={usefulSmakolyk2}></Image>
       </div>
 
       <p className={styles.benefitsDescription}>

@@ -11,6 +11,7 @@ import {
 } from 'redux/user/userSlice';
 
 import StarEmpty from 'shared/icons/StarEmpty';
+import Raiting from 'shared/components/Raiting/Raiting';
 import Button from 'shared/components/Button/Button';
 import Image from 'shared/components/Image';
 import Input from 'shared/components/Input';
@@ -160,11 +161,7 @@ const ProductsItem = ({
             </div>
             <div className={styles.wrapper}>
               <div className={styles.rating}>
-                <StarEmpty />
-                <StarEmpty />
-                <StarEmpty />
-                <StarEmpty />
-                <StarEmpty />
+                <Raiting/>
               </div>
               {product.quantityInStock === 0 && (
                 <div className={styles.notAvailable}>Немає в наявності</div>

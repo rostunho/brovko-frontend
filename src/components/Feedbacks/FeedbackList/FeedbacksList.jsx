@@ -30,7 +30,7 @@ export default function FeedbacksList({ feedbacks, ...props }) {
 
   return (
     <ul className={styles.list}>
-      {currentFeedbacks.length &&
+      {currentFeedbacks?.length &&
         currentFeedbacks.map((feedback, idx) => {
           return <FeedbackItem key={idx} feedback={feedback} />;
         })}

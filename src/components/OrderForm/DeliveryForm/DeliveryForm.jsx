@@ -117,9 +117,9 @@ export default function DeliveryForm({ savedData, getData }) {
       )}
       {deliveryMethod?.method === 'warehouse' && city?.Ref && (
         <DeliveryWarehouse
-          cityRef={city.Ref}
+          cityRef={city?.Ref}
           savedWarehouse={
-            city.Ref === savedData.novaPoshta.city.Ref
+            city?.Ref === savedData.novaPoshta?.city?.Ref
               ? savedData.novaPoshta?.warehouse
               : null
           }

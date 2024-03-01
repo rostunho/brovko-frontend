@@ -3,12 +3,39 @@ import Input from 'shared/components/Input';
 import LineQuantittyButtons from '../LineQuantittyButtons/LineQuantittyButtons';
 import styles from './WorkingHoursConstructor.module.scss';
 
-export default function WorkingHoursConstructor({ extractData, ...props }) {
-  const [lines, setLines] = useState([{ days: '', hours: '' }]);
+export default function WorkingHoursConstructor({
+  extractData,
+  defaultData,
+  ...props
+}) {
+  const [initialLines, setInitialLines] = useState(null);
+  const [lines, setLines] = useState(initialLines || [{ days: '', hours: '' }]);
+
+  useEffect(() => {
+    setInitialLines(defaultData);
+  }, [defaultData]);
+
+  useEffect(() => {
+    if (defaultData) {
+      const parsedDefaultData = Object.entries(defaultData).map(
+        ([key, value]) => {
+          // return console.log({ 'key :>> ': key, 'value :>>': value });
+          return { days: key, hours: value };
+        }
+      );
+
+      if (
+        parsedDefaultData.length > 0 &&
+        JSON.stringify(parsedDefaultData) !== JSON.stringify(lines)
+      ) {
+        setLines([...parsedDefaultData]);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialLines]);
 
   useEffect(() => {
     extractData && extractData(convertData(lines));
-    console.log(convertData(lines));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lines]);
 
@@ -56,7 +83,7 @@ export default function WorkingHoursConstructor({ extractData, ...props }) {
     <div>
       <p className={styles.label}>Час роботи :</p>
       <ul className={styles.list}>
-        {lines?.map((line, idx) => {
+        {lines.map((line, idx) => {
           return (
             <li key={idx} className={styles['inner-container']}>
               <Input
