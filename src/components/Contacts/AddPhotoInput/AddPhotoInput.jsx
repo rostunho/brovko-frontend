@@ -7,7 +7,7 @@ import Image from 'shared/components/Image';
 import AddIconImage from 'shared/icons/AddIconImage';
 import Modal from 'shared/components/Modal/Modal';
 
-const AddPhotoInput = ({ setFiles }) => {
+const AddPhotoInput = () => {
   const [selectedImagesReview, setSelectedImagesReview] = useState([]);
   const [selectedPicturesReview, setSelectedPicturesReview] = useState([]);
   const [selectedFilesReview, setSelectedFilesReview] = useState([]);
@@ -19,9 +19,6 @@ const AddPhotoInput = ({ setFiles }) => {
   const dispatch = useDispatch();
   const [index, setIndex] = useState(0);
 
-
-
-
   const [state, setState] = useState([]);
   const [draggedImageId, setDraggedImageId] = useState(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -32,7 +29,7 @@ const AddPhotoInput = ({ setFiles }) => {
     setOffset({ x: touch.pageX, y: touch.pageY });
   };
 
-  const handleTouchMove = (event) => {
+  const handleTouchMove = event => {
     if (!draggedImageId) {
       return;
     }
@@ -41,7 +38,9 @@ const AddPhotoInput = ({ setFiles }) => {
     const deltaX = touch.pageX - offset.x;
     const deltaY = touch.pageY - offset.y;
     const updatedImages = [...state];
-    const sourceIndex = updatedImages.findIndex((img) => img.id === draggedImageId);
+    const sourceIndex = updatedImages.findIndex(
+      img => img.id === draggedImageId
+    );
     const targetIndex = updatedImages.findIndex(
       (img, index) =>
         img.id !== draggedImageId &&
@@ -57,15 +56,13 @@ const AddPhotoInput = ({ setFiles }) => {
     const temp = updatedImages[sourceIndex];
     updatedImages.splice(sourceIndex, 1);
     updatedImages.splice(targetIndex, 0, temp);
-    setSelectedPicturesReview(updatedImages);
+    console.log('    setSelectedPicturesReview(updatedImages);');
     setOffset({ x: touch.pageX, y: touch.pageY });
   };
 
   const handleTouchEnd = () => {
     setDraggedImageId(null);
   };
-
-
 
   const openModalEditPhoto = (id, url) => {
     setModalIsId(id);
@@ -101,13 +98,13 @@ const AddPhotoInput = ({ setFiles }) => {
       // setSelectedFilesReview(newFilesReview);
       // setSelectedPicturesReview(newSelectedPicturesReview);
       const newFilesReview = [...selectedFilesReview, ...files];
-    setSelectedFilesReview(prevFiles => [...prevFiles, ...files]);
-    // const updatedSelectedPicturesReview = addImages(files);
-    // setSelectedPicturesReview(updatedSelectedPicturesReview);
-    const newImages = addImages(files);
-    setSelectedPicturesReview(prevPictures => [...prevPictures, ...newImages]);
-    // const newSelectedPicturesReview = addImages(files);
-    // setSelectedPicturesReview(prevPictures => [...prevPictures, ...newImages]);
+      setSelectedFilesReview(prevFiles => [...prevFiles, ...files]);
+      // const updatedSelectedPicturesReview = addImages(files);
+      // setSelectedPicturesReview(updatedSelectedPicturesReview);
+      const newImages = addImages(files);
+      setSelectedPicturesReview(newImages);
+      // const newSelectedPicturesReview = addImages(files);
+      // setSelectedPicturesReview(prevPictures => [...prevPictures, ...newImages]);
       setErrorTextQuantity(false);
     } else {
       dispatch(
@@ -188,7 +185,7 @@ const AddPhotoInput = ({ setFiles }) => {
   //   const input = document.getElementById(`input-${index}`);
   //   const handleTouchStartWithIndex = handleTouchStart(index);
   //   input.addEventListener('touchstart', handleTouchStartWithIndex, { passive: false });
-    
+
   //   return () => {
   //     input.removeEventListener('touchstart', handleTouchStartWithIndex);
   //   };
@@ -252,16 +249,16 @@ const AddPhotoInput = ({ setFiles }) => {
       })
       .filter(Boolean);
 
-      const updatedSelectedPicturesReview = [...selectedPicturesReview, ...newImages];
-      return updatedSelectedPicturesReview;
-    
+    const updatedSelectedPicturesReview = [
+      ...selectedPicturesReview,
+      ...newImages,
+    ];
+    return updatedSelectedPicturesReview;
 
-      // return newImages;
+    // return newImages;
 
-
-      // const newSelectedPicturesReview = [...selectedPicturesReview, ...newImages];
-      // return newSelectedPicturesReview;
-    
+    // const newSelectedPicturesReview = [...selectedPicturesReview, ...newImages];
+    // return newSelectedPicturesReview;
 
     // setSelectedImagesReview(prevImages => [...prevImages, ...newImages]); // Змінено тут
     // setSelectedPicturesReview(prevPictures => [...prevPictures, ...newImages]); // Змінено тут
@@ -284,7 +281,7 @@ const AddPhotoInput = ({ setFiles }) => {
       draggable
       onDragStart={e => handleDragStart(e, index)}
       onDrop={e => handleDrop(e, index)}
-      onTouchStart={(e) => handleTouchStart(e, index)}
+      onTouchStart={e => handleTouchStart(e, index)}
       onTouchMove={handleTouchMove(index)}
       onTouchEnd={handleTouchEnd(index)}
       onClick={e => {
@@ -300,9 +297,9 @@ const AddPhotoInput = ({ setFiles }) => {
     </Button>
   ));
 
-  useEffect(() => {
-    setFiles(selectedPicturesReview);
-  }, [selectedPicturesReview]);
+  // useEffect(() => {
+  //   setFiles(selectedPicturesReview);
+  // }, [selectedPicturesReview]);
 
   const inputPhoto = index => {
     // const handleTouchStart = index => {

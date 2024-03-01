@@ -14,6 +14,7 @@ import Image from 'shared/components/Image';
 import AddPhotoInput from './AddPhotoInput';
 
 function FeedbackForm() {
+  console.log('load FeatBack Form')
   const initialFormData = {
     name: '',
     email: '',
