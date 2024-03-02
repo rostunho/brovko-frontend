@@ -1,18 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import useLayoutType from 'shared/hooks/useLayoutType';
 import AllUserNav from './AllUserNav';
 import AuthNav from './AuthNav';
 import ProductrNav from './ProductNav';
 import AdminNav from './AdminNav';
-import BabayDog from 'shared/icons/BabyDog';
+// import BabayDog from 'shared/icons/BabyDog';
 
 import MobileMenu from '../MobileMenu/MobileMenu';
-import { selectIsLogin } from 'redux/user/userSelectors';
-import {selectUserStatus} from 'redux/user/userSelectors.js'
+// import { selectIsLogin } from 'redux/user/userSelectors';
+import { selectUserStatus } from 'redux/user/userSelectors.js';
 
 import Button from 'shared/components/Button';
-import HeartIcon from 'shared/icons/HeartIcon';
+// import HeartIcon from 'shared/icons/HeartIcon';
 import styles from './Navigation.module.scss';
 
 const Navigation = () => {
@@ -32,7 +32,8 @@ const Navigation = () => {
     setShowMobileMenu(showMobileMenu => !showMobileMenu);
   };
 
-  const isAdminOrSuperadmin = userStatus === 'manager' || userStatus === 'superadmin';
+  const isAdminOrSuperadmin =
+    userStatus === 'manager' || userStatus === 'superadmin';
 
   return (
     <nav className={styles.navigation}>
@@ -49,19 +50,25 @@ const Navigation = () => {
               <ProductrNav isMobile={isMobile} onClick={toggleMobileMenu} />
               <AllUserNav onClick={toggleMobileMenu} />
               <AuthNav onClick={toggleMobileMenu} />
-              {isAdminOrSuperadmin ? <AdminNav onClick={toggleMobileMenu} /> : ''}
+              {isAdminOrSuperadmin ? (
+                <AdminNav onClick={toggleMobileMenu} />
+              ) : (
+                ''
+              )}
             </MobileMenu>
           )}
         </>
       )}
       {isTablet && (
         <>
-          <ProductrNav /> <AllUserNav /> {isAdminOrSuperadmin ? <AdminNav /> : ''}
+          <ProductrNav /> <AllUserNav />{' '}
+          {isAdminOrSuperadmin ? <AdminNav /> : ''}
         </>
       )}
       {isDesktop && (
         <>
-          <ProductrNav /> <AllUserNav /> {isAdminOrSuperadmin ? <AdminNav /> : ''}
+          <ProductrNav /> <AllUserNav />{' '}
+          {isAdminOrSuperadmin ? <AdminNav /> : ''}
         </>
       )}
     </nav>

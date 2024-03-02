@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import DropdownArrowIcon from 'shared/icons/DropdownArrowIcon';
 import { initialSelectorValue } from './initialSelectorValue';
 import styles from './Selector.module.scss';

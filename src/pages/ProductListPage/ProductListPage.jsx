@@ -40,6 +40,7 @@ export default function ProductListPage() {
   const [firstRender, setFirstRender] = useState(true);
   const [loadingData, setLoadingData] = useState(true); // Додаємо стан для відстеження завантаження даних
   const [loadingPage, setLoadingPage] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(null);
   const [showErrorModal, setShowErrorModal] = useState(false);
 
@@ -351,8 +352,8 @@ export default function ProductListPage() {
     <>
       {loadingData || loadingPage ? (
         <>
-        <ProductCardSkeleton />
-        {showErrorModal && errorModalContent}
+          <ProductCardSkeleton />
+          {showErrorModal && errorModalContent}
         </>
       ) : (
         <>

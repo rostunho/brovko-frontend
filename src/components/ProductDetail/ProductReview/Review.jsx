@@ -1,15 +1,12 @@
 import { useState } from 'react';
-import useLayoutType from 'shared/hooks/useLayoutType';
+// import useLayoutType from 'shared/hooks/useLayoutType';
 import ReadMoreBackButton from '../ProductDetailButtons/ReadMoreBackButton';
 import ReviewContainer from './ReviewContainer';
 import ReviewList from './ReviewList';
 
-export default function Review({
-  reviews,
-  reviewsError,
-}) {
-  const layoutType = useLayoutType();
-  const isMobile = layoutType === 'mobile';
+export default function Review({ reviews, reviewsError }) {
+  // const layoutType = useLayoutType();
+  // const isMobile = layoutType === 'mobile';
 
   const [expandedReviews, setExpandedReviews] = useState(false);
 
@@ -17,8 +14,7 @@ export default function Review({
     <>
       {reviewsError ? (
         <p style={{ color: 'red' }}>{reviewsError}</p>
-      ) : (
-    reviews.length > 0 ? (
+      ) : reviews.length > 0 ? (
         <>
           <ReviewContainer />
           {expandedReviews ? (
@@ -27,20 +23,19 @@ export default function Review({
             <ReviewList reviews={reviews} isExpandedReview={false} />
           )}
           <ReadMoreBackButton
-            label={expandedReviews ? "Приховати відгуки" : "Дивитися всі відгуки"}
+            label={
+              expandedReviews ? 'Приховати відгуки' : 'Дивитися всі відгуки'
+            }
             onClick={() => setExpandedReviews(!expandedReviews)}
             expanded={expandedReviews}
           />
         </>
-    ) : (
-          <>
+      ) : (
+        <>
           <ReviewContainer />
           <p>Для цього смаколика ще не написано жодного відгука....</p>
-           </>
-        )
+        </>
       )}
     </>
   );
 }
-
-

@@ -17,7 +17,7 @@ const LoginForm = () => {
     initialState,
     onSubmit: dispatchUser,
   });
-  const { email, password } = state;
+  const { email } = state;
   const dispatch = useDispatch();
   const formRef = useRef(null);
   const [isValidEmail, setIsValidEmail] = useState(null);

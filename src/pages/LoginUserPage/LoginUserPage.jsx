@@ -8,7 +8,7 @@ import AuthFormWrapper from 'components/AuthSection/AuthFormWrapper/AuthFormWrap
 import AuthSwitcher from 'components/AuthSection/AuthSwitcher/AuthSwitcher';
 import styles from './LoginUserPage.module.scss';
 
-import { memoizedSelectLoginAndToken } from 'redux/user/userSelectors';
+// import { memoizedSelectLoginAndToken } from 'redux/user/userSelectors';
 
 export default function LoginUserPage() {
   const isUserLogin = useSelector(selectIsLogin);

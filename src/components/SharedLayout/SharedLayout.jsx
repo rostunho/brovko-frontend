@@ -4,7 +4,7 @@ import useFadeOut from 'shared/hooks/useFadeOut';
 import useScreenWidth from 'shared/hooks/useScreenWidth';
 import useScroll from 'shared/hooks/useScroll';
 
-import UserDashboardPage from 'pages/UserDashboardPage/UserDashboardPage';
+// import UserDashboardPage from 'pages/UserDashboardPage/UserDashboardPage';
 
 import Header from 'components/Header/Header';
 import Footer from 'components/Footer';

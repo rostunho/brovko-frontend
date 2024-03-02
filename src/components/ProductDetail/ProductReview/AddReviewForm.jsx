@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { fetchAddReview } from 'redux/reviews/reviewsOperations';
-import { selectReviewError } from 'redux/reviews/reviewsSelectors';
+// import { useSelector } from 'react-redux';
+// import { fetchAddReview } from 'redux/reviews/reviewsOperations';
+// import { selectReviewError } from 'redux/reviews/reviewsSelectors';
 import { submitReview } from 'shared/services/api/brovko/reviews';
 import Button from 'shared/components/Button';
 import StarEmptyBig from 'shared/icons/StarEmtyBig';
-import PaperClip from 'shared/icons/PaperClip';
+// import PaperClip from 'shared/icons/PaperClip';
 import styles from './AddRewiewForm.module.scss';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import Image from 'shared/components/Image';
@@ -16,15 +16,17 @@ import Modal from 'shared/components/Modal/Modal';
 
 export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
   const [text, setText] = useState('');
-  const [errorAddReview, setErrorAddReview] = useState(null);
+  // const [errorAddReview, setErrorAddReview] = useState(null);
 
+  // eslint-disable-next-line no-unused-vars
   const [selectedImagesReview, setSelectedImagesReview] = useState([]);
   const [selectedPicturesReview, setSelectedPicturesReview] = useState([]);
   const [selectedFilesReview, setSelectedFilesReview] = useState([]);
-  const [prompEdit, setPrompEdit] = useState(false);
+  // const [prompEdit, setPrompEdit] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsImage, setModalIsImage] = useState(false);
   const [modalIsId, setModalIsId] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [prompDelete, setPrompDelete] = useState(true);
   const [errorTextQuantity, setErrorTextQuantity] = useState(false);
 
@@ -243,7 +245,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     </Modal>
   );
 
-  const resetPromp = () => setPrompDelete(false);
+  // const resetPromp = () => setPrompDelete(false);
 
   const handleSubmit = async e => {
     e.preventDefault();

@@ -3,7 +3,7 @@ import { approveReview, rejectReview } from 'shared/services/api/brovko';
 import Rectangle from 'components/Rectangle';
 import CrossIcon from 'shared/icons/CrossIcon';
 import CheckIcon from 'shared/icons/CheckIcon';
-import BasketSmall from 'shared/icons/BasketSmall';
+// import BasketSmall from 'shared/icons/BasketSmall';
 import styles from './ReviewItemAdminBar.module.scss';
 
 export default function ReviewItemAdminBar({
@@ -16,7 +16,7 @@ export default function ReviewItemAdminBar({
 }) {
   const [showApprovePrompt, setShowApprovePrompt] = useState(false);
   const [showRejectPrompt, setShowRejectPrompt] = useState(false);
-  const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+  // const [showDeletePrompt, setShowDeletePrompt] = useState(false);
 
   return (
     <div className={`${styles.container} ${className ? className : ''}`}>

@@ -1,9 +1,9 @@
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { getProductById } from 'shared/services/api';
 import { getReviewsByProductId } from 'shared/services/api/brovko/reviews';
-import { addPopupOperation } from 'redux/popup/popupOperations';
+// import { addPopupOperation } from 'redux/popup/popupOperations';
 import Heading from 'shared/components/Heading';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 
@@ -16,9 +16,9 @@ export default function ProductDetailPage() {
 
   const location = useLocation();
   const locationGoBack = useLocation();
-  const backLinkHref = locationGoBack.state?.from ?? "/";
+  const backLinkHref = locationGoBack.state?.from ?? '/';
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // console.log('reviews into PDP :>>>>> ', reviews);
 

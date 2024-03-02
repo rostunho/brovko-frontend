@@ -36,8 +36,8 @@ export default function Footer({ onClick }) {
   const layoutType = useLayoutType();
 
   const isMobile = layoutType === 'mobile';
-  const isTablet = layoutType === 'tablet';
-  const isDesktop = layoutType === 'desktop';
+  // const isTablet = layoutType === 'tablet';
+  // const isDesktop = layoutType === 'desktop';
 
   useEffect(() => {
     // Скидаємо стани іконок при зміні шляху (URL)

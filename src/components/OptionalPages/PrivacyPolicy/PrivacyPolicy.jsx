@@ -3,16 +3,15 @@ import Rectangle from 'components/Rectangle';
 import Image from 'shared/components/Image';
 import privacyPolicyContent from './privacyPolicyContent';
 import Section from '../Sections';
-import photo_4 from 'shared/images/photo_4.jpeg'
-import photo_1 from 'shared/images/photo_1.jpeg'
+import photo_4 from 'shared/images/photo_4.jpeg';
+// import photo_1 from 'shared/images/photo_1.jpeg'
 import styles from '../OptionalPages.module.scss';
 
-  function PrivacyPolicy() {
-    return (
-    
-      <div className={styles.wrapper} >
-      <Image src={photo_4} className={styles.image}/>
-        
+function PrivacyPolicy() {
+  return (
+    <div className={styles.wrapper}>
+      <Image src={photo_4} className={styles.image} />
+
       <section className={styles.container}>
         {privacyPolicyContent.sections.map((section, index) => (
           <React.Fragment key={index}>
@@ -21,9 +20,8 @@ import styles from '../OptionalPages.module.scss';
           </React.Fragment>
         ))}
       </section>
-      </div>
-      
-    );
-  }
-  
-  export default PrivacyPolicy;
+    </div>
+  );
+}
+
+export default PrivacyPolicy;

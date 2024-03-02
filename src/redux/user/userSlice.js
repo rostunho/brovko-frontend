@@ -6,7 +6,7 @@ import {
   current,
   update,
   updateAvatar,
-  updateBasket,
+  // updateBasket,
   logout,
   googleAuth,
   usersOrdersHistory,

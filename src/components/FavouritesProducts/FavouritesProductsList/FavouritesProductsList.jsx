@@ -22,7 +22,9 @@ const FavouritesProductsList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const perPage = 10;
+  // eslint-disable-next-line no-unused-vars
   const [adminInCustomerMode, setAdminInCustomerMode] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [productIdsForRemoving, setProductIdsForRemoving] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 

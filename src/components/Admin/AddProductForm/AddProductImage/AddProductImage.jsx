@@ -17,7 +17,7 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedPictures, setSelectedPictures] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [prompEdit, setPrompEdit] = useState(false);
+  // const [prompEdit, setPrompEdit] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsImage, setModalIsImage] = useState(false);
   const [modalIsId, setModalIsId] = useState(false);
@@ -29,6 +29,7 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
         pictureArray.map((url, index) => ({ id: index, url }))
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [picture]);
 
   const openModalEditPhoto = (id, url) => {
@@ -197,6 +198,7 @@ const AddProductImage = ({ pictures = [], setFiles }) => {
 
   useEffect(() => {
     setFiles(selectedPictures);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedPictures]);
 
   const inputPhoto = (
