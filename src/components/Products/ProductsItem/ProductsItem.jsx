@@ -185,9 +185,12 @@ const ProductsItem = ({
           </div>
         </div>
         <div className={styles.buttons}>
-          <Button mode="outlined">Подробиці</Button>
+          <Button mode="outlined" className={styles['button-item']}>
+            Подробиці
+          </Button>
           {product.quantityInStock > 0 && (
             <Button
+              className={styles['button-item']}
               onClick={e => {
                 e.preventDefault();
                 e.stopPropagation();

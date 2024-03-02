@@ -35,6 +35,9 @@
     padding-left: 16px;
     padding-right: 16px;
   }
+  @media screen and (min-width: 1280px) {
+    width: 392px;
+  }
 }
 
 .image {
@@ -52,10 +55,13 @@
     width: 424px;
     height: 424px;
   }
-
   @media screen and (min-width: 768px) {
     width: 320px;
     height: 320px;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 360px;
+    // height: 320px;
   }
 }
 
@@ -171,6 +177,15 @@
   display: flex;
   justify-content: space-between;
   gap: 24px;
+
+  @media screen and (min-width: 1280px) {
+    gap: 36px;
+  }
+}
+
+.button-item {
+  min-width: 120px;
+  width: 100%;
 }
 
 .heart_icon {
