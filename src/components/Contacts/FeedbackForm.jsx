@@ -9,12 +9,10 @@ import Button from 'shared/components/Button';
 import Modal from 'shared/components/Modal/Modal';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import styles from './Contacts.module.scss';
-import AddIconImage from 'shared/icons/AddIconImage';
-import Image from 'shared/components/Image';
 import AddPhotoInput from './AddPhotoInput';
 
 function FeedbackForm() {
-  console.log('load FeatBack Form')
+  console.log('load FeatBack Form');
   const initialFormData = {
     name: '',
     email: '',
@@ -141,8 +139,9 @@ function FeedbackForm() {
             required
           />
         </div>
-        <AddPhotoInput files={files} setFiles={setFiles} />
 
+        <AddPhotoInput files={files} setFiles={setFiles} />
+        
         <Button type="submit" size="lg" style={{ marginTop: '32px' }}>
           Надіслати
         </Button>

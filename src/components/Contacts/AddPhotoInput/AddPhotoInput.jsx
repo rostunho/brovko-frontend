@@ -7,7 +7,7 @@ import Image from 'shared/components/Image';
 import AddIconImage from 'shared/icons/AddIconImage';
 import Modal from 'shared/components/Modal/Modal';
 
-const AddPhotoInput = ({setFiles}) => {
+const AddPhotoInput = ({ setFiles }) => {
   const [selectedImagesReview, setSelectedImagesReview] = useState([]);
   const [selectedPicturesReview, setSelectedPicturesReview] = useState([]);
   const [selectedFilesReview, setSelectedFilesReview] = useState([]);
@@ -57,6 +57,10 @@ const AddPhotoInput = ({setFiles}) => {
   };
   const handleDragStart = (e, index) => {
     e.dataTransfer.setData('text/plain', index);
+  };
+
+  const handleDragOver = e => {
+    e.preventDefault();
   };
 
   const handleDrop = (e, toIndex) => {
@@ -145,7 +149,6 @@ const AddPhotoInput = ({setFiles}) => {
     setFiles(selectedPicturesReview);
   }, [selectedPicturesReview]);
 
-
   const inputPhoto = index => (
     <label className={styles['file-input-label']} key={index}>
       <input
@@ -225,7 +228,10 @@ const AddPhotoInput = ({setFiles}) => {
   );
 
   return (
-    <div className={styles['add-image-container']}>
+    <div
+      className={styles['add-image-container']}
+      onDragOver={e => handleDragOver(e)}
+    >
       {images}
       {inputPhotos()}
       {modalIsOpen && modalWindow}
