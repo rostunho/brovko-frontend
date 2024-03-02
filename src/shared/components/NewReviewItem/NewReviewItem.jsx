@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectUserStatus } from 'redux/user/userSelectors';
 import ReviewItemAdminBar from './ReviewItemAdminBar/ReviewItemAdminBar';
 import ReviewItemImageBox from './ReviewItemImageBox/ReviewItemImageBox';
-import Avatar from 'components/Avatar';
+// import Avatar from 'components/Avatar';
 import Image from '../Image';
 import ReviewRating from 'components/ProductDetail/ProductReview/ReviewRating';
 import styles from './NewReviewItem.module.scss';

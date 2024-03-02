@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from 'react';
 // import { useSelector } from 'react-redux';
 // import { selectIsLogin } from 'redux/user/userSelectors';
-import { toPhoneFormat, parsePhoneNumber } from 'utils';
+import { parsePhoneNumber } from 'utils';
 import Input from 'shared/components/Input';
 import styles from './CustomerForm.module.scss';
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -7,19 +8,21 @@ import Modal from 'shared/components/Modal/Modal';
 import Button from 'shared/components/Button';
 import Image from 'shared/components/Image';
 import StarEmptyBig from 'shared/icons/StarEmtyBig';
-import Raiting from 'shared/components/Raiting/Raiting';
+// import Raiting from 'shared/components/Raiting/Raiting';
 import AddIconImage from 'shared/icons/AddIconImage';
 import styles from './NewAddReviewForm.module.scss';
 
 export default function NewAddReviewForm({ onClose, ...props }) {
   const [message, setMessage] = useState('');
 
+  // eslint-disable-next-line no-unused-vars
   const [selectedImagesReview, setSelectedImagesReview] = useState([]);
   const [selectedPicturesReview, setSelectedPicturesReview] = useState([]);
   const [selectedFilesReview, setSelectedFilesReview] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsImage, setModalIsImage] = useState(false);
   const [modalIsId, setModalIsId] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [prompDelete, setPrompDelete] = useState(true);
   const [errorTextQuantity, setErrorTextQuantity] = useState(false);
   const [showThankYouModal, setShowThankYouModal] = useState(false);
@@ -237,10 +240,10 @@ export default function NewAddReviewForm({ onClose, ...props }) {
     const formData = new FormData();
     formData.append('productId', productId);
     formData.append('text', message);
-    console.log(selectedPicturesReview);
-    console.log(selectedFilesReview);
+    // console.log(selectedPicturesReview);
+    // console.log(selectedFilesReview);
     selectedPicturesReview.forEach(({ file }) => {
-      console.log(file);
+      // console.log(file);
       formData.append(`review`, file);
     });
 
@@ -250,7 +253,6 @@ export default function NewAddReviewForm({ onClose, ...props }) {
       setSelectedPicturesReview([]);
       setSelectedFilesReview([]);
       setShowThankYouModal(true);
-      
     } catch (error) {
       console.error('Error submiting review:', error.response.status);
       if (error.response.status === 403 || error.response.status === 401) {
@@ -288,14 +290,16 @@ export default function NewAddReviewForm({ onClose, ...props }) {
   };
 
   const thankYouModalContent = (
-    <Modal  className={styles['modal-container']} closeModal={closeModal}>
+    <Modal className={styles['modal-container']} closeModal={closeModal}>
       <div className={styles.modal}>
         <h2>Дякуємо за відгук!</h2>
-        <p className={styles.modalText}>Ваш відгук буде опубліковано після попередньої перевірки нашими співробітниками.</p>
+        <p className={styles.modalText}>
+          Ваш відгук буде опубліковано після попередньої перевірки нашими
+          співробітниками.
+        </p>
       </div>
     </Modal>
   );
-
 
   return (
     <div className={styles.container}>
@@ -332,7 +336,7 @@ export default function NewAddReviewForm({ onClose, ...props }) {
 
       {modalIsOpen && modalWindow}
 
-      { showThankYouModal && thankYouModalContent}
+      {showThankYouModal && thankYouModalContent}
     </div>
   );
 }

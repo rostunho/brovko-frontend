@@ -40,8 +40,8 @@ function FeedbackForm() {
       });
     }
   }, [user]);
-  console.log('user.email', user.user.email);
-  console.log('user formData', formData);
+  // console.log('user.email', user.user.email);
+  // console.log('user formData', formData);
 
   const handleChange = e => {
     const { name, value } = e.target;

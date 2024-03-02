@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Loader from 'components/Loader';
 
 const LazyProductListPage = lazy(() =>
@@ -15,7 +15,6 @@ const LazyProductDetailPage = lazy(() =>
 const NewProductDetailPage = lazy(() =>
   import('pages/NewProductDetailPage/NewProductDetailPage')
 );
-
 
 export default function ProductsRoutes() {
   return (

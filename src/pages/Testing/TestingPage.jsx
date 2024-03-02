@@ -4,7 +4,7 @@
 // import CheckIcon from 'shared/icons/CheckIcon';
 // import Input from 'shared/components/Input';
 import HeartIcon from 'shared/icons/HeartIcon';
-import NewReviewItem from 'shared/components/NewReviewItem/NewReviewItem';
+// import NewReviewItem from 'shared/components/NewReviewItem/NewReviewItem';
 import styles from './TestingPage.module.scss';
 
 export default function TestingPage() {

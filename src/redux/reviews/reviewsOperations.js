@@ -18,7 +18,7 @@ export const fetchAddReview = createAsyncThunk(
   'reviews/addReview',
   async (reviewData, thunkAPI) => {
     try {
-      console.log(reviewData)
+      // console.log(reviewData)
       for (const pair of reviewData.entries()) {
         const [name, value] = pair;
         if (value instanceof File) {
@@ -28,24 +28,18 @@ export const fetchAddReview = createAsyncThunk(
         }
       }
       const response = await api.submitReview(reviewData); // Додати відгук на сервер
-      console.log('addReview response:', response);
+      // console.log('addReview response:', response);
 
-      
-        console.log('New review added successfully');
-        
-        
-        // Отримати оновлені відгуки з сервера
-        const updatedReviews = await api.getReviews();
+      // console.log('New review added successfully');
 
-        // Повернути дані відгука, для рендера на сторінці
-        return { response, updatedReviews };
-        
-      
-     
-    
-    }  catch (error) {
-      console.error('Error adding review:', (error.response.status));
-        return thunkAPI.rejectWithValue(error.response.status);
+      // Отримати оновлені відгуки з сервера
+      const updatedReviews = await api.getReviews();
+
+      // Повернути дані відгука, для рендера на сторінці
+      return { response, updatedReviews };
+    } catch (error) {
+      console.error('Error adding review:', error.response.status);
+      return thunkAPI.rejectWithValue(error.response.status);
     }
   }
 );
