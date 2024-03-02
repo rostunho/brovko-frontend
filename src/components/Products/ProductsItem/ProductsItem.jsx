@@ -117,6 +117,8 @@ const ProductsItem = ({
       ? favouriteProducts.some(p => p.id === product.id)
       : false;
 
+  // console.log('isFavourite :>> ', isFavourite);
+
   return (
     <div
       onClick={onCardClick}
@@ -155,6 +157,7 @@ const ProductsItem = ({
           checked={isFavourite}
           onClick={e => {
             e.preventDefault();
+            e.stopPropagation();
             handleToggleFavourite();
           }}
         />

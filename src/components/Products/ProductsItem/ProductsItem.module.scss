@@ -198,7 +198,9 @@
 }
 
 .heart_icon_checked:hover,
-.heart_icon_checked:focus {
+.heart_icon_checked:focus,
+.heart_icon_checked:active {
   stroke: rgba(243, 166, 16, 1);
-  fill: transparent;
+  // fill: transparent;
+  fill: rgba(243, 166, 16, 1);
 }
