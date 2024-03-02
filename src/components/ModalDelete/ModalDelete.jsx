@@ -9,7 +9,7 @@ import useProductInBasket from 'shared/hooks/useProductInBasket';
 import styles from './ModalDelete.module.scss';
 
 const ModalDelete = ({ setModalDelete, orderId }) => {
-  console.log('orderId', orderId);
+  // console.log('orderId', orderId);
   const { hahdleBasketDel, hahdleBasketClose } = useProductInBasket();
 
   return (

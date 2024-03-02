@@ -12,7 +12,7 @@ export default function NewReviewsList({ style, ...props }) {
     setSearchParams({ comments: 'new' }, { replace: true });
     (async () => {
       const newReviews = await getReviewsByStatus();
-      console.log('newReviews :>> ', newReviews);
+      // console.log('newReviews :>> ', newReviews);
       setReviews([...newReviews.data]);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps

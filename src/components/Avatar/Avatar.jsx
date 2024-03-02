@@ -56,7 +56,7 @@ const Avatar = ({
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error.response);
+      // console.log(error.response);
       dispatch(
         addPopupOperation('Не вдалося видалити, спробуйте ще разок', 'error')
       );
@@ -111,7 +111,7 @@ const Avatar = ({
         setLoading(false);
       } catch (error) {
         setLoading(false);
-        console.log(error.response);
+        // console.log(error.response);
         dispatch(
           addPopupOperation('Щось пішло не так, завантажте ще разок', 'error')
         );

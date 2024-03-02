@@ -35,7 +35,7 @@ export const fetchProductsByKeywords = createAsyncThunk(
   async ({ search = 'sets', page = 1 }, { rejectWithValue }) => {
     try {
       const products = await api.getProductsByKeywords(search, page);
-      console.log('fetchProductsByCategory IN THUNK >>> ::', products);
+      // console.log('fetchProductsByCategory IN THUNK >>> ::', products);
       return products;
     } catch (error) {
       return rejectWithValue(error.message);

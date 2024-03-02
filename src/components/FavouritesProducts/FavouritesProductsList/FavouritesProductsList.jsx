@@ -14,9 +14,6 @@ const FavouritesProductsList = () => {
   const userStatus = useSelector(selectUserStatus);
 
   const { favouriteProducts, user, isLogin } = useSelector(({ user }) => user);
-  console.log('favouriteProducts', favouriteProducts);
-  console.log('user', user);
-  console.log('isLogin', isLogin);
   const products = isLogin ? user?.favouriteProducts : favouriteProducts;
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,7 +28,6 @@ const FavouritesProductsList = () => {
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  console.log(filteredProducts);
 
   useEffect(() => {
     const newTotalPages = Math.ceil(filteredProducts.length / perPage);

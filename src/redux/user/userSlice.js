@@ -63,7 +63,7 @@ const userSlice = createSlice({
       })
       .addCase(register.fulfilled, (state, { payload }) => {
         const { user } = payload;
-        console.log('payload-register', payload);
+        // console.log('payload-register', payload);
         state.loading = false;
         state.user = user;
         state.token = user.accessToken;
@@ -79,7 +79,7 @@ const userSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, { payload }) => {
         const { user } = payload;
-        console.log('payload-login', payload);
+        // console.log('payload-login', payload);
         state.loading = false;
         state.user = user;
         state.token = user.accessToken;
@@ -95,7 +95,7 @@ const userSlice = createSlice({
       })
       .addCase(update.fulfilled, (state, { payload }) => {
         const { accessToken } = payload;
-        console.log('payload-update', payload);
+        // console.log('payload-update', payload);
         state.loading = false;
         state.user = payload;
         state.token = accessToken;

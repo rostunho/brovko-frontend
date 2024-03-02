@@ -51,7 +51,7 @@ const useProductInBasket = () => {
         ...user,
         productInBasket: [...user.productInBasket, { ...product, value }],
       };
-      console.log('updatedUser', updatedUser);
+      // console.log('updatedUser', updatedUser);
       dispatch(update(updatedUser));
     } else {
       dispatch(addOrder({ ...product, value }));
@@ -100,7 +100,7 @@ const useProductInBasket = () => {
           ...user,
           productInBasket: updatedProductInBasket,
         };
-        console.log('update');
+        // console.log('update');
         dispatch(update(updatedUser));
       }
     }

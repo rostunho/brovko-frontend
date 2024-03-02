@@ -69,7 +69,7 @@ export default function ProductDetail({ product, reviews, reviewsError }) {
   const goToEditProduct = () => {
     navigate(`/admin/${productId}`);
   };
-  console.log('products', products);
+  // console.log('products', products);
   const orderInBasket = products.some(order => console.log('order', order));
 
   const EditButton = ({ userStatus, goToEditProduct }) => {

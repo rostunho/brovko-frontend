@@ -21,6 +21,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
   // eslint-disable-next-line no-unused-vars
   const [selectedImagesReview, setSelectedImagesReview] = useState([]);
   const [selectedPicturesReview, setSelectedPicturesReview] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [selectedFilesReview, setSelectedFilesReview] = useState([]);
   // const [prompEdit, setPrompEdit] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -253,10 +254,10 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     const formData = new FormData();
     formData.append('productId', productId);
     formData.append('text', text);
-    console.log(selectedPicturesReview);
-    console.log(selectedFilesReview);
+    // console.log(selectedPicturesReview);
+    // console.log(selectedFilesReview);
     selectedPicturesReview.forEach(({ file }) => {
-      console.log(file);
+      // console.log(file);
       formData.append(`review`, file);
     });
 

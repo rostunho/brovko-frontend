@@ -26,12 +26,12 @@ export default function PhonesConstrucor({
   useEffect(() => {
     if (initialData && initialData.join(', ') !== '') {
       const arrayToCompare = [...initialData];
-      console.log('arrayToCompare :>> ', arrayToCompare);
+      // console.log('arrayToCompare :>> ', arrayToCompare);
 
-      console.log(
-        'CONDITION RESULT >>:',
-        JSON.stringify(arrayToCompare) !== JSON.stringify(phones)
-      );
+      // console.log(
+      //   'CONDITION RESULT >>:',
+      //   JSON.stringify(arrayToCompare) !== JSON.stringify(phones)
+      // );
 
       if (JSON.stringify(arrayToCompare) !== JSON.stringify(phones)) {
         setPhones(prevPhones => [...initialData]);

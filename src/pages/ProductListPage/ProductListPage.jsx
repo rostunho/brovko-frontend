@@ -46,10 +46,10 @@ export default function ProductListPage() {
 
   useEffect(() => {
     if (!firstRender) {
-      console.log('NOT FIRST RENDER');
+      // console.log('NOT FIRST RENDER');
       return;
     }
-    console.log(' FIRST RENDER');
+    // console.log(' FIRST RENDER');
     (async () => {
       await fetchCategories();
       await fetchProducts(Number(page), Number(limit)); // при першому рендері page=null i limit=null, тому функція викличеться без них. Зате при прямому вставленні урли - спрацюють;
@@ -294,7 +294,7 @@ export default function ProductListPage() {
     setSearchBarValue('');
     setSearchParams(
       existingSearchParams => {
-        console.log('existingSearchParams :>> ', existingSearchParams);
+        // console.log('existingSearchParams :>> ', existingSearchParams);
         existingSearchParams.set('key', '');
         return existingSearchParams;
       },

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import instance from './instance';
 
 export const getAllLocations = async () => {
@@ -14,7 +15,7 @@ export const getAllLocations = async () => {
 export const addLocation = async body => {
   try {
     const { data } = await instance.post('/locations/add-location', body);
-    console.log('data into AddLocation :>> ', data);
+    // console.log('data into AddLocation :>> ', data);
   } catch (error) {
     console.log('error into addLocation api-function :', error);
   }

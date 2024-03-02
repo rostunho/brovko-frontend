@@ -240,10 +240,10 @@ export default function NewAddReviewForm({ onClose, ...props }) {
     const formData = new FormData();
     formData.append('productId', productId);
     formData.append('text', message);
-    console.log(selectedPicturesReview);
-    console.log(selectedFilesReview);
+    // console.log(selectedPicturesReview);
+    // console.log(selectedFilesReview);
     selectedPicturesReview.forEach(({ file }) => {
-      console.log(file);
+      // console.log(file);
       formData.append(`review`, file);
     });
 

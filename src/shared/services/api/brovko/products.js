@@ -161,8 +161,8 @@ export const addNewProduct = async (body, files = []) => {
     //   }
     // }
     const response = await axios.post(url, data, { headers });
-    console.log('Post request response:', response.data.status);
-    console.log(response.data.message);
+    // console.log('Post request response:', response.data.status);
+    // console.log(response.data.message);
     return response.data;
   } catch (error) {
     console.log(error.message);

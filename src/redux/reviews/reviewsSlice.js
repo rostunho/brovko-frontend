@@ -30,13 +30,12 @@ const reviewsSlice = createSlice({
       .addCase(fetchAddReview.fulfilled, (store, { payload }) => {
         store.loading = false;
         store.items = payload.updatedReviews?.reviews || [];
-        console.log('payload', payload)
+        // console.log('payload', payload)
       })
       .addCase(fetchAddReview.rejected, (store, { payload }) => {
         store.loading = false;
         store.error = payload || 'Помилка при додаванні відгуку';
         console.error('Error in Slice', payload);
-    
       });
   },
 });
