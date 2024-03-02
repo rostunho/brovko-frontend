@@ -31,6 +31,7 @@
     max-width: 1280px;
     height: 88px;
     padding: 0 16px;
+    align-items: center;
   }
 }
 
@@ -58,8 +59,20 @@ div.searchbar {
   }
 }
 
+.multi-selectors-container.centered {
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 .searchbar-input {
   margin: 0;
+}
+
+div.centered {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .modal {

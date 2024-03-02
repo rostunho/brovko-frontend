@@ -121,7 +121,7 @@ export default function AddProductForm({ update }) {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    console.log(requestBody, files);
+    // console.log(requestBody, files);
     await addNewProduct(requestBody, files);
     formRef.current.reset();
   };

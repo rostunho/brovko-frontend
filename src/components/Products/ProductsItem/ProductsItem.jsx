@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import { update } from 'redux/user/userOperations';
@@ -10,7 +10,7 @@ import {
   removeItemFromFavourite,
 } from 'redux/user/userSlice';
 
-import StarEmpty from 'shared/icons/StarEmpty';
+// import StarEmpty from 'shared/icons/StarEmpty';
 import Raiting from 'shared/components/Raiting/Raiting';
 import Button from 'shared/components/Button/Button';
 import Image from 'shared/components/Image';
@@ -31,6 +31,7 @@ const ProductsItem = ({
   const [cardIsSelected, setCardIsSelected] = useState(false);
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -40,6 +41,16 @@ const ProductsItem = ({
     onChange && onChange(product.id, cardIsSelected);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cardIsSelected]);
+
+  const onCardClick = () => {
+    // to={`/shop/product/${product._id}`}
+    // state={{ from: location.pathname + location.search }}
+
+    navigate(`/shop/product/${product._id}`, {
+      state: { from: location.pathname + location.search },
+    });
+    window.scrollTo(0, 0);
+  };
 
   const handleCardSelecting = () => {
     setCardIsSelected(!cardIsSelected);
@@ -106,84 +117,93 @@ const ProductsItem = ({
       ? favouriteProducts.some(p => p.id === product.id)
       : false;
 
+  // console.log('isFavourite :>> ', isFavourite);
+
   return (
     <div
+      onClick={onCardClick}
       className={`${styles.productCard} ${
         cardIsSelected ? styles['productCard--selected'] : ''
       } ${
         product.quantityInStock === 0 ? styles['productCard--notAvailable'] : ''
       }`}
     >
-      <Link
+      {/* <Link
         to={`/shop/product/${product._id}`}
         state={{ from: location.pathname + location.search }}
-      >
-        <div className={styles.image}>
-          {(userStatus === 'manager' || userStatus === 'superadmin') &&
-            !adminInCustomerMode && (
-              <div className={styles['checkbox-backdrop']}>
-                <Input
-                  type="checkbox"
-                  className={styles.checkbox}
-                  inputClassName={styles['checkbox-input']}
-                  value={cardIsSelected}
-                  onChange={e => {
-                    e.stopPropagation();
-                    handleCardSelecting();
-                  }}
-                />
-              </div>
-            )}
-
-          <HeartIcon
-            className={`${styles.heart_icon} ${
-              isFavourite ? styles.heart_icon_checked : ''
-            }`}
-            checked={isFavourite}
-            onClick={e => {
-              e.preventDefault();
-              handleToggleFavourite();
-            }}
-          />
-
-          {product.quantityInStock < 10 && product.quantityInStock !== 0 && (
-            <div className={styles.expire}>Товар закінчується</div>
+        className={styles.link}
+      > */}
+      <div className={styles.image}>
+        {(userStatus === 'manager' || userStatus === 'superadmin') &&
+          !adminInCustomerMode && (
+            <div className={styles['checkbox-backdrop']}>
+              <Input
+                type="checkbox"
+                className={styles.checkbox}
+                inputClassName={styles['checkbox-input']}
+                value={cardIsSelected}
+                onChange={e => {
+                  e.stopPropagation();
+                  handleCardSelecting();
+                }}
+              />
+            </div>
           )}
 
-          <Image src={product.picture} className={styles.picture} />
-        </div>
+        <HeartIcon
+          className={`${styles.heart_icon} ${
+            isFavourite ? styles.heart_icon_checked : ''
+          }`}
+          checked={isFavourite}
+          onClick={e => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleToggleFavourite();
+          }}
+        />
 
-        <div className={styles.description}>
-          <div className={styles.info}>
-            <div className={styles.textDesc}>
-              <p className={styles.name}>{product.name}</p>
-              <p className={styles.price}>{product.price} грн</p>
-            </div>
-            <div className={styles.wrapper}>
-              <div className={styles.rating}>
-                <Raiting/>
-              </div>
-              {product.quantityInStock === 0 && (
-                <div className={styles.notAvailable}>Немає в наявності</div>
-              )}
-            </div>
+        {product.quantityInStock < 10 && product.quantityInStock !== 0 && (
+          <div className={styles.expire}>Товар закінчується</div>
+        )}
+
+        <Image src={product.picture} className={styles.picture} />
+      </div>
+
+      <div className={styles.description}>
+        <div className={styles.info}>
+          <div className={styles.textDesc}>
+            <p className={styles.name}>{product.name}</p>
+            <p className={styles.price}>{product.price} грн</p>
           </div>
-          <div className={styles.buttons}>
-            <Button mode="outlined">Подробиці</Button>
-            {product.quantityInStock > 0 && (
-              <Button
-                onClick={e => {
-                  e.preventDefault();
-                  handleAddToCart({ product, value: 1 });
-                }}
-                mode="primary"
-              >
-                В кошик
-              </Button>
+          <div className={styles.wrapper}>
+            <div className={styles.rating}>
+              <Raiting />
+            </div>
+            {product.quantityInStock === 0 && (
+              <div className={styles.notAvailable}>Немає в наявності</div>
             )}
           </div>
         </div>
-      </Link>
+        <div className={styles.buttons}>
+          <Button mode="outlined" className={styles['button-item']}>
+            Подробиці
+          </Button>
+          {product.quantityInStock > 0 && (
+            <Button
+              className={styles['button-item']}
+              onClick={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleAddToCart({ product, value: 1 });
+              }}
+              mode="primary"
+            >
+              В кошик
+            </Button>
+          )}
+        </div>
+      </div>
+      {/* </Link> */}
     </div>
   );
 };

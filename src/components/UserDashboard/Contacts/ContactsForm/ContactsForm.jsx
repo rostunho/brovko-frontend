@@ -59,7 +59,7 @@ export default function ContactsForm({
   };
 
   const clearCityData = () => {
-    console.log('clearCityData working in CONTACTS-FORM on top');
+    // console.log('clearCityData working in CONTACTS-FORM on top');
     setUserInfo(prevState => {
       return {
         ...prevState,

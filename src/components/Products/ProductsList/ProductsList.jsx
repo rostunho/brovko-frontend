@@ -35,7 +35,7 @@ export default function ProductList({ products }) {
     const selectedId = idsOfSelectedProducts.join();
     const targetProduct = products.find(product => product.id === selectedId);
 
-    console.log('brovkoId :>> ', targetProduct);
+    // console.log('brovkoId :>> ', targetProduct);
     navigate(`/admin/add-product/${targetProduct._id}`, {
       state: { from: location.pathname + location.search },
     });
@@ -81,7 +81,7 @@ export default function ProductList({ products }) {
         {products?.length ? (
           <ul className={styles.list}>
             {products.map(product => (
-              <li key={product._id}>
+              <li key={product._id} className={styles['list-item']}>
                 <ProductsItem
                   product={product}
                   onChange={getItemsForRemoving}

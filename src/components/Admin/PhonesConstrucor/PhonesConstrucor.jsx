@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addPopupOperation } from 'redux/popup/popupOperations';
-import { parsePhoneNumber, toPhoneFormat } from 'utils';
+import { parsePhoneNumber } from 'utils';
 import Input from 'shared/components/Input';
 import LineQuantittyButtons from '../LineQuantittyButtons/LineQuantittyButtons';
 
@@ -26,17 +26,18 @@ export default function PhonesConstrucor({
   useEffect(() => {
     if (initialData && initialData.join(', ') !== '') {
       const arrayToCompare = [...initialData];
-      console.log('arrayToCompare :>> ', arrayToCompare);
+      // console.log('arrayToCompare :>> ', arrayToCompare);
 
-      console.log(
-        'CONDITION RESULT >>:',
-        JSON.stringify(arrayToCompare) !== JSON.stringify(phones)
-      );
+      // console.log(
+      //   'CONDITION RESULT >>:',
+      //   JSON.stringify(arrayToCompare) !== JSON.stringify(phones)
+      // );
 
       if (JSON.stringify(arrayToCompare) !== JSON.stringify(phones)) {
         setPhones(prevPhones => [...initialData]);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialData]);
 
   useEffect(() => {

@@ -28,7 +28,7 @@ export default function SearchField({
   // };
 
   const onCrossClick = () => {
-    console.log('ONCROSS CKLICKING');
+    // console.log('ONCROSS CKLICKING');
     selector?.clear && selector.clear();
   };
 

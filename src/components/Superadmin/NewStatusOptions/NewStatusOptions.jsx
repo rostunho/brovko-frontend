@@ -78,6 +78,7 @@ const NewStatusOptions = ({ oldStatus, setNewStatus }) => {
       default:
         console.log('Invalid oldStatus type');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [oldStatus]);
 
   return (

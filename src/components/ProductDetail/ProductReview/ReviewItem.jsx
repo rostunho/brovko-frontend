@@ -22,6 +22,7 @@ const ReviewItem = ({ review, isExpandedReview }) => {
   // console.log('modalIsImage :>> ', modalIsImage);
   // console.log('modalIsId :>> ', modalIsId);
 
+  // eslint-disable-next-line no-unused-vars
   const [prompDelete, setPrompDelete] = useState(false);
 
   // console.log('status :>> ', status);
@@ -113,33 +114,32 @@ const ReviewItem = ({ review, isExpandedReview }) => {
         </>
       ) : (
         <>
-        <li className={styles.reviewItem}>
-        <div className={styles.userInfo}>
-            <div className={styles.avatarWrapper}>
-              <Image
-                className={styles.avatar}
-                src={avatarURL}
-                text={email || name}
-                height={'32px'}
-              />
+          <li className={styles.reviewItem}>
+            <div className={styles.userInfo}>
+              <div className={styles.avatarWrapper}>
+                <Image
+                  className={styles.avatar}
+                  src={avatarURL}
+                  text={email || name}
+                  height={'32px'}
+                />
+              </div>
+              <div>
+                <p className={styles.userName}> {email || name}</p>
+                <p className={styles.reviewDate}>{formatDate(createdAt)}</p>
+              </div>
             </div>
-            <div>
-              <p className={styles.userName}> {email || name}</p>
-              <p className={styles.reviewDate}>{formatDate(createdAt)}</p>
-            </div>
-          </div>
 
-          <RewiewRating />
+            <RewiewRating />
 
-          <p className={styles.reviewText}>{reviewText}</p>
+            <p className={styles.reviewText}>{reviewText}</p>
 
-          {reviewURL && reviewURL[0] !== null && reviewURL.length > 0 && (
-            <div className={styles.imgContainer}>
-              <ImageGalery reviewURL={reviewURL} />
-            </div>
-          )}
-        </li>
-    
+            {reviewURL && reviewURL[0] !== null && reviewURL.length > 0 && (
+              <div className={styles.imgContainer}>
+                <ImageGalery reviewURL={reviewURL} />
+              </div>
+            )}
+          </li>
         </>
       )}
       {modalIsOpen && modalWindow}

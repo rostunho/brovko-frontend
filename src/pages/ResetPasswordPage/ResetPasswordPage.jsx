@@ -6,7 +6,7 @@ import styles from './ResetPasswordPage.module.scss';
 export default function ResetPswPage() {
   return (
     <section className={styles.container}>
-      <Heading>Введіть новий пароль</Heading>
+      <Heading>Відновлення пароля</Heading>
 
       <AuthFormWrapper form={<ResetPswForm />} />
     </section>

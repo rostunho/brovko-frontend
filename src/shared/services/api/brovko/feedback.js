@@ -4,7 +4,7 @@ export const addFeedback = async body => {
   // console.log('body', body);
   try {
     const response = await instance.post('/feedbacks/add-feedback', body);
-    console.log('response', response);
+    // console.log('response', response);
     if (response.status === 200 || 201) {
       console.log('Форма успішно відправлена');
     } else {
@@ -36,7 +36,7 @@ export const updateFeedbackStatus = async (id, status) => {
       `/feedbacks/update-feedback/${id}`,
       body
     );
-    console.log(`Відгук з ID(${id}) успішно заархівовано`);
+    // console.log(`Відгук з ID(${id}) успішно заархівовано`);
     return data;
   } catch (error) {
     console.log(error);
