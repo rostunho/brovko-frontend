@@ -361,8 +361,12 @@ export default function ProductListPage() {
           <div className={styles['selectors-container']}>
             <Input
               name="searchbar"
-              className={styles.searchbar}
-              inputClassName={styles['searchbar-input']}
+              className={`${styles.searchbar} ${
+                products?.minPrice === products?.maxPrice ? styles.centered : ''
+              }`}
+              inputClassName={`${styles['searchbar-input']} ${
+                products?.minPrice === products?.maxPrice ? styles.centered : ''
+              }`}
               label=""
               type="search"
               placeholder="Пошук сммаколиків"
@@ -370,7 +374,11 @@ export default function ProductListPage() {
               onChange={e => setSearchBarValue(e.target.value)}
               onClick={handleKeyWord}
             />
-            <div className={styles['multi-selectors-container']}>
+            <div
+              className={`${styles['multi-selectors-container']} ${
+                products?.minPrice === products?.maxPrice ? styles.centered : ''
+              }`}
+            >
               <Selector
                 name="categories"
                 label=""
@@ -395,7 +403,7 @@ export default function ProductListPage() {
                 forceClosing={categorySelectorIsOpen}
               />
             </div>
-            {products.products.length > 1 && (
+            {products?.minPrice !== products?.maxPrice && (
               <DoubleRangeSlider
                 onSubmit={handlePrices}
                 minLimit={products?.minPrice}
