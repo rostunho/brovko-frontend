@@ -111,6 +111,15 @@ h2 {
   font-weight: var(--font-semi-bold);
 }
 
+h3 {
+font-family: Amatic SC;
+font-weight: 700;
+font-size: 40px;
+line-height: 150%;
+letter-spacing: 0.03em;
+color: var(--black-text-color);
+}
+
 body.lock {
   overflow: hidden;
   -ms-touch-action: none;
