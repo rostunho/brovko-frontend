@@ -23,18 +23,17 @@
   &--notAvailable {
     opacity: 0.7;
   }
-}
 
-@media screen and (min-width: 480px) and (max-width: 767px) {
-  .productCard {
+  @media screen and (min-width: 480px) and (max-width: 767px) {
     width: 448px;
   }
-}
 
-@media screen and (min-width: 768px) {
-  .productCard {
-    width: 288px;
+  @media screen and (min-width: 768px) {
+    width: 352px;
     height: 100%;
+    min-height: 478px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }
 
@@ -48,6 +47,16 @@
   border-radius: 8px;
   overflow: hidden;
   // border: solid red 2px;
+
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    width: 424px;
+    height: 424px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 320px;
+    height: 320px;
+  }
 }
 
 .checkbox {
@@ -87,18 +96,22 @@
   opacity: 0.9;
 }
 
-@media screen and (min-width: 480px) and (max-width: 767px) {
-  .image {
-    width: 424px;
-    height: 424px;
-  }
-}
+// @media screen and (min-width: 480px) and (max-width: 767px) {
+//   .image {
+//     width: 424px;
+//     height: 424px;
+//   }
+// }
 
-@media screen and (min-width: 768px) {
-  .image {
-    width: 264px;
-    height: 264px;
-  }
+// @media screen and (min-width: 768px) {
+//   .image {
+//     width: 264px;
+//     height: 264px;
+//   }
+// }
+
+.link {
+  height: 100%;
 }
 
 .description {
@@ -129,12 +142,19 @@
   color: var(--black-text-color);
   margin: 0;
   max-width: 100%;
+  @media screen and (min-width: 768px) {
+    font-size: 18px;
+  }
 }
 
 .price {
   @include text-styles(Nunito, 14px, 400);
   color: var(--gray-color);
   margin: 0;
+
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+  }
 }
 
 .wrapper {
