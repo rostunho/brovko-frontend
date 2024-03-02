@@ -11,15 +11,15 @@ export const addOrder = async data => {
 };
 
 export const getAllOrdersAuth = async () => {
-  console.log('Get all orders');
+  // console.log('Get all orders');
   const { data } = await instance.get('/orders/auth');
-  console.log('data', data);
+  // console.log('data', data);
   return data;
 };
 
 // додати нове замовлення на SalesDrive
 export const addNewOrder = async body => {
-  console.log('body in addNewOrder :>> ', body);
+  // console.log('body in addNewOrder :>> ', body);
 
   try {
     const url = `${BROVKO_API}/orders/add-order`;

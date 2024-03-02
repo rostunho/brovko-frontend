@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useScreen } from 'shared/hooks/useScreen';
 import { getProductById } from 'shared/services/api';
 // import { addPopupOperation } from 'redux/popup/popupOperations';
@@ -15,7 +15,7 @@ import ProductParams from 'components/ProductDetail/ProductParams/ProductParams'
 import NewDescription from './NewDescription/NewDescription';
 import Comments from 'components/Comments/Comments';
 import LogisticInfo from 'components/ProductDetail/LogisticInfo/LogisticInfo';
-import Button from 'shared/components/Button';
+// import Button from 'shared/components/Button';
 import { removeProduct } from 'shared/services/api/brovko';
 import { removeProductRequestTemplate } from 'components/Products/ProductsList';
 import styles from './NewProductDetail.module.scss';
@@ -30,7 +30,7 @@ export default function NewProductDetailPage() {
   const [fromPage, setFromPage] = useState(null);
   const [commentsLength, setCommentsLength] = useState(0);
 
-  const updateCommentsLength = (length) => {
+  const updateCommentsLength = length => {
     setCommentsLength(length);
   };
 
@@ -99,7 +99,7 @@ export default function NewProductDetailPage() {
           />
         )}
         <div ref={mainScreenRef} className={styles['main-screen']}>
-          <Rating className={styles.rating} commentsLength={commentsLength}/>
+          <Rating className={styles.rating} commentsLength={commentsLength} />
 
           <ImageBox
             className={styles['image-box']}
@@ -117,7 +117,12 @@ export default function NewProductDetailPage() {
             {product.description}
           </NewDescription>
 
-          {isMobile && <Comments isMobile={isMobile} onUpdateCommentsLength={updateCommentsLength}/>}
+          {isMobile && (
+            <Comments
+              isMobile={isMobile}
+              onUpdateCommentsLength={updateCommentsLength}
+            />
+          )}
         </div>
 
         {!isMobile && (

@@ -50,7 +50,7 @@ export default function ImageBox({ images = [], isMobile, className }) {
     const endX = event.changedTouches[0].clientX;
     const deltaX = endX - startX;
 
-    console.log('deltaX :>> ', deltaX);
+    // console.log('deltaX :>> ', deltaX);
 
     if (deltaX > 0) {
       // не реагуємо, якщо галерея в стартовому положені
@@ -59,8 +59,8 @@ export default function ImageBox({ images = [], isMobile, className }) {
       }
 
       setOffsetX(prevOffset => {
-        console.log('prevOffset :>> ', prevOffset);
-        console.log('prevOffset - deltaX  :>> ', prevOffset - deltaX);
+        // console.log('prevOffset :>> ', prevOffset);
+        // console.log('prevOffset - deltaX  :>> ', prevOffset - deltaX);
         if (prevOffset - deltaX < -maxOffset) {
           return 0;
         } else {

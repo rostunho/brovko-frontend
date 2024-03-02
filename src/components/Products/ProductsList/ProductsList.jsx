@@ -35,7 +35,7 @@ export default function ProductList({ products }) {
     const selectedId = idsOfSelectedProducts.join();
     const targetProduct = products.find(product => product.id === selectedId);
 
-    console.log('brovkoId :>> ', targetProduct);
+    // console.log('brovkoId :>> ', targetProduct);
     navigate(`/admin/add-product/${targetProduct._id}`, {
       state: { from: location.pathname + location.search },
     });

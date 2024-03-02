@@ -34,8 +34,8 @@ function FeedbackForm() {
       });
     }
   }, [user]);
-  console.log('user.email', user.user.email);
-  console.log('user formData', formData);
+  // console.log('user.email', user.user.email);
+  // console.log('user formData', formData);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -49,19 +49,24 @@ function FeedbackForm() {
     e.preventDefault();
     try {
       await addFeedback(formData, setFormData);
-    setFormData(prevData => ({ ...prevData, text: ''})); 
-    setShowThankYouModal(true);
+      setFormData(prevData => ({ ...prevData, text: '' }));
+      setShowThankYouModal(true);
     } catch (error) {
-      console.error('Error submit feedback', error.response.data.message); 
-        if (error.response.data.message === 'Мінімальна довжина тексту повинна бути не менше 10 символів') 
-        { dispatch(addPopupOperation('Мінімальна довжина тексту повинна бути не менше 10 символів', 'error'))
-          } else {
-            dispatch(
-              addPopupOperation(
-                'Щось пішло не так, спробуй пізніше',
-                'error'
-              )
-            );
+      console.error('Error submit feedback', error.response.data.message);
+      if (
+        error.response.data.message ===
+        'Мінімальна довжина тексту повинна бути не менше 10 символів'
+      ) {
+        dispatch(
+          addPopupOperation(
+            'Мінімальна довжина тексту повинна бути не менше 10 символів',
+            'error'
+          )
+        );
+      } else {
+        dispatch(
+          addPopupOperation('Щось пішло не так, спробуй пізніше', 'error')
+        );
       }
     }
   };

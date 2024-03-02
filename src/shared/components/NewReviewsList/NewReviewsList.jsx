@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getReviewsByStatus } from 'shared/services/api/brovko';
 import NewReviewItem from '../NewReviewItem/NewReviewItem';
-import styles from './NewReviewsList.module.scss';
+// import styles from './NewReviewsList.module.scss';
 
 export default function NewReviewsList({ style, ...props }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -12,7 +12,7 @@ export default function NewReviewsList({ style, ...props }) {
     setSearchParams({ comments: 'new' }, { replace: true });
     (async () => {
       const newReviews = await getReviewsByStatus();
-      console.log('newReviews :>> ', newReviews);
+      // console.log('newReviews :>> ', newReviews);
       setReviews([...newReviews.data]);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps

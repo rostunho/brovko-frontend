@@ -38,7 +38,7 @@ const productsSlice = createSlice({
         state.loading = false;
         state.items = payload.products;
         state.totalPages = payload.totalPage;
-        console.log('state.items', state.items);
+        // console.log('state.items', state.items);
       })
       .addCase(fetchProductsByCategory.rejected, (store, { payload }) => {
         store.loading = false;
@@ -51,7 +51,7 @@ const productsSlice = createSlice({
         state.loading = false;
         state.items = payload.products;
         state.totalPages = payload.totalPage;
-        console.log('state.items keyWORDS', state.items);
+        // console.log('state.items keyWORDS', state.items);
       })
       .addCase(fetchProductsByKeywords.rejected, (store, { payload }) => {
         store.loading = false;

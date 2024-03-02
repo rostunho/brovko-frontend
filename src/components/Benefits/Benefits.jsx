@@ -1,5 +1,5 @@
 import Image from 'shared/components/Image';
-import usefulSmakolyk from 'shared/images/usefulSmakolyk.jpg';
+// import usefulSmakolyk from 'shared/images/usefulSmakolyk.jpg';
 import usefulSmakolyk2 from 'shared/images/usefulSmakolyk@2x.jpg';
 import { benefitsData } from './benefitsData.js';
 import { benefitsTextData } from './benefitsData.js';

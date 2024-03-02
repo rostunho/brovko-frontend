@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { deletePopUp } from 'redux/popup/popupSlice';
-import Heading from '../Heading';
+// import Heading from '../Heading';
 import styles from './popupitem.module.scss';
 
 const PopUpItem = ({ data }) => {
