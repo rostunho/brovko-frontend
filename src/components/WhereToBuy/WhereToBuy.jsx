@@ -85,7 +85,7 @@ export default function WhereToBuy({
               )}
               <div className={styles.card}>
                 <div className={styles.icon}>
-                  <h3 style={{ color: '#fefefe' }}>{location.name}</h3>
+                  <h4 style={{ color: '#fefefe' }}>{location.name}</h4>
                 </div>
                 <div className={styles.content}>
                   <p style={{ height: '38px' }}>{location.fullName}</p>
