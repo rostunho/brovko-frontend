@@ -34,8 +34,8 @@ const ResetPswForm = () => {
   useEffect(() => {
     resetPasswordRequest(token)
       .then(response => {
-        const data = response.data;
-        setMessage(data.message);
+        // const data = response.data;
+        setMessage('Вітаємо, друже! Тепер можна змінити пароль!');
         setStage('valid');
       })
       .catch(error => {
@@ -83,7 +83,7 @@ const ResetPswForm = () => {
 
   return (
     <>
-      <p>{message}</p>
+      <Text className={styles.message}>{message}</Text>
       {stage === 'valid' && (
         <form
           ref={formRef}

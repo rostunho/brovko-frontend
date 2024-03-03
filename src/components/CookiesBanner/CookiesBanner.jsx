@@ -24,7 +24,7 @@ const CookieConsentBanner = () => {
       <div className={styles.cookiesBanner}>
         <div className={styles.container}>
           <Text className={styles.bannerText}>
-            Ми використовуємо файлы cookie, бо без них буде не дуже. Залишаючись
+            Ми використовуємо файли cookie, бо без них буде не дуже. Залишаючись
             на сайті, ви погоджуєтеся з нашою{' '}
             <a className={styles.privacyLink} href="/all/privacy-policy">
               Політикою конфіденційності.

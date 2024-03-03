@@ -1,10 +1,110 @@
 @import '../../theme/abstract/mixins';
+@import '../../theme/base/base';
 
 .about {
-  background: var(--white-text-color);
+  // background: var(--white-text-color);
   // padding-top: 32px;
   // padding-left: 15px;
   // padding-right: 15px;
+  padding-bottom: 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.yellowContainer {
+  position: absolute; /* Застосовуємо абсолютне позиціонування */
+  top: 125.5px; /* Відстань від верху, де розташований хедер */
+  right: 0; /* Закріплюємо по правому краю */
+  z-index: -1;
+  width: 1440px;
+  height: 600px;
+  background-image: url('../../shared/images/YellowSpot1.png');
+  background-size: cover; /* Заповнити дів повністю */
+  background-position: top right; /* Розміщення зображення - вгорі праворуч */
+}
+
+.yellowContainerMobile {
+  position: absolute; /* Застосовуємо абсолютне позиціонування */
+  top: 12.5px; /* Відстань від верху, де розташований хедер */
+  right: 0; /* Закріплюємо по правому краю */
+  z-index: -1;
+  width: 320px;
+  height: 469px;
+  background-image: url('../../shared/images/YellowSpotMobile.png');
+  background-size: cover; /* Заповнити дів повністю */
+  background-position: top right; /* Розміщення зображення - вгорі праворуч */
+}
+
+.containerTitle {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
+  margin-bottom: 105px;
+}
+
+.containerText {
+  // display: flex;
+  // flex-direction: column;
+  width: 499px;
+}
+
+.containerBenefits {
+  margin: 40px 16px 40px 16px;
+  text-align: center;
+  position: relative;
+}
+
+// style={{ margin: '36px auto 16px auto', width: '836px' }}
+
+.containerFoto {
+  margin: 30px 0 40px 0;
+  text-align: center;
+}
+
+.Foto {
+  display: flex;
+  gap: 36px;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 36px 0 40px;
+  @media screen and (min-width: 1200px) {
+    flex-direction: row;
+  }
+}
+
+.fotoItem {
+  margin: 0 auto;
+  border-radius: 12px;
+  @media screen and (min-width: 1280px) {
+    width: 606px;
+  }
+}
+
+.FotoSlid {
+  display: flex;
+  gap: 36px;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 36px 0 40px;
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.fotoItemSlid {
+  margin: 0 auto;
+  border-radius: 12px;
+  @media screen and (min-width: 768px) {
+    width: 224px;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 392px;
+  }
+}
+
+.fotoText {
+  font-size: 14px;
   padding-bottom: 32px;
 }
 
