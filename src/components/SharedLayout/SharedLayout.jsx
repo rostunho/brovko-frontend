@@ -39,13 +39,13 @@ const SharedLayout = () => {
   return (
     <div className={styles.layout}>
       <Header />
-      <SEO
+      {/* <SEO
         title="Brovko | Крамниця корисних натуральних снеків для собак"
         description="Brovko - крамниця натуральних снеків для собак. Ароматні, корисні, апетитні смаколикі для собак! Неймовірні палянички із субпродуктів, клітковини, овочів, фруктів, ягід та трав."
         imageUrl={<BrovkoHeaderIcon />}
         url="/"
         baseUrl={process.env.REACT_APP_PUBLIC_URL}
-      />
+      /> */}
       {/* <Helmet>
         <title>Brovko | Крамниця корисних снеків для собак</title>
         <meta

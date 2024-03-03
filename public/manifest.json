@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Brovko App Shortname",
+  "name": "Brovko App Fullname",
   "icons": [
     {
       "src": "favicon.ico",
