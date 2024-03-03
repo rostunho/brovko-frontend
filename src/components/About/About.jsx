@@ -39,7 +39,7 @@ const MobileAbout = () => (
       <h3 style={{ fontSize: '24px' }}>{aboutTextDataDesctop[2]}</h3>
       <h3 style={{ fontSize: '24px' }}>{aboutTextDataDesctop[3]}</h3>
       <Image src={frame} style={{ margin: '36px auto 16px auto' }} />
-      <GreenSinusMobileIcon />
+      {/* <GreenSinusMobileIcon /> */}
     </section>
 
     <section className={styles.containerFoto}>
@@ -56,8 +56,8 @@ const MobileAbout = () => (
     </section>
 
     <section className={styles.containerFoto}>
-      <h3>{aboutTextDataDesctop[6]}</h3>
-      <h3>{aboutTextDataDesctop[7]}</h3>
+      <h3 style={{ fontSize: '24px' }}>{aboutTextDataDesctop[6]}</h3>
+      <h3 style={{ fontSize: '24px' }}>{aboutTextDataDesctop[7]}</h3>
       <div className={styles.FotoSlid}>
         <Image src={Foto3} className={styles.fotoItemSlid} />
         <Image src={Foto4} className={styles.fotoItemSlid} />
