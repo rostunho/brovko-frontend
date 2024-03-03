@@ -1,8 +1,40 @@
-// .yellowContainer {
-// //     width: 1440px; /* Ширина діву */
-// //   height: 600px; /* Висота діву */
-//   background-image: url('../../shared/images/YellowSpot1.png');
-//   background-size: cover; /* Заповнити дів повністю */
-//   background-position: top right; /* Розміщення зображення - вгорі праворуч */
-//   position: relative; /* Потрібно для позиціонування внутрішніх елементів */
-// }
+.yellowContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  // left: 50%;
+  // transform: translateX(-50%);
+  z-index: -1;
+  width: 320px;
+  height: 469px;
+  background-image: url('../../shared/images/YellowSpotMobile.png');
+  background-size: cover;
+  background-position: top right;
+
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    // left: 50%;
+    // transform: translateX(-50%);
+    z-index: -1;
+    width: 768px;
+    height: 436px;
+    background-image: url('../../shared/images/YellowSpotTablet.png');
+    background-size: cover;
+    // background-position: top right;
+  }
+
+  @media screen and (min-width: 1280px) {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    width: 100vw;
+    height: 600px;
+    background-image: url('../../shared/images/YellowSpotDesctop.png');
+    background-size: cover;
+    background-position: top right;
+  }
+}

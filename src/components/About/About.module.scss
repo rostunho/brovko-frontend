@@ -2,73 +2,84 @@
 @import '../../theme/base/base';
 
 .about {
-  // background: var(--white-text-color);
-  // padding-top: 32px;
-  // padding-left: 15px;
-  // padding-right: 15px;
   padding-bottom: 32px;
-  max-width: 1280px;
   margin: 0 auto;
-}
 
-.yellowContainer {
-  position: absolute; /* Застосовуємо абсолютне позиціонування */
-  top: 125.5px; /* Відстань від верху, де розташований хедер */
-  right: 0; /* Закріплюємо по правому краю */
-  z-index: -1;
-  width: 1440px;
-  height: 600px;
-  background-image: url('../../shared/images/YellowSpot1.png');
-  background-size: cover; /* Заповнити дів повністю */
-  background-position: top right; /* Розміщення зображення - вгорі праворуч */
-}
+  @media screen and (min-width: 480px) and (max-width: 767px) {
+    width: 448px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-.yellowContainerMobile {
-  position: absolute; /* Застосовуємо абсолютне позиціонування */
-  top: 12.5px; /* Відстань від верху, де розташований хедер */
-  right: 0; /* Закріплюємо по правому краю */
-  z-index: -1;
-  width: 320px;
-  height: 469px;
-  background-image: url('../../shared/images/YellowSpotMobile.png');
-  background-size: cover; /* Заповнити дів повністю */
-  background-position: top right; /* Розміщення зображення - вгорі праворуч */
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
+    width: 768px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: row;
+    gap: 36px;
+  }
 }
 
 .containerTitle {
   position: relative;
-  display: flex;
   justify-content: space-around;
-  margin-top: 40px;
-  margin-bottom: 105px;
+  padding: 216px 0 32px 0;
+
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
+    padding: 32px 0 32px 0;
+  }
+
+  @media screen and (min-width: 1280px) {
+    padding: 30px 0 40px 0;
+  }
 }
 
-.containerText {
-  // display: flex;
-  // flex-direction: column;
-  width: 499px;
+.containerTitleText {
+  @include text-styles(Nunito, 14px, 400);
+
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
+    width: 352px;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 499px;
+  }
+}
+
+.titleText {
+  @include text-styles(Amatic SC, 24px, 700);
+  line-height: 150%;
+  letter-spacing: 0.03em;
+}
+
+.itemTitleText {
+  margin-bottom: 8px;
 }
 
 .containerBenefits {
-  margin: 40px 16px 40px 16px;
+  padding: 40px 0 40px 0;
   text-align: center;
   position: relative;
 }
 
-// style={{ margin: '36px auto 16px auto', width: '836px' }}
-
 .containerFoto {
-  margin: 30px 0 40px 0;
+  padding: 30px 0 40px 0;
   text-align: center;
 }
 
 .Foto {
+  padding: 36px 0 40px;
   display: flex;
-  gap: 36px;
   flex-direction: column;
   align-items: flex-end;
-  padding: 36px 0 40px;
-  @media screen and (min-width: 1200px) {
+  gap: 36px;
+
+  @media screen and (min-width: 1280px) {
     flex-direction: row;
   }
 }
@@ -76,36 +87,41 @@
 .fotoItem {
   margin: 0 auto;
   border-radius: 12px;
+  width: 100%;
+
   @media screen and (min-width: 1280px) {
     width: 606px;
-  }
-}
-
-.FotoSlid {
-  display: flex;
-  gap: 36px;
-  flex-direction: column;
-  align-items: flex-end;
-  padding: 36px 0 40px;
-  @media screen and (min-width: 768px) {
-    flex-direction: row;
-  }
-}
-
-.fotoItemSlid {
-  margin: 0 auto;
-  border-radius: 12px;
-  @media screen and (min-width: 768px) {
-    width: 224px;
-  }
-  @media screen and (min-width: 1280px) {
-    width: 392px;
   }
 }
 
 .fotoText {
   font-size: 14px;
   padding-bottom: 32px;
+}
+
+.FotoSlid {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 36px 0 40px;
+  gap: 36px;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    gap: 0;
+  }
+}
+
+.fotoItemSlid {
+  margin: 0 auto;
+  border-radius: 12px;
+
+  @media screen and (min-width: 768px) {
+    width: 224px;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 392px;
+  }
 }
 
 .icon {
