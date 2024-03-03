@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 import SEO from 'components/SEO/SEO';
 import Heading from 'shared/components/Heading';
 import About from 'components/About/About';
-import styles from './AboutPage.module.scss'
+import styles from './AboutPage.module.scss';
 
 export default function AboutPage() {
   const location = useLocation();
@@ -20,10 +20,6 @@ export default function AboutPage() {
         baseUrl={process.env.REACT_APP_PUBLIC_URL}
       />
       <About />
-     </div>
-      
-   </>
-    
-    
+    </>
   );
 }
