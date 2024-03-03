@@ -140,6 +140,7 @@ const ProductsItem = ({
               <Input
                 type="checkbox"
                 className={styles.checkbox}
+                inAdminControl
                 inputClassName={styles['checkbox-input']}
                 value={cardIsSelected}
                 onChange={e => {
