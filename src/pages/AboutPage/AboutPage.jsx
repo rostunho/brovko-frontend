@@ -13,7 +13,7 @@ export default function AboutPage() {
       <Heading withGoBack fromHC={backLinkHref}>
         Про Бровка
       </Heading>
-      <div className={styles.yellowContainer} />
+      {/* <div className={styles.yellowContainer} /> */}
       <SEO
         title="Про Бровка | Brovko - крамниця смаколиків для собак"
         description="Я - Бровко, і я - гурман! Я тут, аби розповісти всьому собакобратству про фантастично смачнючі та корисні смаколики, які готують мої люди."

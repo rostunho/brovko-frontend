@@ -69,6 +69,7 @@ export default function About() {
 
   const DesktopAbout = () => (
     <>
+      <div className={styles.yellowContainer} />
       <section className={styles.containerTitle}>
         <div className={styles.containerTitleText}>
           <p className={styles.titleText} style={{ marginBottom: '16px' }}>
