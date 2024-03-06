@@ -18,6 +18,9 @@ const AddPhotoInput = ({ setFiles }) => {
   const [errorTextQuantity, setErrorTextQuantity] = useState(false);
   const dispatch = useDispatch();
 
+  const [draggedImageIndex, setDraggedImageIndex] = useState(null);
+
+
   const openModalEditPhoto = (id, url) => {
     setModalIsId(id);
     setModalIsImage(url);
@@ -55,7 +58,9 @@ const AddPhotoInput = ({ setFiles }) => {
       setErrorTextQuantity(`Ви обрали більше ніж ${xFiles} фото`);
     }
   };
+  
   const handleDragStart = (e, index) => {
+    setDraggedImageIndex(index);
     e.dataTransfer.setData('text/plain', index);
   };
 
@@ -64,26 +69,176 @@ const AddPhotoInput = ({ setFiles }) => {
   };
 
   const handleDrop = (e, toIndex) => {
-    e.preventDefault();
-    const fromIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
-    const draggedPicture = selectedPicturesReview[fromIndex];
-
-    // Create a copy of the selectedPicturesReview array
-    const updatedPictures = [...selectedPicturesReview];
-
-    // Remove the picture from its original position
-    updatedPictures.splice(fromIndex, 1);
-
-    // Insert the picture at the new position
-    updatedPictures.splice(toIndex, 0, draggedPicture);
-
-    const reorderedPictures = updatedPictures.map((picture, index) => ({
-      ...picture,
-      id: index,
-    }));
-
-    setSelectedPicturesReview(reorderedPictures);
+    if (typeof toIndex === 'number' && draggedImageIndex !== null && draggedImageIndex !== toIndex) {
+      const draggedPicture = selectedPicturesReview[draggedImageIndex];
+      const updatedPictures = [...selectedPicturesReview];
+      updatedPictures.splice(draggedImageIndex, 1);
+      updatedPictures.splice(toIndex, 0, draggedPicture);
+      const reorderedPictures = updatedPictures.map((picture, index) => ({
+        ...picture,
+        id: index,
+      }));
+      setSelectedPicturesReview(reorderedPictures);
+      e.preventDefault();
+    }
   };
+
+  // const handleTouchStart = (e, index) => {
+  //   setDraggedImageIndex(index);
+  //   const touch = e.touches[0];
+  //   const initialX = touch.pageX - e.currentTarget.getBoundingClientRect().left;
+  //   const initialY = touch.pageY - e.currentTarget.getBoundingClientRect().top;
+  //   e.currentTarget.style.transition = 'none';
+  //   e.currentTarget.style.transform = `translate(${initialX}px, ${initialY}px)`;
+  //   console.log('handleTouchStart',index ,initialX, initialY)
+  // };
+
+  // const handleTouchMove = (e, index) => {
+  //   if (draggedImageIndex !== index) return;
+  //   const touch = e.touches[0];
+  //   const currentX = touch.pageX - e.currentTarget.getBoundingClientRect().left;
+  //   const currentY = touch.pageY - e.currentTarget.getBoundingClientRect().top;
+  //   e.currentTarget.style.transform = `translate(${currentX}px, ${currentY}px)`;
+  //   // console.log('handleTouchMove',index ,currentX, currentY)
+  // };
+  // const handleTouchEnd = (e, index) => {
+  //   if (draggedImageIndex !== index) return;
+  //   e.currentTarget.style.transition = '';
+  //   e.currentTarget.style.transform = '';
+  //   const touch = e.changedTouches[0];
+  //   const newToIndex = Array.from(e.currentTarget.parentElement.children).indexOf(e.currentTarget);
+  //   const touchPosition = { x: touch.pageX, y: touch.pageY };
+  //   handleDrop(touchPosition, newToIndex);
+  //   setDraggedImageIndex(null);
+  //   console.log('handleTouchMove',index ,touchPosition, newToIndex)
+
+  // };
+  
+
+  const [initialTouchX, setInitialTouchX] = useState(0);
+  const [initialTouchY, setInitialTouchY] = useState(0);
+  const [touchMovementX, setTouchMovementX] = useState(0);
+  const [touchMovementY, setTouchMovementY] = useState(0);
+  
+  const handleTouchStart = (e, index) => {
+    setDraggedImageIndex(index);
+    const touch = e.touches[0];
+    setInitialTouchX(touch.pageX);
+    setInitialTouchY(touch.pageY);
+  };
+  
+  // const handleTouchMove = (e, index) => {
+  //   if (draggedImageIndex !== index) return;
+  //   const touch = e.touches[0];
+  //   const movementX = touch.pageX - initialTouchX;
+  //   const movementY = touch.pageY - initialTouchY;
+  //   setTouchMovementX(movementX);
+  //   setTouchMovementY(movementY);
+  // };
+  
+  const handleTouchMove = (e, index) => {
+    if (draggedImageIndex !== index) return;
+    const touch = e.touches[0];
+    const movementX = touch.pageX - initialTouchX;
+    const movementY = touch.pageY - initialTouchY;
+    setTouchMovementX(movementX);
+    setTouchMovementY(movementY);
+    const draggedImage = e.currentTarget;
+    draggedImage.style.transform = `translate(${movementX}px, ${movementY}px)`;
+  };
+
+  // const handleTouchEnd = (e, index) => {
+  //   if (draggedImageIndex !== index) return;
+  //   const touch = e.changedTouches[0];
+  //   const newToIndex = Array.from(e.currentTarget.parentElement.children).indexOf(e.currentTarget);
+  //   const updatedPictures = [...selectedPicturesReview];
+  //   const draggedPicture = updatedPictures[draggedImageIndex];
+  //   updatedPictures.splice(draggedImageIndex, 1);
+  //   updatedPictures.splice(newToIndex, 0, draggedPicture);
+  //   const reorderedPictures = updatedPictures.map((picture, index) => ({
+  //     ...picture,
+  //     id: index,
+  //   }));
+  //   setSelectedPicturesReview(reorderedPictures);
+  //   setTouchMovementX(0);
+  //   setTouchMovementY(0);
+  //   setDraggedImageIndex(null);
+  // };
+
+  // const handleTouchEnd = (e, index) => {
+  //   if (draggedImageIndex !== index) return;
+  //   const touch = e.changedTouches[0];
+  //   const newToIndex = Array.from(e.currentTarget.parentElement.children).indexOf(e.currentTarget);
+  //   const updatedPictures = [...selectedPicturesReview];
+  //   const draggedPicture = updatedPictures[draggedImageIndex];
+  //   updatedPictures.splice(draggedImageIndex, 1);
+  //   updatedPictures.splice(newToIndex, 0, draggedPicture);
+  //   const reorderedPictures = updatedPictures.map((picture, index) => ({
+  //     ...picture,
+  //     id: index,
+  //   }));
+  //   setSelectedPicturesReview(reorderedPictures);
+  //   setTouchMovementX(0);
+  //   setTouchMovementY(0);
+  //   setDraggedImageIndex(null);
+  //   handleDrop({ x: touch.pageX, y: touch.pageY }, newToIndex);
+  // };
+
+  const handleTouchEnd = (e, index) => {
+    const touch = e.changedTouches[0];
+    console.log(e.currentTarget);
+    const newToIndex = Array.from(e.currentTarget.parentElement.children).indexOf(e.currentTarget);
+    if (draggedImageIndex !== null && draggedImageIndex === newToIndex) {
+      // If the dragged image is dropped back in its original position, update its position in the array
+      const updatedPictures = [...selectedPicturesReview];
+      const draggedPicture = updatedPictures[draggedImageIndex];
+      updatedPictures.splice(draggedImageIndex, 1);
+      updatedPictures.splice(newToIndex, 0, draggedPicture);
+      const reorderedPictures = updatedPictures.map((picture, index) => ({
+        ...picture,
+        id: index,
+      }));
+      setSelectedPicturesReview(reorderedPictures);
+    } else if (draggedImageIndex !== null && draggedImageIndex !== newToIndex) {
+      // If the dragged image is dropped in a new position, update the array as before
+      const updatedPictures = [...selectedPicturesReview];
+      const draggedPicture = updatedPictures[draggedImageIndex];
+      updatedPictures.splice(draggedImageIndex, 1);
+      updatedPictures.splice(newToIndex, 0, draggedPicture);
+      const reorderedPictures = updatedPictures.map((picture, index) => ({
+        ...picture,
+        id: index,
+      }));
+      setSelectedPicturesReview(reorderedPictures);
+    }
+    setTouchMovementX(0);
+    setTouchMovementY(0);
+    setDraggedImageIndex(null);
+  };
+
+  const images = selectedPicturesReview.map(({ id, url }, index) => (
+    <Button
+      key={id}
+     
+      className={styles['add-image-button']}
+      type="button"
+      draggable
+      onDragStart={e => handleDragStart(e, index)}
+      onDragOver={e => handleDragOver(e)}
+      onDrop={e => handleDrop(e, index)}
+      onTouchStart={e => handleTouchStart(e, index)}
+      onTouchMove={e => handleTouchMove(e, index)}
+      onTouchEnd={e => handleTouchEnd(e, index)}
+    >
+      <Image
+        key={id}
+        id={id}
+        src={url}
+        alt={`preview-${index + 1}`}
+        className={styles['add-image-img']}
+      />
+    </Button>
+  ));
 
   const addImages = files => {
     if (!files.length) {
@@ -124,27 +279,7 @@ const AddPhotoInput = ({ setFiles }) => {
     setSelectedFilesReview([]);
   };
 
-  const images = selectedPicturesReview.map(({ id, url }, index) => (
-    <Button
-      key={index}
-      className={styles['add-image-button']}
-      type="button"
-      draggable
-      onDragStart={e => handleDragStart(e, index)}
-      onDrop={e => handleDrop(e, index)}
-      onClick={e => {
-        openModalEditPhoto(index, url);
-      }}
-    >
-      <Image
-        key={id}
-        src={url}
-        alt={`preview-${index + 1}`}
-        className={styles['add-image-img']}
-      />
-    </Button>
-  ));
-
+ 
   useEffect(() => {
     setFiles(selectedPicturesReview);
   }, [selectedPicturesReview]);
