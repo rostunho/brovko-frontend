@@ -7,7 +7,8 @@ import Image from 'shared/components/Image';
 import AddIconImage from 'shared/icons/AddIconImage';
 import Modal from 'shared/components/Modal/Modal';
 
-const AddPhotoInput = ({ files, setFiles }) => {
+const AddPhotoInput = ({ setFiles }) => {
+  const [selectedImagesReview, setSelectedImagesReview] = useState([]);
   const [selectedPicturesReview, setSelectedPicturesReview] = useState([]);
   const [selectedFilesReview, setSelectedFilesReview] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -16,10 +17,6 @@ const AddPhotoInput = ({ files, setFiles }) => {
   const [prompDelete, setPrompDelete] = useState(true);
   const [errorTextQuantity, setErrorTextQuantity] = useState(false);
   const dispatch = useDispatch();
-  const [draggedImageId, setDraggedImageId] = useState('null');
-
-const [draggedIndex, setDraggedIndex] = useState(null);
-  const [draggedOverIndex, setDraggedOverIndex] = useState(null);
 
   const openModalEditPhoto = (id, url) => {
     setModalIsId(id);
@@ -44,7 +41,7 @@ const [draggedIndex, setDraggedIndex] = useState(null);
   };
 
   const handleImageChange = (e, xFiles = 5 - selectedPicturesReview.length) => {
-    // e.preventDefault();
+    e.preventDefault();
     const files = Array.from(e.target.files);
 
     if (files.length > 0 && files.length <= xFiles) {
@@ -60,140 +57,11 @@ const [draggedIndex, setDraggedIndex] = useState(null);
   };
   const handleDragStart = (e, index) => {
     e.dataTransfer.setData('text/plain', index);
-        setDraggedIndex(index);
-
-  };
-
-  const handleTouchStart = index => {
-    console.log('touchstart ', index);
-    setDraggedImageId(index);
   };
 
   const handleDragOver = e => {
     e.preventDefault();
-     const newIndex = e.target.id;
-    setDraggedOverIndex(newIndex);
   };
-
-  const handleTouchMove = (event, index) => {
-    // event.preventDefault();
-    event.stopPropagation();
-    const touch = event.changedTouches[0];
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = touch.pageX - rect.left;
-    const y = touch.pageY - rect.top;
-    const toIndex = Math.floor((x / rect.width) * updatedImages.length);
-    console.log(
-      'handleTouchMove_touch',
-      touch,
-      'index',
-      index,
-      'toIndex',
-      toIndex
-    );
-    setOffset({ x, y });
-  };
-
-  // const handleTouchMove = (event, index) => {
-  //   // event.preventDefault();
-  //   event.stopPropagation();
-  //   const touch = event.changedTouches[0];
-  //   console.log('handleTouchMove_touch', touch, 'index', index);
-  //   // return event => {
-  //   //   // event.preventDefault();
-  //   //   // event.stopPropagation();
-  //   //   const touch = event.targetTouches[0];
-  //   //   console.log('handleTouchMovetouch', touch);
-  //   //   // const newX = touch.clientX - touchStartPos.offsetX;
-  //   //   // const newY = touch.clientY - touchStartPos.offsetY;
-  //   //   // event.target.style.transform = `translate(${newX}px, ${newY}px)`;
-  //   // };
-  // };
-
-  const handleTouchEnd = (event, toIndex) => {
-    console.log('start handleTouchEnd');
-
-    if (draggedImageId !== null && selectedPicturesReview.length > 0) {
-      const releasedImage = selectedPicturesReview[draggedImageId];
-      const updatedPictures = [...selectedPicturesReview];
-      const fromIndex = updatedPictures.findIndex(
-        picture => picture.id === draggedImageId
-      );
-      updatedPictures.splice(toIndex, 0, releasedImage);
-      updatedPictures.splice(fromIndex + 1, 1);
-      setSelectedPicturesReview(updatedPictures);
-      setDraggedImageId(null);
-    }
-  };
-
-  // const handleTouchEnd = () => {
-  //   console.log('start handleTouchEnd');
-
-  //   if (draggedImageId !== null && selectedPicturesReview.length > 0) {
-  //     const releasedImage = selectedPicturesReview[draggedImageId];
-  //     setDraggedImageId(null);
-
-  //     console.log(releasedImage);
-  //     // Do something with the released image, e.g. move it to its new position
-  //   }
-  // };
-
-  // const handleTouchEnd = (event, index) => {
-  //   console.log('touchstend', index);
-
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  //   const touch = event.changedTouches[0];
-  //   console.log('touchstend_touch', touch, 'index', index);
-  //   // const newIndex = calculateNewIndex(touch.clientX, touch.clientY);
-  //   // Реалізуйте логіку переміщення елементів масиву
-  //   // Приблизно так: видалити елемент зі старої позиції, вставити його в нову
-  //   // Ви можете використати функцію handleDrop для цього
-  //   // Наприклад:
-  //   // handleDrop(event, newIndex)
-  //   // event.target.style.transform = 'none'; // Скидання трансформації
-  // };
-
-  // const handleTouchEnd = event => {
-  //   console.log('start handleTouchEnd');
-
-  //   const touch = event.changedTouches[0];
-  //   if (draggedImageId !== null && selectedPicturesReview.length > 0) {
-  //     const releasedImage = selectedPicturesReview.find(img => {
-  //       if (!img.current) {
-  //         return false;
-  //       }
-  //       const rect = img.current.getBoundingClientRect();
-  //       return (
-  //         touch.pageX >= rect.left &&
-  //         touch.pageX <= rect.right &&
-  //         touch.pageY >= rect.top &&
-  //         touch.pageY <= rect.bottom
-  //       );
-  //     });
-  //     // if (releasedImage) {
-  //       console.log(releasedImage);
-  //       // setDraggedImageId(null);
-  //       // Do something with the released image, e.g. move it to its new position
-  //     // }
-  //   }
-  // };
-
-  // const handleTouchEnd = (event) => {
-  //   const touch = event.changedTouches[0];
-  //   const imageId = selectedPicturesReview.find(img => {
-  //     const rect = img.current.getBoundingClientRect();
-  //     return (
-  //       touch.pageX >= rect.left &&
-  //       touch.pageX <= rect.right &&
-  //       touch.pageY >= rect.top &&
-  //       touch.pageY <= rect.bottom
-  //     );
-  //   }).id;
-  //   console.log(imageId);
-  //   // setDraggedImageId(null);
-  //   // Do something with the released image, e.g. move it to its new position
-  // };
 
   const handleDrop = (e, toIndex) => {
     e.preventDefault();
@@ -244,7 +112,8 @@ const [draggedIndex, setDraggedIndex] = useState(null);
       })
       .filter(Boolean);
 
-    setSelectedPicturesReview(prevPictures => [...prevPictures, ...newImages]);
+    setSelectedImagesReview(prevImages => [...prevImages, ...newImages]); // Змінено тут
+    setSelectedPicturesReview(prevPictures => [...prevPictures, ...newImages]); // Змінено тут
     dispatch(
       addPopupOperation(
         `Додано ${newImages.length} файл${
@@ -258,26 +127,17 @@ const [draggedIndex, setDraggedIndex] = useState(null);
   const images = selectedPicturesReview.map(({ id, url }, index) => (
     <Button
       key={index}
-      id={index}
       className={styles['add-image-button']}
       type="button"
       draggable
       onDragStart={e => handleDragStart(e, index)}
       onDrop={e => handleDrop(e, index)}
-      onTouchStart={e => handleTouchStart(index)}
-      onTouchEnd={event => handleTouchEnd(event, index)}
-      onTouchMove={e => handleTouchMove(e)}
       onClick={e => {
         openModalEditPhoto(index, url);
-      }}
-      style={{
-        order: draggedIndex === index || draggedOverIndex === index ? 1 : 0,
-        zIndex: draggedIndex === index || draggedOverIndex === index ? 1000 : 0,
       }}
     >
       <Image
         key={id}
-        id={index}
         src={url}
         alt={`preview-${index + 1}`}
         className={styles['add-image-img']}
@@ -290,13 +150,8 @@ const [draggedIndex, setDraggedIndex] = useState(null);
   }, [selectedPicturesReview]);
 
   const inputPhoto = index => (
-    <label
-      htmlFor="file-input"
-      className={styles['file-input-label']}
-      key={index}
-    >
+    <label className={styles['file-input-label']} key={index}>
       <input
-        id="file-input"
         className={styles['visually-hidden']}
         type="file"
         accept="image/jpeg, image/jpg, image/png"
