@@ -16,47 +16,54 @@ export default function About() {
 
   return (
     <div className={styles.about}>
-      <div className={styles.yellowContainer} />
-      <section className={styles.containerTitle}>
-        <div className={styles.containerTitleText}>
-          <p className={styles.titleText} style={{ marginBottom: '16px' }}>
-            Привіт, бро!
+      <div className={styles['about__yellowSpot']} />
+      <section className={styles['about__title']}>
+        <div className={styles['about__title__box']}>
+          <p style={{ marginBottom: '16px' }}>Привіт, бро!</p>
+          <p className={styles['about__title__box-textItem']}>
+            {aboutTextDataDesctop[0]}
           </p>
-          <p className={styles.itemTitleText}>{aboutTextDataDesctop[0]}</p>
-          <p className={styles.itemTitleText}>{aboutTextDataDesctop[1]}</p>
+          <p className={styles['about__title__box-textItem']}>
+            {aboutTextDataDesctop[1]}
+          </p>
         </div>
       </section>
 
-      <section className={styles.containerBenefits}>
-        <p className={styles.titleText}>
-          {!isMobile ? aboutTextDataDesctop[2] : aboutTextDataMobile[2]}
-        </p>
-        <p className={styles.titleText}>
-          {!isMobile ? aboutTextDataDesctop[3] : aboutTextDataMobile[3]}
-        </p>
-        <Image src={frame} style={{ margin: '36px auto 16px auto' }} />
-        <div className={styles.sinus}></div>
+      <section className={styles['about__benefits']}>
+        <p>{!isMobile ? aboutTextDataDesctop[2] : aboutTextDataMobile[2]}</p>
+        <p>{!isMobile ? aboutTextDataDesctop[3] : aboutTextDataMobile[3]}</p>
+        <Image
+          src={frame}
+          style={{ margin: '36px auto 16px auto', paddingRight: '16px' }}
+        />
+        <div className={styles['about__benefits__sinus']}></div>
       </section>
 
-      <section className={styles.containerFoto}>
-        <p className={styles.titleText}>{aboutTextDataDesctop[4]}</p>
-        <div className={styles.Foto}>
-          <div className={styles.fotoItem}>
+      <section className={styles['about__photos']}>
+        <p>{aboutTextDataDesctop[4]}</p>
+        <div className={styles['about__photos__photoBox']}>
+          <div className={styles['about__photos__photoBox-item']}>
             <Image src={fotoArray[0]} />
           </div>
-          <div className={styles.fotoItem}>
-            <p className={styles.fotoText}>{aboutTextDataDesctop[5]}</p>
+          <div className={styles['about__photos__photoBox-item']}>
+            <p className={styles['about__photos__photoBox-text']}>
+              {aboutTextDataDesctop[5]}
+            </p>
             <Image src={fotoArray[1]} />
           </div>
         </div>
       </section>
 
-      <section className={styles.containerFoto}>
-        <p className={styles.titleText}>{aboutTextDataDesctop[6]}</p>
-        <p className={styles.titleText}>{aboutTextDataDesctop[7]}</p>
-        <div className={styles.FotoSlid}>
+      <section className={styles['about__photos']}>
+        <p>{aboutTextDataDesctop[6]}</p>
+        <p>{aboutTextDataDesctop[7]}</p>
+        <div className={styles['about__photos__tape']}>
           {fotoArray.slice(2).map((foto, index) => (
-            <Image key={foto.src} src={foto} className={styles.fotoItemSlid} />
+            <Image
+              key={foto.src}
+              src={foto}
+              className={styles['about__photos__tape-item']}
+            />
           ))}
         </div>
       </section>
