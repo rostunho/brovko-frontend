@@ -18,6 +18,9 @@ const AddPhotoInput = ({ files, setFiles }) => {
   const dispatch = useDispatch();
   const [draggedImageId, setDraggedImageId] = useState('null');
 
+const [draggedIndex, setDraggedIndex] = useState(null);
+  const [draggedOverIndex, setDraggedOverIndex] = useState(null);
+
   const openModalEditPhoto = (id, url) => {
     setModalIsId(id);
     setModalIsImage(url);
@@ -41,7 +44,7 @@ const AddPhotoInput = ({ files, setFiles }) => {
   };
 
   const handleImageChange = (e, xFiles = 5 - selectedPicturesReview.length) => {
-    e.preventDefault();
+    // e.preventDefault();
     const files = Array.from(e.target.files);
 
     if (files.length > 0 && files.length <= xFiles) {
@@ -57,6 +60,8 @@ const AddPhotoInput = ({ files, setFiles }) => {
   };
   const handleDragStart = (e, index) => {
     e.dataTransfer.setData('text/plain', index);
+        setDraggedIndex(index);
+
   };
 
   const handleTouchStart = index => {
@@ -66,6 +71,8 @@ const AddPhotoInput = ({ files, setFiles }) => {
 
   const handleDragOver = e => {
     e.preventDefault();
+     const newIndex = e.target.id;
+    setDraggedOverIndex(newIndex);
   };
 
   const handleTouchMove = (event, index) => {
@@ -75,8 +82,15 @@ const AddPhotoInput = ({ files, setFiles }) => {
     const rect = event.currentTarget.getBoundingClientRect();
     const x = touch.pageX - rect.left;
     const y = touch.pageY - rect.top;
-    const toIndex = Math.floor(x / rect.width * updatedImages.length);
-    console.log('handleTouchMove_touch', touch, 'index', index, 'toIndex', toIndex);
+    const toIndex = Math.floor((x / rect.width) * updatedImages.length);
+    console.log(
+      'handleTouchMove_touch',
+      touch,
+      'index',
+      index,
+      'toIndex',
+      toIndex
+    );
     setOffset({ x, y });
   };
 
@@ -98,11 +112,13 @@ const AddPhotoInput = ({ files, setFiles }) => {
 
   const handleTouchEnd = (event, toIndex) => {
     console.log('start handleTouchEnd');
-  
+
     if (draggedImageId !== null && selectedPicturesReview.length > 0) {
       const releasedImage = selectedPicturesReview[draggedImageId];
       const updatedPictures = [...selectedPicturesReview];
-      const fromIndex = updatedPictures.findIndex(picture => picture.id === draggedImageId);
+      const fromIndex = updatedPictures.findIndex(
+        picture => picture.id === draggedImageId
+      );
       updatedPictures.splice(toIndex, 0, releasedImage);
       updatedPictures.splice(fromIndex + 1, 1);
       setSelectedPicturesReview(updatedPictures);
@@ -110,14 +126,13 @@ const AddPhotoInput = ({ files, setFiles }) => {
     }
   };
 
-
   // const handleTouchEnd = () => {
   //   console.log('start handleTouchEnd');
-  
+
   //   if (draggedImageId !== null && selectedPicturesReview.length > 0) {
   //     const releasedImage = selectedPicturesReview[draggedImageId];
   //     setDraggedImageId(null);
-  
+
   //     console.log(releasedImage);
   //     // Do something with the released image, e.g. move it to its new position
   //   }
@@ -138,9 +153,6 @@ const AddPhotoInput = ({ files, setFiles }) => {
   //   // handleDrop(event, newIndex)
   //   // event.target.style.transform = 'none'; // Скидання трансформації
   // };
-
-
-
 
   // const handleTouchEnd = event => {
   //   console.log('start handleTouchEnd');
@@ -258,6 +270,10 @@ const AddPhotoInput = ({ files, setFiles }) => {
       onClick={e => {
         openModalEditPhoto(index, url);
       }}
+      style={{
+        order: draggedIndex === index || draggedOverIndex === index ? 1 : 0,
+        zIndex: draggedIndex === index || draggedOverIndex === index ? 1000 : 0,
+      }}
     >
       <Image
         key={id}
@@ -274,8 +290,13 @@ const AddPhotoInput = ({ files, setFiles }) => {
   }, [selectedPicturesReview]);
 
   const inputPhoto = index => (
-    <label className={styles['file-input-label']} key={index}>
+    <label
+      htmlFor="file-input"
+      className={styles['file-input-label']}
+      key={index}
+    >
       <input
+        id="file-input"
         className={styles['visually-hidden']}
         type="file"
         accept="image/jpeg, image/jpg, image/png"
