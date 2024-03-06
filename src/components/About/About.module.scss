@@ -2,8 +2,11 @@
 @import '../../theme/base/base';
 
 .about {
-  padding-bottom: 32px;
   margin: 0 auto;
+
+  @include text-styles(Amatic SC, 24px, 700);
+  line-height: 150%;
+  letter-spacing: 0.03em;
 
   @media screen and (min-width: 480px) and (max-width: 767px) {
     width: 448px;
@@ -24,134 +27,193 @@
     flex-direction: row;
     gap: 36px;
   }
-}
 
-.containerTitle {
-  position: relative;
-  justify-content: space-around;
-  padding: 216px 0 32px 0;
+  &__yellowSpot {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    width: 768px;
+    height: 460px;
+    background-image: url('../../shared/images/YellowSpotMOBILE.png');
+    background-size: cover;
+    background-position: bottom;
 
-  @media screen and (min-width: 768px) and (max-width: 1279px) {
-    padding: 32px 0 32px 0;
+    @media screen and (min-width: 768px) and (max-width: 1279px) {
+      position: absolute;
+      top: 0;
+      right: 50%;
+      transform: translateX(50%);
+      z-index: -1;
+      width: 1280px;
+      // height: 436px;
+      background-image: url('../../shared/images/YellowSpotTablet.png');
+      background-size: cover;
+      background-position: bottom;
+    }
+
+    @media screen and (min-width: 1280px) {
+      position: absolute;
+      top: -40px;
+      right: 60%;
+      transform: translateX(50%);
+      z-index: -1;
+      width: 2560px;
+      height: 600px;
+      background-image: url('../../shared/images/YellowSpotDESKTOP.png');
+      background-size: cover;
+      background-position: bottom;
+    }
   }
 
-  @media screen and (min-width: 1280px) {
-    padding: 30px 0 40px 0;
+  &__title {
+    position: relative;
+    justify-content: space-around;
+    padding: 216px 0 32px 0;
+
+    @media screen and (min-width: 768px) and (max-width: 1279px) {
+      padding: 0 0 72px 0;
+    }
+
+    @media screen and (min-width: 1280px) {
+      padding: 0 0 145px 107px;
+    }
+
+    &__box {
+      @media screen and (min-width: 768px) and (max-width: 1279px) {
+        width: 352px;
+      }
+      @media screen and (min-width: 1280px) {
+        width: 499px;
+      }
+
+      &-textItem {
+        @include text-styles(Nunito, 14px, 400);
+        letter-spacing: 0;
+        margin-bottom: 8px;
+      }
+    }
   }
-}
 
-.containerTitleText {
-  @include text-styles(Nunito, 14px, 400);
+  &__benefits {
+    padding: 40px 0 80px 0;
+    text-align: center;
+    position: relative;
 
-  @media screen and (min-width: 768px) and (max-width: 1279px) {
-    width: 352px;
+    @include text-styles(Amatic SC, 24px, 700);
+    line-height: 150%;
+    letter-spacing: 0.03em;
+
+    @media screen and (min-width: 768px) and (max-width: 1279px) {
+      padding: 0px 0 80px 0;
+    }
+    @media screen and (min-width: 1280px) {
+      padding: 0px 52px 80px 52px;
+    }
+
+    &__sinus {
+      position: absolute;
+      bottom: 0;
+      right: 50%;
+      transform: translateX(50%);
+      z-index: -1;
+      width: 768px;
+      height: 26px;
+      background-image: url('../../shared/images/SinusMobile.png');
+      background-size: cover;
+      background-position: bottom;
+
+      @media screen and (min-width: 768px) and (max-width: 1279px) {
+        position: absolute;
+        bottom: 0;
+        right: 50%;
+        transform: translateX(50%);
+        z-index: -1;
+        width: 1280px;
+        height: 34px;
+        background-image: url('../../shared/images/SinusTablet.png');
+        background-size: cover;
+        background-position: bottom;
+      }
+
+      @media screen and (min-width: 1280px) {
+        position: absolute;
+        bottom: 0;
+        right: 50%;
+        transform: translateX(50%);
+        z-index: -1;
+        width: 2560px;
+        height: 56px;
+        background-image: url('../../shared/images/SinusDesktop.png');
+        background-size: cover;
+        background-position: bottom;
+      }
+    }
   }
-  @media screen and (min-width: 1280px) {
-    width: 499px;
+
+  &__photos {
+    padding: 20px 0px;
+    margin-bottom: 32px;
+    text-align: center;
+    @media screen and (min-width: 768px) and (max-width: 1279px) {
+      padding: 20px 16px 20px 0px;
+      margin-bottom: 32px;
+    }
+    @media screen and (min-width: 1280px) {
+      padding: 60px 16px 40px 16px;
+      // margin-bottom: 32px;
+    }
+
+    &__photoBox {
+      padding: 36px 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 36px;
+
+      @media screen and (min-width: 1280px) {
+        flex-direction: row;
+      }
+
+      &-item {
+        margin: 0 auto;
+        border-radius: 12px;
+        width: 100%;
+
+        @media screen and (min-width: 1280px) {
+          width: 606px;
+        }
+      }
+      &-text {
+        @include text-styles(Nunito, 14px, 400);
+        letter-spacing: 0;
+        padding-bottom: 32px;
+      }
+    }
+
+    &__tape {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding: 36px 0 40px;
+      gap: 36px;
+
+      @media screen and (min-width: 768px) {
+        flex-direction: row;
+        gap: 0;
+      }
+
+      &-item {
+        margin: 0 auto;
+        border-radius: 12px;
+
+        @media screen and (min-width: 768px) {
+          width: 224px;
+        }
+        @media screen and (min-width: 1280px) {
+          width: 392px;
+        }
+      }
+    }
   }
-}
-
-.titleText {
-  @include text-styles(Amatic SC, 24px, 700);
-  line-height: 150%;
-  letter-spacing: 0.03em;
-}
-
-.itemTitleText {
-  margin-bottom: 8px;
-}
-
-.containerBenefits {
-  padding: 40px 0 40px 0;
-  text-align: center;
-  position: relative;
-}
-
-.containerFoto {
-  padding: 30px 0 40px 0;
-  text-align: center;
-}
-
-.Foto {
-  padding: 36px 0 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 36px;
-
-  @media screen and (min-width: 1280px) {
-    flex-direction: row;
-  }
-}
-
-.fotoItem {
-  margin: 0 auto;
-  border-radius: 12px;
-  width: 100%;
-
-  @media screen and (min-width: 1280px) {
-    width: 606px;
-  }
-}
-
-.fotoText {
-  font-size: 14px;
-  padding-bottom: 32px;
-}
-
-.FotoSlid {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  padding: 36px 0 40px;
-  gap: 36px;
-
-  @media screen and (min-width: 768px) {
-    flex-direction: row;
-    gap: 0;
-  }
-}
-
-.fotoItemSlid {
-  margin: 0 auto;
-  border-radius: 12px;
-
-  @media screen and (min-width: 768px) {
-    width: 224px;
-  }
-  @media screen and (min-width: 1280px) {
-    width: 392px;
-  }
-}
-
-.icon {
-  display: flex;
-  justify-content: center;
-  margin-top: 8px;
-  margin-bottom: 32px;
-}
-
-.aboutDescription {
-  color: var(--black-text-color);
-  @include text-styles(Nunito, 16px, 700);
-  margin-bottom: 16px;
-}
-.aboutText {
-  color: var(--black-text-color);
-  /* основний текст */
-  @include text-styles;
-  margin-bottom: 8px;
-}
-
-.img {
-  background: lightgray 50% / cover no-repeat;
-  width: 20px;
-  height: 20px;
-  margin-right: 16px;
-  margin-bottom: 8px;
-}
-
-.aboutItem {
-  display: flex;
-  @include text-styles;
 }
