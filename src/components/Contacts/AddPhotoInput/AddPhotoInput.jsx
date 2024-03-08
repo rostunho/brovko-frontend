@@ -20,7 +20,6 @@ const AddPhotoInput = ({ setFiles }) => {
 
   const [draggedImageIndex, setDraggedImageIndex] = useState(null);
 
-
   const openModalEditPhoto = (id, url) => {
     setModalIsId(id);
     setModalIsImage(url);
@@ -58,7 +57,7 @@ const AddPhotoInput = ({ setFiles }) => {
       setErrorTextQuantity(`Ви обрали більше ніж ${xFiles} фото`);
     }
   };
-  
+
   const handleDragStart = (e, index) => {
     setDraggedImageIndex(index);
     e.dataTransfer.setData('text/plain', index);
@@ -69,7 +68,11 @@ const AddPhotoInput = ({ setFiles }) => {
   };
 
   const handleDrop = (e, toIndex) => {
-    if (typeof toIndex === 'number' && draggedImageIndex !== null && draggedImageIndex !== toIndex) {
+    if (
+      typeof toIndex === 'number' &&
+      draggedImageIndex !== null &&
+      draggedImageIndex !== toIndex
+    ) {
       const draggedPicture = selectedPicturesReview[draggedImageIndex];
       const updatedPictures = [...selectedPicturesReview];
       updatedPictures.splice(draggedImageIndex, 1);
@@ -113,20 +116,19 @@ const AddPhotoInput = ({ setFiles }) => {
   //   console.log('handleTouchMove',index ,touchPosition, newToIndex)
 
   // };
-  
 
   const [initialTouchX, setInitialTouchX] = useState(0);
   const [initialTouchY, setInitialTouchY] = useState(0);
   const [touchMovementX, setTouchMovementX] = useState(0);
   const [touchMovementY, setTouchMovementY] = useState(0);
-  
+
   const handleTouchStart = (e, index) => {
     setDraggedImageIndex(index);
     const touch = e.touches[0];
     setInitialTouchX(touch.pageX);
     setInitialTouchY(touch.pageY);
   };
-  
+
   // const handleTouchMove = (e, index) => {
   //   if (draggedImageIndex !== index) return;
   //   const touch = e.touches[0];
@@ -135,7 +137,7 @@ const AddPhotoInput = ({ setFiles }) => {
   //   setTouchMovementX(movementX);
   //   setTouchMovementY(movementY);
   // };
-  
+
   const handleTouchMove = (e, index) => {
     if (draggedImageIndex !== index) return;
     const touch = e.touches[0];
@@ -143,8 +145,8 @@ const AddPhotoInput = ({ setFiles }) => {
     const movementY = touch.pageY - initialTouchY;
     setTouchMovementX(movementX);
     setTouchMovementY(movementY);
-    const draggedImage = e.currentTarget;
-    draggedImage.style.transform = `translate(${movementX}px, ${movementY}px)`;
+    // const draggedImage = e.currentTarget;
+    // e.currentTarget.style.transform = `translate(${movementX}px, ${movementY}px)`;
   };
 
   // const handleTouchEnd = (e, index) => {
@@ -187,7 +189,9 @@ const AddPhotoInput = ({ setFiles }) => {
   const handleTouchEnd = (e, index) => {
     const touch = e.changedTouches[0];
     console.log(e.currentTarget);
-    const newToIndex = Array.from(e.currentTarget.parentElement.children).indexOf(e.currentTarget);
+    const newToIndex = Array.from(
+      e.currentTarget.parentElement.children
+    ).indexOf(e.currentTarget);
     if (draggedImageIndex !== null && draggedImageIndex === newToIndex) {
       // If the dragged image is dropped back in its original position, update its position in the array
       const updatedPictures = [...selectedPicturesReview];
@@ -215,30 +219,47 @@ const AddPhotoInput = ({ setFiles }) => {
     setTouchMovementY(0);
     setDraggedImageIndex(null);
   };
-
   const images = selectedPicturesReview.map(({ id, url }, index) => (
-    <Button
+    <div
       key={id}
-     
       className={styles['add-image-button']}
-      type="button"
       draggable
       onDragStart={e => handleDragStart(e, index)}
       onDragOver={e => handleDragOver(e)}
       onDrop={e => handleDrop(e, index)}
-      onTouchStart={e => handleTouchStart(e, index)}
-      onTouchMove={e => handleTouchMove(e, index)}
-      onTouchEnd={e => handleTouchEnd(e, index)}
     >
-      <Image
-        key={id}
-        id={id}
-        src={url}
-        alt={`preview-${index + 1}`}
-        className={styles['add-image-img']}
-      />
-    </Button>
+      <div
+        onTouchStart={e => handleTouchStart(e, index)}
+        onTouchMove={e => handleTouchMove(e, index)}
+        onTouchEnd={e => handleTouchEnd(e, index)}
+      >
+        <Image
+          key={id}
+          src={url}
+          alt={`preview-${index + 1}`}
+          className={styles['add-image-img']}
+        />
+      </div>
+    </div>
   ));
+  // const images = selectedPicturesReview.map(({ id, url }, index) => (
+  //   // <Button key={id} className={styles['add-image-button']} type="button">
+  //     <Image
+  //       key={id}
+  //       id={id}
+  //       src={url}
+  //       alt={`preview-${index + 1}`}
+  //       className={styles['add-image-img']}
+  //       draggable
+  //       onDragStart={e => handleDragStart(e, index)}
+  //       onDragOver={e => handleDragOver(e)}
+  //       onDrop={e => handleDrop(e, index)}
+  //       onTouchStart={e => handleTouchStart(e, index)}
+  //       onTouchMove={e => handleTouchMove(e, index)}
+  //       onTouchEnd={e => handleTouchEnd(e, index)}
+  //     />
+  //   {/* </Button> */}
+  // ));
 
   const addImages = files => {
     if (!files.length) {
@@ -279,7 +300,6 @@ const AddPhotoInput = ({ setFiles }) => {
     setSelectedFilesReview([]);
   };
 
- 
   useEffect(() => {
     setFiles(selectedPicturesReview);
   }, [selectedPicturesReview]);
