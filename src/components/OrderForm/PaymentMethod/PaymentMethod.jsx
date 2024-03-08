@@ -25,7 +25,7 @@ export default function PaymentMethod({ getData, ...props }) {
   };
 
   return (
-    <>
+    <div className={styles.container}>
       <Heading type="h3">Оплата</Heading>
       <ul className={styles.list}>
         <li className={styles.item}>
@@ -50,6 +50,6 @@ export default function PaymentMethod({ getData, ...props }) {
           />
         </li>
       </ul>
-    </>
+    </div>
   );
 }
