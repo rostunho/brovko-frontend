@@ -7,6 +7,7 @@ import Image from 'shared/components/Image';
 import AddIconImage from 'shared/icons/AddIconImage';
 import Modal from 'shared/components/Modal/Modal';
 import { useRef } from 'react';
+import { debounce, throttle } from 'utils';
 
 const AddPhotoInput = ({ setFiles }) => {
   const [selectedImagesReview, setSelectedImagesReview] = useState([]);
@@ -63,21 +64,22 @@ const AddPhotoInput = ({ setFiles }) => {
   const [order, setOrder] = useState([]);
 
   const handleImageChange = e => {
-    const newImages = Array.from(e.target.files).map(file => {
-      if (file.type.includes('image')) {
-        const img = URL.createObjectURL(file);
-        setSelectedImagesReview(prevImages => [...prevImages, img]);
-        setSelectedPicturesReview(prevPictures => [...prevPictures, file]);
-        setOrder(prevOrder => [...prevOrder, file.name]); // Додано тут
-        return img;
-      } else {
-        console.error('Invalid file:', file);
-        addPopupOperation(`Не правильний файл: ${file}`);
-        return null;
-      }
-    })
-    .filter(Boolean);
-  
+    const newImages = Array.from(e.target.files)
+      .map(file => {
+        if (file.type.includes('image')) {
+          const img = URL.createObjectURL(file);
+          setSelectedImagesReview(prevImages => [...prevImages, img]);
+          setSelectedPicturesReview(prevPictures => [...prevPictures, file]);
+          setOrder(prevOrder => [...prevOrder, file.name]); // Додано тут
+          return img;
+        } else {
+          console.error('Invalid file:', file);
+          addPopupOperation(`Не правильний файл: ${file}`);
+          return null;
+        }
+      })
+      .filter(Boolean);
+
     setSelectedFilesReview([]);
   };
 
@@ -88,29 +90,23 @@ const AddPhotoInput = ({ setFiles }) => {
 
   const handleDragOver = e => {
     e.preventDefault();
-    
 
-
-
-
-
-    
     const dragIndex = order.indexOf(e.dataTransfer.getData('image'));
-    const hoverIndex = order.findIndex(
-      (_, index) => document.elementsFromPoint(e.clientX, e.clientY).includes(
-        images[index].ref.current
-      )
+    const hoverIndex = order.findIndex((_, index) =>
+      document
+        .elementsFromPoint(e.clientX, e.clientY)
+        .includes(images[index].ref.current)
     );
-  
+
     if (dragIndex === hoverIndex) {
       return;
     }
-  
+
     const dragImage = selectedPicturesReview[dragIndex];
     const newOrder = [...order];
     newOrder.splice(dragIndex, 1);
     newOrder.splice(hoverIndex, 0, dragImage.name);
-  
+
     setOrder(newOrder);
   };
 
@@ -169,17 +165,20 @@ const AddPhotoInput = ({ setFiles }) => {
   const [touchMovementX, setTouchMovementX] = useState(0);
   const [touchMovementY, setTouchMovementY] = useState(0);
 
-  document.addEventListener('touchmove', function(event) {
-    event.preventDefault()
-    document.body.style.overflow = 'hidden'
+  document.addEventListener('touchmove', function (event) {
+    event.preventDefault();
+    document.body.style.overflow = 'hidden';
     var touch = event.touches[0];
-    var touchedElement = document.elementFromPoint(touch.clientX, touch.clientY);
+    var touchedElement = document.elementFromPoint(
+      touch.clientX,
+      touch.clientY
+    );
     console.log('Element under finger:', touchedElement);
-});
+  });
 
-document.addEventListener( "touchend", function(){
-  document.body.style.overflow = 'auto';
-})
+  document.addEventListener('touchend', function () {
+    document.body.style.overflow = 'auto';
+  });
 
   const handleTouchStart = (e, index) => {
     setDraggedImageIndex(index);
@@ -245,39 +244,39 @@ document.addEventListener( "touchend", function(){
   //   handleDrop({ x: touch.pageX, y: touch.pageY }, newToIndex);
   // };
 
-  const handleTouchEnd = (e, index) => {
-    const touch = e.changedTouches[0];
-    console.log(e.currentTarget);
-    const newToIndex = Array.from(
-      e.currentTarget.parentElement.children
-    ).indexOf(e.currentTarget);
-    if (draggedImageIndex !== null && draggedImageIndex === newToIndex) {
-      // If the dragged image is dropped back in its original position, update its position in the array
-      const updatedPictures = [...selectedPicturesReview];
-      const draggedPicture = updatedPictures[draggedImageIndex];
-      updatedPictures.splice(draggedImageIndex, 1);
-      updatedPictures.splice(newToIndex, 0, draggedPicture);
-      const reorderedPictures = updatedPictures.map((picture, index) => ({
-        ...picture,
-        id: index,
-      }));
-      setSelectedPicturesReview(reorderedPictures);
-    } else if (draggedImageIndex !== null && draggedImageIndex !== newToIndex) {
-      // If the dragged image is dropped in a new position, update the array as before
-      const updatedPictures = [...selectedPicturesReview];
-      const draggedPicture = updatedPictures[draggedImageIndex];
-      updatedPictures.splice(draggedImageIndex, 1);
-      updatedPictures.splice(newToIndex, 0, draggedPicture);
-      const reorderedPictures = updatedPictures.map((picture, index) => ({
-        ...picture,
-        id: index,
-      }));
-      setSelectedPicturesReview(reorderedPictures);
-    }
-    setTouchMovementX(0);
-    setTouchMovementY(0);
-    setDraggedImageIndex(null);
-  };
+  // const handleTouchEnd = (e, index) => {
+  //   const touch = e.changedTouches[0];
+  //   console.log(e.currentTarget);
+  //   const newToIndex = Array.from(
+  //     e.currentTarget.parentElement.children
+  //   ).indexOf(e.currentTarget);
+  //   if (draggedImageIndex !== null && draggedImageIndex === newToIndex) {
+  //     // If the dragged image is dropped back in its original position, update its position in the array
+  //     const updatedPictures = [...selectedPicturesReview];
+  //     const draggedPicture = updatedPictures[draggedImageIndex];
+  //     updatedPictures.splice(draggedImageIndex, 1);
+  //     updatedPictures.splice(newToIndex, 0, draggedPicture);
+  //     const reorderedPictures = updatedPictures.map((picture, index) => ({
+  //       ...picture,
+  //       id: index,
+  //     }));
+  //     setSelectedPicturesReview(reorderedPictures);
+  //   } else if (draggedImageIndex !== null && draggedImageIndex !== newToIndex) {
+  //     // If the dragged image is dropped in a new position, update the array as before
+  //     const updatedPictures = [...selectedPicturesReview];
+  //     const draggedPicture = updatedPictures[draggedImageIndex];
+  //     updatedPictures.splice(draggedImageIndex, 1);
+  //     updatedPictures.splice(newToIndex, 0, draggedPicture);
+  //     const reorderedPictures = updatedPictures.map((picture, index) => ({
+  //       ...picture,
+  //       id: index,
+  //     }));
+  //     setSelectedPicturesReview(reorderedPictures);
+  //   }
+  //   setTouchMovementX(0);
+  //   setTouchMovementY(0);
+  //   setDraggedImageIndex(null);
+  // };
   // const images = selectedPicturesReview.map(({ id, url }, index) => (
   //   <div
   //     key={id}
@@ -313,7 +312,6 @@ document.addEventListener( "touchend", function(){
       onDrop={e => handleDrop(e, order[index])}
     />
   ));
-
 
   // const images = selectedPicturesReview.map(({ id, url }, index) => (
   //   // <Button key={id} className={styles['add-image-button']} type="button">
