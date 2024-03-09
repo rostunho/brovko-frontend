@@ -6,6 +6,7 @@ import Button from 'shared/components/Button';
 import Image from 'shared/components/Image';
 import AddIconImage from 'shared/icons/AddIconImage';
 import Modal from 'shared/components/Modal/Modal';
+import { useRef } from 'react';
 
 const AddPhotoInput = ({ setFiles }) => {
   const [selectedImagesReview, setSelectedImagesReview] = useState([]);
@@ -16,6 +17,7 @@ const AddPhotoInput = ({ setFiles }) => {
   const [modalIsId, setModalIsId] = useState(false);
   const [prompDelete, setPrompDelete] = useState(true);
   const [errorTextQuantity, setErrorTextQuantity] = useState(false);
+  const dropArea = useRef(null);
   const dispatch = useDispatch();
 
   const [draggedImageIndex, setDraggedImageIndex] = useState(null);
@@ -42,20 +44,41 @@ const AddPhotoInput = ({ setFiles }) => {
     dispatch(addPopupOperation('Фото видалено'));
   };
 
-  const handleImageChange = (e, xFiles = 5 - selectedPicturesReview.length) => {
-    e.preventDefault();
-    const files = Array.from(e.target.files);
+  // const handleImageChange = (e, xFiles = 5 - selectedPicturesReview.length) => {
+  //   e.preventDefault();
+  //   const files = Array.from(e.target.files);
 
-    if (files.length > 0 && files.length <= xFiles) {
-      setSelectedFilesReview(files);
-      addImages(files);
-      setErrorTextQuantity(false);
-    } else {
-      dispatch(
-        addPopupOperation(`Можна завантажити не більше ${xFiles} файлів`)
-      );
-      setErrorTextQuantity(`Ви обрали більше ніж ${xFiles} фото`);
-    }
+  //   if (files.length > 0 && files.length <= xFiles) {
+  //     setSelectedFilesReview(files);
+  //     addImages(files);
+  //     setErrorTextQuantity(false);
+  //   } else {
+  //     dispatch(
+  //       addPopupOperation(`Можна завантажити не більше ${xFiles} файлів`)
+  //     );
+  //     setErrorTextQuantity(`Ви обрали більше ніж ${xFiles} фото`);
+  //   }
+  // };
+
+  const [order, setOrder] = useState([]);
+
+  const handleImageChange = e => {
+    const newImages = Array.from(e.target.files).map(file => {
+      if (file.type.includes('image')) {
+        const img = URL.createObjectURL(file);
+        setSelectedImagesReview(prevImages => [...prevImages, img]);
+        setSelectedPicturesReview(prevPictures => [...prevPictures, file]);
+        setOrder(prevOrder => [...prevOrder, file.name]); // Додано тут
+        return img;
+      } else {
+        console.error('Invalid file:', file);
+        addPopupOperation(`Не правильний файл: ${file}`);
+        return null;
+      }
+    })
+    .filter(Boolean);
+  
+    setSelectedFilesReview([]);
   };
 
   const handleDragStart = (e, index) => {
@@ -65,6 +88,30 @@ const AddPhotoInput = ({ setFiles }) => {
 
   const handleDragOver = e => {
     e.preventDefault();
+    
+
+
+
+
+
+    
+    const dragIndex = order.indexOf(e.dataTransfer.getData('image'));
+    const hoverIndex = order.findIndex(
+      (_, index) => document.elementsFromPoint(e.clientX, e.clientY).includes(
+        images[index].ref.current
+      )
+    );
+  
+    if (dragIndex === hoverIndex) {
+      return;
+    }
+  
+    const dragImage = selectedPicturesReview[dragIndex];
+    const newOrder = [...order];
+    newOrder.splice(dragIndex, 1);
+    newOrder.splice(hoverIndex, 0, dragImage.name);
+  
+    setOrder(newOrder);
   };
 
   const handleDrop = (e, toIndex) => {
@@ -121,6 +168,18 @@ const AddPhotoInput = ({ setFiles }) => {
   const [initialTouchY, setInitialTouchY] = useState(0);
   const [touchMovementX, setTouchMovementX] = useState(0);
   const [touchMovementY, setTouchMovementY] = useState(0);
+
+  document.addEventListener('touchmove', function(event) {
+    event.preventDefault()
+    document.body.style.overflow = 'hidden'
+    var touch = event.touches[0];
+    var touchedElement = document.elementFromPoint(touch.clientX, touch.clientY);
+    console.log('Element under finger:', touchedElement);
+});
+
+document.addEventListener( "touchend", function(){
+  document.body.style.overflow = 'auto';
+})
 
   const handleTouchStart = (e, index) => {
     setDraggedImageIndex(index);
@@ -219,29 +278,43 @@ const AddPhotoInput = ({ setFiles }) => {
     setTouchMovementY(0);
     setDraggedImageIndex(null);
   };
-  const images = selectedPicturesReview.map(({ id, url }, index) => (
-    <div
-      key={id}
-      className={styles['add-image-button']}
-      draggable
-      onDragStart={e => handleDragStart(e, index)}
+  // const images = selectedPicturesReview.map(({ id, url }, index) => (
+  //   <div
+  //     key={id}
+  //     className={styles['add-image-button']}
+  //     draggable
+  //     onDragStart={e => handleDragStart(e, index)}
+  //     onDragOver={e => handleDragOver(e)}
+  //     onDrop={e => handleDrop(e, index)}
+  //   >
+  //     <div
+  //       onTouchStart={e => handleTouchStart(e, index)}
+  //       onTouchMove={e => handleTouchMove(e, index)}
+  //       onTouchEnd={e => handleTouchEnd(e, index)}
+  //     >
+  //       <Image
+  //         key={id}
+  //         src={url}
+  //         alt={`preview-${index + 1}`}
+  //         className={styles['add-image-img']}
+  //       />
+  //     </div>
+  //   </div>
+  // ));
+
+  const images = selectedImagesReview.map((img, index) => (
+    <Image
+      key={order[index]} // Змінено тут
+      src={img}
+      alt={`preview-${order[index]}`}
+      className={styles['add-image']}
+      onDragStart={e => handleDragStart(e, order[index])}
       onDragOver={e => handleDragOver(e)}
-      onDrop={e => handleDrop(e, index)}
-    >
-      <div
-        onTouchStart={e => handleTouchStart(e, index)}
-        onTouchMove={e => handleTouchMove(e, index)}
-        onTouchEnd={e => handleTouchEnd(e, index)}
-      >
-        <Image
-          key={id}
-          src={url}
-          alt={`preview-${index + 1}`}
-          className={styles['add-image-img']}
-        />
-      </div>
-    </div>
+      onDrop={e => handleDrop(e, order[index])}
+    />
   ));
+
+
   // const images = selectedPicturesReview.map(({ id, url }, index) => (
   //   // <Button key={id} className={styles['add-image-button']} type="button">
   //     <Image
@@ -386,6 +459,7 @@ const AddPhotoInput = ({ setFiles }) => {
     <div
       className={styles['add-image-container']}
       onDragOver={e => handleDragOver(e)}
+      ref={dropArea}
     >
       {images}
       {inputPhotos()}
