@@ -28,30 +28,31 @@ export default function OrderPage() {
   return (
     <div className={styles.container}>
       <Heading>Оформлення замовлення</Heading>
-
-      {products.length ? (
-        !modalDelete ? (
-          <OrderList
-            totalLabel="Ваше замовлення на суму:"
-            lastCheck
-            setModalDelete={setModalDelete}
-            setOrderId={setOrderId}
-          />
+      <div className={styles['order-invoice']}>
+        {products.length ? (
+          !modalDelete ? (
+            <OrderList
+              totalLabel="Ваше замовлення на суму:"
+              lastCheck
+              setModalDelete={setModalDelete}
+              setOrderId={setOrderId}
+            />
+          ) : (
+            <Modal>
+              <ModalDelete setModalDelete={setModalDelete} orderId={orderId} />
+            </Modal>
+          )
         ) : (
           <Modal>
-            <ModalDelete setModalDelete={setModalDelete} orderId={orderId} />
+            <ModalBasketIsEmpty hendlClickReturn={hendlClickReturn} />
           </Modal>
-        )
-      ) : (
-        <Modal>
-          <ModalBasketIsEmpty hendlClickReturn={hendlClickReturn} />
-        </Modal>
-      )}
+        )}
 
-      {!userIsLoggedIn && <CustomerSwitcher />}
-      <Suspense>
-        <Outlet />
-      </Suspense>
+        {!userIsLoggedIn && <CustomerSwitcher />}
+        <Suspense>
+          <Outlet />
+        </Suspense>
+      </div>
     </div>
   );
 }

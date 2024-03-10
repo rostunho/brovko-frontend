@@ -55,7 +55,7 @@ export default function Heading({
         <h3
           className={`${styles.heading} ${styles.h3} ${
             withGoBack && styles['with-goback']
-          }`}
+          } ${className ? className : ''}`}
           style={style}
         >
           {children}

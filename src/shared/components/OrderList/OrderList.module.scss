@@ -6,6 +6,12 @@
   justify-content: space-between;
   padding-top: 16px;
   padding-bottom: 20px;
+
+  @media screen and (min-width: 480px) {
+    max-width: 448px;
+    margin: 0 auto;
+  }
+
   @media screen and (min-width: 768px) {
     padding-bottom: 32px;
   }
@@ -27,6 +33,11 @@
 
 .list {
   padding-bottom: 32px;
+
+  @media screen and (min-width: 480px) {
+    max-width: 448px;
+    margin: 0 auto;
+  }
 }
 
 .item:not(:last-child) {
