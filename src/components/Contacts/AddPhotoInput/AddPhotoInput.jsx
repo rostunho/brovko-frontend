@@ -8,8 +8,10 @@ import AddIconImage from 'shared/icons/AddIconImage';
 import Modal from 'shared/components/Modal/Modal';
 import { useRef } from 'react';
 
-const AddPhotoInput = ({ setFiles }) => {
-  const [selectedPicturesReview, setSelectedPicturesReview] = useState([]);
+const AddPhotoInput = ({ files = [], setFiles }) => {
+  const [selectedPicturesReview, setSelectedPicturesReview] = useState(
+    (files = [])
+  );
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsImage, setModalIsImage] = useState(false);
   const [modalIsId, setModalIsId] = useState(false);
@@ -19,7 +21,6 @@ const AddPhotoInput = ({ setFiles }) => {
   const dispatch = useDispatch();
 
   const [draggedImageIndex, setDraggedImageIndex] = useState(null);
-  // const [toImageIndex, setToImageIndex] = useState(null);
 
   const openModalEditPhoto = (id, url) => {
     setModalIsId(id);
@@ -47,7 +48,6 @@ const AddPhotoInput = ({ setFiles }) => {
     e.preventDefault();
     const files = Array.from(e.target.files);
     if (files.length > 0 && files.length <= xFiles) {
-      // setSelectedFilesReview(files);
       addImages(files);
       setErrorTextQuantity(false);
     } else {
@@ -92,7 +92,7 @@ const AddPhotoInput = ({ setFiles }) => {
   };
 
   const handleTouchMove = (e, index) => {
-    // e.preventDefault()
+    e.preventDefault();
   };
 
   const handleTouchEnd = (e, index) => {
@@ -117,79 +117,9 @@ const AddPhotoInput = ({ setFiles }) => {
         id: index,
       }));
       setSelectedPicturesReview(reorderedPictures);
+      setDraggedImageIndex(null);
     }
   };
-
-  // const handleTouchEnd = (e, index) => {
-  //   if (draggedImageIndex !== index) return;
-  //   const touch = e.changedTouches[0];
-  //   const newToIndex = Array.from(e.currentTarget.parentElement.children).indexOf(e.currentTarget);
-  //   const updatedPictures = [...selectedPicturesReview];
-  //   const draggedPicture = updatedPictures[draggedImageIndex];
-  //   updatedPictures.splice(draggedImageIndex, 1);
-  //   updatedPictures.splice(newToIndex, 0, draggedPicture);
-  //   const reorderedPictures = updatedPictures.map((picture, index) => ({
-  //     ...picture,
-  //     id: index,
-  //   }));
-  //   setSelectedPicturesReview(reorderedPictures);
-  //   setTouchMovementX(0);
-  //   setTouchMovementY(0);
-  //   setDraggedImageIndex(null);
-  // };
-
-  // const handleTouchEnd = (e, index) => {
-  //   if (draggedImageIndex !== index) return;
-  //   const touch = e.changedTouches[0];
-  //   const newToIndex = Array.from(e.currentTarget.parentElement.children).indexOf(e.currentTarget);
-  //   const updatedPictures = [...selectedPicturesReview];
-  //   const draggedPicture = updatedPictures[draggedImageIndex];
-  //   updatedPictures.splice(draggedImageIndex, 1);
-  //   updatedPictures.splice(newToIndex, 0, draggedPicture);
-  //   const reorderedPictures = updatedPictures.map((picture, index) => ({
-  //     ...picture,
-  //     id: index,
-  //   }));
-  //   setSelectedPicturesReview(reorderedPictures);
-  //   setTouchMovementX(0);
-  //   setTouchMovementY(0);
-  //   setDraggedImageIndex(null);
-  //   handleDrop({ x: touch.pageX, y: touch.pageY }, newToIndex);
-  // };
-
-  // const handleTouchEnd = (e, index) => {
-  //   const touch = e.changedTouches[0];
-  //   console.log(e.currentTarget);
-  //   const newToIndex = Array.from(
-  //     e.currentTarget.parentElement.children
-  //   ).indexOf(e.currentTarget);
-  //   if (draggedImageIndex !== null && draggedImageIndex === newToIndex) {
-  //     // If the dragged image is dropped back in its original position, update its position in the array
-  //     const updatedPictures = [...selectedPicturesReview];
-  //     const draggedPicture = updatedPictures[draggedImageIndex];
-  //     updatedPictures.splice(draggedImageIndex, 1);
-  //     updatedPictures.splice(newToIndex, 0, draggedPicture);
-  //     const reorderedPictures = updatedPictures.map((picture, index) => ({
-  //       ...picture,
-  //       id: index,
-  //     }));
-  //     setSelectedPicturesReview(reorderedPictures);
-  //   } else if (draggedImageIndex !== null && draggedImageIndex !== newToIndex) {
-  //     // If the dragged image is dropped in a new position, update the array as before
-  //     const updatedPictures = [...selectedPicturesReview];
-  //     const draggedPicture = updatedPictures[draggedImageIndex];
-  //     updatedPictures.splice(draggedImageIndex, 1);
-  //     updatedPictures.splice(newToIndex, 0, draggedPicture);
-  //     const reorderedPictures = updatedPictures.map((picture, index) => ({
-  //       ...picture,
-  //       id: index,
-  //     }));
-  //     setSelectedPicturesReview(reorderedPictures);
-  //   }
-  //   setTouchMovementX(0);
-  //   setTouchMovementY(0);
-  //   setDraggedImageIndex(null);
-  // };
 
   const images = selectedPicturesReview.map(({ id, url }, index) => (
     <Button
@@ -244,8 +174,7 @@ const AddPhotoInput = ({ setFiles }) => {
       })
       .filter(Boolean);
 
-   
-    setSelectedPicturesReview(prevPictures => [...prevPictures, ...newImages]); 
+    setSelectedPicturesReview(prevPictures => [...prevPictures, ...newImages]);
     dispatch(
       addPopupOperation(
         `Додано ${newImages.length} файл${
