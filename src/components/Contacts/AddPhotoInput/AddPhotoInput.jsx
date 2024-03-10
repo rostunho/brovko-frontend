@@ -101,26 +101,21 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
 
   const handleTouchMove = (e, index) => {
     if (draggedImageIndex !== null) {
-      // e.preventDefault();
       const touch = e.changedTouches[0];
       const offsetX = touch.clientX - initialTouchX;
       const offsetY = touch.clientY - initialTouchY;
 
-      imagesRef.current[
-        index
-      ].style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-      // const touch = e.touches[0];
-      // const newX = touch.clientX;
-      // const newY = touch.clientY;
-      // const images = document.querySelectorAll(['add-image-container']);
-
-      // images[draggedImageIndex].style.left = newX + 'px';
-      // images[draggedImageIndex].style.top = newY + 'px';
+      e.currentTarget.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      e.currentTarget.style.zIndex = '9999';
     }
     document.body.style.overflow = 'hidden';
   };
 
   const handleTouchEnd = (e, index) => {
+    console.log(e.currentTarget.style);
+    e.currentTarget.style.display = 'none';
+    e.currentTarget.style.zIndex = '';
+
     const touch = e.changedTouches[0];
     var touchedElement = document.elementFromPoint(
       touch.clientX,
@@ -144,9 +139,9 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
       setSelectedPicturesReview(reorderedPictures);
       setDraggedImageIndex(null);
       document.body.style.overflow = 'auto';
+      e.currentTarget.style.display = '';
+      e.currentTarget.style.transform = `translate(0px, 0px)`;
       e.currentTarget.classList.remove(styles['dragged-image']);
-      imagesRef.current[index].style.left = '0px';
-      imagesRef.current[index].style.top = '0px';
     }
   };
 
