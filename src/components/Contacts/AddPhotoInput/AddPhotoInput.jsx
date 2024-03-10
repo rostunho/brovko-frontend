@@ -7,7 +7,7 @@ import Image from 'shared/components/Image';
 import AddIconImage from 'shared/icons/AddIconImage';
 import Modal from 'shared/components/Modal/Modal';
 import { useRef } from 'react';
-import { debounce, throttle } from 'utils';
+import { throttle } from 'utils';
 
 const AddPhotoInput = ({ setFiles }) => {
   const [selectedImagesReview, setSelectedImagesReview] = useState([]);
@@ -22,6 +22,7 @@ const AddPhotoInput = ({ setFiles }) => {
   const dispatch = useDispatch();
 
   const [draggedImageIndex, setDraggedImageIndex] = useState(null);
+  const [toImageIndex, setToImageIndex] = useState(null);
 
   const openModalEditPhoto = (id, url) => {
     setModalIsId(id);
@@ -61,26 +62,21 @@ const AddPhotoInput = ({ setFiles }) => {
   //   }
   // };
 
-  const [order, setOrder] = useState([]);
+  // const [order, setOrder] = useState([]);
 
-  const handleImageChange = e => {
-    const newImages = Array.from(e.target.files)
-      .map(file => {
-        if (file.type.includes('image')) {
-          const img = URL.createObjectURL(file);
-          setSelectedImagesReview(prevImages => [...prevImages, img]);
-          setSelectedPicturesReview(prevPictures => [...prevPictures, file]);
-          setOrder(prevOrder => [...prevOrder, file.name]); // Додано тут
-          return img;
-        } else {
-          console.error('Invalid file:', file);
-          addPopupOperation(`Не правильний файл: ${file}`);
-          return null;
-        }
-      })
-      .filter(Boolean);
-
-    setSelectedFilesReview([]);
+  const handleImageChange = (e, xFiles = 5 - selectedPicturesReview.length) => {
+    e.preventDefault();
+    const files = Array.from(e.target.files);
+    if (files.length > 0 && files.length <= xFiles) {
+      setSelectedFilesReview(files);
+      addImages(files);
+      setErrorTextQuantity(false);
+    } else {
+      dispatch(
+        addPopupOperation(`Можна завантажити не більше ${xFiles} файлів`)
+      );
+      setErrorTextQuantity(`Ви обрали більше ніж ${xFiles} фото`);
+    }
   };
 
   const handleDragStart = (e, index) => {
@@ -90,27 +86,10 @@ const AddPhotoInput = ({ setFiles }) => {
 
   const handleDragOver = e => {
     e.preventDefault();
-
-    const dragIndex = order.indexOf(e.dataTransfer.getData('image'));
-    const hoverIndex = order.findIndex((_, index) =>
-      document
-        .elementsFromPoint(e.clientX, e.clientY)
-        .includes(images[index].ref.current)
-    );
-
-    if (dragIndex === hoverIndex) {
-      return;
-    }
-
-    const dragImage = selectedPicturesReview[dragIndex];
-    const newOrder = [...order];
-    newOrder.splice(dragIndex, 1);
-    newOrder.splice(hoverIndex, 0, dragImage.name);
-
-    setOrder(newOrder);
   };
 
   const handleDrop = (e, toIndex) => {
+    e.preventDefault();
     if (
       typeof toIndex === 'number' &&
       draggedImageIndex !== null &&
@@ -125,7 +104,7 @@ const AddPhotoInput = ({ setFiles }) => {
         id: index,
       }));
       setSelectedPicturesReview(reorderedPictures);
-      e.preventDefault();
+      console.log('handleDrop', reorderedPictures);
     }
   };
 
@@ -165,26 +144,12 @@ const AddPhotoInput = ({ setFiles }) => {
   const [touchMovementX, setTouchMovementX] = useState(0);
   const [touchMovementY, setTouchMovementY] = useState(0);
 
-  document.addEventListener('touchmove', function (event) {
-    event.preventDefault();
-    document.body.style.overflow = 'hidden';
-    var touch = event.touches[0];
-    var touchedElement = document.elementFromPoint(
-      touch.clientX,
-      touch.clientY
-    );
-    console.log('Element under finger:', touchedElement);
-  });
-
-  document.addEventListener('touchend', function () {
-    document.body.style.overflow = 'auto';
-  });
-
   const handleTouchStart = (e, index) => {
     setDraggedImageIndex(index);
-    const touch = e.touches[0];
-    setInitialTouchX(touch.pageX);
-    setInitialTouchY(touch.pageY);
+    // const touch = e.touches[0];
+    // setInitialTouchX(touch.pageX);
+    // setInitialTouchY(touch.pageY);
+    console.log('handleTouchStart', index);
   };
 
   // const handleTouchMove = (e, index) => {
@@ -196,15 +161,53 @@ const AddPhotoInput = ({ setFiles }) => {
   //   setTouchMovementY(movementY);
   // };
 
+  // document.addEventListener('touchmove', function (event) {
+  //   event.preventDefault();
+  //   document.body.style.overflow = 'hidden';
+  //   var touch = event.touches[0];
+  //   var touchedElement = document.elementFromPoint(
+  //     touch.clientX,
+  //     touch.clientY
+  //   );
+  //   throttle(() => {
+  //     console.log('touchedElement.id', touchedElement.id);
+  //   }, 3000);
+  //   console.log('Element under finger:', touchedElement.id);
+  // });
+
+  // document.addEventListener('touchend', function () {
+  //   document.body.style.overflow = 'auto';
+  // });
+
   const handleTouchMove = (e, index) => {
-    if (draggedImageIndex !== index) return;
-    const touch = e.touches[0];
-    const movementX = touch.pageX - initialTouchX;
-    const movementY = touch.pageY - initialTouchY;
-    setTouchMovementX(movementX);
-    setTouchMovementY(movementY);
-    // const draggedImage = e.currentTarget;
-    // e.currentTarget.style.transform = `translate(${movementX}px, ${movementY}px)`;
+    // e.preventDefault()
+  };
+
+  const handleTouchEnd = (e, index) => {
+    const touch = e.changedTouches[0];
+    const touchX = touch.pageX;
+    const touchY = touch.pageY;
+    var touchedElement = document.elementFromPoint(
+      touch.clientX,
+      touch.clientY
+    );
+    const toIndex = Number(touchedElement.id);
+
+    if (
+      typeof toIndex === 'number' &&
+      draggedImageIndex !== null &&
+      draggedImageIndex !== toIndex
+    ) {
+      const draggedPicture = selectedPicturesReview[draggedImageIndex];
+      const updatedPictures = [...selectedPicturesReview];
+      updatedPictures.splice(draggedImageIndex, 1);
+      updatedPictures.splice(toIndex, 0, draggedPicture);
+      const reorderedPictures = updatedPictures.map((picture, index) => ({
+        ...picture,
+        id: index,
+      }));
+      setSelectedPicturesReview(reorderedPictures);
+    }
   };
 
   // const handleTouchEnd = (e, index) => {
@@ -277,60 +280,32 @@ const AddPhotoInput = ({ setFiles }) => {
   //   setTouchMovementY(0);
   //   setDraggedImageIndex(null);
   // };
-  // const images = selectedPicturesReview.map(({ id, url }, index) => (
-  //   <div
-  //     key={id}
-  //     className={styles['add-image-button']}
-  //     draggable
-  //     onDragStart={e => handleDragStart(e, index)}
-  //     onDragOver={e => handleDragOver(e)}
-  //     onDrop={e => handleDrop(e, index)}
-  //   >
-  //     <div
-  //       onTouchStart={e => handleTouchStart(e, index)}
-  //       onTouchMove={e => handleTouchMove(e, index)}
-  //       onTouchEnd={e => handleTouchEnd(e, index)}
-  //     >
-  //       <Image
-  //         key={id}
-  //         src={url}
-  //         alt={`preview-${index + 1}`}
-  //         className={styles['add-image-img']}
-  //       />
-  //     </div>
-  //   </div>
-  // ));
 
-  const images = selectedImagesReview.map((img, index) => (
-    <Image
-      key={order[index]} // Змінено тут
-      src={img}
-      alt={`preview-${order[index]}`}
-      className={styles['add-image']}
-      onDragStart={e => handleDragStart(e, order[index])}
-      onDragOver={e => handleDragOver(e)}
-      onDrop={e => handleDrop(e, order[index])}
-    />
+  const images = selectedPicturesReview.map(({ id, url }, index) => (
+    <Button
+      key={index}
+      id={id}
+      className={styles['add-image-button']}
+      type="button"
+      draggable
+      onDragStart={e => handleDragStart(e, index)}
+      onDrop={e => handleDrop(e, index)}
+      onTouchStart={e => handleTouchStart(e, index)}
+      onTouchMove={e => handleTouchMove(e, index)}
+      onTouchEnd={e => handleTouchEnd(e, index)}
+      onClick={e => {
+        openModalEditPhoto(index, url);
+      }}
+    >
+      <Image
+        key={id}
+        id={id}
+        src={url}
+        alt={`preview-${index + 1}`}
+        className={styles['add-image-img']}
+      />
+    </Button>
   ));
-
-  // const images = selectedPicturesReview.map(({ id, url }, index) => (
-  //   // <Button key={id} className={styles['add-image-button']} type="button">
-  //     <Image
-  //       key={id}
-  //       id={id}
-  //       src={url}
-  //       alt={`preview-${index + 1}`}
-  //       className={styles['add-image-img']}
-  //       draggable
-  //       onDragStart={e => handleDragStart(e, index)}
-  //       onDragOver={e => handleDragOver(e)}
-  //       onDrop={e => handleDrop(e, index)}
-  //       onTouchStart={e => handleTouchStart(e, index)}
-  //       onTouchMove={e => handleTouchMove(e, index)}
-  //       onTouchEnd={e => handleTouchEnd(e, index)}
-  //     />
-  //   {/* </Button> */}
-  // ));
 
   const addImages = files => {
     if (!files.length) {
@@ -404,6 +379,8 @@ const AddPhotoInput = ({ setFiles }) => {
     <Modal
       closeModal={closeModalEditPhoto}
       className={styles['modal-container']}
+      id={modalIsId}
+      url={modalIsImage}
     >
       <div className={styles.modal}>
         <p className={styles['main-text']}>
@@ -413,6 +390,7 @@ const AddPhotoInput = ({ setFiles }) => {
         </p>
         <Image
           key={modalIsId}
+          id={modalIsId}
           src={modalIsImage}
           alt={`preview-${modalIsId}`}
           className={styles['modal-img']}
