@@ -19,6 +19,7 @@ export default function About() {
       <div className={styles.icon}>
         <BrovkoIcon />
       </div>
+
       <p className={styles.aboutDescription}>Привіт, бро!</p>
       {aboutTextData.map((text, index) => (
         <div key={index}>

@@ -5,6 +5,7 @@ import Input from 'shared/components/Input';
 import PhonesConstrucor from 'components/Admin/PhonesConstrucor/PhonesConstrucor';
 import WorkingHoursConstructor from '../../../components/Admin/WorkingHoursConstructor/WorkingHoursConstructor';
 import Button from 'shared/components/Button';
+import SEO from 'components/SEO/SEO';
 import styles from './AdminLocationsPage.module.scss';
 
 export default function AdminLocationsPage({ ...props }) {
@@ -84,6 +85,11 @@ export default function AdminLocationsPage({ ...props }) {
   return (
     <div className={styles.container}>
       <Heading withGoBack>Створити локацію</Heading>
+      <SEO
+        title="Профіль адміна | Створити локацію | Brovko"
+        description="Профіль адміна | Brovko - магазин корисних смаколиків для песиків"
+        url="/admin/locations"
+      />
       <form className={styles.form} onSubmit={handleSubmit}>
         <Input
           label="Заголовок :"

@@ -9,6 +9,7 @@ import OrderList from 'shared/components/OrderList';
 import Modal from 'shared/components/Modal/Modal';
 import ModalDelete from 'components/ModalDelete/ModalDelete';
 import ModalBasketIsEmpty from 'components/ModalBasketIsEmpty/ModalBasketIsEmpty';
+import SEO from 'components/SEO/SEO';
 import styles from './OrderPage.module.scss';
 
 import useProductInBasket from 'shared/hooks/useProductInBasket';
@@ -28,6 +29,11 @@ export default function OrderPage() {
   return (
     <div className={styles.container}>
       <Heading>Оформлення замовлення</Heading>
+      <SEO
+        title="Оформлення замовлення | Brovko"
+        description="Оформлення замовлення | Brovko - крамничка натуральних смоколиків для собак"
+        url="/order/login"
+      />
 
       {products.length ? (
         !modalDelete ? (

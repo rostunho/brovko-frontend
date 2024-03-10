@@ -8,6 +8,8 @@ import Heading from 'shared/components/Heading/Heading';
 
 import { data } from './data';
 
+import SEO from 'components/SEO/SEO';
+
 import styles from './AllAdminsPages.module.scss';
 
 const AllAdminsPage = () => {
@@ -30,6 +32,11 @@ const AllAdminsPage = () => {
   return (
     <div className={styles.container}>
       <Heading>Панель керування</Heading>
+      <SEO
+        title="Профіль адміна | Панель керування | Brovko"
+        description="Профіль адміна | Brovko - магазин корисних смаколиків для песиків"
+        url="/admin/"
+      />
       <ul className={styles.box}>
         {linksArray.map((card, index) => (
           <li className={styles.link} key={index}>

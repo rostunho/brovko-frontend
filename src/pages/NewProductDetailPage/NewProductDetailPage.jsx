@@ -15,6 +15,7 @@ import NewDescription from './NewDescription/NewDescription';
 import Comments from 'components/Comments/Comments';
 import LogisticInfo from 'components/ProductDetail/LogisticInfo/LogisticInfo';
 import Button from 'shared/components/Button';
+import SEO from 'components/SEO/SEO';
 import { removeProduct } from 'shared/services/api/brovko';
 import { removeProductRequestTemplate } from 'components/Products/ProductsList';
 import styles from './NewProductDetail.module.scss';
@@ -85,6 +86,11 @@ export default function NewProductDetailPage() {
         <Heading withGoBack fromHC={fromPage} containerClassName={styles.title}>
           {product?.name}
         </Heading>
+        <SEO
+          title={`${product.name} | Brovko - магазин снеків для собак`}
+          description={product.description}
+          url={`/shop/product/${product.id}`}
+        />
         {(userStatus === 'manager' || userStatus === 'superadmin') && (
           <div className={styles['admin-block']}>
             <Button

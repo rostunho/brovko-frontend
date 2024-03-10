@@ -1,19 +1,19 @@
-import {useState, useEffect} from 'react';
-import { useLocation } from "react-router-dom";
-import Heading from "shared/components/Heading";
-import WhereToBuy from "components/WhereToBuy/WhereToBuy";
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import Heading from 'shared/components/Heading';
+import WhereToBuy from 'components/WhereToBuy/WhereToBuy';
 import Modal from 'shared/components/Modal/Modal';
-import { getAllLocations } from "shared/services/api/brovko/locations";
-import styles from './WhereToBuyPage.module.scss'
+import { getAllLocations } from 'shared/services/api/brovko/locations';
+import SEO from 'components/SEO/SEO';
+import styles from './WhereToBuyPage.module.scss';
 
 export default function WhereToBuyPage() {
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? "/";
-  
+  const backLinkHref = location.state?.from ?? '/';
+
   const [locationPoints, setLocationPoints] = useState([]);
   const [locationPointsError, setLocationPointsError] = useState(null);
-  const [showErrorModal, setShowErrorModal] = useState(false); 
- 
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   useEffect(() => {
     fetchLocationPoints();
@@ -34,37 +34,41 @@ export default function WhereToBuyPage() {
       setShowErrorModal(true);
     }
   };
-  console.log('locationPoints', locationPoints)
-  
+  console.log('locationPoints', locationPoints);
+
   const closeModal = () => {
     setShowErrorModal(false);
   };
 
-
   const errorModalContent = (
-    <Modal  className={styles['modal-container']} closeModal={closeModal}>
-    <div className={styles.modal}>
-      <h2>Йой, сервер не відповідає...</h2>
-      <p className={styles.modalText}>Помилка при завантаженні даних з сервера. Будь ласка, спробуйте ще раз пізніше.</p>
-    </div>
-  </Modal>    
-    )
+    <Modal className={styles['modal-container']} closeModal={closeModal}>
+      <div className={styles.modal}>
+        <h2>Йой, сервер не відповідає...</h2>
+        <p className={styles.modalText}>
+          Помилка при завантаженні даних з сервера. Будь ласка, спробуйте ще раз
+          пізніше.
+        </p>
+      </div>
+    </Modal>
+  );
 
-  
   return (
     <>
-        <Heading withGoBack fromHC={backLinkHref}>Локації</Heading>
-       
-        {showErrorModal && errorModalContent}
+      <Heading withGoBack fromHC={backLinkHref}>
+        Локації
+      </Heading>
+      <SEO
+        title="Локації | Де можна купити снеки | Brovko"
+        description="Де можна купити смаколики від Бровка | Brovko - магазин корисних смаколиків для песиків"
+        url="/all/where-to-buy"
+      />
+      {showErrorModal && errorModalContent}
 
-        {locationPoints  ?  
-        <WhereToBuy
-          locationPoints={locationPoints}
-        /> :  
+      {locationPoints ? (
+        <WhereToBuy locationPoints={locationPoints} />
+      ) : (
         <p className={styles.modalText}>{locationPointsError}</p>
-        }
-      
+      )}
     </>
   );
 }
-
