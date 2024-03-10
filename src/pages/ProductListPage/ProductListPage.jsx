@@ -11,6 +11,7 @@ import styles from './ProductListPage.module.scss';
 import DoubleRangeSlider from 'shared/components/Input/InputRange/DoubleRangeSlider';
 import Pagination from 'components/Products/Pagination';
 import ProductCardSkeleton from 'components/Products/Skeleton/ProductCardSkeleton';
+import SEO from 'components/SEO/SEO';
 
 export default function ProductListPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -43,6 +44,14 @@ export default function ProductListPage() {
   // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(null);
   const [showErrorModal, setShowErrorModal] = useState(false);
+  let pageTitleSeo;
+  if (keyWord) {
+    pageTitleSeo = `Ви шукали: ${keyWord} | Brovko`;
+  } else if (categoryId) {
+    pageTitleSeo = `Категорія: ${categoryName} | Brovko`;
+  } else {
+    pageTitleSeo = 'Наші смаколики | Brovko';
+  }
 
   useEffect(() => {
     if (!firstRender) {
@@ -358,6 +367,13 @@ export default function ProductListPage() {
       ) : (
         <>
           <Heading withGoBack>Крамничка</Heading>
+          <SEO
+            title={pageTitleSeo}
+            description={
+              'Ласощі для собак. Пошук смаколиків. Сортування. Категорії. | Brovko - магазин снеків для собак'
+            }
+            url={'/shop/product-list-page'}
+          />
           <div className={styles['selectors-container']}>
             <Input
               name="searchbar"
@@ -369,7 +385,7 @@ export default function ProductListPage() {
               }`}
               label=""
               type="search"
-              placeholder="Пошук сммаколиків"
+              placeholder="Пошук смаколиків"
               value={searchBarValue}
               onChange={e => setSearchBarValue(e.target.value)}
               onClick={handleKeyWord}

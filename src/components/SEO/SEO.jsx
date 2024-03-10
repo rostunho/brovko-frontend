@@ -1,7 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-const SEO = ({ title, description, imageUrl, url, baseUrl }) => {
+const SEO = ({ title, description, imageUrl, url }) => {
+  const baseUrl = process.env.REACT_APP_PUBLIC_URL;
   const fullUrl = baseUrl + (url || '');
 
   return (

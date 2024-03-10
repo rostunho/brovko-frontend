@@ -20,7 +20,6 @@ export default function AdvantagesPage() {
         Виготовленні за сучасною технологією Cold Air Dry (сушіння холодним повітрям), що дозволяє зберегти в продукті всі корисні речовини. 
         Натуральні, без ароматизаторів та підсилювачів смаку."
         url="/all/advantages"
-        baseUrl={process.env.REACT_APP_PUBLIC_URL}
       />
       <Benefits />
     </>

@@ -7,6 +7,7 @@ import Heading from 'shared/components/Heading';
 import WhereToBuy from 'components/WhereToBuy/WhereToBuy';
 import Modal from 'shared/components/Modal/Modal';
 import { getAllLocations } from 'shared/services/api/brovko/locations';
+import SEO from 'components/SEO/SEO';
 import styles from './WhereToBuyPage.module.scss';
 
 export default function WhereToBuyPage() {
@@ -69,6 +70,11 @@ export default function WhereToBuyPage() {
       <Heading withGoBack fromHC={backLinkHref}>
         Локації
       </Heading>
+      <SEO
+        title="Локації | Де можна купити снеки | Brovko"
+        description="Де можна купити смаколики від Бровка | Brovko - магазин корисних смаколиків для песиків"
+        url="/all/where-to-buy"
+      />
 
       {showErrorModal && errorModalContent}
 

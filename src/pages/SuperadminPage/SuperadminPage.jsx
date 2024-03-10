@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import SEO from 'components/SEO/SEO';
 
 import {
   getUserByEmail,
@@ -125,6 +126,11 @@ const SuperadminPage = () => {
       <Heading withGoBack fromHC={backLinkHref}>
         Superadmin's page
       </Heading>
+      <SEO
+        title="Профіль суперадміна | Brovko"
+        description="Профіль суперадміна | Brovko - магазин корисних смаколиків для песиків"
+        url="admin/superadmin"
+      />
       <form onSubmit={handleSubmit}>
         <Input
           label="Пошук користувача по емейлу :"

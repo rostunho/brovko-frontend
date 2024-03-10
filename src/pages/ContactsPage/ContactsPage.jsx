@@ -16,8 +16,7 @@ export default function ContactsPage() {
         title="Контакти | Зворотній зв'язок | Brovko"
         description="Ми будемо раді отримати відгук від вас – скористайтеся формою, щоб надіслати своє повідомлення чи ідею. Або ми радо поспілкуємося з вами та вашими хвостиками у магазинах."
         url="/all/contacts"
-        baseUrl={process.env.REACT_APP_PUBLIC_URL}
-      />
+              />
       <Contacts />
     </>
   );
