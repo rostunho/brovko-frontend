@@ -3,11 +3,25 @@ import Smakolyk2 from 'shared/images/Smakolyk2.jpg';
 import Smakolyk3 from 'shared/images/Smakolyk3.jpg';
 import Smakolyk4 from 'shared/images/Smakolyk4.jpg';
 
+import FotoAbout1 from 'shared/images/FotoAbout1.png';
+import FotoAbout2 from 'shared/images/FotoAbout2.png';
+import FotoAbout3 from 'shared/images/FotoAbout3.png';
+import FotoAbout4 from 'shared/images/FotoAbout4.png';
+import FotoAbout5 from 'shared/images/FotoAbout5.png';
+
 export const smakolykData = [
   { imgSrc: Smakolyk1, text: 'користь приносили' },
   { imgSrc: Smakolyk2, text: 'смачними були' },
   { imgSrc: Smakolyk3, text: 'пахнули приємно' },
   { imgSrc: Smakolyk4, text: 'виглядали апетитно' },
+];
+
+export const fotoArray = [
+  FotoAbout1,
+  FotoAbout2,
+  FotoAbout3,
+  FotoAbout4,
+  FotoAbout5,
 ];
 
 export const aboutTextData = [

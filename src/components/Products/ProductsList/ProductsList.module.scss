@@ -23,6 +23,14 @@
   gap: 24px;
   margin: 0;
   padding: 0;
+
+  @media screen and (min-width: 768px) {
+    width: 736px;
+    margin: 0 auto;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 1248px;
+  }
 }
 
 .list-item {

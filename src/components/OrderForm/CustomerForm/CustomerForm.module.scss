@@ -3,6 +3,10 @@
   flex-direction: column;
   gap: 20px;
   padding-bottom: 24px;
+
+  // @media screen and (min-width: 480px) {
+  //   max-width: 448px;
+  // }
 }
 
 .logged {

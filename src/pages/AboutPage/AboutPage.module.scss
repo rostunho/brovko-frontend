@@ -9,7 +9,7 @@
   height: 469px;
   background-image: url('../../shared/images/YellowSpotMobile.png');
   background-size: cover;
-  background-position: top right;
+  background-position: bottom;
 
   @media screen and (min-width: 768px) and (max-width: 1279px) {
     position: absolute;
@@ -22,19 +22,19 @@
     height: 436px;
     background-image: url('../../shared/images/YellowSpotTablet.png');
     background-size: cover;
-    // background-position: top right;
+    background-position: bottom;
   }
 
   @media screen and (min-width: 1280px) {
     position: absolute;
     top: 0;
-    left: 50%;
+    right: 50%;
     transform: translateX(-50%);
     z-index: -1;
-    width: 100vw;
+    width: 2560px;
     height: 600px;
-    background-image: url('../../shared/images/YellowSpotDesctop.png');
+    background-image: url('../../shared/images/YellowSpotDESKTOP.png');
     background-size: cover;
-    background-position: top right;
+    background-position: bottom;
   }
 }

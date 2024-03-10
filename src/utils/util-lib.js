@@ -1,15 +1,14 @@
 export const throttle = (cb, d) => {
-  console.log('start');
   let id = 0;
+
   return function (e) {
     if (id) return;
 
     id = setTimeout(() => {
-      console.log('start cb');
+      id = 0;
       cb(e);
       clearTimeout(id);
-      id = 0;
-    }, d );
+    }, d || 300);
   };
 };
 
@@ -26,6 +25,6 @@ export const debounce = (cb, d) => {
       cb(e);
       clearTimeout(id);
       id = 0;
-    }, d);
+    }, d || 300);
   };
 };

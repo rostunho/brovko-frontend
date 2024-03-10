@@ -25,11 +25,11 @@
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
-    // column-gap: 10px;
 
-    min-width: 100%;
-    // max-width: 1280px;
-    margin: 0 0 32px;
+    width: 100%;
+    max-width: 1280px;
+
+    margin: 0 auto 32px;
     height: 88px;
     padding: 0 16px;
     align-items: center;

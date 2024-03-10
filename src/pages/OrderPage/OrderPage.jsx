@@ -9,6 +9,7 @@ import OrderList from 'shared/components/OrderList';
 import Modal from 'shared/components/Modal/Modal';
 import ModalDelete from 'components/ModalDelete/ModalDelete';
 import ModalBasketIsEmpty from 'components/ModalBasketIsEmpty/ModalBasketIsEmpty';
+import SEO from 'components/SEO/SEO';
 import styles from './OrderPage.module.scss';
 
 import useProductInBasket from 'shared/hooks/useProductInBasket';
@@ -28,30 +29,36 @@ export default function OrderPage() {
   return (
     <div className={styles.container}>
       <Heading>Оформлення замовлення</Heading>
-
-      {products.length ? (
-        !modalDelete ? (
-          <OrderList
-            totalLabel="Ваше замовлення на суму:"
-            lastCheck
-            setModalDelete={setModalDelete}
-            setOrderId={setOrderId}
-          />
+       <SEO
+        title="Оформлення замовлення | Brovko"
+        description="Оформлення замовлення | Brovko - крамничка натуральних смоколиків для собак"
+        url="/order/login"
+      />
+      <div className={styles['order-invoice']}>
+        {products.length ? (
+          !modalDelete ? (
+            <OrderList
+              totalLabel="Ваше замовлення на суму:"
+              lastCheck
+              setModalDelete={setModalDelete}
+              setOrderId={setOrderId}
+            />
+          ) : (
+            <Modal>
+              <ModalDelete setModalDelete={setModalDelete} orderId={orderId} />
+            </Modal>
+          )
         ) : (
           <Modal>
-            <ModalDelete setModalDelete={setModalDelete} orderId={orderId} />
+            <ModalBasketIsEmpty hendlClickReturn={hendlClickReturn} />
           </Modal>
-        )
-      ) : (
-        <Modal>
-          <ModalBasketIsEmpty hendlClickReturn={hendlClickReturn} />
-        </Modal>
-      )}
+        )}
 
-      {!userIsLoggedIn && <CustomerSwitcher />}
-      <Suspense>
-        <Outlet />
-      </Suspense>
+        {!userIsLoggedIn && <CustomerSwitcher />}
+        <Suspense>
+          <Outlet />
+        </Suspense>
+      </div>
     </div>
   );
 }

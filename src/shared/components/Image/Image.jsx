@@ -51,6 +51,7 @@ const Image = props => {
         <img
           id={id}
           // className={className || styles.img}
+          loading="lazy"
           className={`${styles.img} ${className ? className : ''}`}
           style={imageStyles}
           src={image || defaultImage}

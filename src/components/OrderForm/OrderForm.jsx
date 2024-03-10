@@ -31,6 +31,8 @@ export default function OrderForm() {
   const productsInBasket = useSelector(isCurrentUserProducts);
   const { user } = useSelector(selectUser);
 
+  // console.log('user :>> ', user);
+
   const navigate = useNavigate();
 
   // Встановлюємо "Перше відділення" нової пошти в разі адресної доставки

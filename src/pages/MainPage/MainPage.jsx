@@ -5,6 +5,7 @@ import Rectangle from 'components/Rectangle/Rectangle';
 // import Loader from 'components/Loader';
 // import InstagramEmbededRandom from 'components/InstagramEmbededRandom';
 import WeInInstgram from 'components/WeInInstagram';
+import SEO from 'components/SEO/SEO';
 
 // import styles from './MainPage.scss';
 
@@ -12,6 +13,16 @@ export default function MainPage() {
   return (
     <>
       {/* <Loader /> */}
+      <SEO
+        title="Brovko | Крамниця корисних натуральних снеків для собак"
+        description="Brovko - крамниця натуральних снеків для собак. 
+        Ароматні, корисні, апетитні смаколикі для собак! 
+        Неймовірні палянички із субпродуктів, клітковини, овочів, фруктів, ягід та трав. Зберігаємо всі корисні речовини, адже сушимо наші палянички повітрям до 40 градусів.
+        Робимо все, щоб наші смаколики крутяцько пахнули. 
+        Ми в постійному пошуку нових, гармонійних смаків. 
+        Лише корисні інгредієнти. Жодних консервантів та ароматизаторів."
+        url="/main"
+      />
       <Hero />
       <Advantages />
       <Rectangle />

@@ -9,12 +9,13 @@ import PersonalData from 'components/UserDashboard/PersonalData/PersonalData';
 import Contacts from 'components/UserDashboard/Contacts/Contacts';
 import OrdersHistory from 'components/UserDashboard/OrdersHistory/OrdersHistory';
 import Avatar from 'components/Avatar';
+import SEO from 'components/SEO/SEO';
 
 import styles from './UserDashboardPage.module.scss';
 
 export default function UserDashboardPage() {
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? "/";
+  const backLinkHref = location.state?.from ?? '/';
 
   const dispatch = useDispatch();
   const isUserLogin = useSelector(selectIsLogin);
@@ -30,8 +31,14 @@ export default function UserDashboardPage() {
 
   return (
     <>
-      <Heading withGoBack fromHC={backLinkHref}>Мій профіль</Heading>
-
+      <Heading withGoBack fromHC={backLinkHref}>
+        Мій профіль
+      </Heading>
+      <SEO
+        title="Мій профіль | Brovko"
+        description="Мій профіль | Brovko - магазин натуральних снеків для собак"
+        url="/user"
+      />
       <Avatar />
       <div className={styles.dataContainer}>
         <PersonalData />
