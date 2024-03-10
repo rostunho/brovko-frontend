@@ -7,12 +7,9 @@ import Image from 'shared/components/Image';
 import AddIconImage from 'shared/icons/AddIconImage';
 import Modal from 'shared/components/Modal/Modal';
 import { useRef } from 'react';
-import { throttle } from 'utils';
 
 const AddPhotoInput = ({ setFiles }) => {
-  const [selectedImagesReview, setSelectedImagesReview] = useState([]);
   const [selectedPicturesReview, setSelectedPicturesReview] = useState([]);
-  const [selectedFilesReview, setSelectedFilesReview] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsImage, setModalIsImage] = useState(false);
   const [modalIsId, setModalIsId] = useState(false);
@@ -22,7 +19,7 @@ const AddPhotoInput = ({ setFiles }) => {
   const dispatch = useDispatch();
 
   const [draggedImageIndex, setDraggedImageIndex] = useState(null);
-  const [toImageIndex, setToImageIndex] = useState(null);
+  // const [toImageIndex, setToImageIndex] = useState(null);
 
   const openModalEditPhoto = (id, url) => {
     setModalIsId(id);
@@ -46,29 +43,11 @@ const AddPhotoInput = ({ setFiles }) => {
     dispatch(addPopupOperation('Фото видалено'));
   };
 
-  // const handleImageChange = (e, xFiles = 5 - selectedPicturesReview.length) => {
-  //   e.preventDefault();
-  //   const files = Array.from(e.target.files);
-
-  //   if (files.length > 0 && files.length <= xFiles) {
-  //     setSelectedFilesReview(files);
-  //     addImages(files);
-  //     setErrorTextQuantity(false);
-  //   } else {
-  //     dispatch(
-  //       addPopupOperation(`Можна завантажити не більше ${xFiles} файлів`)
-  //     );
-  //     setErrorTextQuantity(`Ви обрали більше ніж ${xFiles} фото`);
-  //   }
-  // };
-
-  // const [order, setOrder] = useState([]);
-
   const handleImageChange = (e, xFiles = 5 - selectedPicturesReview.length) => {
     e.preventDefault();
     const files = Array.from(e.target.files);
     if (files.length > 0 && files.length <= xFiles) {
-      setSelectedFilesReview(files);
+      // setSelectedFilesReview(files);
       addImages(files);
       setErrorTextQuantity(false);
     } else {
@@ -108,39 +87,6 @@ const AddPhotoInput = ({ setFiles }) => {
     }
   };
 
-  // const handleTouchStart = (e, index) => {
-  //   setDraggedImageIndex(index);
-  //   const touch = e.touches[0];
-  //   const initialX = touch.pageX - e.currentTarget.getBoundingClientRect().left;
-  //   const initialY = touch.pageY - e.currentTarget.getBoundingClientRect().top;
-  //   e.currentTarget.style.transition = 'none';
-  //   e.currentTarget.style.transform = `translate(${initialX}px, ${initialY}px)`;
-  //   console.log('handleTouchStart',index ,initialX, initialY)
-  // };
-
-  // const handleTouchMove = (e, index) => {
-  //   if (draggedImageIndex !== index) return;
-  //   const touch = e.touches[0];
-  //   const currentX = touch.pageX - e.currentTarget.getBoundingClientRect().left;
-  //   const currentY = touch.pageY - e.currentTarget.getBoundingClientRect().top;
-  //   e.currentTarget.style.transform = `translate(${currentX}px, ${currentY}px)`;
-  //   // console.log('handleTouchMove',index ,currentX, currentY)
-  // };
-  // const handleTouchEnd = (e, index) => {
-  //   if (draggedImageIndex !== index) return;
-  //   e.currentTarget.style.transition = '';
-  //   e.currentTarget.style.transform = '';
-  //   const touch = e.changedTouches[0];
-  //   const newToIndex = Array.from(e.currentTarget.parentElement.children).indexOf(e.currentTarget);
-  //   const touchPosition = { x: touch.pageX, y: touch.pageY };
-  //   handleDrop(touchPosition, newToIndex);
-  //   setDraggedImageIndex(null);
-  //   console.log('handleTouchMove',index ,touchPosition, newToIndex)
-
-  // };
-
-
-
   const handleTouchStart = (e, index) => {
     setDraggedImageIndex(index);
     // const touch = e.touches[0];
@@ -149,41 +95,12 @@ const AddPhotoInput = ({ setFiles }) => {
     console.log('handleTouchStart', index);
   };
 
-  // const handleTouchMove = (e, index) => {
-  //   if (draggedImageIndex !== index) return;
-  //   const touch = e.touches[0];
-  //   const movementX = touch.pageX - initialTouchX;
-  //   const movementY = touch.pageY - initialTouchY;
-  //   setTouchMovementX(movementX);
-  //   setTouchMovementY(movementY);
-  // };
-
-  // document.addEventListener('touchmove', function (event) {
-  //   event.preventDefault();
-  //   document.body.style.overflow = 'hidden';
-  //   var touch = event.touches[0];
-  //   var touchedElement = document.elementFromPoint(
-  //     touch.clientX,
-  //     touch.clientY
-  //   );
-  //   throttle(() => {
-  //     console.log('touchedElement.id', touchedElement.id);
-  //   }, 3000);
-  //   console.log('Element under finger:', touchedElement.id);
-  // });
-
-  // document.addEventListener('touchend', function () {
-  //   document.body.style.overflow = 'auto';
-  // });
-
   const handleTouchMove = (e, index) => {
     // e.preventDefault()
   };
 
   const handleTouchEnd = (e, index) => {
     const touch = e.changedTouches[0];
-    const touchX = touch.pageX;
-    const touchY = touch.pageY;
     var touchedElement = document.elementFromPoint(
       touch.clientX,
       touch.clientY
@@ -331,8 +248,8 @@ const AddPhotoInput = ({ setFiles }) => {
       })
       .filter(Boolean);
 
-    setSelectedImagesReview(prevImages => [...prevImages, ...newImages]); // Змінено тут
-    setSelectedPicturesReview(prevPictures => [...prevPictures, ...newImages]); // Змінено тут
+   
+    setSelectedPicturesReview(prevPictures => [...prevPictures, ...newImages]); 
     dispatch(
       addPopupOperation(
         `Додано ${newImages.length} файл${
@@ -340,7 +257,6 @@ const AddPhotoInput = ({ setFiles }) => {
         }`
       )
     );
-    setSelectedFilesReview([]);
   };
 
   useEffect(() => {
