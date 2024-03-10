@@ -9,7 +9,7 @@ import AuthSwitcher from 'components/AuthSection/AuthSwitcher/AuthSwitcher';
 import SEO from 'components/SEO/SEO';
 import styles from './LoginUserPage.module.scss';
 
-import { memoizedSelectLoginAndToken } from 'redux/user/userSelectors';
+// import { memoizedSelectLoginAndToken } from 'redux/user/userSelectors';
 
 export default function LoginUserPage() {
   const isUserLogin = useSelector(selectIsLogin);

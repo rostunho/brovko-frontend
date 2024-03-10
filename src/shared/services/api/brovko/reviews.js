@@ -27,7 +27,7 @@ export const getReviewsByProductId = async productId => {
 export const submitReview = async reviewData => {
   try {
     // запит на сервер для відправки відгуку
-    console.log(reviewData)
+    // console.log(reviewData)
     for (const pair of reviewData.entries()) {
       const [name, value] = pair;
       if (value instanceof File) {
@@ -38,8 +38,8 @@ export const submitReview = async reviewData => {
     }
 
     const response = await instance.post('/reviews', reviewData);
-    console.log('submit Review response:', reviewData);
-    console.log('response.status', response);
+    // console.log('submit Review response:', reviewData);
+    // console.log('response.status', response);
 
     if (response.status === 200 || response.status === 201) {
       return true;
@@ -62,7 +62,7 @@ const controlReview = async ({ productId, commentId, textId }, approved) => {
       approved: approved,
     };
     const response = await instance.patch(`/reviews/control/`, body);
-    console.log('response into controlReview >>:', response);
+    // console.log('response into controlReview >>:', response);
 
     return response;
   } catch (error) {
@@ -72,13 +72,13 @@ const controlReview = async ({ productId, commentId, textId }, approved) => {
 
 export const approveReview = async (productId, commentId, textId) => {
   const response = await controlReview({ productId, commentId, textId }, true);
-  console.log('response into approvedReview', response);
+  // console.log('response into approvedReview', response);
   return response;
 };
 
 export const rejectReview = async (productId, commentId, textId) => {
   const response = await controlReview({ productId, commentId, textId }, false);
-  console.log('response into rejectReview', response);
+  // console.log('response into rejectReview', response);
   return response;
 };
 

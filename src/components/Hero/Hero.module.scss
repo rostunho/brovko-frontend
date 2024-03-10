@@ -50,14 +50,15 @@
 // ==================
 
 .hero {
-  margin-left: -16px;
-  margin-right: -16px;
+  // margin-left: -16px;
+  // margin-right: -16px;
+  margin: 0 auto;
   padding-top: 318px;
   padding-bottom: 95px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  max-width: 1600px;
+  // max-width: 1600px;
   background-color: lightgray;
 
   @media screen and (max-width: 767px) {

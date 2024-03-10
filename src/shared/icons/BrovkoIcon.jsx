@@ -1,9 +1,9 @@
-export default function BrovkoIcon() {
+export default function BrovkoIcon({width = 200, height = 154}) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="200"
-      height="154"
+      width={width}
+      height={height}
       viewBox="0 0 200 154"
       fill="none"
     >

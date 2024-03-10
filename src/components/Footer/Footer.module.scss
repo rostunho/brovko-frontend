@@ -1,31 +1,31 @@
 @import '../../theme/abstract/mixins';
 
 .footer {
-  position: relative; 
+  position: relative;
   background: var(--footer-bg, #f4f4f4);
   // ****************
   margin-left: -16px;
   margin-right: -16px;
   // margin-top: auto;
-  @media screen and (min-width: 768px)  {
+  @media screen and (min-width: 768px) {
     padding-top: 32px;
     padding-bottom: 12px;
-    
   }
-  
 }
 
 .footerContainer {
   position: relative;
-  width: 100%;
+  // width: 100%;
   padding: 10px 16px 12px 16px;
+  max-width: 1280px;
+  margin: 0 auto 0 auto;
 }
 .footerItem {
   display: flex;
   flex-direction: column;
   align-items: center;
   border-bottom: var(--border-gray);
-  @media screen and (min-width: 768px)  {
+  @media screen and (min-width: 768px) {
     border-bottom: inherit;
   }
 }
@@ -44,27 +44,24 @@
   &.opened {
     color: var(--gray-color);
   }
-  @media screen and (min-width: 768px)  {
+  @media screen and (min-width: 768px) {
     color: var(--gray-color);
-    
   }
 }
 
 .labelTablet {
-    color: var(--gray-color);
-    margin-bottom: 8px;
-  
+  color: var(--gray-color);
+  margin-bottom: 8px;
 }
 
 .footerLinks {
   display: flex;
   flex-direction: column;
   gap: 13px;
-  @media screen and (min-width: 768px)  {
+  @media screen and (min-width: 768px) {
     flex-direction: row;
     justify-content: space-around;
   }
-
 }
 
 .linksList {
@@ -148,10 +145,9 @@
 }
 
 .footerBottom {
-  @media screen and (min-width: 768px)  {
+  @media screen and (min-width: 768px) {
     position: absolute;
     bottom: 0;
     right: 0;
   }
-  
 }

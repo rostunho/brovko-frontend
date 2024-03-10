@@ -9,7 +9,7 @@ export default function ApprovedReviews({ ...props }) {
   useEffect(() => {
     (async () => {
       const { data } = await getReviewsByStatus('approved');
-      console.log('data :>> ', data);
+      // console.log('data :>> ', data);
       setReviews([...data]);
     })();
   }, []);

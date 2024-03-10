@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from 'react';
 // import { useSelector } from 'react-redux';
 // import { selectIsLogin } from 'redux/user/userSelectors';
-import { toPhoneFormat, parsePhoneNumber } from 'utils';
+import { parsePhoneNumber } from 'utils';
 import Input from 'shared/components/Input';
 import styles from './CustomerForm.module.scss';
 
@@ -17,7 +17,7 @@ function reducer(state, action) {
       return { ...state, lastName: action.payload };
 
     case 'ADD_PHONE':
-      return { ...state, phone: action.payload };
+      return { ...state, phone: parsePhoneNumber(action.payload) };
 
     case 'ADD_EMAIL':
       return { ...state, email: action.payload };

@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectUserStatus } from 'redux/user/userSelectors';
 import Heading from 'shared/components/Heading';
+// import AdminControlPanel from 'shared/components/AdminControlPanel/AdminControlPanel';
 import WhereToBuy from 'components/WhereToBuy/WhereToBuy';
 import Modal from 'shared/components/Modal/Modal';
 import { getAllLocations } from 'shared/services/api/brovko/locations';
@@ -9,20 +12,30 @@ import styles from './WhereToBuyPage.module.scss';
 
 export default function WhereToBuyPage() {
   const location = useLocation();
+  const userStatus = useSelector(selectUserStatus);
+
   const backLinkHref = location.state?.from ?? '/';
 
   const [locationPoints, setLocationPoints] = useState([]);
   const [locationPointsError, setLocationPointsError] = useState(null);
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [refreshLocations, setRefreshLocations] = useState(false);
 
   useEffect(() => {
     fetchLocationPoints();
   }, []);
 
+  useEffect(() => {
+    if (refreshLocations) {
+      fetchLocationPoints();
+    }
+    setRefreshLocations(false);
+  }, [refreshLocations]);
+
   const fetchLocationPoints = async () => {
     try {
       const locations = await getAllLocations();
-      console.log('locations', locations);
+      // console.log('locations', locations);
       setLocationPoints(locations);
       setLocationPointsError(null);
       setShowErrorModal(false);
@@ -34,7 +47,7 @@ export default function WhereToBuyPage() {
       setShowErrorModal(true);
     }
   };
-  console.log('locationPoints', locationPoints);
+  // console.log('locationPoints', locationPoints);
 
   const closeModal = () => {
     setShowErrorModal(false);
@@ -62,10 +75,20 @@ export default function WhereToBuyPage() {
         description="Де можна купити смаколики від Бровка | Brovko - магазин корисних смаколиків для песиків"
         url="/all/where-to-buy"
       />
+
       {showErrorModal && errorModalContent}
 
       {locationPoints ? (
-        <WhereToBuy locationPoints={locationPoints} />
+        <>
+          {/* {(userStatus === 'superadmin' || userStatus === 'manager') && (
+            <AdminControlPanel />
+          )} */}
+          <WhereToBuy
+            userStatus={userStatus}
+            locationPoints={locationPoints}
+            refreshLocations={() => setRefreshLocations(true)}
+          />
+        </>
       ) : (
         <p className={styles.modalText}>{locationPointsError}</p>
       )}

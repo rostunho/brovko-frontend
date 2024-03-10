@@ -7,8 +7,8 @@ import Loader from 'components/Loader';
 const PrivateRoute = () => {
   const { isLogin, token } = useSelector(memoizedSelectLoginAndToken);
 
-  console.log('isLogin>>>>>>>', isLogin);
-  console.log('token>>>>>>>', token);
+  // console.log('isLogin>>>>>>>', isLogin);
+  // console.log('token>>>>>>>', token);
 
   if (!isLogin && token) {
     return <Loader />;

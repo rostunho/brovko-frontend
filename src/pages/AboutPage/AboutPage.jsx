@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import SEO from 'components/SEO/SEO';
 import Heading from 'shared/components/Heading';
 import About from 'components/About/About';
+// import styles from './AboutPage.module.scss';
 
 export default function AboutPage() {
   const location = useLocation();
@@ -12,6 +13,7 @@ export default function AboutPage() {
       <Heading withGoBack fromHC={backLinkHref}>
         Про Бровка
       </Heading>
+      {/* <div className={styles.yellowContainer} /> */}
       <SEO
         title="Про Бровка | Brovko - крамниця смаколиків для собак"
         description={

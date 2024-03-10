@@ -73,30 +73,6 @@ export default function AddProductForm({ update }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // useEffect(() => {
-  //   if (!update) {
-  //     return;
-  //   }
-
-  //   fetchExistingProduct(productId);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [productId]);
-
-  useEffect(() => {
-    if (!existingProduct) {
-      return;
-    }
-
-    // update &&
-    //   fetchSelectorValue({
-    //     name: detectCategoryNameById(existingProduct.categoryId, categories),
-    //     id: existingProduct.categoryId,
-    //   });
-
-    // dispatchRequestBody(null, 'ADD_SAVED_PRODUCT', existingProduct);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [existingProduct]);
-
   useEffect(() => {
     if (existingProduct?.categoryId === selectorValue?.id) {
       return;
@@ -134,8 +110,6 @@ export default function AddProductForm({ update }) {
       return;
     }
 
-    // console.log('params Into USe EFFECT :>> ', params);
-
     dispatchRequestBody(null, 'ADD_PARAMS', params);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params]);
@@ -147,7 +121,7 @@ export default function AddProductForm({ update }) {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    console.log(requestBody, files);
+    // console.log(requestBody, files);
     await addNewProduct(requestBody, files);
     formRef.current.reset();
   };
@@ -208,7 +182,9 @@ export default function AddProductForm({ update }) {
 
   return (
     <div className={styles.container}>
-      <Heading withGoBack>Додати новий товар</Heading>
+      <Heading withGoBack>
+        {!update ? 'Додати новий товар' : 'Редагувати товар'}
+      </Heading>
 
       <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
         <Input
@@ -397,7 +373,8 @@ export default function AddProductForm({ update }) {
             label="Залишок на складі"
             name="stock"
             length="md"
-            defaultValue={0} // НЕ ЗАБУТИ ПЕРЕВІРИТИ
+            value={requestBody.product[0].stockBalance}
+            // defaultValue={''} // НЕ ЗАБУТИ ПЕРЕВІРИТИ
             onChange={e => dispatchRequestBody(e, 'ADD_STOCK_BALANCE')}
           />
         </div>

@@ -41,6 +41,7 @@ export default function ProductListPage() {
   const [firstRender, setFirstRender] = useState(true);
   const [loadingData, setLoadingData] = useState(true); // Додаємо стан для відстеження завантаження даних
   const [loadingPage, setLoadingPage] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(null);
   const [showErrorModal, setShowErrorModal] = useState(false);
   let pageTitleSeo;
@@ -54,9 +55,10 @@ export default function ProductListPage() {
 
   useEffect(() => {
     if (!firstRender) {
+      // console.log('NOT FIRST RENDER');
       return;
     }
-
+    // console.log(' FIRST RENDER');
     (async () => {
       await fetchCategories();
       await fetchProducts(Number(page), Number(limit)); // при першому рендері page=null i limit=null, тому функція викличеться без них. Зате при прямому вставленні урли - спрацюють;
@@ -301,7 +303,7 @@ export default function ProductListPage() {
     setSearchBarValue('');
     setSearchParams(
       existingSearchParams => {
-        console.log('existingSearchParams :>> ', existingSearchParams);
+        // console.log('existingSearchParams :>> ', existingSearchParams);
         existingSearchParams.set('key', '');
         return existingSearchParams;
       },
@@ -358,10 +360,12 @@ export default function ProductListPage() {
   return (
     <>
       {loadingData || loadingPage ? (
-        <ProductCardSkeleton />
+        <>
+          <ProductCardSkeleton />
+          {showErrorModal && errorModalContent}
+        </>
       ) : (
         <>
-          {showErrorModal && errorModalContent}
           <Heading withGoBack>Крамничка</Heading>
           <SEO
             title={pageTitleSeo}
@@ -373,8 +377,12 @@ export default function ProductListPage() {
           <div className={styles['selectors-container']}>
             <Input
               name="searchbar"
-              className={styles.searchbar}
-              inputClassName={styles['searchbar-input']}
+              className={`${styles.searchbar} ${
+                products?.minPrice === products?.maxPrice ? styles.centered : ''
+              }`}
+              inputClassName={`${styles['searchbar-input']} ${
+                products?.minPrice === products?.maxPrice ? styles.centered : ''
+              }`}
               label=""
               type="search"
               placeholder="Пошук смаколиків"
@@ -382,7 +390,11 @@ export default function ProductListPage() {
               onChange={e => setSearchBarValue(e.target.value)}
               onClick={handleKeyWord}
             />
-            <div className={styles['multi-selectors-container']}>
+            <div
+              className={`${styles['multi-selectors-container']} ${
+                products?.minPrice === products?.maxPrice ? styles.centered : ''
+              }`}
+            >
               <Selector
                 name="categories"
                 label=""
@@ -407,7 +419,7 @@ export default function ProductListPage() {
                 forceClosing={categorySelectorIsOpen}
               />
             </div>
-            {products.products.length > 1 && (
+            {products?.minPrice !== products?.maxPrice && (
               <DoubleRangeSlider
                 onSubmit={handlePrices}
                 minLimit={products?.minPrice}

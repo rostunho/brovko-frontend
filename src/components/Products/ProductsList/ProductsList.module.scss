@@ -1,7 +1,9 @@
 .products {
   background: var(--white-text-color);
   // padding-top: 32px;
-  padding-bottom: 30px;
+  // padding-bottom: 30px;
+  max-width: 1280px;
+  margin: 0 auto 30px auto;
 }
 
 .productsTitle {
@@ -21,6 +23,28 @@
   gap: 24px;
   margin: 0;
   padding: 0;
+
+  @media screen and (min-width: 768px) {
+    width: 736px;
+    margin: 0 auto;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 1248px;
+  }
+}
+
+.list-item {
+  width: 100%;
+
+  @media screen and (min-width: 480px) {
+    width: 448px;
+  }
+  @media screen and (min-width: 768px) {
+    width: 352px;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 392px;
+  }
 }
 
 .goBackButton {

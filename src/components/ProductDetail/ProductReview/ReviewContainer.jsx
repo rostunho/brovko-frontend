@@ -12,6 +12,7 @@ import styles from './ReviewContainer.module.scss';
 export default function ReviewContainer() {
   const { productId } = useParams();
   const [isReviewInputVisible, setIsReviewInputVisible] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [isAddingPhoto, setIsAddingPhoto] = useState(false);
 
   const reviewsError = useSelector(selectReviewError);
@@ -21,9 +22,9 @@ export default function ReviewContainer() {
     setIsAddingPhoto(false); // При відкритті поля для відгуку скидаємо стан додавання фото
   };
 
-  const toggleAddingPhoto = () => {
-    setIsAddingPhoto(!isAddingPhoto);
-  };
+  // const toggleAddingPhoto = () => {
+  //   setIsAddingPhoto(!isAddingPhoto);
+  // };
 
   const closeReviewInput = () => {
     setIsReviewInputVisible(false);

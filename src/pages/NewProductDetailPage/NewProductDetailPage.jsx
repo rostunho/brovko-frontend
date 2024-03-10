@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useScreen } from 'shared/hooks/useScreen';
 import { getProductById } from 'shared/services/api';
-import { addPopupOperation } from 'redux/popup/popupOperations';
+// import { addPopupOperation } from 'redux/popup/popupOperations';
 import { selectUserStatus } from 'redux/user/userSelectors';
 
 import Heading from 'shared/components/Heading';
+import AdminControlPanel from 'shared/components/AdminControlPanel/AdminControlPanel';
 import Rating from 'components/ProductDetail/ProductRating/Rating';
 import ImageBox from 'shared/components/ImageBox/ImageBox';
 import OrderPrice from './OrderPrice/OrderPrice';
@@ -14,10 +15,10 @@ import ProductParams from 'components/ProductDetail/ProductParams/ProductParams'
 import NewDescription from './NewDescription/NewDescription';
 import Comments from 'components/Comments/Comments';
 import LogisticInfo from 'components/ProductDetail/LogisticInfo/LogisticInfo';
-import Button from 'shared/components/Button';
-import SEO from 'components/SEO/SEO';
+// import Button from 'shared/components/Button';
 import { removeProduct } from 'shared/services/api/brovko';
 import { removeProductRequestTemplate } from 'components/Products/ProductsList';
+import SEO from 'components/SEO/SEO';
 import styles from './NewProductDetail.module.scss';
 
 export default function NewProductDetailPage() {
@@ -28,9 +29,14 @@ export default function NewProductDetailPage() {
   const [logisticHeight, setLogisticHeght] = useState(null);
   const { isMobile } = useScreen();
   const [fromPage, setFromPage] = useState(null);
+  const [commentsLength, setCommentsLength] = useState(0);
+
+  const updateCommentsLength = length => {
+    setCommentsLength(length);
+  };
 
   const mainScreenRef = useRef();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const priceRef = useRef();
   const logisticRef = useRef();
 
@@ -69,7 +75,7 @@ export default function NewProductDetailPage() {
   }
 
   const goToEditProduct = () => {
-    navigate(`/admin/addproduct/${productId}`);
+    navigate(`/admin/add-product/${productId}`);
   };
 
   const removeProducts = async id => {
@@ -92,27 +98,14 @@ export default function NewProductDetailPage() {
           url={`/shop/product/${product.id}`}
         />
         {(userStatus === 'manager' || userStatus === 'superadmin') && (
-          <div className={styles['admin-block']}>
-            <Button
-              admin
-              className={styles['edit-button']}
-              size="lg"
-              onClick={goToEditProduct}
-            >
-              РЕДАГУВАТИ
-            </Button>
-            <Button
-              admin
-              className={styles['edit-button']}
-              size="lg"
-              onClick={removeProducts}
-            >
-              ВИДАЛИТИ
-            </Button>
-          </div>
+          <AdminControlPanel
+            simple
+            onEditClick={goToEditProduct}
+            onDeleteClick={removeProducts}
+          />
         )}
         <div ref={mainScreenRef} className={styles['main-screen']}>
-          <Rating className={styles.rating} />
+          <Rating className={styles.rating} commentsLength={commentsLength} />
 
           <ImageBox
             className={styles['image-box']}
@@ -130,7 +123,12 @@ export default function NewProductDetailPage() {
             {product.description}
           </NewDescription>
 
-          {isMobile && <Comments isMobile={isMobile} />}
+          {isMobile && (
+            <Comments
+              isMobile={isMobile}
+              onUpdateCommentsLength={updateCommentsLength}
+            />
+          )}
         </div>
 
         {!isMobile && (
@@ -143,6 +141,7 @@ export default function NewProductDetailPage() {
             <Comments
               containerHeight={mainScreenHeight - priceHeight - logisticHeight}
               isMobile={isMobile}
+              onUpdateCommentsLength={updateCommentsLength}
             />
           </aside>
         )}

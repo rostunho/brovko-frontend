@@ -6,7 +6,11 @@ import CommentsList from './CommentsList/CommentsList';
 import ReadMoreButton from 'pages/NewProductDetailPage/ReadMoreButton/ReadMoreButton';
 import styles from './Comments.module.scss';
 
-export default function Comments({ containerHeight, isMobile }) {
+export default function Comments({
+  containerHeight,
+  isMobile,
+  onUpdateCommentsLength,
+}) {
   const { productId } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentReviews, setCurrentReviews] = useState([]);
@@ -28,6 +32,7 @@ export default function Comments({ containerHeight, isMobile }) {
       const { comments } = originalReviews[0] || { comments: [] };
       const adaptedReviews = processOriginalReviews(comments);
       setCurrentReviews([...adaptedReviews]);
+      onUpdateCommentsLength(adaptedReviews.length);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -84,7 +89,7 @@ export default function Comments({ containerHeight, isMobile }) {
     setSearchParams(
       prevSearchParams => {
         const prevMode = prevSearchParams.get('comments');
-        console.log('prevMode :>> ', prevMode);
+        // console.log('prevMode :>> ', prevMode);
 
         prevMode === 'all'
           ? prevSearchParams.set('comments', 'last')

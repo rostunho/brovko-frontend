@@ -11,6 +11,10 @@
   /* основний текст */
   @include text-styles;
   color: var(--black-text-color);
+
+  &.box-in-admin {
+    margin: 0;
+  }
 }
 
 .input-box.without-label {
@@ -186,6 +190,16 @@ input.input--is-valid:focus:not(:placeholder-shown) {
     border: var(--border-accent);
     &::before {
       opacity: 1;
+    }
+  }
+
+  &.in-admin-control {
+    margin: 0 auto 0 0;
+    border-color: #fff;
+    background-color: rgba(255, 255, 255, 0.5);
+
+    &:checked {
+      background-color: #fff;
     }
   }
 }

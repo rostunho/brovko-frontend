@@ -31,6 +31,7 @@ export default function Input({
   pattern,
   validateStatus,
   additionalFunction,
+  inAdminControl,
   ...props
 }) {
   const [validationChecking, setValidationChecking] = useState('pending');
@@ -168,7 +169,7 @@ export default function Input({
           checkBoxIsChecked ? styles['input-box__controls--checked'] : ''
         }  ${!label ? styles['without-label'] : ''} ${
           className ? className : ''
-        }`}
+        } ${inAdminControl ? styles['box-in-admin'] : ''}`}
       >
         <label
           htmlFor={id}
@@ -182,7 +183,9 @@ export default function Input({
           value={value} // перевірити, чи не вплине на інші інпути
           className={`${styles.input} ${
             additionalClassCondition ? '' : styles[`${additionalClass}`]
-          } ${inputClassName ? inputClassName : ''}`}
+          } ${inputClassName ? inputClassName : ''} ${
+            inAdminControl ? styles['in-admin-control'] : ''
+          }`}
           name={name}
           placeholder={placeholder}
           onClick={handleOnClick}
@@ -193,6 +196,7 @@ export default function Input({
           metrical={metrical}
           currency={currency}
           label={label}
+          // inAdminControl={inAdminControl}
           // error={error}
           {...props}
         />

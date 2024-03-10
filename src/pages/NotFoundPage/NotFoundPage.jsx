@@ -1,4 +1,4 @@
-import styles from './NotFoundPage.module.scss';
+// import styles from './NotFoundPage.module.scss';
 import NotFound from '../../components/NotFound/NotFound';
 import SEO from 'components/SEO/SEO';
 

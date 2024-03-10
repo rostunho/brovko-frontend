@@ -12,7 +12,7 @@ export default function ImageBox({ images = [], isMobile, className }) {
   const [containerWidth, setContainerWidth] = useState(() => screenWidth - 32); // штрина видимої частини міні-галереї;
   const [maxOffset, setMaxOffset] = useState(0); // максимально домустиме зміщення
 
-  // console.log('containerWidth :>> ', containerWidth);
+  console.log('containerWidth :>> ', containerWidth);
 
   useEffect(() => {
     if (images.length <= 0) {
@@ -50,7 +50,7 @@ export default function ImageBox({ images = [], isMobile, className }) {
     const endX = event.changedTouches[0].clientX;
     const deltaX = endX - startX;
 
-    console.log('deltaX :>> ', deltaX);
+    // console.log('deltaX :>> ', deltaX);
 
     if (deltaX > 0) {
       // не реагуємо, якщо галерея в стартовому положені
@@ -59,8 +59,8 @@ export default function ImageBox({ images = [], isMobile, className }) {
       }
 
       setOffsetX(prevOffset => {
-        console.log('prevOffset :>> ', prevOffset);
-        console.log('prevOffset - deltaX  :>> ', prevOffset - deltaX);
+        // console.log('prevOffset :>> ', prevOffset);
+        // console.log('prevOffset - deltaX  :>> ', prevOffset - deltaX);
         if (prevOffset - deltaX < -maxOffset) {
           return 0;
         } else {
@@ -84,56 +84,72 @@ export default function ImageBox({ images = [], isMobile, className }) {
   };
 
   return (
-    <div className={`${styles['box-container']} ${className ? className : ''}`}>
-      <img
-        src={
-          Array.isArray(images) && images[0] !== '' && images.length > 0
-            ? images[currentImgIdx]
-            : defaultImage
-        }
-        className={styles['large-image']}
-        alt="Смаколик"
-        style={{ width: containerWidth, height: containerWidth }}
-      />
-      {images.length > 0 && images[0] && (
+    <>
+      {Array.isArray(images) && images[0] !== '' && images.length > 0 ? (
         <div
-          className={styles['mini-gallery']}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          style={{
-            transform: `translateX(${offsetX}px)`,
-            width: `${miniGalleryWidth}px`,
-          }}
+          className={`${styles['box-container']} ${className ? className : ''}`}
         >
-          {images.map((image, idx) => {
-            return (
-              <img
-                key={idx}
-                className={`${styles['small-image']} ${
-                  currentImgIdx === idx ? styles.active : ''
-                } ${!isMobile ? styles['wide-screen'] : ''}`}
-                src={image}
-                alt="Смаколик"
-                onClick={() => setCurrentImgIdx(idx)}
-              />
-            );
-          })}
+          <img
+            src={
+              Array.isArray(images) && images[0] !== '' && images.length > 0
+                ? images[currentImgIdx]
+                : defaultImage
+            }
+            className={styles['large-image']}
+            alt="Смаколик"
+            style={{ width: containerWidth, height: containerWidth }}
+          />
+          {images.length > 0 && images[0] && (
+            <div
+              className={styles['mini-gallery']}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              style={{
+                transform: `translateX(${offsetX}px)`,
+                width: `${miniGalleryWidth}px`,
+              }}
+            >
+              {images.map((image, idx) => {
+                return (
+                  <img
+                    key={idx}
+                    className={`${styles['small-image']} ${
+                      currentImgIdx === idx ? styles.active : ''
+                    } ${!isMobile ? styles['wide-screen'] : ''}`}
+                    src={image}
+                    alt="Смаколик"
+                    onClick={() => setCurrentImgIdx(idx)}
+                  />
+                );
+              })}
+            </div>
+          )}
+          {images.length > 0 && images[0] && (
+            <div className={styles['marker-container']}>
+              {images.map((_, idx) => {
+                return (
+                  <div
+                    key={idx}
+                    className={`${styles['circle-marker']}  ${
+                      idx === currentImgIdx ? styles.active : ''
+                    }`}
+                  />
+                );
+              })}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div
+          className={styles['image-skeleton-container']}
+          // style={{ width: containerWidth, height: containerWidth + 142 }}
+        >
+          <div
+            className={styles['image-inner-skeleton']}
+            // style={{ width: containerWidth, height: containerWidth + 142 }}
+          ></div>
         </div>
       )}
-      {images.length > 0 && images[0] && (
-        <div className={styles['marker-container']}>
-          {images.map((_, idx) => {
-            return (
-              <div
-                key={idx}
-                className={`${styles['circle-marker']}  ${
-                  idx === currentImgIdx ? styles.active : ''
-                }`}
-              />
-            );
-          })}
-        </div>
-      )}
-    </div>
+    </>
   );
 }

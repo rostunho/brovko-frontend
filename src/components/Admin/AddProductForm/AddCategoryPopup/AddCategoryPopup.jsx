@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import {
   addNewCategory,
-  getAllCategories,
+  // getAllCategories,
 } from 'shared/services/api/brovko/categories';
 import Modal from 'shared/components/Modal/Modal';
 import Heading from 'shared/components/Heading';

@@ -1,6 +1,6 @@
 import styles from './Footer.module.scss';
 import InstaIcon from 'shared/icons/InstaIcon';
-import ViberIcon from 'shared/icons/ViberIcon';
+// import ViberIcon from 'shared/icons/ViberIcon';
 import FaceBook2Icon from 'shared/icons/FaceBook2';
 import TelegramIcon from 'shared/icons/TelegramIcon';
 import VisaIcon from 'shared/icons/VisaIcon';
@@ -34,7 +34,7 @@ export const socialIconsData = [
     label: 'Instagram',
     href: 'https://www.instagram.com/brovko.pet/',
     icon: <InstaIcon className={styles.icon} />,
-    ariaLabel:'Ми в Instagram',
+    ariaLabel: 'Ми в Instagram',
   },
   // {
   //   label: 'Viber',
@@ -45,13 +45,13 @@ export const socialIconsData = [
     label: 'FaceBook',
     href: 'https://www.facebook.com/profile.php?id=100089139919993',
     icon: <FaceBook2Icon className={styles.icon} />,
-    ariaLabel:'Ми в FaceBook',
+    ariaLabel: 'Ми в FaceBook',
   },
   {
     label: 'Telegram',
     href: 'https://t.me/brovko_pet',
     icon: <TelegramIcon className={styles.icon} />,
-    ariaLabel:'Ми в Telegram',
+    ariaLabel: 'Ми в Telegram',
   },
 ];
 

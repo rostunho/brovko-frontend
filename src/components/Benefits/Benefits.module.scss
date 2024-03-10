@@ -2,7 +2,8 @@
 
 .benefitsContainer {
   background: var(--white-text-color);
-  padding-bottom: 32px;
+  max-width: 1280px;
+  margin: 0 auto 32px auto;
 }
 
 .benefitsImage {

@@ -1,38 +1,72 @@
 import React from 'react';
-import BrovkoIcon from 'shared/icons/BrovkoIcon';
+import useLayoutType from 'shared/hooks/useLayoutType';
 import Image from 'shared/components/Image';
-import { smakolykData } from './smakolykData';
-import { aboutTextData } from './smakolykData';
+import frame from 'shared/images/Frame2.png';
+import {
+  fotoArray,
+  aboutTextDataDesctop,
+  aboutTextDataMobile,
+} from './smakolykData';
 
 import styles from './About.module.scss';
 
-const AboutItem = ({ imgSrc, text }) => (
-  <li className={styles.aboutItem}>
-    <Image src={imgSrc} className={styles.img} />
-    {text}
-  </li>
-);
-
 export default function About() {
+  const layoutType = useLayoutType();
+  const isMobile = layoutType === 'mobile';
+
   return (
     <div className={styles.about}>
-      <div className={styles.icon}>
-        <BrovkoIcon />
-      </div>
-
-      <p className={styles.aboutDescription}>Привіт, бро!</p>
-      {aboutTextData.map((text, index) => (
-        <div key={index}>
-          <p className={styles.aboutText}>{text}</p>
-          {index === 3 && (
-            <ul>
-              {smakolykData.map((item, i) => (
-                <AboutItem key={i} {...item} />
-              ))}
-            </ul>
-          )}
+      <div className={styles['about__yellowSpot']} />
+      <section className={styles['about__title']}>
+        <div className={styles['about__title__box']}>
+          <p style={{ marginBottom: '16px' }}>Привіт, бро!</p>
+          <p className={styles['about__title__box-textItem']}>
+            {aboutTextDataDesctop[0]}
+          </p>
+          <p className={styles['about__title__box-textItem']}>
+            {aboutTextDataDesctop[1]}
+          </p>
         </div>
-      ))}
+      </section>
+
+      <section className={styles['about__benefits']}>
+        <p>{!isMobile ? aboutTextDataDesctop[2] : aboutTextDataMobile[2]}</p>
+        <p>{!isMobile ? aboutTextDataDesctop[3] : aboutTextDataMobile[3]}</p>
+        <Image
+          src={frame}
+          style={{ margin: '36px auto 16px auto', paddingRight: '16px' }}
+        />
+        <div className={styles['about__benefits__sinus']}></div>
+      </section>
+
+      <section className={styles['about__photos']}>
+        <p>{aboutTextDataDesctop[4]}</p>
+        <div className={styles['about__photos__photoBox']}>
+          <div className={styles['about__photos__photoBox-item']}>
+            <Image src={fotoArray[0]} />
+          </div>
+          <div className={styles['about__photos__photoBox-item']}>
+            <p className={styles['about__photos__photoBox-text']}>
+              {aboutTextDataDesctop[5]}
+            </p>
+            <Image src={fotoArray[1]} />
+          </div>
+        </div>
+      </section>
+
+      <section className={styles['about__photos']}>
+        <p>{aboutTextDataDesctop[6]}</p>
+        <p>{aboutTextDataDesctop[7]}</p>
+        <div className={styles['about__photos__tape']}>
+          {fotoArray.slice(2).map((foto, index) => (
+            <Image
+              key={foto.src}
+              src={foto}
+              className={styles['about__photos__tape-item']}
+            />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

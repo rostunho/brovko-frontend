@@ -1,6 +1,6 @@
 import Loader from 'components/Loader';
 import { lazy, Suspense } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 const LazyRegisterUserPage = lazy(() =>
   import('pages/RegisterUserPage/RegisterUserPage')

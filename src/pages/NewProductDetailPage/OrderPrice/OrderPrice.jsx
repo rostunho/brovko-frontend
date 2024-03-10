@@ -1,7 +1,7 @@
 import { useState, useEffect, forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllOrders } from 'redux/basket/basketSelectors';
-import { addOrder, changeQuantity } from 'redux/basket/basketSlice';
+import { changeQuantity } from 'redux/basket/basketSlice';
 import { useScreen } from 'shared/hooks/useScreen';
 import QuantityButtons from 'shared/components/QuantityButtonModal/QuantityButtons';
 import Button from 'shared/components/Button';

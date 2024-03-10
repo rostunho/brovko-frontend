@@ -1,6 +1,6 @@
 import Loader from 'components/Loader';
 import { lazy, Suspense } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 const AllAdminsPage = lazy(() => import('pages/AllAdminsPage/AllAdminsPage'));
 
@@ -25,15 +25,17 @@ export default function AdminRoutes() {
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<AllAdminsPage />} />
-        <Route path="/addProduct" element={<AdminPage />}>
+        <Route path="/add-product" element={<AdminPage />}>
           <Route path=":productId" element={<AdminPage />} />
         </Route>
-        <Route path="/updateProduct" element={<ProductListPage />} />
+        <Route path="/update-product" element={<ProductListPage />} />
         <Route path="/moderate-reviews" element={<ModerateReviewPage />} />
 
         <Route path="/superadmin" element={<SuperadminPage />} />
         <Route path="/feedbacks" element={<FeedbackPage />} />
-        <Route path="/locations" element={<AdminLocationsPage />} />
+        <Route path="/add-location" element={<AdminLocationsPage />}>
+          <Route path=":locationId" element={<AdminLocationsPage />} />
+        </Route>
       </Routes>
     </Suspense>
   );

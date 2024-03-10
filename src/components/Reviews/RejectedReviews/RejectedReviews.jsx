@@ -8,7 +8,7 @@ export default function RejectedReviews({ ...props }) {
   useEffect(() => {
     (async () => {
       const { data } = await getReviewsByStatus('rejected');
-      console.log('data :>> ', data);
+      // console.log('data :>> ', data);
       setReviews([...data]);
     })();
   }, []);

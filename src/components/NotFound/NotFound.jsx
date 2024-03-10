@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import Image from 'shared/components/Image';
 import styles from './NotFound.module.scss';
 import Text from 'shared/components/Text/Text';
@@ -10,6 +11,7 @@ import images404 from './img';
 // import { getAllProducts } from 'redux/products/productsSelectors';
 
 export default function NotFound() {
+  // eslint-disable-next-line no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
 
   const keyWord = searchParams.get('key');
@@ -36,7 +38,9 @@ export default function NotFound() {
     return ramdomItems;
   };
 
+  // eslint-disable-next-line no-unused-vars
   const [currentCategories, setCurrentCategories] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [countPage, setCountPage] = useState(0);
   const [firstRender, setFirstRender] = useState(true);
   const page = searchParams.get(countPage);
@@ -95,6 +99,7 @@ export default function NotFound() {
 
   useEffect(() => {
     generateRamdomImage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -109,6 +114,7 @@ export default function NotFound() {
     } else {
       setFirstRender(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   const handleClick = e => {
@@ -122,7 +128,7 @@ export default function NotFound() {
         <div className={styles.spinWrapper}>
           <a
             href="#"
-            aria-label='Кнопка обертаючогося смаколика'
+            aria-label="Кнопка обертаючогося смаколика"
             className={styles.randomLink}
             onClick={e => handleClick(e)}
           >

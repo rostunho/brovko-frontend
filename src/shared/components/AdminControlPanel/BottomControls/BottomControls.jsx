@@ -29,7 +29,7 @@ export default function BottomControls({ ...props }) {
       {showAllButtons && (
         <>
           <li className={styles['buttons-item']}>
-            <button admin className={styles.button} onClick={onAddClick}>
+            <button className={styles.button} onClick={onAddClick}>
               <AddIcon
                 size={40}
                 iconColor="#fefefe"
@@ -39,7 +39,6 @@ export default function BottomControls({ ...props }) {
           </li>
           <li className={styles['buttons-item']}>
             <button
-              admin
               className={styles.button}
               disabled={editDisabled}
               onClick={onEditClick}
@@ -53,7 +52,6 @@ export default function BottomControls({ ...props }) {
           </li>
           <li className={styles['buttons-item']}>
             <button
-              admin
               className={styles.button}
               size="md"
               disabled={deleteDisabled}
@@ -68,7 +66,6 @@ export default function BottomControls({ ...props }) {
           </li>
           <li className={styles['buttons-item']}>
             <button
-              admin
               className={styles.button}
               size="md"
               onClick={handleViewMode}
@@ -84,7 +81,6 @@ export default function BottomControls({ ...props }) {
       )}
       <li className={styles['buttons-item']}>
         <button
-          admin
           className={styles.button}
           size="md"
           onClick={() => setShowAllButtons(!showAllButtons)}
