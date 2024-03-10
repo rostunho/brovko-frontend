@@ -89,7 +89,7 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
 
   const [initialTouchX, setInitialTouchX] = useState(null);
   const [initialTouchY, setInitialTouchY] = useState(null);
-  const imagesRef = useRef([]);
+  // const imagesRef = useRef([]);
 
   const handleTouchStart = (e, index) => {
     setDraggedImageIndex(index);
@@ -101,49 +101,111 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
 
   const handleTouchMove = (e, index) => {
     if (draggedImageIndex !== null) {
+      document.body.style.overflow = 'hidden';
       const touch = e.changedTouches[0];
       const offsetX = touch.clientX - initialTouchX;
       const offsetY = touch.clientY - initialTouchY;
 
       e.currentTarget.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
       e.currentTarget.style.zIndex = '9999';
+      e.currentTarget.style.cursor = 'move';
     }
-    document.body.style.overflow = 'hidden';
   };
 
   const handleTouchEnd = (e, index) => {
     console.log(e.currentTarget.style);
     e.currentTarget.style.display = 'none';
     e.currentTarget.style.zIndex = '';
+    e.currentTarget.style.cursor = '';
 
     const touch = e.changedTouches[0];
     var touchedElement = document.elementFromPoint(
       touch.clientX,
       touch.clientY
     );
-    const toIndex = Number(touchedElement.id);
-
-    if (
-      typeof toIndex === 'number' &&
-      draggedImageIndex !== null &&
-      draggedImageIndex !== toIndex
-    ) {
-      const draggedPicture = selectedPicturesReview[draggedImageIndex];
-      const updatedPictures = [...selectedPicturesReview];
-      updatedPictures.splice(draggedImageIndex, 1);
-      updatedPictures.splice(toIndex, 0, draggedPicture);
-      const reorderedPictures = updatedPictures.map((picture, index) => ({
-        ...picture,
-        id: index,
-      }));
-      setSelectedPicturesReview(reorderedPictures);
-      setDraggedImageIndex(null);
+    if (!touchedElement) {
       document.body.style.overflow = 'auto';
       e.currentTarget.style.display = '';
       e.currentTarget.style.transform = `translate(0px, 0px)`;
       e.currentTarget.classList.remove(styles['dragged-image']);
+      return;
     }
-  };
+    console.log(touchedElement);
+    // if (null && !touchedElement.id) return;
+    const toIndex = selectedPicturesReview.findIndex(
+      picture => Number(picture.id) === Number(touchedElement.id)
+    );
+console.log(toIndex);
+    if (toIndex === -1) {
+      document.body.style.overflow = 'auto';
+      e.currentTarget.style.display = '';
+      e.currentTarget.style.transform = `translate(0px, 0px)`;
+      e.currentTarget.classList.remove(styles['dragged-image']);
+      return;
+    }
+
+    if (selectedPicturesReview.some(picture => picture.id === touchedElement.id)) {
+      const adjustedIndex = Number(touchedElement.id) < draggedImageIndex ? toIndex : toIndex - 1;
+      console.log(adjustedIndex);
+      if (
+        typeof adjustedIndex === 'number' &&
+        draggedImageIndex !== null &&
+        draggedImageIndex !== adjustedIndex
+      ) {
+        const draggedPicture = selectedPicturesReview[draggedImageIndex];
+        const updatedPictures = [...selectedPicturesReview];
+        updatedPictures.splice(draggedImageIndex, 1);
+        updatedPictures.splice(adjustedIndex, 0, draggedPicture);
+        const reorderedPictures = updatedPictures.map((picture, index) => ({
+          ...picture,
+          id: index,
+        }));
+        document.body.style.overflow = 'auto';
+        e.currentTarget.style.display = '';
+        e.currentTarget.style.transform = `translate(0px, 0px)`;
+        e.currentTarget.classList.remove(styles['dragged-image']);
+        setSelectedPicturesReview(reorderedPictures);
+        setDraggedImageIndex(null);
+      }
+    }
+};
+    // const toIndex = selectedPicturesReview.findIndex(
+    //   picture => Number(picture.id) === Number(touchedElement.id)
+    // );
+    // console.log(toIndex);
+    // if (toIndex === -1) {
+    //   document.body.style.overflow = 'auto';
+    //   e.currentTarget.style.display = '';
+    //   e.currentTarget.style.transform = `translate(0px, 0px)`;
+    //   e.currentTarget.classList.remove(styles['dragged-image']);
+    //   return;
+    // }
+    // if (selectedPicturesReview.includes(touchedElement.id)) {
+    //   toIndex =
+    //     Number(touchedElement.id) < draggedImageIndex ? toIndex : toIndex - 1;
+    //   console.log(toIndex);
+    // }
+    // if (
+    //   typeof toIndex === 'number' &&
+    //   draggedImageIndex !== null &&
+    //   draggedImageIndex !== toIndex
+    // ) {
+    //   const draggedPicture = selectedPicturesReview[draggedImageIndex];
+    //   const updatedPictures = [...selectedPicturesReview];
+    //   updatedPictures.splice(draggedImageIndex, 1);
+    //   updatedPictures.splice(toIndex, 0, draggedPicture);
+    //   const reorderedPictures = updatedPictures.map((picture, index) => ({
+    //     ...picture,
+    //     id: index,
+    //   }));
+    //   document.body.style.overflow = 'auto';
+    //   e.currentTarget.style.display = '';
+    //   e.currentTarget.style.transform = `translate(0px, 0px)`;
+    //   e.currentTarget.classList.remove(styles['dragged-image']);
+    //   setSelectedPicturesReview(reorderedPictures);
+    //   setDraggedImageIndex(null);
+    // }
+  // };
 
   const images = selectedPicturesReview.map(({ id, url }, index) => (
     <Button
@@ -167,7 +229,7 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
         src={url}
         alt={`preview-${index + 1}`}
         className={styles['add-image-img']}
-        ref={ref => (imagesRef.current[index] = ref)}
+        // ref={ref => (imagesRef.current[index] = ref)}
       />
     </Button>
   ));
