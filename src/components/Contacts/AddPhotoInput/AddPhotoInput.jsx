@@ -139,10 +139,7 @@ const AddPhotoInput = ({ setFiles }) => {
 
   // };
 
-  const [initialTouchX, setInitialTouchX] = useState(0);
-  const [initialTouchY, setInitialTouchY] = useState(0);
-  const [touchMovementX, setTouchMovementX] = useState(0);
-  const [touchMovementY, setTouchMovementY] = useState(0);
+
 
   const handleTouchStart = (e, index) => {
     setDraggedImageIndex(index);
