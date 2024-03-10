@@ -89,10 +89,6 @@ const AddPhotoInput = ({ setFiles }) => {
 
   const handleTouchStart = (e, index) => {
     setDraggedImageIndex(index);
-    // const touch = e.touches[0];
-    // setInitialTouchX(touch.pageX);
-    // setInitialTouchY(touch.pageY);
-    console.log('handleTouchStart', index);
   };
 
   const handleTouchMove = (e, index) => {
