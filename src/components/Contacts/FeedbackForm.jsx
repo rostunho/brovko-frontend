@@ -16,7 +16,7 @@ function FeedbackForm() {
   const initialFormData = {
     name: '',
     email: '',
-    phone: '',
+    phone: '+380681231231',
     text: '',
   };
 
@@ -58,7 +58,7 @@ function FeedbackForm() {
     }
 
     files.forEach(file => {
-      formDataToSend.append('files[]', file);
+      formDataToSend.append('files[]', file.file);
     });
   
     console.log('handleSubmit files', files);
