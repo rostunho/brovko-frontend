@@ -92,61 +92,89 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
   // const imagesRef = useRef([]);
 
   const handleTouchStart = (e, index) => {
-    setDraggedImageIndex(index);
-    const touch = e.touches[0];
-    setInitialTouchX(touch.clientX);
-    setInitialTouchY(touch.clientY);
-    e.currentTarget.classList.add(styles['dragged-image']);
+    if (index !== draggedImageIndex) {
+      setDraggedImageIndex(index);
+      const touch = e.touches[0];
+      setInitialTouchX(touch.clientX);
+      setInitialTouchY(touch.clientY);
+      e.currentTarget.classList.add(styles['dragged-image']);
+    }
   };
-
+  console.log('draggedImageIndex', draggedImageIndex);
   const handleTouchMove = (e, index) => {
+    // console.log('draggedImageIndex', draggedImageIndex);
     if (draggedImageIndex !== null) {
       document.body.style.overflow = 'hidden';
+
       const touch = e.changedTouches[0];
       const offsetX = touch.clientX - initialTouchX;
       const offsetY = touch.clientY - initialTouchY;
 
-      e.currentTarget.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      e.currentTarget.style.transform = `translate(${offsetX * 2}px, ${
+        offsetY * 2
+      }px)`;
       e.currentTarget.style.zIndex = '9999';
       e.currentTarget.style.cursor = 'move';
+      // e.currentTarget.style.zoom = '-50%'
+      e.currentTarget.style.scale = 0.5;
     }
   };
 
+  const resetImageStyles = e => {
+    document.body.style.overflow = 'auto';
+    e.currentTarget.style.display = '';
+    e.currentTarget.style.transform = `translate(0px, 0px)`;
+    e.currentTarget.style.scale = '';
+
+    e.currentTarget.classList.remove(styles['dragged-image']);
+  };
+
   const handleTouchEnd = (e, index) => {
+    console.log('index end', index);
+
     console.log(e.currentTarget.style);
     e.currentTarget.style.display = 'none';
     e.currentTarget.style.zIndex = '';
-    e.currentTarget.style.cursor = '';
+    e.currentTarget.style.cursor = 'move';
 
     const touch = e.changedTouches[0];
     var touchedElement = document.elementFromPoint(
       touch.clientX,
       touch.clientY
     );
-    if (!touchedElement) {
-      document.body.style.overflow = 'auto';
-      e.currentTarget.style.display = '';
-      e.currentTarget.style.transform = `translate(0px, 0px)`;
-      e.currentTarget.classList.remove(styles['dragged-image']);
-      return;
-    }
-    console.log(touchedElement);
-    // if (null && !touchedElement.id) return;
-    const toIndex = selectedPicturesReview.findIndex(
-      picture => Number(picture.id) === Number(touchedElement.id)
-    );
-console.log(toIndex);
-    if (toIndex === -1) {
-      document.body.style.overflow = 'auto';
-      e.currentTarget.style.display = '';
-      e.currentTarget.style.transform = `translate(0px, 0px)`;
-      e.currentTarget.classList.remove(styles['dragged-image']);
+
+    const galleryRect = dropArea.current.getBoundingClientRect();
+    const isTouchInsideGallery =
+      touch.clientX >= galleryRect.left &&
+      touch.clientX <= galleryRect.right &&
+      touch.clientY >= galleryRect.top &&
+      touch.clientY <= galleryRect.bottom;
+
+    if (!isTouchInsideGallery) {
+      resetImageStyles(e);
+
       return;
     }
 
-    if (selectedPicturesReview.some(picture => picture.id === touchedElement.id)) {
-      const adjustedIndex = Number(touchedElement.id) < draggedImageIndex ? toIndex : toIndex - 1;
-      console.log(adjustedIndex);
+    console.log(touchedElement);
+
+    if (!touchedElement.id) return;
+
+    const toIndex = selectedPicturesReview.findIndex(
+      picture => Number(picture.id) === Number(touchedElement.id)
+    );
+
+    if (toIndex === -1 || toIndex > selectedPicturesReview.length) {
+      resetImageStyles(e);
+      return;
+    }
+    console.log('to index', toIndex);
+    if (
+      selectedPicturesReview.some(picture => picture.id === touchedElement.id)
+    ) {
+      const adjustedIndex =
+        Number(touchedElement.id) < draggedImageIndex ? toIndex : toIndex;
+      console.log('adjustedIndex', adjustedIndex);
       if (
         typeof adjustedIndex === 'number' &&
         draggedImageIndex !== null &&
@@ -160,51 +188,48 @@ console.log(toIndex);
           ...picture,
           id: index,
         }));
-        document.body.style.overflow = 'auto';
-        e.currentTarget.style.display = '';
-        e.currentTarget.style.transform = `translate(0px, 0px)`;
-        e.currentTarget.classList.remove(styles['dragged-image']);
+        resetImageStyles(e);
         setSelectedPicturesReview(reorderedPictures);
         setDraggedImageIndex(null);
       }
     }
-};
-    // const toIndex = selectedPicturesReview.findIndex(
-    //   picture => Number(picture.id) === Number(touchedElement.id)
-    // );
-    // console.log(toIndex);
-    // if (toIndex === -1) {
-    //   document.body.style.overflow = 'auto';
-    //   e.currentTarget.style.display = '';
-    //   e.currentTarget.style.transform = `translate(0px, 0px)`;
-    //   e.currentTarget.classList.remove(styles['dragged-image']);
-    //   return;
-    // }
-    // if (selectedPicturesReview.includes(touchedElement.id)) {
-    //   toIndex =
-    //     Number(touchedElement.id) < draggedImageIndex ? toIndex : toIndex - 1;
-    //   console.log(toIndex);
-    // }
-    // if (
-    //   typeof toIndex === 'number' &&
-    //   draggedImageIndex !== null &&
-    //   draggedImageIndex !== toIndex
-    // ) {
-    //   const draggedPicture = selectedPicturesReview[draggedImageIndex];
-    //   const updatedPictures = [...selectedPicturesReview];
-    //   updatedPictures.splice(draggedImageIndex, 1);
-    //   updatedPictures.splice(toIndex, 0, draggedPicture);
-    //   const reorderedPictures = updatedPictures.map((picture, index) => ({
-    //     ...picture,
-    //     id: index,
-    //   }));
-    //   document.body.style.overflow = 'auto';
-    //   e.currentTarget.style.display = '';
-    //   e.currentTarget.style.transform = `translate(0px, 0px)`;
-    //   e.currentTarget.classList.remove(styles['dragged-image']);
-    //   setSelectedPicturesReview(reorderedPictures);
-    //   setDraggedImageIndex(null);
-    // }
+  };
+  // const toIndex = selectedPicturesReview.findIndex(
+  //   picture => Number(picture.id) === Number(touchedElement.id)
+  // );
+  // console.log(toIndex);
+  // if (toIndex === -1) {
+  //   document.body.style.overflow = 'auto';
+  //   e.currentTarget.style.display = '';
+  //   e.currentTarget.style.transform = `translate(0px, 0px)`;
+  //   e.currentTarget.classList.remove(styles['dragged-image']);
+  //   return;
+  // }
+  // if (selectedPicturesReview.includes(touchedElement.id)) {
+  //   toIndex =
+  //     Number(touchedElement.id) < draggedImageIndex ? toIndex : toIndex - 1;
+  //   console.log(toIndex);
+  // }
+  // if (
+  //   typeof toIndex === 'number' &&
+  //   draggedImageIndex !== null &&
+  //   draggedImageIndex !== toIndex
+  // ) {
+  //   const draggedPicture = selectedPicturesReview[draggedImageIndex];
+  //   const updatedPictures = [...selectedPicturesReview];
+  //   updatedPictures.splice(draggedImageIndex, 1);
+  //   updatedPictures.splice(toIndex, 0, draggedPicture);
+  //   const reorderedPictures = updatedPictures.map((picture, index) => ({
+  //     ...picture,
+  //     id: index,
+  //   }));
+  //   document.body.style.overflow = 'auto';
+  //   e.currentTarget.style.display = '';
+  //   e.currentTarget.style.transform = `translate(0px, 0px)`;
+  //   e.currentTarget.classList.remove(styles['dragged-image']);
+  //   setSelectedPicturesReview(reorderedPictures);
+  //   setDraggedImageIndex(null);
+  // }
   // };
 
   const images = selectedPicturesReview.map(({ id, url }, index) => (
