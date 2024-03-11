@@ -161,3 +161,11 @@
 .dragged-image {
   opacity: 0.5; /* Встановлюємо прозорість на 50% */
 }
+
+.titleText {
+  margin-bottom: 4px;
+}
+
+.errorTextQuantity {
+  color: var(--error-color);
+}

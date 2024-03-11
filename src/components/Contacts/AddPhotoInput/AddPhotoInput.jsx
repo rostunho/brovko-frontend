@@ -85,6 +85,7 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
       setSelectedPicturesReview(reorderedPictures);
       console.log('handleDrop', reorderedPictures);
     }
+    setDraggedImageIndex(null);
   };
 
   const [initialTouchX, setInitialTouchX] = useState(null);
@@ -113,6 +114,7 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
       e.currentTarget.style.transform = `translate(${offsetX * 2}px, ${
         offsetY * 2
       }px)`;
+
       e.currentTarget.style.zIndex = '9999';
       e.currentTarget.style.cursor = 'move';
       // e.currentTarget.style.zoom = '-50%'
@@ -143,6 +145,7 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
       touch.clientY
     );
 
+    console.log('touchedElement', touchedElement);
     const galleryRect = dropArea.current.getBoundingClientRect();
     const isTouchInsideGallery =
       touch.clientX >= galleryRect.left &&
@@ -157,43 +160,45 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
     }
 
     console.log(touchedElement);
+    resetImageStyles(e);
 
     if (!touchedElement.id) return;
+    const adjustedIndex =
+      Number(touchedElement.id) < draggedImageIndex
+        ? Number(touchedElement.id)
+        : Number(touchedElement.id) - 1;
+
+    console.log('adjustedIndex', adjustedIndex);
 
     const toIndex = selectedPicturesReview.findIndex(
-      picture => Number(picture.id) === Number(touchedElement.id)
+      picture => Number(picture.id) === adjustedIndex
     );
 
+    console.log('to index');
     if (toIndex === -1 || toIndex > selectedPicturesReview.length) {
       resetImageStyles(e);
       return;
     }
-    console.log('to index', toIndex);
+
     if (
-      selectedPicturesReview.some(picture => picture.id === touchedElement.id)
+      typeof adjustedIndex === 'number' &&
+      draggedImageIndex !== null &&
+      draggedImageIndex !== adjustedIndex
     ) {
-      const adjustedIndex =
-        Number(touchedElement.id) < draggedImageIndex ? toIndex : toIndex;
-      console.log('adjustedIndex', adjustedIndex);
-      if (
-        typeof adjustedIndex === 'number' &&
-        draggedImageIndex !== null &&
-        draggedImageIndex !== adjustedIndex
-      ) {
-        const draggedPicture = selectedPicturesReview[draggedImageIndex];
-        const updatedPictures = [...selectedPicturesReview];
-        updatedPictures.splice(draggedImageIndex, 1);
-        updatedPictures.splice(adjustedIndex, 0, draggedPicture);
-        const reorderedPictures = updatedPictures.map((picture, index) => ({
-          ...picture,
-          id: index,
-        }));
-        resetImageStyles(e);
-        setSelectedPicturesReview(reorderedPictures);
-        setDraggedImageIndex(null);
-      }
+      const draggedPicture = selectedPicturesReview[draggedImageIndex];
+      const updatedPictures = [...selectedPicturesReview];
+      updatedPictures.splice(draggedImageIndex, 1);
+      updatedPictures.splice(adjustedIndex, 0, draggedPicture);
+      const reorderedPictures = updatedPictures.map((picture, index) => ({
+        ...picture,
+        id: index,
+      }));
+
+      setSelectedPicturesReview(reorderedPictures);
+      setDraggedImageIndex(null);
     }
   };
+
   // const toIndex = selectedPicturesReview.findIndex(
   //   picture => Number(picture.id) === Number(touchedElement.id)
   // );
@@ -390,6 +395,21 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
       {images}
       {inputPhotos()}
       {modalIsOpen && modalWindow}
+
+      {selectedPicturesReview.length < 5 && (
+        <>
+          <p
+            className={`${styles.titleText} ${
+              errorTextQuantity ? styles.errorTextQuantity : ''
+            }`}
+          >
+            {errorTextQuantity ||
+              `Ви можете додавати до ${
+                5 - selectedPicturesReview.length
+              } фото у форматі .jpg, .jpeg, .png. Кожен файл не може перевищувати 10 Мб.`}
+          </p>
+        </>
+      )}
     </div>
   );
 };

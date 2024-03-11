@@ -51,9 +51,19 @@ function FeedbackForm() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log('files', files);
+
+    const formDataToSend = new FormData();
+    for (const key in formData) {
+      formDataToSend.append(key, formData[key]);
+    }
+
+    files.forEach(file => {
+      formDataToSend.append('files[]', file);
+    });
+  
+    console.log('handleSubmit files', files);
     try {
-      await addFeedback(formData, setFormData);
+      await addFeedback(formDataToSend, setFormData);
       setFormData(prevData => ({ ...prevData, text: '' }));
       setShowThankYouModal(true);
     } catch (error) {
