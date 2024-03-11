@@ -15,15 +15,14 @@ export default function OrderList({
   const products = showBascketOrders();
 
   const [totalAmount, setTotalAmount] = useState(0);
-  const [totalValue, setTotalValue] = useState(1);
 
   useEffect(() => {
     const totalAmount = products.reduce((total, { price, value }) => {
-      return total + price * totalValue || value;
+      return total + price * value;
     }, 0);
 
     setTotalAmount(totalAmount);
-  }, [products, totalValue]);
+  }, [products]);
 
   const orderList = Array.isArray(products)
     ? products.map(({ _id, name, note, picture, price, value }) => (
@@ -37,7 +36,6 @@ export default function OrderList({
             val={value}
             setModalDelete={setModalDelete}
             setOrderId={setOrderId}
-            setTotalValue={setTotalValue}
           />
         </li>
       ))
