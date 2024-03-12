@@ -17,7 +17,7 @@ function FeedbackForm() {
   const initialFormData = {
     name: '',
     email: '',
-    phone: '+380681231231',
+    phone: '',
     text: '',
   };
 

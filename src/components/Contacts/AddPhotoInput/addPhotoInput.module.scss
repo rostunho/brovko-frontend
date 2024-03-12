@@ -67,6 +67,7 @@
 }
 
 .add-image-button {
+  position: relative;
   width: 60px;
   min-width: 60px;
   height: 60px;
@@ -168,4 +169,38 @@
 
 .errorTextQuantity {
   color: var(--error-color);
+}
+
+.btn {
+  min-width: 120px;
+
+  width: 120px;
+  height: 120px;
+  // margin-top: 60px;
+  border-radius: 8px;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.trash {
+  // color: #191c2c;
+
+  stroke: var(--black-text-color);
+  z-index: 999;
+
+  color-interpolation-filters: sRGB;
+
+  filter: drop-shadow(0 0 0 #ffffff);
+}
+
+.deleteIcon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: transparent;
+  color: transparent;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
 }

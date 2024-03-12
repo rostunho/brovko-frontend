@@ -7,6 +7,7 @@ import Image from 'shared/components/Image';
 import AddIconImage from 'shared/icons/AddIconImage';
 import Modal from 'shared/components/Modal/Modal';
 import { useRef } from 'react';
+import TrashIcon from 'shared/icons/TrashIcon';
 
 const AddPhotoInput = ({ files = [], setFiles }) => {
   const [selectedPicturesReview, setSelectedPicturesReview] = useState(
@@ -261,6 +262,17 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
         className={styles['add-image-img']}
         // ref={ref => (imagesRef.current[index] = ref)}
       />
+      <div
+        type="button"
+        key={index + 'trash'}
+        className={styles.deleteIcon}
+        onClick={e => {
+          setPrompDelete(true);
+          openModalEditPhoto(index, url);
+        }}
+      >
+        <TrashIcon className={styles.trash} />
+      </div>
     </Button>
   ));
 
