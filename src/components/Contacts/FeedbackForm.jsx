@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { selectUser } from 'redux/user/userSelectors';
 import { addFeedback } from 'shared/services/api/brovko/feedback';
+import { toPhoneFormat, parsePhoneNumber } from 'utils';
 import Input from 'shared/components/Input';
 import Textarea from 'shared/components/Textarea';
 import Button from 'shared/components/Button';
@@ -47,6 +48,12 @@ function FeedbackForm() {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handlePhoneChange = e => {
+    setFormData(prevData => {
+      return { ...prevData, phone: parsePhoneNumber(e.target.value) };
+    });
   };
 
   const handleSubmit = async e => {
@@ -131,10 +138,10 @@ function FeedbackForm() {
           label="Номер телефону:"
           type="tel"
           name="phone"
-          placeholder="Ваш номер телефону у форматі 050-000-00-00"
+          // placeholder="Ваш номер телефону у форматі 050-000-00-00"
           required={true}
           value={formData.phone}
-          onChange={handleChange}
+          onChange={handlePhoneChange}
           // pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
         />
         <div style={{ marginTop: '16px' }}>

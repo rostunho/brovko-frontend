@@ -19,7 +19,6 @@ const QuantityButtonModal = ({
   val,
   setModalDelete,
   setOrderId,
-  setTotalValue,
 }) => {
   const { isLogin } = useSelector(selectUser);
   const [value, setValue] = useState(val || 1);
@@ -40,7 +39,6 @@ const QuantityButtonModal = ({
       dispatch(changeQuantity({ id, value }));
     }
 
-    setTotalValue(value);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
