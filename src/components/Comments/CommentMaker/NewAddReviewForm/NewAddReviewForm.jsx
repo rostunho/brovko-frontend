@@ -11,6 +11,7 @@ import StarEmptyBig from 'shared/icons/StarEmtyBig';
 // import Raiting from 'shared/components/Raiting/Raiting';
 import AddIconImage from 'shared/icons/AddIconImage';
 import styles from './NewAddReviewForm.module.scss';
+import AddPhotoInput from 'components/Contacts/AddPhotoInput';
 
 export default function NewAddReviewForm({ onClose, ...props }) {
   const [message, setMessage] = useState('');
@@ -328,6 +329,8 @@ export default function NewAddReviewForm({ onClose, ...props }) {
           {images}
           {inputPhotos()}
         </div>
+
+        <AddPhotoInput setFiles={setSelectedPicturesReview} />
 
         <Button type="submit" size="lg" className={styles['submit-button']}>
           Опублікувати
