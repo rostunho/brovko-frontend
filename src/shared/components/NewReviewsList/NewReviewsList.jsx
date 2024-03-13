@@ -8,6 +8,7 @@ import styles from './NewReviewsList.module.scss';
 export default function NewReviewsList({ style, ...props }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get('page');
+  const limit = searchParams.get('limit');
   const [reviews, setReviews] = useState([]);
   const [totalPages, setTotalPages] = useState(null);
 
@@ -27,10 +28,10 @@ export default function NewReviewsList({ style, ...props }) {
     const category = searchParams.get('comments');
 
     (async () => {
-      const updatedReviews = await getReviewsByStatus(category);
+      const updatedReviews = await getReviewsByStatus(category, page, limit);
       setReviews([...updatedReviews.reviews]);
     })();
-  }, [searchParams]);
+  }, [limit, page, searchParams]);
 
   const setPageNumber = number => {
     setSearchParams(
@@ -40,6 +41,11 @@ export default function NewReviewsList({ style, ...props }) {
       },
       { replace: true }
     );
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   return (
