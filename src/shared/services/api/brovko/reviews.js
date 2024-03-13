@@ -101,6 +101,16 @@ export const getReviewsByStatus = async (
   return data;
 };
 
+export const deleteReview = async (productId, commentId, textId) => {
+  const config = {
+    data: { productId, commentId, textId },
+  };
+
+  const response = await instance.delete('/reviews/delete', config);
+  console.log('response :>> ', response);
+  return response;
+};
+
 // тестування
 // controlReview({
 //   productId: '65774bcfac9f4692259ceb3c',

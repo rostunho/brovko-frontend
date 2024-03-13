@@ -12,6 +12,7 @@ export default function NewReviewsList({ style, ...props }) {
   const category = searchParams.get('comments');
   const [reviews, setReviews] = useState([]);
   const [totalPages, setTotalPages] = useState(null);
+  const [refreshPage, setRefreshPage] = useState(false);
 
   useEffect(() => {
     setSearchParams({ comments: 'new', page: 1, limit: 10 }, { replace: true });
@@ -34,6 +35,24 @@ export default function NewReviewsList({ style, ...props }) {
     })();
   }, [limit, page, category]);
 
+  useEffect(() => {
+    if (!refreshPage) {
+      return;
+    }
+
+    (async () => {
+      const { reviews, totalPages } = await getReviewsByStatus(
+        category,
+        page,
+        limit
+      );
+      setReviews([...reviews]);
+      setTotalPages(totalPages);
+      setRefreshPage(false);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refreshPage]);
+
   const setPageNumber = number => {
     setSearchParams(
       existingSearchParams => {
@@ -55,7 +74,13 @@ export default function NewReviewsList({ style, ...props }) {
         {reviews &&
           reviews.length > 0 &&
           reviews.map((review, idx) => {
-            return <NewReviewItem key={idx} review={review} />;
+            return (
+              <NewReviewItem
+                key={idx}
+                review={review}
+                refresh={() => setRefreshPage(true)}
+              />
+            );
           })}
       </ul>
       <Pagination
