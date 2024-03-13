@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import NewReviewsList from 'shared/components/NewReviewsList/NewReviewsList';
 import Heading from 'shared/components/Heading';
@@ -6,7 +7,8 @@ import SEO from 'components/SEO/SEO';
 
 export default function ModerateReviewPage() {
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/';
+  const [backLinkHref] = useState(location.state?.from ?? '/');
+
   return (
     <>
       <Heading withGoBack fromHC={backLinkHref}>

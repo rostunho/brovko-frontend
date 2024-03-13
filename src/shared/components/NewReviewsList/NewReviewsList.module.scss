@@ -1,1 +1,13 @@
+.list {
+  max-width: 480px;
+  margin: 0 auto 32px;
 
+  @media screen and (min-width: 1280px) {
+    max-width: 606px;
+    margin: 0 auto 40px;
+  }
+}
+
+.list li:not(:last-child) {
+  margin-bottom: 8px;
+}

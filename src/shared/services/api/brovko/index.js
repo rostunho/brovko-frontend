@@ -19,5 +19,6 @@ export {
   rejectReview,
   getReviewsByStatus,
   getReviewsByProductId,
+  deleteReview,
 } from './reviews';
 export { register, login, current, logout } from './user';

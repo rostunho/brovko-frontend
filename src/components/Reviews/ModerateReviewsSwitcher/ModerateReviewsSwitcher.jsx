@@ -11,7 +11,16 @@ export default function ModerateReviewsSwitcher({
   const [, setSearchParams] = useSearchParams();
 
   const changeCommentsCategory = category => {
-    setSearchParams({ comments: category }, { replace: true });
+    // setSearchParams({ comments: category }, { replace: true });
+
+    setSearchParams(
+      existingSearchParams => {
+        existingSearchParams.set('comments', category);
+        existingSearchParams.set('page', 1);
+        return existingSearchParams;
+      },
+      { replace: true }
+    );
   };
   return (
     <>

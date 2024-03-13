@@ -1,9 +1,13 @@
 import { useState } from 'react';
-import { approveReview, rejectReview } from 'shared/services/api/brovko';
+import {
+  approveReview,
+  rejectReview,
+  deleteReview,
+} from 'shared/services/api/brovko';
 import Rectangle from 'components/Rectangle';
 import CrossIcon from 'shared/icons/CrossIcon';
 import CheckIcon from 'shared/icons/CheckIcon';
-// import BasketSmall from 'shared/icons/BasketSmall';
+import BasketSmall from 'shared/icons/BasketSmall';
 import styles from './ReviewItemAdminBar.module.scss';
 
 export default function ReviewItemAdminBar({
@@ -12,11 +16,27 @@ export default function ReviewItemAdminBar({
   date,
   ids,
   className,
+  refresh,
   ...props
 }) {
   const [showApprovePrompt, setShowApprovePrompt] = useState(false);
   const [showRejectPrompt, setShowRejectPrompt] = useState(false);
-  // const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+  const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+
+  const handleApproveReview = async () => {
+    await approveReview(ids.productId, ids.commentId, ids.textId);
+    refresh();
+  };
+
+  const handleRejectReview = async () => {
+    await rejectReview(ids.productId, ids.commentId, ids.textId);
+    refresh();
+  };
+
+  const handleDeleteReview = async () => {
+    await deleteReview(ids.productId, ids.commentId, ids.textId);
+    refresh();
+  };
 
   return (
     <div className={`${styles.container} ${className ? className : ''}`}>
@@ -43,9 +63,7 @@ export default function ReviewItemAdminBar({
               className={`${styles.button} ${styles.approve} ${
                 mode === 'new' ? styles.wide : ''
               }`}
-              onClick={() =>
-                approveReview(ids.productId, ids.commentId, ids.textId)
-              }
+              onClick={handleApproveReview}
               onMouseEnter={() => setShowApprovePrompt(true)}
               onMouseLeave={() => setShowApprovePrompt(false)}
             >
@@ -62,9 +80,7 @@ export default function ReviewItemAdminBar({
               className={`${styles.button} ${styles.reject} ${
                 mode === 'new' ? styles.wide : ''
               }`}
-              onClick={() =>
-                rejectReview(ids.productId, ids.commentId, ids.textId)
-              }
+              onClick={handleRejectReview}
               onMouseEnter={() => setShowRejectPrompt(true)}
               onMouseLeave={() => setShowRejectPrompt(false)}
             >
@@ -76,11 +92,11 @@ export default function ReviewItemAdminBar({
             </button>
           )}
 
-          {/* {mode === 'rejected' && (
+          {mode === 'rejected' && (
             <button
               type="button"
               className={`${styles.button} ${styles.delete}`}
-              onClick={() => {}}
+              onClick={handleDeleteReview}
               onMouseEnter={() => setShowDeletePrompt(true)}
               onMouseLeave={() => setShowDeletePrompt(false)}
             >
@@ -89,7 +105,7 @@ export default function ReviewItemAdminBar({
                 <p className={styles.prompt}>Видалити</p>
               )}
             </button>
-          )} */}
+          )}
         </div>
       </div>
     </div>
