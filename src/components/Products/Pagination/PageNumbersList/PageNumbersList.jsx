@@ -6,6 +6,7 @@ const PageNumbersList = ({
   totalPagesArray,
   totalPages,
   page,
+  admin,
   handleChangePage,
 }) => {
   const screenWidth = useScreenWidth();
@@ -19,7 +20,7 @@ const PageNumbersList = ({
                 key={pageNumber}
                 className={`${style.pageNumber} ${
                   pageNumber === page ? style.active : ''
-                }`}
+                } ${admin ? style.admin : ''}`}
                 onClick={() => handleChangePage(pageNumber)}
               >
                 {pageNumber}
@@ -61,7 +62,7 @@ const PageNumbersList = ({
                     key={pageNumber}
                     className={`${style.pageNumber} ${
                       pageNumber === page ? style.active : ''
-                    }`}
+                    } `}
                     onClick={() => handleChangePage(pageNumber)}
                   >
                     {pageNumber}
@@ -104,7 +105,7 @@ const PageNumbersList = ({
               key={pageNumber}
               className={`${style.pageNumber} ${
                 pageNumber === page ? style.active : ''
-              }`}
+              } `}
               onClick={() => handleChangePage(pageNumber)}
             >
               {pageNumber}
@@ -126,7 +127,7 @@ const PageNumbersList = ({
                   key={pageNumber}
                   className={`${style.pageNumber} ${
                     pageNumber === page ? style.active : ''
-                  }`}
+                  } `}
                   onClick={() => handleChangePage(pageNumber)}
                 >
                   {pageNumber}

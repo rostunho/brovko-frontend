@@ -76,23 +76,29 @@ export const approveReview = async (productId, commentId, textId) => {
   return response;
 };
 
-export const rejectReview = async (productId, commentId, textId) => {
+export const rejectReview = async (productId, commentId, textId, admin) => {
   const response = await controlReview({ productId, commentId, textId }, false);
   // console.log('response into rejectReview', response);
   return response;
 };
 
-export const getReviewsByStatus = async (status = 'new') => {
+export const getReviewsByStatus = async (
+  status = 'new',
+  page = 1,
+  limit = 12
+) => {
   // приймає лише значення "new", "approved", "rejected"
 
   // console.log('status into API-function :>> ', status);
 
-  const body = { status: status };
+  // const body = { status: status };
 
-  const response = await instance.patch('/reviews/by-status', body);
-  // console.log('response into getReviewsByStatus', response);
+  const { data } = await instance.get(
+    `/reviews/by-status/${status}/${page}/${limit}`
+  );
+  // console.log('data into getReviewsByStatus', data);
 
-  return response;
+  return data;
 };
 
 // тестування
