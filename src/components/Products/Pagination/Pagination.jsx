@@ -2,7 +2,7 @@ import Button from 'shared/components/Button';
 import PageNumbersList from './PageNumbersList';
 import style from './Pagination.module.scss';
 
-const Pagination = ({ page, totalPages, onChangePage }) => {
+const Pagination = ({ page, totalPages, admin, onChangePage }) => {
   const totalPagesArray = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   const handleChangePage = pageNumber => {
@@ -29,6 +29,7 @@ const Pagination = ({ page, totalPages, onChangePage }) => {
         <div className={style.buttons}>
           <Button
             mode="goBack"
+            admin={admin}
             className={`${style.arrowPrev} ${page === 1 ? style.disabled : ''}`}
             onClick={onPrevPageClick}
           />
@@ -36,10 +37,12 @@ const Pagination = ({ page, totalPages, onChangePage }) => {
             totalPagesArray={totalPagesArray}
             totalPages={totalPages}
             page={page}
+            admin={admin}
             handleChangePage={handleChangePage}
           />
           <Button
             mode="goBack"
+            admin={admin}
             className={`${style.arrowNext} ${
               page === totalPages ? style.disabled : ''
             }`}

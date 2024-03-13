@@ -2,6 +2,12 @@
   display: flex;
   justify-content: space-between;
   padding: 16px 10.5px 16px;
+  max-width: 480px;
+  margin: 0 auto;
+
+  @media screen and (min-width: 1280px) {
+    max-width: 606px;
+  }
 }
 
 .list li {

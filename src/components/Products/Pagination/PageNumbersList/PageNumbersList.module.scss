@@ -22,3 +22,14 @@
   color: var(--white-text-color);
   background-color: var(--accent-color);
 }
+
+.admin {
+  color: #2480dc;
+  border-radius: 50%;
+  border: 1px solid #2480dc;
+}
+
+.active.admin {
+  color: var(--white-text-color);
+  background-color: #2480dc;
+}

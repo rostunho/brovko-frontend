@@ -26,7 +26,9 @@ export default function Button({
       type={type || 'button'}
       className={`${styles.button} ${styles[`button_${size}`]} ${
         styles[`button_${mode}`]
-      } ${admin ? styles['admin-button'] : ''} ${className ? className : ''}`}
+      } ${admin && mode !== 'goBack' ? styles['admin-button'] : ''} ${
+        className ? className : ''
+      }`}
       style={{ ...style }}
       onClick={onClick}
       disabled={disabled}
@@ -34,7 +36,7 @@ export default function Button({
     >
       {mode === 'adding' && <AddingPlusIcon small={size === 'sm'} />}
       {mode === 'settings' && <SettingsWheelIcon />}
-      {mode === 'goBack' && <GoBackIcon />}
+      {mode === 'goBack' && <GoBackIcon admin={admin} />}
       {children}
       {mode === 'sort' && <DropdownToggler className={styles.icon} />}
       {mode === 'close' && <CrossIcon large={size === 'lg'} />}

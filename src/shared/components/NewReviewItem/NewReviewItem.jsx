@@ -8,7 +8,7 @@ import Image from '../Image';
 import ReviewRating from 'components/ProductDetail/ProductReview/ReviewRating';
 import styles from './NewReviewItem.module.scss';
 
-export default function NewReviewItem({ review, mode, className }) {
+export default function NewReviewItem({ review, mode, className, refresh }) {
   const [searchParams] = useSearchParams();
   const userStatus = useSelector(selectUserStatus);
   const isAdmin = userStatus === 'manager' || userStatus === 'superadmin';
@@ -56,6 +56,7 @@ export default function NewReviewItem({ review, mode, className }) {
             commentId: review.commentId,
             textId: review.textId,
           }}
+          refresh={refresh}
         />
       )}
     </li>
