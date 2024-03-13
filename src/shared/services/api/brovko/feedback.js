@@ -4,14 +4,14 @@ export const addFeedback = async body => {
   // console.log('body', body);
   try {
 console.log(body)
-    for (const pair of body.entries()) {
-      const [name, value] = pair;
-      if (value instanceof File) {
-        console.log(`Field name: ${name}, File: ${value.name}`);
-      } else {
-        console.log(`Field name: ${name}, Value: ${value}`);
-      }
-    }
+    // for (const pair of body.entries()) {
+    //   const [name, value] = pair;
+    //   if (value instanceof File) {
+    //     console.log(`Field name: ${name}, File: ${value.name}`);
+    //   } else {
+    //     console.log(`Field name: ${name}, Value: ${value}`);
+    //   }
+    // }
 
     const response = await instance.post('/feedbacks/add-feedback', body);
     // console.log('response', response);
