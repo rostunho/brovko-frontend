@@ -9,29 +9,30 @@ export default function NewReviewsList({ style, ...props }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get('page');
   const limit = searchParams.get('limit');
+  const category = searchParams.get('comments');
   const [reviews, setReviews] = useState([]);
   const [totalPages, setTotalPages] = useState(null);
 
   useEffect(() => {
-    setSearchParams({ comments: 'new', page: 1, limit: 12 }, { replace: true });
-    (async () => {
-      const { reviews, totalPages } = await getReviewsByStatus();
-      console.log('reviews :>> ', reviews);
-      console.log('totalPages :>> ', totalPages);
-      setReviews([...reviews]);
-      setTotalPages(totalPages);
-    })();
+    setSearchParams({ comments: 'new', page: 1, limit: 10 }, { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    const category = searchParams.get('comments');
+    if (!category || !page || !limit) {
+      return;
+    }
 
     (async () => {
-      const updatedReviews = await getReviewsByStatus(category, page, limit);
-      setReviews([...updatedReviews.reviews]);
+      const { reviews, totalPages } = await getReviewsByStatus(
+        category,
+        page,
+        limit
+      );
+      setReviews([...reviews]);
+      setTotalPages(totalPages);
     })();
-  }, [limit, page, searchParams]);
+  }, [limit, page, category]);
 
   const setPageNumber = number => {
     setSearchParams(

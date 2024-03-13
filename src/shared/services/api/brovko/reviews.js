@@ -85,7 +85,7 @@ export const rejectReview = async (productId, commentId, textId, admin) => {
 export const getReviewsByStatus = async (
   status = 'new',
   page = 1,
-  limit = 12
+  limit = 10
 ) => {
   // приймає лише значення "new", "approved", "rejected"
 

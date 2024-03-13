@@ -16,6 +16,7 @@ export default function ModerateReviewsSwitcher({
     setSearchParams(
       existingSearchParams => {
         existingSearchParams.set('comments', category);
+        existingSearchParams.set('page', 1);
         return existingSearchParams;
       },
       { replace: true }
