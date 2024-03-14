@@ -49,6 +49,15 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
     e.preventDefault();
     const files = Array.from(e.target.files);
     if (files.length > 0 && files.length <= xFiles) {
+      for (let i = 0; i < files.length; i += 1) {
+        const file = files[i];
+        if (file.size > 10 * 1024 * 1024) {
+          setErrorTextQuantity(
+            `Файл ${file.name} занадто великий! Максимальний розмір: 10MB.`
+          );
+          return;
+        }
+      }
       addImages(files);
       setErrorTextQuantity(false);
     } else {
@@ -200,45 +209,7 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
     }
   };
 
-  // const toIndex = selectedPicturesReview.findIndex(
-  //   picture => Number(picture.id) === Number(touchedElement.id)
-  // );
-  // console.log(toIndex);
-  // if (toIndex === -1) {
-  //   document.body.style.overflow = 'auto';
-  //   e.currentTarget.style.display = '';
-  //   e.currentTarget.style.transform = `translate(0px, 0px)`;
-  //   e.currentTarget.classList.remove(styles['dragged-image']);
-  //   return;
-  // }
-  // if (selectedPicturesReview.includes(touchedElement.id)) {
-  //   toIndex =
-  //     Number(touchedElement.id) < draggedImageIndex ? toIndex : toIndex - 1;
-  //   console.log(toIndex);
-  // }
-  // if (
-  //   typeof toIndex === 'number' &&
-  //   draggedImageIndex !== null &&
-  //   draggedImageIndex !== toIndex
-  // ) {
-  //   const draggedPicture = selectedPicturesReview[draggedImageIndex];
-  //   const updatedPictures = [...selectedPicturesReview];
-  //   updatedPictures.splice(draggedImageIndex, 1);
-  //   updatedPictures.splice(toIndex, 0, draggedPicture);
-  //   const reorderedPictures = updatedPictures.map((picture, index) => ({
-  //     ...picture,
-  //     id: index,
-  //   }));
-  //   document.body.style.overflow = 'auto';
-  //   e.currentTarget.style.display = '';
-  //   e.currentTarget.style.transform = `translate(0px, 0px)`;
-  //   e.currentTarget.classList.remove(styles['dragged-image']);
-  //   setSelectedPicturesReview(reorderedPictures);
-  //   setDraggedImageIndex(null);
-  // }
-  // };
-
-  const images = selectedPicturesReview.map(({ id, url }, index) => (
+    const images = selectedPicturesReview.map(({ id, url }, index) => (
     <Button
       key={index}
       id={id}

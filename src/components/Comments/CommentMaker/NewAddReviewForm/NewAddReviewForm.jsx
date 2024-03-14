@@ -6,10 +6,10 @@ import { submitReview } from 'shared/services/api/brovko/reviews';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import Modal from 'shared/components/Modal/Modal';
 import Button from 'shared/components/Button';
-import Image from 'shared/components/Image';
+// import Image from 'shared/components/Image';
 import StarEmptyBig from 'shared/icons/StarEmtyBig';
 // import Raiting from 'shared/components/Raiting/Raiting';
-import AddIconImage from 'shared/icons/AddIconImage';
+// import AddIconImage from 'shared/icons/AddIconImage';
 import styles from './NewAddReviewForm.module.scss';
 import AddPhotoInput from 'components/Contacts/AddPhotoInput';
 
