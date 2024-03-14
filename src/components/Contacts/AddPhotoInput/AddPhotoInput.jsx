@@ -265,13 +265,13 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
       <div
         type="button"
         key={index + 'trash'}
-        className={styles.deleteIcon}
+        className={styles['deleteIcon']}
         onClick={e => {
           setPrompDelete(true);
           openModalEditPhoto(index, url);
         }}
       >
-        <TrashIcon className={styles.trash} />
+        <TrashIcon className={styles['trash']} />
       </div>
     </Button>
   ));
@@ -349,10 +349,10 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
       id={modalIsId}
       url={modalIsImage}
     >
-      <div className={styles.modal}>
+      <div className={styles['modal']}>
         <p className={styles['main-text']}>
           {false
-            ? 'Видалення зображення'
+            ? 'Видалення зобраення'
             : 'Ти дійсно бажаєш видалити це фото?'}
         </p>
         <Image
@@ -366,7 +366,7 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
           <Button
             type="button"
             onClick={
-              false
+              !prompDelete
                 ? modalIsId !== 0
                   ? () => {
                       // setMain(modalIsId);
@@ -379,7 +379,7 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
                   }
             }
           >
-            {false
+            {!prompDelete
               ? modalIsId !== 0
                 ? 'Встановити головним'
                 : 'Головне'
@@ -388,10 +388,10 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
           <Button
             type="button"
             onClick={
-              false ? () => setPrompDelete(true) : () => delPhoto(modalIsId)
+              !prompDelete ? () => setPrompDelete(true) : () => delPhoto(modalIsId)
             }
           >
-            {false ? 'Видалити фото' : 'Так'}
+            {!prompDelete ? 'Видалити фото' : 'Так'}
           </Button>
         </div>
       </div>
@@ -411,8 +411,8 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
       {selectedPicturesReview.length < 5 && (
         <>
           <p
-            className={`${styles.titleText} ${
-              errorTextQuantity ? styles.errorTextQuantity : ''
+            className={`${styles['titleText']} ${
+              errorTextQuantity ? styles['errorTextQuantity'] : ''
             }`}
           >
             {errorTextQuantity ||

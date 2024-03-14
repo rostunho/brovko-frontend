@@ -1,57 +1,57 @@
 @import 'theme/abstract/mixins';
 
-.container {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  width: 100%;
-  padding: 24px 16px 40px;
-  // margin: 20px 0;
-  border: 1px solid var(--stroke, #f0f0f0);
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.15);
-  @include text-styles(Nunito, 12px);
-}
+// .container {
+//   display: flex;
+//   flex-direction: column;
+//   position: relative;
+//   width: 100%;
+//   padding: 24px 16px 40px;
+//   // margin: 20px 0;
+//   border: 1px solid var(--stroke, #f0f0f0);
+//   border-radius: 8px;
+//   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.15);
+//   @include text-styles(Nunito, 12px);
+// }
 
-.prompt {
-  font-size: 14px;
-  line-height: normal;
-  color: #a3a5a4;
-  margin-bottom: 8px;
-  //   color: red;
-}
+// .prompt {
+//   font-size: 14px;
+//   line-height: normal;
+//   color: #a3a5a4;
+//   margin-bottom: 8px;
+//   //   color: red;
+// }
 
-.label {
-  display: block;
-  font-size: 14px;
-  line-height: normal;
-  color: #a3a5a4;
-}
+// .label {
+//   display: block;
+//   font-size: 14px;
+//   line-height: normal;
+//   color: #a3a5a4;
+// }
 
-.star-block {
-  height: 32px;
-  margin-bottom: 12px;
-}
+// .star-block {
+//   height: 32px;
+//   margin-bottom: 12px;
+// }
 
-.textarea {
-  display: block;
-  width: 100%;
-  margin-top: 4px;
-  padding: 8px 16px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 16px;
-  line-height: 1.2;
-  color: var(--gray-color);
-  outline: none;
-  resize: none;
-  border: 1px solid #7b7b7b;
-  border-radius: 8px;
-  background-color: transparent;
-}
+//   .textarea {
+//     display: block;
+//     width: 100%;
+//     margin-top: 4px;
+//     padding: 8px 16px;
+//     font-family: 'Nunito', sans-serif;
+//     font-size: 16px;
+//     line-height: 1.2;
+//     color: var(--gray-color);
+//     outline: none;
+//     resize: none;
+//     border: 1px solid #7b7b7b;
+//     border-radius: 8px;
+//     background-color: transparent;
+//   }
 
-.submit-button {
-  margin-top: 32px;
-}
+// .submit-button {
+//   margin-top: 32px;
+// }
 
 .add-image-container {
   display: flex;
@@ -71,7 +71,7 @@
   width: 60px;
   min-width: 60px;
   height: 60px;
-  margin-top: 4px;
+  // margin-top: 4px;
   border-radius: 4px;
   padding: 0;
   overflow: hidden;
@@ -135,11 +135,11 @@
   border-radius: 8px;
 }
 
-.main-text {
-  font-size: 14px;
-  color: #a3a5a4;
-  margin-bottom: 16px;
-}
+// .main-text {
+//   font-size: 14px;
+//   color: var(--black-text-color);
+//   margin-bottom: 16px;
+// }
 
 .modal-img {
   margin-bottom: 20px;
@@ -171,17 +171,17 @@
   color: var(--error-color);
 }
 
-.btn {
-  min-width: 120px;
+// .btn {
+//   min-width: 120px;
 
-  width: 120px;
-  height: 120px;
-  // margin-top: 60px;
-  border-radius: 8px;
-  padding: 0;
-  overflow: hidden;
-  position: relative;
-}
+//   width: 120px;
+//   height: 120px;
+//   // margin-top: 60px;
+//   border-radius: 8px;
+//   padding: 0;
+//   overflow: hidden;
+//   position: relative;
+// }
 
 .trash {
   // color: #191c2c;
@@ -201,8 +201,6 @@
 
 .deleteIcon {
   position: absolute;
-  // top: 8px;
-  // right: 8px;
   width: 20px;
   height: 20px;
   // background-color: var(--black-text-color);
@@ -213,39 +211,3 @@
   border-radius: 50%;
 }
 
-// /* Frame 207 */
-
-// position: absolute;
-// width: 20px;
-// height: 20px;
-// left: calc(50% - 20px/2);
-// top: calc(50% - 20px/2);
-
-// /* Ellipse 15 */
-
-// position: absolute;
-// left: 0%;
-// right: 0%;
-// top: 0%;
-// bottom: 0%;
-
-// background: rgba(25, 28, 44, 0.5);
-
-// /* system-uicons:trash */
-
-// position: absolute;
-// width: 16px;
-// height: 16px;
-// left: calc(50% - 16px/2);
-// top: calc(50% - 16px/2);
-
-// /* Vector */
-
-// position: absolute;
-// left: 16.67%;
-// right: 16.66%;
-// top: 11.9%;
-// bottom: 11.9%;
-
-// /* white_text */
-// border: 0.761905px solid #FEFEFE;
