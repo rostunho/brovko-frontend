@@ -18,10 +18,11 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
   const [modalIsId, setModalIsId] = useState(false);
   const [prompDelete, setPrompDelete] = useState(true);
   const [errorTextQuantity, setErrorTextQuantity] = useState(false);
+  const [draggedImageIndex, setDraggedImageIndex] = useState(null);
+  const [initialTouchX, setInitialTouchX] = useState(null);
+  const [initialTouchY, setInitialTouchY] = useState(null);
   const dropArea = useRef(null);
   const dispatch = useDispatch();
-
-  const [draggedImageIndex, setDraggedImageIndex] = useState(null);
 
   const openModalEditPhoto = (id, url) => {
     setModalIsId(id);
@@ -98,9 +99,14 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
     setDraggedImageIndex(null);
   };
 
-  const [initialTouchX, setInitialTouchX] = useState(null);
-  const [initialTouchY, setInitialTouchY] = useState(null);
-  // const imagesRef = useRef([]);
+  const addImageStyles = (e, offsetX, offsetY) => {
+    e.currentTarget.style.transform = `translate(${offsetX * 2}px, ${
+      offsetY * 2
+    }px)`;
+    e.currentTarget.style.zIndex = '9999';
+    e.currentTarget.style.cursor = 'move';
+    e.currentTarget.style.scale = 0.5;
+  };
 
   const handleTouchStart = (e, index) => {
     if (index !== draggedImageIndex) {
@@ -120,15 +126,13 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
       const touch = e.changedTouches[0];
       const offsetX = touch.clientX - initialTouchX;
       const offsetY = touch.clientY - initialTouchY;
-
-      e.currentTarget.style.transform = `translate(${offsetX * 2}px, ${
-        offsetY * 2
-      }px)`;
-
-      e.currentTarget.style.zIndex = '9999';
-      e.currentTarget.style.cursor = 'move';
-      // e.currentTarget.style.zoom = '-50%'
-      e.currentTarget.style.scale = 0.5;
+      addImageStyles(e, offsetX, offsetY);
+      // e.currentTarget.style.transform = `translate(${offsetX * 2}px, ${
+      //   offsetY * 2
+      // }px)`;
+      // e.currentTarget.style.zIndex = '9999';
+      // e.currentTarget.style.cursor = 'move';
+      // e.currentTarget.style.scale = 0.5;
     }
   };
 
@@ -209,7 +213,7 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
     }
   };
 
-    const images = selectedPicturesReview.map(({ id, url }, index) => (
+  const images = selectedPicturesReview.map(({ id, url }, index) => (
     <Button
       key={index}
       id={id}
@@ -233,7 +237,7 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
         className={styles['add-image-img']}
         // ref={ref => (imagesRef.current[index] = ref)}
       />
-      <div
+     {!draggedImageIndex && <div
         type="button"
         key={index + 'trash'}
         className={styles['deleteIcon']}
@@ -243,7 +247,7 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
         }}
       >
         <TrashIcon className={styles['trash']} />
-      </div>
+      </div>}
     </Button>
   ));
 
@@ -322,9 +326,7 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
     >
       <div className={styles['modal']}>
         <p className={styles['main-text']}>
-          {false
-            ? 'Видалення зобраення'
-            : 'Ти дійсно бажаєш видалити це фото?'}
+          {false ? 'Видалення зобраення' : 'Ти дійсно бажаєш видалити це фото?'}
         </p>
         <Image
           key={modalIsId}
@@ -359,7 +361,9 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
           <Button
             type="button"
             onClick={
-              !prompDelete ? () => setPrompDelete(true) : () => delPhoto(modalIsId)
+              !prompDelete
+                ? () => setPrompDelete(true)
+                : () => delPhoto(modalIsId)
             }
           >
             {!prompDelete ? 'Видалити фото' : 'Так'}
