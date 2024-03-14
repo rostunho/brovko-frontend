@@ -113,6 +113,9 @@
 }
 
 .trash {
+ 
+  pointer-events: none;
+
   // color: #191c2c;
 
   stroke: var(--black-text-color);
@@ -129,6 +132,8 @@
 }
 
 .deleteIcon {
+  pointer-events: none;
+
   position: absolute;
   width: 20px;
   height: 20px;

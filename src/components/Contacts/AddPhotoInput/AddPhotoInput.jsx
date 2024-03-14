@@ -114,19 +114,21 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
       const touch = e.touches[0];
       setInitialTouchX(touch.clientX);
       setInitialTouchY(touch.clientY);
-      e.currentTarget.classList.add(styles['dragged-image']);
+      // e.currentTarget.classList.add(styles['dragged-image']);
     }
   };
   console.log('draggedImageIndex', draggedImageIndex);
+
   const handleTouchMove = (e, index) => {
     // console.log('draggedImageIndex', draggedImageIndex);
     if (draggedImageIndex !== null) {
       document.body.style.overflow = 'hidden';
 
-      const touch = e.changedTouches[0];
-      const offsetX = touch.clientX - initialTouchX;
-      const offsetY = touch.clientY - initialTouchY;
-      addImageStyles(e, offsetX, offsetY);
+      // const touch = e.changedTouches[0];
+      // const offsetX = touch.clientX - initialTouchX;
+      // const offsetY = touch.clientY - initialTouchY;
+      handleImageMove(e, index);
+      // addImageStyles(e, offsetX, offsetY);
       // e.currentTarget.style.transform = `translate(${offsetX * 2}px, ${
       //   offsetY * 2
       // }px)`;
@@ -138,80 +140,159 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
 
   const resetImageStyles = e => {
     document.body.style.overflow = 'auto';
+    e.currentTarget.style.pointerEvents = '';
     e.currentTarget.style.display = '';
     e.currentTarget.style.transform = `translate(0px, 0px)`;
     e.currentTarget.style.scale = '';
-
+    e.currentTarget.style.zIndex = '';
     e.currentTarget.classList.remove(styles['dragged-image']);
   };
 
+  const handleImageMove = (e, index) => {
+    if (draggedImageIndex !== null && draggedImageIndex === index) {
+      const touch = e.changedTouches[0];
+      const offsetX = touch.clientX - initialTouchX;
+      const offsetY = touch.clientY - initialTouchY;
+      e.currentTarget.style.transform = `translate(${offsetX * 2}px, ${
+        offsetY * 2
+      }px)`;
+      e.currentTarget.style.zIndex = '9999';
+      e.currentTarget.style.cursor = 'move';
+      e.currentTarget.style.scale = 0.5;
+    }
+  };
+
   const handleTouchEnd = (e, index) => {
-    console.log('index end', index);
-
-    console.log(e.currentTarget.style);
-    e.currentTarget.style.display = 'none';
-    e.currentTarget.style.zIndex = '';
-    e.currentTarget.style.cursor = 'move';
-
-    const touch = e.changedTouches[0];
-    var touchedElement = document.elementFromPoint(
-      touch.clientX,
-      touch.clientY
+    if (!e.currentTarget) {
+      console.error('Елемент не був знайдений');
+      return;
+    }
+    e.currentTarget.style.pointerEvents = 'none';
+    //   e.currentTarget.style.zIndex = '';
+    //   e.currentTarget.style.cursor = 'move';
+    const touchedElement = document.elementFromPoint(
+      e.changedTouches[0].clientX,
+      e.changedTouches[0].clientY
     );
 
-    console.log('touchedElement', touchedElement);
-    const galleryRect = dropArea.current.getBoundingClientRect();
+    // const touch = e.changedTouches[0];
+      // var touchedElement = document.elementFromPoint(
+      //   touch.clientX,
+      //   touch.clientY
+      // );
+
+   const galleryRect = dropArea.current.getBoundingClientRect();
     const isTouchInsideGallery =
-      touch.clientX >= galleryRect.left &&
-      touch.clientX <= galleryRect.right &&
-      touch.clientY >= galleryRect.top &&
-      touch.clientY <= galleryRect.bottom;
+    e.changedTouches[0].clientX >= galleryRect.left &&
+    e.changedTouches[0].clientX <= galleryRect.right &&
+    e.changedTouches[0].clientY >= galleryRect.top &&
+    e.changedTouches[0].clientY <= galleryRect.bottom;
 
     if (!isTouchInsideGallery) {
       resetImageStyles(e);
-
-      return;
-    }
-
-    console.log(touchedElement);
-    resetImageStyles(e);
-
-    if (!touchedElement.id) return;
-    const adjustedIndex =
-      Number(touchedElement.id) < draggedImageIndex
-        ? Number(touchedElement.id)
-        : Number(touchedElement.id) - 1;
-
-    console.log('adjustedIndex', adjustedIndex);
-
-    const toIndex = selectedPicturesReview.findIndex(
-      picture => Number(picture.id) === adjustedIndex
-    );
-
-    console.log('to index');
-    if (toIndex === -1 || toIndex > selectedPicturesReview.length) {
-      resetImageStyles(e);
-      return;
-    }
-
-    if (
-      typeof adjustedIndex === 'number' &&
-      draggedImageIndex !== null &&
-      draggedImageIndex !== adjustedIndex
-    ) {
-      const draggedPicture = selectedPicturesReview[draggedImageIndex];
-      const updatedPictures = [...selectedPicturesReview];
-      updatedPictures.splice(draggedImageIndex, 1);
-      updatedPictures.splice(adjustedIndex, 0, draggedPicture);
-      const reorderedPictures = updatedPictures.map((picture, index) => ({
-        ...picture,
-        id: index,
-      }));
-
-      setSelectedPicturesReview(reorderedPictures);
       setDraggedImageIndex(null);
+      return;
     }
+
+    if (!touchedElement.id) {
+      resetImageStyles(e);
+      setDraggedImageIndex(null);
+      return;
+    }
+
+    // Отримати індекс елемента, на який торкнулася точка кінця перетягування
+    const touchedIndex = parseInt(touchedElement.id);
+
+    if (!isNaN(touchedIndex)) {
+      // Обробка переміщення зображення
+      if (draggedImageIndex !== null && draggedImageIndex !== touchedIndex) {
+        const draggedPicture = selectedPicturesReview[draggedImageIndex];
+        const updatedPictures = [...selectedPicturesReview];
+        updatedPictures.splice(draggedImageIndex, 1);
+        updatedPictures.splice(touchedIndex, 0, draggedPicture);
+        const reorderedPictures = updatedPictures.map((picture, index) => ({
+          ...picture,
+          id: index,
+        }));
+
+        setSelectedPicturesReview(reorderedPictures);
+      }
+    }
+    resetImageStyles(e);
+    setDraggedImageIndex(null);
   };
+
+  // const handleTouchEnd = (e, index) => {
+  //   console.log('index end', index);
+
+  //   console.log(e.currentTarget.style);
+  //   e.currentTarget.style.display = 'none';
+  //   e.currentTarget.style.zIndex = '';
+  //   e.currentTarget.style.cursor = 'move';
+
+  //   const touch = e.changedTouches[0];
+  //   var touchedElement = document.elementFromPoint(
+  //     touch.clientX,
+  //     touch.clientY
+  //   );
+
+  //   console.log('touchedElement', touchedElement);
+  //   const galleryRect = dropArea.current.getBoundingClientRect();
+  //   const isTouchInsideGallery =
+  //     touch.clientX >= galleryRect.left &&
+  //     touch.clientX <= galleryRect.right &&
+  //     touch.clientY >= galleryRect.top &&
+  //     touch.clientY <= galleryRect.bottom;
+
+  //   if (!isTouchInsideGallery) {
+  //     resetImageStyles(e);
+  //     setDraggedImageIndex(null);
+  //     return;
+  //   }
+
+  //   console.log(touchedElement);
+  //   resetImageStyles(e);
+
+  //   if (!touchedElement.id) {
+  //     resetImageStyles(e);
+  //     setDraggedImageIndex(null);
+  //     return;
+  //   }
+  //   const adjustedIndex =
+  //     Number(touchedElement.id) < draggedImageIndex
+  //       ? Number(touchedElement.id)
+  //       : Number(touchedElement.id) - 1;
+
+  //   console.log('adjustedIndex', adjustedIndex);
+
+  //   const toIndex = selectedPicturesReview.findIndex(
+  //     picture => Number(picture.id) === adjustedIndex
+  //   );
+
+  //   console.log('to index', toIndex);
+  //   if (toIndex === -1 || toIndex > selectedPicturesReview.length) {
+  //     resetImageStyles(e);
+  //     return;
+  //   }
+
+  //   if (
+  //     typeof adjustedIndex === 'number' &&
+  //     draggedImageIndex !== null &&
+  //     draggedImageIndex !== adjustedIndex
+  //   ) {
+  //     const draggedPicture = selectedPicturesReview[draggedImageIndex];
+  //     const updatedPictures = [...selectedPicturesReview];
+  //     updatedPictures.splice(draggedImageIndex, 1);
+  //     updatedPictures.splice(adjustedIndex, 0, draggedPicture);
+  //     const reorderedPictures = updatedPictures.map((picture, index) => ({
+  //       ...picture,
+  //       id: index,
+  //     }));
+
+  //     setSelectedPicturesReview(reorderedPictures);
+  //     setDraggedImageIndex(null);
+  //   }
+  // };
 
   const images = selectedPicturesReview.map(({ id, url }, index) => (
     <Button
@@ -237,17 +318,19 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
         className={styles['add-image-img']}
         // ref={ref => (imagesRef.current[index] = ref)}
       />
-     {!draggedImageIndex && <div
-        type="button"
-        key={index + 'trash'}
-        className={styles['deleteIcon']}
-        onClick={e => {
-          setPrompDelete(true);
-          openModalEditPhoto(index, url);
-        }}
-      >
-        <TrashIcon className={styles['trash']} />
-      </div>}
+      {!draggedImageIndex && (
+        <div
+          type="button"
+          key={index + 'trash'}
+          className={styles['deleteIcon']}
+          onClick={e => {
+            setPrompDelete(true);
+            openModalEditPhoto(index, url);
+          }}
+        >
+          <TrashIcon className={styles['trash']} />
+        </div>
+      )}
     </Button>
   ));
 
