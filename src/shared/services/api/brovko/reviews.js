@@ -102,11 +102,9 @@ export const getReviewsByStatus = async (
 };
 
 export const deleteReview = async (productId, commentId, textId) => {
-  const config = {
-    data: { productId, commentId, textId },
-  };
-
-  const response = await instance.delete('/reviews/delete', config);
+  const response = await instance.delete(
+    `/reviews/delete?productId=${productId}&commentId=${commentId}&textId=${textId}`
+  );
   console.log('response :>> ', response);
   return response;
 };
