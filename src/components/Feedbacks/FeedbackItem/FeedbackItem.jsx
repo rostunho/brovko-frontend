@@ -64,7 +64,7 @@ export default function FeedbackItem({ feedback, ...props }) {
               className={styles.button}
               onClick={() => updateFeedbackStatus(feedback._id, 'archived')}
             >
-              Опрацьовано
+              Архівувати
             </Button>
           )
         : null}
