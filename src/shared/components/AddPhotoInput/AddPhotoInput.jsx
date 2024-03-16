@@ -9,14 +9,14 @@ import Modal from 'shared/components/Modal/Modal';
 import { useRef } from 'react';
 import TrashIcon from 'shared/icons/TrashIcon';
 
-const AddPhotoInput = ({ files = [], setFiles }) => {
+const AddPhotoInput = ({ files = [], setFiles, maxFiles }) => {
   const [selectedPicturesReview, setSelectedPicturesReview] = useState(
-    (files = [])
+    files.map((url, index) => ({ id: index, url }))
   );
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsImage, setModalIsImage] = useState(false);
   const [modalIsId, setModalIsId] = useState(false);
-  const [prompDelete, setPrompDelete] = useState(true);
+  const [prompDelete, setPrompDelete] = useState(Boolean(maxFiles));
   const [errorTextQuantity, setErrorTextQuantity] = useState(false);
   const [draggedImageIndex, setDraggedImageIndex] = useState(null);
   const [initialTouchX, setInitialTouchX] = useState(null);
@@ -35,6 +35,33 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
     setPrompDelete(false);
   };
 
+  const setMain = idMain => {
+    setSelectedPicturesReview(prevPictures => {
+      const updatedPicturesWithNewIds = prevPictures.map((picture, index) => ({
+        ...picture,
+        id: idMain && index === idMain ? 0 : idMain > index ? index + 1 : index,
+      }));
+
+      const uniquePictures = updatedPicturesWithNewIds.reduce(
+        (acc, picture) => {
+          if (!acc.find(p => p.id === picture.id)) {
+            acc.push(picture);
+          }
+          return acc;
+        },
+        []
+      );
+
+      const sortedPictures = [...uniquePictures];
+      sortedPictures.sort((a, b) => a.id - b.id);
+
+      return sortedPictures;
+    });
+
+    closeModalEditPhoto();
+    dispatch(addPopupOperation('Фото встановлено головним'));
+  };
+
   const delPhoto = id => {
     setSelectedPicturesReview(prevPictures => {
       const updatedPictures = prevPictures
@@ -49,7 +76,19 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
   const handleImageChange = (e, xFiles = 5 - selectedPicturesReview.length) => {
     e.preventDefault();
     const files = Array.from(e.target.files);
-    if (files.length > 0 && files.length <= xFiles) {
+
+    console.log('xFiles', xFiles);
+
+    if (files.length === 0) return;
+    if (maxFiles !== null) {
+      if (xFiles >= 0 && files.length > xFiles) {
+        dispatch(
+          addPopupOperation(`Можна завантажити не більше ${xFiles} файлів`)
+        );
+        setErrorTextQuantity(`Ви обрали більше ніж ${xFiles} фото`);
+        return;
+      }
+
       for (let i = 0; i < files.length; i += 1) {
         const file = files[i];
         if (file.size > 10 * 1024 * 1024) {
@@ -59,20 +98,48 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
           return;
         }
       }
-      addImages(files);
-      setErrorTextQuantity(false);
-    } else {
-      dispatch(
-        addPopupOperation(`Можна завантажити не більше ${xFiles} файлів`)
-      );
-      setErrorTextQuantity(`Ви обрали більше ніж ${xFiles} фото`);
     }
+
+    addImages(files);
+    setErrorTextQuantity(false);
   };
+
+  // const handleImageChange = (e, xFiles = 5 - selectedPicturesReview.length) => {
+  //   e.preventDefault();
+  //   if (xFiles < 0) {
+  //     const files = Array.from(e.target.files);
+  //     if (files.length > 0 && files.length <= xFiles) {
+  //       for (let i = 0; i < files.length; i += 1) {
+  //         const file = files[i];
+  //       }
+  //   }
+  //   addImages(files);
+  // } else  {if {
+  //   const files = Array.from(e.target.files);
+  //   if (files.length > 0 && files.length <= xFiles) {
+  //     for (let i = 0; i < files.length; i += 1) {
+  //       const file = files[i];
+  //       if (file.size > 10 * 1024 * 1024) {
+  //         setErrorTextQuantity(
+  //           `Файл ${file.name} занадто великий! Максимальний розмір: 10MB.`
+  //         );
+  //         return;
+  //       }
+  //     }
+  //     addImages(files);
+  //     setErrorTextQuantity(false);
+  //   }} else {
+  //     dispatch(
+  //       addPopupOperation(`Можна завантажити не більше ${xFiles} файлів`)
+  //     );
+  //     setErrorTextQuantity(`Ви обрали більше ніж ${xFiles} фото`);
+  //   }}
+  // };
 
   const handleDragStart = (e, index) => {
     setDraggedImageIndex(index);
     e.dataTransfer.setData('text/plain', index);
-   };
+  };
 
   const handleDragOver = e => {
     e.preventDefault();
@@ -99,14 +166,14 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
     setDraggedImageIndex(null);
   };
 
-  const addImageStyles = (e, offsetX, offsetY) => {
-    e.currentTarget.style.transform = `translate(${offsetX * 2}px, ${
-      offsetY * 2
-    }px)`;
-    e.currentTarget.style.zIndex = '9999';
-    e.currentTarget.style.cursor = 'move';
-    e.currentTarget.style.scale = 0.5;
-  };
+  // const addImageStyles = (e, offsetX, offsetY) => {
+  //   e.currentTarget.style.transform = `translate(${offsetX * 2}px, ${
+  //     offsetY * 2
+  //   }px)`;
+  //   e.currentTarget.style.zIndex = '9999';
+  //   e.currentTarget.style.cursor = 'move';
+  //   e.currentTarget.style.scale = 0.5;
+  // };
 
   const handleTouchStart = (e, index) => {
     if (index !== draggedImageIndex) {
@@ -122,9 +189,7 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
     if (draggedImageIndex !== null) {
       document.body.style.overflow = 'hidden';
 
-     
       handleImageMove(e, index);
-
     }
   };
 
@@ -159,7 +224,7 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
       return;
     }
     e.currentTarget.style.pointerEvents = 'none';
-     const touchedElement = document.elementFromPoint(
+    const touchedElement = document.elementFromPoint(
       e.changedTouches[0].clientX,
       e.changedTouches[0].clientY
     );
@@ -202,8 +267,6 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
     resetImageStyles(e);
     setDraggedImageIndex(null);
   };
-
-  
 
   const images = selectedPicturesReview.map(({ id, url }, index) => (
     <Button
@@ -286,6 +349,15 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
     setFiles(selectedPicturesReview);
   }, [selectedPicturesReview]);
 
+  useEffect(() => {
+    if (files.length > 0) {
+      setSelectedPicturesReview(
+        files.map((url, index) => ({ id: index, url }))
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [files]);
+
   const inputPhoto = index => (
     <label className={styles['file-input-label']} key={index}>
       <input
@@ -300,7 +372,8 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
   );
 
   const inputPhotos = () => {
-    const remainingInputs = Math.max(5 - selectedPicturesReview.length, 0);
+    const remainingInputs =
+      maxFiles !== null ? Math.max(5 - selectedPicturesReview.length, 0) : 1;
     const inputsPhoto = [];
 
     for (let index = 0; index < remainingInputs; index++) {
@@ -320,7 +393,9 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
     >
       <div className={styles['modal']}>
         <p className={styles['main-text']}>
-          {false ? 'Видалення зобраення' : 'Ти дійсно бажаєш видалити це фото?'}
+          {!prompDelete
+            ? 'Видалення зобраення'
+            : 'Ти дійсно бажаєш видалити це фото?'}
         </p>
         <Image
           key={modalIsId}
@@ -336,7 +411,7 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
               !prompDelete
                 ? modalIsId !== 0
                   ? () => {
-                      // setMain(modalIsId);
+                      setMain(modalIsId);
                     }
                   : () => {
                       dispatch(addPopupOperation('Все ще головне'));
@@ -384,10 +459,12 @@ const AddPhotoInput = ({ files = [], setFiles }) => {
               errorTextQuantity ? styles['errorTextQuantity'] : ''
             }`}
           >
-            {errorTextQuantity ||
-              `Ви можете додавати до ${
-                5 - selectedPicturesReview.length
-              } фото у форматі .jpg, .jpeg, .png. Кожен файл не може перевищувати 10 Мб.`}
+            {maxFiles !== null
+              ? errorTextQuantity ||
+                `Ви можете додавати до ${
+                  5 - selectedPicturesReview.length
+                } фото у форматі .jpg, .jpeg, .png. Кожен файл не може перевищувати 10 Мб.`
+              : false}
           </p>
         </>
       )}

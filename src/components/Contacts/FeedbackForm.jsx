@@ -10,7 +10,7 @@ import Button from 'shared/components/Button';
 import Modal from 'shared/components/Modal/Modal';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import styles from './Contacts.module.scss';
-import AddPhotoInput from './AddPhotoInput';
+import AddPhotoInput from '../../shared/components/AddPhotoInput';
 
 function FeedbackForm() {
   console.log('load FeatBack Form');
@@ -65,7 +65,7 @@ function FeedbackForm() {
   //   }
 
   //   files.forEach(file => {
-  //     formDataToSend.append('files[]', file.file);
+  //     formDataToSend.append('files', file.file);
   //   });
   
 
@@ -106,7 +106,7 @@ function FeedbackForm() {
     e.preventDefault();
     try {
       await addFeedback(formData, setFormData);
-      // setFormData(prevData => ({ ...prevData, text: '' }));
+      setFormData(prevData => ({ ...prevData, text: '' }));
       setShowThankYouModal(true);
     } catch (error) {
       console.error('Error submit feedback', error.response.data.message);

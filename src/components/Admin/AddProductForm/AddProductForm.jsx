@@ -26,6 +26,7 @@ import styles from './AddProductForm.module.scss';
 import { useSelectorValue } from 'shared/hooks/useSelectorValue';
 import { useAddProductState } from 'shared/hooks/useAddProductState';
 import AddProductImage from './AddProductImage';
+import AddPhotoInput from 'shared/components/AddPhotoInput';
 
 export default function AddProductForm({ update }) {
   const [existingProduct, setExistingProduct] = useState(null);
@@ -40,6 +41,7 @@ export default function AddProductForm({ update }) {
   const [refreshSelector, setRefreshSelector] = useState(false);
   const [params, setParams] = useState([]);
   const [files, setFiles] = useState([]);
+  console.log('Files',  files);
   const [descriptionEditorValue, setDescriptionEditorValue] = useState('');
 
   const [isFocused, setIsFocused] = useState(false);
@@ -203,6 +205,11 @@ export default function AddProductForm({ update }) {
         <AddProductImage
           pictures={existingProduct !== null ? existingProduct : []}
           setFiles={setFiles}
+        />
+        <AddPhotoInput
+          files={existingProduct !== null ? existingProduct.picture : []}
+          setFiles={setFiles}
+          maxFiles={null}
         />
         <div className={styles.category}>
           <Selector

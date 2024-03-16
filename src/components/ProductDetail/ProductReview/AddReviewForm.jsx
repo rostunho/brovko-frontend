@@ -13,7 +13,7 @@ import { addPopupOperation } from 'redux/popup/popupOperations';
 import Image from 'shared/components/Image';
 import AddIconImage from 'shared/icons/AddIconImage';
 import Modal from 'shared/components/Modal/Modal';
-import AddPhotoInput from 'components/Contacts/AddPhotoInput';
+import AddPhotoInput from 'shared/components/AddPhotoInput';
 
 export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
   const [text, setText] = useState('');
