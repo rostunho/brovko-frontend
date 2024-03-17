@@ -26,6 +26,7 @@ import styles from './AddProductForm.module.scss';
 import { useSelectorValue } from 'shared/hooks/useSelectorValue';
 import { useAddProductState } from 'shared/hooks/useAddProductState';
 import AddProductImage from './AddProductImage';
+import AddPhotoInput from 'shared/components/AddPhotoInput';
 
 export default function AddProductForm({ update }) {
   const [existingProduct, setExistingProduct] = useState(null);
@@ -40,6 +41,7 @@ export default function AddProductForm({ update }) {
   const [refreshSelector, setRefreshSelector] = useState(false);
   const [params, setParams] = useState([]);
   const [files, setFiles] = useState([]);
+  // console.log('Files',  files);
   const [descriptionEditorValue, setDescriptionEditorValue] = useState('');
 
   const [isFocused, setIsFocused] = useState(false);
@@ -200,10 +202,32 @@ export default function AddProductForm({ update }) {
           onChange={e => dispatchRequestBody(e, 'ADD_NAME_FOR_DOCS')}
           value={requestBody.product[0].nameForDocuments}
         />
-        <AddProductImage
+        {/* <AddProductImage
           pictures={existingProduct !== null ? existingProduct : []}
           setFiles={setFiles}
+        /> */}
+        <>
+      <p>Фото товару</p>
+      <div className={styles['photo-container']}>
+        <p className={styles['photo-text']}>
+          {files.length > 0 
+            ? 'Перше фото буде головним в картці товару. Перетягни, щоб змінити порядок фото.'
+            : 'У суперадміна є суперздібність! Ти можеш додавати необмежену кількість фотографій товару!'}{' '}
+        </p>
+        <AddPhotoInput
+          files={existingProduct !== null ? existingProduct.picture : []}
+          setFiles={setFiles}
+          maxFiles={null}
         />
+        <p className={styles['photo-text']}>
+          {files.length > 0 
+            ? 'Додати ще'
+            : 'Додати фото'}
+        </p>
+      </div>
+    
+    </>
+        
         <div className={styles.category}>
           <Selector
             name="Category"

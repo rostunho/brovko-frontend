@@ -10,8 +10,10 @@ import Button from 'shared/components/Button';
 import Modal from 'shared/components/Modal/Modal';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import styles from './Contacts.module.scss';
+import AddPhotoInput from '../../shared/components/AddPhotoInput';
 
 function FeedbackForm() {
+  console.log('load FeatBack Form');
   const initialFormData = {
     name: '',
     email: '',
@@ -23,6 +25,8 @@ function FeedbackForm() {
 
   const [showThankYouModal, setShowThankYouModal] = useState(false);
 
+  const [files, setFiles] = useState([]);
+  // console.log('files', files);
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
@@ -51,6 +55,52 @@ function FeedbackForm() {
       return { ...prevData, phone: parsePhoneNumber(e.target.value) };
     });
   };
+
+  // const handleSubmit = async e => {
+  //   e.preventDefault();
+
+  //   const formDataToSend = new FormData();
+  //   for (const key in formData) {
+  //     formDataToSend.append(key, formData[key]);
+  //   }
+
+  //   files.forEach(file => {
+  //     formDataToSend.append('files', file.file);
+  //   });
+  
+
+  //   for (const pair of formDataToSend.entries()) {
+  //     const [name, value] = pair;
+  //     if (value instanceof File) {
+  //       console.log(`Field name: ${name}, File: ${value.name}`);
+  //     } else {
+  //       console.log(`Field name: ${name}, Value: ${value}`);
+  //     }
+  //   }
+  //   try {
+  //     await addFeedback(formDataToSend, setFormData);
+  //     setFormData(prevData => ({ ...prevData, text: '' }));
+  //     setShowThankYouModal(true);
+  //   } catch (error) {
+  //     console.error('Error submit feedback', error.response.data.message);
+  //     if (
+  //       error.response.data.message ===
+  //       'Мінімальна довжина тексту повинна бути не менше 10 символів'
+  //     ) {
+  //       dispatch(
+  //         addPopupOperation(
+  //           'Мінімальна довжина тексту повинна бути не менше 10 символів',
+  //           'error'
+  //         )
+  //       );
+  //     } else {
+  //       dispatch(
+  //         addPopupOperation('Щось пішло не так, спробуй пізніше', 'error')
+  //       );
+  //     }
+  //   }
+  // };
+
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -142,6 +192,8 @@ function FeedbackForm() {
           />
         </div>
 
+        <AddPhotoInput  setFiles={setFiles} maxFiles={5}/>
+        
         <Button type="submit" size="lg" style={{ marginTop: '32px' }}>
           Надіслати
         </Button>

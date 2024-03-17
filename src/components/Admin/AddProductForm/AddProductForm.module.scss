@@ -1,3 +1,5 @@
+@import 'theme/abstract/_mixins.scss';
+
 .container {
   padding-bottom: 32px;
   background-color: #fff;
@@ -74,4 +76,25 @@
   display: flex;
   flex-direction: column;
   row-gap: 16px;
+}
+
+.photo-container {
+  width: 100%;
+  min-height: 240px;
+  padding: 20px 12px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.photo-text {
+  @include text-styles();
+  color: var(--grey-text-color);
+  line-height: 19px;
 }

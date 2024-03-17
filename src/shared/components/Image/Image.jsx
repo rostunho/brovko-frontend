@@ -11,6 +11,7 @@ const Image = props => {
     className,
     style,
     text = '',
+    id,
     // fontSize,
   } = props;
   const imageStyles = {
@@ -48,6 +49,7 @@ const Image = props => {
       )}
       {(!text.length > 0 || src) && (
         <img
+          id={id}
           // className={className || styles.img}
           loading="lazy"
           className={`${styles.img} ${className ? className : ''}`}
