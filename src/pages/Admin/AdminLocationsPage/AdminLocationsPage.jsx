@@ -12,6 +12,7 @@ import WorkingHoursConstructor from '../../../components/Admin/WorkingHoursConst
 import Button from 'shared/components/Button';
 import SEO from 'components/SEO/SEO';
 import styles from './AdminLocationsPage.module.scss';
+import AddPhotoInput from 'shared/components/AddPhotoInput';
 
 export default function AdminLocationsPage({ ...props }) {
   // const [existingLocation, setExistingLocation] = useState(null);
@@ -27,6 +28,7 @@ export default function AdminLocationsPage({ ...props }) {
   });
   const [coords, setCoords] = useState('');
   const { locationId } = useParams();
+  const [files, setFiles] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -127,6 +129,7 @@ export default function AdminLocationsPage({ ...props }) {
           value={requestBody.fullName}
           onChange={handleChange}
         />
+        <AddPhotoInput setFiles={setFiles} maxFiles={1}/>
         <Input
           label="Адреса :"
           name="address"

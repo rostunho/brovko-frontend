@@ -73,7 +73,7 @@ const AddPhotoInput = ({ files = [], setFiles, maxFiles = null}) => {
     dispatch(addPopupOperation('Фото видалено'));
   };
 
-  const handleImageChange = (e, xFiles = 5 - selectedPicturesReview.length) => {
+  const handleImageChange = (e, xFiles = maxFiles - selectedPicturesReview.length) => {
     e.preventDefault();
     const files = Array.from(e.target.files);
 
@@ -358,7 +358,7 @@ const AddPhotoInput = ({ files = [], setFiles, maxFiles = null}) => {
 
   const inputPhotos = () => {
     const remainingInputs =
-      maxFiles !== null ? Math.max(5 - selectedPicturesReview.length, 0) : 1;
+      maxFiles !== null ? Math.max(maxFiles - selectedPicturesReview.length, 0) : 1;
     const inputsPhoto = [];
 
     for (let index = 0; index < remainingInputs; index++) {
@@ -447,7 +447,7 @@ const AddPhotoInput = ({ files = [], setFiles, maxFiles = null}) => {
             {maxFiles !== null
               ? errorTextQuantity ||
                 `Ви можете додавати до ${
-                  5 - selectedPicturesReview.length
+                  maxFiles - selectedPicturesReview.length
                 } фото у форматі .jpg, .jpeg, .png. Кожен файл не може перевищувати 10 Мб.`
               : false}
           </p>
