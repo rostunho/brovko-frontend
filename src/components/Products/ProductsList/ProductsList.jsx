@@ -21,6 +21,8 @@ export default function ProductList({ products }) {
     });
   };
 
+console.log('location',location.pathname)
+
   const handleRemoveProducts = async () => {
     const body = removeProductRequestTemplate;
     body.product = idsOfSelectedProducts.map(id => ({ id }));
@@ -67,7 +69,7 @@ export default function ProductList({ products }) {
   return (
     <>
       <div className={styles.products} style={{ position: 'relative' }}>
-        {(userStatus === 'manager' || userStatus === 'superadmin') && (
+        {(location.pathname !== '/404') && (userStatus === 'manager' || userStatus === 'superadmin') && (
           <AdminControlPanel
             editDisabled={!(idsOfSelectedProducts.length === 1)}
             deleteDisabled={idsOfSelectedProducts.length < 1}
