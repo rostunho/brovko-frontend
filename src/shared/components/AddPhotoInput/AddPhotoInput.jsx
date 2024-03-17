@@ -9,7 +9,7 @@ import Modal from 'shared/components/Modal/Modal';
 import { useRef } from 'react';
 import TrashIcon from 'shared/icons/TrashIcon';
 
-const AddPhotoInput = ({ files = [], setFiles, maxFiles }) => {
+const AddPhotoInput = ({ files = [], setFiles, maxFiles = null}) => {
   console.log('Boolean(maxFiles)', Boolean(maxFiles))
   const [selectedPicturesReview, setSelectedPicturesReview] = useState(
     files.map((url, index) => ({ id: index, url }))
@@ -356,7 +356,6 @@ const AddPhotoInput = ({ files = [], setFiles, maxFiles }) => {
         files.map((url, index) => ({ id: index, url }))
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [files]);
 
   const inputPhoto = index => (

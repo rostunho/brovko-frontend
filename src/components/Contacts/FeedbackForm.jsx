@@ -192,7 +192,7 @@ function FeedbackForm() {
           />
         </div>
 
-        <AddPhotoInput files={files} setFiles={setFiles} />
+        <AddPhotoInput  setFiles={setFiles} maxFiles={5}/>
         
         <Button type="submit" size="lg" style={{ marginTop: '32px' }}>
           Надіслати
