@@ -330,7 +330,7 @@ export default function NewAddReviewForm({ onClose, ...props }) {
           {inputPhotos()}
         </div> */}
 
-        <AddPhotoInput setFiles={setSelectedPicturesReview} />
+        <AddPhotoInput setFiles={setSelectedPicturesReview} maxFiles={5}/>
 
         <Button type="submit" size="lg" className={styles['submit-button']}>
           Опублікувати

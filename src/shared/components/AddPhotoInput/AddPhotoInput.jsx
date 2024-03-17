@@ -10,6 +10,7 @@ import { useRef } from 'react';
 import TrashIcon from 'shared/icons/TrashIcon';
 
 const AddPhotoInput = ({ files = [], setFiles, maxFiles }) => {
+  console.log('Boolean(maxFiles)', Boolean(maxFiles))
   const [selectedPicturesReview, setSelectedPicturesReview] = useState(
     files.map((url, index) => ({ id: index, url }))
   );
@@ -32,7 +33,7 @@ const AddPhotoInput = ({ files = [], setFiles, maxFiles }) => {
 
   const closeModalEditPhoto = () => {
     setModalIsOpen(false);
-    setPrompDelete(false);
+    setPrompDelete(Boolean(maxFiles));
   };
 
   const setMain = idMain => {
@@ -298,7 +299,7 @@ const AddPhotoInput = ({ files = [], setFiles, maxFiles }) => {
           key={index + 'trash'}
           className={styles['deleteIcon']}
           onClick={e => {
-            setPrompDelete(true);
+            setPrompDelete(Boolean(maxFiles)? true : files);
             openModalEditPhoto(index, url);
           }}
         >

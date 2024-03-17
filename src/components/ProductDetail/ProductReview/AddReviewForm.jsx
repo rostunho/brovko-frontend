@@ -343,7 +343,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
             </>
           )}
         </div>
-   <AddPhotoInput setFiles={selectedPicturesReview} />
+   <AddPhotoInput setFiles={selectedPicturesReview} maxFiles={5}/>
         <Button
           className={styles.commentButton}
           type="submit"
