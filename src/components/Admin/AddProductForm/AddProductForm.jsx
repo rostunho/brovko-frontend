@@ -206,11 +206,28 @@ export default function AddProductForm({ update }) {
           pictures={existingProduct !== null ? existingProduct : []}
           setFiles={setFiles}
         />
+        <>
+      <p>Фото товару</p>
+      <div className={styles['photo-container']}>
+        <p className={styles['photo-text']}>
+          {files.length > 0 
+            ? 'Перше фото буде головним в картці товару. Перетягни, щоб змінити порядок фото.'
+            : 'У суперадміна є суперздібність! Ти можеш додавати необмежену кількість фотографій товару!'}{' '}
+        </p>
         <AddPhotoInput
           files={existingProduct !== null ? existingProduct.picture : []}
           setFiles={setFiles}
           maxFiles={null}
         />
+        <p className={styles['photo-text']}>
+          {files.length > 0 
+            ? 'Додати ще'
+            : 'Додати фото'}
+        </p>
+      </div>
+    
+    </>
+        
         <div className={styles.category}>
           <Selector
             name="Category"

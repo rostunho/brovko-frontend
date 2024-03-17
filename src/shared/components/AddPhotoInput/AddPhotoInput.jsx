@@ -273,7 +273,7 @@ const AddPhotoInput = ({ files = [], setFiles, maxFiles = null}) => {
     <Button
       key={index}
       id={id}
-      className={styles['add-image-button']}
+      className={Boolean(maxFiles) ? styles['add-image-button']: styles['add-image-button-admin']}
       type="button"
       draggable
       onDragStart={e => handleDragStart(e, index)}
@@ -297,13 +297,13 @@ const AddPhotoInput = ({ files = [], setFiles, maxFiles = null}) => {
         <div
           type="button"
           key={index + 'trash'}
-          className={styles['deleteIcon']}
+          className={Boolean(maxFiles) ? styles['deleteIcon']: styles['deleteIcon-admin']}
           onClick={e => {
             setPrompDelete(Boolean(maxFiles)? true : files);
             openModalEditPhoto(index, url);
           }}
         >
-          <TrashIcon className={styles['trash']} />
+          <TrashIcon className={Boolean(maxFiles) ? styles['trash']: styles['trash-admin']} />
         </div>
       )}
     </Button>
@@ -359,7 +359,7 @@ const AddPhotoInput = ({ files = [], setFiles, maxFiles = null}) => {
   }, [files]);
 
   const inputPhoto = index => (
-    <label className={styles['file-input-label']} key={index}>
+    <label className={Boolean(maxFiles) ? styles['file-input-label'] : styles['file-input-label-admin']} key={index}>
       <input
         className={styles['visually-hidden']}
         type="file"
