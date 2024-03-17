@@ -24,7 +24,7 @@
   // padding: 0 16px 32px; // якщо вставиш компонент Heading (заголовок), там вже буде верхній паддінг 32px.
   border: 1px solid var(--Stroke, #f0f0f0);
   background: var(--White, #fff);
-  overflow-y: scroll;
+  overflow-y: auto ;
 
   /* Shadow for cards */
   box-shadow: var(--box-shadow);
