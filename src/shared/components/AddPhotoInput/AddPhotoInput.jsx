@@ -10,7 +10,6 @@ import { useRef } from 'react';
 import TrashIcon from 'shared/icons/TrashIcon';
 
 const AddPhotoInput = ({ files = [], setFiles, maxFiles = null}) => {
-  console.log('Boolean(maxFiles)', Boolean(maxFiles))
   const [selectedPicturesReview, setSelectedPicturesReview] = useState(
     files.map((url, index) => ({ id: index, url }))
   );
@@ -77,8 +76,6 @@ const AddPhotoInput = ({ files = [], setFiles, maxFiles = null}) => {
   const handleImageChange = (e, xFiles = 5 - selectedPicturesReview.length) => {
     e.preventDefault();
     const files = Array.from(e.target.files);
-
-    console.log('xFiles', xFiles);
 
     if (files.length === 0) return;
     if (maxFiles !== null) {
@@ -162,19 +159,10 @@ const AddPhotoInput = ({ files = [], setFiles, maxFiles = null}) => {
         id: index,
       }));
       setSelectedPicturesReview(reorderedPictures);
-      console.log('handleDrop', reorderedPictures);
     }
     setDraggedImageIndex(null);
   };
 
-  // const addImageStyles = (e, offsetX, offsetY) => {
-  //   e.currentTarget.style.transform = `translate(${offsetX * 2}px, ${
-  //     offsetY * 2
-  //   }px)`;
-  //   e.currentTarget.style.zIndex = '9999';
-  //   e.currentTarget.style.cursor = 'move';
-  //   e.currentTarget.style.scale = 0.5;
-  // };
 
   const handleTouchStart = (e, index) => {
     if (index !== draggedImageIndex) {
@@ -184,7 +172,6 @@ const AddPhotoInput = ({ files = [], setFiles, maxFiles = null}) => {
       setInitialTouchY(touch.clientY);
     }
   };
-  console.log('draggedImageIndex', draggedImageIndex);
 
   const handleTouchMove = (e, index) => {
     if (draggedImageIndex !== null) {
@@ -221,7 +208,6 @@ const AddPhotoInput = ({ files = [], setFiles, maxFiles = null}) => {
 
   const handleTouchEnd = (e, index) => {
     if (!e.currentTarget) {
-      console.error('Елемент не був знайдений');
       return;
     }
     e.currentTarget.style.pointerEvents = 'none';
@@ -329,7 +315,6 @@ const AddPhotoInput = ({ files = [], setFiles, maxFiles = null}) => {
             url: file,
           };
         } else {
-          console.error('Invalid file:', file);
           addPopupOperation(`Не правильний файл: ${file}`);
           return null;
         }

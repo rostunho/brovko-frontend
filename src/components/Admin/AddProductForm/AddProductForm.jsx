@@ -41,7 +41,7 @@ export default function AddProductForm({ update }) {
   const [refreshSelector, setRefreshSelector] = useState(false);
   const [params, setParams] = useState([]);
   const [files, setFiles] = useState([]);
-  console.log('Files',  files);
+  // console.log('Files',  files);
   const [descriptionEditorValue, setDescriptionEditorValue] = useState('');
 
   const [isFocused, setIsFocused] = useState(false);
@@ -202,10 +202,10 @@ export default function AddProductForm({ update }) {
           onChange={e => dispatchRequestBody(e, 'ADD_NAME_FOR_DOCS')}
           value={requestBody.product[0].nameForDocuments}
         />
-        <AddProductImage
+        {/* <AddProductImage
           pictures={existingProduct !== null ? existingProduct : []}
           setFiles={setFiles}
-        />
+        /> */}
         <>
       <p>Фото товару</p>
       <div className={styles['photo-container']}>

@@ -26,7 +26,7 @@ function FeedbackForm() {
   const [showThankYouModal, setShowThankYouModal] = useState(false);
 
   const [files, setFiles] = useState([]);
-  console.log('files', files);
+  // console.log('files', files);
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 

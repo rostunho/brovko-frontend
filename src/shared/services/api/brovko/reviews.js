@@ -28,14 +28,14 @@ export const submitReview = async reviewData => {
   try {
     // запит на сервер для відправки відгуку
     // console.log(reviewData)
-    for (const pair of reviewData.entries()) {
-      const [name, value] = pair;
-      if (value instanceof File) {
-        console.log(`Field name: ${name}, File: ${value.name}`);
-      } else {
-        console.log(`Field name: ${name}, Value: ${value}`);
-      }
-    }
+    // for (const pair of reviewData.entries()) {
+    //   const [name, value] = pair;
+    //   if (value instanceof File) {
+    //     console.log(`Field name: ${name}, File: ${value.name}`);
+    //   } else {
+    //     console.log(`Field name: ${name}, Value: ${value}`);
+    //   }
+    // }
 
     const response = await instance.post('/reviews', reviewData);
     // console.log('submit Review response:', reviewData);
