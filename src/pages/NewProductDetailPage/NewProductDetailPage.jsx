@@ -30,6 +30,21 @@ export default function NewProductDetailPage() {
   const { isMobile } = useScreen();
   const [fromPage, setFromPage] = useState(null);
   const [commentsLength, setCommentsLength] = useState(0);
+  const paramsObj = product?.params;
+  // const uniqueKeys = paramsObj
+  //   ? paramsObj.slice(1).map(obj => obj.key.trim())
+  //   : [];
+
+  // const keysString = uniqueKeys.join(', ');
+
+  // const metaDescription =
+  //   product?.params?.length > 0
+  //     ? keysString && product.description
+  //     : product.description;
+
+  const metaDescr = product.description;
+  const strDescr = JSON.stringify(metaDescr);
+  const cleanDescription = strDescr ? strDescr.replace(/<[^>]*>/g, '') : '';
 
   const updateCommentsLength = length => {
     setCommentsLength(length);
@@ -94,7 +109,7 @@ export default function NewProductDetailPage() {
         </Heading>
         <SEO
           title={`${product.name} | Brovko - магазин снеків для собак`}
-          description={product.description}
+          description={cleanDescription}
           url={`/shop/product/${product.id}`}
         />
         {(userStatus === 'manager' || userStatus === 'superadmin') && (
