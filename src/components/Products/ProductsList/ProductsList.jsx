@@ -21,6 +21,8 @@ export default function ProductList({ products }) {
     });
   };
 
+  console.log('location', location.pathname !== '/404');
+
   const handleRemoveProducts = async () => {
     const body = removeProductRequestTemplate;
     body.product = idsOfSelectedProducts.map(id => ({ id }));
@@ -67,17 +69,18 @@ export default function ProductList({ products }) {
   return (
     <>
       <div className={styles.products} style={{ position: 'relative' }}>
-        {(userStatus === 'manager' || userStatus === 'superadmin') && (
-          <AdminControlPanel
-            editDisabled={!(idsOfSelectedProducts.length === 1)}
-            deleteDisabled={idsOfSelectedProducts.length < 1}
-            onAddClick={handleAddProduct}
-            onEditClick={handleEditProduct}
-            onDeleteClick={handleRemoveProducts}
-            viewMode={adminInCustomerMode}
-            onViewModeClick={handleViewMode}
-          />
-        )}
+        {location.pathname !== '/404' &&
+          (userStatus === 'manager' || userStatus === 'superadmin') && (
+            <AdminControlPanel
+              editDisabled={!(idsOfSelectedProducts.length === 1)}
+              deleteDisabled={idsOfSelectedProducts.length < 1}
+              onAddClick={handleAddProduct}
+              onEditClick={handleEditProduct}
+              onDeleteClick={handleRemoveProducts}
+              viewMode={adminInCustomerMode}
+              onViewModeClick={handleViewMode}
+            />
+          )}
         {products?.length ? (
           <ul className={styles.list}>
             {products.map(product => (
@@ -85,8 +88,10 @@ export default function ProductList({ products }) {
                 <ProductsItem
                   product={product}
                   onChange={getItemsForRemoving}
-                  userStatus={userStatus}
-                  adminInCustomerMode={adminInCustomerMode}
+                  userStatus={(location.pathname !== '/404') && userStatus}
+                  adminInCustomerMode={
+                    (location.pathname !== '/404') && adminInCustomerMode
+                  }
                 />
               </li>
             ))}
