@@ -119,6 +119,8 @@ export const getMainWarehouse = async cityRef => {
 
   const { data } = await axios.post(NOVA_POSHTA_API, body);
 
+  console.log('data :>> ', data);
+
   if (data.errors.length > 0) {
     throw Error(data.errors);
   }
@@ -140,4 +142,4 @@ export const getMainWarehouse = async cityRef => {
   return data.data[0];
 };
 
-getMainWarehouse('e71abb60-4b33-11e4-ab6d-005056801329');
+// getMainWarehouse('e71abb60-4b33-11e4-ab6d-005056801329');
