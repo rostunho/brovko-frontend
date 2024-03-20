@@ -52,6 +52,22 @@ const ImgBox = ({ imgArray, currentIdx }) => {
             />
           );
         })}
+        {layoutType === "desktop" && 
+        imgArray.map((item, idx) => {
+          return (
+            <Image
+              key={idx}
+              src={item.url}
+              className={
+                idx === currentIdx ? styles.currentImg : styles.sideImg
+              }
+              style={{
+                marginLeft: layoutType === 'mobile' ? '8px' : '12px',
+                marginRight: layoutType === 'mobile' ? '8px' : '12px',
+              }}
+            />
+          );
+        })}
       </div>
     </div>
   );
