@@ -29,7 +29,7 @@ export default function OrderPage() {
   return (
     <div className={styles.container}>
       <Heading>Оформлення замовлення</Heading>
-       <SEO
+      <SEO
         title="Оформлення замовлення | Brovko"
         description="Оформлення замовлення | Brovko - крамничка натуральних смоколиків для собак"
         url="/order/login"
