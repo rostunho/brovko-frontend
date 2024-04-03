@@ -17,12 +17,21 @@ import {
   addNewOrder,
   generateAddOrderRequestBody,
 } from 'shared/services/api/brovko/orders';
+import useModal from 'shared/hooks/useModal';
+import Modal from 'shared/components/Modal/Modal';
+import ModalOrderSuccess from 'components/ModalOrderSuccess';
 
 export default function OrderForm() {
   const [customer, setCustomer] = useState({});
   const [delivery, setDelivery] = useState({});
   const [paymentMethod, setPaymentMethod] = useState({});
   const userIsLoggedIn = useSelector(selectIsLogin);
+  const { isOpen, openModal, closeModal } = useModal();
+
+  const hendlClickReturn = () => {
+    navigate('/shop/product-list-page');
+    closeModal();
+  };
 
   const isCurrentUserProducts = userIsLoggedIn
     ? productInBasketCurrentUser
@@ -79,6 +88,7 @@ export default function OrderForm() {
     );
 
     const response = await addNewOrder(addOrderRequestBody);
+    openModal();
     return response?.data;
   };
 
@@ -144,6 +154,11 @@ export default function OrderForm() {
           <Button type="submit" size="lg">
             Підтверджую замовлення
           </Button>
+        )}
+        {isOpen && (
+          <Modal closeModal={closeModal}>
+            <ModalOrderSuccess hendlClickReturn={hendlClickReturn} />
+          </Modal>
         )}
       </form>
       {paymentMethod.method === 'online' && (

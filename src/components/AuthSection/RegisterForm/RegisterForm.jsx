@@ -13,6 +13,8 @@ import initialState from './initialState';
 import UserConsent from './UserConsent';
 import styles from './RegisterForm.module.scss';
 
+import useProductInBasket from 'shared/hooks/useProductInBasket';
+
 const RegisterForm = () => {
   const { state, setState, handleChange, handleSubmit } = useForm({
     initialState,
@@ -28,6 +30,10 @@ const RegisterForm = () => {
   const errorRegister = useSelector(errorAuth);
   const isLoading = useSelector(selectIsLoadingUser);
   const [formError, setFormError] = useState(null);
+
+  const { showBascketOrders } = useProductInBasket();
+  const products = showBascketOrders();
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -46,7 +52,12 @@ const RegisterForm = () => {
 
   function dispatchUser(data) {
     const lowerCaseEmail = data.email.toLowerCase();
-    const newData = { ...data, email: lowerCaseEmail };
+    let newData;
+    if (products) {
+      newData = { ...data, email: lowerCaseEmail, products: products };
+    } else {
+      newData = { ...data, email: lowerCaseEmail };
+    }
     dispatch(register(newData)).then(() => {
       setState({ ...newData });
     });
