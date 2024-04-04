@@ -19,8 +19,14 @@ export default function OrderPage() {
   const [orderId, setOrderId] = useState('');
   const userIsLoggedIn = useSelector(selectIsLogin);
 
+  console.log('modalDelete', modalDelete);
+
   const { showBascketOrders } = useProductInBasket();
   const products = showBascketOrders();
+
+  const handleCloseModal = () => {
+    setModalDelete(false);
+  };
 
   const navigate = useNavigate();
   const hendlClickReturn = () => {
@@ -44,12 +50,12 @@ export default function OrderPage() {
               setOrderId={setOrderId}
             />
           ) : (
-            <Modal>
+            <Modal closeModal={handleCloseModal}>
               <ModalDelete setModalDelete={setModalDelete} orderId={orderId} />
             </Modal>
           )
         ) : (
-          <Modal>
+          <Modal closeModal={handleCloseModal}>
             <ModalBasketIsEmpty hendlClickReturn={hendlClickReturn} />
           </Modal>
         )}
