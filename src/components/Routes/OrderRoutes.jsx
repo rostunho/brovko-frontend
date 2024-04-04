@@ -13,11 +13,11 @@ const LoginForm = lazy(() =>
 const OrderForm = lazy(() => import('components/OrderForm/OrderForm'));
 const OrderPage = lazy(() => import('pages/OrderPage'));
 
-export default function OrderRoutes () {
-    const userIsLogin = useSelector(selectIsLogin);
-    return (
-        <Suspense fallback={<Loader />}>
-        <Routes>
+export default function OrderRoutes() {
+  const userIsLogin = useSelector(selectIsLogin);
+  return (
+    <Suspense fallback={<Loader />}>
+      <Routes>
         <Route path="/" element={<OrderPage />}>
           <Route
             index
@@ -34,9 +34,7 @@ export default function OrderRoutes () {
           />
           <Route path="order-form" element={<OrderForm />} />
         </Route>
-        </Routes>
-
-        </Suspense>
-
-    )
+      </Routes>
+    </Suspense>
+  );
 }
