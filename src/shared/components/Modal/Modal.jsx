@@ -1,6 +1,5 @@
 import { useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { useBodyScrollLock } from 'shared/hooks/useBodyScrollLock';
 import Button from '../Button';
 import styles from './Modal.module.scss';
 
@@ -21,8 +20,6 @@ const Modal = ({
     },
     [closeModal]
   );
-
-  useBodyScrollLock();
 
   useEffect(() => {
     document.addEventListener('keydown', closeModalOnClick);
