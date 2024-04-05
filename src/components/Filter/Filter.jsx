@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-// import DropdownMenu from './DropdownMenu';
 // import Button from 'shared/components/Button';
 // import ArrowDownIcon from 'shared/icons/ArrowDownIcon';
 import Selector from 'shared/components/Selector';

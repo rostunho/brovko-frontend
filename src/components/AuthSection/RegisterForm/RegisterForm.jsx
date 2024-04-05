@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { register } from 'redux/user/userOperations';
 import { errorAuth, selectIsLoadingUser } from 'redux/user/userSelectors';
 // import PropTypes from 'prop-types';
-// import OldInput from 'shared/components/OldInput/OldInput';
 import Input from 'shared/components/Input';
 import Button from 'shared/components/Button/Button';
 import Text from 'shared/components/Text/Text';

@@ -7,7 +7,7 @@ import { selectUserStatus } from 'redux/user/userSelectors';
 import ProductsItem from 'components/Products/ProductsItem';
 import Pagination from 'components/Products/Pagination';
 
-import styles from '../../Products/ProductsList/ProductsList.module.scss';
+import styles from '../Products/ProductsList/ProductsList.module.scss';
 import Input from 'shared/components/Input';
 
 const FavouritesProductsList = () => {

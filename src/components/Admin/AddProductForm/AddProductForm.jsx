@@ -25,7 +25,6 @@ import styles from './AddProductForm.module.scss';
 
 import { useSelectorValue } from 'shared/hooks/useSelectorValue';
 import { useAddProductState } from 'shared/hooks/useAddProductState';
-import AddProductImage from './AddProductImage';
 import AddPhotoInput from 'shared/components/AddPhotoInput';
 
 export default function AddProductForm({ update }) {

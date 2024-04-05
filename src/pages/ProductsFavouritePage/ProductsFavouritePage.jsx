@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Heading from 'shared/components/Heading';
-import FavouritesProductsList from 'components/FavouritesProducts/FavouritesProductsList/FavouritesProductsList';
+import FavouritesProductsList from 'components/FavouritesProducts/FavouritesProductsList';
 import SEO from 'components/SEO/SEO';
 
 const ProductsFavouritePage = () => {

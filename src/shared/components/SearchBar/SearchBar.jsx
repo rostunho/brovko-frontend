@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import useForm from 'shared/hooks/useForm';
 import { useRef, useEffect } from 'react';
-import OldInput from '../OldInput/OldInput';
 import Input from '../Input';
 
 import style from './SearchBar.module.scss';
@@ -30,25 +29,6 @@ const SearchBar = ({ onSubmit, searchTerm, selectedCategory }) => {
   return (
     <>
       <Input type="search" placeholder="Оновлений пошук смаколиків" />
-      {/* <form
-        ref={formRef}
-        className={style.searchForm}
-        onSubmit={handleSubmitSearch}
-      >
-        <div className={style.container}>
-          <OldInput
-            className={style.searchInput}
-            type="search"
-            name="search"
-            value={search}
-            onChange={handleChange} //handleChange з useForm
-            onClick={handleSubmitSearch} //handleSubmitSearch з useForm
-            onRemove={remove}
-            autoComplete="off"
-            placeholder="Пошук смаколиків"
-          />
-        </div>
-      </form> */}
     </>
   );
 };
