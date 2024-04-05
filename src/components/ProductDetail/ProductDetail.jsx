@@ -15,7 +15,6 @@ import Image from 'shared/components/Image';
 import Button from 'shared/components/Button';
 import Rating from 'components/ProductDetail/ProductRating/Rating';
 import ImageSlider from 'components/ProductDetail/ProductImgSlider/ImageSlider';
-// import Content from 'components/ProductDetail/ProductContent/Content';
 import ProductParams from './ProductParams/ProductParams';
 import QuantityButtons from 'shared/components/QuantityButtonModal/QuantityButtons';
 // import Price from 'components/ProductDetail/ProductPrice/Price';
@@ -95,7 +94,6 @@ export default function ProductDetail({ product, reviews, reviewsError }) {
         </div>
 
         <div className={styles.productQuarterCard}>
-          {/* <Content note={note} /> */}
           {product?.params.length > 0 && (
             <ProductParams params={product?.params} />
           )}

@@ -139,7 +139,7 @@ export default function NotFound() {
       </div>
       <Text className={styles.message}>Улюблений смаколик не знайдено🤔</Text>
       <Text className={styles.message}>
-        Клікни на обертаючийся смаколик, щоб отримати інший
+        Тицьни смаколик-крутелик, і отримай інший
       </Text>
       {/* {products.products === undefined ? <Spiner /> : <ProductList products={ramdomFilterProducts(products.products, 4)} />} */}
       <ProductList products={ramdomFilterProducts(products.products, 4)} />{' '}

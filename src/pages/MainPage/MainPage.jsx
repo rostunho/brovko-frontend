@@ -3,7 +3,6 @@ import Advantages from 'components/Advantages/Advantages';
 import Swiper from 'components/Swiper/Swiper';
 import Rectangle from 'components/Rectangle/Rectangle';
 // import Loader from 'components/Loader';
-// import InstagramEmbededRandom from 'components/InstagramEmbededRandom';
 import WeInInstgram from 'components/WeInInstagram';
 import SEO from 'components/SEO/SEO';
 
@@ -27,7 +26,6 @@ export default function MainPage() {
       <Advantages />
       <Rectangle />
       <Swiper />
-      {/* <InstagramEmbededRandom /> */}
       <WeInInstgram />
     </>
   );
