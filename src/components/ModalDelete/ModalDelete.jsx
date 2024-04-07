@@ -1,15 +1,12 @@
-// import { useDispatch, useSelector } from 'react-redux';
+
 import Button from 'shared/components/Button';
-// import { deleteOrder } from 'redux/basket/basketSlice';
-// import { deleteOrderUser } from 'redux/user/userSlice';
 
 import useProductInBasket from 'shared/hooks/useProductInBasket';
-// import { selectIsLogin } from 'redux/user/userSelectors';
+
 
 import styles from './ModalDelete.module.scss';
 
 const ModalDelete = ({ setModalDelete, orderId }) => {
-  // console.log('orderId', orderId);
   const { hahdleBasketDel, hahdleBasketClose } = useProductInBasket();
 
   return (

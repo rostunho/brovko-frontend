@@ -25,9 +25,6 @@ export default function Comments({
     setInitialCommentsParam('last');
 
     (async () => {
-      // if (!commentsParam) {
-      //   return;
-      // } // неактуально після зміни умов рендерингу компонента
       const originalReviews = await getReviewsByProductId(productId);
       const { comments } = originalReviews[0] || { comments: [] };
       const adaptedReviews = processOriginalReviews(comments);
@@ -52,7 +49,6 @@ export default function Comments({
     return comments
       .filter(review => review.text.status.approved === true)
       .map(review => {
-        // console.log('review :>> ', review);
         const adaptedReview = {};
         adaptedReview.owner = review.owner;
         adaptedReview.createdAt = review.text.createdAt;
@@ -69,7 +65,6 @@ export default function Comments({
     const existingSearchParams = Object.fromEntries(searchParams.entries());
 
     if (existingCommentsParam) {
-      // console.log('existingSearchParams :>> ', existingSearchParams);
       setSearchParams(
         {
           ...existingSearchParams,
@@ -89,7 +84,6 @@ export default function Comments({
     setSearchParams(
       prevSearchParams => {
         const prevMode = prevSearchParams.get('comments');
-        // console.log('prevMode :>> ', prevMode);
 
         prevMode === 'all'
           ? prevSearchParams.set('comments', 'last')

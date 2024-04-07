@@ -40,8 +40,6 @@ export default function OrderForm() {
   const productsInBasket = useSelector(isCurrentUserProducts);
   const { user } = useSelector(selectUser);
 
-  // console.log('user :>> ', user);
-
   const navigate = useNavigate();
 
   // Встановлюємо "Перше відділення" нової пошти в разі адресної доставки
@@ -112,11 +110,6 @@ export default function OrderForm() {
     email: user.email || '',
   };
 
-  // const savedAddress = {
-  //   buildingNumber: user.buildingNumber || '',
-  //   flat: user.flat || '',
-  // };
-
   return (
     <>
       <form onSubmit={createNewOrder}>
@@ -131,7 +124,6 @@ export default function OrderForm() {
             building: user.buildingNumber || '',
             apartment: user.flat || '',
           }}
-          // savedAddress={savedAddress}
           userIsLoggedIn={userIsLoggedIn}
           getData={getDeliveryData}
         />

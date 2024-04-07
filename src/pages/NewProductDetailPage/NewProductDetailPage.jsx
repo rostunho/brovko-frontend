@@ -3,7 +3,6 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useScreen } from 'shared/hooks/useScreen';
 import { getProductById } from 'shared/services/api';
-// import { addPopupOperation } from 'redux/popup/popupOperations';
 import { selectUserStatus } from 'redux/user/userSelectors';
 
 import Heading from 'shared/components/Heading';
@@ -15,7 +14,6 @@ import ProductParams from 'components/ProductDetail/ProductParams/ProductParams'
 import NewDescription from './NewDescription/NewDescription';
 import Comments from 'components/Comments/Comments';
 import LogisticInfo from 'components/ProductDetail/LogisticInfo/LogisticInfo';
-// import Button from 'shared/components/Button';
 import { removeProduct } from 'shared/services/api/brovko';
 import { removeProductRequestTemplate } from 'components/Products/ProductsList';
 import SEO from 'components/SEO/SEO';
@@ -30,17 +28,6 @@ export default function NewProductDetailPage() {
   const { isMobile } = useScreen();
   const [fromPage, setFromPage] = useState(null);
   const [commentsLength, setCommentsLength] = useState(0);
-  const paramsObj = product?.params;
-  // const uniqueKeys = paramsObj
-  //   ? paramsObj.slice(1).map(obj => obj.key.trim())
-  //   : [];
-
-  // const keysString = uniqueKeys.join(', ');
-
-  // const metaDescription =
-  //   product?.params?.length > 0
-  //     ? keysString && product.description
-  //     : product.description;
 
   const metaDescr = product.description;
   const strDescr = JSON.stringify(metaDescr);
@@ -51,7 +38,6 @@ export default function NewProductDetailPage() {
   };
 
   const mainScreenRef = useRef();
-  // const dispatch = useDispatch();
   const priceRef = useRef();
   const logisticRef = useRef();
 
@@ -84,7 +70,6 @@ export default function NewProductDetailPage() {
       setProduct(currentProduct);
     } catch (error) {
       console.error(error);
-      // dispatch(addPopupOperation('Не вдалося завантажити продукт', 'error'));
       navigate('/not-found');
     }
   }

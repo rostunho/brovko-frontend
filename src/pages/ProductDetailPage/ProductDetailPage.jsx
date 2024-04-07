@@ -1,9 +1,7 @@
 import { useParams, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
 import { getProductById } from 'shared/services/api';
 import { getReviewsByProductId } from 'shared/services/api/brovko/reviews';
-// import { addPopupOperation } from 'redux/popup/popupOperations';
 import Heading from 'shared/components/Heading';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 
@@ -17,10 +15,6 @@ export default function ProductDetailPage() {
   const location = useLocation();
   const locationGoBack = useLocation();
   const backLinkHref = locationGoBack.state?.from ?? '/';
-
-  // const dispatch = useDispatch();
-
-  // console.log('reviews into PDP :>>>>> ', reviews);
 
   useEffect(() => {
     fetchProductById(productId);
@@ -36,7 +30,6 @@ export default function ProductDetailPage() {
       setProductError(
         'Не вдалося завантажити продукт. Спробуйте знову пізніше.'
       );
-      // dispatch(addPopupOperation('Не вдалося завантажити продукт. Спробуйте знову пізніше.', 'error'))
     }
   };
 
@@ -49,7 +42,6 @@ export default function ProductDetailPage() {
       setReviewsError(
         'Не вдалося завантажити відгуки. Спробуйте знову пізніше.'
       );
-      // dispatch(addPopupOperation('Не вдалося завантажити відгуки. Спробуйте знову пізніше.', 'error'))
     }
   };
 

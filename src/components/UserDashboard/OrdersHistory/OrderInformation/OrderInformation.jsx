@@ -8,8 +8,6 @@ const OrderInformation = ({ order }) => {
         <Order
           id={productId}
           name={name}
-          // note={note}
-          // picture={picture}
           price={price}
           val={amount}
         />

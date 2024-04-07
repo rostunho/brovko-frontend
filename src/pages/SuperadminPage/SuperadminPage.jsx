@@ -9,10 +9,8 @@ import {
   changeUserStatus,
 } from 'shared/services/api/brovko/user';
 import { addPopupOperation } from 'redux/popup/popupOperations';
-// import { setEmail } from 'redux/status/statusSlice';
 
 import { selectUser } from 'redux/user/userSelectors';
-// import { selectEmail } from 'redux/status/statusSelectors';
 
 import ModalStatusUpdate from 'components/Superadmin/ModalStatusUpdate';
 import NewStatusOptions from 'components/Superadmin/NewStatusOptions';
@@ -34,12 +32,6 @@ const SuperadminPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
-
-  // const requestedEmail = useSelector(selectEmail);
-
-  // useEffect(() => {
-  //   setRequestedEmail(getEmail);
-  // }, [getEmail]);
 
   const setUser = async data => {
     setUserFound(null);
@@ -79,7 +71,6 @@ const SuperadminPage = () => {
 
   const onChangingEmail = e => {
     setRequestedEmail(e.target.value);
-    // dispatch(setEmail(e.target.value));
   };
 
   const onChangingStatus = async data => {

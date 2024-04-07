@@ -1,13 +1,9 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-// import { useSelector } from 'react-redux';
-// import { fetchAddReview } from 'redux/reviews/reviewsOperations';
-// import { selectReviewError } from 'redux/reviews/reviewsSelectors';
 import { submitReview } from 'shared/services/api/brovko/reviews';
 import Button from 'shared/components/Button';
 import StarEmptyBig from 'shared/icons/StarEmtyBig';
-// import PaperClip from 'shared/icons/PaperClip';
 import styles from './AddRewiewForm.module.scss';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 import Image from 'shared/components/Image';
@@ -17,14 +13,12 @@ import AddPhotoInput from 'shared/components/AddPhotoInput';
 
 export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
   const [text, setText] = useState('');
-  // const [errorAddReview, setErrorAddReview] = useState(null);
 
   // eslint-disable-next-line no-unused-vars
   const [selectedImagesReview, setSelectedImagesReview] = useState([]);
   const [selectedPicturesReview, setSelectedPicturesReview] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [selectedFilesReview, setSelectedFilesReview] = useState([]);
-  // const [prompEdit, setPrompEdit] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsImage, setModalIsImage] = useState(false);
   const [modalIsId, setModalIsId] = useState(false);
@@ -247,7 +241,6 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     </Modal>
   );
 
-  // const resetPromp = () => setPrompDelete(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -255,10 +248,7 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
     const formData = new FormData();
     formData.append('productId', productId);
     formData.append('text', text);
-    // console.log(selectedPicturesReview);
-    // console.log(selectedFilesReview);
     selectedPicturesReview.forEach(({ file }) => {
-      // console.log(file);
       formData.append(`review`, file);
     });
 
@@ -287,16 +277,6 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
       }
     } finally {
     }
-    // try {
-    //   await dispatch(fetchAddReview(formData));
-
-    //   setText('');
-    //   setSelectedPicturesReview([]);
-    //   setSelectedFilesReview([]);
-    //   closeReviewInput();
-    // } catch ({ error }) {
-    //   console.error('Error submitting review:', error);
-    // }
   };
 
   return (
@@ -325,7 +305,6 @@ export default function AddReviewForm({ toggleReviewInput, closeReviewInput }) {
           />
         </div>
         <div className={styles.addImg} onDragOver={e => handleDragOver(e)}>
-          {/* <PaperClip /> */}
           {images}
           {inputPhotos()}
           {selectedPicturesReview.length < 5 && (

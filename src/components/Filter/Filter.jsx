@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-// import Button from 'shared/components/Button';
-// import ArrowDownIcon from 'shared/icons/ArrowDownIcon';
 import Selector from 'shared/components/Selector';
 import { sortingOptions } from './constants';
 import styles from './Filter.module.scss';
@@ -21,9 +19,6 @@ export default function Filter({
     name: 'Сортування',
   });
 
-  // console.log('categories into Filter :>> ', categories);
-  // console.log('currentCategories into Filter :>> ', currentCategories);
-
   useEffect(() => {
     setCurrentCategories([...categories]);
   }, [categories]);
@@ -36,13 +31,6 @@ export default function Filter({
     onCategorySelect && onCategorySelect(selectedCategory);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
-
-  // useEffect(() => {
-  //   // setSelectedCategory({
-  //   //   name: 'Всі категорії',
-  //   // });
-  //   setSelectedCategory(null);
-  // }, [searchTerm]);
 
   useEffect(() => {
     onSortingSelect(selectedSortingOption);

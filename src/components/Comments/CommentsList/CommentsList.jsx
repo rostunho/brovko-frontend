@@ -15,8 +15,6 @@ export default function CommentsList({
   const listRef = useRef();
 
   useEffect(() => {
-    // console.log('client', listRef.current.clientHeight);
-    // console.log('scroll', listRef.current.scrollHeight);
     listRef.current.scrollHeight > listRef.current.clientHeight
       ? setIsScrollbarVisible(true)
       : setIsScrollbarVisible(false);

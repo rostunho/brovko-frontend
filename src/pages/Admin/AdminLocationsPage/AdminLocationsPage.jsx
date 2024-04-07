@@ -14,7 +14,6 @@ import SEO from 'components/SEO/SEO';
 import styles from './AdminLocationsPage.module.scss';
 
 export default function AdminLocationsPage({ ...props }) {
-  // const [existingLocation, setExistingLocation] = useState(null);
   const [requestBody, setRequestBody] = useState({
     name: '',
     fullName: '',
@@ -31,7 +30,6 @@ export default function AdminLocationsPage({ ...props }) {
   useEffect(() => {
     (async () => {
       const savedLocation = await getLocationById(locationId);
-      // console.log('savedLocation into useEffect :>> ', savedLocation);
 
       setRequestBody({ ...savedLocation });
     })();
@@ -60,16 +58,12 @@ export default function AdminLocationsPage({ ...props }) {
   };
 
   const handleCoords = value => {
-    // console.log('value :>> ', value);
     if (value.length < 36) {
       return;
     }
     const coords = value.split(', ');
     const latitude = coords[0];
     const longtitude = coords[1];
-
-    // console.log('latitude :>> ', latitude);
-    // console.log('longtitude :>> ', longtitude);
 
     setRequestBody(prevBody => {
       const newBody = { ...prevBody };

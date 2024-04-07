@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import { update } from 'redux/user/userOperations';
 import { selectUser } from 'redux/user/userSelectors';
 import { addPopupOperation } from 'redux/popup/popupOperations';
 
@@ -20,13 +19,10 @@ const PersonalData = () => {
   const onSubmitForm = async data => {
     try {
       setLoading(true);
-      // const result = await dispatch(update(data));
-      // console.log('result into Personal Data :>> ', result);
       dispatch(addPopupOperation('Перезаписали!'));
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      // console.log('error into Personal Data', error);
       dispatch(
         addPopupOperation('Не вдалося видалити, спробуйте ще разок', 'error')
       );

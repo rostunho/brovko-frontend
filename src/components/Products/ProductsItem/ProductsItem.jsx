@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { Link } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { addPopupOperation } from 'redux/popup/popupOperations';
@@ -10,7 +9,6 @@ import {
   removeItemFromFavourite,
 } from 'redux/user/userSlice';
 
-// import StarEmpty from 'shared/icons/StarEmpty';
 import Raiting from 'shared/components/Raiting/Raiting';
 import Button from 'shared/components/Button/Button';
 import Image from 'shared/components/Image';
@@ -43,8 +41,6 @@ const ProductsItem = ({
   }, [cardIsSelected]);
 
   const onCardClick = () => {
-    // to={`/shop/product/${product._id}`}
-    // state={{ from: location.pathname + location.search }}
 
     navigate(`/shop/product/${product._id}`, {
       state: { from: location.pathname + location.search },
@@ -55,10 +51,6 @@ const ProductsItem = ({
   const handleCardSelecting = () => {
     setCardIsSelected(!cardIsSelected);
   };
-
-  // const handleAddPopup = text => {
-  //   dispatch(addPopupOperation(text));
-  // };
 
   const isProductFavourite = user => {
     return user.some(p => p.id === product.id);
@@ -117,8 +109,6 @@ const ProductsItem = ({
       ? favouriteProducts.some(p => p.id === product.id)
       : false;
 
-  // console.log('isFavourite :>> ', isFavourite);
-
   return (
     <div
       onClick={onCardClick}
@@ -128,11 +118,6 @@ const ProductsItem = ({
         product.quantityInStock === 0 ? styles['productCard--notAvailable'] : ''
       }`}
     >
-      {/* <Link
-        to={`/shop/product/${product._id}`}
-        state={{ from: location.pathname + location.search }}
-        className={styles.link}
-      > */}
       <div className={styles.image}>
         {(userStatus === 'manager' || userStatus === 'superadmin') &&
           !adminInCustomerMode && (
@@ -204,7 +189,6 @@ const ProductsItem = ({
           )}
         </div>
       </div>
-      {/* </Link> */}
     </div>
   );
 };

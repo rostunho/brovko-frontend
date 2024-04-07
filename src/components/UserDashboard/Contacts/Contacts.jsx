@@ -16,7 +16,6 @@ const Contacts = () => {
   const [loading, setLoading] = useState(false);
   const { user } = useSelector(selectUser);
 
-  // const { city, street, warehouse } = novaPoshta;
   const dispatch = useDispatch();
 
   const onSubmitForm = async data => {

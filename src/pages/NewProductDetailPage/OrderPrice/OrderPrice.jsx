@@ -10,8 +10,6 @@ import styles from './OrderPrice.module.scss';
 import useProductInBasket from 'shared/hooks/useProductInBasket';
 import { useNavigate } from 'react-router-dom';
 
-// export default function OrderPrice({ product, className, ...props })
-
 const OrderPrice = forwardRef(({ product, className, ...props }, ref) => {
   const { handleAddToCart, showBascketOrders } = useProductInBasket();
   const products = showBascketOrders();
@@ -23,10 +21,6 @@ const OrderPrice = forwardRef(({ product, className, ...props }, ref) => {
   const { screenWidth } = useScreen();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   currentOrders.length ? setQuantity(currentOrders.length) : setQuantity(1);
-  // }, [currentOrders]);
 
   useEffect(() => {
     if (!productInBasket) {

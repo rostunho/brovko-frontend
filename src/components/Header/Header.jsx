@@ -19,7 +19,6 @@ export default function Header({ toggleMobileMenu, isMobileMenuOpen }) {
   const layoutType = useLayoutType();
   const isMobile = layoutType === 'mobile';
   const isTablet = layoutType === 'tablet';
-  // const isDesktop = layoutType === 'desktop';
 
   const { showBascketOrders } = useProductInBasket();
   const products = showBascketOrders();

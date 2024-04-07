@@ -143,24 +143,6 @@ export default function ParamsConstructor({ initialParams, extractData }) {
             removeLabel="Забрати позицію"
             removeAction={removeRow}
           />
-          {/* <ul className={styles['buttons-list']}>
-            <button
-              type="button"
-              className={styles['quantity-button']}
-              onClick={removeRow}
-            >
-              <AddingMinusIcon />
-              Забрати позицію
-            </button>
-            <button
-              type="button"
-              className={styles['quantity-button']}
-              onClick={addRow}
-            >
-              Додати позицію
-              <AddingPlusIcon />
-            </button>
-          </ul> */}
         </div>
       )}
     </>

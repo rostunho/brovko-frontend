@@ -6,7 +6,6 @@ import {
 import Modal from 'shared/components/Modal/Modal';
 import Heading from 'shared/components/Heading';
 import Selector from 'shared/components/Selector';
-// import OldInput from 'shared/components/OldInput';
 import Input from 'shared/components/Input';
 import Button from 'shared/components/Button';
 import { addCategoryRequestTemplate } from './addCategoryRequestTemplate';
@@ -40,10 +39,7 @@ export default function AddCategoryPopup({
 
   const onSave = async () => {
     const { result } = await addNewCategory(requestBody, update);
-    // console.log('RESPONSE IN ON-SAVE', result);
-    // await getAllCategories();
     updateCategories && updateCategories(result.updatedCategories);
-    // formRef.current.reset();
     closeModal();
   };
 
@@ -105,33 +101,3 @@ export default function AddCategoryPopup({
     </Modal>
   );
 }
-
-// const function10 = async () => {
-//   console.log('function10 working');
-// };
-// const function11 = async () => {
-//   console.log('function11 working');
-// };
-// const function12 = async () => {
-//   console.log('function12 working');
-// };
-// const function20 = async () => {
-//   console.log('function20 working');
-// };
-// const function21 = async () => {
-//   console.log('function21 working');
-// };
-// const function22 = async () => {
-//   console.log('function22 working');
-// };
-
-// export const functionA = async () => {
-//   await function10();
-//   await function11();
-//   await function12();
-// };
-// export const functionB = async () => {
-//   await function20();
-//   await function21();
-//   await function22();
-// };

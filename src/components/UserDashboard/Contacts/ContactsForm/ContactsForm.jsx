@@ -30,8 +30,6 @@ export default function ContactsForm({
     id,
   }));
 
-  // useEffect(() => { }, [])
-
   const handleChange = e => {
     const { name, value } = e.target;
 
@@ -47,23 +45,18 @@ export default function ContactsForm({
   };
 
   const getCityData = data => {
-    // console.log('data :>> ', data);
     setUserInfo(prevState => {
-      // console.log('prevState :>> ', prevState);
       return {
         ...prevState,
         novaPoshta: { ...prevState.novaPoshta, city: { ...data } },
       };
     });
-    // console.log('userInfo :>> ', userInfo);
   };
 
   const clearCityData = () => {
-    // console.log('clearCityData working in CONTACTS-FORM on top');
     setUserInfo(prevState => {
       return {
         ...prevState,
-        // novaPoshta: { ...prevState.novaPoshta, city: { TEST: 'TEST' } },
         novaPoshta: { ...prevState.novaPoshta, city: {} },
       };
     });
@@ -71,7 +64,6 @@ export default function ContactsForm({
 
   const getStreetData = (streetData, buildingData, flatData) => {
     setUserInfo(prevState => {
-      // console.log('prevState :>> ', prevState);
       return {
         ...prevState,
         novaPoshta: { ...prevState.novaPoshta, street: { ...streetData } },

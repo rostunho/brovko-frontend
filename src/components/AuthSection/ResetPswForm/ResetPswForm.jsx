@@ -34,7 +34,6 @@ const ResetPswForm = () => {
   useEffect(() => {
     resetPasswordRequest(token)
       .then(response => {
-        // const data = response.data;
         setMessage('Вітаємо, друже! Тепер можна змінити пароль!');
         setStage('valid');
       })

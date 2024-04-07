@@ -1,6 +1,5 @@
-// import { useState, useEffect } from 'react';
+
 import { useSearchParams } from 'react-router-dom';
-// import { getUserByEmail } from 'shared/services/api/brovko/user';
 import { updateFeedbackStatus } from 'shared/services/api/brovko/feedback';
 import UserLight from 'shared/icons/UserLight';
 import Button from 'shared/components/Button';

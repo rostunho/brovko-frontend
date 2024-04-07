@@ -60,7 +60,6 @@ export default function DeliveryCity({
   }
 
   const clearCity = () => {
-    // console.log('CLEAR CITY DATA WORKING');
     handleData && handleData.clear();
     setCities([]);
     setInitialCity(null);
@@ -69,12 +68,10 @@ export default function DeliveryCity({
 
   const extractTargetCity = data => {
     setTargetCity(data);
-    // setCities([]);
   };
 
   const extractCityData = data => {
     setSelectedCityData(data);
-    // setCities([]);
   };
 
   const openWarning = () => {
@@ -85,7 +82,6 @@ export default function DeliveryCity({
     setRefreshSelector(true);
     setTargetCity('');
     clearCity();
-    // setRefreshSelector(false);
     setShowWarning(false);
   };
 

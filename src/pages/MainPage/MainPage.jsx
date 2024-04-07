@@ -2,16 +2,12 @@ import Hero from 'components/Hero/Hero';
 import Advantages from 'components/Advantages/Advantages';
 import Swiper from 'components/Swiper/Swiper';
 import Rectangle from 'components/Rectangle/Rectangle';
-// import Loader from 'components/Loader';
 import WeInInstgram from 'components/WeInInstagram';
 import SEO from 'components/SEO/SEO';
-
-// import styles from './MainPage.scss';
 
 export default function MainPage() {
   return (
     <>
-      {/* <Loader /> */}
       <SEO
         title="Brovko | Крамниця корисних натуральних снеків для собак"
         description="Brovko - крамниця натуральних снеків для собак. 

@@ -1,6 +1,4 @@
 import { useReducer, useEffect } from 'react';
-// import { useSelector } from 'react-redux';
-// import { selectIsLogin } from 'redux/user/userSelectors';
 import { parsePhoneNumber } from 'utils';
 import Input from 'shared/components/Input';
 import styles from './CustomerForm.module.scss';
@@ -36,9 +34,6 @@ export default function CustomerForm({ user, userIsLoggedIn, getData }) {
     email: user.email || '',
   };
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  // console.log('user in CustomerForm:>> ', user);
-  // console.log('userIsLoggedIn in CustomerForm :>> ', userIsLoggedIn);
 
   useEffect(() => {
     getData({ ...state });
