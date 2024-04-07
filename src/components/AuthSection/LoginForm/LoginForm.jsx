@@ -1,8 +1,8 @@
+import { useEffect, useRef, useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import { login } from 'redux/user/userOperations';
 import { errorAuth, selectIsLoadingUser } from 'redux/user/userSelectors';
-import { useEffect, useRef, useState } from 'react';
 // import PropTypes from 'prop-types';
 import Input from 'shared/components/Input';
 import Text from 'shared/components/Text/Text';
@@ -26,6 +26,8 @@ const LoginForm = () => {
   const errorLogin = useSelector(errorAuth);
   const isLoading = useSelector(selectIsLoadingUser);
   const [formError, setFormError] = useState(null);
+
+  const location = useLocation(); // видалити після того, як приберемо демо-логінізацію.
 
   useEffect(() => {
     isValidEmail === 'isValid' && isValidPassword === 'isValid'
@@ -75,7 +77,9 @@ const LoginForm = () => {
         validateStatus={setIsValidPassword}
         onChange={handleChange}
       />
-      <NavLink to="/auth/forgot-password">Забули пароль</NavLink>
+
+      {location.pathname !==
+        '/main' % <NavLink to="/auth/forgot-password">Забули пароль</NavLink>}
 
       <Button
         type="submit"
