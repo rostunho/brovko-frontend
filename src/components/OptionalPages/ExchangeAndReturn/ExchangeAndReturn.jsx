@@ -3,7 +3,6 @@ import Rectangle from 'components/Rectangle';
 import Image from 'shared/components/Image';
 import Section from '../Sections';
 import exchangeAndReturnContent from './exchangeAndReturnContent';
-// import photo_2 from 'shared/images/photo_2.jpeg'
 import photo_1 from 'shared/images/photo_1.jpeg';
 import styles from '../OptionalPages.module.scss';
 

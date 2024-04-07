@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUserStatus } from 'redux/user/userSelectors';
 import Heading from 'shared/components/Heading';
-// import AdminControlPanel from 'shared/components/AdminControlPanel/AdminControlPanel';
 import WhereToBuy from 'components/WhereToBuy/WhereToBuy';
 import Modal from 'shared/components/Modal/Modal';
 import { getAllLocations } from 'shared/services/api/brovko/locations';
@@ -35,7 +34,6 @@ export default function WhereToBuyPage() {
   const fetchLocationPoints = async () => {
     try {
       const locations = await getAllLocations();
-      // console.log('locations', locations);
       setLocationPoints(locations);
       setLocationPointsError(null);
       setShowErrorModal(false);
@@ -47,7 +45,6 @@ export default function WhereToBuyPage() {
       setShowErrorModal(true);
     }
   };
-  // console.log('locationPoints', locationPoints);
 
   const closeModal = () => {
     setShowErrorModal(false);
@@ -80,9 +77,6 @@ export default function WhereToBuyPage() {
 
       {locationPoints ? (
         <>
-          {/* {(userStatus === 'superadmin' || userStatus === 'manager') && (
-            <AdminControlPanel />
-          )} */}
           <WhereToBuy
             userStatus={userStatus}
             locationPoints={locationPoints}

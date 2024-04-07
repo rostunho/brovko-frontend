@@ -9,13 +9,9 @@ import AuthSwitcher from 'components/AuthSection/AuthSwitcher/AuthSwitcher';
 import SEO from 'components/SEO/SEO';
 import styles from './LoginUserPage.module.scss';
 
-// import { memoizedSelectLoginAndToken } from 'redux/user/userSelectors';
 
 export default function LoginUserPage() {
   const isUserLogin = useSelector(selectIsLogin);
-  // delete
-  // const { token, user } = useSelector(memoizedSelectLoginAndToken);
-  // console.log('token', token);
 
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/';

@@ -8,7 +8,6 @@ const CookieConsentBanner = () => {
 
   useEffect(() => {
     const userHasConsented = localStorage.getItem('cookieConsent');
-    // console.log(userHasConsented);
     if (userHasConsented) {
       setCookieConsent(true);
     }

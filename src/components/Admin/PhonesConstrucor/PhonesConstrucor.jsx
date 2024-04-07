@@ -18,7 +18,6 @@ export default function PhonesConstrucor({
 
   useEffect(() => {
     if (defaultData && defaultData.length > 0) {
-      // setPhones([...defaultData]);
       setInitialData([...defaultData]);
     }
   }, [defaultData]);
@@ -26,12 +25,6 @@ export default function PhonesConstrucor({
   useEffect(() => {
     if (initialData && initialData.join(', ') !== '') {
       const arrayToCompare = [...initialData];
-      // console.log('arrayToCompare :>> ', arrayToCompare);
-
-      // console.log(
-      //   'CONDITION RESULT >>:',
-      //   JSON.stringify(arrayToCompare) !== JSON.stringify(phones)
-      // );
 
       if (JSON.stringify(arrayToCompare) !== JSON.stringify(phones)) {
         setPhones(prevPhones => [...initialData]);
@@ -81,20 +74,11 @@ export default function PhonesConstrucor({
     });
   };
 
-  // const areArraysEqual = (arr1, arr2) => {
-  //   if (arr1.length !== arr2.length) {
-  //     return false;
-  //   }
-
-  //   return arr1.every((value, idx) => value === arr2[idx]);
-  // };
-
   return (
     <div>
       <p className={styles.label}>Телефон :</p>
       <ul className={styles['phones-list']}>
         {phones.map((phone, idx) => {
-          // console.log('phone INTO MAP :>> ', phone);
           return (
             <li key={idx}>
               <Input
@@ -114,24 +98,6 @@ export default function PhonesConstrucor({
         addAction={addPhone}
         removeAction={removePhone}
       />
-      {/* <ul className={styles['buttons-list']}>
-        <button
-          type="button"
-          className={styles['quantity-button']}
-          onClick={removePhone}
-        >
-          <AddingMinusIcon />
-          Забрати телефон
-        </button>
-        <button
-          type="button"
-          className={styles['quantity-button']}
-          onClick={addPhone}
-        >
-          Додати телефон
-          <AddingPlusIcon />
-        </button>
-      </ul> */}
     </div>
   );
 }

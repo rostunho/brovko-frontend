@@ -1,14 +1,10 @@
 import { useState, useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
-// import { getAllProducts } from 'redux/products/productsSelectors';
 
 import Image from 'shared/components/Image';
 
 import styles from './ImageSlider.module.scss';
 
 export default function ImageSlider({ picture }) {
-  // const { productId } = useParams();
   const [currentIdx, setCurrentIdx] = useState(1);
   const [autoplay, setAutoplay] = useState(true);
 
@@ -26,9 +22,6 @@ export default function ImageSlider({ picture }) {
         );
       }, 2000);
   });
-
-  // const allProducts = useSelector(getAllProducts);
-  // // const product = allProducts?.find(p => p._id === productId);
 
   return (
     <div

@@ -40,7 +40,6 @@ export default function AddProductForm({ update }) {
   const [refreshSelector, setRefreshSelector] = useState(false);
   const [params, setParams] = useState([]);
   const [files, setFiles] = useState([]);
-  // console.log('Files',  files);
   const [descriptionEditorValue, setDescriptionEditorValue] = useState('');
 
   const [isFocused, setIsFocused] = useState(false);
@@ -52,7 +51,6 @@ export default function AddProductForm({ update }) {
     if (update) {
       (async () => {
         const existingProduct = await fetchExistingProduct(productId);
-        // console.log('existingProduct :>> ', existingProduct);
         const existingCategory = await fetchExistingCategory(
           existingProduct.categoryId
         );
@@ -63,7 +61,6 @@ export default function AddProductForm({ update }) {
           return newState;
         });
 
-        // console.log('existingCategory :>> ', existingCategory);
         dispatchRequestBody(null, 'ADD_SAVED_PRODUCT', existingProduct);
         dispatchRequestBody(null, 'ADD_SAVED_CATEGORY', existingCategory);
         setRefreshSelector(true);
@@ -122,7 +119,6 @@ export default function AddProductForm({ update }) {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    // console.log(requestBody, files);
     await addNewProduct(requestBody, files);
     formRef.current.reset();
   };
@@ -133,7 +129,6 @@ export default function AddProductForm({ update }) {
       setCategories([...categories]);
     } else {
       const { categories } = await getAllCategories(updates);
-      // console.log('response 222 :>> ', {categories});
       setCategories([...categories]);
     }
   };
@@ -164,14 +159,8 @@ export default function AddProductForm({ update }) {
 
       return param;
     });
-    // console.log('updatedData into extractParams :>> ', updatedData);
     setParams([...updatedData]);
   };
-
-  // function detectCategoryNameById(id, array) {
-  //   const foundProduct = array.find(el => el.id === id);
-  //   return foundProduct?.name;
-  // }
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -201,10 +190,6 @@ export default function AddProductForm({ update }) {
           onChange={e => dispatchRequestBody(e, 'ADD_NAME_FOR_DOCS')}
           value={requestBody.product[0].nameForDocuments}
         />
-        {/* <AddProductImage
-          pictures={existingProduct !== null ? existingProduct : []}
-          setFiles={setFiles}
-        /> */}
         <>
       <p>Фото товару</p>
       <div className={styles['photo-container']}>
@@ -436,14 +421,6 @@ export default function AddProductForm({ update }) {
         <Button mode="settings" size="sm">
           Додаткові ціни
         </Button>
-
-        {/* <Button
-          mode="adding"
-          size="sm"
-          onClick={() => setShowParams(!showParams)}
-        >
-          Характеристики
-        </Button> */}
 
         <ParamsConstructor
           initialParams={

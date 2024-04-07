@@ -7,8 +7,6 @@ import ProductList from 'components/Products/ProductsList/ProductsList';
 import { getAllCategories, getAllProducts } from 'shared/services/api';
 import { useSearchParams } from 'react-router-dom';
 import images404 from './img';
-// import Spiner from 'components/Loader/Loader';
-// import { getAllProducts } from 'redux/products/productsSelectors';
 
 export default function NotFound() {
   // eslint-disable-next-line no-unused-vars
@@ -25,7 +23,6 @@ export default function NotFound() {
 
   const ramdomFilterProducts = (products, quontityProducts) => {
     if (!products) {
-      // console.log('no products');
       return [];
     }
     const ramdomItems = [];
@@ -44,7 +41,6 @@ export default function NotFound() {
   const [countPage, setCountPage] = useState(0);
   const [firstRender, setFirstRender] = useState(true);
   const page = searchParams.get(countPage);
-  // const [page, setPage] = useState(0);
 
   const fetchProducts = async (page = 1, limit) => {
     (async () => {
@@ -141,7 +137,6 @@ export default function NotFound() {
       <Text className={styles.message}>
         Тицьни смаколик-крутелик, і отримай інший
       </Text>
-      {/* {products.products === undefined ? <Spiner /> : <ProductList products={ramdomFilterProducts(products.products, 4)} />} */}
       <ProductList products={ramdomFilterProducts(products.products, 4)} />{' '}
     </>
   );

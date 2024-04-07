@@ -19,7 +19,6 @@ export default function WorkingHoursConstructor({
     if (defaultData) {
       const parsedDefaultData = Object.entries(defaultData).map(
         ([key, value]) => {
-          // return console.log({ 'key :>> ': key, 'value :>>': value });
           return { days: key, hours: value };
         }
       );

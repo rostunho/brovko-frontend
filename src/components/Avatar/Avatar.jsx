@@ -63,29 +63,8 @@ const Avatar = ({
     }
   };
 
-  // const [selectedImage, setSelectedImage] = useState(null);
   const [prompDelete, setPrompDelete] = useState(false);
 
-  // const add = e => {
-  //   e.preventDefault();
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     // setSelectedImage(file);
-
-  //     const formData = new FormData();
-  //     // const formElem = {}
-  //     // formElem.addEventListener('submit', (e) => {
-  //     // on form submission, prevent default
-  //     e.preventDefault();
-
-  //     // construct a FormData object, which fires the formdata event
-  //     // new FormData(formData);
-  //     // });
-  //     formData.append('avatar', file);
-  //     // updateAvatar.preventDefault()
-  //     dispatch(updateAvatar(formData));
-  //   }
-  // };
 
   const onSubmitForm = e => {
     e.preventDefault();
@@ -98,7 +77,6 @@ const Avatar = ({
     if (file) {
       try {
         setLoading(true);
-        // setSelectedImage(file);
         const formData = new FormData();
         formData.append('avatar', file);
         await dispatch(updateAvatar(formData));
@@ -111,7 +89,6 @@ const Avatar = ({
         setLoading(false);
       } catch (error) {
         setLoading(false);
-        // console.log(error.response);
         dispatch(
           addPopupOperation('Щось пішло не так, завантажте ще разок', 'error')
         );
@@ -119,15 +96,6 @@ const Avatar = ({
     }
   };
 
-  // setSelectedImage(prevImage => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     const formData = new FormData();
-  //     formData.append('avatar', file);
-  //     dispatch(updateAvatar(formData));
-  //   }
-  //   return file;
-  // });
   const resetPromp = () => setPrompDelete(false);
 
   if (locked) {
@@ -145,7 +113,6 @@ const Avatar = ({
               ? '2px solid #F3A610'
               : '2px solid #4d95c3',
         }}
-        // onClick={openModalEditPhoto}
       >
         <Image
           className={styles.avatar}
@@ -217,12 +184,6 @@ const Avatar = ({
                 // id="submit"
                 type={!prompDelete ? 'file' : 'button'}
                 accept="image/jpeg, image/png"
-                //  {prompDelete && onClick={() => setPrompDelete(false)} }
-                // onClick={prompDelete ? undefined : () => resetPromp()}
-                // onClick={prompDelete ? undefined : resetPromp}
-                // onClick={prompDelete ? undefined : () => resetPromp()}
-                // {(prompDelete ? { onClick: () => setPrompDelete(false) } : {})}
-                // onClick={prompDelete && (() => setPrompDelete(false))}
                 onClick={
                   prompDelete
                     ? e => {
@@ -246,9 +207,6 @@ const Avatar = ({
               </Button>
             )}
           </form>
-          {/* <Button  onClick={prompDelete ? delAvatar : () => setPrompDelete(true)}  mode={!prompDelete ? "outlined" : 'primary'}>
-              {!prompDelete && <TrashIcon />} Видалити
-            </Button> */}
         </Modal>
       )}
     </>

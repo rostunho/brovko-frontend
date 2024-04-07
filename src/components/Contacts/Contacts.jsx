@@ -36,8 +36,6 @@ const Contacts = () => {
   const layoutType = useLayoutType();
 
   const isMobile = layoutType === 'mobile';
-  // const isTablet = layoutType === 'tablet';
-  // const isDesktop = layoutType === 'desktop';
 
   return (
     <>

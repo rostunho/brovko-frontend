@@ -4,7 +4,6 @@ import Image from 'shared/components/Image';
 import privacyPolicyContent from './privacyPolicyContent';
 import Section from '../Sections';
 import photo_4 from 'shared/images/photo_4.jpeg';
-// import photo_1 from 'shared/images/photo_1.jpeg'
 import styles from '../OptionalPages.module.scss';
 
 function PrivacyPolicy() {

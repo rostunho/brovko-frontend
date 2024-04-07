@@ -37,7 +37,6 @@ export default function ProductListPage() {
   const [categorySelectorIsOpen, setCategorySelectorIsOpen] = useState(false);
   const [sortingSelectorIsOpen, setSortingSelectorIsOpen] = useState(false);
 
-  // const [page, setPage] = useState(1);
   const [firstRender, setFirstRender] = useState(true);
   const [loadingData, setLoadingData] = useState(true); // Додаємо стан для відстеження завантаження даних
   const [loadingPage, setLoadingPage] = useState(false);
@@ -55,10 +54,8 @@ export default function ProductListPage() {
 
   useEffect(() => {
     if (!firstRender) {
-      // console.log('NOT FIRST RENDER');
       return;
     }
-    // console.log(' FIRST RENDER');
     (async () => {
       await fetchCategories();
       await fetchProducts(Number(page), Number(limit)); // при першому рендері page=null i limit=null, тому функція викличеться без них. Зате при прямому вставленні урли - спрацюють;
@@ -303,7 +300,6 @@ export default function ProductListPage() {
     setSearchBarValue('');
     setSearchParams(
       existingSearchParams => {
-        // console.log('existingSearchParams :>> ', existingSearchParams);
         existingSearchParams.set('key', '');
         return existingSearchParams;
       },

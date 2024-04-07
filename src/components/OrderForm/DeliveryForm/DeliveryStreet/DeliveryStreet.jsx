@@ -4,8 +4,6 @@ import { LocationSelector } from 'shared/components/LocationSelector';
 import Input from 'shared/components/Input';
 import styles from './DeliveryStreet.module.scss';
 
-// import { nan } from 'shared/services/nova-poshta-api';
-
 export default function DeliveryStreet({
   cityRef,
   handleData,
@@ -25,11 +23,6 @@ export default function DeliveryStreet({
     () => savedStreet?.apartment || ''
   );
 
-  // useEffect(() => {
-  //   setSavedStreetData(initialValue);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
   useEffect(() => {
     // щоб при першій зміні міста скинулась вулиця, яка збережена в базі даних
     initialStreet?.SettlementStreetRef &&
@@ -38,36 +31,11 @@ export default function DeliveryStreet({
       ? setInitialStreet(savedStreet.street)
       : setInitialStreet('');
 
-    // console.log(
-    //   'initialStreet?.SettlementStreetRef :>> ',
-    //   initialStreet?.SettlementStreetRef
-    // );
-    // console.log(
-    //   'savedStreet?.street?.SettlementStreetRef :>> ',
-    //   savedStreet?.street?.SettlementStreetRef
-    // );
-    // console.log(
-    //   'VS :',
-    //   initialStreet?.SettlementStreetRef ===
-    //     savedStreet?.street?.SettlementStreetRef
-    // );
-
     setStreets([]);
     setTargetStreet('');
     setSelectedStreetData(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cityRef]);
-
-  // useEffect(() => {
-  //   savedStreet
-  //     ? setSelectedStreetData(savedStreet)
-  //     : setSelectedStreetData(null);
-
-  //   savedAddress?.buildingNumber && setBuilding(savedAddress.buildingNumber);
-  //   savedAddress?.flat && setApartment(savedAddress?.flat);
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {

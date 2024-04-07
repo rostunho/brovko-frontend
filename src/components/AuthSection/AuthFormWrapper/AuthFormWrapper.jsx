@@ -7,7 +7,6 @@ export default function AuthFormWrapper({ form }) {
   return (
     <div className={styles.container}>
       {form}
-      {/* <RegisterForm /> */}
 
       <Text type="divider">або</Text>
 

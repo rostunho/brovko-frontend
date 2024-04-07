@@ -14,8 +14,6 @@ export default function DeliveryForm({ savedData, getData }) {
   const [warehouse, setWarehouse] = useState('Test');
   const [deliveryMethod, setDeliveryMethod] = useState(null);
 
-  // console.log('warehouse :>> ', warehouse);
-
   useEffect(() => {
     getData({ city: { ...city } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -98,7 +96,6 @@ export default function DeliveryForm({ savedData, getData }) {
         <DeliveryStreet
           cityRef={city?.Ref}
           savedStreet={{
-            // street: savedData?.novaPoshta?.street,
             street:
               city && city.Ref === savedData?.novaPoshta?.city?.Ref
                 ? savedData.novaPoshta.street
@@ -127,14 +124,6 @@ export default function DeliveryForm({ savedData, getData }) {
           handleData={{ send: getWarehouseData, clear: clearWarehouseData }}
         />
       )}
-      {/* {deliveryMethod?.method === 'postMachine' && city?.Ref && (
-        <DeliveryWarehouse
-          handleData={getWarehouseData}
-          // cityName={city.MainDescription}
-          cityRef={city.Ref}
-          postMachine
-        />
-      )} */}
     </div>
   );
 }

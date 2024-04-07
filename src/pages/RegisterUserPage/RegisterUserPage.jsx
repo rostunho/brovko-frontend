@@ -5,7 +5,6 @@ import { selectIsLogin } from 'redux/user/userSelectors';
 import RegisterForm from 'components/AuthSection/RegisterForm/RegisterForm';
 import Heading from 'shared/components/Heading/Heading';
 import AuthFormWrapper from 'components/AuthSection/AuthFormWrapper/AuthFormWrapper';
-// import Text from 'shared/components/Text/Text';
 import AuthSwitcher from 'components/AuthSection/AuthSwitcher/AuthSwitcher';
 import SEO from 'components/SEO/SEO';
 import styles from './RegisterUserPage.module.scss';
