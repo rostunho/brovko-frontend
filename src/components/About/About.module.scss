@@ -153,7 +153,6 @@
 
   &__photos {
     padding: 20px 0px;
-    margin-bottom: 32px;
     text-align: center;
     @media screen and (min-width: 768px) and (max-width: 1279px) {
       padding: 20px 16px 20px 0px;
@@ -161,7 +160,6 @@
     }
     @media screen and (min-width: 1280px) {
       padding: 60px 16px 40px 16px;
-      // margin-bottom: 32px;
     }
 
     &__photoBox {
@@ -195,7 +193,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      padding: 36px 0 40px;
+      padding: 36px 0 0px;
       gap: 36px;
 
       @media screen and (min-width: 768px) {
@@ -213,6 +211,78 @@
         @media screen and (min-width: 1280px) {
           width: 392px;
         }
+      }
+    }
+  }
+
+  &__button {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 60px;
+
+    &__arrow {
+      @media screen and (min-width: 768px) {
+        position: absolute;
+        bottom: -160%;
+        right: 80%;
+        transform: translateX(50%);
+        z-index: -1;
+        width: 510.41px;
+        height: 676.2px;
+        background-image: url('../../shared/images/GreenArrow2.png');
+        background-size: cover;
+        background-position: bottom;
+      }
+      @media screen and (min-width: 1280px) {
+        position: absolute;
+        bottom: -200%;
+        right: 78%;
+        transform: translateX(50%);
+        z-index: -1;
+        width: 653.41px;
+        height: 856.2px;
+        background-image: url('../../shared/images/GreenArrow.png');
+        background-size: cover;
+        background-position: bottom;
+      }
+    }
+    &__rays {
+      @media screen and (min-width: 480px) and (max-width: 767px) {
+        position: absolute;
+        bottom: 70%;
+        left: 70%;
+        transform: translateX(50%);
+        z-index: 10;
+        width: 31.11px;
+        height: 38.95px;
+        background-image: url('../../shared/images/buttonRays.png');
+        background-size: cover;
+        background-position: bottom;
+      }
+      @media screen and (min-width: 768px) {
+        position: absolute;
+        bottom: 70%;
+        left: 64%;
+        transform: translateX(50%);
+        z-index: 10;
+        width: 31.11px;
+        height: 38.95px;
+        background-image: url('../../shared/images/buttonRays.png');
+        background-size: cover;
+        background-position: bottom;
+      }
+      @media screen and (min-width: 1280px) {
+        position: absolute;
+        bottom: 60%;
+        left: 58%;
+        transform: translateX(50%);
+        z-index: 10;
+        width: 31.11px;
+        height: 38.95px;
+        background-image: url('../../shared/images/buttonRays.png');
+        background-size: cover;
+        background-position: bottom;
       }
     }
   }
