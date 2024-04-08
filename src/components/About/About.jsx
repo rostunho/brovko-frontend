@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import useLayoutType from 'shared/hooks/useLayoutType';
 import Image from 'shared/components/Image';
 import frame from 'shared/images/Frame2.png';
@@ -9,8 +10,10 @@ import {
 } from './smakolykData';
 
 import styles from './About.module.scss';
+import Button from 'shared/components/Button';
 
 export default function About() {
+  const location = useLocation();
   const layoutType = useLayoutType();
   const isMobile = layoutType === 'mobile';
 
@@ -66,6 +69,22 @@ export default function About() {
             />
           ))}
         </div>
+      </section>
+      <section className={styles['about__button']}>
+        <NavLink
+          to={
+            location.pathname === '/shop/product-list-page'
+              ? `${location.pathname + location.search}`
+              : '/shop/product-list-page'
+          }
+          state={{ from: location }}
+        >
+          <Button className={styles['about__button__link']}>
+            Зробити песика щасливим
+          </Button>
+        </NavLink>
+        <div className={styles['about__button__arrow']}></div>
+        <div className={styles['about__button__rays']}></div>
       </section>
     </div>
   );
