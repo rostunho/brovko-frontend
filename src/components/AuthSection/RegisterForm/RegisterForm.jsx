@@ -58,7 +58,7 @@ const RegisterForm = () => {
       newData = { ...data, email: lowerCaseEmail };
     }
     dispatch(register(newData)).then(() => {
-      setState({ ...newData });
+      setState({ email, password });
     });
   }
 
